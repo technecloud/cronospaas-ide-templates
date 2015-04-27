@@ -1,0 +1,15 @@
+2015-04-12 19:28:28.200 HybridMobileApp[8123:194606] DiskCookieStorage changing policy from 2 to 0, cookie file: file:///Users/tux/Library/Developer/CoreSimulator/Devices/08AA2DA7-03ED-4672-AF70-FFFD5882A9C9/data/Containers/Data/Application/953B2AE8-3703-4FE7-BF5D-237617C7E852/Library/Cookies/Cookies.binarycookies
+2015-04-12 19:28:28.318 HybridMobileApp[8123:194606] Apache Cordova native platform version 3.8.0 is starting.
+2015-04-12 19:28:28.319 HybridMobileApp[8123:194606] Multi-tasking -> Device: YES, App: YES
+2015-04-12 19:28:28.321 HybridMobileApp[8123:194606] Unlimited access to network resources
+2015-04-12 19:28:28.324 HybridMobileApp[8123:194606] 
+
+Started backup to iCloud! Please be careful.
+Your application might be rejected by Apple if you store too much data.
+For more information please read "iOS Data Storage Guidelines" at:
+https://developer.apple.com/icloud/documentation/data-storage/
+To disable web storage backup to iCloud, set the BackupWebStorage preference to "local" in the Cordova config.xml file
+
+2015-04-12 19:28:28.466 HybridMobileApp[8123:194606] Resetting plugins due to page load.
+2015-04-12 19:28:28.507 HybridMobileApp[8123:194606] Finished load of: file:///Users/tux/Library/Developer/CoreSimulator/Devices/08AA2DA7-03ED-4672-AF70-FFFD5882A9C9/data/Containers/Bundle/Application/ACE4E9FD-4165-4FBA-9E3C-4AC069B74CE6/HybridMobileApp.app/www/index.html
+2015-04-12 19:28:33.146 HybridMobileApp[8123:194606] THREAD WARNING: ['Notification'] took '27.560547' ms. Plugin should use a background thread.

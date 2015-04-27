@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<classe nome="component" prefixo="cmp">
+  <classes>
+    <classe className="aplicacao.control.MyControl" nome="fabricaBox" prefixo="tbf">
+      <propriedades>
+        <propriedade nome="text"/>
+      </propriedades>
+      <contidoEm>
+        <classe fullName="component/page"/>
+      </contidoEm>
+    </classe>
+  </classes>
+</classe>

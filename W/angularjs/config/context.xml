@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><Context>
+    <Resource accessToUnderlyingConnectionAllowed="true" driverClassName="com.mysql.jdbc.Driver" logAbandoned="true" name="jdbc/Angular" password="techne" removeAbandoned="false" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/Angular?createDatabaseIfNotExist=true" username="root"/>
+</Context>

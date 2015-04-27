@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="yes"?>
+<menu>
+    <nome>modules</nome>
+    <transacao>
+	    <transacao>
+	        <layout>
+	            <layouts/>
+	            <componente nome="modules" classe="component/pageMenu">
+	                <propriedades/>
+	            </componente>
+	        </layout>
+	    </transacao>
+    </transacao>
+</menu>
