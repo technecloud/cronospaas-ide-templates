@@ -1,15 +1,2 @@
-# baixe o jar do cronos-ide, descompacte-o e entre no diretorio
-
-# adicione a plataforma
-cordova platform add wp8
-
-# adiciona os plugins
-cordova plugin add org.apache.cordova.dialogs
-cordova plugin add org.apache.cordova.vibration
-cordova plugin add org.apache.cordova.camera
-
-# compile e gere o artefato .xpa
-cordova build wp8
-
-# simular
-cordova run wp8
+rem compila e executa windows phone emulator
+cordova platform rm wp8 && cordova plugin add cordova-plugin-dialogs && cordova plugin add cordova-plugin-vibration && cordova plugin add cordova-plugin-camera && cordova platform add wp8 && cordova run wp8
