@@ -19,7 +19,7 @@ public class TemplateSecurityConnection extends SecurityConnection {
   
   public TechnePrincipal authenticate(String usuario, String senha) throws LoginException, SQLException {
     PadTela padTela;
-    if("template".equalsIgnoreCase(usuario)) {
+    if("techne".equalsIgnoreCase(usuario)) {
       padTela = PadTela.FABRICA;
     }
     else {
