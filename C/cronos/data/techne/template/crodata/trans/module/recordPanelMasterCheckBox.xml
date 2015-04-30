@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<transacao data="09/01/2011 11:53" nome="recordPanelMasterCheckBox">
+  <layout>
+    <componente classe="component/page" nome="recordPanelMasterCheckBox">
+      <propriedades>
+        <propriedade nome="title" valor="RecordPanelEdit com Checkbox (imagem) operando via rotina"/>
+      </propriedades>
+    </componente>
+    <layouts>
+      <layout>
+        <componente classe="component/gridPanelSelect" nome="grd">
+          <propriedades>
+            <propriedade nome="sqlSelect" valor="Select * from funcionarios_vw"/>
+          </propriedades>
+          <componentes>
+            <componente classe="component/gridPanelField" nome="fldNumero">
+              <propriedades>
+                <propriedade nome="field" valor="numero"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/checkBoxColumn" nome="fldPossuiDependente">
+              <propriedades>
+                <propriedade nome="field" valor="possuidependente"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldNome">
+              <propriedades>
+                <propriedade nome="field" valor="nome"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldEstcivil">
+              <propriedades>
+                <propriedade nome="field" valor="estcivil"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldDtNasc">
+              <propriedades>
+                <propriedade nome="field" valor="dtnasc"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldSalario">
+              <propriedades>
+                <propriedade nome="field" valor="salario"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldRowId">
+              <propriedades>
+                <propriedade nome="field" valor="rowid_reg"/>
+                <propriedade nome="grid" valor="false"/>
+              </propriedades>
+            </componente>
+          </componentes>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/recordPanel" nome="rec">
+          <propriedades>
+            <propriedade nome="cssClass" valor="c-recordpanel"/>
+            <propriedade nome="master" valor="grd"/>
+          </propriedades>
+        </componente>
+        <layouts>
+          <layout>
+            <componente classe="component/recordPanelView" nome="recv">
+              <propriedades>
+                <propriedade nome="cssClass" valor="c-recordpanel-view"/>
+              </propriedades>
+            </componente>
+            <layouts>
+              <layout>
+                <componente classe="component/viewField/textField" nome="txfNumero">
+                  <propriedades>
+                    <propriedade nome="cssClass" valor="c-textfield"/>
+                    <propriedade nome="field" valor="numero"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/viewField/textField" nome="txfPossuiDependente">
+                  <propriedades>
+                    <propriedade nome="field" valor="possuidependente"/>
+                    <propriedade nome="isImageURL" valor="S"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/viewField/textField" nome="txfNome">
+                  <propriedades>
+                    <propriedade nome="cssClass" valor="c-textfield"/>
+                    <propriedade nome="field" valor="nome"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/viewField/textField" nome="txfEstcivil">
+                  <propriedades>
+                    <propriedade nome="field" valor="estcivil"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/viewField/textField" nome="txfDtNasc">
+                  <propriedades>
+                    <propriedade nome="field" valor="dtnasc"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/viewField/textField" nome="txfSalario">
+                  <propriedades>
+                    <propriedade nome="field" valor="salario"/>
+                  </propriedades>
+                </componente>
+              </layout>
+            </layouts>
+          </layout>
+          <layout>
+            <componente classe="component/recordPanelEdit" nome="rece">
+              <propriedades>
+                <propriedade nome="cssClass" valor="c-recordpanel-edit"/>
+                <propriedade nome="paramId" valor="o_rowid"/>
+                <propriedade nome="rotina" valor="rotina_funcionario_2"/>
+                <propriedade nome="rotinaGrupo" valor="teste"/>
+              </propriedades>
+            </componente>
+            <layouts>
+              <layout>
+                <componente classe="component/editField/textBox" nome="txtNumero">
+                  <propriedades>
+                    <propriedade nome="cssClass" valor="c-textbox"/>
+                    <propriedade nome="field" valor="numero"/>
+                    <propriedade nome="fieldTarget" valor="p_numero"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/editField/checkBox" nome="chkPossuiDependente">
+                  <propriedades>
+                    <propriedade nome="field" valor="possuidependente"/>
+                    <propriedade nome="fieldTarget" valor="p_possuidependente"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/editField/textBox" nome="txtNome">
+                  <propriedades>
+                    <propriedade nome="field" valor="nome"/>
+                    <propriedade nome="fieldTarget" valor="p_nome"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/editField/textBox" nome="txtDtNasc">
+                  <propriedades>
+                    <propriedade nome="field" valor="dtnasc"/>
+                    <propriedade nome="fieldTarget" valor="p_dtnasc"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/editField/textBox" nome="txtEstCivil">
+                  <propriedades>
+                    <propriedade nome="field" valor="estcivil"/>
+                    <propriedade nome="fieldTarget" valor="p_estcivil"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/editField/textBox" nome="txtSalario">
+                  <propriedades>
+                    <propriedade nome="field" valor="salario"/>
+                    <propriedade nome="fieldTarget" valor="p_salario"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/editField/hiddenField" nome="hidRowId">
+                  <propriedades>
+                    <propriedade nome="field" valor="rowid_reg"/>
+                    <propriedade nome="fieldTarget" valor="o_rowid"/>
+                  </propriedades>
+                </componente>
+              </layout>
+            </layouts>
+          </layout>
+        </layouts>
+      </layout>
+    </layouts>
+  </layout>
+</transacao>

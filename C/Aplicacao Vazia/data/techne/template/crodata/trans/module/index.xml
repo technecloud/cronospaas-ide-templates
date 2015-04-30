@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<transacao data="23/02/2015 16:05" nome="index">
+    <layout>
+        <componente nome="index" classe="component/page"/>
+        <layouts>
+            <layout>
+                <componente nome="chk01" classe="component/control/value/unbound/checkBox">
+                    <propriedades>
+                        <propriedade nome="caption" valor="HelloWorld"/>
+                    </propriedades>
+                </componente>
+            </layout>
+         </layouts>
+      </layout>
+ </transacao>

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<transacao data="08/30/2013 16:59" nome="recordpanel">
+  <layout>
+    <componente classe="component/page" nome="recordpanel"/>
+    <layouts>
+      <layout>
+        <componente classe="component/recordPanel" nome="rec">
+          <propriedades>
+            <propriedade nome="caption" valor="CAPTION_REC"/>
+            <propriedade nome="collapsed" valor="true"/>
+            <propriedade nome="collapsible" valor="true"/>
+            <propriedade nome="cssClass" valor="CSSCLASS_REC"/>
+            <propriedade nome="dataTable" valor="funcionarios"/>
+            <propriedade nome="sqlWhere" valor="rownum = 1"/>
+            <propriedade nome="toolTip" valor="TOOLTIP_REC"/>
+          </propriedades>
+        </componente>
+        <layouts>
+          <layout>
+            <componente classe="component/recordPanelView" nome="recv">
+              <propriedades>
+                <propriedade nome="cssClass" valor="CSSCLASS_RECV"/>
+                <propriedade nome="toolTip" valor="TOOLTIP_RECV"/>
+              </propriedades>
+            </componente>
+            <layouts>
+              <layout>
+                <componente classe="component/viewField/textField" nome="recvTxtNumero">
+                  <propriedades>
+                    <propriedade nome="field" valor="numero"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/viewField/textField" nome="recvTxtNome">
+                  <propriedades>
+                    <propriedade nome="field" valor="nome"/>
+                  </propriedades>
+                </componente>
+              </layout>
+            </layouts>
+          </layout>
+          <layout>
+            <componente classe="component/recordPanelEdit" nome="rece">
+              <propriedades>
+                <propriedade nome="cssClass" valor="CSSCLASS_RECE"/>
+                <propriedade nome="toolTip" valor="TOOLTIP_RECE"/>
+              </propriedades>
+            </componente>
+            <layouts>
+              <layout>
+                <componente classe="component/editField/textBox" nome="receTxtNumero">
+                  <propriedades>
+                    <propriedade nome="field" valor="numero"/>
+                  </propriedades>
+                </componente>
+              </layout>
+              <layout>
+                <componente classe="component/editField/textBox" nome="receTxtNome">
+                  <propriedades>
+                    <propriedade nome="field" valor="nome"/>
+                  </propriedades>
+                </componente>
+              </layout>
+            </layouts>
+          </layout>
+        </layouts>
+      </layout>
+      <layout tipo="COL">
+        <layouts>
+          <layout tipo="CONT">
+            <propriedades>
+              <propriedade nome="title" valor="testControllerAfter"/>
+              <propriedade nome="width" valor="400"/>
+            </propriedades>
+            <layouts>
+              <layout>
+                <componente classe="component/recordPanel" nome="rec04">
+                  <propriedades>
+                    <propriedade nome="controllerAfter" valor="controller.seleniumTest.testControllerAfter('txtTestControllerAfter')"/>
+                    <propriedade nome="dataTable" valor="funcionarios"/>
+                    <propriedade nome="sqlWhere" valor="rownum = 1"/>
+                  </propriedades>
+                </componente>
+                <layouts>
+                  <layout>
+                    <componente classe="component/recordPanelView" nome="recv04"/>
+                    <layouts>
+                      <layout>
+                        <componente classe="component/viewField/textField" nome="recv04TxtNumero">
+                          <propriedades>
+                            <propriedade nome="field" valor="numero"/>
+                          </propriedades>
+                        </componente>
+                      </layout>
+                      <layout>
+                        <componente classe="component/viewField/textField" nome="recv04TxtNome">
+                          <propriedades>
+                            <propriedade nome="field" valor="nome"/>
+                          </propriedades>
+                        </componente>
+                      </layout>
+                    </layouts>
+                  </layout>
+                </layouts>
+              </layout>
+              <layout>
+                <componente classe="component/control/value/unbound/textBox" nome="txtTestControllerAfter">
+                  <propriedades>
+                    <propriedade nome="caption" valor=""/>
+                  </propriedades>
+                </componente>
+                <propriedades>
+                  <propriedade nome="labelWidth" valor="1"/>
+                </propriedades>
+              </layout>
+            </layouts>
+          </layout>
+          <layout tipo="CONT">
+            <propriedades>
+              <propriedade nome="title" valor="testControllerBefore"/>
+              <propriedade nome="width" valor="400"/>
+            </propriedades>
+            <layouts>
+              <layout>
+                <componente classe="component/recordPanel" nome="rec05">
+                  <propriedades>
+                    <propriedade nome="controllerBefore" valor="controller.seleniumTest.testControllerBefore('txtTestControllerBefore')"/>
+                    <propriedade nome="dataTable" valor="funcionarios"/>
+                    <propriedade nome="sqlWhere" valor="rownum = 1"/>
+                  </propriedades>
+                </componente>
+                <layouts>
+                  <layout>
+                    <componente classe="component/recordPanelView" nome="recv05"/>
+                    <layouts>
+                      <layout>
+                        <componente classe="component/viewField/textField" nome="recv05TxtNumero">
+                          <propriedades>
+                            <propriedade nome="field" valor="numero"/>
+                          </propriedades>
+                        </componente>
+                      </layout>
+                      <layout>
+                        <componente classe="component/viewField/textField" nome="recv05TxtNome">
+                          <propriedades>
+                            <propriedade nome="field" valor="nome"/>
+                          </propriedades>
+                        </componente>
+                      </layout>
+                    </layouts>
+                  </layout>
+                </layouts>
+              </layout>
+              <layout>
+                <componente classe="component/control/value/unbound/textBox" nome="txtTestControllerBefore">
+                  <propriedades>
+                    <propriedade nome="caption" valor=""/>
+                  </propriedades>
+                </componente>
+                <propriedades>
+                  <propriedade nome="labelWidth" valor="1"/>
+                </propriedades>
+              </layout>
+            </layouts>
+          </layout>
+          <layout tipo="CONT">
+            <propriedades>
+              <propriedade nome="title" valor="testEventHandler"/>
+              <propriedade nome="width" valor="400"/>
+            </propriedades>
+            <layouts>
+              <layout>
+                <componente classe="component/recordPanel" nome="rec09">
+                  <propriedades>
+                    <propriedade nome="dataTable" valor="funcionarios"/>
+                    <propriedade nome="eventHandler" valor="controller.seleniumTest.testEventHandler"/>
+                    <propriedade nome="onCommit" valor="request( {params: {p0: 'txtTestEventHandler'} } ); var me = Techne.getCmp('rec09'); me.enterView();"/>
+                    <propriedade nome="sqlWhere" valor="rownum = 1"/>
+                  </propriedades>
+                </componente>
+                <layouts>
+                  <layout>
+                    <componente classe="component/recordPanelView" nome="recv09"/>
+                    <layouts>
+                      <layout>
+                        <componente classe="component/viewField/textField" nome="recv09TxtNumero">
+                          <propriedades>
+                            <propriedade nome="field" valor="numero"/>
+                          </propriedades>
+                        </componente>
+                      </layout>
+                      <layout>
+                        <componente classe="component/viewField/textField" nome="recv09TextNome">
+                          <propriedades>
+                            <propriedade nome="field" valor="nome"/>
+                          </propriedades>
+                        </componente>
+                      </layout>
+                    </layouts>
+                  </layout>
+                  <layout>
+                    <componente classe="component/recordPanelEdit" nome="rece09"/>
+                    <layouts>
+                      <layout>
+                        <componente classe="component/editField/textBox" nome="rece09TxtNumero">
+                          <propriedades>
+                            <propriedade nome="field" valor="numero"/>
+                          </propriedades>
+                        </componente>
+                      </layout>
+                      <layout>
+                        <componente classe="component/editField/textBox" nome="rece09TxtNome">
+                          <propriedades>
+                            <propriedade nome="field" valor="nome"/>
+                          </propriedades>
+                        </componente>
+                      </layout>
+                    </layouts>
+                  </layout>
+                </layouts>
+              </layout>
+              <layout>
+                <componente classe="component/control/value/unbound/textBox" nome="txtTestEventHandler">
+                  <propriedades>
+                    <propriedade nome="caption" valor=""/>
+                  </propriedades>
+                </componente>
+                <propriedades>
+                  <propriedade nome="labelWidth" valor="1"/>
+                </propriedades>
+              </layout>
+            </layouts>
+          </layout>
+        </layouts>
+      </layout>
+    </layouts>
+  </layout>
+</transacao>

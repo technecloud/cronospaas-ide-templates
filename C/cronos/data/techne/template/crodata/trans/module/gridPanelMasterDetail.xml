@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<transacao data="09/01/2011 11:53" nome="gridPanelMasterDetail">
+  <layout>
+    <componente classe="component/page" nome="gridPanelMasterDetail">
+      <propriedades>
+        <propriedade nome="title" valor="Master-detail entre GridPanels"/>
+      </propriedades>
+    </componente>
+    <layouts>
+      <layout>
+        <componente classe="component/gridPanel" nome="grdFuncionario">
+          <propriedades>
+            <propriedade nome="dataTable" valor="funcionarios"/>
+            <propriedade nome="sqlOrder" valor="nome"/>
+          </propriedades>
+          <componentes>
+            <componente classe="component/gridPanelField" nome="fldNumero">
+              <propriedades>
+                <propriedade nome="field" valor="numero"/>
+                <propriedade nome="width" valor="60"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldNome">
+              <propriedades>
+                <propriedade nome="field" valor="nome"/>
+                <propriedade nome="width" valor="300"/>
+              </propriedades>
+            </componente>
+          </componentes>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/gridPanel" nome="grdVinculos">
+          <propriedades>
+            <propriedade nome="dataTable" valor="vinculos"/>
+            <propriedade nome="sqlOrder" valor="numfunc, categoria"/>
+            <propriedade nome="sqlWhere" valor="numfunc = $grdFuncionario.numero$"/>
+          </propriedades>
+          <componentes>
+            <componente classe="component/gridPanelField" nome="fldFuncionario">
+              <propriedades>
+                <propriedade nome="field" valor="numfunc"/>
+                <propriedade nome="hidden" valor="true"/>
+                <propriedade nome="width" valor="80"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldVinculo">
+              <propriedades>
+                <propriedade nome="field" valor="numero"/>
+                <propriedade nome="width" valor="60"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldCategoria">
+              <propriedades>
+                <propriedade nome="field" valor="categoria"/>
+                <propriedade nome="width" valor="300"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldNavega">
+              <propriedades>
+                <propriedade nome="caption" valor=""/>
+                <propriedade nome="linkParametros" valor="$grdFuncionario.numero$"/>
+                <propriedade nome="linkTransacao" valor="admin.funcionario"/>
+                <propriedade nome="text" valor="Funcion&#225;rio"/>
+              </propriedades>
+            </componente>
+          </componentes>
+        </componente>
+      </layout>
+    </layouts>
+  </layout>
+</transacao>

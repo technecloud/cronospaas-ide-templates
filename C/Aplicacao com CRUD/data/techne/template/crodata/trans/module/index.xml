@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<transacao data="04/29/2015 23:05:39" nome="index">
+    <layout>
+        <componente nome="index" classe="component/page"/>
+        <layouts>
+            <layout tipo="CONT">
+                <layouts>
+                    <layout>
+                        <componente nome="hyperLink01" classe="component/control/value/unbound/hyperLink">
+                            <propriedades>
+                                <propriedade nome="transacao" valor="module.recordpanel"/>
+                            </propriedades>
+                        </componente>
+                    </layout>
+                    <layout>
+                        <componente nome="hyperLink02" classe="component/control/value/unbound/hyperLink">
+                            <propriedades>
+                                <propriedade nome="transacao" valor="module.gridPanelSelect"/>
+                            </propriedades>
+                        </componente>
+                    </layout>
+                    <layout>
+                        <componente nome="hyperLink03" classe="component/control/value/unbound/hyperLink">
+                            <propriedades>
+                                <propriedade nome="transacao" valor="module.checkbox"/>
+                            </propriedades>
+                        </componente>
+                    </layout>
+                    <layout>
+                        <componente nome="hyperLink04" classe="component/control/value/unbound/hyperLink">
+                            <propriedades>
+                                <propriedade nome="transacao" valor="module.dropDownSelect"/>
+                            </propriedades>
+                        </componente>
+                    </layout>
+                </layouts>
+            </layout>
+        </layouts>
+    </layout>
+</transacao>

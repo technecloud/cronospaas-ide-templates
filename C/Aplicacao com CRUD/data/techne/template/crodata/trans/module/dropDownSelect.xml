@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<transacao data="09/01/2011 11:53" nome="dropDownSelect">
+  <layout>
+    <componente classe="component/page" nome="dropDownSelect">
+      <propriedades>
+        <propriedade nome="title" valor="DropDown Select"/>
+      </propriedades>
+    </componente>
+    <layouts>
+      <layout>
+        <componente classe="component/panelu" nome="pan1">
+          <propriedades>
+            <propriedade nome="frame" valor="S"/>
+            <propriedade nome="title" valor="Por Estado Civil"/>
+            <propriedade nome="width" valor="300"/>
+          </propriedades>
+        </componente>
+        <layouts>
+          <layout>
+            <componente classe="component/control/value/unbound/dropDownSelect" nome="drpSelect">
+              <propriedades>
+                <propriedade nome="caption" valor="Estado Civil"/>
+                <propriedade nome="sqlSelect" valor="SELECT DISTINCT estcivil FROM funcionarios WHERE numero &lt; 500 ORDER BY estcivil"/>
+              </propriedades>
+            </componente>
+            <propriedades>
+              <propriedade nome="labelWidth" valor="60"/>
+            </propriedades>
+          </layout>
+          <layout>
+            <componente classe="component/control/value/unbound/dropDownSelect" nome="drpSelect2">
+              <propriedades>
+                <propriedade nome="caption" valor="Funcion&#225;rio"/>
+                <propriedade nome="dataType" valor="NUMBER"/>
+                <propriedade nome="displayProperty" valor="nome"/>
+                <propriedade nome="sqlParameters" valor="#drpSelect#"/>
+                <propriedade nome="sqlSelect" valor="SELECT NUMERO, NOME FROM FUNCIONARIOS WHERE ESTCIVIL = ?"/>
+                <propriedade nome="valueProperty" valor="numero"/>
+              </propriedades>
+            </componente>
+            <propriedades>
+              <propriedade nome="labelWidth" valor="60"/>
+            </propriedades>
+          </layout>
+        </layouts>
+      </layout>
+      <layout>
+        <componente classe="component/panelu" nome="pan2">
+          <propriedades>
+            <propriedade nome="frame" valor="S"/>
+            <propriedade nome="title" valor="Por Nascimento"/>
+            <propriedade nome="width" valor="300"/>
+          </propriedades>
+        </componente>
+        <layouts>
+          <layout>
+            <componente classe="component/control/value/unbound/dropDownSelect" nome="drpDtNasc">
+              <propriedades>
+                <propriedade nome="caption" valor="Nascimento"/>
+                <propriedade nome="dataType" valor="DATE"/>
+                <propriedade nome="displayProperty" valor="disp"/>
+                <propriedade nome="sqlSelect" valor="SELECT DISTINCT TO_CHAR(dtnasc, 'dd-mon-yyyy') disp, dtnasc FROM funcionarios"/>
+                <propriedade nome="valueProperty" valor="dtnasc"/>
+              </propriedades>
+            </componente>
+            <propriedades>
+              <propriedade nome="labelWidth" valor="60"/>
+            </propriedades>
+          </layout>
+          <layout>
+            <componente classe="component/control/value/unbound/dropDownSelect" nome="drpFuncionarios">
+              <propriedades>
+                <propriedade nome="caption" valor="Funcion&#225;rio"/>
+                <propriedade nome="sqlParameters" valor="#drpDtNasc#"/>
+                <propriedade nome="sqlSelect" valor="SELECT numero, nome FROM funcionarios WHERE dtnasc = ?"/>
+              </propriedades>
+            </componente>
+            <propriedades>
+              <propriedade nome="labelWidth" valor="60"/>
+            </propriedades>
+          </layout>
+        </layouts>
+      </layout>
+      <layout>
+        <componente classe="component/panelu" nome="pan3">
+          <propriedades>
+            <propriedade nome="frame" valor="S"/>
+            <propriedade nome="title" valor="Auto Refer&#234;ncia"/>
+            <propriedade nome="width" valor="300"/>
+          </propriedades>
+        </componente>
+        <layouts>
+          <layout>
+            <componente classe="component/control/value/unbound/dropDownSelect" nome="drpSelectAutoRef">
+              <propriedades>
+                <propriedade nome="caption" valor="Funcion&#225;rio"/>
+                <propriedade nome="displayProperty" valor="nome"/>
+                <propriedade nome="initialValue" valor="1"/>
+                <propriedade nome="sqlParameters" valor="#drpSelectAutoRef#, #drpSelect#"/>
+                <propriedade nome="sqlParametersTypes" valor="NUMERIC, ?"/>
+                <propriedade nome="sqlSelect" valor="SELECT NUMERO, NOME FROM FUNCIONARIOS WHERE NUMERO &gt;= ? AND ESTCIVIL = ?&#10;"/>
+                <propriedade nome="valueProperty" valor="numero"/>
+              </propriedades>
+            </componente>
+            <propriedades>
+              <propriedade nome="labelWidth" valor="60"/>
+            </propriedades>
+          </layout>
+        </layouts>
+      </layout>
+    </layouts>
+  </layout>
+</transacao>

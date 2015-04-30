@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<aplicacao nome="template" versao="3.141592">
+  <modulos>
+    <modulo id="module"/>
+  </modulos>
+</aplicacao>

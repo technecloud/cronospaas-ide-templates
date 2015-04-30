@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<transacao data="09/01/2011 11:53" nome="gridPanelSelect">
+  <layout>
+    <componente classe="component/page" nome="gridPanelSelect">
+      <propriedades>
+        <propriedade nome="title" valor="GridPanelSelect com e sem depend&#234;ncia de outro controle"/>
+      </propriedades>
+    </componente>
+    <layouts>
+      <layout>
+        <componente classe="component/gridPanelSelect" nome="grdPanelSelect1">
+          <propriedades>
+            <propriedade nome="sqlSelect" valor="SELECT * FROM funcionarios WHERE numero &lt; 500"/>
+          </propriedades>
+          <componentes>
+            <componente classe="component/gridPanelField" nome="fldNumero1">
+              <propriedades>
+                <propriedade nome="caption" valor="N&#250;mero"/>
+                <propriedade nome="field" valor="numero"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldNome1">
+              <propriedades>
+                <propriedade nome="caption" valor="Nome"/>
+                <propriedade nome="field" valor="nome"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/checkBoxColumn" nome="fldPossuiDep1">
+              <propriedades>
+                <propriedade nome="caption" valor="Com dependentes?"/>
+                <propriedade nome="field" valor="possuidependente"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldEstCivil1">
+              <propriedades>
+                <propriedade nome="field" valor="estcivil"/>
+              </propriedades>
+            </componente>
+            <componente classe="component/gridPanelField" nome="fldDtnasc">
+              <propriedades>
+                <propriedade nome="field" valor="dtnasc"/>
+              </propriedades>
+            </componente>
+          </componentes>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/dateBox" nome="dtbGrid2">
+          <propriedades>
+            <propriedade nome="initialValue" valor="{h-20a}"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/panelu" nome="pnu">
+          <propriedades>
+            <propriedade nome="frame" valor="S"/>
+            <propriedade nome="title" valor="Funcion&#225;rios 2"/>
+          </propriedades>
+        </componente>
+        <layouts>
+          <layout>
+            <componente classe="component/gridPanelSelect" nome="grdPanelSelect2">
+              <propriedades>
+                <propriedade nome="sqlParameters" valor="$grdPanelSelect1.dtnasc$"/>
+                <propriedade nome="sqlSelect" valor="select * from funcionarios where dtnasc &lt;= ?&#10;"/>
+              </propriedades>
+              <componentes>
+                <componente classe="component/gridPanelField" nome="fldNumero2">
+                  <propriedades>
+                    <propriedade nome="caption" valor="N&#250;mero"/>
+                    <propriedade nome="field" valor="numero"/>
+                  </propriedades>
+                </componente>
+                <componente classe="component/gridPanelField" nome="fldNome2">
+                  <propriedades>
+                    <propriedade nome="caption" valor="Nome"/>
+                    <propriedade nome="field" valor="nome"/>
+                  </propriedades>
+                </componente>
+                <componente classe="component/gridPanelField" nome="fldPossuiDep2">
+                  <propriedades>
+                    <propriedade nome="caption" valor="Com dependentes?"/>
+                    <propriedade nome="field" valor="possuidependente"/>
+                  </propriedades>
+                </componente>
+                <componente classe="component/gridPanelField" nome="fldEstCivil2">
+                  <propriedades>
+                    <propriedade nome="field" valor="estcivil"/>
+                  </propriedades>
+                </componente>
+              </componentes>
+            </componente>
+          </layout>
+        </layouts>
+      </layout>
+    </layouts>
+  </layout>
+</transacao>

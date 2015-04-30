@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="US-ASCII" standalone="no"?>
+<transacao data="09/02/2013 14:49" nome="checkbox">
+  <layout>
+    <componente classe="component/page" nome="checkbox"/>
+    <layouts>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk01">
+          <propriedades>
+            <propriedade nome="caption" valor="chk01"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk02">
+          <propriedades>
+            <propriedade nome="captionCssClass" valor="CHK02_CAPTIONCSSCLASS"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk03">
+          <propriedades>
+            <propriedade nome="eventHandler" valor="CHK03_CONTROLLEREVENT"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk04">
+          <propriedades>
+            <propriedade nome="cssClass" valor="CHK04_CSSCLASS"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk05"/>
+      </layout>
+      <layout tipo="COL">
+        <layouts>
+          <layout>
+            <componente classe="component/control/value/unbound/checkBox" nome="chk06">
+              <propriedades>
+                <propriedade nome="eventHandler" valor="controller.seleniumTest.testEventHandler"/>
+                <propriedade nome="onChanged" valor="request({params:{p0: 'txt06TestEventHandler' }});"/>
+              </propriedades>
+            </componente>
+          </layout>
+          <layout>
+            <componente classe="component/control/value/unbound/textBox" nome="txt06TestEventHandler">
+              <propriedades>
+                <propriedade nome="caption" valor=""/>
+              </propriedades>
+            </componente>
+            <propriedades>
+              <propriedade nome="labelWidth" valor="1"/>
+            </propriedades>
+          </layout>
+        </layouts>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk07">
+          <propriedades>
+            <propriedade nome="initialValue" valor="S"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk08">
+          <propriedades>
+            <propriedade nome="onChanged" valor="alert('onchanged');"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk09">
+          <propriedades>
+            <propriedade nome="precision" valor="999"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk10">
+          <propriedades>
+            <propriedade nome="readOnly" valor="S"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk11">
+          <propriedades>
+            <propriedade nome="scale" valor="2"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk12">
+          <propriedades>
+            <propriedade nome="toolTip" valor="CHK12_TOOLTIP"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk13">
+          <propriedades>
+            <propriedade nome="visible" valor="N"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk14">
+          <propriedades>
+            <propriedade nome="width" valor="100"/>
+          </propriedades>
+        </componente>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk15"/>
+        <propriedades>
+          <propriedade nome="border" valor="true"/>
+        </propriedades>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk16"/>
+        <propriedades>
+          <propriedade nome="cssClass" valor="CHK16_CSSCLASS"/>
+        </propriedades>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk17"/>
+        <propriedades>
+          <propriedade nome="frame" valor="true"/>
+        </propriedades>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk18"/>
+        <propriedades>
+          <propriedade nome="labelAlign" valor="right"/>
+        </propriedades>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk19"/>
+        <propriedades>
+          <propriedade nome="labelWidth" valor="150"/>
+        </propriedades>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk20"/>
+      </layout>
+      <layout>
+        <componente classe="component/control/value/unbound/checkBox" nome="chk21"/>
+        <propriedades>
+          <propriedade nome="style" valor="{margin:'15px 15px 0 15px'}"/>
+        </propriedades>
+      </layout>
+    </layouts>
+  </layout>
+</transacao>
