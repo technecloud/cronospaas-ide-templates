@@ -1,3 +1,3 @@
-<h1>Pagina publica</h1>
+<h1>P&aacute;gina publica</h1>
 <hr>
-<a href="admin/admin.jsp">Pagina autenticada</a>
+<a href="admin/admin.jsp">P&aacute;gina Privada</a>

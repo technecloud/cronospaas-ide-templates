@@ -13,7 +13,7 @@
 <%
 String username = request.getRemoteUser();
 %>
-<span>Hello <%= username %>. This is a secure resource</span>
+<span>Ol&aacute; <strong><%= username %></strong>. Recurso privado!</span>
 <br />
 <a href="${pageContext.request.contextPath}/logout">Logout</a>
 </body>
