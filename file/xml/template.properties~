@@ -1,0 +1,5 @@
+icon=file.png
+name=Extensible Markup Language (XML)
+encoding=UTF-8
+parameter.string.FileName=Nome do Arquivo
+parameter.string.UserName=Techne

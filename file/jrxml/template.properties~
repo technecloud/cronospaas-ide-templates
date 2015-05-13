@@ -1,0 +1,4 @@
+icon=file.png
+name=JasperReports HyperText Markup Language (JRXML)
+encoding=UTF-8
+parameter.string.FileName=Nome do Arquivo
