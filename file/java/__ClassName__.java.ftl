@@ -1,4 +1,4 @@
-<#if PackageName?has_content >
+<#if PackageName?has_content && (PackageName?length > 0) >
 package ${PackageName};
 </#if>		
 
