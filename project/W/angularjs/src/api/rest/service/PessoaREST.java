@@ -23,7 +23,7 @@ import api.rest.exceptions.*;
 @Path("/Pessoa")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class PessoaREST {
+public class PessoaREST implements RESTService {
 
   private SessionManager session;
   private PessoaBusiness business;
