@@ -1,4 +1,4 @@
 (function($app) {
-    angular.module('cronos.controllers', []);  
+    angular.module('custom.controllers', []);  
     // Your code
 }(app));
