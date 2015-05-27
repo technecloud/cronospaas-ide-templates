@@ -5,7 +5,7 @@ package api.rest.service;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-04-08
+ * @since 2015-05-27
  *
  **/
 
@@ -15,15 +15,17 @@ import javax.ws.rs.core.*;
 import javax.persistence.*;
 
 import api.rest.util.*;
+
 import br.com.entity.*;
 import br.com.business.*;
+
 import api.rest.exceptions.*;
 
 
 @Path("/Pessoa")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-public class PessoaREST implements RESTService {
+@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+public class PessoaREST implements RESTService<PessoaEntity> {
 
   private SessionManager session;
   private PessoaBusiness business;
@@ -34,20 +36,18 @@ public class PessoaREST implements RESTService {
   }
 
   @GET
-  @Produces(MediaType.APPLICATION_JSON)
   public Response get(@QueryParam("page")Integer page, @QueryParam("size")Integer size) {
     List<PessoaEntity> entities = new ArrayList<>();
-
-    try{
-      
-      if(page == null || size == null)
-        entities = business.findAll();
-      else
-        entities = business.findAll(page,size);
-  
-      GenericEntity<List<PessoaEntity>> entity = new GenericEntity<List<PessoaEntity>>(entities) {};
-      return Response.ok(entity).build();
-      
+	try{
+	
+	    if(page == null || size == null)
+	      entities = business.findAll();
+	    else
+	      entities = business.findAll(page,size);
+	
+	    GenericEntity entity = new GenericEntity<List<PessoaEntity>>(entities) {};
+	    return Response.ok(entity).build();
+	    
     }catch(Exception exception){
       throw new CustomWebApplicationException(exception);
     }
@@ -55,13 +55,11 @@ public class PessoaREST implements RESTService {
   }
 
   @GET
-  @Produces(MediaType.APPLICATION_JSON)
   @Path("{id}")
   public Response getById(@PathParam("id")String sid) {
     try{
       Integer id = Integer.parseInt(sid);
       PessoaEntity entity = business.getById(id);
-      if(entity == null) throw new NotFoundException();
       return Response.ok(entity).build();
     }catch(Exception exception){
       throw new CustomWebApplicationException(exception);
@@ -79,44 +77,47 @@ public class PessoaREST implements RESTService {
       GenericEntity<List<PessoaEntity>> entity = new GenericEntity<List<PessoaEntity>>(entities) {};
       return Response.ok(entity).build();
     }catch(Exception exception){
-      session.rollBack();
+	    session.rollBack();
       throw new CustomWebApplicationException(exception);
     }finally{
-      session.close();
+    	session.close();
     }
   }
 
 
   @POST
-  @Consumes(MediaType.APPLICATION_JSON)
   public Response post(PessoaEntity entity) {
     try{
-      session.begin();
-      business.save(entity);
-      session.commit();
-      return Response.ok().build();
+	    session.begin();
+	    business.save(entity);
+	    session.commit();
+	    return Response.ok().build();
     }catch(Exception exception){
-      session.rollBack();
+	    session.rollBack();
       throw new CustomWebApplicationException(exception);
     }finally{
-      session.close();
+    	session.close();
     }
   }
 
+  @PUT
+  @Path("{id}")
+  public Response putWithId(@PathParam("id")String sid, PessoaEntity entity) {
+    return put(entity);
+  }
   
   @PUT
-  @Produces(MediaType.APPLICATION_JSON)
   public Response put(PessoaEntity entity) {
     try{
-      session.begin();
-      business.update(entity);
-      session.commit();
-      return Response.ok().build();
+	    session.begin();
+	    business.update(entity);
+	    session.commit();
+	    return Response.ok().build();
     }catch(Exception exception){
-      session.rollBack();
-      throw new CustomWebApplicationException(exception);
+	    session.rollBack();
+        throw new CustomWebApplicationException(exception);
     }finally{
-      session.close();
+    	session.close();
     }
   }
 
@@ -124,25 +125,30 @@ public class PessoaREST implements RESTService {
   @Path("{id}")
   public Response delete(@PathParam("id")String sid) {
     try{
-      session.begin();
-      Integer id = Integer.parseInt(sid);
-      PessoaEntity entity = business.getById(id);
-      PessoaEntity managedEntity = this.session.getEntityManager().getReference(PessoaEntity.class, entity.getId());
-      business.delete(managedEntity);
-      session.commit();
-      return Response.ok().build();
+	    Integer id = Integer.parseInt(sid);
+	    session.begin();
+	    PessoaEntity entity = business.getById(id);
+	    PessoaEntity managedEntity = this.session.getEntityManager().getReference(PessoaEntity.class, entity.getId());
+	    business.delete(managedEntity);
+	    session.commit();
+	    return Response.ok().build();
+    }catch(Exception exception){
+	    session.rollBack();
+	    throw new CustomWebApplicationException(exception);
+    }finally{
+    	session.close();
+    }
+  }
+  
+  @OPTIONS
+  @Produces(MediaType.APPLICATION_XML)
+  public Response options() {
+    try{
+      return Response.ok().entity(business.options(PessoaEntity.class)).build();
     }catch(Exception exception){
       session.rollBack();
       throw new CustomWebApplicationException(exception);
-    }finally{
-      session.close();
     }
   }
-
   
-  @OPTIONS
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response options(PessoaEntity entity) {
-    return Response.ok().entity(business.options()).build();
-  }
 }

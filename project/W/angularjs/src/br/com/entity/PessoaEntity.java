@@ -4,12 +4,13 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 
+import javax.xml.bind.annotation.*;
 /**
  * Classe que representa a tabela PESSOA
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-04-08
+ * @since 2015-05-27
  *
  */
  
@@ -20,12 +21,13 @@ import java.util.*;
         @NamedQuery(name = "PessoaEntity.findByNOME", query = "SELECT e FROM PessoaEntity e where e.nome like :NOME"),
         @NamedQuery(name = "PessoaEntity.findBySOBRENOME", query = "SELECT e FROM PessoaEntity e where e.sobrenome like :SOBRENOME"),
 })
+@XmlRootElement
 public class PessoaEntity implements Serializable {
 
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = 2127320450194633408l;
+	private static final long serialVersionUID = -8154845282810301688l;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

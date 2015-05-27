@@ -1,4 +1,4 @@
-package api.rest.service;
+package api.rest.util;
 
 import javax.ws.rs.core.*;
 
@@ -49,7 +49,6 @@ public interface RESTService<T>  {
   
   /**
    * Este método é utilizado para obter a lista de metadados de uma entidade
-   * @param entity Registro a ser atualizado
    */
-  public Response options(T entity);
+  public Response options();
 }

@@ -4,7 +4,13 @@ import java.lang.reflect.ParameterizedType;
 import java.util.*;
 import javax.persistence.*;
 
-/*
+import javax.xml.bind.*;
+import javax.xml.transform.stream.*;
+import javax.xml.transform.*;
+import java.io.*;
+
+
+/**
  * Operações básicas de CRUD no banco
  * 
  * @author Techne
@@ -112,5 +118,29 @@ public class BasicDAO<PK, T> {
     q.setFirstResult(pageIndex * noOfRecords);
     return q.getResultList();
   }
+  
+  
+  class MySchemaOutputResolver extends SchemaOutputResolver {
+    private StringWriter stringWriter = new StringWriter();    
+
+    public Result createOutput(String namespaceURI, String suggestedFileName) throws IOException  {
+        StreamResult result = new StreamResult(stringWriter);
+        result.setSystemId(suggestedFileName);
+        return result;
+    }
+
+    public String getSchema() {
+        return stringWriter.toString();
+    }
+  }
+
+
+  public Object options(Class<?> clazz) throws Exception{
+    MySchemaOutputResolver sor = new MySchemaOutputResolver();
+    JAXBContext context = JAXBContext.newInstance(clazz);
+    context.generateSchema(sor);
+  	return sor.getSchema();
+  }
+  
   
 }

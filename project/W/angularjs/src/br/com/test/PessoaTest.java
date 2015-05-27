@@ -5,7 +5,7 @@ package br.com.test;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-04-02
+ * @since 2015-05-27
  *
  **/
 public class PessoaTest {

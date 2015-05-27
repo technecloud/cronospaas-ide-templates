@@ -32,7 +32,7 @@
       var _savedProps;
 
       this.init = function() {
-        this.endpoint = (this.endpoint) ? this.endpoint : "";
+        this.endpoint = (this.endpoint) ? this.endpoint : "/api/rest";
 
         service = $resource(this.endpoint + '/:entity/:id', 
         { 
@@ -198,7 +198,7 @@
       */
       this.fetch = function (props, callback) {
         // Get some fake testing data
-        var endpoint = (this.endpoint) ? this.endpoint : "";
+        var endpoint = (this.endpoint) ? this.endpoint : "/api/rest";
 
         var resource = $resource(endpoint + "/:entity", { 
           entity: this.entity 
@@ -319,7 +319,7 @@
     * Initialize a new dataset
     */
     this.initDataset = function (props) {
-        var endpoint = (props.endpoint) ? props.endpoint : "";
+        var endpoint = (props.endpoint) ? props.endpoint : "/api/rest";
 
         var dts = new DataSet(props.name);
         dts.entity = props.entity;

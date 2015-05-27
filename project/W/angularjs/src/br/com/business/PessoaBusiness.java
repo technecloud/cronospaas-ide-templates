@@ -1,6 +1,7 @@
 package br.com.business;
 
 import api.rest.util.*;
+
 import br.com.dao.*;
 import br.com.entity.*;
 import java.util.*;
@@ -9,7 +10,7 @@ import java.util.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-04-02
+ * @since 2015-05-27
  *
  **/
 public class PessoaBusiness {
@@ -103,6 +104,11 @@ public class PessoaBusiness {
   	return "";
   }
   
+
+
+  public Object options(Class<?> clazz) throws Exception{
+    return dao.options(clazz);
+  }
 
 
 }

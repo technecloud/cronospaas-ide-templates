@@ -36,19 +36,6 @@
 
 
   <dependencies>
-  
-   <dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<version>4.12</version>
-	    <scope>test</scope>
-   </dependency>
-  
-	<dependency>
-		<groupId>com.h2database</groupId>
-		<artifactId>h2</artifactId>
-		<version>1.4.186</version>
-	</dependency>
 
 	<!-- Jersey 2x Restful -->   
 	<dependency>
@@ -63,11 +50,13 @@
 	   <version>2.17</version>
 	</dependency> 
 	
+	
 	<dependency>
 	  <groupId>org.glassfish.jersey.media</groupId>
 	  <artifactId>jersey-media-moxy</artifactId>
 	  <version>2.17</version>
-	</dependency>   
+	</dependency>  
+	
 	<!-- Jersey 2x Restful -->   
 	
 	<!-- javax.persistence -->
@@ -80,9 +69,16 @@
   <dependency>
   	<groupId>org.eclipse.persistence</groupId>
   	<artifactId>org.eclipse.persistence.jpa</artifactId>
-  	<version>2.6.0</version>
+  	<version>2.5.2</version>
   </dependency>
-  
+
+<dependency>
+	<groupId>org.glassfish.jersey.media</groupId>
+	<artifactId>jersey-media-json-jackson</artifactId>
+	<version>2.17</version>
+</dependency>
+
+
   <!--
   <dependency>
 	<groupId>org.apache.openjpa</groupId>
@@ -105,7 +101,7 @@
 	
     
 </dependencies>
-  
-  
+
+
 </project>
 

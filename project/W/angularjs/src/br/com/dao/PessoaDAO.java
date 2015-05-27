@@ -9,7 +9,7 @@ import br.com.entity.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-04-02
+ * @since 2015-05-27
  *
  */
 public class PessoaDAO extends BasicDAO<String, PessoaEntity> {
@@ -17,7 +17,7 @@ public class PessoaDAO extends BasicDAO<String, PessoaEntity> {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = -4687978310506265339l;
+	private static final long serialVersionUID = 8982256704205351543l;
 
   /**
    * Guarda uma cópia da EntityManager na instância
