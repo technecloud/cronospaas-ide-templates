@@ -79,8 +79,6 @@ public class PessoaREST implements RESTService<PessoaEntity> {
     }catch(Exception exception){
 	    session.rollBack();
       throw new CustomWebApplicationException(exception);
-    }finally{
-    	session.close();
     }
   }
 
@@ -95,8 +93,6 @@ public class PessoaREST implements RESTService<PessoaEntity> {
     }catch(Exception exception){
 	    session.rollBack();
       throw new CustomWebApplicationException(exception);
-    }finally{
-    	session.close();
     }
   }
 
@@ -116,9 +112,8 @@ public class PessoaREST implements RESTService<PessoaEntity> {
     }catch(Exception exception){
 	    session.rollBack();
         throw new CustomWebApplicationException(exception);
-    }finally{
-    	session.close();
     }
+
   }
 
   @DELETE
@@ -135,9 +130,8 @@ public class PessoaREST implements RESTService<PessoaEntity> {
     }catch(Exception exception){
 	    session.rollBack();
 	    throw new CustomWebApplicationException(exception);
-    }finally{
-    	session.close();
     }
+
   }
   
   @OPTIONS

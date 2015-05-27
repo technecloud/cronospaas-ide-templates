@@ -19,6 +19,7 @@ public class SessionManager {
   /**
    * Gerenciador de Entidades
    */
+  @PersistenceContext(unitName = PERSISTENCE_UNIT, type=PersistenceContextType.TRANSACTION)
   private EntityManager entityManager;
   /**
    * Fábrica de Gerenciadores de Entidade
