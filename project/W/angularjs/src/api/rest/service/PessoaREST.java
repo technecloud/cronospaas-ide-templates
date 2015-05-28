@@ -68,6 +68,7 @@ public class PessoaREST {
   
   @GET
   @Path("/{attributeName}/{value}")
+  @SuppressWarnings("unchecked")
   public Response getByAttributeName(@PathParam("attributeName")String attributeName, @PathParam("value")String value) {
     try {
       String formattedAttributeName = attributeName.toUpperCase();

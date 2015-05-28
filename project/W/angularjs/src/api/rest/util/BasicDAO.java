@@ -112,6 +112,7 @@ public class BasicDAO<PK, T> {
    * @param noOfRecords Numero de registros
    * @return List Lista com todas as linhas da tabela do banco de dados
    */
+  @SuppressWarnings("unchecked")
   public List<T> findAll(int pageIndex, int noOfRecords) {
     Query q = this.entityManager.createQuery(("SELECT OBJECT(a) FROM " + getTypeClass().getName() + " a"));
     q.setMaxResults(noOfRecords);
