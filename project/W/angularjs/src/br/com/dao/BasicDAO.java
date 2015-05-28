@@ -27,6 +27,7 @@ import java.io.*;
 public class BasicDAO<PK, T> implements Serializable {
 
   /**
+   * UID da classe, necessário na serialização 
    */
   private static final long serialVersionUID = 8982256704431123l;
   
