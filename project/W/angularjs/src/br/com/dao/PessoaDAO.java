@@ -1,7 +1,6 @@
 package br.com.dao;
 
 import javax.persistence.*;
-import api.rest.util.*;
 import br.com.entity.*;
 
 /**

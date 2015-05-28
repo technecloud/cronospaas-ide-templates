@@ -1,4 +1,4 @@
-package api.rest.util;
+package br.com.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.*;

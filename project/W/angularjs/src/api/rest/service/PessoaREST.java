@@ -46,7 +46,7 @@ public class PessoaREST {
 	    else
 	      entities = business.findAll(page,size);
 	
-	    GenericEntity entity = new GenericEntity<List<PessoaEntity>>(entities) {};
+	    GenericEntity<List<PessoaEntity>> entity = new GenericEntity<List<PessoaEntity>>(entities) {};
 	    return Response.ok(entity).build();
 	    
     }catch(Exception exception){
