@@ -25,6 +25,7 @@ import api.rest.exceptions.*;
 @Path("/Pessoa")
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+@SuppressWarnings("unchecked")
 public class PessoaREST {
 
   private SessionManager session;
@@ -68,7 +69,6 @@ public class PessoaREST {
   
   @GET
   @Path("/{attributeName}/{value}")
-  @SuppressWarnings("unchecked")
   public Response getByAttributeName(@PathParam("attributeName")String attributeName, @PathParam("value")String value) {
     try {
       String formattedAttributeName = attributeName.toUpperCase();
