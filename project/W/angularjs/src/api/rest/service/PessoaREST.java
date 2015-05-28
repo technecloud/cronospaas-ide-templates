@@ -25,7 +25,7 @@ import api.rest.exceptions.*;
 @Path("/Pessoa")
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-public class PessoaREST implements RESTService<PessoaEntity> {
+public class PessoaREST {
 
   private SessionManager session;
   private PessoaBusiness business;
