@@ -24,7 +24,11 @@ import java.io.*;
  *
  */
 @SuppressWarnings("unchecked")
-public class BasicDAO<PK, T> {
+public class BasicDAO<PK, T> implements Serializable {
+
+  /**
+   */
+  private static final long serialVersionUID = 8982256704431123l;
   
   /**
    * Cópia local da tabela em uso
