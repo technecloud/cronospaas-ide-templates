@@ -18,7 +18,7 @@ var app = (function() {
   	    // Route
         $routeProvider.
           when('/home', {
-            templateUrl: 'views/home.html',
+            templateUrl: 'views/home.view.html',
         }).
     
         // Default route
