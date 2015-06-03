@@ -49,7 +49,7 @@
         "name" : "crn-datasource", 
         "text" : "Datasource",
         "class" : "cpn cpn-datasource", 
-        "template" : "<datasource name=\"\" entity=\"\" key=\"\" endpoint=\"\"><i class=\"cpn cpn-datasource\"></i></datasource>",
+        "template" : "<datasource name=\"\" entity=\"\" key=\"\" endpoint=\"api/rest\"><i class=\"cpn cpn-datasource\"></i></datasource>",
         "properties" : {
           "entity": {
                "displayName" : "Datasource",
@@ -70,6 +70,17 @@
         "class" : "cpn cpn-textinput", 
         "templateURL" : "webcontent/components/templates/textinput.template.html",
         "properties" : {
+          "datasource": {
+               "displayName" : "Campo",
+               "removable" : false,
+               "type" : "projectDatasource"
+          },
+          "ng-model": {
+               "displayName" : "Campo",
+               "removable" : false,
+               "type" : "datasourceField",
+               "source" : "datasource"
+          }
         }
       },
       {
@@ -92,11 +103,5 @@
         "text" : "Div",
         "class" : "cpn cpn-div", 
         "template" : "<div id=\"\" class=\"\"><div data-container=\"true\"></div></div>"
-      },
-      {
-        "name" : "crn-form", 
-        "text" : "Form",
-        "class" : "cpn cpn-form", 
-        "templateURL" : "webcontent/components/templates/form.template.html"
       }
   ]
