@@ -32,7 +32,7 @@
       var _savedProps;
 
       this.init = function() {
-        this.endpoint = (this.endpoint) ? this.endpoint : "/api/rest";
+        this.endpoint = (this.endpoint) ? this.endpoint : "";
 
         service = $resource(this.endpoint + '/:entity/:id', 
         { 
@@ -105,13 +105,26 @@
       this.cancel = function() {
         this.inserting = false;
         this.editing = false;
+        this.active = this.data[0];
       }
+      
+     this.startInserting = function () {
+       this.inserting = true;
+       this.active = {};
+     }
+     
+     this.startEditing = function () {
+       this.editing = true;
+     }
 
       /**
       * Remove an object from this dataset by using the given id.
       * the objects
       */
       this.remove = function (id) {
+        if(!id) {
+          id = this.active[this.key];
+        }
         for(var i = 0; i < this.data.length; i++) {
               if(this.data[i][this.key] === id) {
                   var obj = this.data.splice(i,1)[0];
@@ -198,7 +211,7 @@
       */
       this.fetch = function (props, callback) {
         // Get some fake testing data
-        var endpoint = (this.endpoint) ? this.endpoint : "/api/rest";
+        var endpoint = (this.endpoint) ? this.endpoint : "";
 
         var resource = $resource(endpoint + "/:entity", { 
           entity: this.entity 
@@ -319,7 +332,7 @@
     * Initialize a new dataset
     */
     this.initDataset = function (props) {
-        var endpoint = (props.endpoint) ? props.endpoint : "/api/rest";
+        var endpoint = (props.endpoint) ? props.endpoint : "";
 
         var dts = new DataSet(props.name);
         dts.entity = props.entity;

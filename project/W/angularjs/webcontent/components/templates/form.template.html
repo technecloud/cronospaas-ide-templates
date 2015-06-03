@@ -1,0 +1,19 @@
+<div class="form">
+  <div class="tool-bar" ng-hide="Pessoa.editing || Pessoa.inserting">
+    <button class="btn btn-primary"  ng-click="Pessoa.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
+    <button class="btn btn-success" ng-click="Pessoa.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
+    <button class="btn btn-primary"  ng-disabled="!Pessoa.hasPrevious()" ng-click="Pessoa.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+    <button class="btn btn-primary"  ng-disabled="!Pessoa.hasNext()" ng-click="Pessoa.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+    <button class="btn btn-primary" ng-click="Pessoa.remove()"><i class="glyphicon glyphicon-trash"></i></button>
+  </div>
+  <div class="active-bar" ng-hide="!Pessoa.editing && !Pessoa.inserting">
+    <button class="btn btn-success" ng-click="Pessoa.post()"><i class="glyphicon glyphicon-ok"></i></button>
+    <button class="btn btn-danger" ng-click="Pessoa.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
+  </div>
+
+  <h2>Form</h2>
+  <form>
+    <div class="form-group" data-container="true">
+    </div>
+  </form>
+</div>

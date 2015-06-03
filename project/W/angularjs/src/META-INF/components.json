@@ -3,80 +3,106 @@
   "version": "1.0.0",
   "components": [
       {
-        "name" : "cronos-anchor", 
+        "name" : "crn-anchor", 
         "text" : "Link",
         "class" : "cpn cpn-anchor",
         "templateURL" : "webcontent/components/templates/anchor.template.html",
         "properties" : {
-        	"target": {
-	             "displayName" : "Abertura",
-	             "removable" : false,
-	             "type" : "list",
-	             "options" : [
-	               {"key": "_blank", "value": "Nova janela"},
-	               {"key": "_self", "value": "Mesma janela"},
-	               {"key": "_parent", "value": "Janela pai"},
-	               {"key": "_top", "value": "Top"}
-	             ]
+          "target": {
+               "displayName" : "Abertura",
+               "removable" : false,
+               "type" : "list",
+               "options" : [
+                 {"key": "_blank", "value": "Nova janela"},
+                 {"key": "_self", "value": "Mesma janela"},
+                 {"key": "_parent", "value": "Janela pai"},
+                 {"key": "_top", "value": "Top"}
+               ]
             },
             "external": {
-	             "displayName" : "Externo",
-	             "removable" : false,
-	             "type" : "logic",
-	             "transient": true,
-	             "onchange" : "function(element, newValue, $scope) { for(var i = 0; i < $scope.properties.length; i++) { var prop = $scope.properties[i]; if(prop.name == 'href') { if(newValue) {prop.type = 'text';}else{prop.type = 'list'}}}}"
+               "displayName" : "Externo",
+               "removable" : false,
+               "type" : "logic",
+               "transient": true,
+               "onchange" : "function(element, newValue, $scope) { for(var i = 0; i < $scope.properties.length; i++) { var prop = $scope.properties[i]; if(prop.name == 'href') { if(newValue) {prop.type = 'text';}else{prop.type = 'list'}}}}"
             },
             "href": {
-	             "displayName" : "Destino",
-	             "removable" : false,
-	             "type" : "list",
-	             "options" : [
-	               {"key": "views/home.view.html", "value": "home"},
-	               {"key": "views/page.view.html", "value": "page"},
-	               {"key": "views/page2.view.html", "value": "page2"},
-	               {"key": "views/teste.view.html", "value": "teste"}
-	             ]
+               "displayName" : "Destino",
+               "removable" : false,
+               "type" : "list",
+               "options" : [
+                 {"key": "views/home.view.html", "value": "home"},
+                 {"key": "views/page.view.html", "value": "page"},
+                 {"key": "views/page2.view.html", "value": "page2"},
+                 {"key": "views/teste.view.html", "value": "teste"}
+               ]
             }
         }
       },
       {
-        "name" : "cronos-button", 
+        "name" : "crn-button", 
         "text" : "Button",
         "class" : "cpn cpn-button", 
         "templateURL" : "webcontent/components/templates/button.template.html"
       },
       {
-        "name" : "cronos-datasource", 
+        "name" : "crn-datasource", 
         "text" : "Datasource",
         "class" : "cpn cpn-datasource", 
         "template" : "<datasource name=\"\" entity=\"\" key=\"\" endpoint=\"\"><i class=\"cpn cpn-datasource\"></i></datasource>",
         "properties" : {
           "entity": {
-	             "displayName" : "Datasource",
-	             "removable" : false,
-	             "type" : "datasourceList"
+               "displayName" : "Datasource",
+               "removable" : false,
+               "type" : "datasourceList"
           },
           "key": {
-	             "displayName" : "Campo chave",
-	             "removable" : false,
-	             "type" : "fieldList",
-	             "filteredBy" : "entity"
+               "displayName" : "Campo chave",
+               "removable" : false,
+               "type" : "fieldList",
+               "filteredBy" : "entity"
           }
         }
       },
       {
-        "name" : "cronos-textinput", 
+        "name" : "crn-textinput", 
         "text" : "Caixa de texto",
         "class" : "cpn cpn-textinput", 
         "templateURL" : "webcontent/components/templates/textinput.template.html",
         "properties" : {
-          "field": {
-	             "displayName" : "Campo",
-	             "removable" : false,
-	             "type" : "text",
-	             "transient": true
+          "datasource": {
+               "displayName" : "Campo",
+               "removable" : false,
+               "type" : "projectDatasource"
+          },
+          "ng-model": {
+               "displayName" : "Campo",
+               "removable" : false,
+               "type" : "datasourceField",
+               "source" : "datasource"
           }
         }
+      },
+      {
+        "name" : "crn-image", 
+        "text" : "Imagem",
+        "class" : "cpn cpn-image", 
+        "template" : "<img src=\"http://placehold.it/50x50\" class=\"\" width=\"50\" height=\"50\" />",
+        "properties" : {
+          "src": {
+               "displayName" : "Arquivo",
+               "removable" : false,
+               "type" : "projectResource",
+               "resourceType" : "image",
+               "transient": true
+          }
+        }
+      },
+      {
+        "name" : "crn-container", 
+        "text" : "Div",
+        "class" : "cpn cpn-div", 
+        "template" : "<div id=\"\" class=\"\"><div data-container=\"true\"></div></div>"
       }
   ]
 }
