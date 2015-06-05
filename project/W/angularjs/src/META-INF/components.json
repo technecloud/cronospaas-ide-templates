@@ -29,13 +29,8 @@
             "href": {
                "displayName" : "Destino",
                "removable" : false,
-               "type" : "list",
-               "options" : [
-                 {"key": "views/home.view.html", "value": "home"},
-                 {"key": "views/page.view.html", "value": "page"},
-                 {"key": "views/page2.view.html", "value": "page2"},
-                 {"key": "views/teste.view.html", "value": "teste"}
-               ]
+               "type" : "projectResource",
+               "resourceType" : "text/html"
             }
         }
       },
@@ -70,6 +65,11 @@
         "class" : "cpn cpn-textinput", 
         "templateURL" : "webcontent/components/templates/textinput.template.html",
         "properties" : {
+          "ng-model": {
+               "displayName" : "Campo",
+               "removable" : false,
+               "type" : "fieldRefference"
+          }
         }
       },
       {
@@ -82,8 +82,7 @@
                "displayName" : "Arquivo",
                "removable" : false,
                "type" : "projectResource",
-               "resourceType" : "image",
-               "transient": true
+               "resourceType" : "image/jpeg,image/gif,image/png"
           }
         }
       },
