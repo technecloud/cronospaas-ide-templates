@@ -19,13 +19,6 @@
                  {"key": "_top", "value": "Top"}
                ]
             },
-            "external": {
-               "displayName" : "Externo",
-               "removable" : false,
-               "type" : "logic",
-               "transient": true,
-               "onchange" : "function(element, newValue, $scope) { for(var i = 0; i < $scope.properties.length; i++) { var prop = $scope.properties[i]; if(prop.name == 'href') { if(newValue) {prop.type = 'text';}else{prop.type = 'list'}}}}"
-            },
             "href": {
                "displayName" : "Destino",
                "removable" : false,
@@ -96,7 +89,14 @@
         "name" : "crn-form", 
         "text" : "Form",
         "class" : "cpn cpn-form", 
-        "templateURL" : "webcontent/components/templates/form.template.html"
+        "templateURL" : "webcontent/components/templates/form.template.html",
+        "properties" : {
+          "crn-datasource" : {
+              "displayName" : "Datasource",
+               "removable" : false,
+               "type" : "datasourceList"
+          }
+        }
       }
   ]
 }
