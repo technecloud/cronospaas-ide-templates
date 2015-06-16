@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "components": [
       {
-        "name" : "crn-anchor", 
+        "name" : "crn-anchor",
         "text" : "Link",
         "class" : "cpn cpn-anchor",
         "templateURL" : "webcontent/components/templates/anchor.template.html",
@@ -28,15 +28,15 @@
         }
       },
       {
-        "name" : "crn-button", 
+        "name" : "crn-button",
         "text" : "Button",
-        "class" : "cpn cpn-button", 
+        "class" : "cpn cpn-button",
         "templateURL" : "webcontent/components/templates/button.template.html"
       },
       {
-        "name" : "crn-datasource", 
+        "name" : "crn-datasource",
         "text" : "Datasource",
-        "class" : "cpn cpn-datasource", 
+        "class" : "cpn cpn-datasource",
         "template" : "<datasource name=\"\" entity=\"\" key=\"\" endpoint=\"api/rest\"><i class=\"cpn cpn-datasource\"></i></datasource>",
         "properties" : {
           "entity": {
@@ -53,9 +53,9 @@
         }
       },
       {
-        "name" : "crn-textinput", 
+        "name" : "crn-textinput",
         "text" : "Caixa de texto",
-        "class" : "cpn cpn-textinput", 
+        "class" : "cpn cpn-textinput",
         "templateURL" : "webcontent/components/templates/textinput.template.html",
         "properties" : {
           "ng-model": {
@@ -66,9 +66,9 @@
         }
       },
       {
-        "name" : "crn-image", 
+        "name" : "crn-image",
         "text" : "Imagem",
-        "class" : "cpn cpn-image", 
+        "class" : "cpn cpn-image",
         "template" : "<img src=\"http://placehold.it/50x50\" class=\"\" width=\"50\" height=\"50\" />",
         "properties" : {
           "src": {
@@ -80,15 +80,15 @@
         }
       },
       {
-        "name" : "crn-container", 
+        "name" : "crn-container",
         "text" : "Div",
-        "class" : "cpn cpn-div", 
+        "class" : "cpn cpn-div",
         "template" : "<div id=\"\" class=\"\"><div data-container=\"true\"></div></div>"
       },
       {
-        "name" : "crn-form", 
+        "name" : "crn-form",
         "text" : "Form",
-        "class" : "cpn cpn-form", 
+        "class" : "cpn cpn-form",
         "templateURL" : "webcontent/components/templates/form.template.html",
         "properties" : {
           "crn-datasource" : {
@@ -96,6 +96,15 @@
                "removable" : false,
                "type" : "datasourceList"
           }
+        }
+      },
+      {
+        "name" : "crn-datepicker",
+        "text" : "Date",
+        "class" : "cpn cpn-datepicker",
+        "templateURL" : "webcontent/components/templates/datepicker.template.html",
+        "properties" : {
+
         }
       }
   ]
