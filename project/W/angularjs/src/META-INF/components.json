@@ -106,6 +106,15 @@
         "properties" : {
 
         }
+      },
+      {
+        "name" : "crn-fileupload",
+        "text" : "File Upload",
+        "class" : "cpn cpn-fileupload",
+        "templateURL" : "webcontent/components/templates/fileupload.template.html",
+        "properties" : {
+
+        }
       }
   ]
 }
