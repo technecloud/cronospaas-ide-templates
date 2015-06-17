@@ -9,7 +9,7 @@
         "templateURL" : "webcontent/components/templates/anchor.template.html",
         "properties" : {
           "target": {
-               "displayName" : "Abertura",
+               "displayName" : "Target",
                "removable" : false,
                "type" : "list",
                "options" : [
@@ -20,7 +20,7 @@
                ]
             },
             "href": {
-               "displayName" : "Destino",
+               "displayName" : "Link",
                "removable" : false,
                "type" : "projectResource",
                "resourceType" : "text/html"
@@ -45,7 +45,7 @@
                "type" : "datasourceList"
           },
           "key": {
-               "displayName" : "Campo chave",
+               "displayName" : "Key",
                "removable" : false,
                "type" : "fieldList",
                "filteredBy" : "entity"
@@ -59,7 +59,7 @@
         "templateURL" : "webcontent/components/templates/textinput.template.html",
         "properties" : {
           "ng-model": {
-               "displayName" : "Campo",
+               "displayName" : "Field",
                "removable" : false,
                "type" : "fieldRefference"
           }
@@ -67,7 +67,7 @@
       },
       {
         "name" : "crn-image", 
-        "text" : "Imagem",
+        "text" : "Image",
         "class" : "cpn cpn-image", 
         "template" : "<img src=\"http://placehold.it/50x50\" class=\"\" width=\"50\" height=\"50\" />",
         "properties" : {
@@ -95,6 +95,22 @@
               "displayName" : "Datasource",
                "removable" : false,
                "type" : "datasourceList"
+          }
+        }
+      },
+      {
+        "name" : "crn-tabs", 
+        "text" : "Tabs",
+        "class" : "cpn cpn-tabs",
+        "dependences" : ["components/js/tabs.js"],
+        "templateURL" : "webcontent/components/templates/textinput.template.html",
+        "properties" : {
+          "items": {
+               "displayName" : "Items",
+               "removable" : false,
+               "type" : "custom",
+               "customFile" : "components/templates/object-inspector/items.template.html",
+               "handler" : "SimpleItemsController"
           }
         }
       }
