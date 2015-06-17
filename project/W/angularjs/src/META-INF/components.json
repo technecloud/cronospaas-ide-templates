@@ -102,16 +102,36 @@
         "name" : "crn-tabs", 
         "text" : "Tabs",
         "class" : "cpn cpn-tabs",
-        "dependences" : ["components/js/tabs.js"],
+        "dependences" : {
+          "editor" : ["components/templates/object-inspector/items.controller.js"],
+          "runtime" : []
+        },
         "templateURL" : "webcontent/components/templates/textinput.template.html",
         "properties" : {
           "items": {
                "displayName" : "Items",
                "removable" : false,
                "type" : "custom",
-               "customFile" : "components/templates/object-inspector/items.template.html",
-               "handler" : "SimpleItemsController"
+               "customFile" : "components/templates/object-inspector/items.template.html"
           }
+        }
+      },
+      {
+        "name" : "crn-datepicker",
+        "text" : "Date",
+        "class" : "cpn cpn-datepicker",
+        "templateURL" : "webcontent/components/templates/datepicker.template.html",
+        "properties" : {
+
+        }
+      },
+      {
+        "name" : "crn-fileupload",
+        "text" : "File Upload",
+        "class" : "cpn cpn-fileupload",
+        "templateURL" : "webcontent/components/templates/fileupload.template.html",
+        "properties" : {
+
         }
       }
   ]
