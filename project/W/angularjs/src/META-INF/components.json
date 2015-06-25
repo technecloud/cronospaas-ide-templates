@@ -75,15 +75,20 @@
         }
       },
       {
-        "name" : "crn-textinput",
+        "name" : "crn-textinput", 
         "text" : "Caixa de texto",
-        "class" : "cpn cpn-textinput",
+        "class" : "cpn cpn-textinput", 
         "templateURL" : "webcontent/components/templates/textinput.template.html",
+        "dependences" : {
+          "editor" : ["components/templates/object-inspector/ng-model.controller.js"],
+          "runtime" : []
+        },
         "properties" : {
           "ng-model": {
-               "displayName" : "Field",
+               "displayName" : "Model",
                "removable" : false,
-               "type" : "fieldRefference"
+               "type" : "custom",
+               "customFile" : "components/templates/object-inspector/ng-model.template.html"
           }
         }
       },
