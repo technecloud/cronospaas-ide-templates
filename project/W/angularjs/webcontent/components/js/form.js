@@ -1,18 +1,19 @@
 (function($app) {
     $app.directive('crnDatasource',['DatasetManager', function(DatasetManager) {
       return {
-        restrict: 'E',
-        templateUrl: "components/templates/table.template.html",
+        restrict: 'A',
         controller: 'CrnFormController',
-        controllerAs: "TableCtrl",
-        scope: {
-            crnDatasource : '@'
+        link: function(scope, element, attrs) {
+            scope.data = DatasetManager.datasets;
+            scope.datasource = scope.data[attrs.crnDatasource];
         }
       };
     }])
 
     .controller("CrnFormController",['DatasetManager', '$scope', function(DatasetManager, $scope) {
-        $scope.data = DatasetManager.datasets;
-        $scope.datasource = $scope.data[$scope.crnFormSource];
+        $scope.funcione = function() {
+          $scope.datasource.startInserting();
+        }
+        
     }]);
 }(app));

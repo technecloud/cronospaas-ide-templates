@@ -99,20 +99,22 @@
         }
       },
       {
-        "name" : "crn-tabs",
+        "name" : "crn-tabs", 
         "text" : "Tabs",
         "class" : "cpn cpn-tabs",
+        "templateURL" : "webcontent/components/templates/tabs.template.html",
         "dependences" : {
-          "editor" : ["components/templates/object-inspector/items.controller.js"],
+          "editor" : ["components/templates/object-inspector/tab-items.controller.js"],
           "runtime" : []
         },
-        "templateURL" : "webcontent/components/templates/textinput.template.html",
         "properties" : {
           "items": {
                "displayName" : "Items",
                "removable" : false,
                "type" : "custom",
-               "customFile" : "components/templates/object-inspector/items.template.html"
+               "customFile" : "components/templates/object-inspector/list.template.html",
+               "customController" : "TabItemsController",
+               "global" : true
           }
         }
       },
@@ -131,7 +133,6 @@
         "class" : "cpn cpn-upload",
         "templateURL" : "webcontent/components/templates/fileupload.template.html",
         "properties" : {
-
         }
       }
   ]
