@@ -3,79 +3,136 @@
   "version": "1.0.0",
   "components": [
       {
-        "name" : "cronos-anchor", 
+        "name" : "crn-anchor",
         "text" : "Link",
         "class" : "cpn cpn-anchor",
         "templateURL" : "webcontent/components/templates/anchor.template.html",
         "properties" : {
-        	"target": {
-	             "displayName" : "Abertura",
-	             "removable" : false,
-	             "type" : "list",
-	             "options" : [
-	               {"key": "_blank", "value": "Nova janela"},
-	               {"key": "_self", "value": "Mesma janela"},
-	               {"key": "_parent", "value": "Janela pai"},
-	               {"key": "_top", "value": "Top"}
-	             ]
-            },
-            "external": {
-	             "displayName" : "Externo",
-	             "removable" : false,
-	             "type" : "logic",
-	             "transient": true,
-	             "onchange" : "function(element, newValue, $scope) { for(var i = 0; i < $scope.properties.length; i++) { var prop = $scope.properties[i]; if(prop.name == 'href') { if(newValue) {prop.type = 'text';}else{prop.type = 'list'}}}}"
+          "target": {
+               "displayName" : "Target",
+               "removable" : false,
+               "type" : "list",
+               "options" : [
+                 {"key": "_blank", "value": "Nova janela"},
+                 {"key": "_self", "value": "Mesma janela"},
+                 {"key": "_parent", "value": "Janela pai"},
+                 {"key": "_top", "value": "Top"}
+               ]
             },
             "href": {
-	             "displayName" : "Destino",
-	             "removable" : false,
-	             "type" : "list",
-	             "options" : [
-	               {"key": "views/home.view.html", "value": "home"},
-	               {"key": "views/page.view.html", "value": "page"},
-	               {"key": "views/page2.view.html", "value": "page2"},
-	               {"key": "views/teste.view.html", "value": "teste"}
-	             ]
+               "displayName" : "Link",
+               "removable" : false,
+               "type" : "projectResource",
+               "resourceType" : "text/html"
             }
         }
       },
       {
-        "name" : "cronos-button", 
+        "name" : "crn-button",
         "text" : "Button",
-        "class" : "cpn cpn-button", 
+        "class" : "cpn cpn-button",
         "templateURL" : "webcontent/components/templates/button.template.html"
       },
       {
-        "name" : "cronos-datasource", 
+        "name" : "crn-datasource",
         "text" : "Datasource",
-        "class" : "cpn cpn-datasource", 
-        "template" : "<datasource name=\"\" entity=\"\" key=\"\" endpoint=\"\"><i class=\"cpn cpn-datasource\"></i></datasource>",
+        "class" : "cpn cpn-datasource",
+        "template" : "<datasource name=\"\" entity=\"\" key=\"\" endpoint=\"api/rest\"><i class=\"cpn cpn-datasource\"></i></datasource>",
         "properties" : {
           "entity": {
-	             "displayName" : "Datasource",
-	             "removable" : false,
-	             "type" : "datasourceList"
+               "displayName" : "Datasource",
+               "removable" : false,
+               "type" : "datasourceList"
           },
           "key": {
-	             "displayName" : "Campo chave",
-	             "removable" : false,
-	             "type" : "fieldList",
-	             "filteredBy" : "entity"
+               "displayName" : "Key",
+               "removable" : false,
+               "type" : "fieldList",
+               "filteredBy" : "entity"
           }
         }
       },
       {
-        "name" : "cronos-textinput", 
+        "name" : "crn-textinput",
         "text" : "Caixa de texto",
-        "class" : "cpn cpn-textinput", 
+        "class" : "cpn cpn-textinput",
         "templateURL" : "webcontent/components/templates/textinput.template.html",
         "properties" : {
-          "field": {
-	             "displayName" : "Campo",
-	             "removable" : false,
-	             "type" : "text",
-	             "transient": true
+          "ng-model": {
+               "displayName" : "Field",
+               "removable" : false,
+               "type" : "fieldRefference"
           }
+        }
+      },
+      {
+        "name" : "crn-image",
+        "text" : "Image",
+        "class" : "cpn cpn-image",
+        "template" : "<img src=\"http://placehold.it/50x50\" class=\"\" width=\"50\" height=\"50\" />",
+        "properties" : {
+          "src": {
+               "displayName" : "Arquivo",
+               "removable" : false,
+               "type" : "projectResource",
+               "resourceType" : "image/jpeg,image/gif,image/png"
+          }
+        }
+      },
+      {
+        "name" : "crn-container",
+        "text" : "Div",
+        "class" : "cpn cpn-div",
+        "template" : "<div id=\"\" class=\"\"><div data-container=\"true\"></div></div>"
+      },
+      {
+        "name" : "crn-form",
+        "text" : "Form",
+        "class" : "cpn cpn-form",
+        "templateURL" : "webcontent/components/templates/form.template.html",
+        "properties" : {
+          "crn-datasource" : {
+              "displayName" : "Datasource",
+               "removable" : false,
+               "type" : "datasourceList"
+          }
+        }
+      },
+      {
+        "name" : "crn-tabs", 
+        "text" : "Tabs",
+        "class" : "cpn cpn-tabs",
+        "templateURL" : "webcontent/components/templates/tabs.template.html",
+        "dependences" : {
+          "editor" : ["components/templates/object-inspector/tab-items.controller.js"],
+          "runtime" : []
+        },
+        "properties" : {
+          "items": {
+               "displayName" : "Items",
+               "removable" : false,
+               "type" : "custom",
+               "customFile" : "components/templates/object-inspector/list.template.html",
+               "customController" : "TabItemsController",
+               "global" : true
+          }
+        }
+      },
+      {
+        "name" : "crn-datepicker",
+        "text" : "Date",
+        "class" : "cpn cpn-datepicker",
+        "templateURL" : "webcontent/components/templates/datepicker.template.html",
+        "properties" : {
+
+        }
+      },
+      {
+        "name" : "crn-upload",
+        "text" : "File Upload",
+        "class" : "cpn cpn-upload",
+        "templateURL" : "webcontent/components/templates/fileupload.template.html",
+        "properties" : {
         }
       }
   ]

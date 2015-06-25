@@ -7,23 +7,24 @@
 // 'custom.dataset' is found in components/js/datasource.js
 var app = (function() {
     return angular.module('MyApp', [
-		'ngRoute',
-		'ngResource',
-		'ngSanitize',
-	    'custom.controllers', 
-		'custom.services',
-	    'custom.datasource'
+    'ngRoute',
+    'ngResource',
+    'ngSanitize',
+      'custom.controllers', 
+    'custom.services',
+      'custom.datasource'
     ])
     .config(['$routeProvider', function($routeProvider) {
-  	    // Route
-        $routeProvider.
-          when('/home', {
-            templateUrl: 'views/home.view.html',
+        // Route
+        $routeProvider.when('/page/:name*', {
+            templateUrl: function(urlattr){
+                return '/views/' + urlattr.name + '.view.html';
+            }
         }).
     
         // Default route
          otherwise({
-            redirectTo: '/home'
+            redirectTo: 'page/home'
          });
     }]);
 }(window));
