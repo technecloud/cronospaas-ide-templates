@@ -3,11 +3,33 @@
   "version": "1.0.0",
   "components": [
       {
-        "name" : "crn-anchor",
+        "name" : "crn-anchor", 
         "text" : "Link",
         "class" : "cpn cpn-anchor",
         "templateURL" : "webcontent/components/templates/anchor.template.html",
+   
+        "dependences" : {
+          "editor" : ["components/js/events/events.controller.js"],
+          "runtime" : []
+        }, 
+        
         "properties" : {
+          "onclick": {
+               "displayName" : "On Click",
+               "removable" : false,
+               "type" : "custom",
+               "customFile" : "components/templates/events.template.html",
+               "customController" : "InspectorEventsController"
+          },  
+          
+          "onmouseover": {
+               "displayName" : "On Mouse Over",
+               "removable" : false,
+               "type" : "custom",
+               "customFile" : "components/templates/events.template.html",
+               "customController" : "InspectorEventsController"
+          },          
+          
           "target": {
                "displayName" : "Target",
                "removable" : false,

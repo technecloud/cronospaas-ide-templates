@@ -1,0 +1,12 @@
+<div ng-controller="InspectorEventsController">
+Client side or Server Side?<br/>
+<input type="radio" ng-model="side" value="Client">Client<br/>
+<input type="radio" ng-model="side" value="Server">Server
+
+<div ng-show="side == 'Server'">
+  <br/> local or remote?<br/>
+  <input type="radio" ng-model="option" value="Local">Local<br/>
+  <input type="radio" ng-model="option" value="Remote">Remote<br/>
+</div>
+</div>
+
