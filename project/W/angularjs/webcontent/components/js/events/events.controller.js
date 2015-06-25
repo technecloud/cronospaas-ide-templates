@@ -17,9 +17,6 @@ app.controller('InspectorEventsController', ['PropertyManager','$scope', functio
 
       script.src = data.filePath;
       currentObject.closest('.view-content').append( script );
-      
-     currentObject.attr(eventName, data.filePath);
-     
      
       PropertyManager.updateCode();
     };
