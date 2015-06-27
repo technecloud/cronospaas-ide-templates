@@ -30,6 +30,8 @@ public class SessionManager {
    */
   private static ThreadLocal<SessionManager> threadLocal = new ThreadLocal<>();
   
+  private EntityTransaction transaction;
+  
   /**
    * Obtém Instância
    * 
@@ -89,31 +91,35 @@ public class SessionManager {
    * Iniciar
    */
   public void begin() {
-    if(!this.entityManager.getTransaction().isActive()) {
-      this.entityManager.getTransaction().begin();
+    if(this.transaction == null){
+      this.transaction = this.entityManager.getTransaction();
+    }
+
+    if(transaction.isActive()) {
+      transaction.begin();
     }
   }
-  
+
   /**
    * Sessão é ativa?
    * 
    * @return booleano, indicado se a sessão esta ou não ativa
    */
   public boolean isActive() {
-    return this.entityManager.getTransaction().isActive();
+    return transaction.isActive();
   }
   
   /**
    * Persistir dados da sessão
    */
   public void commit() {
-    if(this.entityManager.getTransaction().isActive()) {
+    if(transaction.isActive()) {
       try {
-        this.entityManager.getTransaction().commit();
+        transaction.commit();
       }
       catch(Exception e) {
         try {
-          this.entityManager.getTransaction().rollback();
+          transaction.rollback();
         }
         catch(Exception e2) {
           throw e2;
@@ -142,8 +148,8 @@ public class SessionManager {
    * Desfazer
    */
   public void rollBack() {
-    if(this.entityManager.getTransaction().isActive()) {
-      this.entityManager.getTransaction().rollback();
+    if(transaction.isActive()) {
+      transaction.rollback();
     }
   }
   
@@ -156,3 +162,4 @@ public class SessionManager {
     return this.entityManager;
   }
 }
+
