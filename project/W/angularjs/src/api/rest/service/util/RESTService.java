@@ -1,4 +1,4 @@
-package api.rest.util;
+package  api.rest.service.util;
 
 import javax.ws.rs.core.*;
 

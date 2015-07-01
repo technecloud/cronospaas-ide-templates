@@ -1,6 +1,6 @@
 <form class="navbar-form navbar-left" role="search">
   <div class="form-group">
-    <button type="button" class="btn btn-primary" ng-hide="inserting" ng-click="startInserting()">Novo</button>
+    <button type="button" class="btn btn-primary" ng-hide="inserting || readonly" ng-click="startInserting()">Novo</button>
     <input type="text" class="form-control" placeholder="Buscar" ng-model="searchText">
   </div>
 </form>
@@ -9,7 +9,7 @@
         <tr>
           <th>#</th>
           <th ng-repeat="headerName in headers">{{headerName}}</th>
-          <th>Action</th>
+          <th ng-hide="readonly">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -24,7 +24,7 @@
             ng-class="isActive(rowData[data[dataset].key]) ? 'success' : ''">
           <td>{{$index}}</th>
           <td ng-repeat = "fieldName in fields">{{rowData[fieldName]}}</td>
-          <td class=".col-md-1">
+          <td class=".col-md-1" ng-hide="readonly">
             <!-- Action Buttons -->
             <button type="button" ng-click="doDelete(rowData[data[dataset].key])" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
             <button type="button" ng-click="doEdit(rowData[data[dataset].key], $index)" class="btn btn-default"><i class="glyphicon glyphicon-pencil"></i></button>

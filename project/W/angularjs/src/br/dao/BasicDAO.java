@@ -1,4 +1,4 @@
-package br.com.dao;
+package br.dao;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.*;
@@ -23,13 +23,7 @@ import java.io.*;
  *          Valor
  *
  */
-@SuppressWarnings("unchecked")
-public class BasicDAO<PK, T> implements Serializable {
-
-  /**
-   * UID da classe, necessário na serialização 
-   */
-  private static final long serialVersionUID = 8982256704431123l;
+public class BasicDAO<PK, T> {
   
   /**
    * Cópia local da tabela em uso
@@ -60,6 +54,7 @@ public class BasicDAO<PK, T> implements Serializable {
    * @param pk Chave primária
    * @return T Valor
    */
+  @SuppressWarnings("unchecked")
   public T getById(final Object pk) {
     return (T)this.entityManager.find(getTypeClass(), pk);
   }
@@ -96,9 +91,24 @@ public class BasicDAO<PK, T> implements Serializable {
    * 
    * @return List Lista com todas as linhas da tabela do banco de dados
    */
+  @SuppressWarnings("unchecked")
   public List<T> findAll() {
     return this.entityManager.createQuery(("SELECT OBJECT(a) FROM " + getTypeClass().getName() + " a")).getResultList();
   }
+  
+  /**
+    * Retorna lista de entidades por atributo
+    * @param attributeName Nome do Atributo
+    * @param attributeValue Valor do Atributo
+    * @return Entidades
+    **/
+  public List<T> findByAttribute(String attributeName, String attributeValue) {
+    String jql = "SELECT OBJECT(a) FROM " + getTypeClass().getName() + " a WHERE a." + attributeName + " LIKE :" + attributeName;
+    Query q = this.entityManager.createQuery(jql);
+    q.setParameter(attributeName, attributeValue);
+    return q.getResultList();
+  }
+  
   
   /**
    * Retorna uma classe do mesmo tipo que o parâmetro ainda desconhecido

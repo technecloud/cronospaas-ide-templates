@@ -1,7 +1,10 @@
 (function() {
   $(document).off('.datepicker.data-api');
-  $('.input-group.date').datepicker({
-    todayHighlight: true,
-    format: 'dd/mm/yyyy'
-  });
+  var input = $('.input-group.date');
+  if(input && input.datepicker){
+      input.datepicker({
+        todayHighlight: true,
+        format: 'dd/mm/yyyy'
+      });
+  }
 }());

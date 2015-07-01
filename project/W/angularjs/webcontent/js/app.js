@@ -10,21 +10,60 @@ var app = (function() {
     'ngRoute',
     'ngResource',
     'ngSanitize',
-      'custom.controllers', 
+    'custom.controllers', 
     'custom.services',
-      'custom.datasource'
+    'custom.datasource'
     ])
     .config(['$routeProvider', function($routeProvider) {
         // Route
-        $routeProvider.when('/page/:name*', {
+        $routeProvider
+        
+        .when('/page/login', {
+            controller: 'LoginController',
+            templateUrl: 'views/login.view.html',
+            controllerAs: 'vm'
+        })
+
+        .when('/page/home', {
+            controller: 'HomeController',
+            templateUrl: 'views/home.view.html',
+            controllerAs: 'vm'
+        })
+
+        .when('/page/admin', {
+            controller: 'AdminController',
+            templateUrl: 'views/admin.view.html',
+            controllerAs: 'vm'
+        })
+      
+        .when('/page/:name*', {
             templateUrl: function(urlattr){
                 return '/views/' + urlattr.name + '.view.html';
             }
-        }).
-    
+        })
+        
         // Default route
-         otherwise({
-            redirectTo: 'page/home'
-         });
-    }]);
+        .otherwise({
+            redirectTo: '/page/login'
+        });
+    }])
+    .run(run);
+    
+    
+    
+    run.$inject = ['$rootScope', '$location', '$http'];
+    function run($rootScope, $location, $http) {
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            // redirect to login page if not logged in and trying to access a restricted page
+            var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
+            var loggedIn = ($rootScope.globals && $rootScope.globals.currentUser);
+            if (restrictedPage && !loggedIn) {
+                $location.path('/page/login');
+            }
+
+        });
+    }
+
+
+
 }(window));

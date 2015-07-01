@@ -1,4 +1,4 @@
-package api.rest.exceptions;
+package api.rest.service.exceptions;
 
 import javax.ws.rs.core.*;
 import javax.ws.rs.WebApplicationException;

@@ -5,7 +5,7 @@ package api.rest.service;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-01
+ * @since 2015-06-30
  *
  **/
 
@@ -20,27 +20,26 @@ import br.entity.*;
 import br.business.*;
 import br.dao.*;
 
-
 import api.rest.service.exceptions.*;
 import api.rest.service.util.*;
 
 
-@Path("/Pessoa")
+@Path("/UserRole")
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-public class PessoaREST implements RESTService<PessoaEntity> {
+public class UserRoleREST implements RESTService<UserRoleEntity> {
 
   private SessionManager session;
-  private PessoaBusiness business;
+  private UserRoleBusiness business;
 
-  public PessoaREST() {
+  public UserRoleREST() {
     this.session = SessionManager.getInstance();
-    this.business = new PessoaBusiness(session);
+    this.business = new UserRoleBusiness(session);
   }
 
   @GET
   public Response get(@QueryParam("page")Integer page, @QueryParam("size")Integer size) {
-    List<PessoaEntity> entities = new ArrayList<>();
+    List<UserRoleEntity> entities = new ArrayList<>();
 	try{
 	
 	    if(page == null || size == null)
@@ -48,7 +47,7 @@ public class PessoaREST implements RESTService<PessoaEntity> {
 	    else
 	      entities = business.findAll(page,size);
 	
-	    GenericEntity entity = new GenericEntity<List<PessoaEntity>>(entities) {};
+	    GenericEntity entity = new GenericEntity<List<UserRoleEntity>>(entities) {};
 	    return Response.ok(entity).build();
 	    
     }catch(Exception exception){
@@ -62,7 +61,7 @@ public class PessoaREST implements RESTService<PessoaEntity> {
   public Response getById(@PathParam("id")String sid) {
     try{
       Integer id = Integer.parseInt(sid);
-      PessoaEntity entity = business.getById(id);
+      UserRoleEntity entity = business.getById(id);
       return Response.ok(entity).build();
     }catch(Exception exception){
       throw new CustomWebApplicationException(exception);
@@ -74,10 +73,36 @@ public class PessoaREST implements RESTService<PessoaEntity> {
   public Response getByAttributeName(@PathParam("attributeName")String attributeName, @PathParam("value")String value) {
     try {
       String formattedAttributeName = attributeName.toUpperCase();
-      Query query = session.getEntityManager().createNamedQuery("PessoaEntity.findBy" + formattedAttributeName);
+      Query query = session.getEntityManager().createNamedQuery("UserRoleEntity.findBy" + formattedAttributeName);
       query.setParameter(formattedAttributeName, value);
-      List<PessoaEntity> entities = (List<PessoaEntity>)query.getResultList();
-      GenericEntity<List<PessoaEntity>> entity = new GenericEntity<List<PessoaEntity>>(entities) {};
+      List<UserRoleEntity> entities = (List<UserRoleEntity>)query.getResultList();
+      GenericEntity<List<UserRoleEntity>> entity = new GenericEntity<List<UserRoleEntity>>(entities) {};
+      return Response.ok(entity).build();
+    }catch(Exception exception){
+	    session.rollBack();
+      throw new CustomWebApplicationException(exception);
+    }
+  }
+
+  @POST
+  @Consumes("application/x-www-form-urlencoded")
+  public Response post(@FormParam("userId") Integer userId, @FormParam("roleId") Integer roleId) {
+    try {
+      
+      System.out.println("userId:" + userId + ", roleId:" + roleId);
+      
+	    session.begin();
+
+	    UserEntity managedUserEntity = this.session.getEntityManager().getReference(UserEntity.class, userId);
+	    RoleEntity managedRoleEntity = this.session.getEntityManager().getReference(RoleEntity.class, roleId);
+
+	    
+	    UserRoleEntity entity = new UserRoleEntity();
+	    entity.setUser(managedUserEntity);
+	    entity.setRole(managedRoleEntity);
+	    
+	    business.save(entity);
+	    session.commit();
       return Response.ok(entity).build();
     }catch(Exception exception){
 	    session.rollBack();
@@ -87,7 +112,7 @@ public class PessoaREST implements RESTService<PessoaEntity> {
 
 
   @POST
-  public Response post(PessoaEntity entity) {
+  public Response post(UserRoleEntity entity) {
     try{
 	    session.begin();
 	    business.save(entity);
@@ -101,12 +126,12 @@ public class PessoaREST implements RESTService<PessoaEntity> {
 
   @PUT
   @Path("{id}")
-  public Response putWithId(@PathParam("id")String sid, PessoaEntity entity) {
+  public Response putWithId(@PathParam("id")String sid, UserRoleEntity entity) {
     return put(entity);
   }
 
   @PUT
-  public Response put(PessoaEntity entity) {
+  public Response put(UserRoleEntity entity) {
     try{
 	    session.begin();
 	    business.update(entity);
@@ -124,8 +149,8 @@ public class PessoaREST implements RESTService<PessoaEntity> {
     try{
 	    Integer id = Integer.parseInt(sid);
 	    session.begin();
-	    PessoaEntity entity = business.getById(id);
-	    PessoaEntity managedEntity = this.session.getEntityManager().getReference(PessoaEntity.class, entity.getId());
+	    UserRoleEntity entity = business.getById(id);
+	    UserRoleEntity managedEntity = this.session.getEntityManager().getReference(UserRoleEntity.class, entity.getId());
 	    business.delete(managedEntity);
 	    session.commit();
 	    return Response.ok().build();
@@ -139,7 +164,7 @@ public class PessoaREST implements RESTService<PessoaEntity> {
   @Produces(MediaType.APPLICATION_XML)
   public Response options() {
     try{
-      return Response.ok().entity(business.options(PessoaEntity.class)).build();
+      return Response.ok().entity(business.options(UserRoleEntity.class)).build();
     }catch(Exception exception){
       session.rollBack();
       throw new CustomWebApplicationException(exception);

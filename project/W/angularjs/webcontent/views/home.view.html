@@ -1,0 +1,8 @@
+<h1>Hi {{vm.username}}!</h1>
+<p>You're logged in!!</p>
+<p>&nbsp;</p>
+<p><a href="/#/page/admin" class="btn btn-primary">Admin</a> <button type="button" class="btn btn-primary" ng-click="vm.logout()">Logout</button></p>
+
+<div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+
+
