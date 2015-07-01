@@ -73,37 +73,31 @@
         app.controller('AdminController', ['$scope', '$http', '$location','$rootScope',  function($scope, $http, $location, $rootScope){
           var vm = this;
           
-          function addUserToRole(){
-            
-            var activeUser = $scope.data.User.active;
-            var activeRole = $scope.data.Role.active;
+          vm.responses = [
+                          {id: 400, name: 'Bad Request' }
+                        , {id: 401, name: 'Unauthorized'}
+                        , {id: 402, name: 'Payment Required'}
+                        , {id: 403, name: 'Forbidden'}
+                        , {id: 405, name: 'Method Not Allowed'}
+                        , {id: 406, name: 'Not Acceptable'}
+                        , {id: 501, name: 'Not implemented' }
+                        , {id: 511, name: 'Network Authentication Required' }
+                        ];
+                        
+          vm.verbs = [
+                      {id: 'GET'    , name: 'GET'}
+                    , {id: 'POST'   , name: 'POST'}
+                    , {id: 'PUT'    , name: 'PUT'}
+                    , {id: 'DELETE' , name: 'DELETE'}
+                    , {id: 'OPTIONS', name: 'OPTIONS'}
+                    , {id: 'HEAD'   , name: 'HEAD'}
+                    , {id: 'TRACE'  , name: 'TRACE'}
+                    , {id: 'CONNECT', name: 'CONNECT'}
+                    , {id: 'ALL'    , name: 'ALL'}
+                    ];      
+                    
 
-            console.log("addUserToRole", $scope);
-            
-//            var userRole = { user: {id: activeUser.id }, role: { id: activeRole.id } };
-            // $http({
-            //   method  : 'POST',
-            //   url     : '/api/rest/UserRole',
-            //   data    : $.param(userRole),  // pass in data as strings
-            //   headers : { 'Content-Type': 'application/json' }  // set the headers so angular passing info as form data (not request payload)
-            // }).then(handleSuccess, handleError('User or password invalid!'))
-
-            var userRole = { userId: activeUser.id, roleId: activeRole.id };
-            $http({
-              method  : 'POST',
-              url     : '/api/rest/UserRole',
-              data    : $.param(userRole),  // pass in data as strings
-              headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
-            }).then(handleSuccess, handleError);
-
-          }
-          function addAllUserToRole(){
-            console.log("addAllUserToRole", $scope);
-          }
-          
           function handleSuccess(data) {
-//            vm.success = data;
-            
             var UserRole = $scope.data.UserRole;
             UserRole.fetch();
           }
@@ -113,13 +107,7 @@
             vm.error = error;
           }
 
-          
-          vm.addUserToRole = addUserToRole;
-          vm.addAllUserToRole = addAllUserToRole;
-
         }]);
 
-      
-      
     // Your code
 }(app));

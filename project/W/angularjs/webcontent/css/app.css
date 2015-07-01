@@ -6,6 +6,10 @@ body {
 	margin: 0;
 }
 
+div[ng-view]{
+  padding: 10px;
+}
+
 .animate {
   -webkit-transition: all .3s ease-out;
   -moz-transition: all .3s ease-out;
