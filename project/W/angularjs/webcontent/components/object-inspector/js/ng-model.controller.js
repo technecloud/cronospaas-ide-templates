@@ -3,8 +3,10 @@ app.controller('InspectorDatasourceFieldController', ['PropertyManager','$scope'
   $scope.datasource = "";
   $scope.field = "";
   
-  PropertyManager.on('open',function() {
-    currentValue = PropertyManager.getCurrentValue();
+  var pm =  PropertyManager.get("ng-model");
+  
+  pm.on('open',function() {
+    currentValue = pm.getCurrentValue();
     if(currentValue && currentValue.length > 0) {
       var parts = currentValue.split(".");
       if(parts.length >= 3 && parts[1] === "active") {
@@ -16,11 +18,11 @@ app.controller('InspectorDatasourceFieldController', ['PropertyManager','$scope'
     
   });
   
-  PropertyManager.on('accept',function(sourceElement) {
+  pm.on('accept',function(sourceElement) {
     return $scope.datasource + ".active." + $scope.field;
   });
   
-  PropertyManager.on('cancel',function() {
+  pm.on('cancel',function() {
   })
   
   $scope.selectDatasource = function() {

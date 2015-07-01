@@ -1,11 +1,5 @@
 <form class="form-horizontal">
   <!-- Items List -->
-  <div class="form-group">
-    <label for="{{property.name}}" class="col-xs-4 control-label">Active</label>
-	  <div class="col-xs-5">
-      <select class="form-control input-sm" ng-model="active" ng-options="item for item in items"></select>
-    </div>
-  </div>
   <div class="form-group" ng-repeat="item in items track by $index">
     <label class="col-xs-4 control-label">#{{$index + 1}}</label>
 	  <div class="col-xs-5">

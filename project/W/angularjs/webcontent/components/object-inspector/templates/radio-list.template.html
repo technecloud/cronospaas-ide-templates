@@ -1,0 +1,6 @@
+<div class="radio" ng-repeat="item in items track by $index">
+  <label>
+    <input type="radio" name="optionsRadios" ng-model="$parent.active" value="{{item.key}}">
+    {{item.value}}
+  </label>
+</div>

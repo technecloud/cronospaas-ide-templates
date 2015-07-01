@@ -80,7 +80,7 @@
         "class" : "cpn cpn-textinput", 
         "templateURL" : "webcontent/components/templates/textinput.template.html",
         "dependences" : {
-          "editor" : ["components/templates/object-inspector/ng-model.controller.js"],
+          "editor" : ["components/object-inspector/js/ng-model.controller.js"],
           "runtime" : []
         },
         "properties" : {
@@ -88,7 +88,7 @@
                "displayName" : "Model",
                "removable" : false,
                "type" : "custom",
-               "customFile" : "components/templates/object-inspector/ng-model.template.html"
+               "customFile" : "components/object-inspector/templates/ng-model.template.html"
           }
         }
       },
@@ -129,19 +129,41 @@
         "name" : "crn-tabs", 
         "text" : "Tabs",
         "class" : "cpn cpn-tabs",
+        "handleRules" : {
+          "canOrder" : true,
+          "canActivate" : true,
+          "canIncrement" :true,
+          "rules" : [
+            {
+              "activeSelector" : "ul.nav-tabs li.active",
+              "activeClass" : "active",
+              "sourceHTML" : "<li role=\"presentation\"><a data-target=\"#tab${RANDOM}\" role=\"tab\" data-toggle=\"tab\">New Tab</a></li>",
+              "targetSelector" : "ul.nav-tabs"
+            },
+            {
+              "activeSelector" : "div.tab-content .tab-pane.active",
+              "activeClass" : "active",
+              "sourceHTML" : "<div role=\"tabpanel\" class=\"tab-pane\" id=\"tab${RANDOM}\"><div class=\"\" data-container=\"true\"></div>",
+              "targetSelector" : "div.tab-content"
+            }
+          ]
+        },
+        "controller" : "TabsNavigationController",
         "templateURL" : "webcontent/components/templates/tabs.template.html",
         "dependences" : {
-          "editor" : ["components/templates/object-inspector/tab-items.controller.js"],
+          "editor" : ["components/object-inspector/js/tabs.controller.js"],
           "runtime" : []
         },
+        "navigationController" : "TabsNavigationController",
         "properties" : {
-          "items": {
-               "displayName" : "Items",
+          "active": {
+               "displayName" : "Active",
                "removable" : false,
                "type" : "custom",
-               "customFile" : "components/templates/object-inspector/list.template.html",
-               "customController" : "TabItemsController",
-               "global" : true
+               "customFile" : "components/object-inspector/templates/radio-list.template.html",
+               "customController" : "TabsActiveItemController",
+               "global" : true,
+               "disableInput" : true
           }
         }
       },
