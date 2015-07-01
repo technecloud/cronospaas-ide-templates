@@ -153,7 +153,7 @@
         <div style="float: right; width:50%">
 
           <datasource name="Permission" entity="Permission" key="id" endpoint="api/rest" class=""></datasource>
-          <cronos-table dataset="Permission" headers="['Id', 'Path', 'Response', 'role']" fields="['id', 'path', 'response', 'role' ]" ng-hide="Permission.inserting || Permission.editing">
+          <cronos-table dataset="Permission" headers="['Id', 'Path', 'Response', 'verb', 'role']" fields="['id', 'path', 'response', 'verb', 'role' ]" ng-hide="Permission.inserting || Permission.editing">
           </cronos-table>
           
           <!-- Form -->
@@ -175,6 +175,13 @@
                 	      <option value="401">Unauthorized</option>
                 	      <option value="403">Forbidden</option>
                 	      <option value="501">Not implemented</option>
+                	  </select>
+                	  <br />
+                	  <select ng-required="required"  class="form-control" ng-model="Permission.active.verb"  default-option="GET">
+                	      <option value="GET">GET</option>
+                	      <option value="POST">POST</option>
+                	      <option value="PUT">PUT</option>
+                	      <option value="DELETE">DELETE</option>
                 	  </select>
                   </div>
                 </div>

@@ -88,43 +88,40 @@ public class PermissionREST implements RESTService<PermissionEntity> {
 
   @POST
   public Response post(PermissionEntity entity) {
-    return Response.ok(entity).build();
-    // try{
-	   // session.begin();
-	   // business.save(entity);
-	   // session.commit();
-	   // return Response.ok().build();
-    // }catch(Exception exception){
-	   // session.rollBack();
-    //   throw new CustomWebApplicationException(exception);
-    // }
+    try{
+	    session.begin();
+	    business.save(entity);
+	    session.commit();
+	    return Response.ok().build();
+    }catch(Exception exception){
+	    session.rollBack();
+      throw new CustomWebApplicationException(exception);
+    }
   }
   
-  // @POST
-  // @Consumes("application/x-www-form-urlencoded")
-  // public Response post(@FormParam("userId") Integer userId, @FormParam("roleId") Integer roleId) {
-  //   try {
+  @POST
+  @Consumes("application/x-www-form-urlencoded")
+  public Response post(@FormParam("path") String path, @FormParam("response") Integer response,  @FormParam("verb") String verb,  @FormParam("fk_role") String fk_role) {
+    try {
       
-  //     System.out.println("userId:" + userId + ", roleId:" + roleId);
+      System.out.println("path:" + path + ", response:" + response);
       
-	 //   session.begin();
+	    session.begin();
 
-	 //   UserEntity managedUserEntity = this.session.getEntityManager().getReference(UserEntity.class, userId);
-	 //   RoleEntity managedRoleEntity = this.session.getEntityManager().getReference(RoleEntity.class, roleId);
+	    RoleEntity managedRolerEntity = this.session.getEntityManager().getReference(RoleEntity.class, fk_role);
 
 	    
-	 //   UserRoleEntity entity = new UserRoleEntity();
-	 //   entity.setUser(managedUserEntity);
-	 //   entity.setRole(managedRoleEntity);
+	    PermissionEntity entity = new PermissionEntity();
+	    entity.setRole(managedRolerEntity);
 	    
-	 //   business.save(entity);
-	 //   session.commit();
-  //     return Response.ok(entity).build();
-  //   }catch(Exception exception){
-	 //   session.rollBack();
-  //     throw new CustomWebApplicationException(exception);
-  //   }
-  // }
+	    business.save(entity);
+	    session.commit();
+      return Response.ok(entity).build();
+    }catch(Exception exception){
+	    session.rollBack();
+      throw new CustomWebApplicationException(exception);
+    }
+  }
 
   @PUT
   @Path("{id}")

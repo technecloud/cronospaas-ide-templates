@@ -6,6 +6,8 @@ import javax.servlet.annotation.*;
 import java.io.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import br.dao.*;
+import br.entity.*;
 
 
 @WebFilter(
@@ -17,25 +19,54 @@ public class AuthorizationFilter implements Filter {
   	static final long serialVersionUID = -1l;
     private final Logger logger = Logger.getLogger(this.getClass().getName()); 
 
-
+    PermissionDAO dao;
   public void  init(FilterConfig config) 
                          throws ServletException{
+                           
+      dao = new PermissionDAO( SessionManager.getInstance().getEntityManager() );
+
    }
    
    public void  doFilter(ServletRequest request, 
                  ServletResponse response,
                  FilterChain chain) 
                  throws IOException, ServletException {
-
+      
       HttpServletRequest httpRequest = (HttpServletRequest)request;
-      //HttpServletResponse httpResponse = (HttpServletResponse)response;
+      HttpServletResponse httpResponse = (HttpServletResponse)response;
       
-      logger.log(Level.INFO, "doFilter:" + httpRequest.getRequestURI());
       
+      if( filter(httpRequest, httpResponse) ){
+        
+      }else{
 
-      // Pass request back down the filter chain
-      chain.doFilter(request,response);
+        // Pass request back down the filter chain
+        chain.doFilter(request,response);
+        
+      }
+      
+   }
+   
+   private boolean filter(HttpServletRequest request, 
+                 HttpServletResponse response){
+    boolean blocked = false;               
+    
+    String verb = request.getMethod();
+    String uri = request.getRequestURI();
+    String path = uri.substring(request.getContextPath().length());
+    logger.log(Level.INFO, "doFilter:" + uri);
+    
+    for(PermissionEntity permission : dao.findAll()){
+      if(verb.equalsIgnoreCase(permission.getVerb()) 
+      && path.matches(permission.getPath())){
+        response.setStatus(permission.getResponse());
+        blocked = true;
+        break;
+      }
+    }
 
+    System.out.println("filter(" + path + "," + verb + ")=" + blocked );
+    return blocked;               
    }
    
    public void destroy( ){

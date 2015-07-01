@@ -30,7 +30,10 @@ public class PermissionEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -465920427622701460l;
 	
-	@Column(name = "resonse", nullable = false, unique = true)
+	@Column(name = "verb", nullable = false)
+	private java.lang.String verb;
+
+	@Column(name = "response", nullable = false, unique = true)
 	private java.lang.Integer response;
 	
 	@Column(name = "path", nullable = false, unique = true)
@@ -42,7 +45,7 @@ public class PermissionEntity implements Serializable {
 	private java.lang.Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name="fk_role", referencedColumnName = "id", nullable=false)
+	@JoinColumn(name="fk_role", referencedColumnName = "id", nullable=true)
 	private RoleEntity role;
 	
 	
@@ -52,6 +55,13 @@ public class PermissionEntity implements Serializable {
 	public PermissionEntity(){
 	}
 
+
+public String getVerb(){
+  return verb;
+}
+public void setVerb(String verb){
+  this.verb = verb;
+}
 	
 	/**
 	 * Obtém response
