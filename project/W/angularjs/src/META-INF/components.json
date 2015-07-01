@@ -183,6 +183,38 @@
         "templateURL" : "webcontent/components/templates/fileupload.template.html",
         "properties" : {
         }
+      },
+      {
+        "name" : "crn-grid", 
+        "text" : "Table Grid",
+        "class" : "cpn cpn-grid", 
+        "templateURL" : "webcontent/components/templates/grid.template.html",
+        "properties" : {
+          "crn-datasource" : {
+              "displayName" : "Datasource",
+               "removable" : false,
+               "type" : "datasourceList"
+          }
+        },
+        "handleRules" : {
+          "canOrder" : true,
+          "canActivate" : true,
+          "canIncrement" :true,
+          "rules" : [
+            {
+              "activeSelector" : ".table-header th.active",
+              "activeClass" : "active",
+              "sourceHTML" : "<th><div data-container=\"true\">New Title</div></th>",
+              "targetSelector" : ".table-header"
+            },
+            {
+              "activeSelector" : ".table-content td.active",
+              "activeClass" : "active",
+              "sourceHTML" : "<td><div data-container=\"true\"></div></td>",
+              "targetSelector" : ".table-content"
+            }
+          ]
+        }
       }
   ]
 }
