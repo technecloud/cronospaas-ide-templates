@@ -128,8 +128,10 @@
           <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-user-role">
             <div class="form-group">
 
+        	  <label>User</label>
             <select ng-model="UserRole.active.user" class="form-control" ng-options="U.name for U in User.data" ng-select="U.data.id = User.data.id"  >
             </select>
+        	  <label>Role</label>
             <select ng-model="UserRole.active.role" class="form-control" ng-options="R.name for R in Role.data" ng-select="R.data.id = Role.data.id"  >
             </select>
             </div>
@@ -170,14 +172,17 @@
               <div class="" data-container="true"></div>
                 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-role">
                   <div class="form-group">
+                	  <label>Path (regex)</label>
                 	  <input type="text" ng-model="Permission.active.path" class="form-control" placeholder="Path" required>
                 	  <br />
+                	  <label>Response</label>
                 	  <select ng-required="required"  class="form-control" ng-model="Permission.active.response"  default-option="403">
                 	      <option value="401">Unauthorized</option>
                 	      <option value="403">Forbidden</option>
                 	      <option value="501">Not implemented</option>
                 	  </select>
                 	  <br />
+                	  <label>Verb</label>
                 	  <select ng-required="required"  class="form-control" ng-model="Permission.active.verb"  default-option="GET">
                 	      <option value="GET">GET</option>
                 	      <option value="POST">POST</option>
@@ -186,6 +191,7 @@
                 	  </select>
                   </div>
                 </div>
+            	  <label>Role</label>
                 <select ng-model="Permission.active.fk_role" class="form-control" ng-options="R.name for R in Role.data" ng-select="R.data.id = Role.data.id"  >
                 </select>
 
