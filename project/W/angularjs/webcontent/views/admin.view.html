@@ -1,0 +1,215 @@
+<div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+<div ng-show="vm.success" class="alert alert-success">{{vm.success}}</div>
+
+
+<div class="" data-container="true"></div>
+
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-171476"></div>
+<div class="" data-container="true"></div>
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-tabs" id="crn-tabs-278895">
+
+<div class="ctn-tab">
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist" items="">
+    <li role="presentation" class="active"><a data-target="#tab1" role="tab" data-toggle="tab" class="">User</a></li>
+    <li role="presentation"><a data-target="#tab2" role="tab" data-toggle="tab" class="">Roles</a></li>
+    <li role="presentation"><a data-target="#tab3" role="tab" data-toggle="tab" class="">UserRoles</a></li>
+    <li role="presentation"><a data-target="#tab4" role="tab" data-toggle="tab" class="">Permission</a></li>
+  </ul>
+
+
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="tab1">
+    
+    <!-- Tab1 -->
+    <div class="" data-container="true">
+      
+    <datasource name="User" entity="User" key="id" endpoint="api/rest" class=""></datasource>
+    <cronos-table dataset="User" headers="['Id', 'Nome', 'Password', 'E-mail']" fields="['id', 'name', 'password', 'email']" ng-hide="User.inserting || User.editing">
+    </cronos-table>
+
+    <!-- Form -->
+    <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-7739849">
+      <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+      <div class="form" ng-hide="!User.editing &amp;&amp; !User.inserting">
+      
+      <form crn-datasource="User">
+      
+        <div class="active-bar">
+          <button class="btn btn-success" ng-click="User.post()"><i class="glyphicon glyphicon-ok"></i></button>
+          <button class="btn btn-danger" ng-click="User.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
+        </div>
+    
+        <h2 class="">User</h2>
+        <div class="" data-container="true"></div>
+          <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-3646799">
+            <div class="form-group">
+          	  <input type="text" ng-model="User.active.name" class="form-control" placeholder="Name" required>
+          	  <input type="text" ng-model="User.active.password" class="form-control" placeholder="Passwrod" required>
+              <input type="email" ng-model="User.active.email" class="form-control"  placeholder="E-mail" required>
+            </div>
+          </div>
+        <div class="" data-container="true"></div>
+      </form>
+      </div>
+      
+    </div>
+    <!-- Form -->
+
+
+    </div>
+    
+
+    <!-- Tab1 -->
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tab2">
+    
+    <!-- Tab2 -->
+    <div data-container="true" class="">
+
+    <datasource name="Role" entity="Role" key="id" endpoint="api/rest" class=""></datasource>
+    <cronos-table dataset="Role" headers="['Id', 'Nome']" fields="['id', 'name']" ng-hide="Role.inserting || Role.editing">
+    </cronos-table>
+    
+    <!-- Form -->
+    <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-ROLE">
+      <div class="form" ng-hide="!Role.editing &amp;&amp; !Role.inserting">
+      <form crn-datasource="Role">
+      
+        <div class="active-bar">
+          <button class="btn btn-success" ng-click="Role.post()"><i class="glyphicon glyphicon-ok"></i></button>
+          <button class="btn btn-danger" ng-click="Role.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
+        </div>
+    
+        <h2 class="">Role</h2>
+        <div class="" data-container="true"></div>
+          <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-role">
+            <div class="form-group">
+          	  <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-id" placeholder="Name" required>
+            </div>
+          </div>
+        <div class="" data-container="true"></div>
+      </form>
+      </div>
+    </div>
+    <!-- Form -->
+
+
+    </div>
+    <!-- Tab2 -->
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="tab3">
+
+    <!-- Tab3 -->
+    <div data-container="true" class="">
+    
+    <datasource name="UserRole" entity="UserRole" key="id" endpoint="api/rest" class=""></datasource>
+    <cronos-table dataset="UserRole" headers="['Id', 'User', 'Role']" fields="['id', 'user', 'role']" ng-hide="UserRole.inserting || UserRole.editing">
+    </cronos-table>
+
+   
+       <!-- Form -->
+    <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-7739849">
+      <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+      <div class="form" ng-hide="!UserRole.editing &amp;&amp; !UserRole.inserting">
+      
+      <form crn-datasource="UserRole">
+      
+        <div class="active-bar">
+          <button class="btn btn-success" ng-click="UserRole.post()"><i class="glyphicon glyphicon-ok"></i></button>
+          <button class="btn btn-danger" ng-click="UserRole.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
+        </div>
+    
+        <h2 class="">UserRole</h2>
+        <div class="" data-container="true"></div>
+          <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-user-role">
+            <div class="form-group">
+
+        	  <label>User</label>
+            <select ng-model="UserRole.active.user" class="form-control" ng-options="U.name for U in User.data" ng-select="U.data.id = User.data.id"  >
+            </select>
+        	  <label>Role</label>
+            <select ng-model="UserRole.active.role" class="form-control" ng-options="R.name for R in Role.data" ng-select="R.data.id = Role.data.id"  >
+            </select>
+            </div>
+          </div>
+        <div class="" data-container="true"></div>
+      </form>
+      </div>
+      
+    </div>
+    <!-- Form -->
+
+
+    </div>
+    <!-- Tab3 -->
+
+    </div>
+    
+    <div role="tabpanel" class="tab-pane" id="tab4">
+    <!-- Tab4 -->
+    <div data-container="true" class="">
+      
+      <div>
+
+          <datasource name="Permission" entity="Permission" key="id" endpoint="api/rest" class=""></datasource>
+          <cronos-table dataset="Permission" headers="['Id', 'Path', 'Response', 'verb', 'role']" fields="['id', 'path', 'response', 'verb', 'role' ]" ng-hide="Permission.inserting || Permission.editing">
+          </cronos-table>
+          
+          <!-- Form -->
+          <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-ROLE">
+            <div class="form" ng-hide="!Permission.editing &amp;&amp; !Permission.inserting">
+
+              <div class="active-bar">
+                <button class="btn btn-success" ng-click="Permission.post()"><i class="glyphicon glyphicon-ok"></i></button>
+                <button class="btn btn-danger" ng-click="Permission.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
+              </div>
+          
+              <h2 class="">Permission</h2>
+              <div class="" data-container="true"></div>
+                <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-role">
+                  <div class="form-group">
+                	  <label>Path (regex)</label>
+                	  <input type="text" ng-model="Permission.active.path" class="form-control" placeholder="Path" required>
+                	  <br />
+                	  <label>Response</label>
+                	  <select ng-required="required"  class="form-control" ng-model="Permission.active.response"  default-option="403">
+                	      <option value="401">Unauthorized</option>
+                	      <option value="403">Forbidden</option>
+                	      <option value="501">Not implemented</option>
+                	  </select>
+                	  <br />
+                	  <label>Verb</label>
+                	  <select ng-required="required"  class="form-control" ng-model="Permission.active.verb"  default-option="GET">
+                	      <option value="GET">GET</option>
+                	      <option value="POST">POST</option>
+                	      <option value="PUT">PUT</option>
+                	      <option value="DELETE">DELETE</option>
+                	  </select>
+                  </div>
+                </div>
+            	  <label>Role</label>
+                <select ng-model="Permission.active.fk_role" class="form-control" ng-options="R.name for R in Role.data" ng-select="R.data.id = Role.data.id"  >
+                </select>
+
+              <div class="" data-container="true"></div>
+
+          </div>
+          <!-- Form -->
+
+        </div>
+      </div>      
+  
+    </div>
+    <!-- Tab4 -->
+
+      
+    </div>
+  </div>
+
+</div></div><div class="" data-container="true"></div>
+<hr />
+<p><a href="/#/page/home" class="btn btn-primary">Home</a>

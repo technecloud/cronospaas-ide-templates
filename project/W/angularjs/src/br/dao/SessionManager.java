@@ -1,4 +1,4 @@
-package api.rest.util;
+package br.dao;
 
 import java.util.*;
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import javax.persistence.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-05-27
+ * @since 2015-07-01
  *
  */
 public class SessionManager {
@@ -29,8 +29,6 @@ public class SessionManager {
    * Thread Local
    */
   private static ThreadLocal<SessionManager> threadLocal = new ThreadLocal<>();
-  
-  private EntityTransaction transaction;
   
   /**
    * Obtém Instância
@@ -91,35 +89,31 @@ public class SessionManager {
    * Iniciar
    */
   public void begin() {
-    if(this.transaction == null){
-      this.transaction = this.entityManager.getTransaction();
-    }
-
-    if(transaction.isActive()) {
-      transaction.begin();
+    if(!this.entityManager.getTransaction().isActive()) {
+      this.entityManager.getTransaction().begin();
     }
   }
-
+  
   /**
    * Sessão é ativa?
    * 
    * @return booleano, indicado se a sessão esta ou não ativa
    */
   public boolean isActive() {
-    return transaction.isActive();
+    return this.entityManager.getTransaction().isActive();
   }
   
   /**
    * Persistir dados da sessão
    */
   public void commit() {
-    if(transaction.isActive()) {
+    if(this.entityManager.getTransaction().isActive()) {
       try {
-        transaction.commit();
+        this.entityManager.getTransaction().commit();
       }
       catch(Exception e) {
         try {
-          transaction.rollback();
+          this.entityManager.getTransaction().rollback();
         }
         catch(Exception e2) {
           throw e2;
@@ -148,8 +142,8 @@ public class SessionManager {
    * Desfazer
    */
   public void rollBack() {
-    if(transaction.isActive()) {
-      transaction.rollback();
+    if(this.entityManager.getTransaction().isActive()) {
+      this.entityManager.getTransaction().rollback();
     }
   }
   
@@ -162,4 +156,3 @@ public class SessionManager {
     return this.entityManager;
   }
 }
-

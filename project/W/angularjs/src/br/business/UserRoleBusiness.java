@@ -1,24 +1,24 @@
-package br.com.business;
+package br.business;
 
-import api.rest.util.*;
+import br.dao.*;
+import br.entity.*;
 
-import br.com.dao.*;
-import br.com.entity.*;
 import java.util.*;
+import api.rest.service.util.*;
 
 /**
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-05-27
+ * @since 2015-06-30
  *
  **/
-public class PessoaBusiness {
+public class UserRoleBusiness {
 
   /**
-   * Instância da classe PessoaDAO que faz o acesso ao banco de dados
+   * Instância da classe UserRoleDAO que faz o acesso ao banco de dados
    */
-  private PessoaDAO dao;
+  private UserRoleDAO dao;
   
   /**
    * Singleton de sessão usado para abrir e fechar conexão com o banco de dados
@@ -31,15 +31,15 @@ public class PessoaBusiness {
    * @param sessionmanager
    *          Singleton de sessão
    */
-  public PessoaBusiness(final SessionManager sessionmanager) {
+  public UserRoleBusiness(final SessionManager sessionmanager) {
     this.sessionManager = sessionmanager;
-    this.dao = new PessoaDAO(sessionmanager.getEntityManager());
+    this.dao = new UserRoleDAO(sessionmanager.getEntityManager());
   }
   
   /**
    * Construtor padrão, inicializa singleton de sessão
    */
-  public PessoaBusiness() {
+  public UserRoleBusiness() {
     this(SessionManager.getInstance());
   }	
 
@@ -47,9 +47,9 @@ public class PessoaBusiness {
    * Busca valor de acordo com a chave primária
    * 
    * @param pk Chave primária
-   * @return PessoaEntity Valor
+   * @return UserRoleEntity Valor
    */
-  public PessoaEntity getById(final Object pk) {
+  public UserRoleEntity getById(final Object pk) {
     return dao.getById(pk);
   }
   
@@ -58,7 +58,7 @@ public class PessoaBusiness {
    * 
    * @param entity Linha da tabela a ser persistida no banco de dados
    */
-  public void save(final PessoaEntity entity) {
+  public void save(final UserRoleEntity entity) {
     dao.save(entity);
   }
   
@@ -67,7 +67,7 @@ public class PessoaBusiness {
    * 
    * @param entity Linha da tabela a ser atualizada
    */
-  public void update(final PessoaEntity entity) {
+  public void update(final UserRoleEntity entity) {
     dao.update(entity);
   }
   
@@ -76,7 +76,7 @@ public class PessoaBusiness {
    * 
    * @param entity Linha da tabela a ser excluída
    */
-  public void delete(final PessoaEntity entity) {
+  public void delete(final UserRoleEntity entity) {
     dao.delete(entity);
   }
   
@@ -85,7 +85,7 @@ public class PessoaBusiness {
    * 
    * @return List Lista com todas as linhas da tabela do banco de dados
    */
-  public List<PessoaEntity> findAll() {
+  public List<UserRoleEntity> findAll() {
     return dao.findAll();
   }	
   
@@ -96,7 +96,7 @@ public class PessoaBusiness {
    * @param noOfRecords Numero de registros
    * @return List Lista com todas as linhas da tabela do banco de dados
    */
-  public List<PessoaEntity> findAll(int pageIndex, int noOfRecords) {
+  public List<UserRoleEntity> findAll(int pageIndex, int noOfRecords) {
     return dao.findAll(pageIndex, noOfRecords);
   }	
   

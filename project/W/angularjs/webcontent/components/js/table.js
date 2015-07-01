@@ -10,7 +10,8 @@
             headers : '=',
             fields : '=',
             form : '@',
-            lazzy : '='
+            lazzy : '=',
+            readonly : '='
         }
       };
     }])

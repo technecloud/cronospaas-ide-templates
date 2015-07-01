@@ -1,0 +1,175 @@
+package br.entity;
+
+import java.io.*;
+import javax.persistence.*;
+import java.util.*;
+import javax.xml.bind.annotation.*;
+
+/**
+ * Classe que representa a tabela ROLE
+ * 
+ * @author Techne
+ * @version 1.0
+ * @since 2015-06-30
+ *
+ */
+ 
+@Entity
+@Table(name = "ROLE")
+@NamedQueries({
+        @NamedQuery(name = "RoleEntity.findByPERMISSIONS", query = "SELECT e FROM RoleEntity e where e.permissions like :PERMISSIONS"),
+        @NamedQuery(name = "RoleEntity.findByUSERROLES", query = "SELECT e FROM RoleEntity e where e.userRoles like :USERROLES"),
+        @NamedQuery(name = "RoleEntity.findByNAME", query = "SELECT e FROM RoleEntity e where e.name like :NAME"),
+        @NamedQuery(name = "RoleEntity.findByID", query = "SELECT e FROM RoleEntity e where e.id like :ID"),
+})
+@XmlRootElement
+public class RoleEntity implements Serializable {
+
+	/**
+	 * UID da classe, necessário na serialização 
+	 */
+	private static final long serialVersionUID = -1381576613383169882l;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="role")	
+	private List<PermissionEntity> permissions;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="role")	
+	private List<UserRoleEntity> userRoles;
+	
+	@Column(name = "name", nullable = true, unique = true)
+	private java.lang.String name;
+	
+	@Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private java.lang.Integer id;
+	
+	
+	/**
+	 * Construtor
+	 */
+	public RoleEntity(){
+	}
+
+	
+	/**
+	 * Obtém permissions
+	 * @param permissions permissions
+	 * return permissions
+	 */
+	public List<PermissionEntity> getPermissions(){
+		return this.permissions;
+	}
+	
+	/**
+	 * Define permissions
+	 * @param permissions permissions
+	 */
+	public void setPermissions(List<PermissionEntity> permissions){
+		this.permissions = permissions;
+	}
+	
+	/**
+	 * Obtém userRoles
+	 * @param userRoles userRoles
+	 * return userRoles
+	 */
+	public List<UserRoleEntity> getUserRoles(){
+		return this.userRoles;
+	}
+	
+	/**
+	 * Define userRoles
+	 * @param userRoles userRoles
+	 */
+	public void setUserRoles(List<UserRoleEntity> userRoles){
+		this.userRoles = userRoles;
+	}
+	
+	/**
+	 * Obtém name
+	 * @param name name
+	 * return name
+	 */
+	public java.lang.String getName(){
+		return this.name;
+	}
+	
+	/**
+	 * Define name
+	 * @param name name
+	 */
+	public void setName(java.lang.String name){
+		this.name = name;
+	}
+	
+	/**
+	 * Obtém id
+	 * @param id id
+	 * return id
+	 */
+	public java.lang.Integer getId(){
+		return this.id;
+	}
+	
+	/**
+	 * Define id
+	 * @param id id
+	 */
+	public void setId(java.lang.Integer id){
+		this.id = id;
+	}
+	
+	@Override
+	public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+
+        result = prime * result + ((permissions == null) ? 0 : permissions.hashCode());
+        //result = prime * result + ((userRoles == null) ? 0 : userRoles.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+
+        return result;
+    }
+	
+	@Override
+  	public boolean equals(Object obj) {
+    
+	    if(this == obj)
+	      return true;
+	    
+	    if(obj == null)
+	      return false;
+	    
+	    if(!(obj instanceof RoleEntity))
+	      return false;
+	    
+	    RoleEntity other = (RoleEntity)obj;
+	    
+		if(this.permissions == null && other.permissions != null)
+	    	return false;
+	    else if(!this.permissions.equals(other.permissions))
+	     	return false;
+	
+		// if(this.userRoles == null && other.userRoles != null)
+	 //   	return false;
+	 //   else if(!this.userRoles.equals(other.userRoles))
+	 //    	return false;
+	
+		if(this.name == null && other.name != null)
+	    	return false;
+	    else if(!this.name.equals(other.name))
+	     	return false;
+	
+		if(this.id == null && other.id != null)
+	    	return false;
+	    else if(!this.id.equals(other.id))
+	     	return false;
+	
+	
+
+	    return true;
+	    
+	}
+}

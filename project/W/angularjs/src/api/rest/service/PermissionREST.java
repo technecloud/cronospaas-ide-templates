@@ -5,7 +5,7 @@ package api.rest.service;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-01
+ * @since 2015-06-30
  *
  **/
 
@@ -25,22 +25,22 @@ import api.rest.service.exceptions.*;
 import api.rest.service.util.*;
 
 
-@Path("/Pessoa")
+@Path("/Permission")
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-public class PessoaREST implements RESTService<PessoaEntity> {
+public class PermissionREST implements RESTService<PermissionEntity> {
 
   private SessionManager session;
-  private PessoaBusiness business;
+  private PermissionBusiness business;
 
-  public PessoaREST() {
+  public PermissionREST() {
     this.session = SessionManager.getInstance();
-    this.business = new PessoaBusiness(session);
+    this.business = new PermissionBusiness(session);
   }
 
   @GET
   public Response get(@QueryParam("page")Integer page, @QueryParam("size")Integer size) {
-    List<PessoaEntity> entities = new ArrayList<>();
+    List<PermissionEntity> entities = new ArrayList<>();
 	try{
 	
 	    if(page == null || size == null)
@@ -48,7 +48,7 @@ public class PessoaREST implements RESTService<PessoaEntity> {
 	    else
 	      entities = business.findAll(page,size);
 	
-	    GenericEntity entity = new GenericEntity<List<PessoaEntity>>(entities) {};
+	    GenericEntity entity = new GenericEntity<List<PermissionEntity>>(entities) {};
 	    return Response.ok(entity).build();
 	    
     }catch(Exception exception){
@@ -62,7 +62,7 @@ public class PessoaREST implements RESTService<PessoaEntity> {
   public Response getById(@PathParam("id")String sid) {
     try{
       Integer id = Integer.parseInt(sid);
-      PessoaEntity entity = business.getById(id);
+      PermissionEntity entity = business.getById(id);
       return Response.ok(entity).build();
     }catch(Exception exception){
       throw new CustomWebApplicationException(exception);
@@ -74,10 +74,10 @@ public class PessoaREST implements RESTService<PessoaEntity> {
   public Response getByAttributeName(@PathParam("attributeName")String attributeName, @PathParam("value")String value) {
     try {
       String formattedAttributeName = attributeName.toUpperCase();
-      Query query = session.getEntityManager().createNamedQuery("PessoaEntity.findBy" + formattedAttributeName);
+      Query query = session.getEntityManager().createNamedQuery("PermissionEntity.findBy" + formattedAttributeName);
       query.setParameter(formattedAttributeName, value);
-      List<PessoaEntity> entities = (List<PessoaEntity>)query.getResultList();
-      GenericEntity<List<PessoaEntity>> entity = new GenericEntity<List<PessoaEntity>>(entities) {};
+      List<PermissionEntity> entities = (List<PermissionEntity>)query.getResultList();
+      GenericEntity<List<PermissionEntity>> entity = new GenericEntity<List<PermissionEntity>>(entities) {};
       return Response.ok(entity).build();
     }catch(Exception exception){
 	    session.rollBack();
@@ -87,7 +87,7 @@ public class PessoaREST implements RESTService<PessoaEntity> {
 
 
   @POST
-  public Response post(PessoaEntity entity) {
+  public Response post(PermissionEntity entity) {
     try{
 	    session.begin();
 	    business.save(entity);
@@ -98,15 +98,39 @@ public class PessoaREST implements RESTService<PessoaEntity> {
       throw new CustomWebApplicationException(exception);
     }
   }
+  
+  @POST
+  @Consumes("application/x-www-form-urlencoded")
+  public Response post(@FormParam("path") String path, @FormParam("response") Integer response,  @FormParam("verb") String verb,  @FormParam("fk_role") String fk_role) {
+    try {
+      
+      System.out.println("path:" + path + ", response:" + response);
+      
+	    session.begin();
+
+	    RoleEntity managedRolerEntity = this.session.getEntityManager().getReference(RoleEntity.class, fk_role);
+
+	    
+	    PermissionEntity entity = new PermissionEntity();
+	    entity.setRole(managedRolerEntity);
+	    
+	    business.save(entity);
+	    session.commit();
+      return Response.ok(entity).build();
+    }catch(Exception exception){
+	    session.rollBack();
+      throw new CustomWebApplicationException(exception);
+    }
+  }
 
   @PUT
   @Path("{id}")
-  public Response putWithId(@PathParam("id")String sid, PessoaEntity entity) {
+  public Response putWithId(@PathParam("id")String sid, PermissionEntity entity) {
     return put(entity);
   }
 
   @PUT
-  public Response put(PessoaEntity entity) {
+  public Response put(PermissionEntity entity) {
     try{
 	    session.begin();
 	    business.update(entity);
@@ -124,8 +148,8 @@ public class PessoaREST implements RESTService<PessoaEntity> {
     try{
 	    Integer id = Integer.parseInt(sid);
 	    session.begin();
-	    PessoaEntity entity = business.getById(id);
-	    PessoaEntity managedEntity = this.session.getEntityManager().getReference(PessoaEntity.class, entity.getId());
+	    PermissionEntity entity = business.getById(id);
+	    PermissionEntity managedEntity = this.session.getEntityManager().getReference(PermissionEntity.class, entity.getId());
 	    business.delete(managedEntity);
 	    session.commit();
 	    return Response.ok().build();
@@ -139,7 +163,7 @@ public class PessoaREST implements RESTService<PessoaEntity> {
   @Produces(MediaType.APPLICATION_XML)
   public Response options() {
     try{
-      return Response.ok().entity(business.options(PessoaEntity.class)).build();
+      return Response.ok().entity(business.options(PermissionEntity.class)).build();
     }catch(Exception exception){
       session.rollBack();
       throw new CustomWebApplicationException(exception);
