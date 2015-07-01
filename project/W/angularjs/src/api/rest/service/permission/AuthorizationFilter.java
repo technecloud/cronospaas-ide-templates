@@ -1,9 +1,11 @@
 package api.rest.service.permission;
 
 import javax.servlet.*;
+import javax.persistence.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.*;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import br.dao.*;
@@ -52,21 +54,31 @@ public class AuthorizationFilter implements Filter {
     boolean blocked = false;               
     
     String verb = request.getMethod();
-    String uri = request.getRequestURI();
+    String uri  = request.getRequestURI();
     String path = uri.substring(request.getContextPath().length());
-    logger.log(Level.INFO, "doFilter:" + uri);
     
-    for(PermissionEntity permission : dao.findAll()){
+    List<PermissionEntity> permissions = syncDatabase();
+    for(PermissionEntity permission : permissions){
       if(verb.equalsIgnoreCase(permission.getVerb()) 
       && path.matches(permission.getPath())){
         response.setStatus(permission.getResponse());
         blocked = true;
         break;
       }
+      
     }
 
-    System.out.println("filter(" + path + "," + verb + ")=" + blocked );
+    logger.log(Level.INFO,"filter(" + path + "," + verb + ")=blocked(" + blocked + ")");
     return blocked;               
+   }
+   
+   private List<PermissionEntity> syncDatabase(){
+    EntityManager em = dao.getEntityManager();
+    List<PermissionEntity> permissions = dao.findAll();
+    for(PermissionEntity permission : permissions){
+      em.refresh(permission);
+    }
+    return permissions;
    }
    
    public void destroy( ){
