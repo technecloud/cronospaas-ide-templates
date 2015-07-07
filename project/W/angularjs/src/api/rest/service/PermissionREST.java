@@ -26,7 +26,7 @@ import api.rest.service.util.*;
 
 
 @Path("/Permission")
-@Produces({MediaType.APPLICATION_JSON/*,MediaType.APPLICATION_XML*/})
+@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 public class PermissionREST implements RESTService<PermissionEntity> {
 

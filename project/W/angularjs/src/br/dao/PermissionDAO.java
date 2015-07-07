@@ -1,7 +1,6 @@
 package br.dao;
 
 import javax.persistence.*;
-import java.util.*;
 import br.entity.*;
 
 /**
@@ -28,14 +27,4 @@ public class PermissionDAO extends BasicDAO<String, PermissionEntity> {
   public PermissionDAO(EntityManager entitymanager) {
     super(entitymanager);
   }
-  
-  public List<PermissionEntity> fillAllByUserName(String username) {
-    String jql = "SELECT OBJECT(p) FROM PermissionEntity p, UserRoleEntity ur, UserEntity u WHERE p.role.id = ur.role.id AND ur.user.id = u.id AND u.name = :username";
-    Query q = this.entityManager.createQuery(jql);
-    q.setParameter("username", username);
-    return q.getResultList();
-  }
-
-  
-
 }
