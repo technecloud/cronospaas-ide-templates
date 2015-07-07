@@ -73,7 +73,7 @@
     <div data-container="true" class="">
 
     <datasource name="Role" entity="Role" key="id" endpoint="api/rest" class=""></datasource>
-    <cronos-table dataset="Role" headers="['Id', 'Nome']" fields="['id', 'name']" ng-hide="Role.inserting || Role.editing">
+    <cronos-table dataset="Role" headers="['Id', 'Nome', 'Enabled']" fields="['id', 'name', 'enabled']" ng-hide="Role.inserting || Role.editing">
     </cronos-table>
     
     <!-- Form -->
@@ -88,9 +88,14 @@
         </div>
     
         <div class="" data-container="true"></div>
+                  
           <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-role">
             <div class="form-group">
+          	  <br />
           	  <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-id" placeholder="Name" required>
+              <br />
+          	  <label>Enabled?</label>
+              <input type="checkbox" ng-model="Role.active.enabled" ng-true-value="true"  >
             </div>
           </div>
         <div class="" data-container="true"></div>
@@ -114,7 +119,7 @@
     </cronos-table>
 
    
-       <!-- Form -->
+    <!-- Form -->
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-7739849">
       <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
       <div class="form" ng-hide="!UserRole.editing &amp;&amp; !UserRole.inserting">
@@ -159,11 +164,11 @@
       <div>
 
           <datasource name="Permission" entity="Permission" key="id" endpoint="api/rest"></datasource>
-          <cronos-table dataset="Permission" headers="['Id', 'Path', 'Response', 'Verb', 'Role']" fields="['id', 'path', 'response', 'verb', 'role' ]" ng-hide="Permission.inserting || Permission.editing">
+          <cronos-table dataset="Permission" headers="['Id', 'Path','Verb', 'Role', 'enabled']" fields="['id', 'path', 'verb', 'role', 'enabled' ]" ng-hide="Permission.inserting || Permission.editing">
           </cronos-table>
           
           <!-- Form -->
-          <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-ROLE">
+          <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-PERMISSION">
             <br />
             <div class="form" ng-hide="!Permission.editing &amp;&amp; !Permission.inserting">
 
@@ -179,17 +184,17 @@
                 	  <label>Path (regex)</label>
                 	  <input type="text" ng-model="Permission.active.path" class="form-control" placeholder="Path" required>
                 	  <br />
-                	  <label>Response</label>
-                	  <select ng-required="required" class="form-control" ng-model="Permission.active.response" ng-options="item.id as item.name for item in vm.responses">
-                	  </select>
-                	  <br />
                 	  <label>Verb</label>
                 	  <select ng-required="required"  class="form-control" ng-model="Permission.active.verb"  ng-options="item.id as item.name for item in vm.verbs">
                 	  </select>
+                	  <br />
+                	  <label>Enabled?</label>
+                	  <br />
+                	  <input type="checkbox" ng-required="required" ng-model="Permission.active.enabled" ng-true-value="true">
                   </div>
                 </div>
             	  <label>Role</label>
-                <select ng-model="Permission.active.fk_role" class="form-control" ng-options="R.name for R in Role.data" ng-select="R.data.id = Role.data.id">
+                <select ng-model="Permission.active.role" class="form-control" ng-options="R.name for R in Role.data" ng-select="R.data.id = Role.data.id">
                 </select>
 
               <div class="" data-container="true"></div>

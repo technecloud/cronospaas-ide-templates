@@ -84,32 +84,6 @@ public class UserRoleREST implements RESTService<UserRoleEntity> {
     }
   }
 
-  @POST
-  @Consumes("application/x-www-form-urlencoded")
-  public Response post(@FormParam("userId") Integer userId, @FormParam("roleId") Integer roleId) {
-    try {
-      
-      System.out.println("userId:" + userId + ", roleId:" + roleId);
-      
-	    session.begin();
-
-	    UserEntity managedUserEntity = this.session.getEntityManager().getReference(UserEntity.class, userId);
-	    RoleEntity managedRoleEntity = this.session.getEntityManager().getReference(RoleEntity.class, roleId);
-
-	    
-	    UserRoleEntity entity = new UserRoleEntity();
-	    entity.setUser(managedUserEntity);
-	    entity.setRole(managedRoleEntity);
-	    
-	    business.save(entity);
-	    session.commit();
-      return Response.ok(entity).build();
-    }catch(Exception exception){
-	    session.rollBack();
-      throw new CustomWebApplicationException(exception);
-    }
-  }
-
 
   @POST
   public Response post(UserRoleEntity entity) {
@@ -117,7 +91,7 @@ public class UserRoleREST implements RESTService<UserRoleEntity> {
 	    session.begin();
 	    business.save(entity);
 	    session.commit();
-	    return Response.ok().build();
+	    return Response.ok(entity).build();
     }catch(Exception exception){
 	    session.rollBack();
       throw new CustomWebApplicationException(exception);

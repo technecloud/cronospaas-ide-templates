@@ -4,6 +4,7 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
+import javax.ws.rs.*;
 
 /**
  * Classe que representa a tabela PERMISSION
@@ -17,7 +18,6 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "PERMISSION")
 @NamedQueries({
-        @NamedQuery(name = "PermissionEntity.findByRESPONSE", query = "SELECT e FROM PermissionEntity e where e.response like :RESPONSE"),
         @NamedQuery(name = "PermissionEntity.findByPATH", query = "SELECT e FROM PermissionEntity e where e.path like :PATH"),
         @NamedQuery(name = "PermissionEntity.findByID", query = "SELECT e FROM PermissionEntity e where e.id like :ID"),
         @NamedQuery(name = "PermissionEntity.findByROLE", query = "SELECT e FROM PermissionEntity e where e.role like :ROLE"),
@@ -33,8 +33,10 @@ public class PermissionEntity implements Serializable {
 	@Column(name = "verb", nullable = false)
 	private java.lang.String verb;
 
-	@Column(name = "response", nullable = false, unique = true)
-	private java.lang.Integer response;
+  @Column(name = "enabled", nullable = false)
+  @DefaultValue(value="true")
+  @XmlSchemaType(name="boolean")
+  private Boolean enabled = Boolean.TRUE;
 	
 	@Column(name = "path", nullable = false, unique = true)
 	private java.lang.String path;
@@ -55,31 +57,26 @@ public class PermissionEntity implements Serializable {
 	public PermissionEntity(){
 	}
 
+	public PermissionEntity(String path, String verb, RoleEntity role){
+	  this.path = path;
+	  this.verb = verb;
+	  this.role = role;
+	}
 
-public String getVerb(){
-  return verb;
-}
-public void setVerb(String verb){
-  this.verb = verb;
-}
-	
-	/**
-	 * Obtém response
-	 * @param response response
-	 * return response
-	 */
-	public java.lang.Integer getResponse(){
-		return this.response;
+  public String getVerb(){
+    return verb;
+  }
+  public void setVerb(String verb){
+    this.verb = verb;
+  }
+	public Boolean isEnabled(){
+	  return enabled;
 	}
 	
-	/**
-	 * Define response
-	 * @param response response
-	 */
-	public void setResponse(java.lang.Integer response){
-		this.response = response;
+	public void setEnabled(boolean enabled){
+	  this.enabled = enabled;
 	}
-	
+
 	/**
 	 * Obtém path
 	 * @param path path
@@ -136,7 +133,6 @@ public void setVerb(String verb){
         final int prime = 31;
         int result = 1;
 
-        result = prime * result + ((response == null) ? 0 : response.hashCode());
         result = prime * result + ((path == null) ? 0 : path.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
@@ -158,14 +154,14 @@ public void setVerb(String verb){
 	    
 	    PermissionEntity other = (PermissionEntity)obj;
 	    
-		if(this.response == null && other.response != null)
-	    	return false;
-	    else if(!this.response.equals(other.response))
-	     	return false;
-	
 		if(this.path == null && other.path != null)
 	    	return false;
 	    else if(!this.path.equals(other.path))
+	     	return false;
+
+		if(this.enabled == null && other.enabled != null)
+	    	return false;
+	    else if(!this.enabled.equals(other.enabled))
 	     	return false;
 	
 		if(this.id == null && other.id != null)
@@ -177,10 +173,13 @@ public void setVerb(String verb){
 	    	return false;
 	    else if(!this.role.equals(other.role))
 	     	return false;
-	
-	
 
 	    return true;
 	    
 	}
+	
+	public String toString(){
+	  return String.format("id:%s, path:%s, enabled:%s", id,path,enabled);
+	}
+	
 }

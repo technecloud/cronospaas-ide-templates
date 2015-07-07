@@ -26,7 +26,7 @@ import api.rest.service.util.*;
 
 
 @Path("/Permission")
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
+@Produces({MediaType.APPLICATION_JSON/*,MediaType.APPLICATION_XML*/})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 public class PermissionREST implements RESTService<PermissionEntity> {
 
@@ -48,7 +48,13 @@ public class PermissionREST implements RESTService<PermissionEntity> {
 	    else
 	      entities = business.findAll(page,size);
 	
+	    if(entities.size() > 0){
+  	    entities.get(0).setEnabled(true);
+        System.out.println("GET: " + entities.get(0));
+	    }
+	    
 	    GenericEntity entity = new GenericEntity<List<PermissionEntity>>(entities) {};
+	 
 	    return Response.ok(entity).build();
 	    
     }catch(Exception exception){
@@ -92,37 +98,13 @@ public class PermissionREST implements RESTService<PermissionEntity> {
 	    session.begin();
 	    business.save(entity);
 	    session.commit();
-	    return Response.ok().build();
+	    return Response.ok(entity).build();
     }catch(Exception exception){
 	    session.rollBack();
       throw new CustomWebApplicationException(exception);
     }
   }
   
-  @POST
-  @Consumes("application/x-www-form-urlencoded")
-  public Response post(@FormParam("path") String path, @FormParam("response") Integer response,  @FormParam("verb") String verb,  @FormParam("fk_role") String fk_role) {
-    try {
-      
-      System.out.println("path:" + path + ", response:" + response);
-      
-	    session.begin();
-
-	    RoleEntity managedRolerEntity = this.session.getEntityManager().getReference(RoleEntity.class, fk_role);
-
-	    
-	    PermissionEntity entity = new PermissionEntity();
-	    entity.setRole(managedRolerEntity);
-	    
-	    business.save(entity);
-	    session.commit();
-      return Response.ok(entity).build();
-    }catch(Exception exception){
-	    session.rollBack();
-      throw new CustomWebApplicationException(exception);
-    }
-  }
-
   @PUT
   @Path("{id}")
   public Response putWithId(@PathParam("id")String sid, PermissionEntity entity) {

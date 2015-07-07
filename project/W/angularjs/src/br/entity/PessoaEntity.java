@@ -36,7 +36,7 @@ public class PessoaEntity implements Serializable {
 	private java.lang.String nome;
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "sobrenome")
 	private java.lang.Integer id;
 	
@@ -47,7 +47,7 @@ public class PessoaEntity implements Serializable {
 	public PessoaEntity(){
 	}
 
-	
+
 	/**
 	 * Obtém sobrenome
 	 * @param sobrenome sobrenome

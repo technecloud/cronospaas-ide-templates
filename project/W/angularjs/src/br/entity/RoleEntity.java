@@ -4,6 +4,7 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
+import javax.ws.rs.*;
 
 /**
  * Classe que representa a tabela ROLE
@@ -17,8 +18,8 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "ROLE")
 @NamedQueries({
-        @NamedQuery(name = "RoleEntity.findByPERMISSIONS", query = "SELECT e FROM RoleEntity e where e.permissions like :PERMISSIONS"),
-        @NamedQuery(name = "RoleEntity.findByUSERROLES", query = "SELECT e FROM RoleEntity e where e.userRoles like :USERROLES"),
+        // @NamedQuery(name = "RoleEntity.findByPERMISSIONS", query = "SELECT e FROM RoleEntity e where e.permissions like :PERMISSIONS"),
+        // @NamedQuery(name = "RoleEntity.findByUSERROLES", query = "SELECT e FROM RoleEntity e where e.userRoles like :USERROLES"),
         @NamedQuery(name = "RoleEntity.findByNAME", query = "SELECT e FROM RoleEntity e where e.name like :NAME"),
         @NamedQuery(name = "RoleEntity.findByID", query = "SELECT e FROM RoleEntity e where e.id like :ID"),
 })
@@ -30,12 +31,12 @@ public class RoleEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -1381576613383169882l;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="role")	
-	private List<PermissionEntity> permissions;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="role")	
-	private List<UserRoleEntity> userRoles;
-	
+
+  @Column(name = "enabled", nullable = false)
+  @DefaultValue(value="true")
+  @XmlSchemaType(name="boolean")
+  private Boolean enabled = Boolean.TRUE;
+
 	@Column(name = "name", nullable = true, unique = true)
 	private java.lang.String name;
 	
@@ -51,40 +52,18 @@ public class RoleEntity implements Serializable {
 	public RoleEntity(){
 	}
 
-	
-	/**
-	 * Obtém permissions
-	 * @param permissions permissions
-	 * return permissions
-	 */
-	public List<PermissionEntity> getPermissions(){
-		return this.permissions;
+	public RoleEntity(String name){
+	  this.name = name;
 	}
 	
-	/**
-	 * Define permissions
-	 * @param permissions permissions
-	 */
-	public void setPermissions(List<PermissionEntity> permissions){
-		this.permissions = permissions;
+	public Boolean isEnabled(){
+	  return enabled;
 	}
 	
-	/**
-	 * Obtém userRoles
-	 * @param userRoles userRoles
-	 * return userRoles
-	 */
-	public List<UserRoleEntity> getUserRoles(){
-		return this.userRoles;
+	public void setEnabled(boolean enabled){
+	  this.enabled = enabled;
 	}
-	
-	/**
-	 * Define userRoles
-	 * @param userRoles userRoles
-	 */
-	public void setUserRoles(List<UserRoleEntity> userRoles){
-		this.userRoles = userRoles;
-	}
+
 	
 	/**
 	 * Obtém name
@@ -125,7 +104,7 @@ public class RoleEntity implements Serializable {
         final int prime = 31;
         int result = 1;
 
-        result = prime * result + ((permissions == null) ? 0 : permissions.hashCode());
+//        result = prime * result + ((permissions == null) ? 0 : permissions.hashCode());
         //result = prime * result + ((userRoles == null) ? 0 : userRoles.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -147,10 +126,10 @@ public class RoleEntity implements Serializable {
 	    
 	    RoleEntity other = (RoleEntity)obj;
 	    
-		if(this.permissions == null && other.permissions != null)
-	    	return false;
-	    else if(!this.permissions.equals(other.permissions))
-	     	return false;
+		// if(this.permissions == null && other.permissions != null)
+	 //   	return false;
+	 //   else if(!this.permissions.equals(other.permissions))
+	 //    	return false;
 	
 		// if(this.userRoles == null && other.userRoles != null)
 	 //   	return false;

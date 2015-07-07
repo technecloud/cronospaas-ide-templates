@@ -17,8 +17,6 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "USER")
 @NamedQueries({
-        @NamedQuery(name = "UserEntity.findByPASSWORD", query = "SELECT e FROM UserEntity e where e.password like :PASSWORD"),
-        @NamedQuery(name = "UserEntity.findByUSERROLES", query = "SELECT e FROM UserEntity e where e.userRoles like :USERROLES"),
         @NamedQuery(name = "UserEntity.findByEMAIL", query = "SELECT e FROM UserEntity e where e.email like :EMAIL"),
         @NamedQuery(name = "UserEntity.findByNAME", query = "SELECT e FROM UserEntity e where e.name like :NAME"),
         @NamedQuery(name = "UserEntity.findByID", query = "SELECT e FROM UserEntity e where e.id like :ID"),
@@ -30,13 +28,7 @@ public class UserEntity implements Serializable {
 	 * UID da classe, necessário na serialização 
 	 */
 	private static final long serialVersionUID = 5315919335634517002l;
-	
-	@Column(name = "password", nullable = true, unique = false)
-	private java.lang.String password;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="user")	
-	private List<UserRoleEntity> userRoles;
-	
+
 	@Column(name = "email", nullable = true, unique = false)
 	private java.lang.String email;
 	
@@ -54,42 +46,12 @@ public class UserEntity implements Serializable {
 	 */
 	public UserEntity(){
 	}
+	public UserEntity(String name){
+	  this.name = name;
+	}
 
 	
-	/**
-	 * Obtém password
-	 * @param password password
-	 * return password
-	 */
-	public java.lang.String getPassword(){
-		return this.password;
-	}
-	
-	/**
-	 * Define password
-	 * @param password password
-	 */
-	public void setPassword(java.lang.String password){
-		this.password = password;
-	}
-	
-	/**
-	 * Obtém userRoles
-	 * @param userRoles userRoles
-	 * return userRoles
-	 */
-	public List<UserRoleEntity> getUserRoles(){
-		return this.userRoles;
-	}
-	
-	/**
-	 * Define userRoles
-	 * @param userRoles userRoles
-	 */
-	public void setUserRoles(List<UserRoleEntity> userRoles){
-		this.userRoles = userRoles;
-	}
-	
+
 	/**
 	 * Obtém email
 	 * @param email email
@@ -146,8 +108,6 @@ public class UserEntity implements Serializable {
         final int prime = 31;
         int result = 1;
 
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        //result = prime * result + ((userRoles == null) ? 0 : userRoles.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -169,16 +129,7 @@ public class UserEntity implements Serializable {
 	    
 	    UserEntity other = (UserEntity)obj;
 	    
-		if(this.password == null && other.password != null)
-	    	return false;
-	    else if(!this.password.equals(other.password))
-	     	return false;
-	
-		// if(this.userRoles == null && other.userRoles != null)
-	 //   	return false;
-	 //   else if(!this.userRoles.equals(other.userRoles))
-	 //    	return false;
-	
+
 		if(this.email == null && other.email != null)
 	    	return false;
 	    else if(!this.email.equals(other.email))

@@ -7,6 +7,7 @@ import javax.servlet.annotation.*;
 import java.util.logging.*;
 import br.entity.*;
 import br.dao.*;
+import api.rest.service.exceptions.*;
 
 
 
@@ -26,40 +27,46 @@ public class AuthenticationServlet extends HttpServlet{
  }
  public void destroy(){}
 
- protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException ,java.io.IOException{
-	  
-	  String username = req.getParameter("username");
-	  String password = req.getParameter("password");
-	  
-	  if( login(username, password) ){
-	    req.getSession().setAttribute("logged",true);
-	    req.getSession().setAttribute("username",username);
+ protected void doPost(HttpServletRequest req, HttpServletResponse resp){
+	  try{
+  	  String username = req.getParameter("username");
+  	  String password = req.getParameter("password");
+  	  
+  	  if( login(username, password) ){
+  	    req.getSession().setAttribute("logged",true);
+  	    req.getSession().setAttribute("username",username);
+  	  }
+  	  else{
+  	    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+  	  }
+	  }catch(Exception e){
+	    throw new CustomWebApplicationException(e);
 	  }
-	  else{
-	    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-	  }
-	  
 	}
 
- protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-   String uri = req.getRequestURI();
-   
-   if("/logout".equals(uri)){
-    logout(req, resp);
-   } 
-   else if("/session".equals(uri)){
-    session(req, resp);   
-   }
-   else{
-    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-   }
+ protected void doGet(HttpServletRequest req, HttpServletResponse resp){
+   try{
+     String uri = req.getRequestURI();
+     
+     if("/logout".equals(uri)){
+      logout(req, resp);
+     } 
+     else if("/session".equals(uri)){
+      session(req, resp);   
+     }
+     else{
+      resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+     }
+   }catch(Exception e){
+	    throw new CustomWebApplicationException(e);
+	  }
    
  }
  
 	private boolean login(String username,String password){
 	    logger.log(Level.INFO, "login");
-	    return authenticateLocal(username, password);
-	    //return authenticateDataBase(username, password);
+	    //return authenticateLocal(username, password);
+	    return authenticateDataBase(username, password);
 	}
 	
 	private boolean authenticateLocal(String username, String password){
@@ -68,9 +75,7 @@ public class AuthenticationServlet extends HttpServlet{
 
 	private boolean authenticateDataBase(String username, String password){
 	    for(UserEntity user : dao.findAll()){
-	      if(username.equals(user.getName()) 
-	      && (""+user.getPassword()).equals(password) ) return true;
-	      System.out.println("user:" + user.getName() + " - " + (""+user.getPassword()) + " PWD " +  (""+password) ) ;
+	      if(username.equals(user.getName()) )  return true;
 	    }
 	    return false;
 	}

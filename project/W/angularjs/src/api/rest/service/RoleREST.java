@@ -92,7 +92,7 @@ public class RoleREST implements RESTService<RoleEntity> {
 	    session.begin();
 	    business.save(entity);
 	    session.commit();
-	    return Response.ok().build();
+	    return Response.ok(entity).build();
     }catch(Exception exception){
 	    session.rollBack();
       throw new CustomWebApplicationException(exception);
