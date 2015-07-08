@@ -23,7 +23,7 @@
             ng-dblclick="doEdit(rowData[data[dataset].key])" 
             ng-class="isActive(rowData[data[dataset].key]) ? 'success' : ''">
           <td>{{$index}}</th>
-          <td ng-repeat = "fieldName in fields">{{rowData[fieldName]}}</td>
+          <td ng-repeat = "fieldName in fields">{{ fieldName.indexOf('.') == -1 ? rowData[fieldName] : rowData[ fieldName.split('.')[0] ][ fieldName.split('.')[1]] }}</td>
           <td class=".col-md-1" ng-hide="readonly">
             <!-- Action Buttons -->
             <button type="button" ng-click="doDelete(rowData[data[dataset].key])" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
