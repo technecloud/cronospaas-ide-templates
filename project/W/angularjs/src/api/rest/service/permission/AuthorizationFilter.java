@@ -42,22 +42,16 @@ public class AuthorizationFilter implements Filter {
     System.out.println("INITIAL_PERMISSION");
 
     RoleEntity roleAdmin = new RoleEntity("admin");
-    RoleEntity roleEveryOne = new RoleEntity("angular");
+    RoleEntity roleEveryOne = new RoleEntity("everyOne");
     RoleEntity logged = new RoleEntity("logged");
 
     List<PermissionEntity> permissions = new ArrayList<>();
-    permissions.add( new PermissionEntity("/api/rest/.", "ALL", roleAdmin ) );
+    permissions.add( new PermissionEntity("/api/rest/(.)+", "ALL", roleAdmin ) );
 
-    permissions.add( new PermissionEntity("(/*)+\\.(js|css|jpg|gif|png)", "GET", roleEveryOne ) );
+    permissions.add( new PermissionEntity("/(.)+\\.(js|css|jpg|gif|png|ico|html|woff2)", "GET", roleEveryOne ) );
     permissions.add( new PermissionEntity("/index.html", "GET", roleEveryOne ) );
     permissions.add( new PermissionEntity("/", "GET", roleEveryOne ) );
     
-    permissions.add( new PermissionEntity("/auth", "POST", roleEveryOne ) );
-    permissions.add( new PermissionEntity("/logout", "GET", roleEveryOne ) );
-    
-    permissions.add( new PermissionEntity("/views/(.)+\\.html", "GET", logged ) );
-    permissions.add( new PermissionEntity("/page/.", "GET", logged ) );
-
     SessionManager session = SessionManager.getInstance();
     session.begin();
     
@@ -127,6 +121,11 @@ public class AuthorizationFilter implements Filter {
     String path = uri.substring(request.getContextPath().length());
     
     List<PermissionEntity> permissions = syncDatabase(username);
+
+    // Public
+    permissions.add( new PermissionEntity("/auth", "POST", null ) );
+    permissions.add( new PermissionEntity("/logout", "GET", null ) );
+
     for(PermissionEntity permission : permissions){
 
     logger.log(Level.INFO,"permission(" + permission.isEnabled() + "," + permission.getVerb() + "," + permission.getPath()  + ")");
