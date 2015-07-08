@@ -39,18 +39,17 @@ public class AuthorizationFilter implements Filter {
    }
    
    void initialPermission(){
-    System.out.println("INITIAL_PERMISSION");
+    System.out.println("creatingDefaultPermission");
 
     RoleEntity roleAdmin = new RoleEntity("admin");
     RoleEntity roleEveryOne = new RoleEntity("everyOne");
     RoleEntity logged = new RoleEntity("logged");
 
     List<PermissionEntity> permissions = new ArrayList<>();
-    permissions.add( new PermissionEntity("/api/rest/(.)+", "ALL", roleAdmin ) );
+    permissions.add( new PermissionEntity("/api/rest/(User|Role|UserRole|Permission)(/.)*", "ALL", roleAdmin ) );
 
     permissions.add( new PermissionEntity("/(.)+\\.(js|css|jpg|gif|png|ico|html|woff2)", "GET", roleEveryOne ) );
-    permissions.add( new PermissionEntity("/index.html", "GET", roleEveryOne ) );
-    permissions.add( new PermissionEntity("/", "GET", roleEveryOne ) );
+    permissions.add( new PermissionEntity("(/|/index.html)", "GET", roleEveryOne ) );
     
     SessionManager session = SessionManager.getInstance();
     session.begin();
@@ -128,7 +127,7 @@ public class AuthorizationFilter implements Filter {
 
     for(PermissionEntity permission : permissions){
 
-    logger.log(Level.INFO,"permission(" + permission.isEnabled() + "," + permission.getVerb() + "," + permission.getPath()  + ")");
+    logger.log(Level.INFO,"path:(" + path + ")=match(" + permission.getPath() + ")=" +  path.matches(permission.getPath()) );
 
       if( permission.isEnabled() 
       && (verb.equalsIgnoreCase(permission.getVerb()) || permission.getVerb().equalsIgnoreCase("ALL"))
@@ -137,10 +136,9 @@ public class AuthorizationFilter implements Filter {
         break;
       }
       
+      
     }
 
-    logger.log(Level.INFO,"permission(" + uri + ")=" + allowed);
-    
     return allowed;               
    }
    

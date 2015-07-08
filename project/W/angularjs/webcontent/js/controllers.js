@@ -95,7 +95,15 @@
                     , {id: 'CONNECT', name: 'CONNECT'}
                     , {id: 'ALL'    , name: 'ALL'}
                     ];      
-                    
+          
+          
+          $scope.onStartInserting = function (){
+              $rootScope.Permission.onStartInserting = function(){
+                
+                $rootScope.Permission.active.enabled = true;
+                
+              };    
+          };
 
           function handleSuccess(data) {
             var UserRole = $scope.data.UserRole;

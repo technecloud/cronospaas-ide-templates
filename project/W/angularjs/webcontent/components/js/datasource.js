@@ -111,6 +111,9 @@
      this.startInserting = function () {
        this.inserting = true;
        this.active = {};
+       if(this.onStartInserting){
+         this.onStartInserting();
+       }
      }
      
      this.startEditing = function () {

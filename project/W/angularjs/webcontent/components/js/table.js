@@ -54,8 +54,7 @@
         }
 
         $scope.startInserting = function () {
-            $scope.data[this.dataset].inserting = true;
-            $scope.data[this.dataset].active = {};
+            $scope.data[this.dataset].startInserting();
         }
 
         $scope.cancel = function () {
