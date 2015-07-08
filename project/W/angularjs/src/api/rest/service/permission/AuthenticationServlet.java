@@ -1,103 +1,170 @@
 package api.rest.service.permission;
 
-import java.io.*;
 import javax.servlet.*;
+import javax.persistence.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
-import java.util.logging.*;
-import br.entity.*;
+import java.io.*;
+import java.util.*;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import br.dao.*;
-import api.rest.service.exceptions.*;
+import br.entity.*;
 
 
+@WebFilter(
+  urlPatterns = {"/*"}
+, filterName = "authorization-filter"
+)
+public class AuthorizationFilter implements Filter {
+  
+  	static final long serialVersionUID = -1l;
+    private final Logger logger = Logger.getLogger(this.getClass().getName()); 
 
-@WebServlet(
-  value={"/auth", "/logout", "/session"}
-, name="auth-servlet")
-public class AuthenticationServlet extends HttpServlet{
+    PermissionDAO dao;
+  public void  init(FilterConfig config) 
+                         throws ServletException{
+                           
+                           
+                           
+      dao = new PermissionDAO( SessionManager.getInstance().getEntityManager() );
+      
+      try{
+        if(dao.findAll().isEmpty())
+        initialPermission();                           
+      }catch(Exception e){
+        logger.log(Level.SEVERE, e.getMessage());
+      }
 
- private static final long serialVersionUID = -1l;
- private final Logger logger = Logger.getLogger(this.getClass().getName()); 
-
- UserDAO dao ;
- public void init() throws ServletException{
+   }
    
-   dao = new UserDAO( SessionManager.getInstance().getEntityManager() );
+   void initialPermission(){
+    System.out.println("creatingDefaultPermission");
 
- }
- public void destroy(){}
+    RoleEntity roleAdmin = new RoleEntity("admin");
+    RoleEntity roleEveryOne = new RoleEntity("everyOne");
+    RoleEntity logged = new RoleEntity("logged");
 
- protected void doPost(HttpServletRequest req, HttpServletResponse resp){
-	  try{
-  	  String username = req.getParameter("username");
-  	  String password = req.getParameter("password");
-  	  
-  	  if( login(username, password) ){
-  	    req.getSession().setAttribute("logged",true);
-  	    req.getSession().setAttribute("username",username);
-  	  }
-  	  else{
-  	    resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-  	  }
-	  }catch(Exception e){
-	    throw new CustomWebApplicationException(e);
-	  }
-	}
+    List<PermissionEntity> permissions = new ArrayList<>();
+    permissions.add( new PermissionEntity("/api/rest/(User|Role|UserRole|Permission)", "ALL", roleAdmin ) );
 
- protected void doGet(HttpServletRequest req, HttpServletResponse resp){
-   try{
-     String uri = req.getRequestURI();
-     
-     if("/logout".equals(uri)){
-      logout(req, resp);
-     } 
-     else if("/session".equals(uri)){
-      session(req, resp);   
-     }
-     else{
-      resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-     }
-   }catch(Exception e){
-	    throw new CustomWebApplicationException(e);
-	  }
+    permissions.add( new PermissionEntity("/(.)+\\.(js|css|jpg|gif|png|ico|html|woff2)", "GET", roleEveryOne ) );
+    permissions.add( new PermissionEntity("/index.html", "GET", roleEveryOne ) );
+    permissions.add( new PermissionEntity("/", "GET", roleEveryOne ) );
+    
+    SessionManager session = SessionManager.getInstance();
+    session.begin();
+    
+    EntityManager em = session.getEntityManager();
+    
+    UserDAO userDAO = new UserDAO( em );
+    RoleDAO roleDAO = new RoleDAO( em );
+    UserRoleDAO userRoleDAO = new UserRoleDAO( em );
+    PermissionDAO permissionDAO = new PermissionDAO( em );
+    
+    List<RoleEntity> roles = new ArrayList<>();
+    roles.add(roleAdmin);
+    roles.add(roleEveryOne);
+    roles.add(logged);
+    
+    for(RoleEntity role: roles)
+    roleDAO.save(role);    
+    
+    for(PermissionEntity permission : permissions)
+    permissionDAO.save(permission);
+
+    
+    UserEntity userAdmin = new UserEntity("admin");
+    userDAO.save(userAdmin);
+    
+    userRoleDAO.save(new UserRoleEntity(userAdmin, roleAdmin));
+    userRoleDAO.save(new UserRoleEntity(userAdmin, roleEveryOne));
+    userRoleDAO.save(new UserRoleEntity(userAdmin, logged));
+    
+    UserEntity userAnonymous = new UserEntity("anonymous");
+    userDAO.save(userAnonymous);
+
+    userRoleDAO.save(new UserRoleEntity(userAnonymous, roleEveryOne));
+    userRoleDAO.save(new UserRoleEntity(userAnonymous, logged));
+
+    
+    session.commit();
+    
+   }
    
- }
- 
-	private boolean login(String username,String password){
-	    logger.log(Level.INFO, "login");
-	    //return authenticateLocal(username, password);
-	    return authenticateDataBase(username, password);
-	}
-	
-	private boolean authenticateLocal(String username, String password){
-	    return "techne".equals(username) && "techne".equals(password);
-	}
+   public void  doFilter(ServletRequest request, 
+                 ServletResponse response,
+                 FilterChain chain) 
+                 throws IOException, ServletException {
+      
+      HttpServletRequest httpRequest = (HttpServletRequest)request;
+      HttpServletResponse httpResponse = (HttpServletResponse)response;
+      String username = httpRequest.getSession().getAttribute("username") == null ? "anonymous" : httpRequest.getSession().getAttribute("username").toString() ;
+      
+      logger.log(Level.INFO, "session.username:"+ username);
 
-	private boolean authenticateDataBase(String username, String password){
-	    for(UserEntity user : dao.findAll()){
-	      if(username.equals(user.getName()) )  return true;
-	    }
-	    return false;
-	}
+      if( filter(httpRequest, httpResponse, username )  ){
+        chain.doFilter(request,response);
+      }else{
+          httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+      }
 
-	private void logout(HttpServletRequest req, HttpServletResponse resp){
-	    logger.log(Level.INFO, "logout");
+   }
+   
+   private boolean filter(HttpServletRequest request, 
+                 HttpServletResponse response, String username){
+    
+    boolean allowed = false;
+    
+    String verb = request.getMethod();
+    String uri  = request.getRequestURI();
+    String path = uri.substring(request.getContextPath().length());
+    
+    List<PermissionEntity> permissions = syncDatabase(username);
 
-	    req.getSession().invalidate();
-	}
-	
+    // Public
+    permissions.add( new PermissionEntity("/auth", "POST", null ) );
+    permissions.add( new PermissionEntity("/logout", "GET", null ) );
 
-	private void session(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-    logger.log(Level.INFO, "session");
+    for(PermissionEntity permission : permissions){
 
-	  Object logged = req.getSession().getAttribute("logged");
-	  String json = String.format("{\"username\": \"%s\"}", req.getSession().getAttribute("username") );
+    logger.log(Level.INFO,"path:(" + path + ")=match(" + permission.getPath() + ")=" +  path.matches(permission.getPath()) );
 
-	  if("true".equals(logged) )
-	    resp.getOutputStream().print(json);
-	  else
-	    resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+      if( permission.isEnabled() 
+      && (verb.equalsIgnoreCase(permission.getVerb()) || permission.getVerb().equalsIgnoreCase("ALL"))
+      && path.matches(permission.getPath())){
+        allowed = true;
+        break;
+      }
+      
+      
+    }
 
-	}
+    return allowed;               
+   }
+   
+   
+   public List<PermissionEntity> fillAllByUserName(EntityManager entityManager, String username) {
+    String jql = "SELECT OBJECT(p) FROM PermissionEntity p, UserRoleEntity ur, UserEntity u WHERE p.role.id = ur.role.id AND ur.user.id = u.id AND u.name = :username";
+    Query q = entityManager.createQuery(jql);
+    q.setParameter("username", username);
+    return q.getResultList();
+  }
+
+
+   private List<PermissionEntity> syncDatabase(String username){
+    EntityManager em = dao.getEntityManager();
+    List<PermissionEntity> permissions = fillAllByUserName(em, username);
+    
+    for(PermissionEntity permission : permissions){
+      em.refresh(permission);
+    }
+    return permissions;
+   }
+   
+   public void destroy( ){
+      /* Called before the Filter instance is removed 
+      from service by the web container*/
+   }
 
 }
