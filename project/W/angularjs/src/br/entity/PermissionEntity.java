@@ -41,6 +41,9 @@ public class PermissionEntity implements Serializable {
 	@Column(name = "path", nullable = false, unique = true)
 	private java.lang.String path;
 	
+	@Column(name = "exclude", nullable = true)
+	private java.lang.String exclude;
+	
 	@Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -63,6 +66,12 @@ public class PermissionEntity implements Serializable {
 	  this.role = role;
 	}
 
+	public PermissionEntity(String path, String verb, RoleEntity role, String exclude){
+	  this(path,verb,role);
+	  this.exclude = exclude;
+	}
+
+
   public String getVerb(){
     return verb;
   }
@@ -76,6 +85,13 @@ public class PermissionEntity implements Serializable {
 	public void setEnabled(boolean enabled){
 	  this.enabled = enabled;
 	}
+
+  public String getExclude(){
+    return exclude;
+  }
+  public void setExclude(String exclude){
+    this.exclude = exclude;
+  }
 
 	/**
 	 * Obtém path

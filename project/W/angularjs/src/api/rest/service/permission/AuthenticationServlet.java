@@ -8,6 +8,7 @@ import java.util.logging.*;
 import br.entity.*;
 import br.dao.*;
 import api.rest.service.exceptions.*;
+import api.rest.service.oauth2.flow.*;
 
 
 
@@ -66,12 +67,29 @@ public class AuthenticationServlet extends HttpServlet{
 	private boolean login(String username,String password){
 	    logger.log(Level.INFO, "login");
 	    //return authenticateLocal(username, password);
-	    return authenticateDataBase(username, password);
+//	    return authenticateDataBase(username, password);
+	    return authenticateOAuth2(username, password);
 	}
 	
 	private boolean authenticateLocal(String username, String password){
 	    return "techne".equals(username) && "techne".equals(password);
 	}
+
+	private boolean authenticateOAuth2(String username, String password){
+		OAuth2Client client = new OAuth2Client(OAuth2Settings.TOKEN_URI,
+				OAuth2Settings.REVOKE_URI, OAuth2Settings.CLIENT_ID,
+				OAuth2Settings.CLIENT_SECRET);
+			String token = null;
+			try{
+			  token = client.authenticate(username, password);
+			  logger.log(Level.INFO, token);
+			}catch(Exception e){
+			  e.printStackTrace();
+  	    logger.log(Level.SEVERE, e.getMessage());
+			}
+			return (token != null);
+	}
+
 
 	private boolean authenticateDataBase(String username, String password){
 	    for(UserEntity user : dao.findAll()){
