@@ -30,10 +30,10 @@ public class UserEntity implements Serializable {
 	private static final long serialVersionUID = 5315919335634517002l;
 
 	@Column(name = "email", nullable = true, unique = false)
-	private java.lang.String email;
+	private java.lang.String email = "";
 	
 	@Column(name = "name", nullable = false, unique = true)
-	private java.lang.String name;
+	private java.lang.String name = "";
 	
 	@Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -132,7 +132,7 @@ public class UserEntity implements Serializable {
 
 		if(this.email == null && other.email != null)
 	    	return false;
-	    else if(!this.email.equals(other.email))
+	  else if(!this.email.equals(other.email))
 	     	return false;
 	
 		if(this.name == null && other.name != null)

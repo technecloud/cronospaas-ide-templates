@@ -1,5 +1,5 @@
 
-<div class="col-md-6 col-md-offset-3">
+<div class="col-md-6 col-md-offset-3" ng-init="alert('init')">
     <h2>Login</h2>
     <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
     <div ng-show="vm.success" class="alert alert-success">{{vm.success}}</div>
@@ -12,8 +12,14 @@
             <input type="password" name="password" id="password" class="form-control" ng-model="vm.password"  placeholder="Password" />
             <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
         </div>
-        <div class="form-actions">
-            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Login</button>
+        
+        <div class="form-actions" style="display: table; width:100%;">
+            <div style="display: table-cell;">
+            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary" style="width:50px; height: 50px; padding: 0px; text-align:center; vertical-align:middle;">Login</button>
+            </div>
+            <div style="display: table-cell; text-align: right;">
+            <button class="zoom-button" type="button" ng-click="vm.goto('/oauth2?idp=google')" style="background-image:url(/img/google.png); no-repeat; width:50px; height: 50px"></button>
+            </div>
         </div>
     </form>
 </div>

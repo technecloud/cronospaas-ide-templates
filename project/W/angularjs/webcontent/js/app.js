@@ -46,24 +46,6 @@ var app = (function() {
         .otherwise({
             redirectTo: '/page/login'
         });
-    }])
-    .run(run);
-    
-    
-    
-    run.$inject = ['$rootScope', '$location', '$http'];
-    function run($rootScope, $location, $http) {
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
-            var loggedIn = ($rootScope.globals && $rootScope.globals.currentUser);
-            if (restrictedPage && !loggedIn) {
-                $location.path('/page/login');
-            }
-
-        });
-    }
-
-
+    }]);
 
 }(window));

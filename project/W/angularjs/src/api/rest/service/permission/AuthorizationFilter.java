@@ -49,7 +49,7 @@ public class AuthorizationFilter implements Filter {
     permissions.add( new PermissionEntity("/api/rest/(User|Role|UserRole|Permission)(/.)*", "ALL", roleAdmin ) );
 
     permissions.add( new PermissionEntity("/(.)+\\.(js|css|jpg|gif|png|ico|html|woff2)", "GET", roleEveryOne ) );
-    permissions.add( new PermissionEntity("(/|/index.html)", "GET", roleEveryOne ) );
+    permissions.add( new PermissionEntity("(/|/index.html|/oauth2(.)*|/oauth2callback|/revoke|/page/(.)+|/session)", "GET", roleEveryOne ) );
     
     SessionManager session = SessionManager.getInstance();
     session.begin();
@@ -121,9 +121,10 @@ public class AuthorizationFilter implements Filter {
     
     List<PermissionEntity> permissions = syncDatabase(username);
 
-    // Public
+    // Public Permissions
     permissions.add( new PermissionEntity("/auth", "POST", null ) );
     permissions.add( new PermissionEntity("/logout", "GET", null ) );
+    permissions.add( new PermissionEntity("/session", "GET", null ) );
 
     for(PermissionEntity permission : permissions){
 
@@ -158,6 +159,7 @@ public class AuthorizationFilter implements Filter {
     for(PermissionEntity permission : permissions){
       em.refresh(permission);
     }
+
     return permissions;
    }
    

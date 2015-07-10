@@ -9,6 +9,7 @@ import br.entity.*;
 import br.dao.*;
 import api.rest.service.exceptions.*;
 import api.rest.service.oauth2.flow.*;
+import api.rest.service.oauth2.authcode.*;
 
 
 
@@ -34,7 +35,6 @@ public class AuthenticationServlet extends HttpServlet{
   	  String password = req.getParameter("password");
   	  
   	  if( login(username, password) ){
-  	    req.getSession().setAttribute("logged",true);
   	    req.getSession().setAttribute("username",username);
   	  }
   	  else{
@@ -67,8 +67,8 @@ public class AuthenticationServlet extends HttpServlet{
 	private boolean login(String username,String password){
 	    logger.log(Level.INFO, "login");
 	    //return authenticateLocal(username, password);
-//	    return authenticateDataBase(username, password);
-	    return authenticateOAuth2(username, password);
+	    return authenticateDataBase(username, password);
+//	    return authenticateOAuth2(username, password);
 	}
 	
 	private boolean authenticateLocal(String username, String password){
@@ -98,23 +98,39 @@ public class AuthenticationServlet extends HttpServlet{
 	    return false;
 	}
 
-	private void logout(HttpServletRequest req, HttpServletResponse resp){
+	private void logout(HttpServletRequest request, HttpServletResponse response){
 	    logger.log(Level.INFO, "logout");
+	    
+	    
+	    Object accessToken = request.getSession().getAttribute("accessToken");
+	    request.getSession().invalidate();
+	    
+	    if(accessToken != null){
+	        try{
+        		OAuth2CodeSettings settings = (OAuth2CodeSettings) request.getSession().getAttribute("settings");
+      	  	RevokeServlet.revoke(settings,accessToken.toString());
+	        }catch(Exception e){
+            e.printStackTrace();	          
+	        }
+	    }
 
-	    req.getSession().invalidate();
+
 	}
 	
 
 	private void session(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
     logger.log(Level.INFO, "session");
 
-	  Object logged = req.getSession().getAttribute("logged");
-	  String json = String.format("{\"username\": \"%s\"}", req.getSession().getAttribute("username") );
+	  Object username = req.getSession().getAttribute("username");
+	  String json = String.format("{\"username\": \"%s\"}", username );
 
-	  if("true".equals(logged) )
+	  if( username != null ){
+	    resp.setHeader("Content-Type", "application/json");
 	    resp.getOutputStream().print(json);
-	  else
-	    resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+	  }
+	  else{
+	    resp.setStatus(HttpServletResponse.SC_PROXY_AUTHENTICATION_REQUIRED);
+	  }
 
 	}
 

@@ -10,6 +10,13 @@ div[ng-view]{
   padding: 10px;
 }
 
+
+.zoom-button:hover{
+  -ms-transform: scale(1.2,1.2);
+  -webkit-transform: scale(1.2,1.2);
+  transform: scale(1.2,1.2);
+}
+
 .animate {
   -webkit-transition: all .3s ease-out;
   -moz-transition: all .3s ease-out;

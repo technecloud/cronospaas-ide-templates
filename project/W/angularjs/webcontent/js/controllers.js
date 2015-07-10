@@ -1,8 +1,10 @@
 (function($app) {
     angular.module('custom.controllers', []);  
 
-        app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope',   function($scope, $http, $location, $rootScope){
+        app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$window',  function($scope, $http, $location, $rootScope, $window){
         var vm = this;
+        
+        console.log('login.controller');
         
         function login() {
             console.log('login');
@@ -32,9 +34,14 @@
           vm.error = error;
           vm.success = null;
         }
-
+        
+        function goto(path){
+//          $location.path(path);
+          $window.location.href=path;
+        }
       
         vm.login = login;
+        vm.goto  = goto;
 
     }]);  
     
@@ -50,8 +57,7 @@
               url     : '/logout',
             }).then(handleSuccess, handleError('User or password invalid!'))
             
-            $rootScope.globals.currentUser=undefined;
-
+            vm.username = undefined;
         }
         
           function handleSuccess(data) {
@@ -63,9 +69,18 @@
             vm.error = error;
           }
 
+          function handleSession(response){
+            console.log("handleSession", response);
+            vm.username = response.data.username;
+          }
 
-        vm.username = $rootScope.globals.currentUser;
-        vm.logout = logout;
+          $http({
+            method  : 'GET',
+            url     : '/session',
+          }).then(handleSession)
+
+
+          vm.logout = logout;
         
       }]);
       
