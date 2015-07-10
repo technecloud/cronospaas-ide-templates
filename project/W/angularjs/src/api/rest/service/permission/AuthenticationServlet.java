@@ -5,6 +5,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.util.logging.*;
+import java.util.*;
 import br.entity.*;
 import br.dao.*;
 import api.rest.service.exceptions.*;
@@ -19,7 +20,7 @@ import api.rest.service.oauth2.authcode.*;
 public class AuthenticationServlet extends HttpServlet{
 
  private static final long serialVersionUID = -1l;
- private final Logger logger = Logger.getLogger(this.getClass().getName()); 
+ private Logger logger = Logger.getLogger(this.getClass().getName()); 
 
  UserDAO dao ;
  public void init() throws ServletException{
@@ -67,8 +68,8 @@ public class AuthenticationServlet extends HttpServlet{
 	private boolean login(String username,String password){
 	    logger.log(Level.INFO, "login");
 	    //return authenticateLocal(username, password);
-	    return authenticateDataBase(username, password);
-//	    return authenticateOAuth2(username, password);
+	    //return authenticateDataBase(username, password);
+	    return authenticateOAuth2(username, password);
 	}
 	
 	private boolean authenticateLocal(String username, String password){
@@ -82,6 +83,7 @@ public class AuthenticationServlet extends HttpServlet{
 			String token = null;
 			try{
 			  token = client.authenticate(username, password);
+			  createUserIfNotExists(username);
 			  logger.log(Level.INFO, token);
 			}catch(Exception e){
 			  e.printStackTrace();
@@ -90,6 +92,32 @@ public class AuthenticationServlet extends HttpServlet{
 			return (token != null);
 	}
 
+  public static void createUserIfNotExists(String username){
+    
+    				// cria usuario, senao existir
+				SessionManager session = SessionManager.getInstance();
+				UserDAO userDao = new UserDAO(session.getEntityManager());
+				List<UserEntity> users = userDao.findByAttribute("name", username);
+				if(users.isEmpty()){
+  				session.begin();
+  			  System.out.println("Creating user: " + username);
+  				UserEntity userEntity = new UserEntity(username);
+					userDao.save(userEntity);
+
+			  	RoleDAO roleDao = new RoleDAO(session.getEntityManager());
+			    List<RoleEntity> roles = roleDao.findByAttribute("name", "everyOne");
+          // role everyOne
+          if(!roles.isEmpty()){			    
+			  	  
+			  	  UserRoleDAO userRoleDao = new UserRoleDAO(session.getEntityManager());
+			  	  UserRoleEntity userRoleEntity = new UserRoleEntity(userEntity, roles.get(0) );
+            userRoleDao.save(userRoleEntity);
+            
+          }
+			    session.commit();
+				}
+
+  }
 
 	private boolean authenticateDataBase(String username, String password){
 	    for(UserEntity user : dao.findAll()){

@@ -33,8 +33,8 @@ import org.glassfish.jersey.client.oauth2.TokenResult;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import br.entity.*;
-import br.dao.*;
+import api.rest.service.permission.*;
+
 
 @WebServlet("/oauth2callback")
 public class AuthCallBackServlet extends HttpServlet {
@@ -84,28 +84,7 @@ public class AuthCallBackServlet extends HttpServlet {
 				// guarda na sessao
 				request.getSession().setAttribute("username", username);
 				
-				// cria usuario, senao existir
-				SessionManager session = SessionManager.getInstance();
-				UserDAO userDao = new UserDAO(session.getEntityManager());
-				List<UserEntity> users = userDao.findByAttribute("name", username);
-				if(users.isEmpty()){
-  				session.begin();
-  			  logger.info("Creating user: " + username);
-  				UserEntity userEntity = new UserEntity(username);
-					userDao.save(userEntity);
-
-			  	RoleDAO roleDao = new RoleDAO(session.getEntityManager());
-			    List<RoleEntity> roles = roleDao.findByAttribute("name", "everyOne");
-          // role everyOne
-          if(!roles.isEmpty()){			    
-			  	  
-			  	  UserRoleDAO userRoleDao = new UserRoleDAO(session.getEntityManager());
-			  	  UserRoleEntity userRoleEntity = new UserRoleEntity(userEntity, roles.get(0) );
-            userRoleDao.save(userRoleEntity);
-            
-          }
-			    session.commit();
-				}
+				AuthenticationServlet.createUserIfNotExists(username);
 				
 				// rediciona
 				response.sendRedirect("/#/page/home");
