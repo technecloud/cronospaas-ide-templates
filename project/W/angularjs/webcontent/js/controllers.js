@@ -36,7 +36,6 @@
         }
         
         function goto(path){
-//          $location.path(path);
           $window.location.href=path;
         }
       
@@ -89,7 +88,9 @@
           var vm = this;
           
           vm.responses = [
-                          {id: 400, name: 'Bad Request' }
+                          {id: 200, name: 'OK' }
+                        , {id: 201, name: 'Created' }
+                        , {id: 400, name: 'Bad Request' }
                         , {id: 401, name: 'Unauthorized'}
                         , {id: 402, name: 'Payment Required'}
                         , {id: 403, name: 'Forbidden'}
@@ -116,6 +117,7 @@
               $rootScope.Permission.onStartInserting = function(){
                 
                 $rootScope.Permission.active.enabled = true;
+                $rootScope.Permission.active.priority = 0;
                 
               };    
           };

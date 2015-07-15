@@ -127,8 +127,11 @@
                       </div>
                       <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-user-role">
                         <div class="form-group">
-                          <label>User</label> <select ng-model="UserRole.active.user" class="form-control" ng-options="U.name for U in User.data" ng-select="U.data.id = User.data.id">
-                          </select> <label>Role</label> <select ng-model="UserRole.active.role" class="form-control" ng-options="R.name for R in Role.data" ng-select="R.data.id = Role.data.id">
+                          <label>User</label> 
+                          <select ng-model="UserRole.active.user.id" class="form-control" ng-options="U.id as U.name for U in User.data">
+                          </select> 
+                          <label>Role</label> 
+                          <select ng-model="UserRole.active.role.id" class="form-control" ng-options="R.id as R.name for R in Role.data">
                           </select>
                         </div>
                       </div>
@@ -147,8 +150,37 @@
             <div>
               <datasource name="Permission" entity="Permission" key="id" endpoint="api/rest">
               </datasource>
-                <cronos-table dataset="Permission" headers="['Id', 'Path','Verb', 'Role', 'enabled']" fields="['id', 'path', 'verb', 'role', 'enabled' ]" ng-hide="Permission.inserting || Permission.editing">
+                <cronos-table dataset="Permission" headers="['Id', 'Path', 'Verb', 'Exclude', 'Priority', 'Role', 'enabled']" fields="['id', 'path', 'verb', 'exclude', 'priority', 'role', 'enabled' ]" ng-hide="Permission.inserting || Permission.editing">
                 </cronos-table>
+                
+                
+                <!--{{Role.data | filter:{'id': 3} }} -->
+                
+                <!--
+                {{Permission}}
+                
+                <table>
+                  <tr>
+                    <th>Id</th>
+                    <th>Path</th>
+                    <th>Verb</th>
+                    <th>Exclude</th>
+                    <th>Priority</th>
+                    <th>Role</th>
+                    <th>Enabled</th>
+                  </tr>
+                  <tr ng-repeat="permission in Permission.data">
+                     <td>{{ permission.id }}</td>
+                     <td>{{ permission.path }}</td>
+                     <td>{{ permission.verb }}</td>
+                     <td>{{ permission.exclude }}</td>
+                     <td>{{ permission.priority }}</td>
+                     <td>{{ permission.role.name }}</td>
+                     <td>{{ permission.enabled }}</td>
+                 </tr>
+                </table>
+                -->
+                
                   <!-- Form -->
                   <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-PERMISSION" ng-init="onStartInserting()">
                     <br />
@@ -164,16 +196,30 @@
                       </div>
                       <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-role">
                         <div class="form-group">
-                          <label>Path (regex)</label> <input type="text" ng-model="Permission.active.path" class="form-control" placeholder="Path" required="" /><br />
-                           <label>Verb</label> <select ng-required="required" class="form-control" ng-model="Permission.active.verb" ng-options="item.id as item.name for item in vm.verbs">
-                          </select><br />
-                           <label>Enabled?</label><br />
+                          <label>Path (regex)</label> <input type="text" ng-model="Permission.active.path" class="form-control" placeholder="Path" required="" />
+                          <br />
+                         <label>Exclude</label><br />
+                           <input type="text" placeholder="regex" class="form-control" ng-required="required" ng-model="Permission.active.exclude" />
+                          <br />
+                          <label>Verb</label> 
+                          <select ng-required="required" class="form-control" ng-model="Permission.active.verb" ng-options="item.id as item.name for item in vm.verbs">
+                            <option value="">Choose</option>
+                          </select>
+                            <br />
+                           <label>Priority [{{Permission.active.priority}}]</label><br />
+                           <input type=range min=0 max=100ng-required="required" ng-model="Permission.active.priority" />
+                            <br />
+                           <br />
+                          <label>Role [{{Permission.active.role.id}}]</label> 
+                          <select ng-model="Permission.active.role.id" class="form-control"  ng-options="R.id as R.name for R in Role.data">
+                            <option value="">Choose</option>
+                        </select> 
+                        <br />
+                           <label>Enabled?</label>
+                           <br />
                            <input type="checkbox" ng-required="required" ng-model="Permission.active.enabled" />
                         </div>
                       </div>
-                      <label>Role</label> 
-                      <select ng-model="Permission.active.role" class="form-control"  ng-options="R.name for R in Role.data">
-                      </select> 
                       <div class="" data-container="true">
                       </div>
                     </div>
