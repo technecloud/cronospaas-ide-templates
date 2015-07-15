@@ -315,8 +315,8 @@
         to = to || {}; 
 
         for(var key in from) {
-            if(from.hasOwnProperty(key)) {
-              to[key] = this.copy(from[key]);
+            if(from.hasOwnProperty(key) && key.indexOf('$')==-1) {
+                to[key] = this.copy(from[key]);
             }
         }
         return to;
