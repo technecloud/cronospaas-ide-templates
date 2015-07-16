@@ -19,19 +19,44 @@ public class AuthServlet extends HttpServlet implements Serializable{
 	public static Map<String,Object> map = new HashMap<>();
 	private OAuth2CodeSettings settings;
 	
+		private OAuth2CodeGrantFlow buildGenericFlow(ClientIdentifier clientIdentifier) {
+		Builder<?> builder = OAuth2ClientSupport
+				.authorizationCodeGrantFlowBuilder(clientIdentifier,
+						settings.AUTHORIZATION_URI, settings.TOKEN_URI);
+		final OAuth2CodeGrantFlow flow = builder.scope(settings.SCOPE)
+				.redirectUri(settings.AUTHORIZATION_CALLBACK_URI).build();
+
+		return flow;
+	}
+
+	private OAuth2CodeGrantFlow buildFacebookFlow(ClientIdentifier clientIdentifier) {
+		final OAuth2CodeGrantFlow flow = OAuth2ClientSupport
+				.facebookFlowBuilder(clientIdentifier,
+						settings.AUTHORIZATION_CALLBACK_URI)
+						.build();
+		return flow;
+	}
+
+	private OAuth2CodeGrantFlow buildFlow(ClientIdentifier clientIdentifier) {
+		OAuth2CodeGrantFlow flow = null;
+
+		String idp = settings.getResourceName();
+		switch (idp) {
+		case "facebook":
+			flow = buildFacebookFlow(clientIdentifier);
+			break;
+		default:
+			flow = buildGenericFlow(clientIdentifier);
+		}
+		return flow;
+	}
+	
 	private String authorize(HttpServletRequest request) {
 
 		ClientIdentifier clientIdentifier = new ClientIdentifier(
 				settings.CLIENT_KEY, settings.CLIENT_SECRET);
 
-		Builder<?> builder = OAuth2ClientSupport
-				.authorizationCodeGrantFlowBuilder(clientIdentifier,
-						settings.AUTHORIZATION_URI, settings.TOKEN_URI);
-
-		builder.redirectUri(settings.AUTHORIZATION_CALLBACK_URI);
-
-		OAuth2CodeGrantFlow flow = builder.scope(settings.SCOPE)
-				.redirectUri(settings.AUTHORIZATION_CALLBACK_URI).build();
+		final OAuth2CodeGrantFlow flow = buildFlow(clientIdentifier);
 
 		request.getSession().invalidate();
 		//request.getSession().setAttribute("OAuth2CodeGrantFlow", flow);

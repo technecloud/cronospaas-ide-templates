@@ -15,11 +15,11 @@
               url     : '/auth',
               data    : $.param(user),  // pass in data as strings
               headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
-            }).then(handleSuccess, handleError('User or password invalid!'))
-  
-        }
+            }).success(handleSuccess).error(handleError);
 
-        function handleSuccess(data) {
+        }
+        
+        function handleSuccess(data, status, headers, config) {
           vm.success = 'Success' ;
           vm.error = null;
           
@@ -30,7 +30,8 @@
           $location.path('/page/home');
         }
 
-        function handleError(error) {
+        function handleError(data, status, headers, config) {
+          var error = status == 401 ? "Username or passoword invalid!" : data ; 
           vm.error = error;
           vm.success = null;
         }
