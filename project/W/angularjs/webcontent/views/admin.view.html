@@ -1,9 +1,38 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/#/page/home">Home</a></li>
+        <li class="active"><a href="/#/page/admin">Authorization</a></li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<div class="container" style="padding: 40px 15px;">
+<br />
+
+<div ng-hide="vm.username" class="alert alert-danger" >
+<h1>Access Denied!</h1>
+</div>
+
+<!-- tabs -->
+<div ng-show="vm.username">
 <div ng-show="vm.error" class="alert alert-danger">
     {{vm.error}}
-  </div>
-  <div ng-show="vm.success" class="alert alert-success">
-    {{vm.success}}
-  </div>
+</div>
+<div ng-show="vm.success" class="alert alert-success">
+  {{vm.success}}
+</div>
+  
   <div class="" data-container="true">
   </div>
   <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-171476">
@@ -211,9 +240,8 @@
       </div>
     </div>
   </div>
-  <div class="" data-container="true">
-  </div>
-  <hr />
-  <p>
-    <a href="/#/page/home" class="btn btn-primary">Home</a>
-  </p>
+
+</div> <!-- tabs -->
+  
+  
+</div><!-- container -->

@@ -22,6 +22,7 @@
         function handleSuccess(data, status, headers, config) {
           vm.success = 'Success' ;
           vm.error = null;
+          vm.username = username.value;
           
           $rootScope.globals = {
             currentUser: username.value
@@ -88,6 +89,8 @@
         app.controller('AdminController', ['$scope', '$http', '$location','$rootScope',  function($scope, $http, $location, $rootScope){
           var vm = this;
           
+          console.log('AdminController');
+          
           vm.responses = [
                           {id: 200, name: 'OK' }
                         , {id: 201, name: 'Created' }
@@ -132,6 +135,17 @@
           function handleError(error) {
             vm.error = error;
           }
+          
+          function handleSession(response){
+            console.log("handleSession", response);
+            vm.username = response.data.username;
+          }
+
+          $http({
+            method  : 'GET',
+            url     : '/session',
+          }).then(handleSession)
+
 
         }]);
 

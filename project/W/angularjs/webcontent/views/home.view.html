@@ -1,8 +1,38 @@
-<h1>Hi {{vm.username}}!</h1>
-<p>You're logged in!!</p>
-<p>&nbsp;</p>
-<p><a href="/#/page/admin" class="btn btn-primary">Admin</a> <button type="button" class="btn btn-primary" ng-click="vm.logout()">Logout</button></p>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/#/page/home">Home</a></li>
+            <li><a href="/#/page/admin">Authorization</a></li>
+            <li><a href="#" ng-click="vm.logout()">Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
 
-<div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
+    <div class="container">
 
+      <div style="padding: 40px 15px;">
+      
+        <h1>Hi {{vm.username}}!</h1>
+        <p ng-show="vm.username">You're logged in!!</p>
+        <p>&nbsp;</p>
+        <p class="lead">
+Lorem ipsum dolor sit amet, qui ne scaevola verterem. Eam noster assueverit cotidieque ut, ea pro vide offendit, utamur pericula iudicabit ei vis. Omnium liberavisse an has, aperiri inimicus scripserit ad sea, ne zril persius vis. No qui mundi iracundia signiferumque.
+Ei eos posse pertinax euripidis, eam prima mucius sensibus an, te qui error propriae reprehendunt. Cibo accusata delicatissimi eos at, an elitr labore argumentum sit. Cu illum tractatos signiferumque pri. Sit in dolor graece feugiat. Esse erant eloquentiam eam ne, duo porro necessitatibus ut, impetus scribentur eu mea.
+Cu illum nusquam deleniti mei, has dolores adversarium te, erat melius voluptaria ei ius. Eu ius aeque accusata honestatis, ea posse choro sit. Usu possit forensibus an. Duo intellegat concludaturque eu, vim minim minimum te, harum mollis elaboraret nam an. Nisl legendos rationibus ea per, esse libris praesent ex vix. Laudem suavitate duo cu. Eu usu iudicabit assueverit intellegebat, per no quod temporibus, et sint fierent nam.
+Ne nec zril suavitate. Et sumo diam delectus eam, per cu detraxit cotidieque. Te rebum simul has, usu velit paulo copiosae in. Vim affert aliquando disputando cu, dicat delicata nam ea, unum errem altera vim et. Prima tempor eu eum. Sea cu mentitum mediocrem.
+Te usu aperiri argumentum, ut per assum doming, diceret minimum ut quo. Simul principes dissentias eos an, ea eos vide justo probatus. Vis inermis partiendo similique in, ea alienum honestatis mel. Mutat vidisse in quo, ea est augue tacimates
+.</p>
+      </div>
+
+    </div><!-- /.container -->
 
