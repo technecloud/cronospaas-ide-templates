@@ -132,7 +132,8 @@ public class AuthorizationFilter implements Filter {
 
       if( permission.isEnabled() 
       && (verb.equalsIgnoreCase(permission.getVerb()) || permission.getVerb().equalsIgnoreCase("ALL"))
-      && path.matches(permission.getPath())){
+      && (path.matches(permission.getPath()) && !path.matches(""+permission.getExclude())) 
+      ){
         allowed = true;
         break;
       }
@@ -145,7 +146,8 @@ public class AuthorizationFilter implements Filter {
    
    
    public List<PermissionEntity> fillAllByUserName(EntityManager entityManager, String username) {
-    String jql = "SELECT OBJECT(p) FROM PermissionEntity p, UserRoleEntity ur, UserEntity u WHERE p.role.id = ur.role.id AND ur.user.id = u.id AND u.name = :username";
+    String jql = "SELECT OBJECT(p) FROM PermissionEntity p, UserRoleEntity ur, UserEntity u WHERE p.role.id = ur.role.id AND ur.user.id = u.id AND u.name = :username"
+               + " ORDER BY p.priority desc";
     Query q = entityManager.createQuery(jql);
     q.setParameter("username", username);
     return q.getResultList();

@@ -43,6 +43,9 @@ public class PermissionEntity implements Serializable {
 	
 	@Column(name = "exclude", nullable = true)
 	private java.lang.String exclude;
+
+	@Column(name = "priority", nullable = false)
+	private Integer priority = 1;
 	
 	@Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,6 +55,7 @@ public class PermissionEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="fk_role", referencedColumnName = "id", nullable=true)
 	private RoleEntity role;
+
 	
 	
 	/**
@@ -78,6 +82,14 @@ public class PermissionEntity implements Serializable {
   public void setVerb(String verb){
     this.verb = verb;
   }
+
+  public Integer getPriority(){
+    return priority;
+  }
+  public void setPriority(Integer priority){
+    this.priority = priority;
+  }
+
 	public Boolean isEnabled(){
 	  return enabled;
 	}

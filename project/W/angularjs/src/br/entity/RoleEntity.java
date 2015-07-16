@@ -24,6 +24,7 @@ import javax.ws.rs.*;
         @NamedQuery(name = "RoleEntity.findByID", query = "SELECT e FROM RoleEntity e where e.id like :ID"),
 })
 @XmlRootElement
+@XmlType(propOrder = {"id", "name", "enabled"})
 public class RoleEntity implements Serializable {
 
 	/**
@@ -31,19 +32,19 @@ public class RoleEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = -1381576613383169882l;
 	
-
-  @Column(name = "enabled", nullable = false)
-  @DefaultValue(value="true")
-  @XmlSchemaType(name="boolean")
-  private Boolean enabled = Boolean.TRUE;
-
-	@Column(name = "name", nullable = true, unique = true)
-	private java.lang.String name;
-	
 	@Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private java.lang.Integer id;
+
+
+	@Column(name = "name", nullable = true, unique = true)
+	private java.lang.String name;
+	
+  @Column(name = "enabled", nullable = false)
+  @DefaultValue(value="true")
+  @XmlSchemaType(name="boolean")
+  private Boolean enabled = Boolean.TRUE;
 	
 	
 	/**
@@ -125,27 +126,17 @@ public class RoleEntity implements Serializable {
 	      return false;
 	    
 	    RoleEntity other = (RoleEntity)obj;
-	    
-		// if(this.permissions == null && other.permissions != null)
-	 //   	return false;
-	 //   else if(!this.permissions.equals(other.permissions))
-	 //    	return false;
-	
-		// if(this.userRoles == null && other.userRoles != null)
-	 //   	return false;
-	 //   else if(!this.userRoles.equals(other.userRoles))
-	 //    	return false;
-	
-		if(this.name == null && other.name != null)
-	    	return false;
-	    else if(!this.name.equals(other.name))
-	     	return false;
+
 	
 		if(this.id == null && other.id != null)
 	    	return false;
 	    else if(!this.id.equals(other.id))
 	     	return false;
 	
+		if(this.name == null && other.name != null)
+	    	return false;
+	    else if(!this.name.equals(other.name))
+	     	return false;
 	
 
 	    return true;

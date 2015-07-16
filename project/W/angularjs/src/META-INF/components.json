@@ -245,6 +245,7 @@
         }
       },
       {
+<<<<<<< HEAD
         "name" : "crn-combobox", 
         "text" : "Combobox",
         "class" : "cpn cpn-combobox", 
@@ -306,6 +307,12 @@
         "text" : "Checkbox",
         "class" : "cpn .cpn-checkbox", 
         "templateURL" : "webcontent/components/templates/checkbox.template.html"
+      },
+      {
+        "name" : "crn-oauth2",
+        "text" : "OAuth2",
+        "class" : "cpn cpn-oauth2",
+        "templateURL" : "webcontent/components/templates/button.oauth2.template.html"
       }
   ]
 }

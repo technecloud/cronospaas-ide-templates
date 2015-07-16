@@ -46,6 +46,27 @@ var app = (function() {
         .otherwise({
             redirectTo: '/page/login'
         });
+    }])
+
+    .directive('crnValue', ['$parse', function($parse) {
+      return {
+        restrict: 'A',
+        require: '^ngModel',
+        link: function(scope, element, attr, ngModel) {
+            var evaluatedValue;
+            if(attr.value) {
+              evaluatedValue = attr.value;
+            } else {
+              evaluatedValue = $parse(attr.crnValue)(scope);
+            }
+            element.attr("data-evaluated", JSON.stringify(evaluatedValue));
+            element.bind("click", function(event) {
+              scope.$apply(function() {
+                 ngModel.$setViewValue(evaluatedValue);  
+              }.bind(element));
+            });
+        }
+      };
     }]);
 
 }(window));
