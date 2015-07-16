@@ -215,6 +215,14 @@
             }
           ]
         }
+      },
+      {
+        "name" : "crn-oauth2",
+        "text" : "OAuth2",
+        "class" : "cpn cpn-oauth2",
+        "templateURL" : "webcontent/components/templates/button.oauth2.template.html",
+        "properties" : {
+        }
       }
   ]
 }
