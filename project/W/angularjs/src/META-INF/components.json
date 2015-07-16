@@ -107,10 +107,38 @@
         }
       },
       {
-        "name" : "crn-container",
-        "text" : "Div",
-        "class" : "cpn cpn-div",
-        "template" : "<div id=\"\" class=\"\"><div data-container=\"true\"></div></div>"
+        "name" : "crn-vertical-container",
+        "text" : "Vertical Grid",
+        "class" : "cpn cpn-vertical-grid",
+        "template" : "<div class=\"crn-layout-container\"><div class=\"row\"><div class=\"\"><div data-container=\"true\">Content goes here</div></div></div><div class=\"row\"><div class=\"\"><div data-container=\"true\">Content goes here</div></div></div></div>",
+        "handleRules" : {
+          "canOrder" : false,
+          "canActivate" : false,
+          "canIncrement" :true,
+          "rules" : [
+            {
+              "sourceHTML" : "<div class=\"row\"><div class=\"\"><div data-container=\"true\">Content goes here</div></div></div>",
+              "targetSelector" : "div.crn-layout-container"
+            }
+          ]
+        }
+      },
+      {
+        "name" : "crn-horizontal-container",
+        "text" : "Horizontal Grid",
+        "class" : "cpn cpn-horizontal-grid",
+        "template" : "<div class=\"row\">\r\n        <div class=\"column col-md-4\"><div data-container=\"true\">Content goes here</div></div>\r\n        <div class=\"column col-md-4\"><div data-container=\"true\">Content goes here</div></div>\r\n      </div>",
+        "handleRules" : {
+          "canOrder" : false,
+          "canActivate" : false,
+          "canIncrement" :true,
+          "rules" : [
+            {
+              "sourceHTML" : "<div class=\"column col-md-4\"><div data-container=\"true\">.col-md-4</div></div>",
+              "targetSelector" : "div.row"
+            }
+          ]
+        }
       },
       {
         "name" : "crn-form",
@@ -186,8 +214,8 @@
       },
       {
         "name" : "crn-grid", 
-        "text" : "Table Grid",
-        "class" : "cpn cpn-grid", 
+        "text" : "Table",
+        "class" : "cpn cpn-table", 
         "templateURL" : "webcontent/components/templates/grid.template.html",
         "properties" : {
           "crn-datasource" : {
@@ -215,6 +243,69 @@
             }
           ]
         }
+      },
+      {
+        "name" : "crn-combobox", 
+        "text" : "Combobox",
+        "class" : "cpn cpn-combobox", 
+        "templateURL" : "webcontent/components/templates/combobox.template.html",
+        "handleRules" : {
+          "canToggle" : true,
+          "canIncrement" : true,
+          "rules" : [
+            {
+              "toggleSelector" : ".dropdown-menu.option",
+              "toggleClass" : "active",
+              "sourceHTML" : "<li id=\"item${RANDOM}\" class=\"combo-item\"> <a href=\"#\"><div data-container=\"true\">Content Goes Here</div> </a></li>",
+              "targetSelector" : ".dropdown-menu.option"
+            }
+          ]
+        }
+      },
+      {
+        "name" : "crn-combobox-dynamic", 
+        "text" : "Dynamic Combobox",
+        "class" : "cpn .cpn-combobox-dynamic", 
+        "templateURL" : "webcontent/components/templates/combobox-dynamic.template.html",
+        "handleRules" : {
+          "canToggle" : true,
+          "rules" : [
+            {
+              "toggleSelector" : ".dropdown-menu.option",
+              "toggleClass" : "active",
+              "sourceHTML" : "<li id=\"item${RANDOM}\" class=\"combo-item\"> <a href=\"#\"><div data-container=\"true\">Content Goes Here</div> </a></li>",
+              "targetSelector" : ".dropdown-menu.option"
+            }
+          ]
+        },
+        "properties" : {
+          "crn-datasource" : {
+              "displayName" : "Datasource",
+               "removable" : false,
+               "type" : "datasourceList"
+          }
+        }
+      },
+      {
+        "name" : "crn-radiogroup", 
+        "text" : "Radio Group",
+        "class" : "cpn .cpn-radiogroup", 
+        "templateURL" : "webcontent/components/templates/radiogroup.template.html",
+        "handleRules" : {
+          "canIncrement" : true,
+          "rules" : [
+            {
+              "sourceHTML" : "<div class=\"radio\">\n  <label class=\"\" crn-value value=\"Value Two\"> \n       <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios${RANDOM}\" value=\"\"> \n       <span class=\"\">New option</span> \n </label> \n</div>",
+              "targetSelector" : ".form-group"
+            }
+          ]
+        }
+      },
+      {
+        "name" : "crn-checkbox", 
+        "text" : "Checkbox",
+        "class" : "cpn .cpn-checkbox", 
+        "templateURL" : "webcontent/components/templates/checkbox.template.html"
       }
   ]
 }
