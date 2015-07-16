@@ -41,9 +41,5 @@
       }
     };
   }]);
-
-  $app.controller("myController",['$scope',function($scope) {
-    $scope.Pessoa = "2";
-  }])
   
 }(app));

@@ -295,7 +295,7 @@
           "canIncrement" : true,
           "rules" : [
             {
-              "sourceHTML" : "<div class=\"radio\">\n  <label class=\"\" crn-value value=\"Value Two\"> \n       <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios${RANDOM}\" value=\"\"> \n       <span class=\"\">New option</span> \n </label> \n</div>",
+              "sourceHTML" : "<div class=\"radio\">\n  <label class=\"\" crn-value value=\"New value\"> \n       <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios${RANDOM}\" value=\"\"> \n       <span class=\"\">New option</span> \n </label> \n</div>",
               "targetSelector" : ".form-group"
             }
           ]
