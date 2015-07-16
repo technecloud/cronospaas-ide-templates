@@ -15,13 +15,14 @@
               url     : '/auth',
               data    : $.param(user),  // pass in data as strings
               headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
-            }).then(handleSuccess, handleError('User or password invalid!'))
-  
-        }
+            }).success(handleSuccess).error(handleError);
 
-        function handleSuccess(data) {
+        }
+        
+        function handleSuccess(data, status, headers, config) {
           vm.success = 'Success' ;
           vm.error = null;
+          vm.username = username.value;
           
           $rootScope.globals = {
             currentUser: username.value
@@ -30,13 +31,13 @@
           $location.path('/page/home');
         }
 
-        function handleError(error) {
+        function handleError(data, status, headers, config) {
+          var error = status == 401 ? "Username or passoword invalid!" : data ; 
           vm.error = error;
           vm.success = null;
         }
         
         function goto(path){
-//          $location.path(path);
           $window.location.href=path;
         }
       
@@ -88,8 +89,12 @@
         app.controller('AdminController', ['$scope', '$http', '$location','$rootScope',  function($scope, $http, $location, $rootScope){
           var vm = this;
           
+          console.log('AdminController');
+          
           vm.responses = [
-                          {id: 400, name: 'Bad Request' }
+                          {id: 200, name: 'OK' }
+                        , {id: 201, name: 'Created' }
+                        , {id: 400, name: 'Bad Request' }
                         , {id: 401, name: 'Unauthorized'}
                         , {id: 402, name: 'Payment Required'}
                         , {id: 403, name: 'Forbidden'}
@@ -116,6 +121,7 @@
               $rootScope.Permission.onStartInserting = function(){
                 
                 $rootScope.Permission.active.enabled = true;
+                $rootScope.Permission.active.priority = 0;
                 
               };    
           };
@@ -129,6 +135,17 @@
           function handleError(error) {
             vm.error = error;
           }
+          
+          function handleSession(response){
+            console.log("handleSession", response);
+            vm.username = response.data.username;
+          }
+
+          $http({
+            method  : 'GET',
+            url     : '/session',
+          }).then(handleSession)
+
 
         }]);
 
