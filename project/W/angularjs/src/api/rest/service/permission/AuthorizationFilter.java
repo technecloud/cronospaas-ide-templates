@@ -43,12 +43,12 @@ public class AuthorizationFilter implements Filter {
 
     RoleEntity roleAdmin = new RoleEntity("admin");
     RoleEntity roleEveryOne = new RoleEntity("everyOne");
-    RoleEntity logged = new RoleEntity("logged");
+    RoleEntity roleLogged = new RoleEntity("logged");
 
     List<PermissionEntity> permissions = new ArrayList<>();
-    permissions.add( new PermissionEntity("/api/rest/(User|Role|UserRole|Permission)(/.)*", "ALL", roleAdmin ) );
+    permissions.add( new PermissionEntity("/api/rest/(User|Role|UserRole|Permission)(/.)*|/views/admin/(.)+", "ALL", roleAdmin ) );
 
-    permissions.add( new PermissionEntity("/(.)+\\.(js|css|jpg|gif|png|ico|html|woff2)", "GET", roleEveryOne ) );
+    permissions.add( new PermissionEntity("/(.)+\\.(js|css|jpg|gif|png|ico|html|woff2)", "GET", roleEveryOne, "/views/(admin|logged)/(.)*" ) );
     permissions.add( new PermissionEntity("(/|/index.html|/oauth2(.)*|/oauth2callback|/revoke|/page/(.)+|/session)", "GET", roleEveryOne ) );
     
     SessionManager session = SessionManager.getInstance();
@@ -64,7 +64,7 @@ public class AuthorizationFilter implements Filter {
     List<RoleEntity> roles = new ArrayList<>();
     roles.add(roleAdmin);
     roles.add(roleEveryOne);
-    roles.add(logged);
+    roles.add(roleLogged);
     
     for(RoleEntity role: roles)
     roleDAO.save(role);    
@@ -78,13 +78,13 @@ public class AuthorizationFilter implements Filter {
     
     userRoleDAO.save(new UserRoleEntity(userAdmin, roleAdmin));
     userRoleDAO.save(new UserRoleEntity(userAdmin, roleEveryOne));
-    userRoleDAO.save(new UserRoleEntity(userAdmin, logged));
+    userRoleDAO.save(new UserRoleEntity(userAdmin, roleLogged));
     
     UserEntity userAnonymous = new UserEntity("anonymous");
     userDAO.save(userAnonymous);
 
     userRoleDAO.save(new UserRoleEntity(userAnonymous, roleEveryOne));
-    userRoleDAO.save(new UserRoleEntity(userAnonymous, logged));
+    userRoleDAO.save(new UserRoleEntity(userAnonymous, roleLogged));
 
     
     session.commit();
@@ -125,6 +125,10 @@ public class AuthorizationFilter implements Filter {
     permissions.add( new PermissionEntity("/auth", "POST", null ) );
     permissions.add( new PermissionEntity("/logout", "GET", null ) );
     permissions.add( new PermissionEntity("/session", "GET", null ) );
+    
+    if(isLogged(request))
+    permissions.add( new PermissionEntity("/views/logged/(.)+", "ALL", null ) );
+    
 
     for(PermissionEntity permission : permissions){
 
@@ -142,6 +146,13 @@ public class AuthorizationFilter implements Filter {
     }
 
     return allowed;               
+   }
+   
+   public boolean isLogged(HttpServletRequest request){
+     HttpSession session = request.getSession();
+    Object username = session.getAttribute("username");
+    System.out.println("isLogged:" + username);
+    return (username != null);
    }
    
    

@@ -26,13 +26,13 @@ var app = (function() {
 
         .when('/page/home', {
             controller: 'HomeController',
-            templateUrl: 'views/home.view.html',
+            templateUrl: 'views/logged/home.view.html',
             controllerAs: 'vm'
         })
 
         .when('/page/admin', {
             controller: 'AdminController',
-            templateUrl: 'views/admin.view.html',
+            templateUrl: 'views/admin/admin.view.html',
             controllerAs: 'vm'
         })
       
