@@ -83,8 +83,11 @@ public class AuthCallBackServlet extends HttpServlet {
 				String userPictureURL = getUserPictureURL(settings, userInfo);
 				System.out.println("UserPictureURL:" + userPictureURL);
 				
+				// github nao possui chave name
+				String userNameKey = "github".equals(settings.getResourceName()) ? "login" : "name";
+				
         // pegar usuario do google
-				String username = userInfo.get("name").toString().toLowerCase().replaceAll("\\s|\"","");
+				String username = userInfo.get(userNameKey).toString().toLowerCase().replaceAll("\\s|\"","");
 				// guarda na sessao
 				request.getSession().setAttribute("username", username);
 				request.getSession().setAttribute("userpictureurl", userPictureURL);
@@ -157,6 +160,9 @@ public class AuthCallBackServlet extends HttpServlet {
 	    break;
 		  case "google":
 		    urlPhoto = userInfo.get("picture").getAsString();
+	    break;
+		  case "github":
+		    urlPhoto = userInfo.get("avatar_url").getAsString();
 	    break;
 		}
 		
