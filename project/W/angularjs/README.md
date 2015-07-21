@@ -54,6 +54,18 @@ Advanced
 Valid OAuth redirect URIs http://localhost:8080/jerseyoauth2client/oauth2callback
 
 
+#LINKEDIN
+
+https://developer.linkedin.com/docs/oauth2
+
+Create App
+
+https://www.linkedin.com/developer/apps?newapp=
+
+Api
+https://developer.linkedin.com/docs/signin-with-linkedin
+
+
 # Maven
 
 mvn clean install
