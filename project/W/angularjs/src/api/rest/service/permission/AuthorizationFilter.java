@@ -18,14 +18,19 @@ import br.entity.*;
 )
 public class AuthorizationFilter implements Filter {
   
-  	static final long serialVersionUID = -1l;
+  	public static final long serialVersionUID = -1l;
     private final Logger logger = Logger.getLogger(this.getClass().getName()); 
 
-    PermissionDAO dao;
-  public void  init(FilterConfig config) 
+    private PermissionDAO dao;
+    private List<PermissionEntity> loggedPermissions = new ArrayList<>();
+    
+    public void  init(FilterConfig config) 
                          throws ServletException{
-                           
-                           
+
+    // Ao criar aplicação, o usuário logado é o administrador
+    loggedPermissions.add( buildPermission(null, "/views/logged/(.)+", "ALL", null )  );
+    loggedPermissions.add( buildPermission(null, "/api/rest/(User|Role|UserRole|Permission)(/.)*|/views/admin/(.)+", "ALL", null) );
+
                            
       dao = new PermissionDAO( SessionManager.getInstance().getEntityManager() );
       
@@ -35,21 +40,44 @@ public class AuthorizationFilter implements Filter {
       }catch(Exception e){
         logger.log(Level.SEVERE, e.getMessage());
       }
+      
+    
+   }
 
+   private PermissionEntity buildPermission(RoleEntity role, String path, String verb, String exclude)   {
+    
+      PermissionEntity permission = new PermissionEntity();
+      permission.setRole(role);
+      permission.setPath(path);
+      permission.setVerb(verb);
+      permission.setExclude(exclude);
+      
+      return permission;
+     
    }
    
-   void initialPermission(){
+   private void initialPermission(){
     System.out.println("creatingDefaultPermission");
 
-    RoleEntity roleAdmin = new RoleEntity("admin");
-    RoleEntity roleEveryOne = new RoleEntity("everyOne");
-    RoleEntity roleLogged = new RoleEntity("logged");
+    RoleEntity roleAdmin = new RoleEntity();
+    roleAdmin.setName("admin");
+    RoleEntity roleEveryOne = new RoleEntity();
+    roleEveryOne.setName("everyOne");
+    RoleEntity roleLogged = new RoleEntity();
+    roleLogged.setName("logged");
 
     List<PermissionEntity> permissions = new ArrayList<>();
-    permissions.add( new PermissionEntity("/api/rest/(User|Role|UserRole|Permission)(/.)*|/views/admin/(.)+", "ALL", roleAdmin ) );
-
-    permissions.add( new PermissionEntity("/(.)+\\.(js|css|jpg|gif|png|ico|html|woff2)", "GET", roleEveryOne, "/views/(admin|logged)/(.)*" ) );
-    permissions.add( new PermissionEntity("(/|/index.html|/oauth2(.)*|/oauth2callback|/revoke|/page/(.)+|/session)", "GET", roleEveryOne ) );
+    permissions.add( buildPermission(roleAdmin, "/api/rest/(User|Role|UserRole|Permission)(/.)*|/views/admin/(.)+", "ALL", null) );
+    permissions.add( buildPermission(roleEveryOne, "/(.)+\\.(js|css|jpg|gif|png|ico|html|woff2)", "GET", "/views/(admin|logged)/(.)*" ) );
+    permissions.add( buildPermission(roleEveryOne, "(/|/index.html|/oauth2(.)*|/oauth2callback|/revoke|/page/(.)+|/session)", "GET", null  ) );
+  
+    
+    // Ao criar aplicação, o usuário logado é o administrador
+    for(PermissionEntity pe : loggedPermissions){
+      System.out.println("Elvis was here");
+      pe.setRole(roleLogged);
+      permissions.add( pe );
+    }
     
     SessionManager session = SessionManager.getInstance();
     session.begin();
@@ -73,14 +101,16 @@ public class AuthorizationFilter implements Filter {
     permissionDAO.save(permission);
 
     
-    UserEntity userAdmin = new UserEntity("admin");
+    UserEntity userAdmin = new UserEntity();
+    userAdmin.setName("admin");
     userDAO.save(userAdmin);
     
     userRoleDAO.save(new UserRoleEntity(userAdmin, roleAdmin));
     userRoleDAO.save(new UserRoleEntity(userAdmin, roleEveryOne));
     userRoleDAO.save(new UserRoleEntity(userAdmin, roleLogged));
     
-    UserEntity userAnonymous = new UserEntity("anonymous");
+    UserEntity userAnonymous = new UserEntity();
+    userAnonymous.setName("anonymous");
     userDAO.save(userAnonymous);
 
     userRoleDAO.save(new UserRoleEntity(userAnonymous, roleEveryOne));
@@ -122,13 +152,14 @@ public class AuthorizationFilter implements Filter {
     List<PermissionEntity> permissions = syncDatabase(username);
 
     // Public Permissions
-    permissions.add( new PermissionEntity("/auth", "POST", null ) );
-    permissions.add( new PermissionEntity("/logout", "GET", null ) );
-    permissions.add( new PermissionEntity("/session", "GET", null ) );
+    permissions.add( buildPermission(null, "/auth", "POST", null ) );
+    permissions.add( buildPermission(null, "/logout", "GET", null ) );
+    permissions.add( buildPermission(null, "/session", "GET", null ) );
     
-    if(isLogged(request))
-    permissions.add( new PermissionEntity("/views/logged/(.)+", "ALL", null ) );
-    
+    if(isLogged(request)){
+      for(PermissionEntity pe : loggedPermissions)
+          permissions.add( pe );
+    }
 
     for(PermissionEntity permission : permissions){
 

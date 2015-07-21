@@ -78,6 +78,9 @@ public class AuthCallBackServlet extends HttpServlet {
 			try {
 			  
 				JsonObject userInfo = getUserInfo(settings, accessToken);
+				
+				System.out.println("UserInfo:"+ userInfo.toString());
+				
         // pegar usuario do google
 				String username = userInfo.get("name").toString().toLowerCase().replaceAll("\\s|\"","");
 				// guarda na sessao
