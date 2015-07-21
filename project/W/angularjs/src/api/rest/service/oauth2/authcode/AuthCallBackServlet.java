@@ -84,7 +84,12 @@ public class AuthCallBackServlet extends HttpServlet {
 				System.out.println("UserPictureURL:" + userPictureURL);
 				
 				// github nao possui chave name
-				String userNameKey = "github".equals(settings.getResourceName()) ? "login" : "name";
+				String userNameKey = "name";
+				if("linkedin".equals(settings.getResourceName()) )
+  				userNameKey = "firstName";
+				else if( "github".equals(settings.getResourceName()) )
+	  			userNameKey = "login";
+				
 				
         // pegar usuario do google
 				String username = userInfo.get(userNameKey).toString().toLowerCase().replaceAll("\\s|\"","");
@@ -152,7 +157,7 @@ public class AuthCallBackServlet extends HttpServlet {
 	}
 
 	public static String getUserPictureURL(OAuth2CodeSettings settings, JsonObject userInfo) throws ClientProtocolException, IOException {
-		String urlPhoto = "img/nophto.png";
+		String urlPhoto = "img/nophoto.png";
 		
 		switch(settings.getResourceName()){
 		  case "facebook":
@@ -164,6 +169,9 @@ public class AuthCallBackServlet extends HttpServlet {
 		  case "github":
 		    urlPhoto = userInfo.get("avatar_url").getAsString();
 	    break;
+		  // case "linkedin":
+		  //   urlPhoto = userInfo.get("pictureUrl").getAsString();
+	   // break;
 		}
 		
 		return urlPhoto;
