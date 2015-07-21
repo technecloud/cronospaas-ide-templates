@@ -78,13 +78,16 @@ public class AuthCallBackServlet extends HttpServlet {
 			try {
 			  
 				JsonObject userInfo = getUserInfo(settings, accessToken);
-				
 				System.out.println("UserInfo:"+ userInfo.toString());
+				
+				String userPictureURL = getUserPictureURL(settings, userInfo);
+				System.out.println("UserPictureURL:" + userPictureURL);
 				
         // pegar usuario do google
 				String username = userInfo.get("name").toString().toLowerCase().replaceAll("\\s|\"","");
 				// guarda na sessao
 				request.getSession().setAttribute("username", username);
+				request.getSession().setAttribute("userpictureurl", userPictureURL);
 				
 				AuthenticationServlet.createUserIfNotExists(username);
 				
@@ -144,6 +147,22 @@ public class AuthCallBackServlet extends HttpServlet {
 		JsonObject json = (JsonObject) new JsonParser().parse(outputString);
 		return json;
 	}
+
+	public static String getUserPictureURL(OAuth2CodeSettings settings, JsonObject userInfo) throws ClientProtocolException, IOException {
+		String urlPhoto = "img/nophto.png";
+		
+		switch(settings.getResourceName()){
+		  case "facebook":
+		    urlPhoto = String.format("http://graph.facebook.com/%s/picture", userInfo.get("id").getAsString() );
+	    break;
+		  case "google":
+		    urlPhoto = userInfo.get("picture").getAsString();
+	    break;
+		}
+		
+		return urlPhoto;
+	}
+
 	
 	
 

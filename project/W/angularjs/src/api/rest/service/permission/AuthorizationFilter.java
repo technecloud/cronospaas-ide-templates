@@ -74,7 +74,6 @@ public class AuthorizationFilter implements Filter {
     
     // Ao criar aplicação, o usuário logado é o administrador
     for(PermissionEntity pe : loggedPermissions){
-      System.out.println("Elvis was here");
       pe.setRole(roleLogged);
       permissions.add( pe );
     }

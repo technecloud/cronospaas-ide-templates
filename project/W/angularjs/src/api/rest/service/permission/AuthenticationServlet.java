@@ -150,7 +150,8 @@ public class AuthenticationServlet extends HttpServlet{
     logger.log(Level.INFO, "session");
 
 	  Object username = req.getSession().getAttribute("username");
-	  String json = String.format("{\"username\": \"%s\"}", username );
+	  Object userpictureurl = req.getSession().getAttribute("userpictureurl")==null ? "img/nophoto.png" : req.getSession().getAttribute("userpictureurl") ;
+	  String json = String.format("{\"username\": \"%s\", \"userpictureurl\": \"%s\"}", username, userpictureurl );
 
 	  if( username != null ){
 	    resp.setHeader("Content-Type", "application/json");
