@@ -78,10 +78,24 @@ public class AuthCallBackServlet extends HttpServlet {
 			try {
 			  
 				JsonObject userInfo = getUserInfo(settings, accessToken);
+				System.out.println("UserInfo:"+ userInfo.toString());
+				
+				String userPictureURL = getUserPictureURL(settings, userInfo);
+				System.out.println("UserPictureURL:" + userPictureURL);
+				
+				// github nao possui chave name
+				String userNameKey = "name";
+				if("linkedin".equals(settings.getResourceName()) )
+  				userNameKey = "firstName";
+				else if( "github".equals(settings.getResourceName()) )
+	  			userNameKey = "login";
+				
+				
         // pegar usuario do google
-				String username = userInfo.get("name").toString().toLowerCase().replaceAll("\\s|\"","");
+				String username = userInfo.get(userNameKey).toString().toLowerCase().replaceAll("\\s|\"","");
 				// guarda na sessao
 				request.getSession().setAttribute("username", username);
+				request.getSession().setAttribute("userpictureurl", userPictureURL);
 				
 				AuthenticationServlet.createUserIfNotExists(username);
 				
@@ -141,6 +155,28 @@ public class AuthCallBackServlet extends HttpServlet {
 		JsonObject json = (JsonObject) new JsonParser().parse(outputString);
 		return json;
 	}
+
+	public static String getUserPictureURL(OAuth2CodeSettings settings, JsonObject userInfo) throws ClientProtocolException, IOException {
+		String urlPhoto = "img/nophoto.png";
+		
+		switch(settings.getResourceName()){
+		  case "facebook":
+		    urlPhoto = String.format("http://graph.facebook.com/%s/picture", userInfo.get("id").getAsString() );
+	    break;
+		  case "google":
+		    urlPhoto = userInfo.get("picture").getAsString();
+	    break;
+		  case "github":
+		    urlPhoto = userInfo.get("avatar_url").getAsString();
+	    break;
+		  // case "linkedin":
+		  //   urlPhoto = userInfo.get("pictureUrl").getAsString();
+	   // break;
+		}
+		
+		return urlPhoto;
+	}
+
 	
 	
 

@@ -8,6 +8,7 @@
         </div> 
         <div id="navbar" class="collapse navbar-collapse"> 
           <ul class="nav navbar-nav"> 
+            <li><img src="{{vm.userpictureurl}}" class="photo_round"/></li>
             <li class="active"><a href="/#/page/home">Home</a></li> 
             <li><a href="/#/page/admin">Authorization</a></li> 
             <li><a href="#" ng-click="vm.logout()">Logout</a></li> 
@@ -16,6 +17,7 @@
         <!--/.nav-collapse --> 
       </div> 
     </nav> 
+    
     <div class="container"> 
       <div style="padding: 40px 15px;"> 
         <h1>Hi {{vm.username}}!</h1> 

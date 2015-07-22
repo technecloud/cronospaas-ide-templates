@@ -162,7 +162,7 @@
               <div> 
                 <datasource name="Permission" entity="Permission" key="id" endpoint="api/rest"> 
                 </datasource> 
-                <cronos-table dataset="Permission" headers="['Id', 'Path', 'Verb', 'Exclude', 'Priority', 'Role', 'enabled']" fields="['id', 'path', 'verb', 'exclude', 'priority', 'role.name', 'enabled' ]" ng-hide="Permission.inserting || Permission.editing"> 
+                <cronos-table dataset="Permission" headers="[ 'id', 'Path', 'Verb', 'Role']" fields="[ 'id', 'path', 'verb', 'role.name' ]" ng-hide="Permission.inserting || Permission.editing"> 
                 </cronos-table> 
                 <!--{{Role.data | filter:{'id': 3} }} --> 
                 <!-- Form --> 

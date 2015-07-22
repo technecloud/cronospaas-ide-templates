@@ -73,6 +73,7 @@
           function handleSession(response){
             console.log("handleSession", response);
             vm.username = response.data.username;
+            vm.userpictureurl = response.data.userpictureurl;
           }
 
           $http({

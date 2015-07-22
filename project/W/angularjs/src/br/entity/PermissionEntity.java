@@ -38,7 +38,7 @@ public class PermissionEntity implements Serializable {
   @XmlSchemaType(name="boolean")
   private Boolean enabled = Boolean.TRUE;
 	
-	@Column(name = "path", nullable = false, unique = true)
+	@Column(name = "path", nullable = false, unique = false)
 	private java.lang.String path;
 	
 	@Column(name = "exclude", nullable = true)

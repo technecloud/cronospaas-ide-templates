@@ -116,6 +116,15 @@ div[ng-view]{
     background-color: #286090;
 }
 
+
+.photo_round {
+  height: 50px;
+  width: 50px;
+  -moz-border-radius: 50px;
+  border-radius: 50px;
+  background-position: center top;
+}
+
 /** home **/
 
 
