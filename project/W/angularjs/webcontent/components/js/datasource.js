@@ -27,9 +27,9 @@
 
       // Private members
       var cursor = 0;
-      var page = 0;
       var service = null;
       var _savedProps;
+      var hasMoreResults = true;
 
       this.init = function() {
         this.endpoint = (this.endpoint) ? this.endpoint : "";
@@ -60,7 +60,7 @@
             this.notifyObservers(activeRow);         
           }
         }.bind(this),true);
-      }
+      };
 
       //Public methods
       /**
@@ -77,7 +77,7 @@
       * the objects
       */ 
       this.update = function (obj, callback) {
-        var keyObj = {}
+        var keyObj = {};
         keyObj[this.key] = obj[this.key];
         service.update(keyObj, obj).$promise.then(function(obj) {
           this.data.forEach(function(currentRow) {
@@ -106,7 +106,7 @@
         this.inserting = false;
         this.editing = false;
         this.active = this.data[0];
-      }
+      };
       
      this.startInserting = function () {
        this.inserting = true;
@@ -114,11 +114,11 @@
        if(this.onStartInserting){
          this.onStartInserting();
        }
-     }
+     };
      
      this.startEditing = function () {
        this.editing = true;
-     }
+     };
 
       /**
       * Remove an object from this dataset by using the given id.
@@ -131,10 +131,10 @@
         for(var i = 0; i < this.data.length; i++) {
               if(this.data[i][this.key] === id) {
                   var obj = this.data.splice(i,1)[0];
-                  var keyObj = {}
+                  var keyObj = {};
                   keyObj[this.key] = obj[this.key];
                   service.remove(keyObj, obj);
-                  this.active = {}
+                  this.active = {};
               }
           }
       };
@@ -162,15 +162,53 @@
       */
       this.next = function () {
         if(!this.hasNext()) {
-          page++;
-          this.fetch(_savedProps, function(data) {
-            if(!data || data.length == 0) {
-              page--;
-            }
-          });
-        };
+          this.nextPage();
+        }
         this.active = this.copy(this.data[++cursor],{});
         return this.active;
+      };
+      
+      /**
+      *  Try to fetch the previous page
+      */
+      this.nextPage = function () {
+        this.offset = parseInt(this.offset) + parseInt(this.rowsPerPage); 
+        this.fetch(_savedProps, { 
+          success: function(data) {
+            if(!data || data.length === 0) {
+              this.offset = parseInt(this.offset) - parseInt(this.rowsPerPage); 
+              hasMoreResults = false;
+            }
+          }
+        });
+      };
+      
+      /**
+      *  Try to fetch the previous page
+      */
+      this.prevPage = function () {
+        if(!this.append && !this.preppend) {
+          this.offset = parseInt(this.offset) - parseInt(this.rowsPerPage); 
+          
+          if(this.offset < 0) {
+            this.offset = 0;
+          } else if(this.offset >= 0) {
+            this.fetch(_savedProps, {
+              success: function(data) {
+                if(!data || data.length === 0) {
+                  this.offset = 0; 
+                }
+              } 
+            }); 
+          }
+        }
+      };
+      
+      /**
+      *  Try to fetch the previous page
+      */
+      this.hasNextPage = function () {
+        return hasMoreResults;
       };
 
       /**
@@ -201,40 +239,60 @@
       this.getCursor = function () {
         return cursor;
       };
+      
+      /**
+      *  filter dataset by URL
+      */
+      this.filter = function ( url ) {
+        this.offset = 0;
+        this.cursor = 0;
+        this.fetch({ path: url }, { beforeFill: function(oldData) {
+          this.data = [];
+        }});
+      };
 
       /**
       *  Get the current row data
       */
       this.current = function () {
         return this.active || this.data[0];
-      }
+      };
 
       /**
       *  Fetch all data from the server
       */
-      this.fetch = function (props, callback) {
-        // Get some fake testing data
-        var endpoint = (this.endpoint) ? this.endpoint : "";
+      this.fetch = function (properties, callbacksObj) {
+        var props = properties || {};
+        var callbacks = callbacksObj || {};
 
-        var resource = $resource(endpoint + "/:entity", { 
+        var endpoint = (this.endpoint) ? this.endpoint : "";
+        
+        // Adjust property parameters and the endpoint url
+        props.params = props.params || {};
+        var resourceURL = endpoint + "/:entity/" + (props.path || "");
+        
+
+        var resource = $resource(resourceURL, { 
           entity: this.entity 
         });
 
-        // if pagination rows was defined
-        // we need to control the page on each 
-        // fetch request
-        if(this.rowsPerPage && this.rowsPerPage > 0) {
-          props.page = page + 1;
-        } 
+        // Set Limit and offset
+        props.params.limit = this.rowsPerPage;
+        props.params.offset = this.offset;
 
+        // Query the server with defined params
+        var query = resource.query(props.params);
+        
+        // Store the last configuration for late use
         _savedProps = props;
-
-        var query = resource.query(props);
 
         query.$promise.then(
           // Success Handler
           function (data) {
             if(data && data.length > 0) {
+              
+              // Call the before fill callback
+              if(callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
 
               // If prepend property was set. 
               // Add the new data before the old one
@@ -244,27 +302,24 @@
               // Add the new data after the old one
               if(this.append) this.data = this.data.concat(data);
 
-              // When neither append nor preppend was set
+              // When neither  nor preppend was set
               // Just replace the current data
               if(!this.prepend && !this.append) {
                 this.data = data;
                 this.active = data[0];
                 cursor = 0;
               }
-              if(callback) callback(data);
+              if(callbacks.success) callbacks.success.call(this, data);
             } else {
-              if(callback) callback();
+              if(callbacks.success) callbacks.success.call(this, data);
             }
-
-            if(callback) callback(data);
           }.bind(this),
           // Error Handler
-          function (error) {                 
-            console.log(error);
-            if(callback) callback(null);
+          function (error) {
+            if(callbacks.error) callbacks.error.call(this, data);
           }
         );
-      }
+      };
 
       /**
       * Asynchronously notify observers 
@@ -277,10 +332,8 @@
               dataset.notify.call(dataset, this.active);
             }.bind(this),1);  
           }
-          
         }
-        
-      }
+      };
 
       this.notify = function (activeRow) {
         if(activeRow) {
@@ -295,21 +348,23 @@
             return activeRow.hasOwnProperty(b) ? activeRow[b] : "";
           });
           
-          this.fetch({
-            q: filter
+          this.fetch({ 
+            params : {
+              q: filter
+            }
           });
         }
-      }
-
+      };
+      
       this.addObserver = function(observer) {
         this.observers.push(observer);
-      }
+      };
 
       /**
       * Clone a JSON Object
       */
       this.copy = function (from,to) {
-        if(from == null || typeof(from) != 'object')
+        if(from === null || typeof(from) != 'object')
             return from;
 
         to = to || {}; 
@@ -320,7 +375,7 @@
             }
         }
         return to;
-      }
+      };
 
     };
 
@@ -340,19 +395,22 @@
         var dts = new DataSet(props.name);
         dts.entity = props.entity;
         dts.key = props.key;
-        dts.rowsPerPage = props.rowsPerPage;
+        dts.rowsPerPage = props.rowsPerPage ? props.rowsPerPage : 100; // Default 100 rows per page
         dts.append = props.append;
+        dts.prepend = props.prepend;
         dts.endpoint = props.endpoint;
+        dts.filterURL = props.filterURL;
+        dts.offset = (props.offset) ? props.offset : 0; // Default offset is 0
         dts.init();
         this.storeDataset(dts);
 
-        if(!props.lazy && !(Object.prototype.toString.call(props.watch) === "[object String]")) {
+        if(!props.lazy && (Object.prototype.toString.call(props.watch) !== "[object String]") && !props.filterURL) {
           // Query string object
           var queryObj = {};
-          if(dts.rowsPerPage) queryObj.per_page = dts.rowsPerPage;
+          if(dts.rowsPerPage) queryObj.limit = dts.rowsPerPage;
 
           // Fill the dataset
-          dts.fetch(queryObj);
+          dts.fetch({params: queryObj});
         }
 
         if(props.watch && Object.prototype.toString.call(props.watch) === "[object String]") {
@@ -364,14 +422,17 @@
         // This will expose the dataset name as a
         // global variable
         $rootScope[dts.name] = dts;
-    }
+        window[dts.name] = dts;
+        
+        return dts;
+    };
 
     /**
     * Register a dataset as an observer to another one
     */
     this.registerObserver = function (targetName, dataset) {
       this.datasets[targetName].addObserver(dataset);
-    }
+    };
 
     return this;
   }]);
@@ -379,13 +440,14 @@
   /**
   * Cronus Dataset Directive
   */
-  $app.directive('datasource',['DatasetManager', function (DatasetManager) {
+  $app.directive('datasource',['DatasetManager','$timeout', function (DatasetManager,$timeout) {
+    var timeoutPromise;
     return {
       restrict: 'E',
       template: '',
-      link: function(scope, element, attrs) {
+      link: function( scope, element, attrs ) {
         var init = function () {
-          DatasetManager.initDataset({
+          var datasource = DatasetManager.initDataset({
             name: attrs.name,
             entity: attrs.entity,
             key: attrs.key,
@@ -395,10 +457,24 @@
             prepend: (attrs.hasOwnProperty('prepend') && attrs.prepend === "") || attrs.prepend === "true",
             watch: attrs.watch,
             rowsPerPage: attrs.rowsPerPage,
+            offset: attrs.offset,
+            filterURL : attrs.filter,
             watchFilter: attrs.watchFilter
           });
+          
+          attrs.$observe('filter', function( value ){
+                
+                // Stop the pending timeout
+                $timeout.cancel(timeoutPromise);
+                
+                // Start a timeout
+                timeoutPromise = $timeout(function() {
+                   datasource.filter(value);
+                }, 500);
+          
+                
+          });
         };
-
         init();
       }
     };

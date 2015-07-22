@@ -1,8 +1,10 @@
-<div class="input-group-btn select" crn-combobox ng-model="" crn-datasource="">
+<div class="input-group-btn select" crn-combobox ng-model="" crn-datasource="" filter="">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
       <span class="selected">{{selectedItem}}</span> <span class="caret"></span>
     </button>
     <ul class="dropdown-menu option active" role="menu">
-      <li ng-repeat="rowData in datasource.data" crn-value="rowData" class="combo-item"> <a><div data-container="true">{{rowData}}</div> </a></li>
+      <li class="search"><a><input type="text" ng-model="searchTerm" class="form-control" id="textinput-id" placeholder="Search" ng-click="startSearching($event)" ng-change="doSearch()"/></a></li>
+      <li ng-repeat="rowData in datasource.data" crn-value="rowData" class="combo-item" ng-click="setSelected()"> <a><div data-container="true">{{rowData}}</div> </a></li>
+      <li class="next" ng-show="hasMorePages()"><a><button class="btn btn-default btn-block" ng-click="nextPage($event)"><span aria-hidden="true">Load more...</span></button></a></li>
     </ul>
 </div>

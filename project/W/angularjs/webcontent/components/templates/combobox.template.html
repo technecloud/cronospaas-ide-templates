@@ -1,9 +1,9 @@
-<div class="input-group-btn select" crn-combobox ng-model="">
+<div class="input-group-btn select" crn-combobox ng-model="" crn-datasource="" filter="">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
       <span class="selected">{{selectedItem}}</span> <span class="caret"></span>
     </button>
     <ul class="dropdown-menu option active" role="menu">
-      <li crn-value="" value="item1" class="combo-item"> <a><div data-container="true">Item 1</div> </a></li>
-      <li crn-value="" value="item2" class="combo-item"> <a><div data-container="true">Item 2</div> </a></li>
+      <li class="search"><a></a><input type="text" ng-model="" class="form-control" id="textinput-id" placeholder="Search" /></a></li>
+      <li ng-repeat="rowData in datasource.data" crn-value="rowData" class="combo-item"> <a><div data-container="true">{{rowData}}</div> </a></li>
     </ul>
 </div>

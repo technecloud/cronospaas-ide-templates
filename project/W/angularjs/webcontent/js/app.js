@@ -39,7 +39,8 @@ var app = (function() {
         .when('/page/:name*', {
             templateUrl: function(urlattr){
                 return '/views/' + urlattr.name + '.view.html';
-            }
+            },
+            controller: 'GeneralController'
         })
         
         // Default route
@@ -67,6 +68,13 @@ var app = (function() {
             });
         }
       };
+    }])
+
+    // General controller
+    .controller("GeneralController",["$scope",function(a){
+      for(x in app.userEvents)
+        a[x]= app.userEvents[x].bind(a);
+        
     }]);
 
 }(window));

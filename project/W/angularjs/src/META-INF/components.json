@@ -265,7 +265,7 @@
       {
         "name" : "crn-combobox-dynamic", 
         "text" : "Dynamic Combobox",
-        "class" : "cpn .cpn-combobox-dynamic", 
+        "class" : "cpn cpn-combobox-dynamic", 
         "templateURL" : "webcontent/components/templates/combobox-dynamic.template.html",
         "handleRules" : {
           "canToggle" : true,
@@ -289,13 +289,13 @@
       {
         "name" : "crn-radiogroup", 
         "text" : "Radio Group",
-        "class" : "cpn .cpn-radiogroup", 
+        "class" : "cpn cpn-radiogroup", 
         "templateURL" : "webcontent/components/templates/radiogroup.template.html",
         "handleRules" : {
           "canIncrement" : true,
           "rules" : [
             {
-              "sourceHTML" : "<div class=\"radio\">\n  <label class=\"\" crn-value value=\"New value\"> \n       <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios${RANDOM}\" value=\"\"> \n       <span class=\"\">New option</span> \n </label> \n</div>",
+              "sourceHTML" : "<div class=\"radio\">\n  <label class=\"\" crn-value value=\"Value Two\"> \n       <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios${RANDOM}\" value=\"\"> \n       <span class=\"\">New option</span> \n </label> \n</div>",
               "targetSelector" : ".form-group"
             }
           ]
@@ -304,14 +304,8 @@
       {
         "name" : "crn-checkbox", 
         "text" : "Checkbox",
-        "class" : "cpn .cpn-checkbox", 
+        "class" : "cpn cpn-checkbox", 
         "templateURL" : "webcontent/components/templates/checkbox.template.html"
-      },
-      {
-        "name" : "crn-oauth2",
-        "text" : "OAuth2",
-        "class" : "cpn cpn-oauth2",
-        "templateURL" : "webcontent/components/templates/button.oauth2.template.html"
       }
   ]
 }
