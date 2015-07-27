@@ -28,7 +28,7 @@
             currentUser: username.value
           };
 
-          $location.path('/page/home');
+          $location.path('/home');
         }
 
         function handleError(data, status, headers, config) {
@@ -47,7 +47,7 @@
     }]);  
     
     
-      app.controller('HomeController', ['$scope', '$http', '$location','$rootScope',  function($scope, $http, $location, $rootScope){
+      app.controller('HomeController', ['$scope', '$http', '$location','$rootScope','$state', function($scope, $http, $location, $rootScope,$state){
         var vm = this;
 
         function logout(){

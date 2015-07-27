@@ -7,16 +7,16 @@
 // 'custom.dataset' is found in components/js/datasource.js
 var app = (function() {
     return angular.module('MyApp', [
-    'ngRoute',
+    'ui.router',
     'ngResource',
     'ngSanitize',
     'custom.controllers', 
     'custom.services',
     'custom.datasource'
     ])
-    .config(['$routeProvider', function($routeProvider) {
+    .config(function($stateProvider, $urlRouterProvider) {
         // Route
-        $routeProvider
+        /*$routeProvider
         
         .when('/page/login', {
             controller: 'LoginController',
@@ -47,7 +47,38 @@ var app = (function() {
         .otherwise({
             redirectTo: '/page/login'
         });
-    }])
+        */
+  
+        // Now set up the states
+        
+        $stateProvider
+        
+          .state('login', {
+            url: "/login",
+            controller: 'LoginController',
+            templateUrl: 'views/login.view.html',
+            controllerAs: 'vm'
+          })
+          
+          .state('home', {
+            url: "/home",
+            controller: 'HomeController',
+            templateUrl: 'views/logged/home.view.html',
+            controllerAs: 'vm'
+          })
+          
+          .state('home.pages', {
+            url: "/page?name",
+            controller: 'PageController',
+            templateUrl: function(urlattr){
+                return '/views/' + urlattr.name + '.view.html';
+            }
+          });
+          
+         // For any unmatched url, redirect to /state1
+        $urlRouterProvider.otherwise("/login");
+          
+    })
 
     .directive('crnValue', ['$parse', function($parse) {
       return {
@@ -71,7 +102,7 @@ var app = (function() {
     }])
 
     // General controller
-    .controller("GeneralController",["$scope",function(a){
+    .controller('PageController',["$scope",function(a){
       for(x in app.userEvents)
         a[x]= app.userEvents[x].bind(a);
     }]);
