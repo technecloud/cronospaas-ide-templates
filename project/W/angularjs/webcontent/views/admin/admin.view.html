@@ -45,8 +45,7 @@
           <div role="tabpanel" class="tab-pane active" id="tab1"> 
             <!-- Tab1 --> 
             <div class="" data-container="true"> 
-              <datasource name="User" entity="User" key="id" endpoint="api/rest" class=""> 
-              </datasource> 
+              <datasource name="User" entity="api/rest/security/User" key="id" class=""></datasource> 
               <cronos-table dataset="User" headers="['Id', 'Nome', 'Password', 'E-mail']" fields="['id', 'name', 'password', 'email']" ng-hide="User.inserting || User.editing"> 
               </cronos-table> 
               <!-- Form --> 
@@ -66,11 +65,11 @@
                     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-3646799"> 
                       <div class="form-group"> 
                         <br> 
-                        <input type="text" ng-model="User.active.name" class="form-control" placeholder="Name" required>
+                        <input type="text" ng-model="User.active.name" class="form-control" placeholder="Name" required="">
                         <br> 
-                        <input type="text" ng-model="User.active.password" class="form-control" placeholder="Passwrod" required>
+                        <input type="text" ng-model="User.active.password" class="form-control" placeholder="Passwrod" required="">
                         <br> 
-                        <input type="email" ng-model="User.active.email" class="form-control" placeholder="E-mail" required> 
+                        <input type="email" ng-model="User.active.email" class="form-control" placeholder="E-mail" required=""> 
                       </div> 
                     </div> 
                     <div class="" data-container="true"> 
@@ -85,8 +84,7 @@
           <div role="tabpanel" class="tab-pane" id="tab2"> 
             <!-- Tab2 --> 
             <div data-container="true" class=""> 
-              <datasource name="Role" entity="Role" key="id" endpoint="api/rest" class=""> 
-              </datasource> 
+              <datasource name="Role" entity="Role" key="id" endpoint="api/rest" class=""></datasource> 
               <cronos-table dataset="Role" headers="['Id', 'Nome', 'Enabled']" fields="['id', 'name', 'enabled']" ng-hide="Role.inserting || Role.editing"> 
               </cronos-table> 
               <!-- Form --> 
@@ -103,7 +101,7 @@
                     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-role"> 
                       <div class="form-group"> 
                         <br> 
-                        <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-id" placeholder="Name" required>
+                        <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-id" placeholder="Name" required="">
                         <br> 
                         <label>Enabled?</label> 
                         <input type="checkbox" ng-model="Role.active.enabled" ng-true-value="true"> 
@@ -121,8 +119,7 @@
           <div role="tabpanel" class="tab-pane" id="tab3"> 
             <!-- Tab3 --> 
             <div data-container="true" class=""> 
-              <datasource name="UserRole" entity="UserRole" key="id" endpoint="api/rest" class=""> 
-              </datasource> 
+              <datasource name="UserRole" entity="UserRole" key="id" endpoint="api/rest" class=""></datasource> 
               <cronos-table dataset="UserRole" headers="['Id', 'User', 'Role']" fields="['id', 'user.name', 'role.name']" ng-hide="UserRole.inserting || UserRole.editing"> 
               </cronos-table> 
               <!-- Form --> 
@@ -160,8 +157,7 @@
             <!-- Tab4 --> 
             <div data-container="true" class=""> 
               <div> 
-                <datasource name="Permission" entity="Permission" key="id" endpoint="api/rest"> 
-                </datasource> 
+                <datasource name="Permission" entity="Permission" key="id" endpoint="api/rest"></datasource> 
                 <cronos-table dataset="Permission" headers="[ 'id', 'Path', 'Verb', 'Role']" fields="[ 'id', 'path', 'verb', 'role.name' ]" ng-hide="Permission.inserting || Permission.editing"> 
                 </cronos-table> 
                 <!--{{Role.data | filter:{'id': 3} }} --> 
@@ -175,12 +171,12 @@
                         <button class="btn btn-success" ng-click="Permission.post()"><i class="glyphicon glyphicon-ok"></i></button> 
                         <button class="btn btn-danger" ng-click="Permission.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
                       </div> 
-                      <div data-container="true"> 
+                      <div data-container="true" class=""> 
                       </div> 
                       <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-role"> 
                         <div class="form-group"> 
                           <label>Path (regex)</label> 
-                          <input type="text" ng-model="Permission.active.path" class="form-control" placeholder="Path" required> 
+                          <input type="text" ng-model="Permission.active.path" class="form-control" placeholder="Path" required=""> 
                           <br> 
                           <label>Exclude</label>
                           <br> 

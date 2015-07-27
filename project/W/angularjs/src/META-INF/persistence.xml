@@ -1,19 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
-    <persistence-unit name="jdbc_Angular" transaction-type="RESOURCE_LOCAL">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit name="security" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <non-jta-data-source>java:comp/env/jdbc/Angular</non-jta-data-source>
+        <class>security.entity.Permission</class>
+        <class>security.entity.User</class>
+        <class>security.entity.Role</class>
+        <class>security.entity.UserRole</class>
         <properties>
-        <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
         </properties>
-        
-        
-        
-        <class>br.entity.RoleEntity</class>
-        <class>br.entity.UserRoleEntity</class>
-        <class>br.entity.UserEntity</class>
-        <class>br.entity.PessoaEntity</class>
-        <class>br.entity.PermissionEntity</class>
     </persistence-unit>
 </persistence>
