@@ -1,5 +1,5 @@
 <div class="form">
-  <form crn-datasource="Pessoa">
+  <form crn-datasource="">
     <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
       <button class="btn btn-primary"  ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
       <button class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
@@ -11,9 +11,10 @@
       <button class="btn btn-success" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button>
       <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
     </div>
-
-    <h2>Form</h2>
-    <div class="form-group" data-container="true">
-    </div>
+    <fieldset ng-disabled="!datasource.editing && !datasource.inserting">
+      <div class="form-group" data-container="true">
+         Drag form fields here
+      </div>
+    </fieldset>
   </form>
 </div>

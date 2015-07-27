@@ -15,7 +15,7 @@
       // Publiic members
       this.data = [];
       this.name = name;
-      this.key = null;
+      this.keys = [];
       this.endpoint = null;
       this.active = {};
       this.inserting = false; 
@@ -33,11 +33,11 @@
 
       this.init = function() {
         this.endpoint = (this.endpoint) ? this.endpoint : "";
-
-        service = $resource(this.endpoint + '/:entity/:id', 
+  
+        // Get the service resource
+        service = $resource(this.endpoint + '/:entity', 
         { 
-          entity : this.entity,
-          id: '@' + this.key 
+          entity : this.entity
         }, 
         {
           update: {
@@ -45,22 +45,22 @@
           },
           save: {
             method: 'POST' // this method issues a POST request
-          },
-          remove: {
-            method: 'DELETE' 
           }
         });
+        
 
         // Start watching for changes in
         // activeRow to notify observers
-        $rootScope.$watch(function(){
-          return this.active;
-        }.bind(this), function (activeRow) {
-          if(activeRow) {
-            this.notifyObservers(activeRow);         
-          }
-        }.bind(this),true);
-      };
+        if(this.observers && this.observers.length > 0) {
+          $rootScope.$watch(function() {
+            return this.active;
+          }.bind(this), function ( activeRow ) {
+            if(activeRow) {
+              this.notifyObservers(activeRow);         
+            }
+          }.bind(this), true);
+        }
+      }
 
       //Public methods
       /**
@@ -69,6 +69,7 @@
       this.insert = function (obj) {
         service.save(obj).$promise.then(function(obj) {
           this.data.push(obj);
+          this.active = obj;
         }.bind(this));
       };
 
@@ -77,11 +78,24 @@
       * the objects
       */ 
       this.update = function (obj, callback) {
-        var keyObj = {};
-        keyObj[this.key] = obj[this.key];
+        // Get the keys values
+        var keyObj = getKeyValues(obj);
+        
         service.update(keyObj, obj).$promise.then(function(obj) {
+          // For each row data
           this.data.forEach(function(currentRow) {
-            if(currentRow[this.key] === obj[this.key]) {
+            // Iterate all keys checking if the 
+            // current object match with the
+            // extracted key values
+            var found;
+            for(var key in keyObj) {
+              if(currentRow[key] && currentRow[key] === keyObj[key]) {
+                found = true;
+              } else {
+                found = false;
+              }
+            }
+            if(found) {
               this.copy(obj,currentRow);
             }
           }.bind(this));
@@ -124,20 +138,67 @@
       * Remove an object from this dataset by using the given id.
       * the objects
       */
-      this.remove = function (id) {
-        if(!id) {
-          id = this.active[this.key];
+      this.remove = function (object) {
+        if(!object) {
+          object = this.active;
         }
-        for(var i = 0; i < this.data.length; i++) {
-              if(this.data[i][this.key] === id) {
-                  var obj = this.data.splice(i,1)[0];
-                  var keyObj = {};
-                  keyObj[this.key] = obj[this.key];
-                  service.remove(keyObj, obj);
-                  this.active = {};
-              }
+        
+        var keyObj = getKeyValues(object);
+        
+        var suffixPath = "";
+        for(var key in keyObj) {
+          if(keyObj.hasOwnProperty(key)) {
+            suffixPath += "/" + keyObj[key];
           }
+        }
+        
+        var deleteService = $resource(this.endpoint + '/:entity' + suffixPath, { entity : this.entity } , {remove : { method : 'DELETE'}});
+        
+        deleteService.remove().$promise.then(function() {
+          // For each row data
+          for(var i = 0; i < this.data.length; i++) {
+            // Iterate all keys checking if the 
+            // current object match with the same
+            // vey values
+            // Check all keys
+            var found;
+            for(var key in keyObj) {
+              if(keyObj.hasOwnProperty(key)) {
+                if(this.data[i][key] && this.data[i][key] === keyObj[key]) {
+                  found = true;
+                } else {
+                  // There's a difference between the current object
+                  // and the key values extracted from the object
+                  // that we want to remove
+                  found = false;
+                }
+              }
+            }
+            if(found) {
+              // If it's the object we're loking for
+              // remove it from the array
+              this.data.splice(i,1);
+              this.active = (i > 0) ? this.data[i - 1] : null;
+              
+              $rootScope.$apply();
+            }
+          }
+        }.bind(this));
       };
+      
+      /**
+       * Get the object keys values from the dataset keylist
+       * PRIVATE FUNCTION
+       */
+      var getKeyValues = function(rowData) {
+          var keys = this.keys;
+          var keyValues = {};
+          for(var i = 0; i < this.keys.length; i++) {
+            keyValues[this.keys[i]] = rowData[this.keys[i]];
+          }
+          
+          return keyValues;
+      }.bind(this);
 
       /**
       * Check if the object has more itens to iterate
@@ -394,7 +455,7 @@
 
         var dts = new DataSet(props.name);
         dts.entity = props.entity;
-        dts.key = props.key;
+        dts.keys = (props.keys && props.keys.length > 0) ? props.keys.split(",") : [];
         dts.rowsPerPage = props.rowsPerPage ? props.rowsPerPage : 100; // Default 100 rows per page
         dts.append = props.append;
         dts.prepend = props.prepend;
@@ -440,7 +501,7 @@
   /**
   * Cronus Dataset Directive
   */
-  $app.directive('datasource',['DatasetManager','$timeout', function (DatasetManager,$timeout) {
+  $app.directive('datasource',['DatasetManager','$timeout','$parse', function (DatasetManager,$timeout,$parse) {
     var timeoutPromise;
     return {
       restrict: 'E',
@@ -450,7 +511,7 @@
           var datasource = DatasetManager.initDataset({
             name: attrs.name,
             entity: attrs.entity,
-            key: attrs.key,
+            keys: $parse(attrs.keys)(scope),
             endpoint: attrs.endpoint,
             lazy: (attrs.hasOwnProperty('lazy') && attrs.lazy === "") || attrs.lazy === "true",
             append: (attrs.hasOwnProperty('append') && attrs.append === "") || attrs.append === "true",
@@ -471,7 +532,6 @@
                 timeoutPromise = $timeout(function() {
                    datasource.filter(value);
                 }, 500);
-          
                 
           });
         };

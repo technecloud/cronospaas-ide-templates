@@ -74,7 +74,8 @@ var app = (function() {
     .controller("GeneralController",["$scope",function(a){
       for(x in app.userEvents)
         a[x]= app.userEvents[x].bind(a);
-        
     }]);
 
 }(window));
+
+app.userEvents = {};

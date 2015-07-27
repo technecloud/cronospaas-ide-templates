@@ -7,29 +7,12 @@
         "text" : "Link",
         "class" : "cpn cpn-anchor",
         "templateURL" : "webcontent/components/templates/anchor.template.html",
-   
-        "dependences" : {
-          "editor" : ["components/js/events/events.controller.js"],
-          "runtime" : []
-        }, 
-        
         "properties" : {
           "onclick": {
                "displayName" : "On Click",
                "removable" : false,
-               "type" : "custom",
-               "customFile" : "components/templates/events.template.html",
-               "customController" : "InspectorEventsController"
+               "type" : "event"
           },  
-          
-          "onmouseover": {
-               "displayName" : "On Mouse Over",
-               "removable" : false,
-               "type" : "custom",
-               "customFile" : "components/templates/events.template.html",
-               "customController" : "InspectorEventsController"
-          },          
-          
           "target": {
                "displayName" : "Target",
                "removable" : false,
@@ -53,24 +36,30 @@
         "name" : "crn-button",
         "text" : "Button",
         "class" : "cpn cpn-button",
-        "templateURL" : "webcontent/components/templates/button.template.html"
+        "templateURL" : "webcontent/components/templates/button.template.html",
+        "properties" : {
+          "onclick": {
+               "displayName" : "On Click",
+               "removable" : false,
+               "type" : "event"
+          }
+        }
       },
       {
         "name" : "crn-datasource",
         "text" : "Datasource",
         "class" : "cpn cpn-datasource",
-        "template" : "<datasource name=\"\" entity=\"\" key=\"\" endpoint=\"api/rest\"><i class=\"cpn cpn-datasource\"></i></datasource>",
+        "template" : "<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\" endpoint=\"api/rest\"><i class=\"cpn cpn-datasource\"></i></datasource>",
         "properties" : {
           "entity": {
                "displayName" : "Datasource",
                "removable" : false,
                "type" : "datasourceList"
           },
-          "key": {
-               "displayName" : "Key",
+          "keys": {
+               "displayName" : "Keys",
                "removable" : false,
-               "type" : "fieldList",
-               "filteredBy" : "entity"
+               "type" : "datasourceKeys"
           }
         }
       },
@@ -78,19 +67,7 @@
         "name" : "crn-textinput", 
         "text" : "Caixa de texto",
         "class" : "cpn cpn-textinput", 
-        "templateURL" : "webcontent/components/templates/textinput.template.html",
-        "dependences" : {
-          "editor" : ["components/object-inspector/js/ng-model.controller.js"],
-          "runtime" : []
-        },
-        "properties" : {
-          "ng-model": {
-               "displayName" : "Model",
-               "removable" : false,
-               "type" : "custom",
-               "customFile" : "components/object-inspector/templates/ng-model.template.html"
-          }
-        }
+        "templateURL" : "webcontent/components/templates/textinput.template.html"
       },
       {
         "name" : "crn-image",
@@ -176,33 +153,13 @@
             }
           ]
         },
-        "controller" : "TabsNavigationController",
-        "templateURL" : "webcontent/components/templates/tabs.template.html",
-        "dependences" : {
-          "editor" : ["components/object-inspector/js/tabs.controller.js"],
-          "runtime" : []
-        },
-        "navigationController" : "TabsNavigationController",
-        "properties" : {
-          "active": {
-               "displayName" : "Active",
-               "removable" : false,
-               "type" : "custom",
-               "customFile" : "components/object-inspector/templates/radio-list.template.html",
-               "customController" : "TabsActiveItemController",
-               "global" : true,
-               "disableInput" : true
-          }
-        }
+        "templateURL" : "webcontent/components/templates/tabs.template.html"
       },
       {
         "name" : "crn-datepicker",
         "text" : "Date",
         "class" : "cpn cpn-datepicker",
-        "templateURL" : "webcontent/components/templates/datepicker.template.html",
-        "properties" : {
-
-        }
+        "templateURL" : "webcontent/components/templates/datepicker.template.html"
       },
       {
         "name" : "crn-upload",
