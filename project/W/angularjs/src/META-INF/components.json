@@ -9,12 +9,10 @@
         "templateURL" : "webcontent/components/templates/anchor.template.html",
         "properties" : {
           "onclick": {
-               "displayName" : "On Click",
                "removable" : false,
                "type" : "event"
           },  
           "target": {
-               "displayName" : "Target",
                "removable" : false,
                "type" : "list",
                "options" : [
@@ -25,7 +23,6 @@
                ]
             },
             "href": {
-               "displayName" : "Link",
                "removable" : false,
                "type" : "projectResource",
                "resourceType" : "text/html"
@@ -39,7 +36,6 @@
         "templateURL" : "webcontent/components/templates/button.template.html",
         "properties" : {
           "onclick": {
-               "displayName" : "On Click",
                "removable" : false,
                "type" : "event"
           }
@@ -49,15 +45,13 @@
         "name" : "crn-datasource",
         "text" : "Datasource",
         "class" : "cpn cpn-datasource",
-        "template" : "<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\" endpoint=\"api/rest\"><i class=\"cpn cpn-datasource\"></i></datasource>",
+        "template" : "<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\"><i class=\"cpn cpn-datasource\"></i></datasource>",
         "properties" : {
           "entity": {
-               "displayName" : "Datasource",
                "removable" : false,
                "type" : "datasourceList"
           },
           "keys": {
-               "displayName" : "Keys",
                "removable" : false,
                "type" : "datasourceKeys"
           }
@@ -76,7 +70,6 @@
         "template" : "<img src=\"http://placehold.it/50x50\" class=\"\" width=\"50\" height=\"50\" />",
         "properties" : {
           "src": {
-               "displayName" : "Arquivo",
                "removable" : false,
                "type" : "projectResource",
                "resourceType" : "image/jpeg,image/gif,image/png"

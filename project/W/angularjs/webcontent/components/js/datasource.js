@@ -32,13 +32,9 @@
       var hasMoreResults = true;
 
       this.init = function() {
-        this.endpoint = (this.endpoint) ? this.endpoint : "";
-  
+
         // Get the service resource
-        service = $resource(this.endpoint + '/:entity', 
-        { 
-          entity : this.entity
-        }, 
+        service = $resource(this.entity, {}, 
         {
           update: {
             method: 'PUT' // this method issues a PUT request
@@ -152,7 +148,7 @@
           }
         }
         
-        var deleteService = $resource(this.endpoint + '/:entity' + suffixPath, { entity : this.entity } , {remove : { method : 'DELETE'}});
+        var deleteService = $resource(this.entity + suffixPath, {} , {remove : { method : 'DELETE'}});
         
         deleteService.remove().$promise.then(function() {
           // For each row data
@@ -326,16 +322,12 @@
         var props = properties || {};
         var callbacks = callbacksObj || {};
 
-        var endpoint = (this.endpoint) ? this.endpoint : "";
-        
         // Adjust property parameters and the endpoint url
         props.params = props.params || {};
-        var resourceURL = endpoint + "/:entity/" + (props.path || "");
+        var resourceURL = this.entity + (props.path || "");
         
 
-        var resource = $resource(resourceURL, { 
-          entity: this.entity 
-        });
+        var resource = $resource(resourceURL, {});
 
         // Set Limit and offset
         props.params.limit = this.rowsPerPage;
