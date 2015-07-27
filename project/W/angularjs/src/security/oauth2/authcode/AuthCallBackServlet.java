@@ -86,7 +86,7 @@ public class AuthCallBackServlet extends HttpServlet {
 
 				// pegar usuario do google
 				String name = userInfo.get(userNameKey).toString().replaceAll("\"", "");
-				String username = settings.getResourceName() + "\\" + userInfo.get("id").toString().replaceAll("\\s|\"", "");
+				String username = settings.getResourceName() + "/" + userInfo.get("id").toString().replaceAll("\\s|\"", "");
 
 				// guarda na sessao
 				request.getSession().setAttribute("username", username);
