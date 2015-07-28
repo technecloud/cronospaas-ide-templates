@@ -323,3 +323,6 @@ a {
   cursor: pointer;
 }
 
+.sub-menu a {
+    display: inline-block !important;
+}
