@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import security.dao.SessionManager;
 import security.dao.UserDAO;
 import security.dao.UserRoleDAO;
@@ -159,15 +161,23 @@ public class AuthenticationServlet extends HttpServlet {
 		logger.log(Level.INFO, "session");
 
 		Object username = req.getSession().getAttribute("username");
-		Object userpictureurl = req.getSession().getAttribute("userpictureurl") == null ? "img/nophoto.png"
-				: req.getSession().getAttribute("userpictureurl");
-		String json = String.format("{\"username\": \"%s\", \"userpictureurl\": \"%s\"}", username, userpictureurl);
 
 		if (username != null) {
-			resp.setHeader("Content-Type", "application/json");
-			resp.getOutputStream().print(json);
+			UserDAO userDao = new UserDAO(SessionManager.getInstance().getEntityManager());
+
+			List<User> users = userDao.findByAttribute("login", username.toString());
+
+			if (!users.isEmpty()) {
+				Gson gson = new Gson();
+				String json = gson.toJson(users.get(0));
+
+				resp.setHeader("Content-Type", "application/json");
+				resp.getOutputStream().print(json);
+			} else {
+				resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			}
 		} else {
-			resp.setStatus(HttpServletResponse.SC_PROXY_AUTHENTICATION_REQUIRED);
+			resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		}
 
 	}
