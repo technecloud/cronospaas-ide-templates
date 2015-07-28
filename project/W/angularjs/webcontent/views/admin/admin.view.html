@@ -34,12 +34,20 @@
                       <div data-container="true" class="">
                          Login 
                       </div></th> 
+                    <th>
+                      <div data-container="true" class="">
+                        Actions
+                      </div></th>
                   </tr> 
                 </thead> 
                 <tbody> 
                   <tr class="table-content" ng-repeat="rowData in datasource.data"> 
-                    <td class="">
-                      <div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-image" id="crn-image-742852"><img ng-src="{{rowData.picture || 'img/nophoto.png'}}" class="" width="36" height="36" style="border-radius: 50%;     border: 3px solid rgba(255,255,255,0.5);"></div><div class="" data-container="true"></div></td> 
+                    <td class=""> 
+                      <div class="" data-container="true"></div>
+                      <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-image" id="crn-image-742852">
+                        <img ng-src="{{rowData.picture || 'img/nophoto.png'}}" class="" width="36" height="36" style="border-radius: 50%;     border: 3px solid rgba(255,255,255,0.5);">
+                      </div>
+                      <div class="" data-container="true"></div></td> 
                     <td class=""> 
                       <div data-container="true" class="">
                          {{rowData.name}} 
@@ -48,6 +56,13 @@
                       <div data-container="true" class="">
                          {{rowData.login}} 
                       </div></td> 
+                    <td>
+                      <div class="" data-container="true"></div>
+                      <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-467298">
+                        <button class="btn btn-default" type="submit" onclick="User.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
+                        <button class="btn btn-default" type="submit" onclick=""><i class="glyphicon glyphicon-remove"></i></button>
+                      </div>
+                      <div class="" data-container="true"></div></td>
                   </tr> 
                 </tbody> 
               </table> 
@@ -62,7 +77,7 @@
             <div ng-show="vm.error" class="alert alert-danger">
                {{vm.error}} 
             </div> 
-            <div class="form" ng-hide="!User.editing &amp;&amp; !User.inserting"> 
+            <div class="form" ng-hide="!User.editing && !User.inserting"> 
               <form crn-datasource="User"> 
                 <div class="active-bar"> 
                   <h2 style="text-align:right"> User </h2> 
@@ -118,7 +133,7 @@
                     <td> 
                       <div class="" data-container="true"></div> 
                       <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-checkbox" id="crn-checkbox-753834"> 
-                        <label> <input type="checkbox" ng-model="true" ng-true-value="true" ng-false-value="false" class=""> <span class=""></span> </label> 
+                        <label> <input type="checkbox" ng-init="chkEnabled = true" ng-model="chkEnabled" ng-true-value="true" ng-false-value="false" class=""> <span class=""></span> </label> 
                       </div> 
                       <div class="" data-container="true"></div></td> 
                   </tr> 
