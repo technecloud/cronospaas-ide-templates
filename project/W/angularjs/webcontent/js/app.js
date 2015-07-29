@@ -15,42 +15,7 @@ var app = (function() {
     'custom.datasource'
     ])
     .config(function($stateProvider, $urlRouterProvider) {
-        // Route
-        /*$routeProvider
-        
-        .when('/page/login', {
-            controller: 'LoginController',
-            templateUrl: 'views/login.view.html',
-            controllerAs: 'vm'
-        })
-
-        .when('/page/home', {
-            controller: 'HomeController',
-            templateUrl: 'views/logged/home.view.html',
-            controllerAs: 'vm'
-        })
-
-        .when('/page/admin', {
-            controller: 'AdminController',
-            templateUrl: 'views/admin/admin.view.html',
-            controllerAs: 'vm'
-        })
-      
-        .when('/page/:name*', {
-            templateUrl: function(urlattr){
-                return '/views/' + urlattr.name + '.view.html';
-            },
-            controller: 'GeneralController'
-        })
-        
-        // Default route
-        .otherwise({
-            redirectTo: '/page/login'
-        });
-        */
-  
-        // Now set up the states
-        
+        // Set up the states
         $stateProvider
         
           .state('login', {
@@ -71,7 +36,8 @@ var app = (function() {
             url: "/page?name",
             controller: 'PageController',
             templateUrl: function(urlattr){
-                return '/views/' + urlattr.name + '.view.html';
+                url = urlattr.name.replace(/\%2F/g,"/");
+                return '/views/' + url + '.view.html';
             }
           });
           

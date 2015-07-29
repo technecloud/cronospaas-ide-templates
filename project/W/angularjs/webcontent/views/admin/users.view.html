@@ -1,1 +1,63 @@
-Users
+<h3>Users</h3> 
+<div class="" data-container="true"></div> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
+  <datasource name="User" entity="/api/rest/security/User" keys="id" rows-per-page="100" class=""></datasource> 
+</div> 
+<div class="" data-container="true"></div> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
+  <button class="btn btn-primary" type="submit" onclick=""><i class="fa fa-user"></i> <span>Add new user</span></button> 
+</div> 
+<div class="" data-container="true"></div> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138"> 
+  <div crn-datasource="User" class=""> 
+    <table class="table  table-bordered table-hover"> 
+      <thead> 
+        <tr class="table-header"> 
+          <th class="active"> 
+            <div data-container="true" class="">
+               Picture 
+            </div></th> 
+          <th class=""> 
+            <div data-container="true" class="">
+               Name 
+            </div></th> 
+          <th class=""> 
+            <div data-container="true" class="">
+               Email 
+            </div></th> 
+          <th> 
+            <div data-container="true" class="">
+               Actions 
+            </div></th> 
+        </tr> 
+      </thead> 
+      <tbody> 
+        <tr class="table-content" ng-repeat="rowData in datasource.data"> 
+          <td class="active"> 
+            <div class="" data-container="true"></div> 
+            <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-image" id="crn-image-428333"> 
+              <img ng-src="{{rowData.picture || 'img/nophoto.png'}}" class="picture-profile" width="50" height="50"> 
+            </div> 
+            <div class="" data-container="true"></div></td> 
+          <td class=""> 
+            <div data-container="true" class="">
+               {{rowData.name}} 
+            </div></td> 
+          <td class=""> 
+            <div data-container="true" class="">
+               {{rowData.email}} 
+            </div></td> 
+          <td> 
+            <div data-container="true" class=""> 
+              <button class="btn btn-default btn-sm" type="submit" onclick=""><i class="fa fa-edit"></i><span>Edit</span></button> 
+              <button class="btn btn-default btn-sm" type="submit" onclick=""><i class="fa fa-times"></i> <span>Remove</span></button> 
+            </div></td> 
+        </tr> 
+      </tbody> 
+    </table> 
+    <div class="table-footer-controls"> 
+      <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
+    </div> 
+  </div> 
+</div> 
+<div class="" data-container="true"></div>

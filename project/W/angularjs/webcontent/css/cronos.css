@@ -264,6 +264,18 @@ body {
     border: 3px solid rgba(255,255,255,0.5);
 }
 
+img.picture-profile {
+    width: 36px;
+    height: 36px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+
+div[data-component="crn-button"] {
+  margin-bottom: 10px;
+}
+
 .brand .info .info-links {
     font-size: 12px;
 }

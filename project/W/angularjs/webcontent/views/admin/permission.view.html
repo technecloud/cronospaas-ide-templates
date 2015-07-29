@@ -1,1 +1,52 @@
-permission
+<h3>Permission</h3> 
+<div class="" data-container="true"></div> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
+  <datasource name="Permission" entity="/api/rest/security/Permission" keys="id" rows-per-page="100" class=""></datasource> 
+</div> 
+<div class="" data-container="true"></div> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
+  <button class="btn btn-primary" type="submit" onclick=""><i class="fa fa-lock"></i> <span>Add new permission</span></button> 
+</div> 
+<div class="" data-container="true"></div> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138"> 
+  <div crn-datasource="Permission" class=""> 
+    <table class="table  table-bordered table-hover"> 
+      <tbody>
+        <tr class="table-header"> 
+          <th> 
+            <div data-container="true" class="">
+               Path 
+            </div></th> 
+          <th> 
+            <div data-container="true" class="">
+               Verb 
+            </div></th> 
+          <th> 
+            <div data-container="true" class="">
+               Role 
+            </div></th> 
+        </tr>  
+      </tbody>
+      <tbody> 
+        <tr class="table-content" ng-repeat="rowData in datasource.data"> 
+          <td> 
+            <div data-container="true" class="">
+               {{rowData.path}} 
+            </div></td> 
+          <td> 
+            <div data-container="true" class="">
+               {{rowData.verb}} 
+            </div></td> 
+          <td> 
+            <div data-container="true" class="">
+               {{rowData.role.name}} 
+            </div></td> 
+        </tr> 
+      </tbody> 
+    </table> 
+    <div class="table-footer-controls"> 
+      <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
+    </div> 
+  </div> 
+</div> 
+<div data-container="true"></div>
