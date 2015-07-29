@@ -95,7 +95,7 @@ public class AuthCallBackServlet extends HttpServlet {
 				AuthenticationServlet.createUserIfNotExists(name, username, userPictureURL);
 
 				// rediciona
-				response.sendRedirect("/#/page/home");
+				response.sendRedirect("/#/home");
 
 			} catch (IOException exception) {
 				logger.log(Level.SEVERE, exception.getMessage());
