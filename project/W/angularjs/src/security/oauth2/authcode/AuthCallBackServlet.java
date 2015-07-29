@@ -83,6 +83,8 @@ public class AuthCallBackServlet extends HttpServlet {
 
 				if ("github".equals(settings.getResourceName()))
 					userNameKey = "login";
+				else if("linkedin".equals(settings.getResourceName()))
+  				userNameKey = "firstName";
 
 				// pegar usuario do google
 				String name = userInfo.get(userNameKey).toString().replaceAll("\"", "");
