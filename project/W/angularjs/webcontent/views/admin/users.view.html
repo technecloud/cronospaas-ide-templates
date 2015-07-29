@@ -5,11 +5,11 @@
 </div> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
-  <button class="btn btn-primary" type="submit" onclick=""><i class="fa fa-user"></i> <span>Add new user</span></button> 
+  <button class="btn btn-primary" type="submit" onclick="" ng-click="User.startInserting()" ng-hide="User.inserting || User.editing"><i class="fa fa-user"></i> <span class="">Add new user</span></button> 
 </div> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138"> 
-  <div crn-datasource="User" class=""> 
+  <div crn-datasource="User" class="" ng-hide="User.editing || User.inserting"> 
     <table class="table  table-bordered table-hover"> 
       <thead> 
         <tr class="table-header"> 
@@ -47,10 +47,10 @@
             <div data-container="true" class="">
               {{rowData.login}}
             </div></td> 
-          <td> 
+          <td class=""> 
             <div data-container="true" class=""> 
-              <button class="btn btn-default btn-sm" type="submit" onclick=""><i class="fa fa-edit"></i><span>Edit</span></button> 
-              <button class="btn btn-default btn-sm" type="submit" onclick=""><i class="fa fa-times"></i> <span>Remove</span></button> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i><span class="">Edit</span></button> 
+              <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-times"></i> <span class="" ng-click="datasource.remove(rowData)">Remove</span></button> 
             </div></td> 
         </tr> 
       </tbody> 
@@ -62,7 +62,7 @@
 </div> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-319115"> 
-  <div class="form"> 
+  <div class="form" ng-show="User.editing || User.inserting"> 
     <form crn-datasource="User" class=""> 
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
         <button class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button> 
