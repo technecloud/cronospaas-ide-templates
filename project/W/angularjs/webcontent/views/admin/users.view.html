@@ -23,7 +23,7 @@
             </div></th> 
           <th class=""> 
             <div data-container="true" class="">
-               Email 
+              Login
             </div></th> 
           <th> 
             <div data-container="true" class="">
@@ -45,7 +45,7 @@
             </div></td> 
           <td class=""> 
             <div data-container="true" class="">
-               {{rowData.email}} 
+              {{rowData.login}}
             </div></td> 
           <td> 
             <div data-container="true" class=""> 
@@ -58,6 +58,41 @@
     <div class="table-footer-controls"> 
       <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
     </div> 
+  </div> 
+</div> 
+<div class="" data-container="true"></div> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-319115"> 
+  <div class="form"> 
+    <form crn-datasource="User" class=""> 
+      <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
+        <button class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button> 
+        <button class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button> 
+        <button class="btn btn-primary" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button> 
+        <button class="btn btn-primary" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button> 
+        <button class="btn btn-primary" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button> 
+      </div> 
+      <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting"> 
+        <button class="btn btn-success" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button> 
+        <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
+      </div> 
+      <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
+        <div class="" data-container="true"></div> 
+        <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-61057"> 
+          <div class="form-group"> 
+            <label for="exampleInputEmail1" class="">Name</label> 
+            <input type="text" ng-model="User.active.name" class="form-control" id="textinput-id" placeholder="Placeholder text"> 
+          </div> 
+        </div> 
+        <div class="" data-container="true"></div> 
+        <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-950960"> 
+          <div class="form-group"> 
+            <label for="exampleInputEmail1" class="">Login</label> 
+            <input type="text" ng-model="datasource.active.login" class="form-control" id="textinput-id" placeholder="Placeholder text"> 
+          </div> 
+        </div> 
+        <div class="" data-container="true"></div> 
+      </fieldset> 
+    </form> 
   </div> 
 </div> 
 <div class="" data-container="true"></div>

@@ -3,7 +3,7 @@
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
   <datasource name="Permission" entity="/api/rest/security/Permission" keys="id" rows-per-page="100" class=""></datasource> 
 </div> 
-<div class="" data-container="true"></div> 
+<div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-493153"><datasource name="AllRoles" entity="/api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></div><div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick=""><i class="fa fa-lock"></i> <span>Add new permission</span></button> 
 </div> 
@@ -11,7 +11,7 @@
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138"> 
   <div crn-datasource="Permission" class=""> 
     <table class="table  table-bordered table-hover"> 
-      <tbody>
+      <tbody> 
         <tr class="table-header"> 
           <th> 
             <div data-container="true" class="">
@@ -25,8 +25,8 @@
             <div data-container="true" class="">
                Role 
             </div></th> 
-        </tr>  
-      </tbody>
+        </tr> 
+      </tbody> 
       <tbody> 
         <tr class="table-content" ng-repeat="rowData in datasource.data"> 
           <td> 
@@ -49,4 +49,40 @@
     </div> 
   </div> 
 </div> 
-<div data-container="true"></div>
+<div class="" data-container="true"></div>
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-149102">
+  <div class="form"> 
+    <form crn-datasource="Permission" class=""> 
+      <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
+        <button class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button> 
+        <button class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button> 
+        <button class="btn btn-primary" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button> 
+        <button class="btn btn-primary" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button> 
+        <button class="btn btn-primary" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button> 
+      </div> 
+      <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting"> 
+        <button class="btn btn-success" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button> 
+        <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
+      </div> 
+      <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
+        <div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-483240"><datasource name="" entity="" keys="" rows-per-page="100"></datasource></div><div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-567272"><div class="input-group-btn select" crn-combobox="" ng-model="Permission.active.role" crn-datasource="AllRoles" filter="">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      <span class="selected">{{selectedItem}}</span> <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu option active" role="menu">
+      <li class="search"><a><input type="text" ng-model="searchTerm" class="form-control" id="textinput-id" placeholder="Search" ng-click="startSearching($event)" ng-change="doSearch()"></a></li>
+      <li ng-repeat="rowData in datasource.data" crn-value="rowData" class="combo-item" ng-click="setSelected()"> <a><div data-container="true" class="">{{rowData.name}}</div> </a></li>
+      <li class="next" ng-show="hasMorePages()"><a><button class="btn btn-default btn-block" ng-click="nextPage($event)"><span aria-hidden="true">Load more...</span></button></a></li>
+    </ul>
+</div></div><div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-590743"><div class="form-group">
+  <label for="exampleInputEmail1" class="">Label</label>
+  <input type="text" ng-model="" class="form-control" id="textinput-id" placeholder="Placeholder text">
+</div></div><div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-720508"><div class="form-group">
+  <label for="exampleInputEmail1" class="">Path</label>
+  <input type="text" ng-model="Permission.active.path" class="form-control" id="textinput-id" placeholder="Placeholder text">
+</div></div><div class="" data-container="true"></div> 
+      </fieldset> 
+    </form> 
+  </div>
+</div>
+<div class="" data-container="true"></div>

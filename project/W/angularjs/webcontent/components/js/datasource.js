@@ -126,7 +126,8 @@
        }
      };
      
-     this.startEditing = function () {
+     this.startEditing = function (item) {
+       if(item) this.active = item;
        this.editing = true;
      };
 
