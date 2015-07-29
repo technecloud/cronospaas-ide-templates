@@ -5,7 +5,7 @@ package security.rest;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-27
+ * @since 2015-07-29
  *
  **/
 
@@ -111,5 +111,15 @@ public class UserREST implements RESTService<User> {
   public List<User> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
       return business.list(limit, offset);
   }
+  @GET
+  @Path("/findByRole/{roleid}")	
+  public List<User> findByRole(@PathParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return business.findByRole(roleid, limit, offset);
+  }
 	
+  @GET
+  @Path("/findByRole")	
+  public List<User> findByRoleParams(@QueryParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return business.findByRole(roleid, limit, offset);	
+  }
 }

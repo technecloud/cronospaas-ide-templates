@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-27
+ * @since 2015-07-29
  *
  */
 public class UserRoleDAO extends BasicDAO<String, UserRole> {
@@ -17,7 +17,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = -7077389620505109711l;
+	private static final long serialVersionUID = -6165626170001305316l;
 
   /**
    * Guarda uma cópia da EntityManager na instância
@@ -73,6 +73,10 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
   
   public List<UserRole> findByLogin(java.lang.String login, int limit, int offset){
       return this.entityManager.createNamedQuery("userRoleFindByLogin").setParameter("login", login).setFirstResult(offset).setMaxResults(limit).getResultList();		
+  }
+  
+  public List<UserRole> findByRole(java.lang.String roleid, int limit, int offset){
+      return this.entityManager.createNamedQuery("userRoleFindByRole").setParameter("roleid", roleid).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
 }

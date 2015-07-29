@@ -9,7 +9,7 @@ import java.util.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-27
+ * @since 2015-07-29
  *
  **/
 public class UserBusiness {
@@ -110,5 +110,8 @@ public class UserBusiness {
   
   public List<User> list(int limit, int offset){
       return dao.list(limit, offset);	
+  }  
+  public List<User> findByRole(java.lang.String roleid, int limit, int offset){
+      return dao.findByRole(roleid, limit, offset);	
   }  
 }

@@ -1,20 +1,14 @@
 package security.dao;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
+import java.util.*;
+import javax.persistence.*;
 
 /**
  * Gerenciador de Sessões
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-27
+ * @since 2015-07-29
  *
  */
 public class SessionManager {

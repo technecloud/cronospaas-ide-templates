@@ -10,14 +10,15 @@ import javax.xml.bind.annotation.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-27
+ * @since 2015-07-29
  *
  */
  
 @Entity
 @Table(name = "USER")
 @NamedQueries({
-        @NamedQuery(name = "userList", query = "select u from User u")
+        @NamedQuery(name = "userList", query = "select u from User u"),
+        @NamedQuery(name = "userFindByRole", query = "select u.user from UserRole u where u.role.id = :roleid")
 })
 @XmlRootElement
 public class User implements Serializable {
@@ -25,7 +26,7 @@ public class User implements Serializable {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = 2822988031422328292l;
+	private static final long serialVersionUID = 1422338129152396988l;
 	
 	@Column(name = "email", nullable = true, unique = false)
 	private java.lang.String email;

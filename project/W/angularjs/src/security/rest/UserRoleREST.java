@@ -5,7 +5,7 @@ package security.rest;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-27
+ * @since 2015-07-29
  *
  **/
 
@@ -126,6 +126,11 @@ public class UserRoleREST implements RESTService<UserRole> {
   public List<UserRole> findByLogin(@PathParam("login")java.lang.String login, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
       return business.findByLogin(login, limit, offset);
   }
+  @GET
+  @Path("/findByRole/{roleid}")	
+  public List<UserRole> findByRole(@PathParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return business.findByRole(roleid, limit, offset);
+  }
 	
   @GET
   @Path("/findByUser")	
@@ -141,5 +146,10 @@ public class UserRoleREST implements RESTService<UserRole> {
   @Path("/findByLogin")	
   public List<UserRole> findByLoginParams(@QueryParam("login")java.lang.String login, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
       return business.findByLogin(login, limit, offset);	
+  }
+  @GET
+  @Path("/findByRole")	
+  public List<UserRole> findByRoleParams(@QueryParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return business.findByRole(roleid, limit, offset);	
   }
 }

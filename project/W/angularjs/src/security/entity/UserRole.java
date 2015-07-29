@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-27
+ * @since 2015-07-29
  *
  */
  
@@ -20,7 +20,8 @@ import javax.xml.bind.annotation.*;
         @NamedQuery(name = "userRoleList", query = "select u from UserRole u"),
         @NamedQuery(name = "userRoleFindByUser", query = "select u from UserRole u where u.user = :user "),
         @NamedQuery(name = "userRoleFindByEmail", query = "select u from UserRole u where u.user.email = :email"),
-        @NamedQuery(name = "userRoleFindByLogin", query = "select u from UserRole u where u.user.login = :login")
+        @NamedQuery(name = "userRoleFindByLogin", query = "select u from UserRole u where u.user.login = :login"),
+        @NamedQuery(name = "userRoleFindByRole", query = "select u from UserRole u where u.role.id = :roleid")
 })
 @XmlRootElement
 public class UserRole implements Serializable {
@@ -28,7 +29,7 @@ public class UserRole implements Serializable {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = 2706141277878976650l;
+	private static final long serialVersionUID = -6905559735678856421l;
 	
 	@Id
     

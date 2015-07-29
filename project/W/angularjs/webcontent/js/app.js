@@ -31,14 +31,14 @@ var app = (function() {
             templateUrl: 'views/logged/home.view.html',
             controllerAs: 'vm'
           })
-          
+
           .state('home.pages', {
-            url: "/page?name",
+            url: "/{name:.*}",
             controller: 'PageController',
             templateUrl: function(urlattr){
-                url = urlattr.name.replace(/\%2F/g,"/");
-                return '/views/' + url + '.view.html';
-            }
+                return '/views/'+urlattr.name+'.view.html';
+            },
+            controllerAs: 'vm'
           });
           
          // For any unmatched url, redirect to /state1
