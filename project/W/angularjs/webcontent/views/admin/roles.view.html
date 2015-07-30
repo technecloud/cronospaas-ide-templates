@@ -3,10 +3,11 @@
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
   <datasource name="Role" entity="/api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource> 
 </div> 
-<div class="" data-container="true"></div> 
+<div class="" data-container="true"></div>
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-471192"> 
   <datasource name="AllUsers" entity="/api/rest/security/User" keys="id" rows-per-page="100" class=""></datasource> 
-</div> 
+</div>
+<div class="" data-container="true"></div> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick=""><i class="fa fa-lock"></i> <span>Add new role</span></button> 
@@ -36,30 +37,31 @@
           <td> 
             <div class="" data-container="true"></div> 
             <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-845952"> 
-              <datasource name="User" entity="/api/rest/security/User" keys="" rows-per-page="100" class=""></datasource> 
+              <datasource name="User{{rowID}}" entity="/api/rest/security/User" keys="id" rows-per-page="100" class="" filter="/findByRole/{{rowData.id}}"></datasource> 
             </div> 
             <div class="" data-container="true"></div>
-            <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-305935">
-              <div class="input-group-btn select" crn-combobox="" crn-datasource="AllUsers" filter="" ng-model="anyvar"> 
+            <div class="" data-container="true"></div> 
+            <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-305935"> 
+              <div class="input-group-btn select" crn-combobox="" crn-datasource="AllUsers" ng-model="anyvar"> 
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="selected">{{selectedItem}}</span> <span class="caret"></span> </button> 
                 <ul class="dropdown-menu option active" role="menu"> 
                   <li class="search"><a><input type="text" ng-model="searchTerm" class="form-control" id="textinput-id" placeholder="Search" ng-click="startSearching($event)" ng-change="doSearch()"></a></li> 
-                  <li ng-repeat="rowData in datasource.data" crn-value="rowData" class="combo-item" ng-click="setSelected()"> <a>
+                  <li ng-repeat="rowData in datasource.data" crn-value="rowData" class="combo-item" ng-click="setSelected()"> <a> 
                       <div data-container="true" class="">
-                        {{rowData.nome}}
+                        {{rowData.name}}
                       </div> </a></li> 
                   <li class="next" ng-show="hasMorePages()"><a><button class="btn btn-default btn-block" ng-click="nextPage($event)"><span aria-hidden="true">Load more...</span></button></a></li> 
                 </ul> 
-                <button class="btn btn-primary">Add</button>
-              </div>
-            </div>
+                <button class="btn btn-primary">Add user</button> 
+              </div> 
+            </div> 
             <div class="" data-container="true"></div> 
             <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-599024"> 
-              <div crn-datasource="User" class=""> 
+              <div crn-datasource="User{{rowID}}" class=""> 
                 <table class="table  table-bordered table-hover"> 
                   <thead> 
                     <tr class="table-header"> 
-                      <th class="active"> 
+                      <th class="active" filter="findByRole/{rowData.id}"> 
                         <div data-container="true" class="">
                            Name 
                         </div></th> 
@@ -74,12 +76,10 @@
                     </tr> 
                   </tbody> 
                 </table> 
-                <div class="table-footer-controls"> 
-                  <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
-                </div> 
               </div> 
             </div> 
-            <div class="" data-container="true"></div> </td> 
+            <div class="" data-container="true"></div> 
+          </td> 
         </tr> 
       </tbody> 
     </table> 
