@@ -471,6 +471,11 @@
           this.registerObserver(props.watch, dts);
           dts.watchFilter = props.watchFilter;
         }
+        
+        // Filter the dataset if the filter property was set
+        if(props.filterURL && props.filterURL.length > 0) { 
+          dts.filter(props.filterURL);
+        }
 
         // Add this instance into the root scope
         // This will expose the dataset name as a
