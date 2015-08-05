@@ -9,7 +9,6 @@
         "templateURL" : "webcontent/components/templates/anchor.template.html",
         "properties" : {
           "onclick": {
-               "removable" : false,
                "type" : "event"
           },  
           "target": {
@@ -119,7 +118,7 @@
           "crn-datasource" : {
               "displayName" : "Datasource",
                "removable" : false,
-               "type" : "datasourceList"
+               "type" : "pageDatasource"
           }
         }
       },
@@ -171,7 +170,7 @@
           "crn-datasource" : {
               "displayName" : "Datasource",
                "removable" : false,
-               "type" : "datasourceList"
+               "type" : "pageDatasource"
           }
         },
         "handleRules" : {
@@ -232,9 +231,13 @@
           "crn-datasource" : {
               "displayName" : "Datasource",
                "removable" : false,
-               "type" : "datasourceList"
+               "type" : "pageDatasource"
           }
-        }
+        },
+        "childrenProperties": [
+    			{ "name": "crn-value", "selector": "li.combo-item", "displayName" : "Value" },
+    			{ "name": "content", "selector": "li.combo-item a div", "displayName" : "Text" }
+    		]
       },
       {
         "name" : "crn-radiogroup", 
