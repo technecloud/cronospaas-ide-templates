@@ -1,6 +1,6 @@
 (function($app) {
   
-  $app.directive('crnCombobox', ['$parse','$timeout','$rootScope',  function($parse,$timeout,$rootScope) {
+  $app.directive('crnCombobox', ['$timeout','$rootScope',  function($timeout,$rootScope) {
     return {
       restrict: 'A',
       require:"ngModel",
@@ -77,7 +77,6 @@
           
           // Start a timeout
           timeoutPromise = $timeout(function() {
-             var parsedFilter = "";
              if($scope.filter) {
                $rootScope[$scope.datasourceName].filter($scope.filter);
              }

@@ -266,7 +266,7 @@
       *  Try to fetch the previous page
       */
       this.hasNextPage = function () {
-        return hasMoreResults;
+        return hasMoreResults && this.data && (this.data.length >= this.rowsPerPage);
       };
 
       /**
@@ -365,13 +365,15 @@
               }
               if(callbacks.success) callbacks.success.call(this, data);
             } else {
+              this.data = [];
               if(callbacks.success) callbacks.success.call(this, data);
             }
           }.bind(this),
           // Error Handler
           function (error) {
+            this.data = [];
             if(callbacks.error) callbacks.error.call(this, data);
-          }
+          }.bind(this)
         );
       };
 

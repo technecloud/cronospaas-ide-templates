@@ -8,7 +8,7 @@
   <datasource name="AllUsers" entity="/api/rest/security/User" keys="id" rows-per-page="100" class=""></datasource> 
 </div>
 <div class="" data-container="true"></div> 
-<div class="" data-container="true"></div> 
+<div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-673521"><datasource name="UserRole" entity="/api/rest/security/UserRole" keys="id" rows-per-page="100" class=""></datasource></div><div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick=""><i class="fa fa-lock"></i> <span>Add new role</span></button> 
 </div> 
@@ -42,7 +42,7 @@
             <div class="" data-container="true"></div>
             <div class="" data-container="true"></div> 
             <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-305935"> 
-              <div class="input-group-btn select" crn-combobox="" crn-datasource="AllUsers" ng-model="anyvar"> 
+              <div class="input-group-btn select" crn-combobox="" crn-datasource="AllUsers" ng-model="anyvar" filter="findByName?q={{searchTerm}}"> 
                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span class="selected">{{selectedItem}}</span> <span class="caret"></span> </button> 
                 <ul class="dropdown-menu option active" role="menu"> 
                   <li class="search"><a><input type="text" ng-model="searchTerm" class="form-control" id="textinput-id" placeholder="Search" ng-click="startSearching($event)" ng-change="doSearch()"></a></li> 
