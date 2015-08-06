@@ -235,8 +235,10 @@
           }
         },
         "childrenProperties": [
-    			{ "name": "crn-value", "selector": "li.combo-item", "displayName" : "Value" },
-    			{ "name": "content", "selector": "li.combo-item a div", "displayName" : "Text" }
+    			{ "name": "crn-value", "selector": "li.combo-item", "displayName" : "value" },
+    			{ "name": "content", "selector": "li.combo-item a div", "displayName" : "display" },
+    			{ "name": "ng-model", "selector": "div.input-group-btn.select", "displayName" : "ng-model" },
+    			{ "name": "crn-datasource", "selector": "div.input-group-btn.select", "displayName" : "source", "type" : "pageDatasource" }
     		]
       },
       {
