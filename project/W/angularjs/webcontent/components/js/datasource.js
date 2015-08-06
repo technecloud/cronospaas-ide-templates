@@ -23,13 +23,13 @@
       this.fetchSize = 2;
       this.observers = [];
       this.rowsPerPage = null;
-      this.append = false;
+      this.append = true;
 
       // Private members
       var cursor = 0;
       var service = null;
       var _savedProps;
-      var hasMoreResults = true;
+      var hasMoreResults = false;
 
       this.init = function() {
 
@@ -233,9 +233,8 @@
         this.offset = parseInt(this.offset) + parseInt(this.rowsPerPage); 
         this.fetch(_savedProps, { 
           success: function(data) {
-            if(!data || data.length === 0) {
-              this.offset = parseInt(this.offset) - parseInt(this.rowsPerPage); 
-              hasMoreResults = false;
+            if(!data || data.length < parseInt(this.rowsPerPage)) {
+              this.offset = parseInt(this.offset) - this.data.length; 
             }
           }
         });
@@ -246,7 +245,7 @@
       */
       this.prevPage = function () {
         if(!this.append && !this.preppend) {
-          this.offset = parseInt(this.offset) - parseInt(this.rowsPerPage); 
+          this.offset = parseInt(this.offset) - this.data.length; 
           
           if(this.offset < 0) {
             this.offset = 0;
@@ -263,11 +262,18 @@
       };
       
       /**
-      *  Try to fetch the previous page
+      *  Check if has more pages
       */
       this.hasNextPage = function () {
-        return hasMoreResults && this.data && (this.data.length >= this.rowsPerPage);
+        return hasMoreResults;
       };
+      
+      /**
+      *  Check if has previews pages
+      */
+      this.hasPrevPage = function () {
+        return this.offset > 0 && !this.append && !this.prepend;
+      };      
 
       /**
       *  Get the previous item
@@ -302,12 +308,25 @@
       *  filter dataset by URL
       */
       this.filter = function ( url ) {
+        var oldoffset = this.offset;
         this.offset = 0;
-        this.cursor = 0;
         this.fetch({ path: url }, { beforeFill: function(oldData) {
-          this.data = [];
+          this.cleanup(); 
+        }, error : function(error) {
+          this.offset = oldoffset;  
         }});
       };
+      
+      /**
+       * Cleanup datasource  
+       */
+      this.cleanup = function () {
+        this.offset = 0;
+        this.data = [];
+        this.cursor = -1;
+        this.active = null;
+        hasMoreResults = false;
+      }
 
       /**
       *  Get the current row data
@@ -343,7 +362,7 @@
         query.$promise.then(
           // Success Handler
           function (data) {
-            if(data && data.length > 0) {
+            if(data) {
               
               // Call the before fill callback
               if(callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
@@ -364,14 +383,13 @@
                 cursor = 0;
               }
               if(callbacks.success) callbacks.success.call(this, data);
-            } else {
-              this.data = [];
-              if(callbacks.success) callbacks.success.call(this, data);
-            }
+              
+              hasMoreResults = (data.length >= this.rowsPerPage);
+            } 
           }.bind(this),
           // Error Handler
           function (error) {
-            this.data = [];
+            alert(error);
             if(callbacks.error) callbacks.error.call(this, data);
           }.bind(this)
         );
@@ -466,7 +484,12 @@
           if(dts.rowsPerPage) queryObj.limit = dts.rowsPerPage;
 
           // Fill the dataset
-          dts.fetch({params: queryObj});
+          dts.fetch({params: queryObj}, {success: function(data) {
+            if (data && data.length > 0) {
+              this.active = data[0];
+              this.cursor = 0;
+            }
+          }});
         }
 
         if(props.watch && Object.prototype.toString.call(props.watch) === "[object String]") {
@@ -514,7 +537,7 @@
             keys: $parse(attrs.keys)(scope),
             endpoint: attrs.endpoint,
             lazy: (attrs.hasOwnProperty('lazy') && attrs.lazy === "") || attrs.lazy === "true",
-            append: (attrs.hasOwnProperty('append') && attrs.append === "") || attrs.append === "true",
+            append: !attrs.hasOwnProperty('append') || attrs.append === "true",
             prepend: (attrs.hasOwnProperty('prepend') && attrs.prepend === "") || attrs.prepend === "true",
             watch: attrs.watch,
             rowsPerPage: attrs.rowsPerPage,
