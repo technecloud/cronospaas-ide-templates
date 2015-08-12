@@ -10,7 +10,7 @@
         "properties" : {
           "onclick": {
                "type" : "event"
-          },  
+          },
           "target": {
                "removable" : false,
                "type" : "list",
@@ -35,7 +35,11 @@
         "templateURL" : "webcontent/components/templates/button.template.html",
         "properties" : {
           "onclick": {
-               "removable" : false,
+               "removable" : true,
+               "type" : "event"
+          },
+          "onmouseover": {
+               "removable" : true,
                "type" : "event"
           }
         }
@@ -60,7 +64,13 @@
         "name" : "crn-textinput", 
         "text" : "Caixa de texto",
         "class" : "cpn cpn-textinput", 
-        "templateURL" : "webcontent/components/templates/textinput.template.html"
+        "templateURL" : "webcontent/components/templates/textinput.template.html",
+        "properties" : {
+          "onchange": {
+               "removable" : true,
+               "type" : "event"
+          }
+        }
       },
       {
         "name" : "crn-image",
@@ -72,6 +82,10 @@
                "removable" : false,
                "type" : "projectResource",
                "resourceType" : "image/jpeg,image/gif,image/png"
+          },
+          "onclick": {
+               "removable" : true,
+               "type" : "event"
           }
         }
       },
@@ -173,6 +187,9 @@
                "type" : "pageDatasource"
           }
         },
+        "childrenProperties": [
+    			{ "name": "techne", "selector": "td", "displayName" : "Techne" }
+    		],
         "handleRules" : {
           "canOrder" : true,
           "canActivate" : true,
@@ -261,6 +278,88 @@
         "text" : "Checkbox",
         "class" : "cpn cpn-checkbox", 
         "templateURL" : "webcontent/components/templates/checkbox.template.html"
-      }
+      },
+      {
+        "name" : "crn-menu", 
+        "text" : "Menu",
+        "class" : "cpn cpn-menu", 
+        "templateURL" : "webcontent/components/templates/menu.template.html",
+        "handleRules" : {
+          "canToggle" : false,
+          "canIncrement" : true,
+          "rules" : [
+            {
+              "sourceHTML" : "<li><a href=\"/#/\"><div data-container=\"true\">Menu Item</div></a></li>",
+              "targetSelector" : ".menu-content"
+            }
+          ]
+        }
+      },
+      {
+        "name" : "crn-navbar", 
+        "text" : "Navbar",
+        "class" : "cpn cpn-navbar", 
+        "templateURL" : "webcontent/components/templates/navbar.template.html",
+        "handleRules" : {
+          "canIncrement" : true,
+          "rules" : [
+            {
+              "sourceHTML" : "<li class=\"dropdown component-holder\" data-component=\"crn-menu-item\">                 <a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">Dropdown <span class=\"caret\"></span></a>                <ul class=\"dropdown-menu\">                  <li><a href=\"#\">Action</a></li>                </ul>              </li>",
+              "targetSelector" : ".nav.navbar-nav"
+            }
+          ]
+        }
+      },
+       {
+        "name" : "crn-menu-item", 
+        "text" : "MenuItem",
+        "class" : "cpn cpn-navbar", 
+        "template" : "",
+        "handleRules" : {
+          "canToggle" : true,
+          "canIncrement" : true,
+          "rules" : [
+            {
+              "toggleSelector" : ".dropdown",
+              "toggleClass" : "open",
+              "sourceHTML" : "<li><a href=\"#\">Action item</a></li>",
+              "targetSelector" : "ul.dropdown-menu"
+            }
+          ]
+        }
+       },
+       {
+        "name" : "crn-sidebar", 
+        "text" : "Sidebar",
+        "class" : "cpn cpn-sidebar", 
+        "templateURL" : "webcontent/components/templates/sidebar.template.html",
+        "handleRules" : {
+          "canIncrement" : true,
+          "rules" : [
+            {
+              "sourceHTML" : "<li data-toggle=\"collapse\" data-component=\"crn-sidebar-item\" data-target=\"#menu-sub-${RANDOM}\" class=\"collapsed active component-holder\"><a href=\"javascript:void(0);\" class=\"\"><i class=\"fa fa-users fa-lg\"></i> <span>Menu Item</span> <span class=\"arrow\"></span></a> <ul class=\"sub-menu collapse\" id=\"menu-sub-${RANDOM}\"> <li><a href=\"/#/home/admin/users\">Submenu Item</a></li>  </ul> </li> ",
+              "targetSelector" : ".menu-content"
+            }
+          ]
+        }
+      },
+      {
+        "name" : "crn-sidebar-item", 
+        "text" : "MenuItem",
+        "class" : "cpn cpn-sidebar", 
+        "template" : "",
+        "handleRules" : {
+          "canIncrement" : true,
+          "canToggle" : true,
+          "rules" : [
+            {
+              "toggleSelector" : ".sub-menu.collapse",
+              "toggleClass" : "in",
+              "sourceHTML" : "<li><a href=\"/#/\">Submenu Item</a></li>",
+              "targetSelector" : ".sub-menu"
+            }
+          ]
+        }
+       }
   ]
 }
