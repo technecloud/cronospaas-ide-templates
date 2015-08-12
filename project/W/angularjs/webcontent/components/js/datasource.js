@@ -482,7 +482,7 @@
         // Check for headers
         if(props.headers && props.headers.length > 0) {
           dts.headers = {};
-          var headers = props.headers.split(";");
+          var headers = props.headers.trim().split(";");
           var header;
           for(var i = 0; i < headers.length; i++) {
              header = headers[i].split(":");
