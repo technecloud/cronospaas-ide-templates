@@ -23,11 +23,13 @@ import security.oauth2.authcode.RevokeServlet;
 import security.oauth2.flow.OAuth2Client;
 import security.oauth2.flow.OAuth2Settings;
 import security.rest.exceptions.CustomWebApplicationException;
+import com.google.gson.JsonElement;
 
 @WebServlet(value = { "/auth", "/logout", "/session" }, name = "auth-servlet")
 public class AuthenticationServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -1l;
+	private static final long serialVersionUID = 1L;
+
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 
 	UserDAO dao;
@@ -39,6 +41,7 @@ public class AuthenticationServlet extends HttpServlet {
 	}
 
 	public void destroy() {
+
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
@@ -115,6 +118,10 @@ public class AuthenticationServlet extends HttpServlet {
 
 		// cria usuario, senao existir
 		SessionManager session = SessionManager.getInstance();
+
+		@SuppressWarnings("unused")
+		SessionManager s;
+
 		UserDAO userDao = new UserDAO(session.getEntityManager());
 		List<User> users = userDao.findByAttribute("login", username);
 		if (users.isEmpty()) {
@@ -169,10 +176,10 @@ public class AuthenticationServlet extends HttpServlet {
 
 			if (!users.isEmpty()) {
 				Gson gson = new Gson();
-				String json = gson.toJson(users.get(0));
+				JsonElement json = gson.toJsonTree(users.get(0));
 
 				resp.setHeader("Content-Type", "application/json");
-				resp.getOutputStream().print(json);
+				resp.getOutputStream().print(json.toString());
 			} else {
 				resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			}
