@@ -24,6 +24,7 @@
       this.observers = [];
       this.rowsPerPage = null;
       this.append = true;
+      this.headers = null;
 
       // Private members
       var cursor = 0;
@@ -37,10 +38,12 @@
         service = $resource(this.entity, {}, 
         {
           update: {
-            method: 'PUT' // this method issues a PUT request
+            method: 'PUT', // this method issues a PUT request
+            headers : this.headers
           },
           save: {
-            method: 'POST' // this method issues a POST request
+            method: 'POST', // this method issues a POST request
+            headers : this.headers
           }
         });
         
@@ -149,7 +152,7 @@
           }
         }
         
-        var deleteService = $resource(this.entity + suffixPath, {} , {remove : { method : 'DELETE'}});
+        var deleteService = $resource(this.entity + suffixPath, {} , {remove : { method : 'DELETE', headers: this.headers}});
         
         deleteService.remove().$promise.then(function() {
           // For each row data
@@ -346,8 +349,7 @@
         props.params = props.params || {};
         var resourceURL = this.entity + (props.path || "");
         
-
-        var resource = $resource(resourceURL, {});
+        var resource = $resource(resourceURL, {}, {'query' : {method: 'GET', headers : this.headers, isArray: true}});
 
         // Set Limit and offset
         props.params.limit = this.rowsPerPage;
@@ -475,6 +477,22 @@
         dts.endpoint = props.endpoint;
         dts.filterURL = props.filterURL;
         dts.offset = (props.offset) ? props.offset : 0; // Default offset is 0
+
+        
+        // Check for headers
+        if(props.headers && props.headers.length > 0) {
+          dts.headers = {};
+          var headers = props.headers.split(";");
+          var header;
+          for(var i = 0; i < headers.length; i++) {
+             header = headers[i].split(":");
+             if(header.length === 2) {
+              dts.headers[header[0]] = header[1];  
+             }
+          }
+        }
+        
+        // Init
         dts.init();
         this.storeDataset(dts);
 
@@ -501,6 +519,8 @@
         if(props.filterURL && props.filterURL.length > 0) { 
           dts.filter(props.filterURL);
         }
+        
+        
 
         // Add this instance into the root scope
         // This will expose the dataset name as a
@@ -543,7 +563,8 @@
             rowsPerPage: attrs.rowsPerPage,
             offset: attrs.offset,
             filterURL : attrs.filter,
-            watchFilter: attrs.watchFilter
+            watchFilter: attrs.watchFilter,
+            headers : attrs.headers
           });
           
           attrs.$observe('filter', function( value ){
