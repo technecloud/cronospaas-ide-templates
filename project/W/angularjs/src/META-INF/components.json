@@ -310,23 +310,7 @@
       "text": "Checkbox",
       "class": "cpn cpn-checkbox",
       "templateURL": "webcontent/components/templates/checkbox.template.html"
-    },
-    {
-      "name": "crn-menu",
-      "text": "Menu",
-      "class": "cpn cpn-menu",
-      "templateURL": "webcontent/components/templates/menu.template.html",
-      "handleRules": {
-        "canToggle": false,
-        "canIncrement": true,
-        "rules": [
-          {
-            "sourceHTML": "<li><a href=\"/#/\"><div data-container=\"true\">Menu Item</div></a></li>",
-            "targetSelector": ".menu-content"
-          }
-        ]
-      }
-    },
+    },    
     {
       "name": "crn-navbar",
       "text": "Navbar",
