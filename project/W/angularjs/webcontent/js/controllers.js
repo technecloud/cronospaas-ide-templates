@@ -72,6 +72,11 @@
 
           function handleSession(response){
             console.log("handleSession", response);
+            for (var key in response.data) {
+                if (response.data.hasOwnProperty(key)) {
+                    vm[key] = response.data[key];
+                }
+            }
             vm.username = response.data.name;
             vm.userpictureurl = response.data.picture;
           }
