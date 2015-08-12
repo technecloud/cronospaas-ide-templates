@@ -12,7 +12,8 @@ var app = (function() {
     'ngSanitize',
     'custom.controllers', 
     'custom.services',
-    'custom.datasource'
+    'custom.datasource',
+    'chart.js'
     ])
     .config(function($stateProvider, $urlRouterProvider) {
         // Set up the states
