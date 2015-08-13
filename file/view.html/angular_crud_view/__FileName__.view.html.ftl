@@ -2,7 +2,7 @@
 <!-- gridFields?size= ${gridFields?size} --> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
-  <datasource name="${dataSourceName}" entity="${dataSourceFullName}" keys="id" rows-per-page="100" class=""></datasource> 
+  <datasource name="${dataSourceName}" entity="${dataSourceFullName}" keys="${dataSourcePrimaryKeys}" rows-per-page="100" class=""></datasource> 
 </div> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
