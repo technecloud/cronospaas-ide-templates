@@ -22,15 +22,13 @@ var app = (function() {
           .state('login', {
             url: "/login",
             controller: 'LoginController',
-            templateUrl: 'views/login.view.html',
-            controllerAs: 'vm'
+            templateUrl: 'views/login.view.html'
           })
           
           .state('home', {
             url: "/home",
             controller: 'HomeController',
-            templateUrl: 'views/logged/home.view.html',
-            controllerAs: 'vm'
+            templateUrl: 'views/logged/home.view.html'
           })
 
           .state('home.pages', {
@@ -38,8 +36,7 @@ var app = (function() {
             controller: 'PageController',
             templateUrl: function(urlattr){
                 return '/views/'+urlattr.name+'.view.html';
-            },
-            controllerAs: 'vm'
+            }
           });
           
          // For any unmatched url, redirect to /state1

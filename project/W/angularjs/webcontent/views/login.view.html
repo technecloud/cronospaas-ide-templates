@@ -4,7 +4,7 @@
       <div class="login-header">
         <div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-image" id="crn-image-880856"><img src="img/logo.png" class="" width="" height="50"></div><div class="" data-container="true"></div>
       </div>
-      <form class="form-validation" autocomplete="off" name="form" ng-submit="vm.login()" role="form"> 
+      <form class="form-validation" autocomplete="off" name="form" ng-submit="login()" role="form"> 
         <div class="text-danger wrapper text-center" ng-show="authError">
             
         </div>
@@ -18,28 +18,25 @@
         </div>
         <div data-container="true" class=""></div>
         <div class="messages">
-          <div data-container="true" class=""></div>
-          <div ng-show="form.username.$dirty &amp;&amp; form.username.$error.required" class="help-block">Username is required</div> 
-          <div data-container="true" class=""></div>
-          <div ng-show="form.password.$dirty &amp;&amp; form.password.$error.required" class="help-block">Password is required</div> 
+          <div ng-show="message.error" class="help-block">{{message.error}}</div> 
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="form.$invalid || vm.dataLoading">Login</button>
         <div data-container="true" class=""></div>
         <div class="row omb_row-sm-offset omb_socialButtons" style="text-align:center"> 
           <div class="col-xs-4 col-sm-3"> 
-            <a href="#" ng-click="vm.goto('/oauth2?idp=facebook')"><img src="img/facebook.png" class="zoom-button"></a> 
+            <a href="#" ng-click="goto('/oauth2?idp=facebook')"><img src="img/facebook.png" class="zoom-button"></a> 
           </div> 
           <div class="col-xs-4 col-sm-3"> 
             <i class="fa fa-twitter visible-xs"></i> 
-            <a href="#" ng-click="vm.goto('/oauth2?idp=github')"><img src="img/github.png" class="zoom-button"></a> 
+            <a href="#" ng-click="goto('/oauth2?idp=github')"><img src="img/github.png" class="zoom-button"></a> 
           </div> 
           <div class="col-xs-4 col-sm-3"> 
             <i class="fa fa-google-plus visible-xs"></i> 
-            <a href="#" ng-click="vm.goto('/oauth2?idp=google')" class=""><img src="img/google.png" class="zoom-button"></a> 
+            <a href="#" ng-click="goto('/oauth2?idp=google')" class=""><img src="img/google.png" class="zoom-button"></a> 
           </div> 
           <div class="col-xs-4 col-sm-3" style="text-align:right"> 
             <i class="fa fa-linkedin visible-xs"></i> 
-            <a href="#" ng-click="vm.goto('/oauth2?idp=linkedin')" class=""><img src="img/linkedin.png" class="zoom-button"></a> 
+            <a href="#" ng-click="goto('/oauth2?idp=linkedin')" class=""><img src="img/linkedin.png" class="zoom-button"></a> 
           </div> 
           <div class="" data-container="true"></div>
         </div> 

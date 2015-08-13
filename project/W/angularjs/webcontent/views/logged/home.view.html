@@ -2,14 +2,14 @@
 <div class="nav-side-menu"> 
   <div class="brand"> 
     <div class="avatar hidden-xs hidden-sm"> 
-      <img alt="" ng-src="{{vm.userpictureurl || 'img/nophoto.png'}}" class=""> 
+      <img alt="" ng-src="{{vm.picture || 'img/nophoto.png'}}" class=""> 
     </div> 
     <div class="info"> 
       <div class="name">
-         {{vm.username}} 
+         {{session.name}} 
       </div> 
       <div class="info-links"> 
-        <a ng-click="vm.logout()" class="">Logout</a> 
+        <a ng-click="logout()" class="">Logout</a> 
       </div> 
     </div> 
   </div> 
