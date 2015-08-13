@@ -13,7 +13,8 @@ var app = (function() {
     'custom.controllers', 
     'custom.services',
     'custom.datasource',
-    'chart.js'
+    'chart.js',
+	'ngMask'
     ])
     .config(function($stateProvider, $urlRouterProvider) {
         // Set up the states
