@@ -217,7 +217,27 @@
       this.order = function (order) {
         _savedProps.order = order;
       };
-
+	  
+	  /**
+	  * Get the values of the active row as an array
+	  */
+	  this.getActiveValues = function() {
+		this.getRowValues(this.active);
+	  }
+	  
+	  /**
+	  * Get the values of the given row
+	  */
+	  this.getRowValues = function(rowData) {
+		var arr = [];
+		for( var i in rowData ) {
+			if (rowData.hasOwnProperty(i)){
+			   arr.push(rowData[i]);
+			}
+		}
+		return arr;
+	  }
+	  
       /**
       *  Get the current item moving the cursor to the next element
       */
