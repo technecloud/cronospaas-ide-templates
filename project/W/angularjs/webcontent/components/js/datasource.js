@@ -25,12 +25,14 @@
       this.rowsPerPage = null;
       this.append = true;
       this.headers = null;
+      this._activeValues = null;
 
       // Private members
       var cursor = 0;
       var service = null;
       var _savedProps;
       var hasMoreResults = false;
+      var _self = this;
 
       this.init = function() {
 
@@ -222,8 +224,18 @@
 	  * Get the values of the active row as an array
 	  */
 	  this.getActiveValues = function() {
-		this.getRowValues(this.active);
+		  if(this.active && !this._activeValues) {
+		    $rootScope.$watch(function(scope) { 
+		      return this.active; 
+		    }.bind(this),
+        function(newValue, oldValue) {
+            this._activeValues = this.getRowValues(this.active);
+        }.bind(this), true);
+		  }
+		  return this._activeValues;
 	  }
+	  
+	  this.__defineGetter__('activeValues', function() { return _self.getActiveValues(); });
 	  
 	  /**
 	  * Get the values of the given row
@@ -369,11 +381,27 @@
         props.params = props.params || {};
         var resourceURL = this.entity + (props.path || "");
         
-        var resource = $resource(resourceURL, {}, {'query' : {method: 'GET', headers : this.headers, isArray: true}});
+        var resource = $resource(resourceURL, {}, {
+          'query' : {
+            method: 'GET', 
+            headers : this.headers, 
+            isArray:true, 
+            transformResponse : function(data) {
+              var returnObj = JSON.parse(data);
+              if( Object.prototype.toString.call( returnObj ) === '[object Array]' ) {
+                return returnObj;
+              } else {
+                return [returnObj];
+              }
+            } 
+          }
+        });
 
         // Set Limit and offset
-        props.params.limit = this.rowsPerPage;
-        props.params.offset = this.offset;
+        if(this.rowsPerPage > 0) {
+          props.params.limit = this.rowsPerPage;
+          props.params.offset = this.offset;
+        }
 
         // Query the server with defined params
         var query = resource.query(props.params);
@@ -519,7 +547,6 @@
         if(!props.lazy && (Object.prototype.toString.call(props.watch) !== "[object String]") && !props.filterURL) {
           // Query string object
           var queryObj = {};
-          if(dts.rowsPerPage) queryObj.limit = dts.rowsPerPage;
 
           // Fill the dataset
           dts.fetch({params: queryObj}, {success: function(data) {
