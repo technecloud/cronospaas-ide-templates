@@ -37,17 +37,47 @@
       this.init = function() {
 
         // Get the service resource
-        service = $resource(this.entity, {}, 
-        {
-          update: {
-            method: 'PUT', // this method issues a PUT request
-            headers : this.headers
+        service = {
+          save : function(object) {
+            return this.call(_self.entity, "POST", object, true);
           },
-          save: {
-            method: 'POST', // this method issues a POST request
-            headers : this.headers
+          update : function(object) {
+            return this.call(_self.entity, "PUT", object);
+          },
+          remove : function(url) {
+            return this.call(url, "DELETE", null, true);
+          },
+          call: function(url, verb, object, applyScope) {
+            var _callback;
+            this.$promise = $.ajax({
+                type: verb,
+                dataType: (verb !== "DELETE") ? "json" : undefined,
+                url: url,
+                headers: _self.headers,
+                data : (object) ? JSON.stringify(object) : null,
+                contentType : "application/json",
+                success: function(data) {
+                  if(applyScope) {
+                    $rootScope.$apply(function() {
+                      if(_callback) _callback(data);
+                    });
+                  } else {
+                    if(_callback) _callback(data);
+                  }
+                },
+                error: function (error) {
+                  console.log(error)
+                  $rootScope.$apply();
+                }
+            });
+            
+            this.$promise.then = function(callback) {
+              _callback = callback;
+            }
+            
+            return this;
           }
-        });
+        }
         
 
         // Start watching for changes in
@@ -82,7 +112,7 @@
         // Get the keys values
         var keyObj = getKeyValues(obj);
         
-        service.update(keyObj, obj).$promise.then(function(obj) {
+        service.update(obj).$promise.then(function(obj) {
           // For each row data
           this.data.forEach(function(currentRow) {
             // Iterate all keys checking if the 
@@ -154,9 +184,7 @@
           }
         }
         
-        var deleteService = $resource(this.entity + suffixPath, {} , {remove : { method : 'DELETE', headers: this.headers}});
-        
-        deleteService.remove().$promise.then(function() {
+        service.remove(this.entity + suffixPath).$promise.then(function() {
           // For each row data
           for(var i = 0; i < this.data.length; i++) {
             // Iterate all keys checking if the 
@@ -179,10 +207,8 @@
             if(found) {
               // If it's the object we're loking for
               // remove it from the array
-              this.data.splice(i,1);
+              this.data.splice(i,1)
               this.active = (i > 0) ? this.data[i - 1] : null;
-              
-              $rootScope.$apply();
             }
           }
         }.bind(this));
@@ -381,22 +407,6 @@
         props.params = props.params || {};
         var resourceURL = this.entity + (props.path || "");
         
-        var resource = $resource(resourceURL, {}, {
-          'query' : {
-            method: 'GET', 
-            headers : this.headers, 
-            isArray:true, 
-            transformResponse : function(data) {
-              var returnObj = JSON.parse(data);
-              if( Object.prototype.toString.call( returnObj ) === '[object Array]' ) {
-                return returnObj;
-              } else {
-                return [returnObj];
-              }
-            } 
-          }
-        });
-
         // Set Limit and offset
         if(this.rowsPerPage > 0) {
           props.params.limit = this.rowsPerPage;
@@ -404,15 +414,36 @@
         }
 
         // Query the server with defined params
-        var query = resource.query(props.params);
+        //var query = resource.query(props.params);
         
         // Store the last configuration for late use
         _savedProps = props;
-
-        query.$promise.then(
+        
+               
+        $.ajax({
+            type:"GET",
+            url: resourceURL,
+            processData: false,
+            headers: this.headers,
+            data : $.param(props.params),
+            success: function(data) {
+              $rootScope.$apply(function() {
+                sucessHandler(data)
+              });
+            },
+            error: function (error) {
+              console.log(error);
+              if(callbacks.error) callbacks.error.call(this, data);
+            }.bind(this)
+        });
+        
           // Success Handler
-          function (data) {
+          var sucessHandler = function (data) {
             if(data) {
+              
+              if(Object.prototype.toString.call( data ) !== '[object Array]' ) {
+                data = [data];
+              }
               
               // Call the before fill callback
               if(callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
@@ -436,13 +467,7 @@
               
               hasMoreResults = (data.length >= this.rowsPerPage);
             } 
-          }.bind(this),
-          // Error Handler
-          function (error) {
-            alert(error);
-            if(callbacks.error) callbacks.error.call(this, data);
-          }.bind(this)
-        );
+          }.bind(this);
       };
 
       /**
@@ -601,7 +626,7 @@
           var datasource = DatasetManager.initDataset({
             name: attrs.name,
             entity: attrs.entity,
-            keys: $parse(attrs.keys)(scope),
+            keys: attrs.keys,
             endpoint: attrs.endpoint,
             lazy: (attrs.hasOwnProperty('lazy') && attrs.lazy === "") || attrs.lazy === "true",
             append: !attrs.hasOwnProperty('append') || attrs.append === "true",
