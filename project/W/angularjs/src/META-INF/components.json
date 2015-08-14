@@ -339,7 +339,7 @@
           {
             "toggleSelector": ".dropdown",
             "toggleClass": "open",
-            "sourceHTML": "<li><a href=\"#\">Action item</a></li>",
+            "sourceHTML": "<li><a href=\"#\" class=\"component-holder\" data-component=\"crn-anchor\">Action item</a></li>",
             "targetSelector": "ul.dropdown-menu"
           }
         ]
@@ -373,7 +373,7 @@
           {
             "toggleSelector": ".sub-menu.collapse",
             "toggleClass": "in",
-            "sourceHTML": "<li><a href=\"/#/\">Submenu Item</a></li>",
+            "sourceHTML": "<li><a href=\"/#/\" class=\"component-holder\" data-component=\"crn-anchor\">Submenu Item</a></li>",
             "targetSelector": ".sub-menu"
           }
         ]
