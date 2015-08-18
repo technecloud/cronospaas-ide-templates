@@ -20,16 +20,19 @@
         }
 
         function handleSuccess(data, status, headers, config) {
-
-            function handleSession(response) {
-                $rootScope.session = response.data;
-                $state.go('home');
+            // Store data response on session storage
+            // The session storage will be cleaned when the browser window is closed
+            if(typeof(Storage) !== "undefined") {
+                // save the user data on localStorage
+                sessionStorage.setItem("_u",JSON.stringify(data));
+            } else {
+                // Sorry! No Web Storage support.
+                // The home page may not work if it depends
+                // on the logged user data
             }
-
-            $http({
-                method: 'GET',
-                url: '/session',
-            }).then(handleSession)
+            
+            // Redirect to home page
+            $state.go("home");
         }
 
         function handleError(data, status, headers, config) {
@@ -39,7 +42,16 @@
     }]);
 
     app.controller('HomeController', ['$scope', '$http', '$location', '$rootScope', '$state', function ($scope, $http, $location, $rootScope, $state) {
-
+        // When access home page we have to check
+        // if the user is authenticated and the userData
+        // was saved on the browser's sessionStorage
+        $rootScope.session = JSON.parse(sessionStorage._u);
+        if(!$rootScope.session) {
+          // If there isn't a user registered on the sessionStorage
+          // we must send back to login page
+          $state.go("login");
+        }
+        
         $rootScope.logout = function logout() {
 
             $http({
@@ -51,6 +63,16 @@
         }
 
         function handleSuccess(data) {
+            // Before redirect to login page we 
+            // have to clean the user data from the 
+            // session storage
+            if(typeof(Storage) !== "undefined") {
+                // save the user data on localStorage
+                sessionStorage.removeItem("_u");
+            } else {
+                // It's not working with sessionStorage
+            }
+            
             $location.path('/login');
         }
 
