@@ -9,7 +9,7 @@ gridHasColumnFilter = ${gridHasColumnFilter}
 by ${gridFilterName}
 </#if>
 </label> 
-<input type="text" ng-model="query"  class="form-control" value="%" placeholder="Placeholder text"> 
+<input type="text" ng-model="query"  class="form-control" value="%" placeholder="Placeholder text" ng-mask=""> 
 
 <br/>
 
@@ -58,7 +58,7 @@ by ${gridFilterName}
   </div> 
 </div> 
 <div class="" data-container="true"></div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-319115"> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-form-${dataSourceName}"> 
   <div class="form" ng-show="${dataSourceName}.editing || ${dataSourceName}.inserting"> 
     <form crn-datasource="${dataSourceName}" class=""> 
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
@@ -78,7 +78,13 @@ by ${gridFilterName}
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-${field.name}"> 
           <div class="form-group"> 
             <label for="textinput-${field.name}" class="">${formMapLabels[field.name]}</label> 
-            <input type="text" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text" mask="${formMapMasks[field.name]}"> 
+
+	<#if field.isBoolean() >
+		    <input type="checkbox" ng-model="${dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="Placeholder text" mask="${formMapMasks[field.name]}"> 
+	<#else>
+		    <input type="text" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text" mask="${formMapMasks[field.name]}"> 
+	</#if>
+
           </div> 
         </div> 
         <div class="" data-container="true"></div> 
