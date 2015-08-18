@@ -1,5 +1,18 @@
 <h3>${dataSourceName}</h3>
-<!-- gridFields?size= ${gridFields?size} --> 
+<!-- 
+gridFields?size= ${gridFields?size} 
+gridHasColumnFilter = ${gridHasColumnFilter}
+--> 
+
+<label for="textinput-filter" class="">Filter 
+<#if gridHasColumnFilter = "true">
+by ${gridFilterName}
+</#if>
+</label> 
+<input type="text" ng-model="query"  class="form-control" value="%" placeholder="Placeholder text" ng-mask=""> 
+
+<br/>
+
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
   <datasource name="${dataSourceName}" entity="${dataSourceFullName}" keys="${dataSourcePrimaryKeys}" rows-per-page="100" class=""></datasource> 
@@ -25,7 +38,7 @@
         </tr> 
       </thead> 
       <tbody> 
-        <tr class="table-content" ng-repeat="rowData in datasource.data"> 
+        <tr class="table-content" ng-repeat="rowData in datasource.data | filter:${gridFilter}"> 
         <#list gridFields as field>
           <td class=""> 
             <div data-container="true" class="">{{rowData.${field.name}}}</div>
