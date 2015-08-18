@@ -41,8 +41,8 @@
           save : function(object) {
             return this.call(_self.entity, "POST", object, true);
           },
-          update : function(object) {
-            return this.call(_self.entity, "PUT", object);
+          update : function(url, object) {
+            return this.call(url, "PUT", object);
           },
           remove : function(url) {
             return this.call(url, "DELETE", null, true);
@@ -112,7 +112,18 @@
         // Get the keys values
         var keyObj = getKeyValues(obj);
         
-        service.update(obj).$promise.then(function(obj) {
+        var url = this.entity;
+        
+        var suffixPath = "";
+        for(var key in keyObj) {
+          if(keyObj.hasOwnProperty(key)) {
+            suffixPath += "/" + keyObj[key];
+          }
+        }
+        
+        url = url + suffixPath;
+        
+        service.update(url, obj).$promise.then(function(obj) {
           // For each row data
           this.data.forEach(function(currentRow) {
             // Iterate all keys checking if the 
