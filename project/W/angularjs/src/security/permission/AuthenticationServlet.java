@@ -72,7 +72,19 @@ public class AuthenticationServlet extends HttpServlet {
 				for (UserRole userRole : userRoles) {
 					rolesID += "," + userRole.getRole().getId();
 				}
+
 				req.getSession().setAttribute("roles", rolesID);
+
+				User user = this.getUserByName(username);
+
+				if (user != null) {
+					Gson gson = new Gson();
+					JsonElement json = gson.toJsonTree(user);
+					resp.setHeader("Content-Type", "application/json");
+					resp.getOutputStream().print(json.toString());
+				} else {
+					resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
+				}
 			} else {
 				resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			}
@@ -108,7 +120,8 @@ public class AuthenticationServlet extends HttpServlet {
 	}
 
 	private boolean authenticateOAuth2(String username, String password) {
-		OAuth2Client client = new OAuth2Client(OAuth2Settings.TOKEN_URI, OAuth2Settings.REVOKE_URI, OAuth2Settings.CLIENT_ID, OAuth2Settings.CLIENT_SECRET);
+		OAuth2Client client = new OAuth2Client(OAuth2Settings.TOKEN_URI, OAuth2Settings.REVOKE_URI,
+				OAuth2Settings.CLIENT_ID, OAuth2Settings.CLIENT_SECRET);
 		String token = null;
 		try {
 			token = client.authenticate(username, password);
@@ -124,10 +137,10 @@ public class AuthenticationServlet extends HttpServlet {
 	public static void createUserIfNotExists(String name, String username, String pictureURL) {
 		// cria usuario, senao existir
 		SessionManager session = SessionManager.getInstance();
-		
+
 		@SuppressWarnings("unused")
 		SessionManager s;
-		
+
 		UserDAO userDao = new UserDAO(session.getEntityManager());
 		List<User> users = userDao.findByAttribute("login", username);
 		if (users.isEmpty()) {
@@ -214,11 +227,10 @@ public class AuthenticationServlet extends HttpServlet {
 		logger.log(Level.INFO, "session");
 		Object username = req.getSession().getAttribute("username");
 		if (username != null) {
-			UserDAO userDao = new UserDAO(SessionManager.getInstance().getEntityManager());
-			List<User> users = userDao.findByAttribute("login", username.toString());
-			if (!users.isEmpty()) {
+			User user = this.getUserByName(username.toString());
+			if (user != null) {
 				Gson gson = new Gson();
-				JsonElement json = gson.toJsonTree(users.get(0));
+				JsonElement json = gson.toJsonTree(user);
 				resp.setHeader("Content-Type", "application/json");
 				resp.getOutputStream().print(json.toString());
 			} else {
@@ -227,6 +239,16 @@ public class AuthenticationServlet extends HttpServlet {
 		} else {
 			resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		}
+	}
+
+	private User getUserByName(String username) {
+		UserDAO userDao = new UserDAO(SessionManager.getInstance().getEntityManager());
+		List<User> users = userDao.findByAttribute("login", username.toString());
+		if (!users.isEmpty()) {
+			return users.get(0);
+		}
+
+		return null;
 	}
 
 }
