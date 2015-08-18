@@ -9,7 +9,7 @@ gridHasColumnFilter = ${gridHasColumnFilter}
 by ${gridFilterName}
 </#if>
 </label> 
-<input type="text" ng-model="query"  class="form-control" value="%" placeholder="Placeholder text" ng-mask=""> 
+<input type="text" ng-model="query"  class="form-control" value="%" placeholder="Placeholder text"> 
 
 <br/>
 
@@ -78,7 +78,7 @@ by ${gridFilterName}
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-${field.name}"> 
           <div class="form-group"> 
             <label for="textinput-${field.name}" class="">${formMapLabels[field.name]}</label> 
-            <input type="text" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text" ng-mask="${formMapMasks[field.name]}"> 
+            <input type="text" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text" mask="${formMapMasks[field.name]}"> 
           </div> 
         </div> 
         <div class="" data-container="true"></div> 
