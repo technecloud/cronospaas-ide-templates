@@ -9,7 +9,7 @@ gridHasColumnFilter = ${gridHasColumnFilter}
 by ${gridFilterName}
 </#if>
 </label> 
-<input type="text" ng-model="query"  class="form-control" value="%" placeholder="Placeholder text" ng-mask=""> 
+<input type="text" ng-model="query" class="form-control" value="%" placeholder="Placeholder text"> 
 
 <br/>
 
@@ -31,9 +31,9 @@ by ${gridFilterName}
           <th class=""> 
             <div data-container="true" class="">${field.name}</div>
           </th> 
-		</#list>
+    </#list>
           <th class=""> 
-	        <div data-container="true" class="">Actions</div>
+          <div data-container="true" class="">Actions</div>
           </th> 
         </tr> 
       </thead> 
@@ -43,7 +43,7 @@ by ${gridFilterName}
           <td class=""> 
             <div data-container="true" class="">{{rowData.${field.name}}}</div>
           </td> 
-		</#list>
+    </#list>
           <td class=""> 
             <div data-container="true" class=""> 
               <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i><span class="">Edit</span></button> 
@@ -79,20 +79,27 @@ by ${gridFilterName}
           <div class="form-group"> 
             <label for="textinput-${field.name}" class="">${formMapLabels[field.name]}</label> 
 
-	<#if field.isBoolean() >
-		    <input type="checkbox" ng-model="${dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="Placeholder text" mask="${formMapMasks[field.name]}"> 
-	<#elseif field.isDate() >
-		    <input type="date" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text"> 
-	<#elseif field.isNumber() >
-		    <input type="number" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text"> 
-	<#else>
-		    <input type="text" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text" mask="${formMapMasks[field.name]}"> 
-	</#if>
+  <#if field.isBoolean() >
+        <input type="checkbox" ng-model="${dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="Placeholder text"> 
+  <#elseif field.isDate() >
+        <input type="date" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text"> 
+  <#elseif field.isNumber() >
+        <input type="number" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text"> 
+  <#elseif field.getProperty("ngOptions")?? >
+
+    <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" rows-per-page="${field.getProperty("ngOptions").rowPerPage}" class=""></datasource> 
+
+    <select ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" ng-options="${field.getProperty("ngOptions").options}">
+      <option value=''>None</option>
+    </select>
+  <#else>
+        <input type="text" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text" <#if formMapMasks[field.name]?has_content>mask="${formMapMasks[field.name]}"</#if>> 
+  </#if>
 
           </div> 
         </div> 
         <div class="" data-container="true"></div> 
-		</#list>
+    </#list>
       </fieldset> 
     </form> 
   </div> 
