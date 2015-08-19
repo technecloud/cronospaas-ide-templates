@@ -81,6 +81,10 @@ by ${gridFilterName}
 
 	<#if field.isBoolean() >
 		    <input type="checkbox" ng-model="${dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="Placeholder text" mask="${formMapMasks[field.name]}"> 
+	<#elseif field.isDate() >
+		    <input type="date" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text"> 
+	<#elseif field.isNumber() >
+		    <input type="number" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text"> 
 	<#else>
 		    <input type="text" ng-model="${dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="Placeholder text" mask="${formMapMasks[field.name]}"> 
 	</#if>

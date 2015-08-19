@@ -27,12 +27,15 @@
 				"sobrenome:java.lang.String",
 				"cidade:Cidade",
 				"ativo:java.lang.Boolean",
-				"cpf:java.lang.String"
+				"cpf:java.lang.String",
+				"nascimento:java.util.Date",
+				"telefone:java.lang.String",
+				"dependentes:java.lang.Integer"
 			],
 			"methods": [],
 			"position": {
-				"x": 12,
-				"y": 98
+				"x": 23,
+				"y": 280
 			},
 			"size": {
 				"width": 380,
@@ -45,7 +48,10 @@
 				"sobrenome",
 				"fk_cidade",
 				"ativo",
-				"cpf"
+				"cpf",
+				"nascimento",
+				"telefone",
+				"dependentes"
 			],
 			"nullables": [
 				"id"
@@ -94,6 +100,9 @@
 				"",
 				"",
 				"",
+				"",
+				"",
+				"",
 				""
 			],
 			"masks": [
@@ -102,7 +111,10 @@
 				"",
 				"",
 				"",
-				"999.999.999-99"
+				"999.999.999-99",
+				"dd/mm/yyyy",
+				"(99)9999-9999",
+				""
 			],
 			"attrs": {
 				"rect": {
@@ -114,21 +126,21 @@
 					"transform": "translate(0,0)"
 				},
 				".uml-class-attrs-rect": {
-					"height": 150,
+					"height": 210,
 					"transform": "translate(0,50)"
 				},
 				".uml-class-methods-rect": {
 					"height": 30,
-					"transform": "translate(0,200)"
+					"transform": "translate(0,260)"
 				},
 				".uml-class-name-text": {
 					"text": "Pessoa"
 				},
 				".uml-class-attrs-text": {
-					"text": "id\nnome\nsobrenome\ncidade\nativo\ncpf\n"
+					"text": "id\nnome\nsobrenome\ncidade\nativo\ncpf\nnascimento\ntelefone\ndependentes\n"
 				},
 				".uml-class-attrs-value": {
-					"text": "java.lang.String\njava.lang.String\njava.lang.String\nCidade\njava.lang.Boolean\njava.lang.String\n"
+					"text": "java.lang.String\njava.lang.String\njava.lang.String\nCidade\njava.lang.Boolean\njava.lang.String\njava.util.Date\njava.lang.String\njava.lang.Integer\n"
 				},
 				".uml-class-methods-text": {
 					"text": ""
@@ -144,8 +156,8 @@
 			],
 			"methods": [],
 			"position": {
-				"x": 480,
-				"y": 105
+				"x": 334,
+				"y": 70
 			},
 			"size": {
 				"width": 380,
