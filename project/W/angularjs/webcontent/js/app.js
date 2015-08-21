@@ -19,9 +19,15 @@ var app = (function() {
     .config(function($stateProvider, $urlRouterProvider) {
         // Set up the states
         $stateProvider
-        
+          
           .state('login', {
-            url: "/login",
+            url: "",
+            controller: 'LoginController',
+            templateUrl: 'views/login.view.html'
+          })
+          
+          .state('main', {
+            url: "/",
             controller: 'LoginController',
             templateUrl: 'views/login.view.html'
           })
@@ -38,10 +44,26 @@ var app = (function() {
             templateUrl: function(urlattr){
                 return '/views/'+urlattr.name+'.view.html';
             }
+          }) 
+          
+          .state('404', {
+            url: "/error/404",
+            controller: 'PageController',
+            templateUrl: function(urlattr){
+                return '/views/error/404.view.html';
+            }
+          })
+          
+          .state('403', {
+            url: "/error/403",
+            controller: 'PageController',
+            templateUrl: function(urlattr){
+                return '/views/error/403.view.html';
+            }
           });
           
          // For any unmatched url, redirect to /state1
-        $urlRouterProvider.otherwise("/login");
+         $urlRouterProvider.otherwise("/error/404");
           
     })
 
@@ -68,9 +90,22 @@ var app = (function() {
 
     // General controller
     .controller('PageController',["$scope",function(a){
-      for(x in app.userEvents)
+      for(var x in app.userEvents)
         a[x]= app.userEvents[x].bind(a);
-    }]);
+    }])
+    
+    .run(function($rootScope,$state) {
+      $rootScope.$on('$stateChangeError', function() {
+        if(arguments.length >= 6) {
+          var requestObj = arguments[5];
+          if(requestObj.status === 404 || requestObj.status === 403) {
+            $state.go(requestObj.status.toString()); 
+          }
+        } else {
+          $state.go('404');
+        }
+      });
+    });
 
 }(window));
 

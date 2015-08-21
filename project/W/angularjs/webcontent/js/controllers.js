@@ -41,11 +41,11 @@
         }
     }]);
 
-    app.controller('HomeController', ['$scope', '$http', '$location', '$rootScope', '$state', function ($scope, $http, $location, $rootScope, $state) {
+    app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', function ($scope, $http, $rootScope, $state) {
         // When access home page we have to check
         // if the user is authenticated and the userData
         // was saved on the browser's sessionStorage
-        $rootScope.session = JSON.parse(sessionStorage._u);
+        $rootScope.session = (sessionStorage._u) ? JSON.parse(sessionStorage._u) : null;
         if(!$rootScope.session) {
           // If there isn't a user registered on the sessionStorage
           // we must send back to login page
@@ -57,7 +57,7 @@
             $http({
                 method: 'GET',
                 url: '/logout',
-            }).then(handleSuccess, handleError('User or password invalid!'))
+            }).then(handleSuccess, handleError)
 
             $rootScope.session = {};
         }
@@ -73,7 +73,7 @@
                 // It's not working with sessionStorage
             }
             
-            $location.path('/login');
+            $state.go("login");
         }
 
 

@@ -524,7 +524,7 @@
       * Clone a JSON Object
       */
       this.copy = function (from,to) {
-        if(from === null || typeof(from) != 'object')
+        if(from === null || Object.prototype.toString.call(from) !== '[object Object]')
             return from;
 
         to = to || {}; 

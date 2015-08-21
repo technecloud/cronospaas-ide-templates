@@ -71,6 +71,22 @@ public class UserREST implements RESTService<User> {
     }  
   }
   
+  @PUT
+  @Path("/{id}")
+  public Response put2(User entity) {
+    try {
+	    session.begin();
+	    User updatedEntity = business.update(entity);
+	    session.commit();
+	    return Response.ok(updatedEntity).build();
+    }
+    
+    catch(Exception exception){
+	    session.rollBack();
+        throw new CustomWebApplicationException(exception);
+    }  
+  }
+  
   @DELETE
   public Response delete(User entity) {  
 		try {
