@@ -1,15 +1,13 @@
 <h3>${model.dataSourceName}</h3>
-<!-- 
-gridFields?size= ${model.gridFields?size} 
-gridHasColumnFilter = ${model.gridHasColumnFilter}
---> 
 
+<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
 <label for="textinput-filter" class="">Filter 
 <#if model.gridHasColumnFilter = "true">
 by ${model.gridFilterName}
 </#if>
 </label> 
 <input type="text" ng-model="query" class="form-control" value="%" placeholder="Placeholder text"> 
+</div>
 
 <br/>
 
