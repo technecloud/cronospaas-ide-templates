@@ -32,6 +32,7 @@
       var service = null;
       var _savedProps;
       var hasMoreResults = false;
+      var busy = false;
       var _self = this;
 
       this.init = function() {
@@ -49,6 +50,7 @@
           },
           call: function(url, verb, object, applyScope) {
             var _callback;
+            busy = true;
             this.$promise = $.ajax({
                 type: verb,
                 dataType: (verb !== "DELETE") ? "json" : undefined,
@@ -57,6 +59,7 @@
                 data : (object) ? JSON.stringify(object) : null,
                 contentType : "application/json",
                 success: function(data) {
+                  busy = false;
                   if(applyScope) {
                     $rootScope.$apply(function() {
                       if(_callback) _callback(data);
@@ -66,6 +69,7 @@
                   }
                 },
                 error: function (error) {
+                  busy = false;
                   console.log(error)
                   $rootScope.$apply();
                 }
@@ -430,7 +434,7 @@
         // Store the last configuration for late use
         _savedProps = props;
         
-               
+        busy = true;
         $.ajax({
             type:"GET",
             url: resourceURL,
@@ -438,11 +442,13 @@
             headers: this.headers,
             data : $.param(props.params),
             success: function(data) {
+              busy = false;
               $rootScope.$apply(function() {
                 sucessHandler(data)
               });
             },
             error: function (error) {
+              busy = false;
               console.log(error);
               if(callbacks.error) callbacks.error.call(this, data);
             }.bind(this)
