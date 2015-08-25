@@ -26,6 +26,7 @@
       this.append = true;
       this.headers = null;
       this._activeValues = null;
+      this.errorMessage = "";
 
       // Private members
       var cursor = 0;
@@ -51,28 +52,19 @@
           call: function(url, verb, object, applyScope) {
             var _callback;
             busy = true;
-            this.$promise = $.ajax({
-                type: verb,
-                dataType: (verb !== "DELETE") ? "json" : undefined,
-                url: url,
-                headers: _self.headers,
-                data : (object) ? JSON.stringify(object) : null,
-                contentType : "application/json",
-                success: function(data) {
-                  busy = false;
-                  if(applyScope) {
-                    $rootScope.$apply(function() {
-                      if(_callback) _callback(data);
-                    });
-                  } else {
-                    if(_callback) _callback(data);
-                  }
-                },
-                error: function (error) {
-                  busy = false;
-                  console.log(error)
-                  $rootScope.$apply();
-                }
+            
+            // Get an ajax promise
+            this.$promise = $http({
+              method: verb,
+              url: url,
+              data : (object) ? JSON.stringify(object) : null,
+              headers: _self.headers,
+            }).success(function(data, status, headers, config) {
+                busy = false;
+                if(_callback) _callback(data);
+            }).error(function(data, status, headers, config) {
+                busy = false;
+                _self.handleError(data);
             });
             
             this.$promise.then = function(callback) {
@@ -81,6 +73,36 @@
             
             return this;
           }
+        }
+        
+        /**
+         * Check if the datasource is waiting for an process 
+         */
+        this.isBusy = function() {
+          return busy;
+        }
+        
+        /**
+         *  Error Handler function
+         */
+        this.handleError = function(data) {
+            var error = ""; 
+            
+            if(data && data.status === 401) { 
+              error = "Username or passoword invalid!";
+            } else {
+              if(data && Object.prototype.toString.call(data.responseText) === "[object String]") {
+                  var regex = /<h1>(.*)<\/h1>/gmi;
+                  result = regex.exec(data.responseText);
+                  
+                  if(result && result.length >= 2) {
+                    error = result[1];
+                  } else {
+                    error = data.responseText;
+                  }
+              }
+            }
+            this.errorMessage = error;
         }
         
 
@@ -341,7 +363,7 @@
       *  Check if has more pages
       */
       this.hasNextPage = function () {
-        return hasMoreResults;
+        return hasMoreResults && (this.rowsPerPage != -1);
       };
       
       /**
@@ -434,25 +456,23 @@
         // Store the last configuration for late use
         _savedProps = props;
         
+        // Make the datasource busy
         busy = true;
-        $.ajax({
-            type:"GET",
-            url: resourceURL,
-            processData: false,
-            headers: this.headers,
-            data : $.param(props.params),
-            success: function(data) {
+        
+        // Get an ajax promise
+        this.$promise = $http({
+          method: "GET",
+          url: resourceURL,
+          data : $.param(props.params),
+          headers: this.headers,
+        }).success(function(data, status, headers, config) {
               busy = false;
-              $rootScope.$apply(function() {
-                sucessHandler(data)
-              });
-            },
-            error: function (error) {
+              sucessHandler(data)
+        }.bind(this)).error(function(data, status, headers, config){
               busy = false;
-              console.log(error);
+              this.handleError(data);
               if(callbacks.error) callbacks.error.call(this, data);
-            }.bind(this)
-        });
+        }.bind(this));
         
           // Success Handler
           var sucessHandler = function (data) {
