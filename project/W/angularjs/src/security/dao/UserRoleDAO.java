@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-29
+ * @since 2015-08-25
  *
  */
 public class UserRoleDAO extends BasicDAO<String, UserRole> {
@@ -17,7 +17,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = -6165626170001305316l;
+	private static final long serialVersionUID = 3484048439240986791l;
 
   /**
    * Guarda uma cópia da EntityManager na instância

@@ -8,7 +8,7 @@ import javax.persistence.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-29
+ * @since 2015-08-25
  *
  */
 public class SessionManager {

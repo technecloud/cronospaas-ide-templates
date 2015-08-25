@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-29
+ * @since 2015-08-25
  *
  */
  
@@ -26,7 +26,7 @@ public class User implements Serializable {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = 1422338129152396988l;
+	private static final long serialVersionUID = -6847995175033692698l;
 	
 	@Column(name = "email", nullable = true, unique = false)
 	private java.lang.String email;

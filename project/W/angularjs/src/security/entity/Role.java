@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-29
+ * @since 2015-08-25
  *
  */
  
@@ -25,7 +25,7 @@ public class Role implements Serializable {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = 2892613233743619236l;
+	private static final long serialVersionUID = 5577723667935736997l;
 	
 	@Column(name = "name", nullable = true, unique = false)
 	private java.lang.String name;

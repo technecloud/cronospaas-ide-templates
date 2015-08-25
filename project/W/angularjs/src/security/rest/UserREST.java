@@ -5,7 +5,7 @@ package security.rest;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-29
+ * @since 2015-08-25
  *
  **/
 
@@ -73,7 +73,7 @@ public class UserREST implements RESTService<User> {
   
   @PUT
   @Path("/{id}")
-  public Response put2(User entity) {
+  public Response putWithId(User entity) {
     try {
 	    session.begin();
 	    User updatedEntity = business.update(entity);

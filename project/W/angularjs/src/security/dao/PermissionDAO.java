@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-29
+ * @since 2015-08-25
  *
  */
 public class PermissionDAO extends BasicDAO<String, Permission> {
@@ -17,7 +17,7 @@ public class PermissionDAO extends BasicDAO<String, Permission> {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = -7099653195043569333l;
+	private static final long serialVersionUID = -2967397575277951176l;
 
   /**
    * Guarda uma cópia da EntityManager na instância

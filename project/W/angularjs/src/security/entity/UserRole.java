@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-29
+ * @since 2015-08-25
  *
  */
  
@@ -29,7 +29,7 @@ public class UserRole implements Serializable {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = -6905559735678856421l;
+	private static final long serialVersionUID = 1885029881988254769l;
 	
 	@Id
     

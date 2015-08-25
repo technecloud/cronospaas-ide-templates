@@ -5,7 +5,7 @@ package security.rest;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-07-29
+ * @since 2015-08-25
  *
  **/
 
@@ -58,6 +58,22 @@ public class RoleREST implements RESTService<Role> {
 
   @PUT
   public Response put(Role entity) {
+    try {
+	    session.begin();
+	    Role updatedEntity = business.update(entity);
+	    session.commit();
+	    return Response.ok(updatedEntity).build();
+    }
+    
+    catch(Exception exception){
+	    session.rollBack();
+        throw new CustomWebApplicationException(exception);
+    }  
+  }
+  
+  @PUT
+  @Path("/{id}")
+  public Response putWithId(Role entity) {
     try {
 	    session.begin();
 	    Role updatedEntity = business.update(entity);
