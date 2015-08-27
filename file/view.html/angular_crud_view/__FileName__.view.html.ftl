@@ -20,14 +20,14 @@ by ${model.gridFilterName}
   <button class="btn btn-primary" type="submit" onclick="" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">Add new user</span></button> 
 </div> 
 <div class="" data-container="true"></div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138"> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-${model.dataSourceName}"> 
   <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting"> 
     <table class="table  table-bordered table-hover"> 
       <thead> 
         <tr class="table-header"> 
         <#list model.gridFields as field>
           <th class=""> 
-            <div data-container="true" class="">${field.name}</div>
+            <div data-container="true" class="">${model.formMapLabels[field.name]}</div>
           </th> 
     </#list>
           <th class=""> 
