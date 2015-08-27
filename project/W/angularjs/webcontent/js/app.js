@@ -14,7 +14,8 @@ var app = (function() {
     'custom.services',
     'custom.datasource',
     'chart.js',
-	'ngMask'
+	'ngMask',
+    'ngJustGage'
     ])
     .config(function($stateProvider, $urlRouterProvider) {
         // Set up the states

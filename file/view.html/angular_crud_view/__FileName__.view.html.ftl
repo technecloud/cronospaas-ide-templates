@@ -17,12 +17,12 @@ by ${model.gridFilterName}
 </div> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
-  <button class="btn btn-primary" type="submit" onclick="" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">Add new user</span></button> 
+  <button class="btn btn-primary" type="submit" onclick="" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">New</span></button> 
 </div> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-${model.dataSourceName}"> 
   <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting"> 
-    <table class="table  table-bordered table-hover"> 
+    <table class="table  table-bordered table-hover table-striped"> 
       <thead> 
         <tr class="table-header"> 
         <#list model.gridFields as field>
@@ -52,8 +52,8 @@ by ${model.gridFilterName}
     </#list>
           <td class=""> 
             <div data-container="true" class=""> 
-              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i><span class="">Edit</span></button> 
-              <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-times"></i> <span class="" ng-click="datasource.remove(rowData)">Remove</span></button> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i></button> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button> 
             </div></td> 
         </tr> 
       </tbody> 

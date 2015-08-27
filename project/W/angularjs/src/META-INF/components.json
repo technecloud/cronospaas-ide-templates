@@ -416,6 +416,12 @@
       "templateURL": "webcontent/components/templates/chart-radar.template.html"
     },
     {
+      "name": "crn-chart-gauge",
+      "text": "Chart Gauge",
+      "class": "cpn cpn-chart-gauge",
+      "templateURL": "webcontent/components/templates/chart-gauge.template.html"
+    },
+    {
       "name": "crn-title",
       "text": "Título",
       "class": "cpn cpn-title",
