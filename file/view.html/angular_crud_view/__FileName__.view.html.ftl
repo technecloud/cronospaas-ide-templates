@@ -39,7 +39,15 @@ by ${model.gridFilterName}
         <tr class="table-content" ng-repeat="rowData in datasource.data | filter:${model.gridFilter}"> 
         <#list model.gridFields as field>
           <td class=""> 
-            <div data-container="true" class="">{{rowData.${field.name}}}</div>
+            <div data-container="true" class="">
+
+		  <#if field.getProperty("firstStringField")?? >
+			{{rowData.${field.getProperty("firstStringField")}}}
+		  <#else>
+			{{rowData.${field.name}}}
+		  </#if>
+
+	    </div>
           </td> 
     </#list>
           <td class=""> 
