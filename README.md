@@ -1,2 +1,2 @@
 # cronos-paas-ide-templates
-Cronos PaaS IDE Templates
+Templates de Projeto para o Cronos PaaS IDE 
