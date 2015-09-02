@@ -1,8 +1,8 @@
 <div class="form-group">
 	<label for="">Label</label>
-	<ui-select crn-datasource="" ng-model="" theme="select2" ng-disabled="disabled" class="crn-select"> 
+	<ui-select multiple crn-datasource="" ng-model="" theme="select2" ng-disabled="disabled" class="crn-select"> 
     <ui-select-match placeholder="Select person..." class="">
-       {{$select.selected}} 
+       {{$item}} 
     </ui-select-match> 
     <ui-select-choices repeat="rowData as rowData in datasource.data" class=""> 
       <div class="" data-container="true">

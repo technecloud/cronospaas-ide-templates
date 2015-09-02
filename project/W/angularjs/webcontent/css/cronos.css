@@ -317,6 +317,10 @@ a {
     display: inline-block !important;
 }
 
+.crn-select {
+  width: 100%;
+}
+
 
    /*==========  Mobile First Method  ==========*/
 

@@ -42,6 +42,11 @@
     }]);
 
     app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', function ($scope, $http, $rootScope, $state) {
+        
+        $scope.selecionado = {
+          valor : 1
+        }
+        
         // When access home page we have to check
         // if the user is authenticated and the userData
         // was saved on the browser's sessionStorage

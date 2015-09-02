@@ -146,7 +146,14 @@
           "removable": false,
           "type": "pageDatasource"
         }
-      }
+      },
+      "childrenProperties": [
+        {
+          "name": "crn-datasource",
+          "selector": "form",
+          "displayName": "datasource"
+        }
+      ]
     },
     {
       "name": "crn-tabs",
@@ -198,13 +205,6 @@
           "type": "pageDatasource"
         }
       },
-      "childrenProperties": [
-        {
-          "name": "techne",
-          "selector": "td",
-          "displayName": "Techne"
-        }
-      ],
       "handleRules": {
         "canOrder": true,
         "canActivate": true,
@@ -232,16 +232,30 @@
       "templateURL": "webcontent/components/templates/combobox.template.html",
       "handleRules": {
         "canToggle": true,
-        "canIncrement": true,
         "rules": [
           {
-            "toggleSelector": ".dropdown-menu.option",
-            "toggleClass": "active",
-            "sourceHTML": "<li id=\"item${RANDOM}\" class=\"combo-item\"> <a href=\"#\"><div data-container=\"true\">Content Goes Here</div> </a></li>",
-            "targetSelector": ".dropdown-menu.option"
+            "toggleSelector": "ui-select-choices",
+            "toggleClass": "invisible"
           }
         ]
-      }
+      },
+      "childrenProperties": [
+        {
+          "name": "crn-datasource",
+          "selector": "ui-select",
+          "displayName": "items"
+        },
+        {
+          "name": "ng-model",
+          "selector": "ui-select",
+          "displayName": "ng-model"
+        },
+        {
+          "name": "repeat",
+          "selector": "ui-select-choices",
+          "displayName": "repeat"
+        }
+      ]
     },
     {
       "name": "crn-combobox-dynamic",
@@ -252,10 +266,8 @@
         "canToggle": true,
         "rules": [
           {
-            "toggleSelector": ".dropdown-menu.option",
-            "toggleClass": "active",
-            "sourceHTML": "<li id=\"item${RANDOM}\" class=\"combo-item\"> <a href=\"#\"><div data-container=\"true\">Content Goes Here</div> </a></li>",
-            "targetSelector": ".dropdown-menu.option"
+            "toggleSelector": "ui-select-choices",
+            "toggleClass": "invisible"
           }
         ]
       },
@@ -268,25 +280,19 @@
       },
       "childrenProperties": [
         {
-          "name": "crn-value",
-          "selector": "li.combo-item",
-          "displayName": "value"
-        },
-        {
-          "name": "content",
-          "selector": "li.combo-item a div",
-          "displayName": "display"
+          "name": "crn-datasource",
+          "selector": "ui-select",
+          "displayName": "datasource"
         },
         {
           "name": "ng-model",
-          "selector": "div.input-group-btn.select",
+          "selector": "ui-select",
           "displayName": "ng-model"
         },
         {
-          "name": "crn-datasource",
-          "selector": "div.input-group-btn.select",
-          "displayName": "source",
-          "type": "pageDatasource"
+          "name": "repeat",
+          "selector": "ui-select-choices",
+          "displayName": "repeat"
         }
       ]
     },
@@ -472,6 +478,46 @@
           }
         ]
       }
+    },
+    {
+      "name": "crn-tags",
+      "text": "Multiselect",
+      "dependences" : {
+        "editor": ["components/css/multiselect-editor.css"]
+      },
+      "class": "cpn cpn-tags-input",
+      "templateURL": "webcontent/components/templates/multiselect.template.html",
+      "handleRules": {
+        "canIncrement": true,
+        "canToggle": true,
+        "rules": [
+          {
+            "toggleSelector": "ol",
+            "toggleClass": "active",
+            "sourceHTML": "<li class=\"component-holder\" data-component=\"crn-tree-item\"><a href=\"\"><i class=\"fa fa-file-o\"></i> <span>Item</span></a></li>",
+            "targetSelector": "ul, ol",
+            "recursive": true,
+            "transformTo": "<li class=\"component-holder\" data-component=\"crn-tree-item\"> <label for=\"folder${RANDOM}\">Folder</label> <input type=\"checkbox\" id=\"folder${RANDOM}\"><ol><li><a href=\"\"><i class=\"fa fa-file-o\"></i> <span>Item</span></a></li></ol></li>"
+          }
+        ]
+      },
+      "childrenProperties": [
+        {
+          "name": "crn-datasource",
+          "selector": "ui-select",
+          "displayName": "datasource"
+        },
+        {
+          "name": "ng-model",
+          "selector": "ui-select",
+          "displayName": "ng-model"
+        },
+        {
+          "name": "repeat",
+          "selector": "ui-select-choices",
+          "displayName": "repeat"
+        }
+      ]
     }
   ]
 }

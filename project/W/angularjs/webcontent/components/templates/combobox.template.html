@@ -1,9 +1,13 @@
-<div class="input-group-btn select" crn-combobox ng-model="">
-    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-      <span class="selected">{{selectedItem}}</span> <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu option" role="menu">
-      <li crn-value="" value="item1" class="combo-item"> <a><div data-container="true">Item 1</div> </a></li>
-      <li crn-value="" value="item2" class="combo-item"> <a><div data-container="true">Item 2</div> </a></li>
-    </ul>
+<div class="form-group">
+	<label for="">Label</label>
+	<ui-select crn-datasource="[{'key': 1,'value':'Value 1'},{'key': 2,'value':'Value 2'},{'key': 3,'value':'Value 3'}]" ng-model="" theme="select2" ng-disabled="disabled" class="crn-select"> 
+    <ui-select-match placeholder="Select person..." class="">
+       {{$select.selected.value}} 
+    </ui-select-match> 
+    <ui-select-choices repeat="rowData.key as rowData in datasource.data" class=""> 
+      <div class="" data-container="true">
+         {{rowData.value}} 
+      </div> 
+    </ui-select-choices> 
+  </ui-select>
 </div>

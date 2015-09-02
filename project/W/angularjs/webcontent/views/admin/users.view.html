@@ -3,7 +3,7 @@
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
   <datasource name="User" entity="/api/rest/security/User" keys="id" rows-per-page="100" class=""></datasource> 
 </div> 
-<div class="" data-container="true"></div> 
+<div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle selected-holder" data-component="crn-datasource" id="crn-datasource-276971"><datasource name="AllRoles" entity="/api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></div><div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick="" ng-click="User.startInserting()" ng-hide="User.inserting || User.editing"><i class="fa fa-user"></i> <span class="">Add new user</span></button> 
 </div> 
@@ -23,7 +23,7 @@
             </div></th> 
           <th class=""> 
             <div data-container="true" class="">
-              Login
+               Login 
             </div></th> 
           <th> 
             <div data-container="true" class="">
@@ -45,7 +45,7 @@
             </div></td> 
           <td class=""> 
             <div data-container="true" class="">
-              {{rowData.login}}
+               {{rowData.login}} 
             </div></td> 
           <td class=""> 
             <div data-container="true" class=""> 
@@ -77,6 +77,10 @@
       </div> 
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
         <div class="" data-container="true"></div> 
+        <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-656503"> 
+          <datasource append="false" name="Roles" entity="/api/rest/security/User/{{User.active.id}}/Roles" keys="id" rows-per-page="100" class="" lazy="true"></datasource> 
+        </div> 
+        <div class="" data-container="true"></div> 
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-61057"> 
           <div class="form-group"> 
             <label for="exampleInputEmail1" class="">Name</label> 
@@ -91,6 +95,21 @@
           </div> 
         </div> 
         <div class="" data-container="true"></div> 
+        <div class="form-group"> 
+          <label for="" class="">Roles</label> 
+          <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-tags" id="crn-tags-819676"> 
+            <ui-select multiple="" crn-datasource="AllRoles" ng-model="Roles.data" theme="select2" ng-disabled="disabled" class="" style="min-width: 200px"> 
+              <ui-select-match placeholder="Select person..." class="">
+                {{$item.name}}
+              </ui-select-match> 
+              <ui-select-choices repeat="rowData in datasource.data" class=""> 
+                <div class="" data-container="true">
+                   {{rowData.name}} 
+                </div> 
+              </ui-select-choices> 
+            </ui-select> 
+          </div> 
+        </div> 
       </fieldset> 
     </form> 
   </div> 
