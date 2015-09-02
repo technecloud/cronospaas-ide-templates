@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  */
 public class UserDAO extends BasicDAO<String, User> {
@@ -17,7 +17,7 @@ public class UserDAO extends BasicDAO<String, User> {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = 6765108645669988736l;
+	private static final long serialVersionUID = 7785593915711041559l;
 
   /**
    * Guarda uma cópia da EntityManager na instância
@@ -58,6 +58,29 @@ public class UserDAO extends BasicDAO<String, User> {
            
       return (User) query.getSingleResult();	
   }
+
+  public List<UserRole> findUserRoles(java.lang.String id, int limit, int offset) {
+      Query query = this.entityManager.createQuery("SELECT entity FROM UserRole entity WHERE entity.user.id = :id");
+      query.setParameter("id", id);
+
+      return (List<UserRole>) query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
+  }
+
+  public List<Role> listRoles(java.lang.String id, int limit, int offset) {
+      Query query = this.entityManager.createQuery("SELECT entity.role FROM UserRole entity WHERE entity.user.id = :id");
+      query.setParameter("id", id);
+
+      return (List<Role>) query.setFirstResult(offset).setMaxResults(limit).getResultList();	  
+  }
+  
+    public int deleteRole(java.lang.String instanceId, java.lang.String relationId) {
+      Query query = this.entityManager.createQuery("DELETE FROM UserRole entity WHERE entity.user.id = :instanceId AND entity.role.id = :relationId");
+      query.setParameter("instanceId", instanceId);
+      query.setParameter("relationId", relationId);
+
+      return query.executeUpdate();	  
+  }
+  
 
   public List<User> list(int limit, int offset){
       return this.entityManager.createNamedQuery("userList").setFirstResult(offset).setMaxResults(limit).getResultList();		

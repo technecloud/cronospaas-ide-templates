@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  */
 public class UserRoleDAO extends BasicDAO<String, UserRole> {
@@ -17,7 +17,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = 3484048439240986791l;
+	private static final long serialVersionUID = -8925079631154335236l;
 
   /**
    * Guarda uma cópia da EntityManager na instância
@@ -58,6 +58,8 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
            
       return (UserRole) query.getSingleResult();	
   }
+
+
 
   public List<UserRole> list(int limit, int offset){
       return this.entityManager.createNamedQuery("userRoleList").setFirstResult(offset).setMaxResults(limit).getResultList();		

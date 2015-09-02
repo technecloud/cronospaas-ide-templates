@@ -5,7 +5,7 @@ package security.test;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  **/
 public class UserTest {

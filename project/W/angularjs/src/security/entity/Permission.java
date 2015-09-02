@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  */
  
@@ -25,7 +25,7 @@ public class Permission implements Serializable {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = -4464343426989151547l;
+	private static final long serialVersionUID = -3616803453745137574l;
 	
 	@Column(name = "response", nullable = true, unique = true)
 	private java.lang.Integer response;

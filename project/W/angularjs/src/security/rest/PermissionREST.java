@@ -5,7 +5,7 @@ package security.rest;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  **/
 
@@ -122,10 +122,16 @@ public class PermissionREST implements RESTService<Permission> {
 		}    
   }
   
+  
+  
+
+
+  
   @GET
   	
   public List<Permission> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
       return business.list(limit, offset);
+
   }
 	
 }

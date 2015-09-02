@@ -9,7 +9,7 @@ import java.util.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  **/
 public class PermissionBusiness {
@@ -107,6 +107,8 @@ public class PermissionBusiness {
   public Object options(Class<?> clazz) throws Exception{
     return dao.options(clazz);
   }
+  
+
   
   public List<Permission> list(int limit, int offset){
       return dao.list(limit, offset);	

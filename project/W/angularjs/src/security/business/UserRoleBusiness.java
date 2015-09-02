@@ -9,7 +9,7 @@ import java.util.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  **/
 public class UserRoleBusiness {
@@ -107,6 +107,8 @@ public class UserRoleBusiness {
   public Object options(Class<?> clazz) throws Exception{
     return dao.options(clazz);
   }
+  
+
   
   public List<UserRole> list(int limit, int offset){
       return dao.list(limit, offset);	

@@ -5,7 +5,7 @@ package security.rest;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  **/
 
@@ -31,6 +31,8 @@ public class UserREST implements RESTService<User> {
 
   private SessionManager session;
   private UserBusiness business;
+  private UserRoleBusiness userRoleBusiness;
+  private RoleBusiness roleBusiness;
   
   @Context 
   private HttpServletRequest request;
@@ -38,6 +40,8 @@ public class UserREST implements RESTService<User> {
   public UserREST() {
     this.session = SessionManager.getInstance();
     this.business = new UserBusiness(session);
+    this.userRoleBusiness = new UserRoleBusiness(session);
+    this.roleBusiness = new RoleBusiness(session);
   }
   
   @POST
@@ -122,15 +126,124 @@ public class UserREST implements RESTService<User> {
 		}    
   }
   
+  
+  
+  @GET
+  @Path("/{id}/UserRoles")
+  public List<UserRole> findUserRoles(@PathParam("id") java.lang.String id, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
+    return this.business.findUserRoles(id, limit, offset);
+  }
+  
+  @DELETE
+  @Path("/{id}/UserRoles/{userRoleid}")
+  public Response deleteUserRole(@PathParam("userRoleid") java.lang.String id) {
+		try {
+			session.begin();
+			if (this.userRoleBusiness.deleteById(id) > 0) {
+				session.commit();
+				return Response.ok().build();
+			} else {
+				session.rollBack();
+				return Response.status(404).build();
+			}
+		} catch(Exception exception) {
+			session.rollBack();
+			throw new CustomWebApplicationException(exception);	
+		}
+  }
+  
+  @PUT
+  @Path("/{id}/UserRoles/{userRoleid}")
+  public Response putUserRole(UserRole entity, @PathParam("userRoleid") java.lang.String id) {
+		try {
+			session.begin();
+			UserRole updatedEntity = this.userRoleBusiness.update(entity);
+			session.commit();
+			return Response.ok(updatedEntity).build();
+		} catch(Exception exception) {
+			session.rollBack();
+			throw new CustomWebApplicationException(exception);	
+		}
+  }  
+  
+  @POST
+  @Path("/{id}/UserRoles")
+  public Response postUserRole(UserRole entity, @PathParam("id") java.lang.String id) {
+		try {
+			session.begin();
+			User user = this.business.findById(id);
+			entity.setUser(user);
+			this.userRoleBusiness.save(entity);
+			session.commit();
+			this.userRoleBusiness.refresh(entity);
+			return Response.ok(entity).build();
+		} catch(Exception exception) {
+			session.rollBack();
+			throw new CustomWebApplicationException(exception);	
+		}
+  }   
+  
+
+
+  @GET
+  @Path("/{id}/Roles")
+  public List<Role> listRoles(@PathParam("id") java.lang.String id, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
+    return this.business.listRoles(id, limit, offset);
+  }
+  
+  @POST
+  @Path("/{id}/Roles")
+  public Response postRole(Role entity, @PathParam("id") java.lang.String id) {
+		try {
+			session.begin();
+			UserRole newUserRole = new UserRole();
+
+			User instance = this.business.findById(id);
+
+
+			newUserRole.setRole(entity);
+			newUserRole.setUser(instance);
+			
+			this.userRoleBusiness.save(newUserRole);
+			session.commit();
+			this.userRoleBusiness.refresh(newUserRole);
+			return Response.ok(newUserRole.getUser()).build();
+		} catch(Exception exception) {
+			session.rollBack();
+			throw new CustomWebApplicationException(exception);	
+		}
+  }   
+  
+  @DELETE
+  @Path("/{instanceId}/Roles/{relationId}")
+  public Response deleteRole(@PathParam("instanceId") java.lang.String instanceId, @PathParam("relationId") java.lang.String relationId) {
+		try {
+			session.begin();
+			if (this.business.deleteRole(instanceId, relationId) > 0) {
+				session.commit();
+				return Response.ok().build();
+			} else {
+				session.rollBack();
+				return Response.status(404).build();
+			}
+		} catch(Exception exception) {
+			session.rollBack();
+			throw new CustomWebApplicationException(exception);	
+		}
+  }  
+  
+  
   @GET
   	
   public List<User> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
       return business.list(limit, offset);
+
   }
   @GET
   @Path("/findByRole/{roleid}")	
   public List<User> findByRole(@PathParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
       return business.findByRole(roleid, limit, offset);
+
   }
 	
   @GET

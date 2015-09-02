@@ -9,7 +9,7 @@ import java.util.*;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  **/
 public class RoleBusiness {
@@ -107,6 +107,24 @@ public class RoleBusiness {
   public Object options(Class<?> clazz) throws Exception{
     return dao.options(clazz);
   }
+  
+  public List<UserRole> findUserRoles(java.lang.String id, int limit, int offset) {
+      return dao.findUserRoles(id, limit, offset);	  
+  }
+
+  public List<Permission> findPermissions(java.lang.String id, int limit, int offset) {
+      return dao.findPermissions(id, limit, offset);	  
+  }
+
+
+  public List<User> listUsers(java.lang.String id, int limit, int offset) {
+      return dao.listUsers(id, limit, offset);	  
+  }
+  
+  public int deleteUser(java.lang.String instanceId, java.lang.String relationId) {
+      return dao.deleteUser(instanceId, relationId);  
+  }
+    
   
   public List<Role> list(int limit, int offset){
       return dao.list(limit, offset);	

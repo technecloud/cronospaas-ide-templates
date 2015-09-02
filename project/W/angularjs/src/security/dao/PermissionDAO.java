@@ -9,7 +9,7 @@ import java.util.List;
  * 
  * @author Techne
  * @version 1.0
- * @since 2015-08-25
+ * @since 2015-09-02
  *
  */
 public class PermissionDAO extends BasicDAO<String, Permission> {
@@ -17,7 +17,7 @@ public class PermissionDAO extends BasicDAO<String, Permission> {
 	/**
 	 * UID da classe, necessário na serialização 
 	 */
-	private static final long serialVersionUID = -2967397575277951176l;
+	private static final long serialVersionUID = -1966346453603784807l;
 
   /**
    * Guarda uma cópia da EntityManager na instância
@@ -58,6 +58,8 @@ public class PermissionDAO extends BasicDAO<String, Permission> {
            
       return (Permission) query.getSingleResult();	
   }
+
+
 
   public List<Permission> list(int limit, int offset){
       return this.entityManager.createNamedQuery("permissionList").setFirstResult(offset).setMaxResults(limit).getResultList();		
