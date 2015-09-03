@@ -16,6 +16,7 @@
       this.data = [];
       this.name = name;
       this.keys = [];
+      this.enabled = true;
       this.endpoint = null;
       this.active = {};
       this.inserting = false; 
@@ -35,7 +36,9 @@
       var hasMoreResults = false;
       var busy = false;
       var _self = this;
-
+      var unregisterDataWatch = null;
+      
+      // Public methods
       this.init = function() {
 
         // Get the service resource
@@ -123,11 +126,8 @@
       /**
       * Append a new value to the end of this dataset.
       */ 
-      this.insert = function (obj) {
-        service.save(obj).$promise.then(function(obj) {
-          this.data.push(obj);
-          this.active = obj;
-        }.bind(this));
+      this.insert = function (obj, callback) {
+        service.save(obj).$promise.then(callback);
       };
 
       /**
@@ -149,45 +149,60 @@
         
         url = url + suffixPath;
         
-        service.update(url, obj).$promise.then(function(obj) {
-          // For each row data
-          this.data.forEach(function(currentRow) {
-            // Iterate all keys checking if the 
-            // current object match with the
-            // extracted key values
-            var found;
-            for(var key in keyObj) {
-              if(currentRow[key] && currentRow[key] === keyObj[key]) {
-                found = true;
-              } else {
-                found = false;
-              }
-            }
-            if(found) {
-              this.copy(obj,currentRow);
-            }
-          }.bind(this));
-        }.bind(this));        
+        service.update(url, obj).$promise.then(callback);        
       };
 
       /**
-      * Insert or update based on the active row
+      * Insert or update based on the the datasource state
       */ 
       this.post = function () {
         if(this.inserting) {
-          this.insert(this.active);
-          this.inserting = false;
+          // Make a new request to persist the new item
+          this.insert(this.active, function(obj) {
+            // In case of success add the new inserted value at
+            // the end of the array
+            this.data.push(obj);
+            // The new object is now the active
+            this.active = obj;
+          }.bind(this));
+          
         } else if(this.editing) {
-          this.update(this.active);
-          this.editing = false;
+          // Make a new request to update the modified item
+          this.update(this.active, function(obj) {
+            // Get the list of keys
+            var keyObj = getKeyValues(obj);
+            
+            // For each row data
+            this.data.forEach(function(currentRow) {
+              // Iterate all keys checking if the 
+              // current object match with the
+              // extracted key values
+              var found;
+              for(var key in keyObj) {
+                if(currentRow[key] && currentRow[key] === keyObj[key]) {
+                  found = true;
+                } else {
+                  found = false;
+                }
+              }
+              if(found) {
+                this.copy(obj,currentRow);
+              }
+            }.bind(this));
+          }.bind(this));
         }
-
+        
+        // Set this datasource back to the normal state
+        this.editing = false;
+        this.inserting = false;
       };
 
       this.cancel = function() {
+        if(this.inserting) {
+          this.active = this.data[0];
+        }
         this.inserting = false;
         this.editing = false;
-        this.active = this.data[0];
       };
       
      this.startInserting = function () {
@@ -207,48 +222,60 @@
       * Remove an object from this dataset by using the given id.
       * the objects
       */
-      this.remove = function (object) {
-        if(!object) {
-          object = this.active;
-        }
-        
-        var keyObj = getKeyValues(object);
-        
-        var suffixPath = "";
-        for(var key in keyObj) {
-          if(keyObj.hasOwnProperty(key)) {
-            suffixPath += "/" + keyObj[key];
-          }
-        }
-        
-        service.remove(this.entity + suffixPath).$promise.then(function() {
-          // For each row data
-          for(var i = 0; i < this.data.length; i++) {
-            // Iterate all keys checking if the 
-            // current object match with the same
-            // vey values
-            // Check all keys
-            var found;
+      this.remove = function (object, callback) {
+        var _remove = function(object, callback) {
+          if(!object) {
+              object = this.active;
+            }
+            
+            var keyObj = getKeyValues(object);
+            
+            var suffixPath = "";
             for(var key in keyObj) {
               if(keyObj.hasOwnProperty(key)) {
-                if(this.data[i][key] && this.data[i][key] === keyObj[key]) {
-                  found = true;
-                } else {
-                  // There's a difference between the current object
-                  // and the key values extracted from the object
-                  // that we want to remove
-                  found = false;
-                }
+                suffixPath += "/" + keyObj[key];
               }
             }
-            if(found) {
-              // If it's the object we're loking for
-              // remove it from the array
-              this.data.splice(i,1)
-              this.active = (i > 0) ? this.data[i - 1] : null;
-            }
+            
+            callback = callback || function() {
+              // For each row data
+              for(var i = 0; i < this.data.length; i++) {
+                // Iterate all keys checking if the 
+                // current object match with the same
+                // vey values
+                // Check all keys
+                var found;
+                for(var key in keyObj) {
+                  if(keyObj.hasOwnProperty(key)) {
+                    if(this.data[i][key] && this.data[i][key] === keyObj[key]) {
+                      found = true;
+                    } else {
+                      // There's a difference between the current object
+                      // and the key values extracted from the object
+                      // that we want to remove
+                      found = false;
+                    }
+                  }
+                }
+                if(found) {
+                  // If it's the object we're loking for
+                  // remove it from the array
+                  this.data.splice(i,1)
+                  this.active = (i > 0) ? this.data[i - 1] : null;
+                }
+              }
+            }.bind(this)
+            
+            service.remove(this.entity + suffixPath).$promise.then(callback); 
+        }.bind(this);
+        
+        if(this.deleteMessage && this.deleteMessage.length > 0) {
+          if(confirm(this.deleteMessage)) {
+            _remove(object, callback); 
           }
-        }.bind(this));
+        } else {
+          _remove(object, callback);
+        }
       };
       
       /**
@@ -264,6 +291,18 @@
           
           return keyValues;
       }.bind(this);
+      
+      var objectIsEquals = function(object1, object2) {
+          var keys1 = getKeyValues(object1);
+          var keys2 = getKeyValues(object2);
+          for(var key in keys1) {
+            if(keys1.hasOwnProperty(key)) {
+              if(!keys2.hasOwnProperty(key)) return false;
+              if(keys1[key] !== keys2[key]) return false;
+            }
+          }
+          return true;
+      }
 
       /**
       * Check if the object has more itens to iterate
@@ -283,35 +322,35 @@
         _savedProps.order = order;
       };
 	  
-	  /**
-	  * Get the values of the active row as an array
-	  */
-	  this.getActiveValues = function() {
-		  if(this.active && !this._activeValues) {
-		    $rootScope.$watch(function(scope) { 
-		      return this.active; 
-		    }.bind(this),
-        function(newValue, oldValue) {
-            this._activeValues = this.getRowValues(this.active);
-        }.bind(this), true);
-		  }
-		  return this._activeValues;
-	  }
-	  
-	  this.__defineGetter__('activeValues', function() { return _self.getActiveValues(); });
-	  
-	  /**
-	  * Get the values of the given row
-	  */
-	  this.getRowValues = function(rowData) {
-		var arr = [];
-		for( var i in rowData ) {
-			if (rowData.hasOwnProperty(i)){
-			   arr.push(rowData[i]);
-			}
-		}
-		return arr;
-	  }
+  	  /**
+  	  * Get the values of the active row as an array
+  	  */
+  	  this.getActiveValues = function() {
+  		  if(this.active && !this._activeValues) {
+  		    $rootScope.$watch(function(scope) { 
+  		      return this.active; 
+  		    }.bind(this),
+          function(newValue, oldValue) {
+              this._activeValues = this.getRowValues(this.active);
+          }.bind(this), true);
+  		  }
+  		  return this._activeValues;
+  	  }
+  	  
+  	  this.__defineGetter__('activeValues', function() { return _self.getActiveValues(); });
+  	  
+  	  /**
+  	  * Get the values of the given row
+  	  */
+  	  this.getRowValues = function(rowData) {
+  		var arr = [];
+  		for( var i in rowData ) {
+  			if (rowData.hasOwnProperty(i)){
+  			   arr.push(rowData[i]);
+  			}
+  		}
+  		return arr;
+  	  }
 	  
       /**
       *  Get the current item moving the cursor to the next element
@@ -437,6 +476,11 @@
       *  Fetch all data from the server
       */
       this.fetch = function (properties, callbacksObj) {
+        if(!this.enabled) {
+          this.cleanup();
+          return;
+        }
+        
         var props = properties || {};
         var callbacks = callbacksObj || {};
 
@@ -450,9 +494,9 @@
           props.params.offset = this.offset;
         }
 
-        // Query the server with defined params
-        //var query = resource.query(props.params);
-        
+        // Stop auto post for awhile
+        this.stopAutoPost();
+                
         // Store the last configuration for late use
         _savedProps = props;
         
@@ -463,7 +507,7 @@
         this.$promise = $http({
           method: "GET",
           url: resourceURL,
-          data : $.param(props.params),
+          params : props.params,
           headers: this.headers,
         }).success(function(data, status, headers, config) {
               busy = false;
@@ -503,6 +547,16 @@
               if(callbacks.success) callbacks.success.call(this, data);
               
               hasMoreResults = (data.length >= this.rowsPerPage);
+              
+              /* 
+              *  Register a watcher for data
+              *  if the autopost property was set
+              *  It means that any change on dataset items will
+              *  generate a new request on the server
+              */
+              if(this.autoPost) {
+                this.startAutoPost();
+              }
             } 
           }.bind(this);
       };
@@ -562,7 +616,53 @@
         }
         return to;
       };
-
+      
+      /**
+       * Used to monitore the this datasource data for change (insertion and deletion)
+       */
+      this.startAutoPost = function() {
+        unregisterDataWatch = $rootScope.$watch(function() {
+          return this.data;
+        }.bind(this), function (newData, oldData) {
+          // Get the difference between both arrays
+          var difSize = newData.length - oldData.length;
+          
+          if(difSize > 0) {
+            // If the value is positive
+            // Some item was added
+            for(var i = 1; i <= difSize; i++) {
+              // Make a new request
+              this.insert(newData[newData.length - i], function() {
+              });
+            }
+          } else if(difSize < 0) {
+            // If it is negative
+            // Some item was removed
+            var removedItems = oldData.filter(function(oldItem){
+                return newData.filter(function(newItem){
+                    return objectIsEquals(oldItem, newItem);
+                }).length == 0;
+            });
+            
+            for(var i = 0; i < removedItems.length; i++) {
+                this.remove(removedItems[i], function() {});
+            }
+        
+          }
+        }.bind(this));
+      }
+      
+      /**
+       * Unregister the data watcher
+       */
+      this.stopAutoPost = function() {
+        // Unregister any defined watcher on data variable
+        if(unregisterDataWatch) {
+          unregisterDataWatch();
+          unregisterDataWatch = undefined;
+        }
+      }
+      
     };
 
     /**
@@ -586,6 +686,9 @@
         dts.prepend = props.prepend;
         dts.endpoint = props.endpoint;
         dts.filterURL = props.filterURL;
+        dts.autoPost = props.autoPost;
+        dts.deleteMessage = props.deleteMessage;
+        dts.enabled = props.enabled;
         dts.offset = (props.offset) ? props.offset : 0; // Default offset is 0
 
         
@@ -618,6 +721,10 @@
             }
           }});
         }
+        
+        if(props.lazy && props.autoPost) {
+          dts.startAutoPost();
+        }
 
         if(props.watch && Object.prototype.toString.call(props.watch) === "[object String]") {
           this.registerObserver(props.watch, dts);
@@ -628,8 +735,6 @@
         if(props.filterURL && props.filterURL.length > 0) { 
           dts.filter(props.filterURL);
         }
-        
-        
 
         // Add this instance into the root scope
         // This will expose the dataset name as a
@@ -657,12 +762,14 @@
     var timeoutPromise;
     return {
       restrict: 'E',
+      scope: true,
       template: '',
       link: function( scope, element, attrs ) {
         var init = function () {
-          var datasource = DatasetManager.initDataset({
+          var props = {
             name: attrs.name,
             entity: attrs.entity,
+            enabled: (attrs.hasOwnProperty('enabled')) ? (attrs.enabled === "true") : true,
             keys: attrs.keys,
             endpoint: attrs.endpoint,
             lazy: (attrs.hasOwnProperty('lazy') && attrs.lazy === "") || attrs.lazy === "true",
@@ -673,19 +780,49 @@
             offset: attrs.offset,
             filterURL : attrs.filter,
             watchFilter: attrs.watchFilter,
-            headers : attrs.headers
-          });
+            deleteMessage: attrs.deleteMessage,
+            headers : attrs.headers,
+            autoPost : (attrs.hasOwnProperty('autoPost') && attrs.autoPost === "") || attrs.autoPost === "true"
+          }
+          
+          var firstLoad = {
+            filter: true,
+            entity: true,
+            enabled: true
+          }
+          var datasource = DatasetManager.initDataset(props);
           
           attrs.$observe('filter', function( value ){
-                
+            if (!firstLoad.filter) {
                 // Stop the pending timeout
                 $timeout.cancel(timeoutPromise);
                 
                 // Start a timeout
                 timeoutPromise = $timeout(function() {
                    datasource.filter(value);
-                }, 500);
-                
+                }, 200);
+            } else {    
+                $timeout(function() { firstLoad.filter = false; });
+            }
+          });
+          
+          attrs.$observe('enabled', function( value ){
+            if (!firstLoad.enabled) {
+                   datasource.enabled = (value === "true");
+                   datasource.fetch({params:{}});
+            } else {    
+                $timeout(function() { firstLoad.enabled = false; });
+            }
+          });
+          
+          attrs.$observe('entity', function( value ){
+                if (!firstLoad.entity) {
+                  // Start a timeout
+                  datasource.entity = value;
+                  datasource.fetch({params:{}});
+                } else {
+                  $timeout(function() { firstLoad.entity = false; });
+                }
           });
         };
         init();
@@ -693,13 +830,18 @@
     };
   }]);
   
-  $app.directive('crnDatasource',['DatasetManager', function(DatasetManager) {
+  $app.directive('crnDatasource',['DatasetManager','$parse', function(DatasetManager,$parse) {
       return {
         restrict: 'A',
         scope: true,
         link: function(scope, element, attrs) {
             scope.data = DatasetManager.datasets;
-            scope.datasource = scope.data[attrs.crnDatasource];
+            if(scope.data[attrs.crnDatasource]) {
+              scope.datasource = scope.data[attrs.crnDatasource];
+            } else {
+              scope.datasource = {};
+              scope.datasource.data = $parse(attrs.crnDatasource)(scope);
+            }
         }
       };
     }]);
