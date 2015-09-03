@@ -624,6 +624,12 @@
         unregisterDataWatch = $rootScope.$watch(function() {
           return this.data;
         }.bind(this), function (newData, oldData) {
+          
+          if(!this.enabled) {
+            unregisterDataWatch();
+            return;
+          }
+          
           // Get the difference between both arrays
           var difSize = newData.length - oldData.length;
           
