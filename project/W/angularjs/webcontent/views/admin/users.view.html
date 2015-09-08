@@ -1,9 +1,9 @@
 <h3>Users</h3> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle selected-holder" data-component="crn-datasource" id="crn-datasource-763276"> 
-  <datasource name="User" entity="/api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="Tem certeza que deseja remover este usuário?"></datasource> 
+  <datasource name="User" entity="api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="Tem certeza que deseja remover este usuário?"></datasource> 
 </div> 
-<div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-276971"><datasource name="AllRoles" entity="/api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></div><div class="" data-container="true"></div> 
+<div class="" data-container="true"></div><div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-276971"><datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></div><div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick="" ng-click="User.startInserting()" ng-hide="User.inserting || User.editing"><i class="fa fa-user"></i> <span class="">Add new user</span></button> 
 </div> 
@@ -78,7 +78,7 @@
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
         <div class="" data-container="true"></div> 
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-656503"> 
-          <datasource append="false" name="Roles" entity="/api/rest/security/User/{{User.active.id}}/Roles" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}"></datasource> 
+          <datasource append="false" name="Roles" entity="api/rest/security/User/{{User.active.id}}/Roles" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}"></datasource> 
         </div> 
         <div class="" data-container="true"></div> 
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-61057"> 

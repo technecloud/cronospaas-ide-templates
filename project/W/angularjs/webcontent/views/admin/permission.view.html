@@ -1,18 +1,14 @@
 <h3>Permission</h3> 
-<div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
-  <datasource name="Permission" entity="/api/rest/security/Permission" keys="id" rows-per-page="100" class=""></datasource> 
+  <datasource name="Permission" entity="api/rest/security/Permission" keys="id" rows-per-page="100" class=""></datasource> 
 </div> 
-<div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-493153"> 
-  <datasource name="AllRoles" entity="/api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource> 
+  <datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource> 
 </div> 
-<div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick="" ng-click="Permission.startInserting()"><i class="fa fa-lock"></i> <span class="">Add new permission</span></button> 
 </div> 
-<div class="" data-container="true"></div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138"> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle selected-holder" data-component="crn-grid" id="crn-grid-852138"> 
   <div crn-datasource="Permission" class="" ng-hide="Permission.editing || Permission.inserting"> 
     <table class="table  table-bordered table-hover"> 
       <tbody> 
@@ -39,7 +35,7 @@
         <tr class="table-content" ng-repeat="rowData in datasource.data"> 
           <td> 
             <div data-container="true" class="">
-               {{rowData.path}} 
+              {{rowData.path}}
             </div></td> 
           <td class=""> 
             <div data-container="true" class="">
@@ -62,8 +58,7 @@
     </div> 
   </div> 
 </div> 
-<div class="" data-container="true"></div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle selected-holder" data-component="crn-form" id="crn-form-149102"> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-149102"> 
   <div class="form" ng-show="Permission.editing || Permission.inserting"> 
     <form crn-datasource="Permission" class=""> 
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
@@ -78,38 +73,32 @@
         <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
       </div> 
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting" class=""> 
-        <div class="" data-container="true"></div> 
-        <div class="" data-container="true"></div> 
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-567272"> 
-          <label class="">Role</label>
+          <label class="">Role</label> 
           <ui-select crn-datasource="AllRoles" ng-model="Permission.active.role" theme="select2" ng-disabled="disabled" class="crn-select"> 
-          <ui-select-match placeholder="Select person..." class="">
-            {{$select.selected.name}}
-          </ui-select-match> 
-          <ui-select-choices repeat="rowData as rowData in datasource.data" class=""> 
-            <div class="" data-container="true">
-              {{rowData.name}}
-            </div> 
-          </ui-select-choices> 
-        </ui-select> 
+            <ui-select-match placeholder="Select person..." class="">
+               {{$select.selected.name}} 
+            </ui-select-match> 
+            <ui-select-choices repeat="rowData as rowData in datasource.data" class=""> 
+              <div class="" data-container="true">
+                 {{rowData.name}} 
+              </div> 
+            </ui-select-choices> 
+          </ui-select> 
         </div> 
-        <div class="" data-container="true"></div> 
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-590743"> 
           <div class="form-group"> 
             <label for="exampleInputEmail1" class="">Verb</label> 
             <input type="text" ng-model="Permission.active.verb" class="form-control" id="textinput-id" placeholder="Placeholder text"> 
           </div> 
         </div> 
-        <div class="" data-container="true"></div> 
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-720508"> 
           <div class="form-group"> 
             <label for="exampleInputEmail1" class="">Path</label> 
             <input type="text" ng-model="Permission.active.path" class="form-control" id="textinput-id" placeholder="Placeholder text"> 
           </div> 
         </div> 
-        <div class="" data-container="true"></div> 
       </fieldset> 
     </form> 
   </div> 
-</div> 
-<div class="" data-container="true"></div>
+</div>

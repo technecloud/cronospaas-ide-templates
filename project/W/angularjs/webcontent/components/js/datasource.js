@@ -822,9 +822,9 @@
           });
           
           attrs.$observe('entity', function( value ){
+                datasource.entity = value;
                 if (!firstLoad.entity) {
-                  // Start a timeout
-                  datasource.entity = value;
+                  // Only fetch if it's not the first load
                   datasource.fetch({params:{}});
                 } else {
                   $timeout(function() { firstLoad.entity = false; });

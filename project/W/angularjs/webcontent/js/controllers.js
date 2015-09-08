@@ -13,7 +13,7 @@
 
             $http({
                 method: 'POST',
-                url: '/auth',
+                url: 'auth',
                 data: $.param(user),
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).success(handleSuccess).error(handleError);
@@ -61,7 +61,7 @@
 
             $http({
                 method: 'GET',
-                url: '/logout',
+                url: 'logout',
             }).then(handleSuccess, handleError)
 
             $rootScope.session = {};
