@@ -32,9 +32,9 @@
 <dependencies>
   
   <dependency>
-	<groupId>net.sf.jasperreports</groupId>
-	<artifactId>jasperreports</artifactId>
-	<version>6.0.3</version>
+	   <groupId>net.sf.jasperreports</groupId>
+	   <artifactId>jasperreports</artifactId>
+	   <version>6.0.3</version>
   </dependency>
 
 </dependencies>
