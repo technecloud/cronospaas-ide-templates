@@ -1,19 +1,15 @@
 <h3>${model.dataSourceName}</h3>
 
+<#if model.hasColumnFilter()>
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
-<label for="textinput-filter" class="">Filter 
-<#if model.gridHasColumnFilter = "true">
-by ${model.gridFilterName}
-</#if>
-</label> 
-<input type="text" ng-model="query" class="form-control" value="%" placeholder="Placeholder text"> 
+  <label for="textinput-filter" class="">Filter </label> 
+  <input type="text" ng-model="query" class="form-control" value="%" placeholder="Placeholder text"> 
 </div>
-
 <br/>
-
+</#if>
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
-  <datasource name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" class=""></datasource> 
+   <datasource <#if model.hasColumnFilter()>filter="/${model.gridFilter}/{{query}}"</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" class=""></datasource> 
 </div> 
 <div class="" data-container="true"></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
@@ -36,7 +32,7 @@ by ${model.gridFilterName}
         </tr> 
       </thead> 
       <tbody> 
-        <tr class="table-content" ng-repeat="rowData in datasource.data | filter:${model.gridFilter}"> 
+        <tr class="table-content" ng-repeat="rowData in datasource.data"> 
         <#list model.gridFields as field>
           <td class=""> 
             <div data-container="true" class="">
