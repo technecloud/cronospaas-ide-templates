@@ -219,7 +219,7 @@
           {
             "activeSelector": ".table-content td.active",
             "activeClass": "active",
-            "sourceHTML": "<td><div data-container=\"true\"></div></td>",
+            "sourceHTML": "<td><div data-container=\"true\">New Content</div></td>",
             "targetSelector": ".table-content"
           }
         ]

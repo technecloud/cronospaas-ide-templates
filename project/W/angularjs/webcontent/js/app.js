@@ -84,9 +84,10 @@ var app = (function() {
     }])
 
     // General controller
-    .controller('PageController',["$scope",function(a){
+    .controller('PageController',["$scope","$stateParams",function(a,$stateParams){
       for(var x in app.userEvents)
         a[x]= app.userEvents[x].bind(a);
+        a.params = $stateParams;
     }])
     
     .run(function($rootScope,$state) {
