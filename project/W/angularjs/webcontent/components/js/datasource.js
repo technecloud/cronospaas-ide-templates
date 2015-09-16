@@ -214,7 +214,7 @@
      };
      
      this.startEditing = function (item) {
-       if(item) this.active = item;
+       if(item) this.active = this.copy(item);
        this.editing = true;
      };
 
