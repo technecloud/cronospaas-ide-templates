@@ -110,13 +110,15 @@ public class AuthenticationServlet extends HttpServlet {
 
 	private boolean login(String username, String password) {
 		logger.log(Level.INFO, "login");
-		//return authenticateLocal(username, password);
-		//return authenticateDataBase(username, password);
-		return authenticateOAuth2(username, password);
+		return authenticateLocal(username, password);
+		// return authenticateDataBase(username, password);
+		// return authenticateOAuth2(username, password);
 	}
 
 	private boolean authenticateLocal(String username, String password) {
-		return "techne".equals(username) && "techne".equals(password);
+		boolean result = "techne".equals(username) && "techne".equals(password);
+		if(result) AuthenticationServlet.createUserIfNotExists(username, password, null);
+		return result;
 	}
 
 	private boolean authenticateOAuth2(String username, String password) {
