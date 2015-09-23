@@ -1,31 +1,21 @@
 package security.permission;
 
+import security.dao.*;
+import security.entity.Permission;
+import security.entity.Role;
+import security.entity.User;
+import security.entity.UserRole;
+
+import javax.persistence.EntityManager;
+import javax.servlet.*;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.persistence.EntityManager;
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import security.dao.PermissionDAO;
-import security.dao.RoleDAO;
-import security.dao.SessionManager;
-import security.dao.UserDAO;
-import security.dao.UserRoleDAO;
-import security.entity.Permission;
-import security.entity.Role;
-import security.entity.User;
-import security.entity.UserRole;
 
 @WebFilter(urlPatterns = { "/*" }, filterName = "authorization-filter")
 public class AuthorizationFilter implements Filter {

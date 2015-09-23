@@ -1,9 +1,14 @@
 package security.rest.exceptions;
 
-import javax.ws.rs.core.*;
 import javax.ws.rs.WebApplicationException;
-import java.io.*;
-import javax.xml.bind.annotation.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.io.StringWriter;
 
 
 public class CustomWebApplicationException extends WebApplicationException implements Serializable {

@@ -1,9 +1,9 @@
 package security.entity;
 
-import java.io.*;
 import javax.persistence.*;
-import java.util.*;
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+import java.util.UUID;
 
 /**
  * Classe que representa a tabela ROLE

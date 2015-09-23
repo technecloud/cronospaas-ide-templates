@@ -1,7 +1,9 @@
 package security.dao;
 
-import javax.persistence.*;
-import security.entity.*;
+import security.entity.Permission;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 /**

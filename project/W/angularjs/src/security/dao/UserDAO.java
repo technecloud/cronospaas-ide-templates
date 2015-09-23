@@ -1,7 +1,11 @@
 package security.dao;
 
-import javax.persistence.*;
-import security.entity.*;
+import security.entity.Role;
+import security.entity.User;
+import security.entity.UserRole;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 /**

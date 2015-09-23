@@ -1,13 +1,15 @@
 package security.dao;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.SchemaOutputResolver;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.lang.reflect.ParameterizedType;
-import java.util.*;
-import javax.persistence.*;
-
-import javax.xml.bind.*;
-import javax.xml.transform.stream.*;
-import javax.xml.transform.*;
-import java.io.*;
+import java.util.List;
 
 
 /**

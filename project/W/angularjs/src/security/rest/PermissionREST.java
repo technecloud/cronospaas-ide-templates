@@ -9,19 +9,18 @@ package security.rest;
  *
  **/
 
-import java.util.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import javax.persistence.*;
+import security.business.PermissionBusiness;
+import security.dao.SessionManager;
+import security.entity.Permission;
+import security.rest.exceptions.CustomWebApplicationException;
+import security.rest.util.RESTService;
 
-import security.rest.util.*;
-
-import security.dao.*;
-import security.entity.*;
-import security.business.*;
 import javax.servlet.http.HttpServletRequest;
-
-import security.rest.exceptions.*;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 @Path("/Permission")
