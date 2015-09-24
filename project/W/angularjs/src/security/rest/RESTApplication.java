@@ -1,7 +1,8 @@
 package security.rest;
 
-import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
+
+import javax.ws.rs.ApplicationPath;
 
 
 /**

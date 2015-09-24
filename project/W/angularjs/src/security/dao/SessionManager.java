@@ -1,7 +1,8 @@
 package security.dao;
 
-import java.util.*;
 import javax.persistence.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Gerenciador de Sessões

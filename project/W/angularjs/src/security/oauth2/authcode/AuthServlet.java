@@ -1,21 +1,20 @@
 package security.oauth2.authcode;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import org.glassfish.jersey.client.oauth2.ClientIdentifier;
+import org.glassfish.jersey.client.oauth2.OAuth2ClientSupport;
+import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow;
+import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow.Builder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.glassfish.jersey.client.oauth2.ClientIdentifier;
-import org.glassfish.jersey.client.oauth2.OAuth2ClientSupport;
-import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow;
-import org.glassfish.jersey.client.oauth2.OAuth2CodeGrantFlow.Builder;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 @WebServlet("/oauth2")
 public class AuthServlet extends HttpServlet implements Serializable {

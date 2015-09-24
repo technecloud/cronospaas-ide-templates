@@ -1,7 +1,5 @@
 package  security.rest.util;
 
-import javax.ws.rs.core.*;
-
 /**
  * Interface responsável pela definição de operações padrões para serviços REST
  * 
