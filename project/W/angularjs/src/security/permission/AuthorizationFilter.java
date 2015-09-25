@@ -32,7 +32,7 @@ public class AuthorizationFilter implements Filter {
 
 	public static final long serialVersionUID = -1l;
 	private static final Logger logger = Logger.getLogger(AuthorizationFilter.class.getName());
-	private static final int REFRESH_PERMISSIONS_TIME = 60;
+	private static final int REFRESH_PERMISSIONS_TIME = 180;
 
 	public static final String ADMIN_ID = "00000000-0000-0000-0000-000000000000";
 	public static final String EVERYONE_ID = "11111111-1111-1111-1111-111111111111";
