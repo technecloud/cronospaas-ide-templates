@@ -37,7 +37,7 @@ var app = (function() {
             url: "/{name:.*}",
             controller: 'PageController',
             templateUrl: function(urlattr){
-                return '/views/'+urlattr.name+'.view.html';
+                return 'views/'+urlattr.name+'.view.html';
             }
           }) 
           
@@ -45,7 +45,7 @@ var app = (function() {
             url: "/error/404",
             controller: 'PageController',
             templateUrl: function(urlattr){
-                return '/views/error/404.view.html';
+                return 'views/error/404.view.html';
             }
           })
           
@@ -53,7 +53,7 @@ var app = (function() {
             url: "/error/403",
             controller: 'PageController',
             templateUrl: function(urlattr){
-                return '/views/error/403.view.html';
+                return 'views/error/403.view.html';
             }
           });
           

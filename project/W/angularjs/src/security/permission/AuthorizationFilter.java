@@ -1,46 +1,63 @@
 package security.permission;
 
-import security.dao.*;
-import security.entity.Permission;
-import security.entity.Role;
-import security.entity.User;
-import security.entity.UserRole;
-
-import javax.persistence.EntityManager;
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.persistence.EntityManager;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import security.dao.PermissionDAO;
+import security.dao.RoleDAO;
+import security.dao.SessionManager;
+import security.dao.UserDAO;
+import security.dao.UserRoleDAO;
+import security.entity.Permission;
+import security.entity.Role;
+import security.entity.User;
+import security.entity.UserRole;
+
 @WebFilter(urlPatterns = { "/*" }, filterName = "authorization-filter")
 public class AuthorizationFilter implements Filter {
 
 	public static final long serialVersionUID = -1l;
-	private final Logger logger = Logger.getLogger(this.getClass().getName());
+	private static final Logger logger = Logger.getLogger(AuthorizationFilter.class.getName());
 
-	private List<Permission> permissions = new ArrayList<Permission>();
+	public static final String ADMIN_ID = "00000000-0000-0000-0000-000000000000";
+	public static final String EVERYONE_ID = "11111111-1111-1111-1111-111111111111";
+	public static final String LOGGED_ID = "22222222-2222-2222-2222-222222222222";
+
+	private List<Permission> permissions;
 
 	public void init(FilterConfig config) throws ServletException {
+		//init
+	}
+
+	public synchronized void refreshPermissions() {
 
 		PermissionDAO dao = new PermissionDAO(SessionManager.getInstance().getEntityManager());
 
 		try {
-			synchronized (this) {
-				permissions = dao.findAll();
+			permissions = dao.findAll();
 
-				if (permissions.isEmpty()) {
-					initialPermission();
-					permissions = dao.findAll();
-				}
+			if (permissions.isEmpty()) {
+				initialPermission();
+				permissions = dao.findAll();
 			}
 
 		} catch (Exception e) {
-			new ServletException(e);
+			logger.log(Level.SEVERE, e.getMessage(), e);
+			throw new RuntimeException(e);
 		}
 
 	}
@@ -60,7 +77,7 @@ public class AuthorizationFilter implements Filter {
 	}
 
 	private void initialPermission() {
-		System.out.println("creatingDefaultPermission");
+		logger.log(Level.INFO, "creatingDefaultPermission");
 
 		SessionManager session = SessionManager.getInstance();
 		session.begin();
@@ -78,15 +95,15 @@ public class AuthorizationFilter implements Filter {
 		userDAO.save(userAdmin);
 
 		Role roleAdmin = new Role();
-		roleAdmin.setId("00000000-0000-0000-0000-000000000000");
+		roleAdmin.setId(ADMIN_ID);
 		roleAdmin.setName("Administrators");
 
 		Role roleEveryOne = new Role();
-		roleEveryOne.setId("11111111-1111-1111-1111-111111111111");
+		roleEveryOne.setId(EVERYONE_ID);
 		roleEveryOne.setName("Every One");
 
 		Role roleLogged = new Role();
-		roleLogged.setId("22222222-2222-2222-2222-222222222222");
+		roleLogged.setId(LOGGED_ID);
 		roleLogged.setName("Logged");
 
 		List<Role> roles = new ArrayList<>();
@@ -118,21 +135,25 @@ public class AuthorizationFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
+		if (permissions == null)
+			refreshPermissions();
+
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
 		String username = httpRequest.getSession().getAttribute("username") == null ? "anonymous"
 				: httpRequest.getSession().getAttribute("username").toString();
-		String roles = httpRequest.getSession().getAttribute("roles") == null ? "11111111-1111-1111-1111-111111111111"
+		String roles = httpRequest.getSession().getAttribute("roles") == null ? EVERYONE_ID
 				: httpRequest.getSession().getAttribute("roles").toString();
 
-		logger.log(Level.INFO, "session.username:" + username);
-		logger.log(Level.INFO, "session.roles:" + roles);
-
-		if (filter(httpRequest, httpResponse, username, roles)) {
-			chain.doFilter(request, response);
-		} else {
-			httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+		try {
+			if (filter(httpRequest, httpResponse, username, roles)) {
+				chain.doFilter(request, response);
+			} else {
+				httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			}
+		} finally {
+			SessionManager.clearInstance();
 		}
 
 	}
@@ -142,26 +163,18 @@ public class AuthorizationFilter implements Filter {
 		boolean allowed = false;
 
 		String verb = request.getMethod();
-		String uri = request.getRequestURI();
-		String path = uri.substring(request.getContextPath().length());
+		String path = request.getRequestURI().substring(request.getContextPath().length());
 
 		if (!username.equals("anonymous")) {
-			roles += "22222222-2222-2222-2222-222222222222";
+			roles += LOGGED_ID;
 		}
 
 		for (Permission permission : permissions) {
 
-			System.out.println(permission.getRole().getId());
-
-			logger.log(Level.INFO,
-					"path:(" + path + ")=match(" + permission.getPath() + ")=" + path.matches(permission.getPath()));
-
-			logger.log(Level.INFO, "path:(" + path + ")=match exception(" + permission.getExclude() + ")="
-					+ path.matches("" + permission.getExclude()));
-
 			if (permission.getEnabled() && roles.contains(permission.getRole().getId())) {
 				if (verb.equalsIgnoreCase(permission.getVerb()) || permission.getVerb().equalsIgnoreCase("ALL")) {
-					if ((path.matches(permission.getPath()) && !path.matches("" + permission.getExclude()))) {
+					if ((path.matches(permission.getPath())
+							&& !path.matches(String.valueOf(permission.getExclude())))) {
 						allowed = true;
 						break;
 					}
@@ -174,8 +187,7 @@ public class AuthorizationFilter implements Filter {
 	}
 
 	public void destroy() {
-		/* Called before the Filter instance is removed 
-		from service by the web container*/
+		//destroy	
 	}
 
 }

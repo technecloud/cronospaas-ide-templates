@@ -1,11 +1,32 @@
 package security.permission;
 
+import java.io.IOException;
+import java.security.SecureRandom;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.client.urlconnection.HTTPSProperties;
+
 import security.dao.SessionManager;
 import security.dao.UserDAO;
 import security.dao.UserRoleDAO;
@@ -17,34 +38,19 @@ import security.oauth2.flow.OAuth2Client;
 import security.oauth2.flow.OAuth2Settings;
 import security.rest.exceptions.CustomWebApplicationException;
 
-import javax.net.ssl.*;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+@SuppressWarnings("unused")
 @WebServlet(value = { "/auth", "/logout", "/session" }, name = "auth-servlet")
 public class AuthenticationServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
-	private final Logger logger = Logger.getLogger(this.getClass().getName());
-
-	private UserDAO dao;
+	private static final Logger logger = Logger.getLogger(AuthenticationServlet.class.getName());
 
 	public void init() throws ServletException {
-		dao = new UserDAO(SessionManager.getInstance().getEntityManager());
+		//init
 	}
 
 	public void destroy() {
+		//destroy
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
@@ -55,7 +61,7 @@ public class AuthenticationServlet extends HttpServlet {
 				req.getSession().setAttribute("username", username);
 				UserRoleDAO dao = new UserRoleDAO(SessionManager.getInstance().getEntityManager());
 				List<UserRole> userRoles = dao.findByLogin(username, Integer.MAX_VALUE, 0);
-				String rolesID = "11111111-1111-1111-1111-111111111111";
+				String rolesID = AuthorizationFilter.EVERYONE_ID;
 				for (UserRole userRole : userRoles) {
 					rolesID += "," + userRole.getRole().getId();
 				}
@@ -82,7 +88,7 @@ public class AuthenticationServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 		try {
-			String uri = req.getRequestURI();
+			String uri = req.getRequestURI().substring(req.getContextPath().length());
 			if ("/logout".equals(uri)) {
 				logout(req, resp);
 			} else if ("/session".equals(uri)) {
@@ -103,8 +109,9 @@ public class AuthenticationServlet extends HttpServlet {
 	}
 
 	private boolean authenticateLocal(String username, String password) {
-		boolean result = "techne".equals(username) && "techne".equals(password);
-		if(result) AuthenticationServlet.createUserIfNotExists(username, password, null);
+		boolean result = "admin".equals(username) && "admin".equals(password);
+		if (result)
+			AuthenticationServlet.createUserIfNotExists(username, password, null);
 		return result;
 	}
 
@@ -127,14 +134,11 @@ public class AuthenticationServlet extends HttpServlet {
 		// cria usuario, senao existir
 		SessionManager session = SessionManager.getInstance();
 
-		@SuppressWarnings("unused")
-		SessionManager s;
-
 		UserDAO userDao = new UserDAO(session.getEntityManager());
 		List<User> users = userDao.findByAttribute("login", username);
 		if (users.isEmpty()) {
 			session.begin();
-			System.out.println("Creating user: " + username);
+			logger.log(Level.INFO, "Creating user: " + username);
 			User userEntity = new User();
 			userEntity.setLogin(username);
 			userEntity.setName(name);
@@ -145,8 +149,9 @@ public class AuthenticationServlet extends HttpServlet {
 	}
 
 	private boolean authenticateDataBase(String username, String password) {
+		UserDAO dao = new UserDAO(SessionManager.getInstance().getEntityManager());
 		for (User user : dao.findAll()) {
-			if (username.equals(user.getName()))
+			if (username.equals(user.getLogin()))
 				return true;
 		}
 		return false;
@@ -199,7 +204,6 @@ public class AuthenticationServlet extends HttpServlet {
 	}
 
 	private void logout(HttpServletRequest request, HttpServletResponse response) {
-		logger.log(Level.INFO, "logout");
 		Object accessToken = request.getSession().getAttribute("accessToken");
 		request.getSession().invalidate();
 		if (accessToken != null) {
@@ -213,7 +217,6 @@ public class AuthenticationServlet extends HttpServlet {
 	}
 
 	private void session(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		logger.log(Level.INFO, "session");
 		Object username = req.getSession().getAttribute("username");
 		if (username != null) {
 			User user = this.getUserByName(username.toString());
