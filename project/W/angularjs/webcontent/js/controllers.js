@@ -18,6 +18,10 @@
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).success(handleSuccess).error(handleError);
         }
+        
+        $rootScope.infiniteReached = function() {
+          alert("wow!");
+        }
 
         function handleSuccess(data, status, headers, config) {
             // Store data response on session storage

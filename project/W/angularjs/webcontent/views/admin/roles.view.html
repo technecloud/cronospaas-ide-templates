@@ -1,17 +1,17 @@
 <h3 class="">Roles</h3> 
-<div class="" data-container="true"></div> 
+ 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854"> 
   <datasource name="Role" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource> 
 </div> 
-<div class="" data-container="true"></div> 
+ 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-807592"> 
-  <datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource> 
+  <datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="10" class="" reach-infinity="AllRoles.next()"></datasource> 
 </div> 
-<div class="" data-container="true"></div> 
+ 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" ng-click="Role.startInserting()"><i class="fa fa-lock"></i> <span>Add new role</span></button> 
 </div> 
-<div class="" data-container="true"></div> 
+ 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138" ng-hide="Role.editing || Role.inserting"> 
   <div crn-datasource="Role" class=""> 
     <table class="table  table-bordered table-hover"> 
@@ -46,8 +46,8 @@
     </div> 
   </div> 
 </div> 
-<div class="" data-container="true"></div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle selected-holder" data-component="crn-form" id="crn-form-271576"> 
+ 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-271576"> 
   <div class="form"> 
     <form crn-datasource="Role" ng-show="Role.editing || Role.inserting"> 
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
@@ -57,21 +57,20 @@
         <button class="btn btn-primary" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button> 
         <button class="btn btn-primary" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button> 
       </div> 
-      <div class="active-bar" ng-hide="!datasource.editing && !datasource.inserting"> 
+      <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting"> 
         <button class="btn btn-success" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button> 
         <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
       </div> 
-      <fieldset ng-disabled="!datasource.editing && !datasource.inserting"> 
-        <div class="" data-container="true"></div> 
+      <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
+         
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-327527"> 
           <div class="form-group"> 
             <label for="exampleInputEmail1" class="">Name</label> 
             <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-id" placeholder="Placeholder text"> 
           </div> 
         </div> 
-        <div class="" data-container="true"></div> 
+         
       </fieldset> 
     </form> 
   </div> 
 </div> 
-<div class="" data-container="true"></div>

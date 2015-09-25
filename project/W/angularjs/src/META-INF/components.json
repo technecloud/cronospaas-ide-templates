@@ -198,13 +198,14 @@
       "text": "Table",
       "class": "cpn cpn-table",
       "templateURL": "webcontent/components/templates/grid.template.html",
-      "properties": {
-        "crn-datasource": {
-          "displayName": "Datasource",
-          "removable": false,
-          "type": "pageDatasource"
-        }
-      },
+      "properties": {},
+      "childrenProperties": [
+        {
+          "name": "crn-datasource",
+          "selector": "div[crn-datasource]",
+          "displayName": "datasource"
+       }
+       ],
       "handleRules": {
         "canOrder": true,
         "canActivate": true,
