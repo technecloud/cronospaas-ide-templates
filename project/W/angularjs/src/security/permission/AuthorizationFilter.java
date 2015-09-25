@@ -32,15 +32,27 @@ public class AuthorizationFilter implements Filter {
 
 	public static final long serialVersionUID = -1l;
 	private static final Logger logger = Logger.getLogger(AuthorizationFilter.class.getName());
+	private static final int REFRESH_PERMISSIONS_TIME = 60;
 
 	public static final String ADMIN_ID = "00000000-0000-0000-0000-000000000000";
 	public static final String EVERYONE_ID = "11111111-1111-1111-1111-111111111111";
 	public static final String LOGGED_ID = "22222222-2222-2222-2222-222222222222";
 
 	private List<Permission> permissions;
+	private long lastRefresh = 0;
 
 	public void init(FilterConfig config) throws ServletException {
 		//init
+	}
+
+	public void refreshPermissionsIfNeeded() {
+		if (System.currentTimeMillis() - lastRefresh > (1000 * REFRESH_PERMISSIONS_TIME)) {
+			synchronized (this) {
+				if (System.currentTimeMillis() - lastRefresh > (1000 * REFRESH_PERMISSIONS_TIME)) {
+					refreshPermissions();
+				}
+			}
+		}
 	}
 
 	public synchronized void refreshPermissions() {
@@ -54,6 +66,8 @@ public class AuthorizationFilter implements Filter {
 				initialPermission();
 				permissions = dao.findAll();
 			}
+
+			lastRefresh = System.currentTimeMillis();
 
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
@@ -164,6 +178,9 @@ public class AuthorizationFilter implements Filter {
 
 		String verb = request.getMethod();
 		String path = request.getRequestURI().substring(request.getContextPath().length());
+
+		if (path.equals("/auth"))
+			refreshPermissionsIfNeeded();
 
 		if (!username.equals("anonymous")) {
 			roles += LOGGED_ID;
