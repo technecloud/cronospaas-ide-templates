@@ -85,10 +85,20 @@ var app = (function() {
     }])
 
     // General controller
-    .controller('PageController',["$scope","$stateParams",function(a,$stateParams){
+    .controller('PageController',["$scope","$stateParams","$location",function($scope, $stateParams, $location){
       for(var x in app.userEvents)
-        a[x]= app.userEvents[x].bind(a);
-        a.params = $stateParams;
+        $scope[x]= app.userEvents[x].bind($scope);
+      
+      // save state params into scope
+      $scope.params = $stateParams;
+      
+      // Query string params
+      var queryStringParams = $location.search();
+      for(var key in queryStringParams) {
+        if(queryStringParams.hasOwnProperty(key)) {
+          $scope.params[key] = queryStringParams[key];
+        }
+      }
     }])
     
     .run(function($rootScope,$state) {
