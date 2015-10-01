@@ -771,7 +771,6 @@ angular.module('custom.datasource', [])
 * Cronus Dataset Directive
 */
 .directive('datasource',['DatasetManager','$timeout','$parse', function (DatasetManager,$timeout,$parse) {
-  var timeoutPromise;
   return {
     restrict: 'E',
     scope: true,
@@ -804,6 +803,8 @@ angular.module('custom.datasource', [])
         }
         var datasource = DatasetManager.initDataset(props);
         
+        var timeoutPromise;
+          
         attrs.$observe('filter', function( value ){
           if (!firstLoad.filter) {
               // Stop the pending timeout
