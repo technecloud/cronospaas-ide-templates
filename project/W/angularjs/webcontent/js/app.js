@@ -7,7 +7,7 @@ var app = (function() {
     'ngSanitize',
     'custom.controllers', 
     'custom.services',
-    'custom.datasource',
+    'datasourcejs',
     'chart.js',
 	  'ngMask',
     'ngJustGage'
@@ -85,12 +85,13 @@ var app = (function() {
     }])
 
     // General controller
-    .controller('PageController',["$scope","$stateParams","$location",function($scope, $stateParams, $location){
+    .controller('PageController',["$scope","$stateParams","$location","$http",function($scope, $stateParams, $location, $http){
       for(var x in app.userEvents)
         $scope[x]= app.userEvents[x].bind($scope);
       
       // save state params into scope
       $scope.params = $stateParams;
+      $scope.$http = $http;
       
       // Query string params
       var queryStringParams = $location.search();
