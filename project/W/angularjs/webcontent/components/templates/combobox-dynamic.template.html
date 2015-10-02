@@ -1,7 +1,7 @@
 <div class="form-group">
 	<label for="">Label</label>
-	<ui-select crn-datasource="" ng-model="" ng-disabled="disabled" class="crn-select"> 
-    <ui-select-match placeholder="Select person..." class="">
+	<ui-select crn-datasource="" ng-model="" ng-disabled="disabled"theme="bootstrap" class="crn-select"> 
+    <ui-select-match placeholder="Select..." class="">
        {{$select.selected}} 
     </ui-select-match> 
     <ui-select-choices repeat="rowData as rowData in datasource.data | filter : $select.search" class=""> 

@@ -361,7 +361,7 @@
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<li data-toggle=\"collapse\" data-component=\"crn-sidebar-item\" data-target=\"#menu-sub-${RANDOM}\" class=\"collapsed active component-holder\"><a href=\"javascript:void(0);\" class=\"\"><i class=\"fa fa-users fa-lg\"></i> <span>Menu Item</span> <span class=\"arrow\"></span></a> <ul class=\"sub-menu collapse\" id=\"menu-sub-${RANDOM}\"> <li><a href=\"/#/\" class=\"component-holder\" data-component=\"crn-anchor\">Submenu Item</a></li>  </ul> </li> ",
+            "sourceHTML": "<li data-toggle=\"collapse\" data-component=\"crn-sidebar-item\" data-target=\"#menu-sub-${RANDOM}\" class=\"collapsed active component-holder\"><a href=\"javascript:void(0);\" class=\"\"><i class=\"fa fa-users fa-lg\"></i> <span>Menu Item</span> <span class=\"arrow\"></span></a> <ul class=\"sub-menu collapse  navbar-nav in\" id=\"menu-sub-${RANDOM}\"> <li><a href=\"/#/\" class=\"component-holder\" data-component=\"crn-anchor\">Submenu Item</a></li>  </ul> </li> ",
             "targetSelector": ".menu-content"
           }
         ]

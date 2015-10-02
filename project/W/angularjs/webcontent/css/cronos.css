@@ -89,7 +89,6 @@ body {
 /** SIDEBAR MENU **/
 
 .nav-side-menu {
-    overflow: auto;
     font-family: verdana;
     font-size: 12px;
     font-weight: 200;
@@ -302,7 +301,6 @@ img.zoom-button {
     z-index: -1;
     display: block;
     width: inherit;
-    background-color: #f0f3f4;
     border: inherit;
     content: "";
     width: 100%;

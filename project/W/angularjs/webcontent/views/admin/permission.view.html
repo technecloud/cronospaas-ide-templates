@@ -8,7 +8,7 @@
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick="" ng-click="Permission.startInserting()"><i class="fa fa-lock"></i> <span class="">Add new permission</span></button> 
 </div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle selected-holder" data-component="crn-grid" id="crn-grid-852138"> 
+<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138"> 
   <div crn-datasource="Permission" class="" ng-hide="Permission.editing || Permission.inserting"> 
     <table class="table  table-bordered table-hover"> 
       <tbody> 
@@ -73,13 +73,13 @@
         <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
       </div> 
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting" class=""> 
-        <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-567272"> 
+        <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle selected-holder" data-component="crn-combobox-dynamic" id="crn-combobox-dynamic-567272"> 
           <label class="">Role</label> 
-          <ui-select crn-datasource="AllRoles" ng-model="Permission.active.role" theme="select2" ng-disabled="disabled" class="crn-select"> 
+          <ui-select crn-datasource="AllRoles" ng-model="Permission.active.role" ng-disabled="disabled" class="crn-select"> 
             <ui-select-match placeholder="Select person..." class="">
                {{$select.selected.name}} 
             </ui-select-match> 
-            <ui-select-choices repeat="rowData as rowData in datasource.data" class=""> 
+            <ui-select-choices repeat="rowData as rowData in datasource.data | filter : $select.search" class=""> 
               <div class="" data-container="true">
                  {{rowData.name}} 
               </div> 

@@ -1,9 +1,9 @@
-angular.module('custom.datasource', [])
+angular.module('datasourcejs', [])
 
 /**
 * Global factory responsible for managing all datasets
 */
-.factory('DatasetManager', ['$http','$q', '$resource', '$timeout','$rootScope', function($http, $q, $resource, $timeout, $rootScope) {
+.factory('DatasetManager', ['$http','$q', '$timeout','$rootScope', function($http, $q, $timeout, $rootScope) {
    // Global dataset List
   this.datasets = {};
 
@@ -38,6 +38,9 @@ angular.module('custom.datasource', [])
     var unregisterDataWatch = null;
     
     // Public methods
+	/**
+	* Initialize a single datasource
+	*/
     this.init = function() {
 
       // Get the service resource
@@ -60,7 +63,7 @@ angular.module('custom.datasource', [])
             method: verb,
             url: url,
             data : (object) ? JSON.stringify(object) : null,
-            headers: _self.headers,
+            headers: _self.headers
           }).success(function(data, status, headers, config) {
               busy = false;
               if(_callback) _callback(data);
@@ -78,7 +81,7 @@ angular.module('custom.datasource', [])
       }
       
       /**
-       * Check if the datasource is waiting for an process 
+       * Check if the datasource is waiting for any request response
        */
       this.isBusy = function() {
         return busy;
@@ -196,6 +199,9 @@ angular.module('custom.datasource', [])
       this.inserting = false;
     };
 
+	/**
+	* Cancel the editing or inserting state
+	*/
     this.cancel = function() {
       if(this.inserting) {
         this.active = this.data[0];
@@ -204,6 +210,9 @@ angular.module('custom.datasource', [])
       this.editing = false;
     };
     
+	/**
+	* Put the datasource into the inserting state
+	*/
    this.startInserting = function () {
      this.inserting = true;
      this.active = {};
@@ -212,6 +221,9 @@ angular.module('custom.datasource', [])
      }
    };
    
+   /**
+	* Put the datasource into the editing state
+	*/
    this.startEditing = function (item) {
      if(item) this.active = this.copy(item);
      this.editing = true;
@@ -278,7 +290,7 @@ angular.module('custom.datasource', [])
     };
     
     /**
-     * Get the object keys values from the dataset keylist
+     * Get the object keys values from the datasource keylist
      * PRIVATE FUNCTION
      */
     var getKeyValues = function(rowData) {
@@ -291,6 +303,10 @@ angular.module('custom.datasource', [])
         return keyValues;
     }.bind(this);
     
+	/**
+     * Check if two objects are equals by comparing their keys
+     * PRIVATE FUNCTION
+     */
     var objectIsEquals = function(object1, object2) {
         var keys1 = getKeyValues(object1);
         var keys2 = getKeyValues(object2);
@@ -309,7 +325,10 @@ angular.module('custom.datasource', [])
     this.hasNext = function () {
       return this.data && (cursor < this.data.length - 1);
     };
-
+	
+	/**
+    * Check if the cursor is not at the beginning of the datasource
+    */
     this.hasPrevious = function () {
       return this.data && (cursor > 0);
     };
@@ -322,7 +341,8 @@ angular.module('custom.datasource', [])
     };
   
 	  /**
-	  * Get the values of the active row as an array
+	  * Get the values of the active row as an array.
+	  * This method will ignore any keys and only return the values
 	  */
 	  this.getActiveValues = function() {
 		  if(this.active && !this._activeValues) {
@@ -514,7 +534,7 @@ angular.module('custom.datasource', [])
         method: "GET",
         url: resourceURL,
         params : props.params,
-        headers: this.headers,
+        headers: this.headers
       }).success(function(data, status, headers, config) {
             busy = false;
             sucessHandler(data)
@@ -857,4 +877,4 @@ angular.module('custom.datasource', [])
           }
       }
     };
-  }]);
+}]);
