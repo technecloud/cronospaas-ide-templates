@@ -46,7 +46,7 @@
       "class": "cpn cpn-button",
       "templateURL": "webcontent/components/templates/button.template.html",
       "properties": {
-        "onclick": {
+        "ng-click": {
           "removable": true,
           "type": "event"
         },
