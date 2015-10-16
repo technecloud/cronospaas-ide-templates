@@ -7,7 +7,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * Classe de Teste que representa ...
+ * Classe de Teste que representa um aglomerado de testes unitários.
  * 
  * @author ${UserName}
  * @version 1.0
@@ -16,7 +16,11 @@ import org.junit.runners.Suite.SuiteClasses;
  */
  
 @RunWith(Suite.class)
-@SuiteClasses({ ${ClassTestName}.class })
+@SuiteClasses({ 
+/*
+ * Test1.class, Test2.class, ...
+ */
+})
 public class  ${ClassName} {
 }
 
