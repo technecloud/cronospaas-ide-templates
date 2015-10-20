@@ -54,6 +54,20 @@ public class SessionManager {
 		return threadLocal.get();
 	}
 
+	private Properties getProperties(){
+	  Properties properties = new Properties();
+    try{
+      String resourcePath = String.format("META-INF/jdbc/%s.properties", PERSISTENCE_UNIT);
+      ClassLoader classLoader = getClass().getClassLoader();
+    	File file = new File(classLoader.getResource(resourcePath).getFile());
+      if(file.exists())
+      properties.load( new FileInputStream(file) );
+      
+    }catch(Exception e){}
+    
+    return properties;
+	}
+
 	/**
 	 * Construtor
 	 * 
@@ -61,20 +75,12 @@ public class SessionManager {
 	 *          Recriar?
 	 */
 	private SessionManager(boolean recreate) {
+	  Properties prop = getProperties();
+	  
+		if (recreate) 
+		prop.put("eclipselink.ddl-generation", "create-or-extend-tables");
 
-		if (!recreate) {
-			this.factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-		} else {
-
-			Map<String, String> map = new HashMap<>();
-			map.put("eclipselink.ddl-generation", "create-or-extend-tables");
-			/**
-			 * create-or-extend-tables: EclipseLink will attempt to create tables. If the table exists, EclipseLink will add any missing columns.
-			 */
-
-			this.factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT, map);
-		}
-
+		this.factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT, prop);
 		this.entityManager = this.factory.createEntityManager();
 
 	}
