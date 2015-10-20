@@ -25,7 +25,7 @@ public class OAuth2Settings {
 	static {
 		try {
 			String fileName = null;
-			URL resourcefileName = OAuth2Settings.class.getResource("/META-INF/" + SETTINGS_FILE_NAME);
+			URL resourcefileName = OAuth2Settings.class.getResource("/META-INF/oauth2/" + SETTINGS_FILE_NAME);
 			if (resourcefileName != null)
 				fileName = resourcefileName.getFile();
 			else {

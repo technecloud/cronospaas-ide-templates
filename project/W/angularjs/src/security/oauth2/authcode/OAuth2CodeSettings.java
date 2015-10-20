@@ -28,7 +28,7 @@ public class OAuth2CodeSettings implements Serializable {
 		try {
 
 			InputStream resource = OAuth2CodeSettings.class
-					.getResourceAsStream("/META-INF/" + resourceName + ".properties");
+					.getResourceAsStream("/META-INF/oauth2/" + resourceName + ".properties");
 
 			Properties properties = new Properties();
 			properties.load(resource);
