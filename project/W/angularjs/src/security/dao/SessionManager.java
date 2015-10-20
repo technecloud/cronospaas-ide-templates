@@ -1,8 +1,9 @@
 package security.dao;
 
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.io.*;
+import java.net.*;
 
 /**
  * Gerenciador de Sessões
@@ -59,14 +60,17 @@ public class SessionManager {
     try{
       String resourcePath = String.format("META-INF/jdbc/%s.properties", PERSISTENCE_UNIT);
       ClassLoader classLoader = getClass().getClassLoader();
-    	File file = new File(classLoader.getResource(resourcePath).getFile());
-      if(file.exists())
-      properties.load( new FileInputStream(file) );
+      URL resource = classLoader.getResource(resourcePath);
+      if(resource != null){
+        File file = new File( resource.getFile() );
+        properties.load( new FileInputStream( file ) );
+      }
       
     }catch(Exception e){}
     
     return properties;
 	}
+
 
 	/**
 	 * Construtor
