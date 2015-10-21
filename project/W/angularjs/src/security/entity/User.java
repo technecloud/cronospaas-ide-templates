@@ -15,7 +15,7 @@ import java.util.UUID;
  */
  
 @Entity
-@Table(name = "USER")
+@Table(name = "\"USER\"")
 @NamedQueries({
         @NamedQuery(name = "userList", query = "select u from User u"),
         @NamedQuery(name = "userFindByRole", query = "select u.user from UserRole u where u.role.id = :roleid")

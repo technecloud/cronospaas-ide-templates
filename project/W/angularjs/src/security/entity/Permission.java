@@ -15,7 +15,7 @@ import java.util.UUID;
  */
  
 @Entity
-@Table(name = "PERMISSION")
+@Table(name = "\"PERMISSION\"")
 @NamedQueries({
         @NamedQuery(name = "permissionList", query = "select p from Permission p")
 })

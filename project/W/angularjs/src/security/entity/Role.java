@@ -15,7 +15,7 @@ import java.util.UUID;
  */
  
 @Entity
-@Table(name = "ROLE")
+@Table(name = "\"ROLE\"")
 @NamedQueries({
         @NamedQuery(name = "roleList", query = "select r from Role r")
 })
