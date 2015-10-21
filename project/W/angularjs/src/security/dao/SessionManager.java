@@ -55,23 +55,6 @@ public class SessionManager {
 		return threadLocal.get();
 	}
 
-	private Properties getProperties(){
-	  Properties properties = new Properties();
-    try{
-      String resourcePath = String.format("META-INF/jdbc/%s.properties", PERSISTENCE_UNIT);
-      ClassLoader classLoader = getClass().getClassLoader();
-      URL resource = classLoader.getResource(resourcePath);
-      if(resource != null){
-        File file = new File( resource.getFile() );
-        properties.load( new FileInputStream( file ) );
-      }
-      
-    }catch(Exception e){}
-    
-    return properties;
-	}
-
-
 	/**
 	 * Construtor
 	 * 
@@ -79,7 +62,7 @@ public class SessionManager {
 	 *          Recriar?
 	 */
 	private SessionManager(boolean recreate) {
-	  Properties prop = getProperties();
+	    Properties prop = new Properties();
 	  
 		if (recreate) 
 		prop.put("eclipselink.ddl-generation", "create-or-extend-tables");

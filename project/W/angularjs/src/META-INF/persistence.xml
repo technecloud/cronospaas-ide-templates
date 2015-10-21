@@ -9,7 +9,11 @@
         <class>security.entity.UserRole</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-          <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:~/Angular;DATABASE_TO_UPPER=false;ALIAS_COLUMN_NAME=true;AUTO_SERVER=TRUE"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
         </properties>
     </persistence-unit>
     <persistence-unit name="sample.pessoa" transaction-type="RESOURCE_LOCAL">
@@ -18,7 +22,11 @@
         <class>sample.pessoa.entity.Cidade</class>
         <class>sample.pessoa.entity.Pessoa</class>
         <properties>
-          <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="eclipselink.ddl-generation" value="create-or-extend-tables"/>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:file:~/Angular;DATABASE_TO_UPPER=false;ALIAS_COLUMN_NAME=true;AUTO_SERVER=TRUE"/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
         </properties>
     </persistence-unit>
 </persistence>
