@@ -1,11 +1,11 @@
-<h3>Users</h3> 
+<h3>{{'Users.view.Users' | translate}}</h3> 
  
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
-  <datasource name="User" entity="api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="Tem certeza que deseja remover este usuário?"></datasource> 
+  <datasource name="User" entity="api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="{{'Users.view.RemoverUsuario' | translate}}?"></datasource> 
 </div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-276971"><datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></div> 
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
-  <button class="btn btn-primary" type="submit" onclick="" ng-click="User.startInserting()" ng-hide="User.inserting || User.editing"><i class="fa fa-user"></i> <span class="">Add new user</span></button> 
+  <button class="btn btn-primary" type="submit" onclick="" ng-click="User.startInserting()" ng-hide="User.inserting || User.editing"><i class="fa fa-user"></i> <span class="">{{'Users.view.Add A New User' | translate}}</span></button> 
 </div> 
  
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138"> 
@@ -15,19 +15,19 @@
         <tr class="table-header"> 
           <th class="active"> 
             <div data-container="true" class="">
-               Picture 
+               {{'Users.view.Picture' | translate}} 
             </div></th> 
           <th class=""> 
             <div data-container="true" class="">
-               Name 
+               {{'Users.view.Name' | translate}} 
             </div></th> 
           <th class=""> 
             <div data-container="true" class="">
-               Login 
+               {{'Users.view.Login' | translate}} 
             </div></th> 
           <th> 
             <div data-container="true" class="">
-               Actions 
+               {{'Users.view.Actions' | translate}} 
             </div></th> 
         </tr> 
       </thead> 
@@ -49,14 +49,14 @@
             </div></td> 
           <td class=""> 
             <div data-container="true" class=""> 
-              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i><span class="">Edit</span></button> 
-              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i> <span>Remove</span></button> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i><span class="">{{'Users.view.Edit' | translate}}</span></button> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i> <span>{{'Users.view.Remove' | translate}}</span></button> 
             </div></td> 
         </tr> 
       </tbody> 
     </table> 
     <div class="table-footer-controls"> 
-      <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
+      <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{'Users.view.Load More' | translate}}...</button> 
     </div> 
   </div> 
 </div> 
@@ -83,23 +83,23 @@
          
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-61057"> 
           <div class="form-group"> 
-            <label for="exampleInputEmail1" class="">Name</label> 
+            <label for="exampleInputEmail1" class="">{{'Users.view.Name' | translate}}</label> 
             <input type="text" ng-model="User.active.name" class="form-control" id="textinput-id" placeholder="Placeholder text"> 
           </div> 
         </div> 
          
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-950960"> 
           <div class="form-group"> 
-            <label for="exampleInputEmail1" class="">Login</label> 
+            <label for="exampleInputEmail1" class="">{{'Users.view.Login' | translate}}</label> 
             <input type="text" ng-model="datasource.active.login" class="form-control" id="textinput-id" placeholder="Placeholder text"> 
           </div> 
         </div> 
          
         <div class="form-group"> 
-          <label for="" class="">Roles</label> 
+          <label for="" class="">{{'Users.view.Roles' | translate}}</label> 
           <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle selected-holder" data-component="crn-tags" id="crn-tags-819676"> 
             <ui-select multiple="" crn-datasource="AllRoles" ng-model="Roles.data" ng-disabled="User.inserting" class="crn-select" style="min-width: 200px" theme="bootstrap"> 
-              <ui-select-match placeholder="Select person..." class="">
+              <ui-select-match placeholder="{{'Users.view.Select Person' | translate}}..." class="">
                 {{$item.name}}
               </ui-select-match> 
               <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 

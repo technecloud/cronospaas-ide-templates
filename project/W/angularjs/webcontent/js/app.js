@@ -10,8 +10,19 @@ var app = (function() {
     'datasourcejs',
     'chart.js',
 	  'ngMask',
-    'ngJustGage'
+    'ngJustGage',
+    'pascalprecht.translate',
+    'tmh.dynamicLocale'
     ])
+    
+    .constant('LOCALES', {
+      'locales': {
+        'pt_BR': 'Portugues (Brasil)',
+        'en_US': 'English'
+      },
+      'preferredLocale': 'pt_BR'
+    })
+    
     .config(function($stateProvider, $urlRouterProvider) {
         // Set up the states
         $stateProvider
@@ -60,7 +71,23 @@ var app = (function() {
           
          // For any unmatched url, redirect to /state1
          $urlRouterProvider.otherwise("/error/404");
-          
+    })
+    
+    .config(function ($translateProvider) {
+      $translateProvider.useMissingTranslationHandlerLog();
+    })
+    
+    .config(function ($translateProvider) {
+      $translateProvider.useStaticFilesLoader({
+        prefix: 'i18n/locale_',
+        suffix: '.json'
+      });
+      $translateProvider.preferredLanguage('pt_BR');
+      // $translateProvider.useLocalStorage();
+    })
+    
+    .config(function (tmhDynamicLocaleProvider) {
+      tmhDynamicLocaleProvider.localeLocationPattern('plugins/angular-i18n/angular-locale_{{locale}}.js');
     })
 
     .directive('crnValue', ['$parse', function($parse) {

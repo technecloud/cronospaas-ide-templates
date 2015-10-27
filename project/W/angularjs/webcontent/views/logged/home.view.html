@@ -15,15 +15,16 @@
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content1"></i> 
     <div class="menu-list"> 
       <ul id="menu-content1" class="menu-content collapse out navbar-nav"> 
-        <li data-toggle="collapse" data-target="#menu-sub-1" class="collapsed component-holder" data-component="crn-sidebar-item"> <a href="#/home" class=""><i class="fa fa-lg fa-home"></i> <span class="">Home</span> </a> </li> 
-        <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-5099" class="collapsed component-holder"><a href="javascript:void(0);" class=""><i class="fa fa-users fa-lg"></i> <span class="">Admin</span> <span class="arrow"></span></a> 
+        <li data-toggle="collapse" data-target="#menu-sub-1" class="collapsed component-holder" data-component="crn-sidebar-item"> <a href="#/home" class=""><i class="fa fa-lg fa-home"></i> <span class="">{{"Home.view.Home" | translate}}</span> </a> </li> 
+        <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-5099" class="collapsed component-holder"><a href="javascript:void(0);" class=""><i class="fa fa-users fa-lg"></i> <span class="">{{"Home.view.Admin" | translate}}</span> <span class="arrow"></span></a> 
           <ul class="sub-menu collapse" id="menu-sub-5099"> 
-            <li class=""><a href="#/home/admin/users" class="component-holder" data-component="crn-anchor">Users</a></li> 
-            <li><a href="#/home/admin/roles" class="component-holder" data-component="crn-anchor">Roles</a></li> 
-            <li><a href="#/home/admin/permission" class="component-holder" data-component="crn-anchor">Permission</a></li> 
+            <li class=""><a href="#/home/admin/users" class="component-holder" data-component="crn-anchor">{{"Home.view.Users" | translate}}</a></li> 
+            <li><a href="#/home/admin/roles" class="component-holder" data-component="crn-anchor">{{"Home.view.Roles" | translate}}</a></li> 
+            <li><a href="#/home/admin/permission" class="component-holder" data-component="crn-anchor">{{"Home.view.Permission" | translate}}</a></li> 
           </ul> </li> 
-        <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-9831" class="collapsed component-holder"><a href="#/home/logged/localidade" class=""><i class="fa fa-lg fa-user"></i> <span class="">Cidade</span> </a> </li> 
-      <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-2787" class="collapsed component-holder selected-holder" ng-click="logout()"><a href="javascript:void(0);" class=""><i class="fa fa-lg fa-sign-out"></i> <span class="">Logout</span> </a>  </li> </ul> 
+        <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-9831" class="collapsed component-holder"><a href="#/home/logged/localidade" class=""><i class="fa fa-lg fa-user"></i> <span class="">{{"Home.view.Cidade" | translate}}</span> </a> </li> 
+        <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-9832" class="collapsed component-holder"><a class=""> <span class=""> <div ng-translate-language-select></div> </span> </a> </li>
+      <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-2787" class="collapsed component-holder selected-holder" ng-click="logout()"><a href="javascript:void(0);" class=""><i class="fa fa-lg fa-sign-out"></i> <span class="">{{"Home.view.Logout" | translate}}</span> </a>  </li> </ul> 
     </div> 
   </div> 
   <div ui-view="" class="main-view"> 

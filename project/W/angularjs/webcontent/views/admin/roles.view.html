@@ -1,4 +1,4 @@
-<h3 class="">Roles</h3> 
+<h3 class="">{{'Roles.view.Roles' | translate}}</h3> 
  
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854"> 
   <datasource name="Role" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource> 
@@ -9,7 +9,7 @@
 </div> 
  
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
-  <button class="btn btn-primary" type="submit" ng-click="Role.startInserting()"><i class="fa fa-lock"></i> <span>Add new role</span></button> 
+  <button class="btn btn-primary" type="submit" ng-click="Role.startInserting()"><i class="fa fa-lock"></i> <span>{{'Roles.view.Add New Role' | translate}}</span></button> 
 </div> 
  
 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-852138" ng-hide="Role.editing || Role.inserting"> 
@@ -19,11 +19,11 @@
         <tr class="table-header"> 
           <th class=""> 
             <div data-container="true" class="">
-               Name 
+               {{'Roles.view.Name' | translate}} 
             </div></th> 
           <th> 
             <div data-container="true" class="">
-               Actions 
+               {{'Roles.view.Actions' | translate}} 
             </div></th> 
         </tr> 
       </thead> 
@@ -35,14 +35,14 @@
             </div></td> 
           <td> 
             <div data-container="true" class=""> 
-              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i><span class="">Edit</span></button> 
-              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i> <span>Remove</span></button> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i><span class="">{{'Roles.view.Edit' | translate}}</span></button> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i> <span>{{'Roles.view.Remove' | translate}}</span></button> 
             </div></td> 
         </tr> 
       </tbody> 
     </table> 
     <div class="table-footer-controls"> 
-      <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
+      <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{'Roles.view.Load More' | translate}}...</button> 
     </div> 
   </div> 
 </div> 
@@ -65,7 +65,7 @@
          
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-327527"> 
           <div class="form-group"> 
-            <label for="exampleInputEmail1" class="">Name</label> 
+            <label for="exampleInputEmail1" class="">{{'Roles.view.Name' | translate}}</label> 
             <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-id" placeholder="Placeholder text"> 
           </div> 
         </div> 

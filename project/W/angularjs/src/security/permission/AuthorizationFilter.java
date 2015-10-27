@@ -91,7 +91,7 @@ public class AuthorizationFilter implements Filter {
 	}
 
 	private void initialPermission() {
-		logger.log(Level.INFO, "creatingDefaultPermission");
+		logger.log(Level.INFO, i18n.Messages.getString("AuthorizationFilter.CreatingDefaultPermission"));
 
 		SessionManager session = SessionManager.getInstance();
 		session.begin();

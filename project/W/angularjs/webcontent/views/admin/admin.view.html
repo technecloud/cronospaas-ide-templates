@@ -4,10 +4,10 @@
     <div class="ctn-tab"> 
       <!-- Nav tabs --> 
       <ul class="nav nav-tabs" role="tablist"> 
-        <li role="presentation" class="active"><a data-target="#tab1" role="tab" data-toggle="tab" class="">User</a></li> 
-        <li role="presentation" class=""><a data-target="#tab2" role="tab" data-toggle="tab" class="">Roles</a></li> 
-        <li role="presentation" class=""><a data-target="#tab1962" role="tab" data-toggle="tab" class="">User Roles</a></li> 
-        <li role="presentation" class=""><a data-target="#tab3948" role="tab" data-toggle="tab" class="">Permission</a></li> 
+        <li role="presentation" class="active"><a data-target="#tab1" role="tab" data-toggle="tab" class="">{{'Admin.view.Role' | translate}}</a></li> 
+        <li role="presentation" class=""><a data-target="#tab2" role="tab" data-toggle="tab" class="">{{'Admin.view.Roles' | translate}}</a></li> 
+        <li role="presentation" class=""><a data-target="#tab1962" role="tab" data-toggle="tab" class="">{{'Admin.view.UserRoles' | translate}}</a></li> 
+        <li role="presentation" class=""><a data-target="#tab3948" role="tab" data-toggle="tab" class="">{{'Admin.view.Permission' | translate}}</a></li> 
       </ul> 
       <!-- Tab panes --> 
       <div class="tab-content"> 
@@ -24,11 +24,11 @@
                   <tr class="table-header"> 
                     <th class=""> 
                       <div data-container="true" class="">
-                         Picture 
+                         {{'Admin.view.Picture' | translate}} 
                       </div></th> 
                     <th class=""> 
                       <div data-container="true" class="">
-                         Name 
+                         {{'Admin.view.Name' | translate}} 
                       </div></th> 
                     <th> 
                       <div data-container="true" class="">
@@ -67,7 +67,7 @@
                 </tbody> 
               </table> 
               <div class="table-footer-controls"> 
-                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
+                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{'Admin.view.Load More' | translate}}...</button> 
               </div> 
             </div> 
           </div> 
@@ -80,7 +80,7 @@
             <div class="form" ng-hide="!User.editing && !User.inserting"> 
               <form crn-datasource="User"> 
                 <div class="active-bar"> 
-                  <h2 style="text-align:right"> User </h2> 
+                  <h2 style="text-align:right"> {{'Admin.view.User' | translate}}  </h2> 
                   <button class="btn btn-success" ng-click="User.post()"><i class="glyphicon glyphicon-ok"></i></button> 
                   <button class="btn btn-danger" ng-click="User.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
                 </div> 
@@ -89,9 +89,9 @@
                 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-3646799"> 
                   <div class="form-group"> 
                     <br> 
-                    <input type="text" ng-model="User.active.name" class="form-control" placeholder="Name" required=""> 
+                    <input type="text" ng-model="User.active.name" class="form-control" placeholder="{{'Admin.view.Name' | translate}}" required=""> 
                     <br> 
-                    <input type="text" ng-model="User.active.password" class="form-control" placeholder="Passwrod" required=""> 
+                    <input type="text" ng-model="User.active.password" class="form-control" placeholder="{{'Admin.view.Passwrod' | translate}}" required=""> 
                     <br> 
                     <input type="email" ng-model="User.active.email" class="form-control" placeholder="E-mail" required=""> 
                   </div> 
@@ -116,11 +116,11 @@
                   <tr class="table-header"> 
                     <th class=""> 
                       <div data-container="true" class="">
-                         Nome 
+                         {{'Admin.view.Name' | translate}}  
                       </div></th> 
                     <th class=""> 
                       <div data-container="true" class="">
-                         Enabled 
+                         {{'Admin.view.Enabled' | translate}} 
                       </div></th> 
                   </tr> 
                 </thead> 
@@ -140,7 +140,7 @@
                 </tbody> 
               </table> 
               <div class="table-footer-controls"> 
-                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
+                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{'Admin.view.Load More' | translate}}...</button> 
               </div> 
             </div> 
           </div> 
@@ -150,7 +150,7 @@
             <div class="form" ng-hide="!Role.editing &amp;&amp; !Role.inserting"> 
               <form crn-datasource="Role"> 
                 <div class="active-bar"> 
-                  <h2 style="text-align:right"> Role </h2> 
+                  <h2 style="text-align:right"> {{' </h2> 
                   <button class="btn btn-success" ng-click="Role.post()"><i class="glyphicon glyphicon-ok"></i></button> 
                   <button class="btn btn-danger" ng-click="Role.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
                 </div> 
@@ -159,9 +159,9 @@
                 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-role"> 
                   <div class="form-group"> 
                     <br> 
-                    <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-id" placeholder="Name" required=""> 
+                    <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-id" placeholder="{{'Admin.view.Name' | translate}}" required=""> 
                     <br> 
-                    <label>Enabled?</label> 
+                    <label>{{'Admin.view.Enabled' | translate}}?</label> 
                     <input type="checkbox" ng-model="Role.active.enabled" ng-true-value="true"> 
                   </div> 
                 </div> 
@@ -185,11 +185,11 @@
                   <tr class="table-header"> 
                     <th> 
                       <div data-container="true" class="">
-                         User 
+                         {{'Admin.view.User' | translate}} 
                       </div></th> 
                     <th> 
                       <div data-container="true" class="">
-                         Role 
+                         {{'Admin.view.Role' | translate}} 
                       </div></th> 
                   </tr> 
                 </thead> 
@@ -207,7 +207,7 @@
                 </tbody> 
               </table> 
               <div class="table-footer-controls"> 
-                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
+                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{'Admin.view.Load More' | translate}}...</button> 
               </div> 
             </div> 
           </div> 
@@ -220,7 +220,7 @@
             <div class="form" ng-hide="!UserRole.editing &amp;&amp; !UserRole.inserting"> 
               <form crn-datasource="UserRole"> 
                 <div class="active-bar"> 
-                  <h2 style="text-align:right"> UserRole </h2> 
+                  <h2 style="text-align:right"> {{'Admin.view.UserRole' | translate}} </h2> 
                   <button class="btn btn-success" ng-click="UserRole.post()"><i class="glyphicon glyphicon-ok"></i></button> 
                   <button class="btn btn-danger" ng-click="UserRole.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
                 </div> 
@@ -228,9 +228,9 @@
                 </div> 
                 <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-user-role"> 
                   <div class="form-group"> 
-                    <label>User</label> 
-                    <select ng-model="UserRole.active.user" class="form-control" ng-options="opt as opt.name for opt in User.data track by opt.id"> </select> 
-                    <label>Role</label> 
+                    <label>{{'Admin.view.User' | translate}}</label> 
+                    <select ng-model="UserRole.active.user" class="form-control" ng-options="opt as opt.name for opt in {{'Admin.view.User' | translate}}.data track by opt.id"> </select> 
+                    <label>{{'Admin.view.Role' | translate}}</label> 
                     <select ng-model="UserRole.active.role" class="form-control" ng-options="opt as opt.name for opt in Role.data track by opt.id"> </select> 
                   </div> 
                 </div> 
@@ -254,15 +254,15 @@
                   <tr class="table-header"> 
                     <th> 
                       <div data-container="true" class="">
-                         Path 
+                         {{'Admin.view.Path' | translate}} 
                       </div></th> 
                     <th> 
                       <div data-container="true" class="">
-                         Verb 
+                         {{'Admin.view.Verb' | translate}} 
                       </div></th> 
                     <th> 
                       <div data-container="true" class="">
-                         Role 
+                         {{'Admin.view.Role' | translate}} 
                       </div></th> 
                   </tr> 
                 </thead> 
@@ -284,7 +284,7 @@
                 </tbody> 
               </table> 
               <div class="table-footer-controls"> 
-                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">Load more...</button> 
+                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{'Admin.view.Load More' | translate}}...</button> 
               </div> 
             </div> 
           </div> 
@@ -293,7 +293,7 @@
           <form> 
             <div class="form" ng-hide="!Permission.editing &amp;&amp; !Permission.inserting"> 
               <div class="active-bar" style="text-align:right"> 
-                <h2> Permission </h2> 
+                <h2> {{'Admin.view.Permission' | translate}} </h2> 
                 <button class="btn btn-success" ng-click="Permission.post()"><i class="glyphicon glyphicon-ok"></i></button> 
                 <button class="btn btn-danger" ng-click="Permission.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
               </div> 
@@ -301,25 +301,25 @@
               </div> 
               <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-role"> 
                 <div class="form-group"> 
-                  <label>Path (regex)</label> 
-                  <input type="text" ng-model="Permission.active.path" class="form-control" placeholder="Path" required=""> 
+                  <label>{{'Admin.view.Path' | translate}} (regex)</label> 
+                  <input type="text" ng-model="Permission.active.path" class="form-control" placeholder="{{'Admin.view.Path' | translate}}" required=""> 
                   <br> 
-                  <label>Exclude</label> 
+                  <label>{{'Admin.view.Exclude' | translate}}</label> 
                   <br> 
                   <input type="text" placeholder="regex" class="form-control" ng-required="required" ng-model="Permission.active.exclude"> 
                   <br> 
-                  <label>Verb</label> 
+                  <label>{{'Admin.view.Verb' | translate}}</label> 
                   <select ng-required="required" class="form-control" ng-model="Permission.active.verb" ng-options="item.id as item.name for item in vm.verbs"> <option value="">Choose</option> </select> 
                   <br> 
-                  <label>Priority [{{Permission.active.priority}}]</label> 
+                  <label>{{'Admin.view.Priority' | translate}} [Permission.active.priority]</label> 
                   <br> 
                   <input type="range" min="0" max="100" ng-required="required" ng-model="Permission.active.priority"> 
                   <br> 
                   <br> 
-                  <label>Role</label> 
+                  <label>{{'Admin.view.Role' | translate}}</label> 
                   <select ng-model="Permission.active.role" class="form-control" ng-options="opt as opt.name for opt in Role.data track by opt.id"> <option value="">Choose</option> </select> 
                   <br> 
-                  <label>Enabled?</label> 
+                  <label>{{'Admin.view.Enabled' | translate}}?</label> 
                   <br> 
                   <input type="checkbox" ng-required="required" ng-model="Permission.active.enabled"> 
                 </div> 
@@ -335,7 +335,7 @@
   </div> 
   <div class="" data-container="true"></div> 
   <div ng-hide="vm.username" class="alert alert-danger"> 
-    <h1>Access Denied!</h1> 
+    <h1>{{'Admin.view.Access Denied' | translate}}!</h1> 
   </div> 
   <!-- tabs --> 
   <div ng-show="vm.username"> 
