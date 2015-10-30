@@ -5,7 +5,6 @@ angular.module('MyApp') .directive('ngTranslateLanguageSelect', function (Locale
             template: ''+
             '<div class="language-select" ng-if="visible">'+
                 '<label>'+
-                    '<i class="fa fa-lg fa-globe"></i>'+
                     '<select '+
                         'ng-init="currentLocaleDisplayName = localesDisplayNames[0]"'+
                         'ng-model="currentLocaleDisplayName" '+

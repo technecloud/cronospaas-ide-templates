@@ -1,0 +1,17 @@
+<div class="component-holder ng-binding ng-scope selected-holder" data-component="crn-title" id="crn-title-560378"> 
+  <div class="container"> 
+    <h3>{{session.name}}</h3> 
+    <div class="row"> 
+      <div class="form-group"> 
+        <div class="avatar hidden-xs hidden-sm"> 
+          <img alt="" ng-src="{{session.userpictureurl || 'img/nophoto.png'}}"> 
+          <input type="file" name="file"> 
+        </div> 
+      </div> 
+      <div class="form-group"> 
+        <label>{{'Perfil.view.Idioma' | translate}}</label> 
+        <div ng-translate-language-select></div> 
+      </div> 
+    </div> 
+  </div> 
+</div>

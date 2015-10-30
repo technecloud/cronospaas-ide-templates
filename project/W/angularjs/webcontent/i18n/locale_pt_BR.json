@@ -55,5 +55,8 @@
   "Users.view.Add A New User": "Adicionar um novo usuário",
   "Users.view.RemoverUsuario": "Tem certeza de que deseja remover este usuário?",
   "Users.view.Roles": "Funções",
-  "Users.view.Users": "Usuários"
+  "Users.view.Users": "Usuários",
+  "Users.view.Senha": "Senha",
+  "Users.view.Confirmacao": "Confirmação",
+  "Users.view.ConfirmeSuaSenha": "Confirme sua senha"
 }
