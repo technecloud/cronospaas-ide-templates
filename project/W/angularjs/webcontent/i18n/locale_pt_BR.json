@@ -58,5 +58,8 @@
   "Users.view.Users": "Usuários",
   "Users.view.Senha": "Senha",
   "Users.view.Confirmacao": "Confirmação",
-  "Users.view.ConfirmeSuaSenha": "Confirme sua senha"
+  "Users.view.ConfirmeSuaSenha": "Confirme sua senha",
+  "Home.view.Perfil": "Perfil",
+  "Perfil.view.Perfil": "Perfil",
+  "Perfil.view.Idioma": "Idioma"
 }
