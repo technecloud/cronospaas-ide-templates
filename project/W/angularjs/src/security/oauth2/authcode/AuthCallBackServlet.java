@@ -2,6 +2,9 @@ package security.oauth2.authcode;
 
 import javax.json.*;
 import java.io.*;
+import java.util.*;
+import java.net.*;
+import javax.ws.rs.core.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
@@ -17,7 +20,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
-import java.util.*;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -69,16 +71,22 @@ public class AuthCallBackServlet extends HttpServlet {
 
 		 	OAuth2CodeSettings settings = (OAuth2CodeSettings) request.getSession().getAttribute("settings");
   			String accessToken = null;
+  			JsonObject userInfo = null;
 		  
 		  if("uaa".equals(settings.getResourceName())){
     	  JsonObject json  = getAccessToken(settings);
   		  accessToken = json.getString("access_token");
+				userInfo = getUserInfoJWT(settings, accessToken);
+
   		}
 		  else{
 	   		accessToken = callback(request, code, state);
+				userInfo = getUserInfo(settings, accessToken);
+
 		  }
 
       System.out.println("accessToken:" + accessToken);
+			System.out.println("UserInfo:" + userInfo.toString());
 
 			ServletOutputStream out = response.getOutputStream();
 
@@ -88,30 +96,45 @@ public class AuthCallBackServlet extends HttpServlet {
 
 		  	request.getSession().setAttribute("accessToken", accessToken);
 
-
-				JsonObject userInfo = getUserInfo(settings, accessToken);
-				System.out.println("UserInfo:" + userInfo.toString());
-
 				String userPictureURL = getUserPictureURL(settings, userInfo);
 				System.out.println("UserPictureURL:" + userPictureURL);
 
         String sessionUserName = ""+request.getSession().getAttribute("username");
 
 				// github nao possui chave name
-				String userNameKey = "name";
+				String username = null,name = null,id;
 
-				if ("github".equals(settings.getResourceName()))
-					userNameKey = "login";
-				else if("linkedin".equals(settings.getResourceName()))
-  				userNameKey = "firstName";
+				if ("github".equals(settings.getResourceName())){
+  				id = userInfo.getString("id").replaceAll("\\s|\"", "");
+    			username = settings.getResourceName() + "/" + userInfo.getString("id", sessionUserName).replaceAll("\\s|\"", "");
+  				name = userInfo.getString("login", sessionUserName).replaceAll("\"", "");
+				}
+				else if("linkedin".equals(settings.getResourceName())){
+  				id = userInfo.getString("id").replaceAll("\\s|\"", "");
+  				name = userInfo.getString("firstName").replaceAll("\"", "");
+    			username = settings.getResourceName() + "/" + id;
+				}
   			else if("uaa".equals(settings.getResourceName() ) ){
-  			  userNameKey = "username";
-  			  sessionUserName = "uaa";
+  			  
+  			  try{
+    			  URI iss = new URI(userInfo.getString("sub"));
+            name = UriBuilder.fromUri(iss).userInfo(userInfo.getString("sub")).build().toASCIIString();
+            id = userInfo.getString("jti").replaceAll("\\s|\"", "");
+    				username = settings.getResourceName() + "/" + id;
+            
+  			  }catch(Exception e){
+  			    e.printStackTrace();
+  			  }
+  			  
   			}
-
-				// pegar usuario do google
-				String name = userInfo.getString(userNameKey, sessionUserName).replaceAll("\"", "");
-				String username = settings.getResourceName() + "/" + userInfo.getString("id", sessionUserName).replaceAll("\\s|\"", "");
+  			else{
+  			  
+				 // pegar usuario do google
+				 id = userInfo.getString("id").replaceAll("\\s|\"", "");
+				 name = userInfo.getString("name").replaceAll("\"", "");
+				 username = settings.getResourceName() + "/" + id;
+  			  
+  			}
 
 				// guarda na sessao
 				request.getSession().setAttribute("username", username);
@@ -159,6 +182,26 @@ public class AuthCallBackServlet extends HttpServlet {
 				.hostnameVerifier((s1, s2) -> true).build();
 	}
 
+	public static JsonObject getUserInfoJWT(OAuth2CodeSettings settings,
+			String token) throws ClientProtocolException, IOException {
+	    		  
+      String[] jwtParts = token.split("\\.");
+       
+      Base64.Decoder decoder = Base64.getDecoder();
+      JsonObject jwtHeader = Json.createReader(
+        new ByteArrayInputStream(decoder.decode(jwtParts[0])))
+            .readObject();
+       
+      JsonObject jwtPayload = Json.createReader(
+        new ByteArrayInputStream(decoder.decode(jwtParts[1])))
+            .readObject();
+       
+      //byte[] jwtSignatureBytes = decoder.decode(jwtParts[2]);	    		  
+
+      return jwtPayload;
+	 }
+
+
 	public static JsonObject getUserInfo(OAuth2CodeSettings settings,
 			String accessToken) throws ClientProtocolException, IOException {
 		// get User Info
@@ -172,8 +215,7 @@ public class AuthCallBackServlet extends HttpServlet {
 		String outputString = responseHandler.handleResponse(httResponse);
 
 		// Convert JSON response
-		JsonReader jsonReader = Json.createReader(new StringReader(outputString
-				.trim()));
+		JsonReader jsonReader = Json.createReader(new StringReader(outputString.trim()));
 		return jsonReader.readObject();
 
 	}
@@ -183,8 +225,6 @@ public class AuthCallBackServlet extends HttpServlet {
 		System.out.println("settings.TOKEN_URI:" + settings.TOKEN_URI);
 		// get User Info
 		HttpPost httpMethod = new HttpPost(settings.TOKEN_URI);
-		// httpMethod.setHeader("Referer", settings.TOKEN_URI);
-		// httpMethod.setHeader("Content-Type", "application/x-www-form-urlencoded");
 
 		List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 		parameters.add(new BasicNameValuePair("grant_type",
@@ -206,12 +246,10 @@ public class AuthCallBackServlet extends HttpServlet {
 		System.out.println(code);
 		if (code == 200) {
 			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-			// 	return responseHandler.handleResponse(httResponse);
 			String outputString = responseHandler.handleResponse(httResponse);
 			System.out.println(outputString);
 
-			JsonReader jsonReader = Json.createReader(new StringReader(
-					outputString.trim()));
+			JsonReader jsonReader = Json.createReader(new StringReader(outputString.trim()));
 			return jsonReader.readObject();
 		}
 		return null;

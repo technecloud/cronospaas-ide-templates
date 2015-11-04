@@ -79,12 +79,7 @@ public class AuthenticationServlet extends HttpServlet {
 
         if (user != null) {
 
-            String json = String.format("{\"user\": {\"id\":\"%s\",\"login\":\"%s\",\"name\":\"%s\",\"password\":\"%s\",\"picture\":\"%s\"} }"
-            , user.getId()
-            , user.getLogin()
-            , user.getName()
-            , user.getPassword()
-            , user.getPicture());
+            String json = getJsonUser(user);
 
           resp.setHeader("Content-Type", "application/json");
           resp.getOutputStream().print(json);
@@ -97,6 +92,17 @@ public class AuthenticationServlet extends HttpServlet {
     } catch (Exception e) {
       throw new CustomWebApplicationException(e);
     }
+  }
+  
+  private String getJsonUser(User user){
+    
+     String json = String.format("{\"user\": {\"id\":\"%s\",\"login\":\"%s\",\"name\":\"%s\",\"password\":\"%s\",\"picture\":\"%s\"} }"
+            , user.getId() == null ? "" : user.getId()
+            , user.getLogin() == null ? "" : user.getLogin()
+            , user.getName() == null ? "" : user.getName()
+            , user.getPassword() == null ? "" : user.getPassword()
+            , user.getPicture() == null ? "" : user.getPicture());
+      return json;
   }
 
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -246,12 +252,7 @@ public class AuthenticationServlet extends HttpServlet {
       User user = this.getUserByName(username.toString());
       if (user != null) {
 
-          String json = String.format("{\"user\": {\"id\":\"%s\",\"login\":\"%s\",\"name\":\"%s\",\"password\":\"%s\",\"picture\":\"%s\"}}"
-          , user.getId()
-          , user.getLogin()
-          , user.getName()
-          , user.getPassword()
-          , user.getPicture());
+          String json = getJsonUser(user);
 
         resp.setHeader("Content-Type", "application/json");
         resp.getOutputStream().print(json);

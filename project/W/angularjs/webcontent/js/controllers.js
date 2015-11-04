@@ -58,7 +58,8 @@
         if(!$rootScope.session) {
           // If there isn't a user registered on the sessionStorage
           // we must send back to login page
-          $state.go("login");
+          // TODO - REVISAR login oauth2
+          //$state.go("login");
         }
         
         $rootScope.logout = function logout() {
