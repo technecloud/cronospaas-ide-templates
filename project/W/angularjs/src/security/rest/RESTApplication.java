@@ -1,22 +1,20 @@
 package security.rest;
 
-import org.glassfish.jersey.server.ResourceConfig;
-
 import javax.ws.rs.ApplicationPath;
+import org.glassfish.jersey.server.ResourceConfig;
 
 
 /**
  * Realiza disponibiliza os pacotes rest.
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
+ * @generated
  */
 
 @ApplicationPath("/api/rest/security")
 public class RESTApplication extends ResourceConfig {
 
+    /**
+     * @generated
+     */
 	public RESTApplication() {
 		packages("security.rest");
 	}

@@ -1,44 +1,55 @@
 package security.rest;
 
-/**
- * REST.ftl - Publicando metodos de negocio via REST
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
- **/
 
-import security.business.PermissionBusiness;
-import security.dao.SessionManager;
-import security.entity.Permission;
-import security.rest.exceptions.CustomWebApplicationException;
-import security.rest.util.RESTService;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.List;
+import javax.ws.rs.core.*;
+import javax.persistence.*;
+
+import security.rest.util.*;
+
+import security.dao.*;
+import security.entity.*;
+import security.business.*;
+import javax.servlet.http.HttpServletRequest;
+
+import security.rest.exceptions.*;
 
 
+/**
+ * Publicando metodos de negocio via REST
+ * @generated
+ **/
 @Path("/Permission")
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 public class PermissionREST implements RESTService<Permission> {
-
+  /**
+   * @generated
+   */
   private SessionManager session;
+  /**
+   * @generated
+   */  
   private PermissionBusiness business;
-  
+  /**
+   * @generated
+   */  
   @Context 
   private HttpServletRequest request;
 
+  /**
+   * @generated
+   */
   public PermissionREST() {
     this.session = SessionManager.getInstance();
+    this.session.getEntityManager().clear();
     this.business = new PermissionBusiness(session);
   }
   
+  /**
+   * @generated
+   */  
   @POST
   public Response post(Permission entity) {
     try {
@@ -55,6 +66,9 @@ public class PermissionREST implements RESTService<Permission> {
     }
   }
 
+  /**
+   * @generated
+   */
   @PUT
   public Response put(Permission entity) {
     try {
@@ -70,6 +84,9 @@ public class PermissionREST implements RESTService<Permission> {
     }  
   }
   
+  /**
+   * @generated
+   */  
   @PUT
   @Path("/{id}")
   public Response putWithId(Permission entity) {
@@ -86,6 +103,9 @@ public class PermissionREST implements RESTService<Permission> {
     }  
   }
   
+  /**
+   * @generated
+   */  
   @DELETE
   public Response delete(Permission entity) {  
 		try {
@@ -101,7 +121,10 @@ public class PermissionREST implements RESTService<Permission> {
 			throw new CustomWebApplicationException(exception);
 		}    
   } 
-    
+   
+  /**
+   * @generated
+   */    
   @DELETE
   @Path("/{id}")
   public Response delete(@PathParam("id") java.lang.String id) {  
@@ -126,10 +149,14 @@ public class PermissionREST implements RESTService<Permission> {
 
 
   
+  /**
+   * NamedQuery list
+   * @generated
+   */
   @GET
   	
-  public List<Permission> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.list(limit, offset);
+  public GenericEntity<List<Permission>> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<Permission>>(business.list(limit, offset)){};
 
   }
 	

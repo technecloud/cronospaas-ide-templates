@@ -1,45 +1,55 @@
 package security.rest;
 
-/**
- * REST.ftl - Publicando metodos de negocio via REST
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
- **/
 
-import security.business.UserRoleBusiness;
-import security.dao.SessionManager;
-import security.entity.User;
-import security.entity.UserRole;
-import security.rest.exceptions.CustomWebApplicationException;
-import security.rest.util.RESTService;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.List;
+import javax.ws.rs.core.*;
+import javax.persistence.*;
+
+import security.rest.util.*;
+
+import security.dao.*;
+import security.entity.*;
+import security.business.*;
+import javax.servlet.http.HttpServletRequest;
+
+import security.rest.exceptions.*;
 
 
+/**
+ * Publicando metodos de negocio via REST
+ * @generated
+ **/
 @Path("/UserRole")
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 public class UserRoleREST implements RESTService<UserRole> {
-
+  /**
+   * @generated
+   */
   private SessionManager session;
+  /**
+   * @generated
+   */  
   private UserRoleBusiness business;
-  
+  /**
+   * @generated
+   */  
   @Context 
   private HttpServletRequest request;
 
+  /**
+   * @generated
+   */
   public UserRoleREST() {
     this.session = SessionManager.getInstance();
+    this.session.getEntityManager().clear();
     this.business = new UserRoleBusiness(session);
   }
   
+  /**
+   * @generated
+   */  
   @POST
   public Response post(UserRole entity) {
     try {
@@ -56,6 +66,9 @@ public class UserRoleREST implements RESTService<UserRole> {
     }
   }
 
+  /**
+   * @generated
+   */
   @PUT
   public Response put(UserRole entity) {
     try {
@@ -71,6 +84,9 @@ public class UserRoleREST implements RESTService<UserRole> {
     }  
   }
   
+  /**
+   * @generated
+   */  
   @PUT
   @Path("/{id}")
   public Response putWithId(UserRole entity) {
@@ -87,6 +103,9 @@ public class UserRoleREST implements RESTService<UserRole> {
     }  
   }
   
+  /**
+   * @generated
+   */  
   @DELETE
   public Response delete(UserRole entity) {  
 		try {
@@ -102,7 +121,10 @@ public class UserRoleREST implements RESTService<UserRole> {
 			throw new CustomWebApplicationException(exception);
 		}    
   } 
-    
+   
+  /**
+   * @generated
+   */    
   @DELETE
   @Path("/{id}")
   public Response delete(@PathParam("id") java.lang.String id) {  
@@ -127,55 +149,91 @@ public class UserRoleREST implements RESTService<UserRole> {
 
 
   
+  /**
+   * NamedQuery list
+   * @generated
+   */
   @GET
   	
-  public List<UserRole> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.list(limit, offset);
+  public GenericEntity<List<UserRole>> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<UserRole>>(business.list(limit, offset)){};
 
   }
+  /**
+   * NamedQuery findByUser
+   * @generated
+   */
   @GET
   @Path("/findByUser/{user}")	
-  public List<UserRole> findByUser(@PathParam("user")User user, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.findByUser(user, limit, offset);
+  public GenericEntity<List<UserRole>> findByUser(@PathParam("user")User user, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<UserRole>>(business.findByUser(user, limit, offset)){};
 
   }
+  /**
+   * NamedQuery findByEmail
+   * @generated
+   */
   @GET
   @Path("/findByEmail/{email}")	
-  public List<UserRole> findByEmail(@PathParam("email")java.lang.String email, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.findByEmail(email, limit, offset);
+  public GenericEntity<List<UserRole>> findByEmail(@PathParam("email")java.lang.String email, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<UserRole>>(business.findByEmail(email, limit, offset)){};
 
   }
+  /**
+   * NamedQuery findByLogin
+   * @generated
+   */
   @GET
   @Path("/findByLogin/{login}")	
-  public List<UserRole> findByLogin(@PathParam("login")java.lang.String login, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.findByLogin(login, limit, offset);
+  public GenericEntity<List<UserRole>> findByLogin(@PathParam("login")java.lang.String login, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<UserRole>>(business.findByLogin(login, limit, offset)){};
 
   }
+  /**
+   * NamedQuery findByRole
+   * @generated
+   */
   @GET
   @Path("/findByRole/{roleid}")	
-  public List<UserRole> findByRole(@PathParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.findByRole(roleid, limit, offset);
+  public GenericEntity<List<UserRole>> findByRole(@PathParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<UserRole>>(business.findByRole(roleid, limit, offset)){};
 
   }
 	
+  /**
+   * NamedQuery findByUser
+   * @generated
+   */
   @GET
   @Path("/findByUser")	
-  public List<UserRole> findByUserParams(@QueryParam("user")User user, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.findByUser(user, limit, offset);	
+  public GenericEntity<List<UserRole>> findByUserParams(@QueryParam("user")User user, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<UserRole>>(business.findByUser(user, limit, offset)){};	
   }
+  /**
+   * NamedQuery findByEmail
+   * @generated
+   */
   @GET
   @Path("/findByEmail")	
-  public List<UserRole> findByEmailParams(@QueryParam("email")java.lang.String email, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.findByEmail(email, limit, offset);	
+  public GenericEntity<List<UserRole>> findByEmailParams(@QueryParam("email")java.lang.String email, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<UserRole>>(business.findByEmail(email, limit, offset)){};	
   }
+  /**
+   * NamedQuery findByLogin
+   * @generated
+   */
   @GET
   @Path("/findByLogin")	
-  public List<UserRole> findByLoginParams(@QueryParam("login")java.lang.String login, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.findByLogin(login, limit, offset);	
+  public GenericEntity<List<UserRole>> findByLoginParams(@QueryParam("login")java.lang.String login, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<UserRole>>(business.findByLogin(login, limit, offset)){};	
   }
+  /**
+   * NamedQuery findByRole
+   * @generated
+   */
   @GET
   @Path("/findByRole")	
-  public List<UserRole> findByRoleParams(@QueryParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.findByRole(roleid, limit, offset);	
+  public GenericEntity<List<UserRole>> findByRoleParams(@QueryParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<UserRole>>(business.findByRole(roleid, limit, offset)){};	
   }
 }

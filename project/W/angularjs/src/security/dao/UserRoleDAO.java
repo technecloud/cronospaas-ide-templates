@@ -1,32 +1,27 @@
 package security.dao;
 
-import security.entity.User;
-import security.entity.UserRole;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.*;
+import security.entity.*;
 import java.util.List;
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
+ * @generated
  */
 public class UserRoleDAO extends BasicDAO<String, UserRole> {
 
 	/**
 	 * UID da classe, necessário na serialização 
+	 * @generated
 	 */
-	private static final long serialVersionUID = -8925079631154335236l;
+	private static final long serialVersionUID = -201887997l;
 
   /**
    * Guarda uma cópia da EntityManager na instância
    * 
    * @param entitymanager
    *          Tabela do banco
+   * @generated
    */
   public UserRoleDAO(EntityManager entitymanager) {
     super(entitymanager);
@@ -40,6 +35,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
    * @param id
    *          Identificador 
    * @return Quantidade de modificações efetuadas
+   * @generated
    */  
   public int deleteById(java.lang.String id){
       Query query = this.entityManager.createQuery("DELETE FROM UserRole entity WHERE entity.id = :id");
@@ -54,6 +50,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
    * @param id
    *          Identificador 
    * @return Instância relacionada com o filtro indicado
+   * @generated
    */  
   public UserRole findById(java.lang.String id){
       Query query = this.entityManager.createQuery("SELECT entity FROM UserRole entity WHERE entity.id = :id");
@@ -64,22 +61,42 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
 
 
 
+  /**
+   * NamedQuery list
+   * @generated
+   */
   public List<UserRole> list(int limit, int offset){
       return this.entityManager.createNamedQuery("userRoleList").setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
+  /**
+   * NamedQuery findByUser
+   * @generated
+   */
   public List<UserRole> findByUser(User user, int limit, int offset){
       return this.entityManager.createNamedQuery("userRoleFindByUser").setParameter("user", user).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
+  /**
+   * NamedQuery findByEmail
+   * @generated
+   */
   public List<UserRole> findByEmail(java.lang.String email, int limit, int offset){
       return this.entityManager.createNamedQuery("userRoleFindByEmail").setParameter("email", email).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
+  /**
+   * NamedQuery findByLogin
+   * @generated
+   */
   public List<UserRole> findByLogin(java.lang.String login, int limit, int offset){
       return this.entityManager.createNamedQuery("userRoleFindByLogin").setParameter("login", login).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
+  /**
+   * NamedQuery findByRole
+   * @generated
+   */
   public List<UserRole> findByRole(java.lang.String roleid, int limit, int offset){
       return this.entityManager.createNamedQuery("userRoleFindByRole").setParameter("roleid", roleid).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }

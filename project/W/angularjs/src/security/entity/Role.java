@@ -1,19 +1,14 @@
 package security.entity;
 
+import java.io.*;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-import java.util.UUID;
+import java.util.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Classe que representa a tabela ROLE
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
+ * @generated
  */
- 
 @Entity
 @Table(name = "\"ROLE\"")
 @NamedQueries({
@@ -24,12 +19,19 @@ public class Role implements Serializable {
 
 	/**
 	 * UID da classe, necessário na serialização 
+	 * @generated
 	 */
-	private static final long serialVersionUID = -8660111071472433771l;
+	private static final long serialVersionUID = 2555048l;
 	
+	/**
+	 * @generated
+	 */
 	@Column(name = "name", nullable = true, unique = false)
 	private java.lang.String name;
 	
+	/**
+	 * @generated
+	 */
 	@Id
     
 	@Column(name = "id")
@@ -38,6 +40,7 @@ public class Role implements Serializable {
 	
 	/**
 	 * Construtor
+	 * @generated
 	 */
 	public Role(){
 	}
@@ -47,6 +50,7 @@ public class Role implements Serializable {
 	 * Obtém name
 	 * @param name name
 	 * return name
+	 * @generated
 	 */
 	public java.lang.String getName(){
 		return this.name;
@@ -55,6 +59,7 @@ public class Role implements Serializable {
 	/**
 	 * Define name
 	 * @param name name
+	 * @generated
 	 */
 	public void setName(java.lang.String name){
 		this.name = name;
@@ -64,6 +69,7 @@ public class Role implements Serializable {
 	 * Obtém id
 	 * @param id id
 	 * return id
+	 * @generated
 	 */
 	public java.lang.String getId(){
 		return this.id;
@@ -72,11 +78,15 @@ public class Role implements Serializable {
 	/**
 	 * Define id
 	 * @param id id
+	 * @generated
 	 */
 	public void setId(java.lang.String id){
 		this.id = id;
 	}
 	
+	/**
+	 * @generated
+	 */
 	@Override
 	public int hashCode() {
         final int prime = 31;
@@ -88,6 +98,9 @@ public class Role implements Serializable {
         return result;
     }
 	
+	/**
+	 * @generated
+	 */	
 	@Override
   	public boolean equals(Object obj) {
     

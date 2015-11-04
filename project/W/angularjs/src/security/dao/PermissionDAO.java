@@ -1,31 +1,27 @@
 package security.dao;
 
-import security.entity.Permission;
-
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.*;
+import security.entity.*;
 import java.util.List;
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
+ * @generated
  */
 public class PermissionDAO extends BasicDAO<String, Permission> {
 
 	/**
 	 * UID da classe, necessário na serialização 
+	 * @generated
 	 */
-	private static final long serialVersionUID = -1966346453603784807l;
+	private static final long serialVersionUID = 1475848671l;
 
   /**
    * Guarda uma cópia da EntityManager na instância
    * 
    * @param entitymanager
    *          Tabela do banco
+   * @generated
    */
   public PermissionDAO(EntityManager entitymanager) {
     super(entitymanager);
@@ -39,6 +35,7 @@ public class PermissionDAO extends BasicDAO<String, Permission> {
    * @param id
    *          Identificador 
    * @return Quantidade de modificações efetuadas
+   * @generated
    */  
   public int deleteById(java.lang.String id){
       Query query = this.entityManager.createQuery("DELETE FROM Permission entity WHERE entity.id = :id");
@@ -53,6 +50,7 @@ public class PermissionDAO extends BasicDAO<String, Permission> {
    * @param id
    *          Identificador 
    * @return Instância relacionada com o filtro indicado
+   * @generated
    */  
   public Permission findById(java.lang.String id){
       Query query = this.entityManager.createQuery("SELECT entity FROM Permission entity WHERE entity.id = :id");
@@ -63,6 +61,10 @@ public class PermissionDAO extends BasicDAO<String, Permission> {
 
 
 
+  /**
+   * NamedQuery list
+   * @generated
+   */
   public List<Permission> list(int limit, int offset){
       return this.entityManager.createNamedQuery("permissionList").setFirstResult(offset).setMaxResults(limit).getResultList();		
   }

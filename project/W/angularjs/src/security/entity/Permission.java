@@ -1,19 +1,14 @@
 package security.entity;
 
+import java.io.*;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-import java.util.UUID;
+import java.util.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Classe que representa a tabela PERMISSION
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
+ * @generated
  */
- 
 @Entity
 @Table(name = "\"PERMISSION\"")
 @NamedQueries({
@@ -24,32 +19,57 @@ public class Permission implements Serializable {
 
 	/**
 	 * UID da classe, necessário na serialização 
+	 * @generated
 	 */
-	private static final long serialVersionUID = -3616803453745137574l;
+	private static final long serialVersionUID = 1475848671l;
 	
+	/**
+	 * @generated
+	 */
 	@Column(name = "response", nullable = true, unique = true)
 	private java.lang.Integer response;
 	
+	/**
+	 * @generated
+	 */
 	@Column(name = "path", nullable = false, unique = false)
 	private java.lang.String path;
 	
+	/**
+	 * @generated
+	 */
 	@Column(name = "verb", nullable = false, unique = false)
 	private java.lang.String verb;
 	
+	/**
+	 * @generated
+	 */
 	@Id
     
 	@Column(name = "id")
 	private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 	
+	/**
+	 * @generated
+	 */
 	@Column(name = "priority", nullable = false, unique = false)
 	private java.lang.Integer priority;
 	
+	/**
+	 * @generated
+	 */
 	@Column(name = "exclude", nullable = true, unique = false)
 	private java.lang.String exclude;
 	
+	/**
+	 * @generated
+	 */
 	@Column(name = "enabled", nullable = true, unique = false)
 	private boolean enabled;
 	
+	/**
+	 * @generated
+	 */
 	@ManyToOne
 	@JoinColumn(name="fk_role", referencedColumnName = "id")
 	private Role role;
@@ -57,6 +77,7 @@ public class Permission implements Serializable {
 	
 	/**
 	 * Construtor
+	 * @generated
 	 */
 	public Permission(){
 	}
@@ -66,6 +87,7 @@ public class Permission implements Serializable {
 	 * Obtém response
 	 * @param response response
 	 * return response
+	 * @generated
 	 */
 	public java.lang.Integer getResponse(){
 		return this.response;
@@ -74,6 +96,7 @@ public class Permission implements Serializable {
 	/**
 	 * Define response
 	 * @param response response
+	 * @generated
 	 */
 	public void setResponse(java.lang.Integer response){
 		this.response = response;
@@ -83,6 +106,7 @@ public class Permission implements Serializable {
 	 * Obtém path
 	 * @param path path
 	 * return path
+	 * @generated
 	 */
 	public java.lang.String getPath(){
 		return this.path;
@@ -91,6 +115,7 @@ public class Permission implements Serializable {
 	/**
 	 * Define path
 	 * @param path path
+	 * @generated
 	 */
 	public void setPath(java.lang.String path){
 		this.path = path;
@@ -100,6 +125,7 @@ public class Permission implements Serializable {
 	 * Obtém verb
 	 * @param verb verb
 	 * return verb
+	 * @generated
 	 */
 	public java.lang.String getVerb(){
 		return this.verb;
@@ -108,6 +134,7 @@ public class Permission implements Serializable {
 	/**
 	 * Define verb
 	 * @param verb verb
+	 * @generated
 	 */
 	public void setVerb(java.lang.String verb){
 		this.verb = verb;
@@ -117,6 +144,7 @@ public class Permission implements Serializable {
 	 * Obtém id
 	 * @param id id
 	 * return id
+	 * @generated
 	 */
 	public java.lang.String getId(){
 		return this.id;
@@ -125,6 +153,7 @@ public class Permission implements Serializable {
 	/**
 	 * Define id
 	 * @param id id
+	 * @generated
 	 */
 	public void setId(java.lang.String id){
 		this.id = id;
@@ -134,6 +163,7 @@ public class Permission implements Serializable {
 	 * Obtém priority
 	 * @param priority priority
 	 * return priority
+	 * @generated
 	 */
 	public java.lang.Integer getPriority(){
 		return this.priority;
@@ -142,6 +172,7 @@ public class Permission implements Serializable {
 	/**
 	 * Define priority
 	 * @param priority priority
+	 * @generated
 	 */
 	public void setPriority(java.lang.Integer priority){
 		this.priority = priority;
@@ -151,6 +182,7 @@ public class Permission implements Serializable {
 	 * Obtém exclude
 	 * @param exclude exclude
 	 * return exclude
+	 * @generated
 	 */
 	public java.lang.String getExclude(){
 		return this.exclude;
@@ -159,6 +191,7 @@ public class Permission implements Serializable {
 	/**
 	 * Define exclude
 	 * @param exclude exclude
+	 * @generated
 	 */
 	public void setExclude(java.lang.String exclude){
 		this.exclude = exclude;
@@ -168,6 +201,7 @@ public class Permission implements Serializable {
 	 * Obtém enabled
 	 * @param enabled enabled
 	 * return enabled
+	 * @generated
 	 */
 	public boolean getEnabled(){
 		return this.enabled;
@@ -176,6 +210,7 @@ public class Permission implements Serializable {
 	/**
 	 * Define enabled
 	 * @param enabled enabled
+	 * @generated
 	 */
 	public void setEnabled(boolean enabled){
 		this.enabled = enabled;
@@ -185,6 +220,7 @@ public class Permission implements Serializable {
 	 * Obtém role
 	 * @param role role
 	 * return role
+	 * @generated
 	 */
 	public Role getRole(){
 		return this.role;
@@ -193,11 +229,15 @@ public class Permission implements Serializable {
 	/**
 	 * Define role
 	 * @param role role
+	 * @generated
 	 */
 	public void setRole(Role role){
 		this.role = role;
 	}
 	
+	/**
+	 * @generated
+	 */
 	@Override
 	public int hashCode() {
         final int prime = 31;
@@ -214,6 +254,9 @@ public class Permission implements Serializable {
         return result;
     }
 	
+	/**
+	 * @generated
+	 */	
 	@Override
   	public boolean equals(Object obj) {
     

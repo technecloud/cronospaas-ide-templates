@@ -1,56 +1,70 @@
 package security.rest;
 
-/**
- * REST.ftl - Publicando metodos de negocio via REST
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
- **/
 
-import security.business.PermissionBusiness;
-import security.business.RoleBusiness;
-import security.business.UserBusiness;
-import security.business.UserRoleBusiness;
-import security.dao.SessionManager;
-import security.entity.Permission;
-import security.entity.Role;
-import security.entity.User;
-import security.entity.UserRole;
-import security.rest.exceptions.CustomWebApplicationException;
-import security.rest.util.RESTService;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.List;
+import javax.ws.rs.core.*;
+import javax.persistence.*;
+
+import security.rest.util.*;
+
+import security.dao.*;
+import security.entity.*;
+import security.business.*;
+import javax.servlet.http.HttpServletRequest;
+
+import security.rest.exceptions.*;
 
 
+/**
+ * Publicando metodos de negocio via REST
+ * @generated
+ **/
 @Path("/Role")
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 public class RoleREST implements RESTService<Role> {
-
+  /**
+   * @generated
+   */
   private SessionManager session;
+  /**
+   * @generated
+   */  
   private RoleBusiness business;
-  private UserRoleBusiness userRoleBusiness;
-  private PermissionBusiness permissionBusiness;
+  /**
+   * @generated
+   */
   private UserBusiness userBusiness;
-  
+  /**
+   * @generated
+   */
+  private UserRoleBusiness userRoleBusiness;
+  /**
+   * @generated
+   */
+  private PermissionBusiness permissionBusiness;
+  /**
+   * @generated
+   */  
   @Context 
   private HttpServletRequest request;
 
+  /**
+   * @generated
+   */
   public RoleREST() {
     this.session = SessionManager.getInstance();
+    this.session.getEntityManager().clear();
     this.business = new RoleBusiness(session);
+    this.userBusiness = new UserBusiness(session);
     this.userRoleBusiness = new UserRoleBusiness(session);
     this.permissionBusiness = new PermissionBusiness(session);
-    this.userBusiness = new UserBusiness(session);
   }
   
+  /**
+   * @generated
+   */  
   @POST
   public Response post(Role entity) {
     try {
@@ -67,6 +81,9 @@ public class RoleREST implements RESTService<Role> {
     }
   }
 
+  /**
+   * @generated
+   */
   @PUT
   public Response put(Role entity) {
     try {
@@ -82,6 +99,9 @@ public class RoleREST implements RESTService<Role> {
     }  
   }
   
+  /**
+   * @generated
+   */  
   @PUT
   @Path("/{id}")
   public Response putWithId(Role entity) {
@@ -98,6 +118,9 @@ public class RoleREST implements RESTService<Role> {
     }  
   }
   
+  /**
+   * @generated
+   */  
   @DELETE
   public Response delete(Role entity) {  
 		try {
@@ -113,7 +136,10 @@ public class RoleREST implements RESTService<Role> {
 			throw new CustomWebApplicationException(exception);
 		}    
   } 
-    
+   
+  /**
+   * @generated
+   */    
   @DELETE
   @Path("/{id}")
   public Response delete(@PathParam("id") java.lang.String id) {  
@@ -135,18 +161,26 @@ public class RoleREST implements RESTService<Role> {
   
   
   
+  /**
+   * OneToMany Relationship GET
+   * @generated
+   */
   @GET
-  @Path("/{id}/UserRoles")
-  public List<UserRole> findUserRoles(@PathParam("id") java.lang.String id, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return this.business.findUserRoles(id, limit, offset);
+  @Path("/{instanceId}/UserRole")
+  public GenericEntity<List<UserRole>> findUserRole(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
+    return new GenericEntity<List<UserRole>>(this.business.findUserRole(instanceId, limit, offset)){};
   }
   
+  /**
+   * OneToMany Relationship DELETE 
+   * @generated
+   */  
   @DELETE
-  @Path("/{id}/UserRoles/{userRoleid}")
-  public Response deleteUserRole(@PathParam("userRoleid") java.lang.String id) {
+  @Path("/{instanceId}/UserRole/{relationId}")
+  public Response deleteUserRole(@PathParam("relationId") java.lang.String relationId) {
 		try {
 			session.begin();
-			if (this.userRoleBusiness.deleteById(id) > 0) {
+			if (this.userRoleBusiness.deleteById(relationId) > 0) {
 				session.commit();
 				return Response.ok().build();
 			} else {
@@ -159,9 +193,13 @@ public class RoleREST implements RESTService<Role> {
 		}
   }
   
+  /**
+   * OneToMany Relationship PUT
+   * @generated
+   */  
   @PUT
-  @Path("/{id}/UserRoles/{userRoleid}")
-  public Response putUserRole(UserRole entity, @PathParam("userRoleid") java.lang.String id) {
+  @Path("/{instanceId}/UserRole/{relationId}")
+  public Response putUserRole(UserRole entity, @PathParam("relationId") java.lang.String relationId) {
 		try {
 			session.begin();
 			UserRole updatedEntity = this.userRoleBusiness.update(entity);
@@ -173,12 +211,16 @@ public class RoleREST implements RESTService<Role> {
 		}
   }  
   
+  /**
+   * OneToMany Relationship POST
+   * @generated
+   */  
   @POST
-  @Path("/{id}/UserRoles")
-  public Response postUserRole(UserRole entity, @PathParam("id") java.lang.String id) {
+  @Path("/{instanceId}/UserRole")
+  public Response postUserRole(UserRole entity, @PathParam("instanceId") java.lang.String instanceId) {
 		try {
 			session.begin();
-			Role role = this.business.findById(id);
+			Role role = this.business.findById(instanceId);
 			entity.setRole(role);
 			this.userRoleBusiness.save(entity);
 			session.commit();
@@ -190,18 +232,26 @@ public class RoleREST implements RESTService<Role> {
 		}
   }   
   
+  /**
+   * OneToMany Relationship GET
+   * @generated
+   */
   @GET
-  @Path("/{id}/Permissions")
-  public List<Permission> findPermissions(@PathParam("id") java.lang.String id, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return this.business.findPermissions(id, limit, offset);
+  @Path("/{instanceId}/Permission")
+  public GenericEntity<List<Permission>> findPermission(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
+    return new GenericEntity<List<Permission>>(this.business.findPermission(instanceId, limit, offset)){};
   }
   
+  /**
+   * OneToMany Relationship DELETE 
+   * @generated
+   */  
   @DELETE
-  @Path("/{id}/Permissions/{permissionid}")
-  public Response deletePermission(@PathParam("permissionid") java.lang.String id) {
+  @Path("/{instanceId}/Permission/{relationId}")
+  public Response deletePermission(@PathParam("relationId") java.lang.String relationId) {
 		try {
 			session.begin();
-			if (this.permissionBusiness.deleteById(id) > 0) {
+			if (this.permissionBusiness.deleteById(relationId) > 0) {
 				session.commit();
 				return Response.ok().build();
 			} else {
@@ -214,9 +264,13 @@ public class RoleREST implements RESTService<Role> {
 		}
   }
   
+  /**
+   * OneToMany Relationship PUT
+   * @generated
+   */  
   @PUT
-  @Path("/{id}/Permissions/{permissionid}")
-  public Response putPermission(Permission entity, @PathParam("permissionid") java.lang.String id) {
+  @Path("/{instanceId}/Permission/{relationId}")
+  public Response putPermission(Permission entity, @PathParam("relationId") java.lang.String relationId) {
 		try {
 			session.begin();
 			Permission updatedEntity = this.permissionBusiness.update(entity);
@@ -228,12 +282,16 @@ public class RoleREST implements RESTService<Role> {
 		}
   }  
   
+  /**
+   * OneToMany Relationship POST
+   * @generated
+   */  
   @POST
-  @Path("/{id}/Permissions")
-  public Response postPermission(Permission entity, @PathParam("id") java.lang.String id) {
+  @Path("/{instanceId}/Permission")
+  public Response postPermission(Permission entity, @PathParam("instanceId") java.lang.String instanceId) {
 		try {
 			session.begin();
-			Role role = this.business.findById(id);
+			Role role = this.business.findById(instanceId);
 			entity.setRole(role);
 			this.permissionBusiness.save(entity);
 			session.commit();
@@ -247,20 +305,28 @@ public class RoleREST implements RESTService<Role> {
   
 
 
+  /**
+   * ManyToMany Relationship GET
+   * @generated
+   */
   @GET
-  @Path("/{id}/Users")
-  public List<User> listUsers(@PathParam("id") java.lang.String id, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return this.business.listUsers(id, limit, offset);
+  @Path("/{instanceId}/User")
+  public GenericEntity<List<User>> listUser(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
+    return new GenericEntity<List<User>>(this.business.listUser(instanceId, limit, offset)){};
   }
   
+  /**
+   * ManyToMany Relationship POST
+   * @generated
+   */  
   @POST
-  @Path("/{id}/Users")
-  public Response postUser(User entity, @PathParam("id") java.lang.String id) {
+  @Path("/{instanceId}/User")
+  public Response postUser(User entity, @PathParam("instanceId") java.lang.String instanceId) {
 		try {
 			session.begin();
 			UserRole newUserRole = new UserRole();
 
-			Role instance = this.business.findById(id);
+			Role instance = this.business.findById(instanceId);
 
 
 			newUserRole.setUser(entity);
@@ -276,8 +342,12 @@ public class RoleREST implements RESTService<Role> {
 		}
   }   
   
+  /**
+   * ManyToMany Relationship DELETE
+   * @generated
+   */  
   @DELETE
-  @Path("/{instanceId}/Users/{relationId}")
+  @Path("/{instanceId}/User/{relationId}")
   public Response deleteUser(@PathParam("instanceId") java.lang.String instanceId, @PathParam("relationId") java.lang.String relationId) {
 		try {
 			session.begin();
@@ -295,10 +365,14 @@ public class RoleREST implements RESTService<Role> {
   }  
   
   
+  /**
+   * NamedQuery list
+   * @generated
+   */
   @GET
   	
-  public List<Role> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return business.list(limit, offset);
+  public GenericEntity<List<Role>> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
+      return new GenericEntity<List<Role>>(business.list(limit, offset)){};
 
   }
 	

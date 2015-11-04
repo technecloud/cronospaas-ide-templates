@@ -1,34 +1,23 @@
 package security.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.transform.Result;
-import javax.xml.transform.stream.StreamResult;
-import java.io.IOException;
-import java.io.StringWriter;
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
-
+import java.util.*;
+import javax.persistence.*;
 
 /**
  * Operações básicas de CRUD no banco
- * 
- * @author Techne
- * @version 1.0
- * @since 2014-09-29
  * 
  * @param <PK>
  *          Chave primária
  * @param <T>
  *          Valor
- *
+ * @generated
  */
 public class BasicDAO<PK, T> {
   
   /**
    * Cópia local da tabela em uso
+   * @generated
    */
   protected EntityManager entityManager;
   
@@ -36,6 +25,7 @@ public class BasicDAO<PK, T> {
    * O construtor guarda uma cópia do EntityManager na instância
    * 
    * @param entitymanager Tabela do banco de dados
+   * @generated
    */
   public BasicDAO(EntityManager entitymanager) {
     this.entityManager = entitymanager;
@@ -45,6 +35,7 @@ public class BasicDAO<PK, T> {
    * Retorna o EntityManager da instância
    * 
    * @return EntityManager
+   * @generated
    */
   public EntityManager getEntityManager() {
     return this.entityManager;
@@ -55,6 +46,7 @@ public class BasicDAO<PK, T> {
    * 
    * @param pk Chave primária
    * @return T Valor
+   * @generated
    */
   @SuppressWarnings("unchecked")
   public T getById(final Object pk) {
@@ -65,6 +57,7 @@ public class BasicDAO<PK, T> {
    * Grava valor no banco
    * 
    * @param entity Linha da tabela a ser persistida no banco de dados
+   * @generated
    */
   public void save(final T entity) {
     this.entityManager.persist(entity);
@@ -74,6 +67,7 @@ public class BasicDAO<PK, T> {
    * Dá um refresh na entidade com valores valor no banco
    * 
    * @param entity Entidade
+   * @generated
    */
   public void refresh(final T entity) {
     this.entityManager.refresh(entity);
@@ -83,6 +77,7 @@ public class BasicDAO<PK, T> {
    * Atualiza valor do banco
    * 
    * @param entity Linha da tabela a ser atualizada
+   * @generated
    */
   public T update(final T entity) {
     return this.entityManager.merge(entity);
@@ -92,6 +87,7 @@ public class BasicDAO<PK, T> {
    * Apaga valor do banco
    * 
    * @param entity Linha da tabela a ser excluída
+   * @generated
    */
   public void delete(final T entity) {
     this.entityManager.remove(entity);
@@ -101,6 +97,7 @@ public class BasicDAO<PK, T> {
    * Retorna uma lista com todos os valores da EntityManger
    * 
    * @return List Lista com todas as linhas da tabela do banco de dados
+   * @generated
    */
   @SuppressWarnings("unchecked")
   public List<T> findAll() {
@@ -112,6 +109,7 @@ public class BasicDAO<PK, T> {
     * @param attributeName Nome do Atributo
     * @param attributeValue Valor do Atributo
     * @return Entidades
+    * @generated
     **/
   public List<T> findByAttribute(String attributeName, String attributeValue) {
     String jql = "SELECT OBJECT(a) FROM " + getTypeClass().getName() + " a WHERE a." + attributeName + " LIKE :" + attributeName;
@@ -125,6 +123,7 @@ public class BasicDAO<PK, T> {
    * Retorna uma classe do mesmo tipo que o parâmetro ainda desconhecido
    * 
    * @return Class Tipo da classe desconhecida
+   * @generated
    */
   private Class<?> getTypeClass() {
     return (Class<?>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
@@ -136,6 +135,7 @@ public class BasicDAO<PK, T> {
    * @param pageIndex Pagina
    * @param noOfRecords Numero de registros
    * @return List Lista com todas as linhas da tabela do banco de dados
+   * @generated
    */
   public List<T> findAll(int pageIndex, int noOfRecords) {
     Query q = this.entityManager.createQuery(("SELECT OBJECT(a) FROM " + getTypeClass().getName() + " a"));
@@ -143,29 +143,4 @@ public class BasicDAO<PK, T> {
     q.setFirstResult(pageIndex * noOfRecords);
     return q.getResultList();
   }
-  
-  
-  class MySchemaOutputResolver extends SchemaOutputResolver {
-    private StringWriter stringWriter = new StringWriter();    
-
-    public Result createOutput(String namespaceURI, String suggestedFileName) throws IOException  {
-        StreamResult result = new StreamResult(stringWriter);
-        result.setSystemId(suggestedFileName);
-        return result;
-    }
-
-    public String getSchema() {
-        return stringWriter.toString();
-    }
-  }
-
-
-  public Object options(Class<?> clazz) throws Exception{
-    MySchemaOutputResolver sor = new MySchemaOutputResolver();
-    JAXBContext context = JAXBContext.newInstance(clazz);
-    context.generateSchema(sor);
-  	return sor.getSchema();
-  }
-  
-  
 }

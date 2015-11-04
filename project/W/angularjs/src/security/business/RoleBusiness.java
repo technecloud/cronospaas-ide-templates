@@ -1,30 +1,25 @@
 package security.business;
 
-import security.dao.RoleDAO;
-import security.dao.SessionManager;
-import security.entity.Permission;
-import security.entity.Role;
-import security.entity.User;
-import security.entity.UserRole;
+import security.dao.*;
+import security.entity.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
+ * Classe que representa a camada de negócios de Role
+ * @generated
  **/
 public class RoleBusiness {
 
   /**
    * Instância da classe RoleDAO que faz o acesso ao banco de dados
+   * @generated
    */
   private RoleDAO dao;
   
   /**
    * Singleton de sessão usado para abrir e fechar conexão com o banco de dados
+   * @generated
    */
   protected SessionManager sessionManager;
 	
@@ -33,53 +28,84 @@ public class RoleBusiness {
    * 
    * @param sessionmanager
    *          Singleton de sessão
+   * @generated modifiable
    */
   public RoleBusiness(final SessionManager sessionmanager) {
+    // begin-user-code
+    // end-user-code
     this.sessionManager = sessionmanager;
     this.dao = new RoleDAO(sessionmanager.getEntityManager());
+    // begin-user-code
+    // end-user-code
   }
   
   /**
    * Construtor padrão, inicializa singleton de sessão
+   * @generated modifiable   
    */
   public RoleBusiness() {
+    // begin-user-code
+    // end-user-code  
     this(SessionManager.getInstance());
+    // begin-user-code
+    // end-user-code    
   }	
 
   /**
    * Grava valor no banco
    * 
    * @param entity Linha da tabela a ser persistida no banco de dados
+   * @generated modifiable   
    */
   public void save(final Role entity) {
+    // begin-user-code
+    // end-user-code  
     dao.save(entity);
+    // begin-user-code
+    // end-user-code    
   }
   
   /**
    * Dá um refresh na entidade com valores valor no banco
    * 
    * @param entity Entidade
+   * @generated modifiable
    */
   public void refresh(final Role entity) {
+    // begin-user-code
+    // end-user-code  
     dao.refresh(entity);
+    // begin-user-code
+    // end-user-code  
   }  
   
   /**
    * Atualiza valor do banco
    * 
    * @param entity Linha da tabela a ser atualizada
+   * @generated modifiable   
    */
   public Role update(final Role entity) {
-	return dao.update(entity);
+    // begin-user-code
+    // end-user-code  
+	Role updatedEntity = dao.update(entity);
+    // begin-user-code
+    // end-user-code	
+    return updatedEntity;
   }
   
   /**
    * Apaga valor do banco
    * 
    * @param entity Linha da tabela a ser excluída
+   * @generated modifiable   
    */
   public void delete(final Role entity){
+    // begin-user-code
+    // end-user-code    
 	dao.delete(entity);
+    // begin-user-code
+    // end-user-code  	
   }
   
   /**
@@ -88,9 +114,15 @@ public class RoleBusiness {
    * @param id
    *          Identificador 
    * @return Quantidade de modificações efetuadas
+   * @generated modifiable   
    */  
   public int deleteById(java.lang.String id){
-      return dao.deleteById(id);
+    // begin-user-code
+    // end-user-code  
+    int result = dao.deleteById(id);
+    // begin-user-code
+    // end-user-code    
+    return result;    
   }  
   
   /**
@@ -99,38 +131,76 @@ public class RoleBusiness {
    * @param id
    *          Identificador 
    * @return Instância relacionada com o filtro indicado
+   * @generated modifiable
    */  
   public Role findById(java.lang.String id){
-      return dao.findById(id);
+    // begin-user-code
+    // end-user-code  
+    Role entity = dao.findById(id);
+    // begin-user-code
+    // end-user-code      
+    return entity;  
   }   
   
-  public Object options(){
-  	return "";
-  }
-  
-  public Object options(Class<?> clazz) throws Exception{
-    return dao.options(clazz);
-  }
-  
-  public List<UserRole> findUserRoles(java.lang.String id, int limit, int offset) {
-      return dao.findUserRoles(id, limit, offset);	  
-  }
-
-  public List<Permission> findPermissions(java.lang.String id, int limit, int offset) {
-      return dao.findPermissions(id, limit, offset);	  
+  /**
+   * @generated modifiable
+   */  
+  public List<UserRole> findUserRole(java.lang.String id, int limit, int offset) {
+      // begin-user-code
+      // end-user-code  
+      List<UserRole> result = dao.findUserRole(id, limit, offset);
+      // begin-user-code  
+      // end-user-code        
+      return result;	  
   }
 
+  /**
+   * @generated modifiable
+   */  
+  public List<Permission> findPermission(java.lang.String id, int limit, int offset) {
+      // begin-user-code
+      // end-user-code  
+      List<Permission> result = dao.findPermission(id, limit, offset);
+      // begin-user-code  
+      // end-user-code        
+      return result;	  
+  }
 
-  public List<User> listUsers(java.lang.String id, int limit, int offset) {
-      return dao.listUsers(id, limit, offset);	  
+
+  /**
+   * @generated modifiable
+   */  
+  public List<User> listUser(java.lang.String id, int limit, int offset) {
+      // begin-user-code
+      // end-user-code  
+      List<User> result = dao.listUser(id, limit, offset);
+      // begin-user-code
+      // end-user-code
+      return result;        	  
   }
   
+  /**
+   * @generated modifiable
+   */    
   public int deleteUser(java.lang.String instanceId, java.lang.String relationId) {
-      return dao.deleteUser(instanceId, relationId);  
+      // begin-user-code
+      // end-user-code  
+      int result = dao.deleteUser(instanceId, relationId);
+      // begin-user-code
+      // end-user-code  
+      return result;  
   }
     
   
+  /**
+   * @generated modifiable
+   */  	
   public List<Role> list(int limit, int offset){
-      return dao.list(limit, offset);	
+      // begin-user-code
+      // end-user-code  
+      List<Role> result = dao.list(limit, offset);
+      // begin-user-code
+      // end-user-code        
+      return result;	
   }  
 }

@@ -47,6 +47,8 @@
 
     app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', function ($scope, $http, $rootScope, $state) {
         
+        $scope.message = {};
+        
         $scope.selecionado = {
           valor : 1
         }
@@ -89,6 +91,37 @@
 
         function handleError(error) {
             $rootScope.session.error = error;
+        }
+        
+        $scope.changePassword = function () {
+
+            $scope.message.error = undefined;
+
+            var user = { oldPassword: oldPassword.value, newPassword: newPassword.value, newPasswordConfirmation: newPasswordConfirmation.value };
+
+            $http({
+                method: 'POST',
+                url: 'changePassword',
+                data: $.param(user),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }).success(changeSuccess).error(changeError);
+            
+            function changeSuccess(data, status, headers, config) {
+              alert("Password successfully changed!");
+              cleanPasswordFields();
+            }
+    
+            function changeError(data, status, headers, config) {
+                var error = status >= 401 ? "Invalid password!" : data;
+                $scope.message.error = error;
+            }     
+            
+            function cleanPasswordFields() {
+                oldPassword.value = "";
+                newPassword.value = "";
+                newPasswordConfirmation.value = "";
+                $("#modalPassword").modal("hide");
+            }
         }
     }]);
 } (app));

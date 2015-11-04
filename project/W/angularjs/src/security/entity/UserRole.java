@@ -1,19 +1,14 @@
 package security.entity;
 
+import java.io.*;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-import java.util.UUID;
+import java.util.*;
+import javax.xml.bind.annotation.*;
 
 /**
  * Classe que representa a tabela USERROLE
- * 
- * @author Techne
- * @version 1.0
- * @since 2015-09-02
- *
+ * @generated
  */
- 
 @Entity
 @Table(name = "\"USERROLE\"")
 @NamedQueries({
@@ -28,18 +23,28 @@ public class UserRole implements Serializable {
 
 	/**
 	 * UID da classe, necessário na serialização 
+	 * @generated
 	 */
-	private static final long serialVersionUID = 4530775290195734833l;
+	private static final long serialVersionUID = -201887997l;
 	
+	/**
+	 * @generated
+	 */
 	@Id
     
 	@Column(name = "id")
 	private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 	
+	/**
+	 * @generated
+	 */
 	@ManyToOne
 	@JoinColumn(name="fk_user", referencedColumnName = "id")
 	private User user;
 	
+	/**
+	 * @generated
+	 */
 	@ManyToOne
 	@JoinColumn(name="fk_role", referencedColumnName = "id")
 	private Role role;
@@ -47,6 +52,7 @@ public class UserRole implements Serializable {
 	
 	/**
 	 * Construtor
+	 * @generated
 	 */
 	public UserRole(){
 	}
@@ -56,6 +62,7 @@ public class UserRole implements Serializable {
 	 * Obtém id
 	 * @param id id
 	 * return id
+	 * @generated
 	 */
 	public java.lang.String getId(){
 		return this.id;
@@ -64,6 +71,7 @@ public class UserRole implements Serializable {
 	/**
 	 * Define id
 	 * @param id id
+	 * @generated
 	 */
 	public void setId(java.lang.String id){
 		this.id = id;
@@ -73,6 +81,7 @@ public class UserRole implements Serializable {
 	 * Obtém user
 	 * @param user user
 	 * return user
+	 * @generated
 	 */
 	public User getUser(){
 		return this.user;
@@ -81,6 +90,7 @@ public class UserRole implements Serializable {
 	/**
 	 * Define user
 	 * @param user user
+	 * @generated
 	 */
 	public void setUser(User user){
 		this.user = user;
@@ -90,6 +100,7 @@ public class UserRole implements Serializable {
 	 * Obtém role
 	 * @param role role
 	 * return role
+	 * @generated
 	 */
 	public Role getRole(){
 		return this.role;
@@ -98,11 +109,15 @@ public class UserRole implements Serializable {
 	/**
 	 * Define role
 	 * @param role role
+	 * @generated
 	 */
 	public void setRole(Role role){
 		this.role = role;
 	}
 	
+	/**
+	 * @generated
+	 */
 	@Override
 	public int hashCode() {
         final int prime = 31;
@@ -115,6 +130,9 @@ public class UserRole implements Serializable {
         return result;
     }
 	
+	/**
+	 * @generated
+	 */	
 	@Override
   	public boolean equals(Object obj) {
     
