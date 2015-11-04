@@ -1,7 +1,5 @@
 package security.permission;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
@@ -34,6 +32,8 @@ import java.security.cert.X509Certificate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.ws.rs.core.*;
 
 @SuppressWarnings("unused")
 @WebServlet(value = {"/auth", "/logout", "/session"}, name = "auth-servlet")
@@ -78,10 +78,16 @@ public class AuthenticationServlet extends HttpServlet {
         User user = this.getUserByName(username);
 
         if (user != null) {
-          Gson gson = new Gson();
-          JsonElement json = gson.toJsonTree(user);
+
+            String json = String.format("{\"user\": {\"id\":\"%s\",\"login\":\"%s\",\"name\":\"%s\",\"password\":\"%s\",\"picture\":\"%s\"} }"
+            , user.getId()
+            , user.getLogin()
+            , user.getName()
+            , user.getPassword()
+            , user.getPicture());
+
           resp.setHeader("Content-Type", "application/json");
-          resp.getOutputStream().print(json.toString());
+          resp.getOutputStream().print(json);
         } else {
           resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }
@@ -162,6 +168,8 @@ public class AuthenticationServlet extends HttpServlet {
       userEntity.setLogin(username);
       userEntity.setName(name);
       userEntity.setPicture(pictureURL);
+      String password = username.split("/")[0];
+      userEntity.setPassword(password);
       userDao.save(userEntity);
       session.commit();
     }
@@ -237,10 +245,16 @@ public class AuthenticationServlet extends HttpServlet {
     if (username != null) {
       User user = this.getUserByName(username.toString());
       if (user != null) {
-        Gson gson = new Gson();
-        JsonElement json = gson.toJsonTree(user);
+
+          String json = String.format("{\"user\": {\"id\":\"%s\",\"login\":\"%s\",\"name\":\"%s\",\"password\":\"%s\",\"picture\":\"%s\"}}"
+          , user.getId()
+          , user.getLogin()
+          , user.getName()
+          , user.getPassword()
+          , user.getPicture());
+
         resp.setHeader("Content-Type", "application/json");
-        resp.getOutputStream().print(json.toString());
+        resp.getOutputStream().print(json);
       } else {
         resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
       }

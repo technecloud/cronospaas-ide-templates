@@ -30,7 +30,8 @@ public class AuthServlet extends HttpServlet implements Serializable {
 
 		return flow;
 	}
-
+	
+	
 	private OAuth2CodeGrantFlow buildFacebookFlow(ClientIdentifier clientIdentifier) {
 		final OAuth2CodeGrantFlow flow = OAuth2ClientSupport
 				.facebookFlowBuilder(clientIdentifier, settings.AUTHORIZATION_CALLBACK_URI).build();
