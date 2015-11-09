@@ -61,5 +61,7 @@
   "Users.view.ConfirmeSuaSenha": "Confirm your password",
   "Home.view.Perfil": "Profile",
   "Perfil.view.Perfil": "Profile",
-  "Perfil.view.Idioma": "Language"
+  "Perfil.view.Idioma": "Language",
+  "Permission.view.Priority": "Priority",
+  "Permission.view.Exclude": "Exception"
 }
