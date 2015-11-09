@@ -29,6 +29,8 @@ public class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 2648042l;
 	
+	private static final String MASKED_PASSWORD = "******";
+	
 	/**
 	 * @generated
 	 */
@@ -175,10 +177,18 @@ public class User implements Serializable {
 	 * Obtém password
 	 * @param password password
 	 * return password
-	 * @generated
+	 */
+	public java.lang.String getEncodedPassword(){
+    return this.password;
+  }
+  
+  /**
+	 * Obtém password
+	 * @param password password
+	 * return password
 	 */
 	public java.lang.String getPassword(){
-    return this.password;
+    return MASKED_PASSWORD;
   }
 	
 	/**
@@ -186,7 +196,8 @@ public class User implements Serializable {
 	 * @param password password
 	 */
 	public void setPassword(java.lang.String password){
-		this.password = Hash.md5(password);
+	  if (!MASKED_PASSWORD.equals(password))
+		  this.password = Hash.md5(password);
 	}
 	
 	/**

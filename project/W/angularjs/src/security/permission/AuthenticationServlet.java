@@ -190,7 +190,7 @@ public class AuthenticationServlet extends HttpServlet {
 	private boolean authenticateDataBase(String username, String password) {
 		UserBusiness business = new UserBusiness(SessionManager.getInstance());
 		List<User> user = business.findByLogin(username, 100, 0);
-		return user.size() > 0 && Hash.md5(password).equals(user.get(0).getPassword());
+		return user.size() > 0 && Hash.md5(password).equals(user.get(0).getEncodedPassword());
 	}
 
 	private ClientConfig configureClientWithSSL() {
@@ -256,7 +256,7 @@ public class AuthenticationServlet extends HttpServlet {
 				String newPassword = req.getParameter("newPassword");
 				String newPasswordConfirmation = req.getParameter("newPasswordConfirmation");
 
-				if (user.getPassword().equals(Hash.md5(oldPassword)) && newPassword.equals(newPasswordConfirmation)
+				if (user.getEncodedPassword().equals(Hash.md5(oldPassword)) && newPassword.equals(newPasswordConfirmation)
 						&& !newPassword.isEmpty()) {
 					user.setPassword(newPassword);
 					SessionManager session = SessionManager.getInstance();
