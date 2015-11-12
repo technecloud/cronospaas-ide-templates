@@ -23,7 +23,7 @@
         <tr class="table-header"> 
         <#list model.gridFields as field>
           <th class=""> 
-            <div data-container="true" class="">${model.formMapLabels[field.name]}</div>
+            <div data-container="true" class="">${model.formMapLabels[field.name]!}</div>
           </th> 
     </#list>
           <th class=""> 
@@ -79,7 +79,7 @@
         <#list model.formFields as field>
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-${field.name}"> 
           <div class="form-group"> 
-            <label for="textinput-${field.name}" class="">${model.formMapLabels[field.name]}</label> 
+            <label for="textinput-${field.name}" class="">${model.formMapLabels[field.name]!}</label> 
 
   <#if field.isBoolean() >
         <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="Placeholder text"> 
