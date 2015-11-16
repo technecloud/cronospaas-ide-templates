@@ -69,7 +69,8 @@ https://developer.linkedin.com/docs/signin-with-linkedin
 # Maven
 
 mvn clean install
-mvn tomcat7:run
+
+mvn tomcat7:run-war
 
 
 # Documentação
