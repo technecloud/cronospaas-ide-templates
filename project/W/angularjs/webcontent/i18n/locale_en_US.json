@@ -63,5 +63,18 @@
   "Perfil.view.Perfil": "Profile",
   "Perfil.view.Idioma": "Language",
   "Permission.view.Priority": "Priority",
-  "Permission.view.Exclude": "Exception"
+  "Permission.view.Exclude": "Exception",
+  "General.RemoveData": "Do you whant to remove?",
+  "General.ErrorNotSpecified": "Error not specified",
+  "Login.view.invalidPassword": "Username or password invalid!",
+  "Home.view.passwordChanged": "Password successfully changed!",
+  "Home.view.InvalidPassword": "Invalid Password!",
+  "Home.view.ChangePassword": "Chnage Password",
+  "Home.view.Password": "Senha",
+  "Login.view.Username": "Username",
+  "Login.view.Password": "Password",
+  "Home.view.Old Password": "Old Password",
+  "Home.view.New Password": "New Password",
+  "Home.view.Confirmation": "Confirmation",
+  "Home.view.Close": "Close"
 }

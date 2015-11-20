@@ -26,6 +26,7 @@ import security.entity.Permission;
 import security.entity.Role;
 import security.entity.User;
 import security.entity.UserRole;
+import i18n.Messages;
 
 @WebFilter(urlPatterns = {"/*"}, filterName = "authorization-filter")
 public class AuthorizationFilter implements Filter {
@@ -138,6 +139,7 @@ public class AuthorizationFilter implements Filter {
       refreshPermissions();
     HttpServletRequest httpRequest = (HttpServletRequest) request;
     HttpServletResponse httpResponse = (HttpServletResponse) response;
+    Messages.set(request.getLocale());
     String username = httpRequest.getSession().getAttribute("username") == null ? "anonymous" : httpRequest.getSession().getAttribute("username").toString();
     String roles = httpRequest.getSession().getAttribute("roles") == null ? EVERYONE_ID : httpRequest.getSession().getAttribute("roles").toString();
     try {

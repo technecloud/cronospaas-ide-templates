@@ -1,7 +1,7 @@
 (function ($app) {
     angular.module('custom.controllers', []);
 
-    app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$window', '$state', function ($scope, $http, $location, $rootScope, $window, $state) {
+    app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$window', '$state', '$translate', 'Notification', function ($scope, $http, $location, $rootScope, $window, $state, $translate, Notification) {
 
         $scope.message = {};
 
@@ -20,7 +20,7 @@
         }
         
         $rootScope.infiniteReached = function() {
-          alert("wow!");
+          //
         }
 
         function handleSuccess(data, status, headers, config) {
@@ -40,12 +40,12 @@
         }
 
         function handleError(data, status, headers, config) {
-            var error = status == 401 ? "Username or passoword invalid!" : data;
-            $scope.message.error = error;
+            var error = status == 401 ? $translate.instant('Login.view.invalidPassword') : data;
+            Notification.error(error);
         }
     }]);
 
-    app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', function ($scope, $http, $rootScope, $state) {
+    app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', '$translate', 'Notification', function ($scope, $http, $rootScope, $state, $translate, Notification) {
         
         $scope.message = {};
         
@@ -95,8 +95,6 @@
         
         $scope.changePassword = function () {
 
-            $scope.message.error = undefined;
-
             var user = { oldPassword: oldPassword.value, newPassword: newPassword.value, newPasswordConfirmation: newPasswordConfirmation.value };
 
             $http({
@@ -107,13 +105,13 @@
             }).success(changeSuccess).error(changeError);
             
             function changeSuccess(data, status, headers, config) {
-              alert("Password successfully changed!");
+              Notification.info($translate.instant('Home.view.passwordChanged'));
               cleanPasswordFields();
             }
     
             function changeError(data, status, headers, config) {
-                var error = status >= 401 ? "Invalid password!" : data;
-                $scope.message.error = error;
+                var error = status >= 401 ? $translate.instant('Home.view.InvalidPassword') : data;
+                Notification.error(error);
             }     
             
             function cleanPasswordFields() {

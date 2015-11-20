@@ -27,6 +27,7 @@ angular.module('datasourcejs', [])
     this.headers = null;
     this._activeValues = null;
     this.errorMessage = "";
+    this.onError = null;
 
     // Private members
     var cursor = 0;
@@ -90,24 +91,40 @@ angular.module('datasourcejs', [])
       /**
        *  Error Handler function
        */
+      /**
+       *  Error Handler function
+       */
       this.handleError = function(data) {
-          var error = ""; 
-          
-          if(data && data.status === 401) { 
-            error = "Username or passoword invalid!";
+        console.log(data);
+        var error = ""; 
+        
+        if(data) {
+          if (Object.prototype.toString.call(data) === "[object String]") {
+            error = data;
           } else {
-            if(data && Object.prototype.toString.call(data.responseText) === "[object String]") {
-                var regex = /<h1>(.*)<\/h1>/gmi;
-                result = regex.exec(data.responseText);
-                
-                if(result && result.length >= 2) {
-                  error = result[1];
-                } else {
-                  error = data.responseText;
-                }
+            var errorMsg = (data.msg||data.desc||data.error||data.message||data.responseText);
+            if (errorMsg) {
+              error = errorMsg;
             }
           }
-          this.errorMessage = error;
+        } 
+        
+        if (!error) {
+          error = this.defaultNotSpecifiedErrorMessage;
+        }
+                 
+        var regex = /<h1>(.*)<\/h1>/gmi;
+        result = regex.exec(error);
+        
+        if(result && result.length >= 2) {
+          error = result[1];
+        }
+
+        this.errorMessage = error;
+        
+        if (this.onError) {
+          this.onError.call(this, error);
+        }
       }
       
 
@@ -396,7 +413,7 @@ angular.module('datasourcejs', [])
             this.offset = parseInt(this.offset) - this.data.length; 
           }
         }
-      });
+      }, true);
     };
     
     /**
@@ -415,7 +432,7 @@ angular.module('datasourcejs', [])
                 this.offset = 0; 
               }
             } 
-          }); 
+          }, true); 
         }
       }
     };
@@ -483,7 +500,7 @@ angular.module('datasourcejs', [])
       this.offset = 0;
       this.data = [];
       this.cursor = -1;
-      this.active = null;
+      this.active = {};
       hasMoreResults = false;
     }
 
@@ -497,7 +514,7 @@ angular.module('datasourcejs', [])
     /**
     *  Fetch all data from the server
     */
-    this.fetch = function (properties, callbacksObj) {
+    this.fetch = function (properties, callbacksObj, isNextOrPrev) {
       
       // Ignore any call if the datasource is busy (fetching another request)
       if(this.busy) return;
@@ -555,25 +572,40 @@ angular.module('datasourcejs', [])
             // Call the before fill callback
             if(callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
 
-            // If prepend property was set. 
-            // Add the new data before the old one
-            if(this.prepend) this.data = data.concat(this.data);  
-
-            // If append property was set. 
-            // Add the new data after the old one
-            if(this.append) this.data = this.data.concat(data);
-
-            // When neither  nor preppend was set
-            // Just replace the current data
-            if(!this.prepend && !this.append) {
+            if (isNextOrPrev) {
+              // If prepend property was set. 
+              // Add the new data before the old one
+              if(this.prepend) this.data = data.concat(this.data);  
+  
+              // If append property was set. 
+              // Add the new data after the old one
+              if(this.append) this.data = this.data.concat(data);
+  
+              // When neither  nor preppend was set
+              // Just replace the current data
+              if(!this.prepend && !this.append) {
+                this.data = data;
+                if (this.data.length > 0) {
+                  this.active = data[0];
+                  cursor = 0;
+                } else {
+                  this.active = {};
+                  cursor = -1;
+                }
+              }
+              
+              
+            } else {
+              this.cleanup();
               this.data = data;
-              this.active = data[0];
-              cursor = 0;
+              if (this.data.length > 0) {
+                this.active = data[0];
+                cursor = 0;
+              }
             }
+             
             if(callbacks.success) callbacks.success.call(this, data);
-            
             hasMoreResults = (data.length >= this.rowsPerPage);
-            
             /* 
             *  Register a watcher for data
             *  if the autopost property was set
@@ -722,7 +754,8 @@ angular.module('datasourcejs', [])
       dts.deleteMessage = props.deleteMessage;
       dts.enabled = props.enabled;
       dts.offset = (props.offset) ? props.offset : 0; // Default offset is 0
-
+      dts.onError = props.onError;
+      dts.defaultNotSpecifiedErrorMessage = props.defaultNotSpecifiedErrorMessage;
       
       // Check for headers
       if(props.headers && props.headers.length > 0) {
@@ -790,7 +823,7 @@ angular.module('datasourcejs', [])
 /**
 * Cronus Dataset Directive
 */
-.directive('datasource',['DatasetManager','$timeout','$parse', function (DatasetManager,$timeout,$parse) {
+.directive('datasource',['DatasetManager','$timeout','$parse', 'Notification', '$translate', function (DatasetManager,$timeout,$parse,Notification,$translate) {
   return {
     restrict: 'E',
     scope: true,
@@ -811,9 +844,13 @@ angular.module('datasourcejs', [])
           offset: attrs.offset,
           filterURL : attrs.filter,
           watchFilter: attrs.watchFilter,
-          deleteMessage: attrs.deleteMessage,
+          deleteMessage: attrs.deleteMessage||attrs.deleteMessage === ""?attrs.deleteMessage:$translate.instant('General.RemoveData'),
           headers : attrs.headers,
-          autoPost : (attrs.hasOwnProperty('autoPost') && attrs.autoPost === "") || attrs.autoPost === "true"
+          autoPost : (attrs.hasOwnProperty('autoPost') && attrs.autoPost === "") || attrs.autoPost === "true",
+          onError : function(error) {
+            Notification.error(error);
+          },
+          defaultNotSpecifiedErrorMessage: $translate.instant('General.ErrorNotSpecified')
         }
         
         var firstLoad = {

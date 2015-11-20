@@ -20,7 +20,7 @@
   "Permission.view.Load More": "Carregar mais",
   "Permission.view.Remove": "Remover",
   "Permission.view.Edit": "Editar",
-  "Permission.view.Select Person": "Seleccione pessoa",
+  "Permission.view.Select Person": "Selecione uma pessoa",
   "Roles.view.Name": "Nome",
   "Roles.view.Remove": "Remover",
   "Roles.view.Load More": "Carregar mais",
@@ -63,5 +63,18 @@
   "Perfil.view.Perfil": "Perfil",
   "Perfil.view.Idioma": "Idioma",
   "Permission.view.Priority": "Prioridade",
-  "Permission.view.Exclude": "Exceção"
+  "Permission.view.Exclude": "Exceção",
+  "General.RemoveData": "Deseja remover?",
+  "General.ErrorNotSpecified": "Erro não especificado",
+  "Login.view.invalidPassword": "Usuário ou senha inválidos!",
+  "Home.view.passwordChanged": "Senha alterada com sucesso!",
+  "Home.view.InvalidPassword": "Password inválido!",
+  "Home.view.ChangePassword": "Mudar Senha",
+  "Home.view.Password": "Password",
+  "Login.view.Username": "Usuário",
+  "Login.view.Password": "Senha",
+  "Home.view.Old Password": "Senha Anterior",
+  "Home.view.New Password": "Nova Senha",
+  "Home.view.Confirmation": "Confirmação",
+  "Home.view.Close": "Fechar"
 }

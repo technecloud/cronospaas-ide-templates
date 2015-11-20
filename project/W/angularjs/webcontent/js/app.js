@@ -12,7 +12,8 @@ var app = (function() {
 	  'ngMask',
     'ngJustGage',
     'pascalprecht.translate',
-    'tmh.dynamicLocale'
+    'tmh.dynamicLocale',
+    'ui-notification'
     ])
     
     .constant('LOCALES', {
@@ -23,7 +24,17 @@ var app = (function() {
       'preferredLocale': 'pt_BR'
     })
     
-    .config(function($stateProvider, $urlRouterProvider) {
+    .config(function($stateProvider, $urlRouterProvider, NotificationProvider) {
+        NotificationProvider.setOptions({
+            delay: 5000,
+            startTop: 20,
+            startRight: 10,
+            verticalSpacing: 20,
+            horizontalSpacing: 20,
+            positionX: 'right',
+            positionY: 'top'
+        });
+        
         // Set up the states
         $stateProvider
           
@@ -72,21 +83,27 @@ var app = (function() {
          // For any unmatched url, redirect to /state1
          $urlRouterProvider.otherwise("/error/404");
     })
-    
-    .config(function ($translateProvider) {
+
+    .config(function ($translateProvider, tmhDynamicLocaleProvider) {
       $translateProvider.useMissingTranslationHandlerLog();
-    })
-    
-    .config(function ($translateProvider) {
+      
       $translateProvider.useStaticFilesLoader({
         prefix: 'i18n/locale_',
         suffix: '.json'
       });
-      $translateProvider.preferredLanguage('pt_BR');
-      // $translateProvider.useLocalStorage();
-    })
-    
-    .config(function (tmhDynamicLocaleProvider) {
+      
+      $translateProvider.registerAvailableLanguageKeys(
+        ['pt_BR', 'en_US'],
+        {
+          'en*': 'en_US',
+          'pt*': 'pt_BR',
+          '*'  : 'pt_BR'
+        }
+      );
+      
+      var locale = (window.navigator.userLanguage || window.navigator.language || 'pt_BR').replace('-', '_');
+      $translateProvider.use(locale);
+
       tmhDynamicLocaleProvider.localeLocationPattern('plugins/angular-i18n/angular-locale_{{locale}}.js');
     })
 
