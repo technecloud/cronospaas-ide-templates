@@ -76,5 +76,9 @@
   "Home.view.Old Password": "Senha Anterior",
   "Home.view.New Password": "Nova Senha",
   "Home.view.Confirmation": "Confirmação",
-  "Home.view.Close": "Fechar"
+  "Home.view.Close": "Fechar",
+  "template.crud.search": "Pesquisar",
+  "template.crud.actions": "Ações",
+  "template.crud.load_more": "Carregar mais",
+  "template.crud.new": "Novo"
 }
