@@ -2,8 +2,8 @@
 
 <#if model.hasColumnFilter()>
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
-  <label for="textinput-filter" class="">Filter </label> 
-  <input type="text" ng-model="query" class="form-control" value="%" placeholder="query"> 
+  <label for="textinput-filter" class="">Filtro </label> 
+  <input type="text" ng-model="query" class="form-control" value="%" placeholder="Pesquisar"> 
 </div>
 <br/>
 </#if>
@@ -37,13 +37,13 @@
           <td class=""> 
             <div data-container="true" class="">
 
-		  <#if field.getProperty("firstStringField")?? >
-			{{rowData.${field.getProperty("firstStringField")}}}
-		  <#else>
-			{{rowData.${field.name}}}
-		  </#if>
+      <#if field.getProperty("firstStringField")?? >
+      {{rowData.${field.getProperty("firstStringField")}}}
+      <#else>
+      {{rowData.${field.name}}}
+      </#if>
 
-	    </div>
+      </div>
           </td> 
     </#list>
           <td class=""> 
@@ -82,11 +82,11 @@
             <label for="textinput-${field.name}" class="">${model.formMapLabels[field.name]!}</label> 
 
   <#if field.isBoolean() >
-        <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="${field.name}"> 
+        <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"> 
   <#elseif field.isDate() >
-        <input type="date" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="${field.name}"> 
+        <input type="date" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"> 
   <#elseif field.isNumber() >
-        <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="${field.name}"> 
+        <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"> 
   <#elseif field.getProperty("ngOptions")?? >
 
     <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class=""></datasource> 
@@ -95,7 +95,7 @@
       <option value=''>None</option>
     </select>
   <#else>
-        <input type="text" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>> 
+        <input type="text" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>> 
   </#if>
 
           </div> 
