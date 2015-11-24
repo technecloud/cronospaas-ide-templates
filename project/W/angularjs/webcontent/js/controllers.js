@@ -121,5 +121,20 @@
                 $("#modalPassword").modal("hide");
             }
         }
+        
+        var closeMenuHandler = function () {
+          var element = $(this);
+          if(element.closest('.sub-menu').length > 0) {
+            element.closest(".navbar-nav").collapse('hide');
+          }
+        }
+          
+        $scope.$on('$viewContentLoaded', function(){
+          var navMain = $(".navbar-nav");
+          
+          //Here your view content is fully loaded !!
+          navMain.off("click", "a", closeMenuHandler);
+          navMain.on("click", "a", closeMenuHandler);
+        });
     }]);
 } (app));
