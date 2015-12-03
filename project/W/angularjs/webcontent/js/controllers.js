@@ -9,7 +9,7 @@
 
             $scope.message.error = undefined;
 
-            var user = { username: username.value, password: password.value };
+            var user = { username: $scope.username.value, password: $scope.password.value };
 
             $http({
                 method: 'POST',
