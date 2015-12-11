@@ -26,6 +26,20 @@
                     <webXml>webcontent\WEB-INF\web.xml</webXml>
                 </configuration>
             </plugin>
+
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <path>/</path>
+          <port>3030</port>
+          <systemProperties>
+            <java.util.logging.config.file>logging.properties</java.util.logging.config.file>
+          </systemProperties>
+        </configuration>
+      </plugin>
+
         </plugins>
     </build>
     <repositories>
