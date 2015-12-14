@@ -27,6 +27,7 @@ import security.entity.Role;
 import security.entity.User;
 import security.entity.UserRole;
 import i18n.Messages;
+import util.Hash;
 
 @WebFilter(urlPatterns = {"/*"}, filterName = "authorization-filter")
 public class AuthorizationFilter implements Filter {
@@ -99,7 +100,7 @@ public class AuthorizationFilter implements Filter {
     User userAdmin = new User();
     userAdmin.setName("Administrator");
     userAdmin.setLogin("admin");
-    userAdmin.setPassword("admin");
+    userAdmin.setPassword(Hash.md5("admin"));
     userDAO.save(userAdmin);
 
     Role roleAdmin = new Role();
