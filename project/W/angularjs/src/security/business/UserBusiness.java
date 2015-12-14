@@ -8,8 +8,6 @@ import security.dao.UserDAO;
 import security.entity.Role;
 import security.entity.User;
 import security.entity.UserRole;
-import uml.AM.entity.HistoricoManut;
-import uml.AM.entity.JanelaManut;
 import util.Hash;
 
 /**
@@ -151,24 +149,6 @@ public class UserBusiness {
 
     if(!userRoles.isEmpty()) {
       throw new RuntimeException("O Usuário tem Funções associadas. Não pode ser removido.");
-    }
-    
-    // Verifica se Usuário tem Janela de Manutenção associada. Se sim, não permite remover.
-    List<JanelaManut> janelas = this.sessionManager.getEntityManager()
-            .createQuery("SELECT j FROM JanelaManut j WHERE j.responsavel.id = :idUser").setParameter("idUser", id)
-            .setMaxResults(1).getResultList();
-
-    if(!janelas.isEmpty()) {
-      throw new RuntimeException("O Usuário tem Janela de Manutenção associada. Não pode ser removido.");
-    }
-    
-    // Verifica se Usuário tem Histórico de Manutenção associado. Se sim, não permite remover.
-    List<HistoricoManut> historico = this.sessionManager.getEntityManager()
-            .createQuery("SELECT h FROM HistoricoManut h WHERE h.usuario.id = :idUser").setParameter("idUser", id)
-            .setMaxResults(1).getResultList();
-
-    if(!historico.isEmpty()) {
-      throw new RuntimeException("O Usuário tem Histórico de Manutenção associado. Não pode ser removido");
     }
     
     // end-user-code
