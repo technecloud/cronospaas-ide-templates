@@ -81,8 +81,8 @@ public class User implements Serializable {
    * Obtém email
    *
    * @param email
-   *          email
-   *          return email
+   *          Email do usuário
+   *          return Email do usuário
    * @generated
    */
   public java.lang.String getEmail() {
