@@ -1,6 +1,3 @@
-/**
- * @modified
- */
 package security.entity;
 
 import java.io.Serializable;
