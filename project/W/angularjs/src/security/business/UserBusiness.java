@@ -74,6 +74,7 @@ public class UserBusiness {
     // end-user-code
     this.maskPassword(entity);
     this.dao.save(entity);
+    this.hidePassword(entity);
     // begin-user-code
     // end-user-code
   }
@@ -105,6 +106,7 @@ public class UserBusiness {
     // end-user-code
     this.maskPassword(entity);
     User updatedEntity = this.dao.update(entity);
+    this.hidePassword(updatedEntity);
     // begin-user-code
     // end-user-code
     return updatedEntity;
@@ -170,7 +172,7 @@ public class UserBusiness {
     // begin-user-code
     // end-user-code
     User entity = this.dao.findById(id);
-    entity.setPassword(MASKED_PASSWORD);
+    this.hidePassword(entity);
     // begin-user-code
     // end-user-code
     return entity;
@@ -198,8 +200,12 @@ public class UserBusiness {
     Iterator<User> it = result.iterator();
     while(it.hasNext()) {
       User user = it.next();
-      user.setPassword(MASKED_PASSWORD);
+      this.hidePassword(user);
     }
+  }
+
+  private void hidePassword(User user) {
+    user.setPassword(MASKED_PASSWORD);
   }
 
   /**
