@@ -2,13 +2,14 @@ package security.dao;
 
 import javax.persistence.*;
 import security.entity.*;
-import java.util.List;
+import java.util.*;
+import java.io.Serializable;
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
  * @generated
  */
-public class PermissionDAO extends BasicDAO<String, Permission> {
+public class PermissionDAO extends BasicDAO<String, Permission> implements Serializable {
 
 	/**
 	 * UID da classe, necessário na serialização 
@@ -53,10 +54,10 @@ public class PermissionDAO extends BasicDAO<String, Permission> {
    * @generated
    */  
   public Permission findById(java.lang.String id){
-      Query query = this.entityManager.createQuery("SELECT entity FROM Permission entity WHERE entity.id = :id");
+      TypedQuery<Permission> query = this.entityManager.createQuery("SELECT entity FROM Permission entity WHERE entity.id = :id", Permission.class);
       query.setParameter("id", id);
            
-      return (Permission) query.getSingleResult();	
+      return query.getSingleResult();	
   }
 
 
@@ -66,7 +67,7 @@ public class PermissionDAO extends BasicDAO<String, Permission> {
    * @generated
    */
   public List<Permission> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("permissionList").setFirstResult(offset).setMaxResults(limit).getResultList();		
+      return this.entityManager.createNamedQuery("permissionList", Permission.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
 }

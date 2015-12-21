@@ -2,13 +2,14 @@ package security.dao;
 
 import javax.persistence.*;
 import security.entity.*;
-import java.util.List;
+import java.util.*;
+import java.io.Serializable;
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
  * @generated
  */
-public class UserRoleDAO extends BasicDAO<String, UserRole> {
+public class UserRoleDAO extends BasicDAO<String, UserRole> implements Serializable {
 
 	/**
 	 * UID da classe, necessário na serialização 
@@ -53,10 +54,10 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
    * @generated
    */  
   public UserRole findById(java.lang.String id){
-      Query query = this.entityManager.createQuery("SELECT entity FROM UserRole entity WHERE entity.id = :id");
+      TypedQuery<UserRole> query = this.entityManager.createQuery("SELECT entity FROM UserRole entity WHERE entity.id = :id", UserRole.class);
       query.setParameter("id", id);
            
-      return (UserRole) query.getSingleResult();	
+      return query.getSingleResult();	
   }
 
 
@@ -66,7 +67,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
    * @generated
    */
   public List<UserRole> list(int limit, int offset){
-      return this.entityManager.createNamedQuery("userRoleList").setFirstResult(offset).setMaxResults(limit).getResultList();		
+      return this.entityManager.createNamedQuery("userRoleList", UserRole.class).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
   /**
@@ -74,7 +75,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
    * @generated
    */
   public List<UserRole> findByUser(User user, int limit, int offset){
-      return this.entityManager.createNamedQuery("userRoleFindByUser").setParameter("user", user).setFirstResult(offset).setMaxResults(limit).getResultList();		
+      return this.entityManager.createNamedQuery("userRoleFindByUser", UserRole.class).setParameter("user", user).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
   /**
@@ -82,7 +83,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
    * @generated
    */
   public List<UserRole> findByEmail(java.lang.String email, int limit, int offset){
-      return this.entityManager.createNamedQuery("userRoleFindByEmail").setParameter("email", email).setFirstResult(offset).setMaxResults(limit).getResultList();		
+      return this.entityManager.createNamedQuery("userRoleFindByEmail", UserRole.class).setParameter("email", email).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
   /**
@@ -90,7 +91,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
    * @generated
    */
   public List<UserRole> findByLogin(java.lang.String login, int limit, int offset){
-      return this.entityManager.createNamedQuery("userRoleFindByLogin").setParameter("login", login).setFirstResult(offset).setMaxResults(limit).getResultList();		
+      return this.entityManager.createNamedQuery("userRoleFindByLogin", UserRole.class).setParameter("login", login).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
   /**
@@ -98,7 +99,7 @@ public class UserRoleDAO extends BasicDAO<String, UserRole> {
    * @generated
    */
   public List<UserRole> findByRole(java.lang.String roleid, int limit, int offset){
-      return this.entityManager.createNamedQuery("userRoleFindByRole").setParameter("roleid", roleid).setFirstResult(offset).setMaxResults(limit).getResultList();		
+      return this.entityManager.createNamedQuery("userRoleFindByRole", UserRole.class).setParameter("roleid", roleid).setFirstResult(offset).setMaxResults(limit).getResultList();		
   }
   
 }

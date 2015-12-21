@@ -92,7 +92,6 @@ public class Role implements Serializable {
         final int prime = 31;
         int result = 1;
 
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
 
         return result;
@@ -115,16 +114,10 @@ public class Role implements Serializable {
 	    
 	    Role other = (Role)obj;
 	    
-		if(this.name == null && other.name != null)
-	    	return false;
-	    else if(!this.name.equals(other.name))
-	     	return false;
-	
 		if(this.id == null && other.id != null)
 	    	return false;
 	    else if(!this.id.equals(other.id))
 	     	return false;
-	
 	
 
 	    return true;

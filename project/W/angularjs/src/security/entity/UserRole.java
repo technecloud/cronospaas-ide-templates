@@ -124,8 +124,6 @@ public class UserRole implements Serializable {
         int result = 1;
 
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((user == null) ? 0 : user.hashCode());
-        result = prime * result + ((role == null) ? 0 : role.hashCode());
 
         return result;
     }
@@ -151,17 +149,6 @@ public class UserRole implements Serializable {
 	    	return false;
 	    else if(!this.id.equals(other.id))
 	     	return false;
-	
-		if(this.user == null && other.user != null)
-	    	return false;
-	    else if(!this.user.equals(other.user))
-	     	return false;
-	
-		if(this.role == null && other.role != null)
-	    	return false;
-	    else if(!this.role.equals(other.role))
-	     	return false;
-	
 	
 
 	    return true;

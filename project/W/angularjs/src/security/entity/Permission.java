@@ -243,13 +243,7 @@ public class Permission implements Serializable {
         final int prime = 31;
         int result = 1;
 
-        result = prime * result + ((response == null) ? 0 : response.hashCode());
-        result = prime * result + ((path == null) ? 0 : path.hashCode());
-        result = prime * result + ((verb == null) ? 0 : verb.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((priority == null) ? 0 : priority.hashCode());
-        result = prime * result + ((exclude == null) ? 0 : exclude.hashCode());
-        result = prime * result + ((role == null) ? 0 : role.hashCode());
 
         return result;
     }
@@ -271,44 +265,10 @@ public class Permission implements Serializable {
 	    
 	    Permission other = (Permission)obj;
 	    
-		if(this.response == null && other.response != null)
-	    	return false;
-	    else if(!this.response.equals(other.response))
-	     	return false;
-	
-		if(this.path == null && other.path != null)
-	    	return false;
-	    else if(!this.path.equals(other.path))
-	     	return false;
-	
-		if(this.verb == null && other.verb != null)
-	    	return false;
-	    else if(!this.verb.equals(other.verb))
-	     	return false;
-	
 		if(this.id == null && other.id != null)
 	    	return false;
 	    else if(!this.id.equals(other.id))
 	     	return false;
-	
-		if(this.priority == null && other.priority != null)
-	    	return false;
-	    else if(!this.priority.equals(other.priority))
-	     	return false;
-	
-		if(this.exclude == null && other.exclude != null)
-	    	return false;
-	    else if(!this.exclude.equals(other.exclude))
-	     	return false;
-	
-		if(this.enabled != other.enabled)
-			return false;
-	
-		if(this.role == null && other.role != null)
-	    	return false;
-	    else if(!this.role.equals(other.role))
-	     	return false;
-	
 	
 
 	    return true;
