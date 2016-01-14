@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
@@ -16,13 +15,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.client.urlconnection.HTTPSProperties;
 
 import security.business.UserBusiness;
 import security.dao.SessionManager;
@@ -207,7 +204,7 @@ public class AuthenticationServlet extends HttpServlet {
     return (result.size() > 0) && Hash.md5(password).equals(result.get(0).getHashedPassword());
   }
 
-  private ClientConfig configureClientWithSSL() {
+  private Client createClientWithSSL() {
     TrustManager[] certs = new TrustManager[] { new X509TrustManager() {
 
       @Override
@@ -233,21 +230,11 @@ public class AuthenticationServlet extends HttpServlet {
       // NoCommand
     }
 
-    HttpsURLConnection.setDefaultSSLSocketFactory(ctx.getSocketFactory());
-    ClientConfig config = new DefaultClientConfig();
-    try {
-      config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES,
-              new HTTPSProperties((hostname, session) -> true, ctx));
-    }
-    catch(Exception e) {
-      // NoCommand
-    }
+  Client client = ClientBuilder.newBuilder()
+        .sslContext(ctx)
+        .build();
 
-    return config;
-  }
-
-  private Client createClientWithSSL() {
-    return Client.create(this.configureClientWithSSL());
+    return client;
   }
 
   private void logout(HttpServletRequest request, HttpServletResponse response) {
