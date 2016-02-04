@@ -1,0 +1,17 @@
+[
+  {
+    "id": 10,
+    "name": "Coca-Cola",
+    "price": 5
+  },
+  {
+    "id": 11,
+    "name": "Sprite",
+    "price": 3
+  },
+  {
+    "id": 12,
+    "name": "Fanta",
+    "price": 3
+  }
+]
