@@ -18,10 +18,9 @@ public class ClientServlet extends HttpServlet {
         try {
           
           // TODO
-          // String baseUri = request.getRequestURL().toString();
-          // ProdutosClient client = new ProdutosClient(baseUri);
+          // ProdutosClient client = new ProdutosClient();
   
-          // out.println("BaseUri:" + baseUri + "<br/>"  );
+          // out.println("Produtos obtidos no webservice<br/>"  );
             
           // List<ProductsGETResponse> result = client.products.get();
       
