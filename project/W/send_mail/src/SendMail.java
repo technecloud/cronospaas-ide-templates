@@ -12,7 +12,7 @@ public class SendMail {
 
 	static void loadProperties() {
 		try {
-			InputStream is = ClassLoader.class
+			InputStream is = SendMail.class
 					.getResourceAsStream("/META-INF/mail.properties");
 			props.load(is);
 
