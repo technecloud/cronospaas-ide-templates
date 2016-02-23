@@ -121,7 +121,7 @@ angular.module('datasourcejs', [])
             var indexFunc = callBackFunction.indexOf('(')==-1 ? callBackFunction.length: callBackFunction.indexOf('(');
             var func = eval( callBackFunction.substring(0,indexFunc) );
             var isFunc = typeof(func) === 'function';
-            isValid = isFunc ? func.call(this) : true;
+            if(isFunc) func.call(this);
           }catch(e){
               isValid = false;
               this.handleError(e);
