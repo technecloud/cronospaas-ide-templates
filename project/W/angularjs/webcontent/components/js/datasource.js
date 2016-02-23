@@ -44,16 +44,24 @@ angular.module('datasourcejs', [])
 	*/
     this.init = function() {
 
+      var dsScope = this;
+      
       // Get the service resource
       service = {
         save : function(object) {
-          return this.call(_self.entity, "POST", object, true);
+          var response = this.call(_self.entity, "POST", object, true);
+          dsScope.handleAfterCallBack(dsScope.onAfterCreate);
+          return response;
         },
         update : function(url, object) {
-          return this.call(url, "PUT", object);
+          var response = this.call(url, "PUT", object);
+          dsScope.handleAfterCallBack(dsScope.onAfterUpdate);
+          return response;
         },
         remove : function(url) {
-          return this.call(url, "DELETE", null, true);
+          var response = this.call(url, "DELETE", null, true);
+          dsScope.handleAfterCallBack(dsScope.onAfterDelete);
+          return response;
         },
         call: function(url, verb, object, applyScope) {
           var _callback;
@@ -146,6 +154,7 @@ angular.module('datasourcejs', [])
     * Append a new value to the end of this dataset.
     */ 
     this.insert = function (obj, callback) {
+      this.handleBeforeCallBack(this.onBeforeCreate);
       service.save(obj).$promise.then(callback);
     };
 
@@ -168,6 +177,7 @@ angular.module('datasourcejs', [])
       
       url = url + suffixPath;
       
+      this.handleBeforeCallBack(this.onBeforeUpdate);
       service.update(url, obj).$promise.then(callback);        
     };
 
@@ -294,6 +304,7 @@ angular.module('datasourcejs', [])
             }
           }.bind(this)
           
+          this.handleBeforeCallBack(this.onBeforeDelete);
           service.remove(this.entity + suffixPath).$promise.then(callback); 
       }.bind(this);
       
@@ -757,6 +768,13 @@ angular.module('datasourcejs', [])
       dts.onError = props.onError;
       dts.defaultNotSpecifiedErrorMessage = props.defaultNotSpecifiedErrorMessage;
       
+      dts.onBeforeCreate = props.onBeforeCreate;
+      dts.onAfterCreate  = props.onAfterCreate;
+      dts.onBeforeUpdate = props.onBeforeUpdate;
+      dts.onAfterUpdate  = props.onAfterUpdate;
+      dts.onBeforeDelete = props.onBeforeDelete;
+      dts.onAfterDelete  = props.onAfterDelete;
+
       // Check for headers
       if(props.headers && props.headers.length > 0) {
         dts.headers = {};
@@ -850,6 +868,12 @@ angular.module('datasourcejs', [])
           onError : function(error) {
             Notification.error(error);
           },
+          onBeforeCreate : attrs.onBeforeCreate,
+          onAfterCreate  : attrs.onAfterCreate,
+          onBeforeUpdate : attrs.onBeforeUpdate,
+          onAfterUpdate  : attrs.onAfterUpdate,
+          onBeforeDelete : attrs.onBeforeDelete,
+          onAfterDelete  : attrs.onAfterDelete,
           defaultNotSpecifiedErrorMessage: $translate.instant('General.ErrorNotSpecified')
         }
         
