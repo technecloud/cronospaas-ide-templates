@@ -106,7 +106,7 @@ angular.module('datasourcejs', [])
               var isFunc = typeof(func) === 'function';
               if(isFunc) func.call(this);
             }catch(e){
-                throw e;          
+              this.handleError(e);
             }
       
         }
@@ -124,7 +124,7 @@ angular.module('datasourcejs', [])
             var isValid  = isFunc ? func.call(this) : true;
             if( !isValid ) return false;
           }catch(e){
-              throw e;          
+              this.handleError(e);
           }
   
         }
