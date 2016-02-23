@@ -114,20 +114,21 @@ angular.module('datasourcejs', [])
       }
       
       this.handleBeforeCallBack = function(callBackFunction){
-       
+        var isValid = true;
         if(callBackFunction){
           
           try {
             var indexFunc = callBackFunction.indexOf('(')==-1 ? callBackFunction.length: callBackFunction.indexOf('(');
             var func = eval( callBackFunction.substring(0,indexFunc) );
             var isFunc = typeof(func) === 'function';
-            var isValid  = isFunc ? func.call(this) : true;
-            if( !isValid ) return false;
+            isValid = isFunc ? func.call(this) : true;
           }catch(e){
+              isValid = false;
               this.handleError(e);
           }
   
         }
+        return isValid;
  
       }
 
@@ -190,8 +191,8 @@ angular.module('datasourcejs', [])
     * Append a new value to the end of this dataset.
     */ 
     this.insert = function (obj, callback) {
-      this.handleBeforeCallBack(this.onBeforeCreate);
-      service.save(obj).$promise.then(callback);
+      if(this.handleBeforeCallBack(this.onBeforeCreate))
+        service.save(obj).$promise.then(callback);
     };
 
     /**
@@ -213,8 +214,8 @@ angular.module('datasourcejs', [])
       
       url = url + suffixPath;
       
-      this.handleBeforeCallBack(this.onBeforeUpdate);
-      service.update(url, obj).$promise.then(callback);        
+      if(this.handleBeforeCallBack(this.onBeforeUpdate))
+        service.update(url, obj).$promise.then(callback);        
     };
 
     /**
@@ -340,8 +341,8 @@ angular.module('datasourcejs', [])
             }
           }.bind(this)
           
-          this.handleBeforeCallBack(this.onBeforeDelete);
-          service.remove(this.entity + suffixPath).$promise.then(callback); 
+          if(this.handleBeforeCallBack(this.onBeforeDelete))
+            service.remove(this.entity + suffixPath).$promise.then(callback); 
       }.bind(this);
       
       if(this.deleteMessage && this.deleteMessage.length > 0) {
