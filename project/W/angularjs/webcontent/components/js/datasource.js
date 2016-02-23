@@ -45,7 +45,7 @@ angular.module('datasourcejs', [])
     this.init = function() {
 
       var dsScope = this;
-      
+
       // Get the service resource
       service = {
         save : function(object) {
@@ -95,6 +95,42 @@ angular.module('datasourcejs', [])
       this.isBusy = function() {
         return busy;
       }
+
+      this.handleAfterCallBack = function(callBackFunction){
+        
+        if(callBackFunction){
+        
+            try {
+              var indexFunc = callBackFunction.indexOf('(')==-1 ? callBackFunction.length: callBackFunction.indexOf('(');
+              var func = eval( callBackFunction.substring(0,indexFunc) );
+              var isFunc = typeof(func) === 'function';
+              if(isFunc) func.call(this);
+            }catch(e){
+                throw e;          
+            }
+      
+        }
+
+      }
+      
+      this.handleBeforeCallBack = function(callBackFunction){
+       
+        if(callBackFunction){
+          
+          try {
+            var indexFunc = callBackFunction.indexOf('(')==-1 ? callBackFunction.length: callBackFunction.indexOf('(');
+            var func = eval( callBackFunction.substring(0,indexFunc) );
+            var isFunc = typeof(func) === 'function';
+            var isValid  = isFunc ? func.call(this) : true;
+            if( !isValid ) return false;
+          }catch(e){
+              throw e;          
+          }
+  
+        }
+ 
+      }
+
       
       /**
        *  Error Handler function
