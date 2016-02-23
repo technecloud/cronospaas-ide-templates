@@ -72,27 +72,33 @@
         },
         "on-before-create": {
           "removable": true,
-          "type": "event"
+          "type": "event",
+          "global": true
         },
         "on-before-update": {
           "removable": true,
-          "type": "event"
+          "type": "event",
+          "global": true
         },
         "on-before-delete": {
           "removable": true,
-          "type": "event"
+          "type": "event",
+          "global": true
         },
         "on-after-create": {
           "removable": true,
-          "type": "event"
+          "type": "event",
+          "global": true
         },
         "on-after-update": {
           "removable": true,
-          "type": "event"
+          "type": "event",
+          "global": true
         },
         "on-after-delete": {
           "removable": true,
-          "type": "event"
+          "type": "event",
+          "global": true
         }
 
       }
