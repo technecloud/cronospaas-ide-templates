@@ -26,7 +26,7 @@ public class Permission implements Serializable {
 	/**
 	 * @generated
 	 */
-	@Column(name = "response", nullable = true, unique = true)
+	@Column(name = "response", nullable = true, unique = false)
 	private java.lang.Integer response;
 	
 	/**
