@@ -1,3 +1,5 @@
+package util;
+
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.*;
@@ -21,7 +23,7 @@ public class SendMail {
 		}
 	}
 
-	public static void sendMail(String from, String to, String subject, String body) {
+	public static void send(String from, String to, String subject, String body) {
 
 		Session session = Session.getDefaultInstance(props,
 				new javax.mail.Authenticator() {
@@ -52,19 +54,19 @@ public class SendMail {
 			/**Método para enviar a mensagem criada*/
 			Transport.send(message);
 
-			System.out.println("Mail Sent!");
+			System.out.println("Email Sent!");
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	public static void main(String... args) {
+	public static void main(String ... args) {
 	  String from = props.getProperty("mail.from");
 	  String to = props.getProperty("mail.to");
 	  String subject = "Assunto";
 	  String body = "Body";
-		sendMail(from, to, subject, body);
+	  send(from, to, subject, body);
 	}
 
 }
