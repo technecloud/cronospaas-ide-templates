@@ -85,6 +85,7 @@ var app = (function() {
     })
 
     .config(function ($translateProvider, tmhDynamicLocaleProvider) {
+      
       $translateProvider.useMissingTranslationHandlerLog();
       
       $translateProvider.useStaticFilesLoader({
@@ -102,7 +103,9 @@ var app = (function() {
       );
       
       var locale = (window.navigator.userLanguage || window.navigator.language || 'pt_BR').replace('-', '_');
+      
       $translateProvider.use(locale);
+      $translateProvider.useSanitizeValueStrategy('escaped');
 
       tmhDynamicLocaleProvider.localeLocationPattern('plugins/angular-i18n/angular-locale_{{locale}}.js');
     })
