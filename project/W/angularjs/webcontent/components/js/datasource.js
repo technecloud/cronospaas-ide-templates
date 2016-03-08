@@ -489,7 +489,7 @@ angular.module('datasourcejs', [])
     *  Check if has more pages
     */
     this.hasNextPage = function () {
-      return hasMoreResults && (this.rowsPerPage != -1);
+      return (hasMoreResults) && (this.rowsPerPage > 0);
     };
     
     /**
@@ -653,7 +653,8 @@ angular.module('datasourcejs', [])
             }
              
             if(callbacks.success) callbacks.success.call(this, data);
-            hasMoreResults = (data.length >= this.rowsPerPage);
+            hasMoreResults = (this.rowsPerPage > 0) && (data.length >= this.rowsPerPage);
+            
             /* 
             *  Register a watcher for data
             *  if the autopost property was set
