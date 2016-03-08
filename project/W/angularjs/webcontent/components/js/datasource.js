@@ -652,7 +652,12 @@ angular.module('datasourcejs', [])
               }
             }
              
-            if(callbacks.success) callbacks.success.call(this, data);
+            if(callbacks.success) 
+                callbacks.success.call(this, data);
+            
+            if(this.rowsPerPage === 0)
+                this.rowsPerPage = -1;
+            
             hasMoreResults = (this.rowsPerPage > 0) && (data.length >= this.rowsPerPage);
             
             /* 
