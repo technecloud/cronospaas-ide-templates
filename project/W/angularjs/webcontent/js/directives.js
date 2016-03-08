@@ -42,10 +42,8 @@
                 ctrl.$formatters.splice(0, ctrl.$formatters.length);
                 ctrl.$parsers.splice(0, ctrl.$parsers.length);
                 ctrl.$formatters.push(function (modelValue) {
-                  alert(modelValue);
-                    if (!modelValue) {
+                    if (!modelValue)
                         return;
-                    }
                     var data = new Date(modelValue);
                     var dia = data.getDate();
                     if (dia.toString().length == 1)
