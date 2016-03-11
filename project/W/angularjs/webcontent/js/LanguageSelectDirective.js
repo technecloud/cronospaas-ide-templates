@@ -1,4 +1,5 @@
-angular.module('MyApp') .directive('ngTranslateLanguageSelect', function (LocaleService) { 'use strict';
+angular.module('MyApp')
+    .directive('ngTranslateLanguageSelect', function (LocaleService) { 'use strict';
         return {
             restrict: 'A',
             replace: true,
