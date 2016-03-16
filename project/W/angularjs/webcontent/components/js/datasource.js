@@ -489,7 +489,7 @@ angular.module('datasourcejs', [])
     *  Check if has more pages
     */
     this.hasNextPage = function () {
-      return (hasMoreResults) && (this.rowsPerPage > 0);
+      return hasMoreResults && (this.rowsPerPage != -1);
     };
     
     /**
@@ -546,7 +546,7 @@ angular.module('datasourcejs', [])
      */
     this.cleanup = function () {
       this.offset = 0;
-      this.data = [];
+      this.data.length = 0;
       this.cursor = -1;
       this.active = {};
       hasMoreResults = false;
@@ -652,14 +652,8 @@ angular.module('datasourcejs', [])
               }
             }
              
-            if(callbacks.success) 
-                callbacks.success.call(this, data);
-            
-            if(this.rowsPerPage === 0)
-                this.rowsPerPage = -1;
-            
-            hasMoreResults = (this.rowsPerPage > 0) && (data.length >= this.rowsPerPage);
-            
+            if(callbacks.success) callbacks.success.call(this, data);
+            hasMoreResults = (data.length >= this.rowsPerPage);
             /* 
             *  Register a watcher for data
             *  if the autopost property was set
