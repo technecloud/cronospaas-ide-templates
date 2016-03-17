@@ -168,6 +168,18 @@ angular.module('datasourcejs', [])
         this.errorMessage = error;
         
         if (this.onError) {
+        	if(typeof(this.onError) === 'string'){
+                try {
+                  var indexFunc = this.onError.indexOf('(')==-1 ? this.onError.length: this.onError.indexOf('(');
+                  var func = eval( this.onError.substring(0,indexFunc) );
+                  if(typeof(func) === 'function'){
+                    this.onError = func;
+                  }
+                }catch(e){
+                    isValid = false;
+                    Notification.error(e);
+                }
+              }
           this.onError.call(this, error);
         }
       }
@@ -902,7 +914,7 @@ angular.module('datasourcejs', [])
           deleteMessage: attrs.deleteMessage||attrs.deleteMessage === ""?attrs.deleteMessage:$translate.instant('General.RemoveData'),
           headers : attrs.headers,
           autoPost : (attrs.hasOwnProperty('autoPost') && attrs.autoPost === "") || attrs.autoPost === "true",
-          onError : function(error) {
+          onError : (attrs.onError) || function(error) {
             Notification.error(error);
           },
           onBeforeCreate : attrs.onBeforeCreate,
