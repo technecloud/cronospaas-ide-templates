@@ -1,15 +1,15 @@
 angular.module('datasourcejs', [])
 
 /**
-* Global factory responsible for managing all datasets
-*/
-.factory('DatasetManager', ['$http','$q', '$timeout','$rootScope', function($http, $q, $timeout, $rootScope) {
+ * Global factory responsible for managing all datasets
+ */
+.factory('DatasetManager', ['$http','$q', '$timeout','$rootScope', 'Notification', function($http, $q, $timeout, $rootScope, Notification) {
    // Global dataset List
   this.datasets = {};
 
   /**
-  * Class representing a single dataset
-  */
+	 * Class representing a single dataset
+	 */
   var DataSet = function(name) {
     // Publiic members
     this.data = [];
@@ -40,8 +40,8 @@ angular.module('datasourcejs', [])
     
     // Public methods
 	/**
-	* Initialize a single datasource
-	*/
+	 * Initialize a single datasource
+	 */
     this.init = function() {
 
       var dsScope = this;
@@ -90,8 +90,8 @@ angular.module('datasourcejs', [])
       }
       
       /**
-       * Check if the datasource is waiting for any request response
-       */
+		 * Check if the datasource is waiting for any request response
+		 */
       this.isBusy = function() {
         return busy;
       }
@@ -134,11 +134,11 @@ angular.module('datasourcejs', [])
 
       
       /**
-       *  Error Handler function
-       */
+		 * Error Handler function
+		 */
       /**
-       *  Error Handler function
-       */
+		 * Error Handler function
+		 */
       this.handleError = function(data) {
         console.log(data);
         var error = ""; 
@@ -167,24 +167,28 @@ angular.module('datasourcejs', [])
 
         this.errorMessage = error;
         
-        if (this.onError) {
-        	if(typeof(this.onError) === 'string'){
-                try {
-                  var indexFunc = this.onError.indexOf('(')==-1 ? this.onError.length: this.onError.indexOf('(');
-                  var func = eval( this.onError.substring(0,indexFunc) );
-                  if(typeof(func) === 'function'){
-                    this.onError = func;
-                  }
-                }catch(e){
-                    isValid = false;
-                    Notification.error(e);
-                }
-              }
-          this.onError.call(this, error);
+        if (this.onError &&  this.onError != '') {
+	        if(typeof(this.onError) === 'string'){
+	          try {
+	            var indexFunc = this.onError.indexOf('(')==-1 ? this.onError.length: this.onError.indexOf('(');
+	            var func = eval( this.onError.substring(0,indexFunc) );
+	            if(typeof(func) === 'function'){
+	              this.onError = func;
+	            }
+	          }catch(e){
+	              isValid = false;
+	              Notification.error(e);
+	          }
+	        }
+        }else{
+        	this.onError = function(error) {
+                Notification.error(error);
+              };
         }
+        window.Notification = Notification;
+        this.onError.call(this, error);
       }
       
-
       // Start watching for changes in
       // activeRow to notify observers
       if(this.observers && this.observers.length > 0) {
@@ -198,19 +202,19 @@ angular.module('datasourcejs', [])
       }
     }
 
-    //Public methods
+    // Public methods
     /**
-    * Append a new value to the end of this dataset.
-    */ 
+	 * Append a new value to the end of this dataset.
+	 */ 
     this.insert = function (obj, callback) {
       if(this.handleBeforeCallBack(this.onBeforeCreate))
         service.save(obj).$promise.then(callback);
     };
 
     /**
-    * Uptade a value into this dataset by using the dataset key to compare
-    * the objects
-    */ 
+	 * Uptade a value into this dataset by using the dataset key to compare the
+	 * objects
+	 */ 
     this.update = function (obj, callback) {
       // Get the keys values
       var keyObj = getKeyValues(obj);
@@ -231,8 +235,8 @@ angular.module('datasourcejs', [])
     };
 
     /**
-    * Insert or update based on the the datasource state
-    */ 
+	 * Insert or update based on the the datasource state
+	 */ 
     this.post = function () {
       if(this.inserting) {
         // Make a new request to persist the new item
@@ -252,7 +256,7 @@ angular.module('datasourcejs', [])
           
           // For each row data
           this.data.forEach(function(currentRow) {
-            // Iterate all keys checking if the 
+            // Iterate all keys checking if the
             // current object match with the
             // extracted key values
             var found;
@@ -276,8 +280,8 @@ angular.module('datasourcejs', [])
     };
 
 	/**
-	* Cancel the editing or inserting state
-	*/
+	 * Cancel the editing or inserting state
+	 */
     this.cancel = function() {
       if(this.inserting) {
         this.active = this.data[0];
@@ -287,8 +291,8 @@ angular.module('datasourcejs', [])
     };
     
 	/**
-	* Put the datasource into the inserting state
-	*/
+	 * Put the datasource into the inserting state
+	 */
    this.startInserting = function () {
      this.inserting = true;
      this.active = {};
@@ -298,17 +302,16 @@ angular.module('datasourcejs', [])
    };
    
    /**
-	* Put the datasource into the editing state
-	*/
+	 * Put the datasource into the editing state
+	 */
    this.startEditing = function (item) {
      if(item) this.active = this.copy(item);
      this.editing = true;
    };
 
     /**
-    * Remove an object from this dataset by using the given id.
-    * the objects
-    */
+	 * Remove an object from this dataset by using the given id. the objects
+	 */
     this.remove = function (object, callback) {
       var _remove = function(object, callback) {
         if(!object) {
@@ -327,7 +330,7 @@ angular.module('datasourcejs', [])
           callback = callback || function() {
             // For each row data
             for(var i = 0; i < this.data.length; i++) {
-              // Iterate all keys checking if the 
+              // Iterate all keys checking if the
               // current object match with the same
               // vey values
               // Check all keys
@@ -367,9 +370,8 @@ angular.module('datasourcejs', [])
     };
     
     /**
-     * Get the object keys values from the datasource keylist
-     * PRIVATE FUNCTION
-     */
+	 * Get the object keys values from the datasource keylist PRIVATE FUNCTION
+	 */
     var getKeyValues = function(rowData) {
         var keys = this.keys;
         var keyValues = {};
@@ -381,9 +383,8 @@ angular.module('datasourcejs', [])
     }.bind(this);
     
 	/**
-     * Check if two objects are equals by comparing their keys
-     * PRIVATE FUNCTION
-     */
+	 * Check if two objects are equals by comparing their keys PRIVATE FUNCTION
+	 */
     var objectIsEquals = function(object1, object2) {
         var keys1 = getKeyValues(object1);
         var keys2 = getKeyValues(object2);
@@ -397,30 +398,30 @@ angular.module('datasourcejs', [])
     }
 
     /**
-    * Check if the object has more itens to iterate
-    */
+	 * Check if the object has more itens to iterate
+	 */
     this.hasNext = function () {
       return this.data && (cursor < this.data.length - 1);
     };
 	
 	/**
-    * Check if the cursor is not at the beginning of the datasource
-    */
+	 * Check if the cursor is not at the beginning of the datasource
+	 */
     this.hasPrevious = function () {
       return this.data && (cursor > 0);
     };
 
     /**
-    * Check if the object has more itens to iterate
-    */
+	 * Check if the object has more itens to iterate
+	 */
     this.order = function (order) {
       _savedProps.order = order;
     };
   
 	  /**
-	  * Get the values of the active row as an array.
-	  * This method will ignore any keys and only return the values
-	  */
+		 * Get the values of the active row as an array. This method will ignore
+		 * any keys and only return the values
+		 */
 	  this.getActiveValues = function() {
 		  if(this.active && !this._activeValues) {
 		    $rootScope.$watch(function(scope) { 
@@ -436,8 +437,8 @@ angular.module('datasourcejs', [])
 	  this.__defineGetter__('activeValues', function() { return _self.getActiveValues(); });
 	  
 	  /**
-	  * Get the values of the given row
-	  */
+		 * Get the values of the given row
+		 */
 	  this.getRowValues = function(rowData) {
 		var arr = [];
 		for( var i in rowData ) {
@@ -449,8 +450,8 @@ angular.module('datasourcejs', [])
 	  }
   
     /**
-    *  Get the current item moving the cursor to the next element
-    */
+	 * Get the current item moving the cursor to the next element
+	 */
     this.next = function () {
       if(!this.hasNext()) {
         this.nextPage();
@@ -460,8 +461,8 @@ angular.module('datasourcejs', [])
     };
     
     /**
-    *  Try to fetch the previous page
-    */
+	 * Try to fetch the previous page
+	 */
     this.nextPage = function () {
       if(!this.hasNextPage()) {
         return;
@@ -477,8 +478,8 @@ angular.module('datasourcejs', [])
     };
     
     /**
-    *  Try to fetch the previous page
-    */
+	 * Try to fetch the previous page
+	 */
     this.prevPage = function () {
       if(!this.append && !this.preppend) {
         this.offset = parseInt(this.offset) - this.data.length; 
@@ -498,22 +499,22 @@ angular.module('datasourcejs', [])
     };
     
     /**
-    *  Check if has more pages
-    */
+	 * Check if has more pages
+	 */
     this.hasNextPage = function () {
       return hasMoreResults && (this.rowsPerPage != -1);
     };
     
     /**
-    *  Check if has previews pages
-    */
+	 * Check if has previews pages
+	 */
     this.hasPrevPage = function () {
       return this.offset > 0 && !this.append && !this.prepend;
     };      
 
     /**
-    *  Get the previous item
-    */
+	 * Get the previous item
+	 */
     this.previous = function () {
       if(!this.hasPrevious()) throw "Dataset Overflor Error";
       this.active = this.copy(this.data[--cursor],{});
@@ -521,8 +522,8 @@ angular.module('datasourcejs', [])
     };
 
     /**
-    *  Moves the cursor to the specified item
-    */
+	 * Moves the cursor to the specified item
+	 */
     this.goTo = function (rowId) {
       for(var i = 0; i < this.data.length; i++) {
         if(this.data[i][this.key] === rowId) {
@@ -534,15 +535,15 @@ angular.module('datasourcejs', [])
     };
 
     /**
-    *  Get the current cursor index
-    */
+	 * Get the current cursor index
+	 */
     this.getCursor = function () {
       return cursor;
     };
     
     /**
-    *  filter dataset by URL
-    */
+	 * filter dataset by URL
+	 */
     this.filter = function ( url ) {
       var oldoffset = this.offset;
       this.offset = 0;
@@ -554,8 +555,8 @@ angular.module('datasourcejs', [])
     };
     
     /**
-     * Cleanup datasource  
-     */
+	 * Cleanup datasource
+	 */
     this.cleanup = function () {
       this.offset = 0;
       this.data.length = 0;
@@ -565,15 +566,15 @@ angular.module('datasourcejs', [])
     }
 
     /**
-    *  Get the current row data
-    */
+	 * Get the current row data
+	 */
     this.current = function () {
       return this.active || this.data[0];
     };
 
     /**
-    *  Fetch all data from the server
-    */
+	 * Fetch all data from the server
+	 */
     this.fetch = function (properties, callbacksObj, isNextOrPrev) {
       
       // Ignore any call if the datasource is busy (fetching another request)
@@ -633,15 +634,15 @@ angular.module('datasourcejs', [])
             if(callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
 
             if (isNextOrPrev) {
-              // If prepend property was set. 
+              // If prepend property was set.
               // Add the new data before the old one
               if(this.prepend) this.data = data.concat(this.data);  
   
-              // If append property was set. 
+              // If append property was set.
               // Add the new data after the old one
               if(this.append) this.data = this.data.concat(data);
   
-              // When neither  nor preppend was set
+              // When neither nor preppend was set
               // Just replace the current data
               if(!this.prepend && !this.append) {
                 this.data = data;
@@ -666,12 +667,11 @@ angular.module('datasourcejs', [])
              
             if(callbacks.success) callbacks.success.call(this, data);
             hasMoreResults = (data.length >= this.rowsPerPage);
-            /* 
-            *  Register a watcher for data
-            *  if the autopost property was set
-            *  It means that any change on dataset items will
-            *  generate a new request on the server
-            */
+            /*
+			 * Register a watcher for data if the autopost property was set It
+			 * means that any change on dataset items will generate a new
+			 * request on the server
+			 */
             if(this.autoPost) {
               this.startAutoPost();
             }
@@ -680,8 +680,8 @@ angular.module('datasourcejs', [])
     };
 
     /**
-    * Asynchronously notify observers 
-    */
+	 * Asynchronously notify observers
+	 */
     this.notifyObservers = function () {
       for(var key in this.observers) {
         if(this.observers.hasOwnProperty(key)) {
@@ -700,7 +700,7 @@ angular.module('datasourcejs', [])
         var filter = this.watchFilter;
         var pattern = /\{([A-z][A-z|0-9]*)\}/gim;
 
-        // replace all params found by the 
+        // replace all params found by the
         // respectiveValues in activeRow
         filter = filter.replace(pattern,function(a,b) {
           return activeRow.hasOwnProperty(b) ? activeRow[b] : "";
@@ -719,8 +719,8 @@ angular.module('datasourcejs', [])
     };
 
     /**
-    * Clone a JSON Object
-    */
+	 * Clone a JSON Object
+	 */
     this.copy = function (from,to) {
       if(from === null || Object.prototype.toString.call(from) !== '[object Object]')
           return from;
@@ -736,8 +736,9 @@ angular.module('datasourcejs', [])
     };
     
     /**
-     * Used to monitore the this datasource data for change (insertion and deletion)
-     */
+	 * Used to monitore the this datasource data for change (insertion and
+	 * deletion)
+	 */
     this.startAutoPost = function() {
       unregisterDataWatch = $rootScope.$watch(function() {
         return this.data;
@@ -777,8 +778,8 @@ angular.module('datasourcejs', [])
     }
     
     /**
-     * Unregister the data watcher
-     */
+	 * Unregister the data watcher
+	 */
     this.stopAutoPost = function() {
       // Unregister any defined watcher on data variable
       if(unregisterDataWatch) {
@@ -790,22 +791,26 @@ angular.module('datasourcejs', [])
   };
 
   /**
-    * Dataset Manager Methods
-    */
+	 * Dataset Manager Methods
+	 */
   this.storeDataset = function (dataset) {
       this.datasets[dataset.name] = dataset;
   },
 
   /**
-  * Initialize a new dataset
-  */
+	 * Initialize a new dataset
+	 */
   this.initDataset = function (props) {
       var endpoint = (props.endpoint) ? props.endpoint : "";
 
       var dts = new DataSet(props.name);
       dts.entity = props.entity;
       dts.keys = (props.keys && props.keys.length > 0) ? props.keys.split(",") : [];
-      dts.rowsPerPage = props.rowsPerPage ? props.rowsPerPage : 100; // Default 100 rows per page
+      dts.rowsPerPage = props.rowsPerPage ? props.rowsPerPage : 100; // Default
+																		// 100
+																		// rows
+																		// per
+																		// page
       dts.append = props.append;
       dts.prepend = props.prepend;
       dts.endpoint = props.endpoint;
@@ -878,8 +883,8 @@ angular.module('datasourcejs', [])
   };
 
   /**
-  * Register a dataset as an observer to another one
-  */
+	 * Register a dataset as an observer to another one
+	 */
   this.registerObserver = function (targetName, dataset) {
     this.datasets[targetName].addObserver(dataset);
   };
@@ -888,8 +893,8 @@ angular.module('datasourcejs', [])
 }])
 
 /**
-* Cronus Dataset Directive
-*/
+ * Cronus Dataset Directive
+ */
 .directive('datasource',['DatasetManager','$timeout','$parse', 'Notification', '$translate', function (DatasetManager,$timeout,$parse,Notification,$translate) {
   return {
     restrict: 'E',
@@ -914,9 +919,7 @@ angular.module('datasourcejs', [])
           deleteMessage: attrs.deleteMessage||attrs.deleteMessage === ""?attrs.deleteMessage:$translate.instant('General.RemoveData'),
           headers : attrs.headers,
           autoPost : (attrs.hasOwnProperty('autoPost') && attrs.autoPost === "") || attrs.autoPost === "true",
-          onError : (attrs.onError) || function(error) {
-            Notification.error(error);
-          },
+          onError : attrs.onError,
           onBeforeCreate : attrs.onBeforeCreate,
           onAfterCreate  : attrs.onAfterCreate,
           onBeforeUpdate : attrs.onBeforeUpdate,
