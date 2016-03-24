@@ -181,14 +181,7 @@
 					"removable": false,
 					"type": "pageDatasource"
 				}
-			},
-			"childrenProperties": [
-				{
-					"name": "crn-datasource",
-					"selector": "form",
-					"displayName": "datasource"
-				}
-			]
+			}
 		},
 		{
 			"name": "crn-tabs",
