@@ -469,46 +469,6 @@
 			"templateURL": "webcontent/components/templates/text.template.html"
 		},
 		{
-			"name": "crn-treeview",
-			"text": "Treeview",
-			"class": "cpn cpn-treeview",
-			"templateURL": "webcontent/components/templates/treeview.template.html",
-			"handleRules": {
-				"canIncrement": true,
-				"canToggle": true,
-				"rules": [
-					{
-						"toggleSelector": "ol, ul",
-						"toggleClass": "active",
-						"sourceHTML": "<li class=\"component-holder\" data-component=\"crn-tree-item\"> <label for=\"folder${RANDOM}\">Folder</label> <input type=\"checkbox\" id=\"folder${RANDOM}\"><ol><li><a href=\"\"><i class=\"fa fa-file-o\"></i> <span>Item</span></a></li></ol></li>",
-						"targetSelector": "ol, ul",
-						"recursive": true
-					}
-				]
-			}
-		},
-		{
-			"name": "crn-tree-item",
-			"text": "TreeItem",
-			"class": "cpn cpn-treeview",
-			"template": "",
-			"pallete": false,
-			"handleRules": {
-				"canIncrement": true,
-				"canToggle": true,
-				"rules": [
-					{
-						"toggleSelector": "ol",
-						"toggleClass": "active",
-						"sourceHTML": "<li class=\"component-holder\" data-component=\"crn-tree-item\"><a href=\"\"><i class=\"fa fa-file-o\"></i> <span>Item</span></a></li>",
-						"targetSelector": "ul, ol",
-						"recursive": true,
-						"transformTo": "<li class=\"component-holder\" data-component=\"crn-tree-item\"> <label for=\"folder${RANDOM}\">Folder</label> <input type=\"checkbox\" id=\"folder${RANDOM}\"><ol><li><a href=\"\"><i class=\"fa fa-file-o\"></i> <span>Item</span></a></li></ol></li>"
-					}
-				]
-			}
-		},
-		{
 			"name": "crn-tags",
 			"text": "Multiselect",
 			"dependences": {
