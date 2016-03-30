@@ -645,16 +645,16 @@ angular.module('datasourcejs', [])
             if (isNextOrPrev) {
               // If prepend property was set. 
               // Add the new data before the old one
-              if(this.prepend) this.data = data.concat(this.data);  
+              if(this.prepend) Array.prototype.unshift.apply(this.data, data);  
   
               // If append property was set. 
               // Add the new data after the old one
-              if(this.append) this.data = this.data.concat(data);
+              if(this.append) Array.prototype.push.apply(this.data, data);
   
               // When neither  nor preppend was set
               // Just replace the current data
               if(!this.prepend && !this.append) {
-                this.data = data;
+            	  Array.prototype.push.apply(this.data, data);
                 if (this.data.length > 0) {
                   this.active = data[0];
                   cursor = 0;
@@ -667,7 +667,7 @@ angular.module('datasourcejs', [])
               
             } else {
               this.cleanup();
-              this.data = data;
+              Array.prototype.push.apply(this.data, data);
               if (this.data.length > 0) {
                 this.active = data[0];
                 cursor = 0;
