@@ -564,6 +564,19 @@ angular.module('datasourcejs', [])
     };
     
     /**
+     *  refresh dataset by URL and queryParams, 
+     */
+	this.refresh = function(query, url, minChar){
+		this.cleanup();
+		if(minChar === undefined){
+			minChar = 0;
+		}
+		if(query.length >= minChar){
+			this.filter(url+"/"+query);
+		}
+	};
+    
+    /**
      * Cleanup datasource  
      */
     this.cleanup = function () {
@@ -689,6 +702,7 @@ angular.module('datasourcejs', [])
         }.bind(this);
     };
 
+    
     /**
     * Asynchronously notify observers 
     */
