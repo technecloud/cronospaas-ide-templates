@@ -53,17 +53,14 @@ angular.module('datasourcejs', [])
       service = {
         save : function(object) {
           var response = this.call(_self.entity, "POST", object, true);
-          dsScope.handleAfterCallBack(dsScope.onAfterCreate);
           return response;
         },
         update : function(url, object) {
           var response = this.call(url, "PUT", object);
-          dsScope.handleAfterCallBack(dsScope.onAfterUpdate);
           return response;
         },
         remove : function(url) {
           var response = this.call(url, "DELETE", null, true);
-          dsScope.handleAfterCallBack(dsScope.onAfterDelete);
           return response;
         },
         call: function(url, verb, object, applyScope) {
@@ -252,6 +249,7 @@ angular.module('datasourcejs', [])
           this.data.push(obj);
           // The new object is now the active
           this.active = obj;
+          this.handleAfterCallBack(this.onAfterCreate);
         }.bind(this));
         
       } else if(this.editing) {
@@ -276,6 +274,7 @@ angular.module('datasourcejs', [])
             if(found) {
               this.copy(obj,currentRow);
             }
+            this.handleAfterCallBack(this.onAfterUpdate);
           }.bind(this));
         }.bind(this));
       }
@@ -360,6 +359,7 @@ angular.module('datasourcejs', [])
                 this.data.splice(i,1)
                 this.active = (i > 0) ? this.data[i - 1] : null;
               }
+              
             }
           }.bind(this)
           
@@ -374,6 +374,7 @@ angular.module('datasourcejs', [])
       } else {
         _remove(object, callback);
       }
+      this.handleAfterCallBack(this.onAfterDelete);
     };
     
     /**
@@ -921,6 +922,15 @@ angular.module('datasourcejs', [])
     template: '',
     link: function( scope, element, attrs ) {
       var init = function () {
+	    
+    	//Add in header the path from the request was executed
+    	var originPath = "origin-path:" + $location.path();
+        if(attrs.headers === undefined || attrs.headers === null){
+          attrs.headers = originPath;
+        }else{
+          attrs.headers = attrs.headers.concat(";", originPath);
+        }
+        
         var props = {
           name: attrs.name,
           entity: attrs.entity,
