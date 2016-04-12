@@ -1,24 +1,32 @@
 (function ($app) {
     var parseDateValue = function (modelValue) {
-      var parts = modelValue.split("/");
-      var dt = new Date(parseInt(parts[2], 10),
-                        parseInt(parts[1], 10) - 1,
-                        parseInt(parts[0], 10));
-      return dt;
+      if(modelValue){
+        var parts = modelValue.split("/");
+        var dt = new Date(parseInt(parts[2], 10),
+                          parseInt(parts[1], 10) - 1,
+                          parseInt(parts[0], 10));
+        return dt;
+      }else{
+        return modelValue;
+      }
     }
-    
+
     var parseDatetimeValue = function (modelValue) {
-      var parts = modelValue.split(" ");
-      var date = parts[0];
-      date = date.split("/");
-      var time = parts[1];
-      time = time.split(":");
-      var dt = new Date(parseInt(date[2], 10),
-                        parseInt(date[1], 10) - 1,
-                        parseInt(date[0], 10));
-      dt.setHours(time[0]);
-      dt.setMinutes(time[1]);
-      return dt;
+      if(modelValue){
+        var parts = modelValue.split(" ");
+        var date = parts[0];
+        date = date.split("/");
+        var time = parts[1];
+        time = time.split(":");
+        var dt = new Date(parseInt(date[2], 10),
+                          parseInt(date[1], 10) - 1,
+                          parseInt(date[0], 10));
+        dt.setHours(time[0]);
+        dt.setMinutes(time[1]);
+        return dt;
+      }else{
+        return modelValue;
+      }
     }
     
     app.directive('asDate', function () {
@@ -32,11 +40,19 @@
                   todayBtn: "linked",
                   autoclose: true
                 });
-                
+                var inUse = false;
                 element.on('show', function(e){
-                  var el = $(this);
-                  var currDate = parseDateValue(el.val());
-                  el.data({date: currDate}).datepicker('update').children("input").val(currDate);
+                  if(!inUse){
+                    var el = $(this);
+                    var currDate = parseDateValue(el.val());
+                    if(currDate){
+                      el.data({date: currDate}).datepicker('update').children("input").val(currDate);
+                    }
+                    inUse = true;
+                  }
+                });
+                element.on('hide', function(e){
+                  inUse = false;
                 });
                 
                 ctrl.$formatters.splice(0, ctrl.$formatters.length);
@@ -71,10 +87,18 @@
                   autoclose: true
                 });
                 
+                var inUse = false;
                 element.on('show', function(e){
-                  var el = $(this);
-                  var currDate = parseDateValue(el.val());
-                  el.data({date: currDate}).datepicker('update').children("input").val(currDate);
+                  if(!inUse){
+                    var el = $(this);
+                    var currDate = parseDateValue(el.val());
+                    el.data({date: currDate}).datepicker('update').children("input").val(currDate);
+                    inUse = true;
+                  }
+                });
+                
+                element.on('hide', function(e){
+                  inUse = false;
                 });
                 
                 ctrl.$formatters.splice(0, ctrl.$formatters.length);
