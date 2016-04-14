@@ -24,14 +24,13 @@ public class ${clazz_name} extends SpringBootServletInitializer {
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(${clazz_name}.class);
     }
-/*
+
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
         factoryBean.setPersistenceUnitName("${persistence_unit_name}");
         return factoryBean;
     }
-*/
 
 }
 EOF<${clazz_name}.java
