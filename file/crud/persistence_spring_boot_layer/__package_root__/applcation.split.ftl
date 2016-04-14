@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 
 <#assign clazz_name = "Application">
+<#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")>
 
 @Configuration
 @ComponentScan
@@ -28,7 +29,7 @@ public class ${clazz_name} extends SpringBootServletInitializer {
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
-        factoryBean.setPersistenceUnitName("${persistence_unit_name}");
+        factoryBean.setPersistenceUnitName(${persistence_unit_name});
         return factoryBean;
     }
 
