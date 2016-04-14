@@ -3,7 +3,7 @@
 package ${package_root}.service;
 
 import ${package_root}.entity.*;
-import ${package_root}.customization.*;
+import ${package_customized}.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

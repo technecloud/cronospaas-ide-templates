@@ -3,7 +3,7 @@
 package ${package_root}.controller;
 
 import ${package_root}.entity.*;
-import ${package_root}.customization.*;
+import ${package_customized}.*;
 import org.springframework.data.domain.*;
 import org.springframework.validation.annotation.*;
 import org.springframework.web.bind.annotation.*;

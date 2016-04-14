@@ -1,6 +1,6 @@
 <#list workspaceView.getActiveEditor().getDiagram().getEntityCells() as diagramCell>
 <#assign clazz = diagramCell.getClazz()>
-package ${package_root}.customization;
+package ${package_customized};
 
 import ${package_root}.entity.*;
 import ${package_root}.service.*;
