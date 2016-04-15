@@ -915,7 +915,7 @@ angular.module('datasourcejs', [])
 /**
 * Cronus Dataset Directive
 */
-.directive('datasource',['DatasetManager','$timeout','$parse', 'Notification', '$translate', function (DatasetManager,$timeout,$parse,Notification,$translate) {
+.directive('datasource',['DatasetManager','$timeout','$parse', 'Notification', '$translate', '$location', function (DatasetManager,$timeout,$parse,Notification,$translate,$location) {
   return {
     restrict: 'E',
     scope: true,
