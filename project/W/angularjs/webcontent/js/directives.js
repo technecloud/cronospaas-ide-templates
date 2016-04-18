@@ -1,146 +1,94 @@
 (function ($app) {
-    var parseDateValue = function (modelValue) {
-      if(modelValue){
-        var parts = modelValue.split("/");
-        var dt = new Date(parseInt(parts[2], 10),
-                          parseInt(parts[1], 10) - 1,
-                          parseInt(parts[0], 10));
-        return dt;
-      }else{
-        return modelValue;
-      }
-    }
-
-    var parseDatetimeValue = function (modelValue) {
-      if(modelValue){
-        var parts = modelValue.split(" ");
-        var date = parts[0];
-        date = date.split("/");
-        var time = parts[1];
-        time = time.split(":");
-        var dt = new Date(parseInt(date[2], 10),
-                          parseInt(date[1], 10) - 1,
-                          parseInt(date[0], 10));
-        dt.setHours(time[0]);
-        dt.setMinutes(time[1]);
-        return dt;
-      }else{
-        return modelValue;
-      }
-    }
     
-    app.directive('asDate', function () {
-        return {
-            require: '^ngModel',
-            restrict: 'A',
-            link: function (scope, element, attrs, ctrl) {
-                element.datepicker({
-                  format: 'dd/mm/yyyy',                
-                  language: 'pt-BR',
-                  todayBtn: "linked",
-                  autoclose: true
-                });
-                var inUse = false;
-                element.on('show', function(e){
-                  if(!inUse){
-                    var el = $(this);
-                    var currDate = parseDateValue(el.val());
-                    if(currDate){
-                      el.data({date: currDate}).datepicker('update').children("input").val(currDate);
-                    }
-                    inUse = true;
-                  }
-                });
-                element.on('hide', function(e){
-                  inUse = false;
-                });
-                
-                ctrl.$formatters.splice(0, ctrl.$formatters.length);
-                ctrl.$parsers.splice(0, ctrl.$parsers.length);
-                ctrl.$formatters.push(function (modelValue) {
-                    if (!modelValue)
-                        return;
-                    var data = new Date(modelValue);
-                    var dia = data.getDate();
-                    if (dia.toString().length == 1)
-                      dia = "0"+dia;
-                    var mes = data.getMonth()+1;
-                    if (mes.toString().length == 1)
-                      mes = "0"+mes;
-                    var ano = data.getFullYear();  
-                    return dia+"/"+mes+"/"+ano;
-                });
-                ctrl.$parsers.push(parseDateValue);
-            }
-        };
-    })
-    
-    .directive('asDatetime', function () {
-        return {
-            require: '^ngModel',
-            restrict: 'A',
-            link: function (scope, element, attrs, ctrl) {
-                element.datepicker({
-                  format: 'dd/mm/yyyy',                
-                  language: 'pt-BR',
-                  todayBtn: "linked",
-                  autoclose: true
-                });
-                
-                var inUse = false;
-                element.on('show', function(e){
-                  if(!inUse){
-                    var el = $(this);
-                    var currDate = parseDateValue(el.val());
-                    el.data({date: currDate}).datepicker('update').children("input").val(currDate);
-                    inUse = true;
-                  }
-                });
-                
-                element.on('hide', function(e){
-                  inUse = false;
-                });
-                
-                ctrl.$formatters.splice(0, ctrl.$formatters.length);
-                ctrl.$parsers.splice(0, ctrl.$parsers.length);
-                ctrl.$formatters.push(function (modelValue) {
-                    if (!modelValue) {
-                        return;
-                    }
-                    var data = new Date(modelValue);
-                    var dia = data.getDate();
-                    if (dia.toString().length == 1)
-                      dia = "0"+dia;
-                    var mes = data.getMonth()+1;
-                    if (mes.toString().length == 1)
-                      mes = "0"+mes;
-                    var ano = data.getFullYear();  
-                    var horas = data.getHours();
-                    if (horas.toString().length == 1)
-                      horas = "0"+horas;
-                    var minutos = data.getMinutes();
-                    if (minutos.toString().length == 1)
-                      minutos = "0"+minutos;
-                    return dia+"/"+mes+"/"+ano+" "+horas+":"+minutos;
-                });
-                ctrl.$parsers.push(parseDatetimeValue);
-            }
-        };
-    })
-	
-	.directive('pwCheck', [function () { 'use strict';
-		return {
-		  require: 'ngModel',
-		  link: function (scope, elem, attrs, ctrl) {
-			var firstPassword = '#' + attrs.pwCheck;
-			elem.add(firstPassword).on('keyup', function () {
-			  scope.$apply(function () {
-				var v = elem.val()===$(firstPassword).val();
-				ctrl.$setValidity('pwmatch', v);
-			  });
-			});
-		  }
-		}
-	}])
-} (app));
+  var patternFormat = function(element){
+    if(element){
+      return $(element).attr('format') || 'DD/MM/YYYY';
+    }
+    return 'DD/MM/YYYY';
+  }
   
+  app.directive('asDate', function () {
+      return {
+          require: '^ngModel',
+          restrict: 'A',
+          link: function (scope, element, attrs, ngModel) {
+              if(!ngModel){
+                return;
+              } 
+              
+              var format = patternFormat(element);
+              
+              var options = {
+                format: format,
+                locale : 'pt-BR',
+                showTodayButton: true,
+                useStrict: true,
+                tooltips: {
+                  today: 'Hoje',
+                  clear: 'Limpar seleção',
+                  close: 'Fechar',
+                  selectMonth: 'Selecionar mês',
+                  prevMonth: 'Mês anterior',
+                  nextMonth: 'Próximo mês',
+                  selectYear: 'Selecionar ano',
+                  prevYear: 'Ano anterior',
+                  nextYear: 'Próximo ano',
+                  selectDecade: 'Selecionar década',
+                  prevDecade: 'Década anterior',
+                  nextDecade: 'Próxima década',
+                  prevCentury: 'Século anterior',
+                  nextCentury: 'Próximo século'
+                }
+              };
+              
+              if(format != 'DD/MM/YYYY'){
+                options.sideBySide = true;
+              }
+              
+              element.datetimepicker(options);
+  
+              element.on('dp.change', function(){
+                  scope.$apply(read);
+              });
+              
+              ngModel.$render = function(){
+                if(ngModel.$viewValue){
+                  var momentDate = moment(ngModel.$viewValue);
+                  if(momentDate.isValid()){
+                    element.val( momentDate.format(patternFormat(element)));
+                  }else{
+                    element.val('');
+                  }
+                }else{
+                  element.data("DateTimePicker").clear();
+                  element.val('');
+                }
+              }
+  
+              read();
+  
+              function read() {
+                  var value = element.val();
+                  var momentDate = moment(value, patternFormat(element));
+                  if(momentDate.isValid())
+                    ngModel.$setViewValue(momentDate.toDate());
+              }
+          }
+      };
+  })
+  
+  .directive('pwCheck', [function () { 'use strict';
+    return {
+      require: 'ngModel',
+      link: function (scope, elem, attrs, ctrl) {
+      var firstPassword = '#' + attrs.pwCheck;
+      elem.add(firstPassword).on('keyup', function () {
+        scope.$apply(function () {
+        var v = elem.val()===$(firstPassword).val();
+        ctrl.$setValidity('pwmatch', v);
+        });
+      });
+      }
+    }
+  }])
+} (app));
