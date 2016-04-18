@@ -215,6 +215,12 @@
 			"templateURL": "webcontent/components/templates/datepicker.template.html"
 		},
 		{
+      "name": "crn-datetimepicker",
+      "text": "Date and Time",
+      "class": "cpn cpn-datetimepicker",
+      "templateURL": "webcontent/components/templates/datetimepicker.template.html"
+    },
+		{
 			"name": "crn-upload",
 			"text": "File Upload",
 			"class": "cpn cpn-upload",
