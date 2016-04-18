@@ -37,15 +37,19 @@
           <td class=""> 
             <div class="">
 
-      <#if field.getProperty("firstStringField")?? >
-      {{rowData.${field.getProperty("firstStringField")}}}
-      <#else>
-      {{rowData.${field.name}}}
-      </#if>
-
-      </div>
+              <#if field.getProperty("firstStringField")?? >
+                {{rowData.${field.getProperty("firstStringField")}}}
+              <#else>
+                <#if field.isDate() >
+                  {{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
+                <#else>
+                  {{rowData.${field.name}}}
+                </#if>
+              </#if>
+        
+            </div>
           </td> 
-    </#list>
+        </#list>
           <td class=""> 
             <div class=""> 
               <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i></button> 
@@ -84,7 +88,9 @@
   <#if field.isBoolean() >
         <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
   <#elseif field.isDate() >
-        <input type="text" as-date ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
+        <div style="position:relative">
+          <input type="text" as-date ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+        </div> 
   <#elseif field.isNumber() >
         <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
   <#elseif field.getProperty("ngOptions")?? >
