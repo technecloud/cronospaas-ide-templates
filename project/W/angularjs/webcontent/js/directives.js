@@ -1,5 +1,11 @@
 (function ($app) {
     
+  /**
+   * Função que retorna o formato que será utilizado no componente
+   * capturando o valor do atributo format do elemento, para mais formatos
+   * consulte os formatos permitidos em http://momentjs.com/docs/#/parsing/string-format/
+   * 
+   */
   var patternFormat = function(element){
     if(element){
       return $(element).attr('format') || 'DD/MM/YYYY';
@@ -7,6 +13,16 @@
     return 'DD/MM/YYYY';
   }
   
+  /**
+   * Em todo elemento que possuir o atibuto as-date será 
+   * aplicado o componente Datetimepicker (http://eonasdan.github.io/bootstrap-datetimepicker/)
+   * 
+   * O componente se adequa de acordo com o formato, definido através do atributo format
+   * espeficado no elemento.
+   * Para data simples use format="DD/MMM/YYYY", para data e hora use format="DD/MM/YYYY HH:mm:ss"
+   * 
+   * @see http://eonasdan.github.io/bootstrap-datetimepicker/
+   */
   app.directive('asDate', function () {
       return {
           require: '^ngModel',
