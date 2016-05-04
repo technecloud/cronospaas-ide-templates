@@ -3,6 +3,7 @@ package auth.permission;
 import java.security.*;
 import java.security.cert.*;
 import java.util.*;
+import java.util.logging.*;
 
 import javax.net.ssl.*;
 import javax.servlet.*;

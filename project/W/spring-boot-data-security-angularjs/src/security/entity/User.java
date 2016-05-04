@@ -230,7 +230,7 @@ public class User implements Serializable {
 	}
 	
 	private static final String ALGORITHM = "AES/ECB/PKCS5Padding";
-	private static final byte[] KEY = util.Hash.md5(String.valueOf(serialVersionUID)).substring(0, 16).getBytes();
+	private static final byte[] KEY = auth.util.Hash.md5(String.valueOf(serialVersionUID)).substring(0, 16).getBytes();
 	private static final String MAGIC_STRING = "*!&$%#@";
 
 	private String decodePassword(String password) {
@@ -246,7 +246,7 @@ public class User implements Serializable {
 					throw new RuntimeException(e);
 				}
 			} else {
-				return util.Hash.md5(password);
+				return auth.util.Hash.md5(password);
 			}
 		}
 

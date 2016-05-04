@@ -28,6 +28,7 @@ import security.entity.User;
 import security.entity.UserRole;
 import i18n.Messages;
 
+
 @WebFilter(urlPatterns = {"/*"}, filterName = "authorization-filter")
 public class AuthorizationFilter implements Filter {
 
