@@ -1,4 +1,4 @@
-package util;
+package auth.util;
 
 import org.apache.commons.codec.binary.Hex;
 

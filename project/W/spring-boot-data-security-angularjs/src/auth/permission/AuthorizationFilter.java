@@ -1,4 +1,4 @@
-package security.permission;
+package auth.permission;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,38 +1,24 @@
-package security.permission;
+package auth.permission;
 
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.security.*;
+import java.security.cert.*;
+import java.util.*;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
+import javax.net.ssl.*;
+import javax.servlet.*;
+import javax.servlet.annotation.*;
+import javax.servlet.http.*;
+import javax.ws.rs.client.*;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
+import com.google.gson.*;
 
-import security.business.UserBusiness;
-import security.dao.SessionManager;
-import security.dao.UserDAO;
+import security.business.*;
+import security.dao.*;
 import security.dao.UserRoleDAO;
-import security.entity.User;
-import security.entity.UserRole;
-import security.oauth2.authcode.OAuth2CodeSettings;
-import security.oauth2.authcode.RevokeServlet;
-import security.oauth2.flow.OAuth2Client;
-import security.oauth2.flow.OAuth2Settings;
-import security.rest.exceptions.CustomWebApplicationException;
-import util.Hash;
+import security.entity.*;
+import security.rest.exceptions.*;
+
+import auth.util.Hash;
 
 @SuppressWarnings("unused")
 @WebServlet(value = { "/auth", "/logout", "/changePassword" }, name = "auth-servlet")
@@ -152,29 +138,6 @@ public class AuthenticationServlet extends HttpServlet {
     return result;
   }
 
-  /**
-   * Busca o usuário pelo servidor de autenticação da Techne utilizando o padrão OAuth2.
-   *
-   * @param username
-   * @param password
-   * @return
-   */
-  private boolean authenticateOAuth2(String username, String password) {
-    OAuth2Client client = new OAuth2Client(OAuth2Settings.TOKEN_URI, OAuth2Settings.REVOKE_URI,
-            OAuth2Settings.CLIENT_ID, OAuth2Settings.CLIENT_SECRET);
-    String token = null;
-    try {
-      token = client.authenticate(username, password);
-      createUserIfNotExists(username, username, null);
-      logger.log(Level.INFO, token);
-    }
-    catch(Exception e) {
-      e.printStackTrace();
-      logger.log(Level.SEVERE, e.getMessage());
-    }
-    return (token != null);
-  }
-
   public static void createUserIfNotExists(String name, String username, String pictureURL) {
     SessionManager session = SessionManager.getInstance();
     UserDAO userDao = new UserDAO(session.getEntityManager());
@@ -242,8 +205,8 @@ public class AuthenticationServlet extends HttpServlet {
     request.getSession().invalidate();
     if(accessToken != null) {
       try {
-        OAuth2CodeSettings settings = (OAuth2CodeSettings)request.getSession().getAttribute("settings");
-        RevokeServlet.revoke(settings, accessToken.toString());
+        // OAuth2CodeSettings settings = (OAuth2CodeSettings)request.getSession().getAttribute("settings");
+        // RevokeServlet.revoke(settings, accessToken.toString());
       }
       catch(Exception e) {
         e.printStackTrace();
