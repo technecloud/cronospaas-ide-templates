@@ -69,5 +69,24 @@ public class ${class_name} {
          ${class_business_variable_name}.getRepository().delete(id);
     }
 
-}
+// NamedQueries
+<#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys><#if namedQuery.isRest()>    
+<#if namedQuery.name != "list">
+<#if keys?size gt 0>    
+<#assign method_named_query_name = "${namedQuery.name?uncap_first}">
 
+  /**
+   * NamedQuery ${namedQuery.name}
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.<#if namedQuery.queryType == "select">GET</#if><#if namedQuery.queryType == "update">PUT</#if><#if namedQuery.queryType == "delete">DELETE</#if>
+  , value="/${namedQuery.name}")    
+  public <#if !namedQuery.void> List<${clazz.name}><#else>int</#if> ${namedQuery.name}Params (<#list keys as key>@RequestParam("${key}") ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset</#if>){
+      return ${class_business_variable_name}.getRepository().${method_named_query_name}(<#list keys as key>${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>new PageRequest(offset, limit) </#if>  );  
+  }
+</#if>  
+</#if>
+</#if>
+</#list>  
+
+}
