@@ -16,7 +16,7 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, String> {
 <#assign method_named_query_name = "${namedQuery.name?uncap_first}">
 
   @Query("${namedQuery.query}")
-  public <#if !namedQuery.void>List<${clazz.name}><#else>int</#if> ${method_named_query_name} (@Param <#list keys as key>${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable </#if>);
+  public <#if !namedQuery.void>List<${clazz.name}><#else>int</#if> ${method_named_query_name} (<#list keys as key>@Param(value="${key}") ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable </#if>);
   
 </#list>
 
