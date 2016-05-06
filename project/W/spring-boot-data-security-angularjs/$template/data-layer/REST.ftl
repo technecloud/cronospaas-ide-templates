@@ -30,15 +30,13 @@ public class ${class_name} {
     @Qualifier("${class_business_name}")
     private ${class_business_name} ${class_business_variable_name};
 
-    // create
+    // CRUD
     @RequestMapping(method = RequestMethod.POST)
     public ${class_entity_name} post(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         ${class_business_variable_name}.getRepository().save(entity);
         return entity;
     }
-    // create
 
-    // read
     @RequestMapping(method = RequestMethod.GET)
     public List<${class_entity_name}> get(@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) throws Exception {
         Page<${class_entity_name}> pages = ${class_business_variable_name}.getRepository().findAll(new PageRequest(offset, limit));
@@ -50,9 +48,7 @@ public class ${class_name} {
         ${class_entity_name} entity = ${class_business_variable_name}.getRepository().findOne(id);
         return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
     }
-    // read
 
-    // update
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> put(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         return ResponseEntity.ok( ${class_business_variable_name}.getRepository().saveAndFlush(entity));
@@ -62,9 +58,7 @@ public class ${class_name} {
     public ${class_entity_name} put(@PathVariable("id") final String id, @Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         return ${class_business_variable_name}.getRepository().saveAndFlush(entity);
     }
-    // update
 
-    // delete
     @RequestMapping(method = RequestMethod.DELETE)
     public void delete(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
          ${class_business_variable_name}.getRepository().delete(entity);
@@ -74,9 +68,25 @@ public class ${class_name} {
     public void delete(@PathVariable("id") final String id) throws Exception {
          ${class_business_variable_name}.getRepository().delete(id);
     }
-    // delete
 
+// NamedQueries
+<#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys><#if namedQuery.isRest()>    
+<#if namedQuery.name != "list">
+<#if keys?size gt 0>    
+<#assign method_named_query_name = "${namedQuery.name?uncap_first}">
 
+  /**
+   * NamedQuery ${namedQuery.name}
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.<#if namedQuery.queryType == "select">GET</#if><#if namedQuery.queryType == "update">PUT</#if><#if namedQuery.queryType == "delete">DELETE</#if>
+  , value="/${namedQuery.name}")    
+  public <#if !namedQuery.void> List<${clazz.name}><#else>int</#if> ${namedQuery.name}Params (<#list keys as key>@RequestParam("${key}") ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset</#if>){
+      return ${class_business_variable_name}.getRepository().${method_named_query_name}(<#list keys as key>${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>new PageRequest(offset, limit) </#if>  );  
+  }
+</#if>  
+</#if>
+</#if>
+</#list>  
 
 }
-
