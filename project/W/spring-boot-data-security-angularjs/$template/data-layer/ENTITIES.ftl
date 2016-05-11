@@ -88,8 +88,9 @@ public class ${clazz.name} implements Serializable {
 	 * @param ${field.name} ${field.name}
 	 * @generated
 	 */
-	public void set${field.name?cap_first}(${field.type} ${field.name}){
+	public ${clazz.name} set${field.name?cap_first}(${field.type} ${field.name}){
 		this.${field.name} = ${field.name};
+		return this;
 	}
 	</#list>
 	
