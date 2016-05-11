@@ -23,6 +23,14 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private AuthenticationConfigurer authenticationProvider;
+	
+	
+	@Autowired
+	private CustomAuthenticationSuccessHandler authenticationSuccessHandler;
+
+	@Autowired
+	private CustomAuthenticationFailureHandler authenticationFailureHandler;
+
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -59,7 +67,12 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().anyRequest().anonymous();
 
 		// login/logout
-		http.formLogin().loginProcessingUrl("/auth").successHandler( new CustomAuthenticationSuccessHandler() ).and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		http.formLogin()
+		.loginProcessingUrl("/auth")
+		.successHandler(authenticationSuccessHandler)
+		.failureHandler(authenticationFailureHandler)
+		.and()
+		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/login");
 		
 	}
