@@ -44,12 +44,12 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 
 		// public 
-		String [] publics = {"/index.html", "/views/login.view.html", "/public/**", "/plugins/**", "/components/**", "/js/**", "/css/**", "/img/**", "/i18n/**"};
+		String [] publics = {"/index.html", "/views/login.view.html", "/public/**", "/plugins/**", "/components/**", "/js/**", "/css/**", "/img/**", "/i18n/**", "/views/**", "/api/rest/**"};
 		http.authorizeRequests()
         .antMatchers(publics).permitAll()
         .anyRequest().authenticated();
 		
-		
+		// TODO
 		// List<Permission> permissions = permissionRepository.findAll();
 		// for (Permission p : permissions) {
 		// 	http.authorizeRequests().antMatchers(method(p.getVerb()), p.getPath()).hasAuthority(p.getRole().getName())
@@ -57,11 +57,9 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
 		// }
 		
 		http.authorizeRequests().anyRequest().anonymous();
-		
-//		http.authorizeRequests().antMatchers("/#home").hasAuthority("Logged").anyRequest().authenticated();
 
 		// login/logout
-		http.formLogin().loginProcessingUrl("/auth").and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		http.formLogin().loginProcessingUrl("/auth").successHandler( new CustomAuthenticationSuccessHandler() ).and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/login");
 		
 	}

@@ -16,6 +16,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -47,9 +48,10 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 	@Autowired
 	private PermissionDAO permissionRepository;
 
-	private final String ROLE_ADMIN_ID = "00000000-0000-0000-0000-000000000000";
-	private final String ROLE_LOGGED_ID = "11111111-1111-1111-1111-111111111111";
+	public final String ROLE_ADMIN_ID = "00000000-0000-0000-0000-000000000000";
+	public final String ROLE_LOGGED_ID = "11111111-1111-1111-1111-111111111111";
 	private static Role ROLE_LOGGED = null;
+	public static final String ROLE_ADMIN_NAME = "Administrators";
 
 	public void createDatabase() {
 
@@ -59,7 +61,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 		userAdmin.setName("admin").setLogin("admin").setPassword(passwordEncoder.encode("admin"));
 
 		Role roleAdmin = new Role();
-		roleAdmin.setId(ROLE_ADMIN_ID).setName("Administrators");
+		roleAdmin.setId(ROLE_ADMIN_ID).setName(ROLE_ADMIN_NAME);
 
 		Permission permissionAdmin = new Permission();
 		permissionAdmin.setPath("/views/admin/**").setVerb("ALL").setRole(roleAdmin).setPriority(1).setEnabled(true);
@@ -96,9 +98,13 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 
 		User user = users.get(0);
 		if (passwordEncoder.matches(rawPassword, user.getPassword())) {
-			return new UsernamePasswordAuthenticationToken(name, user.getPassword(), getAuthorities(user));
+		  Set<GrantedAuthority> roles = getAuthorities(user);
+    	org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), false, false, false, false, roles);
+    	UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(userDetails, user.getPassword(), roles );
+    	userToken.setDetails(userDetails);
+			return userToken;
 		} else {
-			throw new UsernameNotFoundException("Usuario ou senha incorreta!");
+			throw new BadCredentialsException("Usuario ou senha incorreta!");
 		}
 	}
 
