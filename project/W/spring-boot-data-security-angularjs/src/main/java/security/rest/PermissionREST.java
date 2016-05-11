@@ -1,163 +1,69 @@
 package security.rest;
 
+import org.springframework.data.domain.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.*;
+
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import javax.persistence.*;
 
-import security.rest.util.*;
-
-import security.dao.*;
 import security.entity.*;
 import security.business.*;
-import javax.servlet.http.HttpServletRequest;
-
-import security.rest.exceptions.*;
 
 
-/**
- * Publicando metodos de negocio via REST
- * @generated
- **/
-@Path("/Permission")
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-public class PermissionREST implements RESTService<Permission> {
-  /**
-   * @generated
-   */
-  private SessionManager session;
-  /**
-   * @generated
-   */  
-  private PermissionBusiness business;
-  /**
-   * @generated
-   */  
-  @Context 
-  private HttpServletRequest request;
 
-  /**
-   * @generated
-   */
-  public PermissionREST() {
-    this.session = SessionManager.getInstance();
-    this.session.getEntityManager().clear();
-    this.business = new PermissionBusiness(session);
-  }
-  
-  /**
-   * @generated
-   */  
-  @POST
-  public Response post(Permission entity) {
-    try {
-	    session.begin();
-	    business.save(entity);
-	    session.commit();
-	    business.refresh(entity);
-	    return Response.ok(entity).build();
+@RestController
+@RequestMapping(value = "/api/rest/security/Permission")
+public class PermissionREST {
+
+
+    @Autowired
+    @Qualifier("PermissionBusiness")
+    private PermissionBusiness permissionBusiness;
+
+    // CRUD
+    @RequestMapping(method = RequestMethod.POST)
+    public Permission post(@Validated @RequestBody final Permission entity) throws Exception {
+        permissionBusiness.getRepository().save(entity);
+        return entity;
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Permission> get(@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) throws Exception {
+        Page<Permission> pages = permissionBusiness.getRepository().findAll(new PageRequest(offset, limit));
+        return pages.getContent();
     }
-  }
 
-  /**
-   * @generated
-   */
-  @PUT
-  public Response put(Permission entity) {
-    try {
-	    session.begin();
-	    Permission updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public ResponseEntity<?> get(@PathVariable("id") final String id) throws Exception {
+        Permission entity = permissionBusiness.getRepository().findOne(id);
+        return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @PUT
-  @Path("/{id}")
-  public Response putWithId(Permission entity) {
-    try {
-	    session.begin();
-	    Permission updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<?> put(@Validated @RequestBody final Permission entity) throws Exception {
+        return ResponseEntity.ok( permissionBusiness.getRepository().saveAndFlush(entity));
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @DELETE
-  public Response delete(Permission entity) {  
-		try {
-			session.begin();
-			Permission updatedEntity = business.update(entity);
-			business.delete(updatedEntity);
-			session.commit();
-			return Response.ok().build();
-		}
 
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  } 
-   
-  /**
-   * @generated
-   */    
-  @DELETE
-  @Path("/{id}")
-  public Response delete(@PathParam("id") java.lang.String id) {  
-		try {
-			session.begin();
-			if (business.deleteById(id) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				return Response.status(404).build();
-			}
-		}
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public Permission put(@PathVariable("id") final String id, @Validated @RequestBody final Permission entity) throws Exception {
+        return permissionBusiness.getRepository().saveAndFlush(entity);
+    }
 
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  }
-  
-  
-  
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void delete(@Validated @RequestBody final Permission entity) throws Exception {
+         permissionBusiness.getRepository().delete(entity);
+    }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void delete(@PathVariable("id") final String id) throws Exception {
+         permissionBusiness.getRepository().delete(id);
+    }
 
-  
-  /**
-   * NamedQuery list
-   * @generated
-   */
-  @GET
-  	
-  public GenericEntity<List<Permission>> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<Permission>>(business.list(limit, offset)){};
+// NamedQueries
 
-  }
-	
 }

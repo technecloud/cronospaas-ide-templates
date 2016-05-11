@@ -1,341 +1,89 @@
 package security.rest;
 
+import org.springframework.data.domain.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.*;
+
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.*;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
-import javax.persistence.*;
 
-import security.rest.util.*;
-
-import security.dao.*;
 import security.entity.*;
 import security.business.*;
-import javax.servlet.http.HttpServletRequest;
-
-import security.rest.exceptions.*;
 
 
-/**
- * Publicando metodos de negocio via REST
- * @generated
- **/
-@Path("/User")
-@Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-@Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
-public class UserREST implements RESTService<User> {
-  /**
-   * @generated
-   */
-  private SessionManager session;
-  /**
-   * @generated
-   */  
-  private UserBusiness business;
-  /**
-   * @generated
-   */
-  private RoleBusiness roleBusiness;
-  /**
-   * @generated
-   */
-  private UserRoleBusiness userRoleBusiness;
-  /**
-   * @generated
-   */  
-  @Context 
-  private HttpServletRequest request;
 
-  /**
-   * @generated
-   */
-  public UserREST() {
-    this.session = SessionManager.getInstance();
-    this.session.getEntityManager().clear();
-    this.business = new UserBusiness(session);
-    this.roleBusiness = new RoleBusiness(session);
-    this.userRoleBusiness = new UserRoleBusiness(session);
-  }
-  
-  /**
-   * @generated
-   */  
-  @POST
-  public Response post(User entity) {
-    try {
-	    session.begin();
-	    business.save(entity);
-	    session.commit();
-	    business.refresh(entity);
-	    return Response.ok(entity).build();
+@RestController
+@RequestMapping(value = "/api/rest/security/User")
+public class UserREST {
+
+
+    @Autowired
+    @Qualifier("UserBusiness")
+    private UserBusiness userBusiness;
+
+    // CRUD
+    @RequestMapping(method = RequestMethod.POST)
+    public User post(@Validated @RequestBody final User entity) throws Exception {
+        userBusiness.getRepository().save(entity);
+        return entity;
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<User> get(@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) throws Exception {
+        Page<User> pages = userBusiness.getRepository().findAll(new PageRequest(offset, limit));
+        return pages.getContent();
     }
-  }
 
-  /**
-   * @generated
-   */
-  @PUT
-  public Response put(User entity) {
-    try {
-	    session.begin();
-	    User updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public ResponseEntity<?> get(@PathVariable("id") final String id) throws Exception {
+        User entity = userBusiness.getRepository().findOne(id);
+        return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @PUT
-  @Path("/{id}")
-  public Response putWithId(User entity) {
-    try {
-	    session.begin();
-	    User updatedEntity = business.update(entity);
-	    session.commit();
-	    return Response.ok(updatedEntity).build();
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<?> put(@Validated @RequestBody final User entity) throws Exception {
+        return ResponseEntity.ok( userBusiness.getRepository().saveAndFlush(entity));
     }
-    
-    catch(Exception exception){
-	    session.rollBack();
-        throw new CustomWebApplicationException(exception);
-    }  
-  }
-  
-  /**
-   * @generated
-   */  
-  @DELETE
-  public Response delete(User entity) {  
-		try {
-			session.begin();
-			User updatedEntity = business.update(entity);
-			business.delete(updatedEntity);
-			session.commit();
-			return Response.ok().build();
-		}
 
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  } 
-   
-  /**
-   * @generated
-   */    
-  @DELETE
-  @Path("/{id}")
-  public Response delete(@PathParam("id") java.lang.String id) {  
-		try {
-			session.begin();
-			if (business.deleteById(id) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				return Response.status(404).build();
-			}
-		}
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public User put(@PathVariable("id") final String id, @Validated @RequestBody final User entity) throws Exception {
+        return userBusiness.getRepository().saveAndFlush(entity);
+    }
 
-		catch (Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);
-		}    
-  }
-  
-  
-  
-  /**
-   * OneToMany Relationship GET
-   * @generated
-   */
-  @GET
-  @Path("/{instanceId}/UserRole")
-  public GenericEntity<List<UserRole>> findUserRole(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return new GenericEntity<List<UserRole>>(this.business.findUserRole(instanceId, limit, offset)){};
-  }
-  
-  /**
-   * OneToMany Relationship DELETE 
-   * @generated
-   */  
-  @DELETE
-  @Path("/{instanceId}/UserRole/{relationId}")
-  public Response deleteUserRole(@PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			if (this.userRoleBusiness.deleteById(relationId) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				session.rollBack();
-				return Response.status(404).build();
-			}
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }
-  
-  /**
-   * OneToMany Relationship PUT
-   * @generated
-   */  
-  @PUT
-  @Path("/{instanceId}/UserRole/{relationId}")
-  public Response putUserRole(UserRole entity, @PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			UserRole updatedEntity = this.userRoleBusiness.update(entity);
-			session.commit();
-			return Response.ok(updatedEntity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }  
-  
-  /**
-   * OneToMany Relationship POST
-   * @generated
-   */  
-  @POST
-  @Path("/{instanceId}/UserRole")
-  public Response postUserRole(UserRole entity, @PathParam("instanceId") java.lang.String instanceId) {
-		try {
-			session.begin();
-			User user = this.business.findById(instanceId);
-			entity.setUser(user);
-			this.userRoleBusiness.save(entity);
-			session.commit();
-			this.userRoleBusiness.refresh(entity);
-			return Response.ok(entity).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }   
-  
+    @RequestMapping(method = RequestMethod.DELETE)
+    public void delete(@Validated @RequestBody final User entity) throws Exception {
+         userBusiness.getRepository().delete(entity);
+    }
 
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void delete(@PathVariable("id") final String id) throws Exception {
+         userBusiness.getRepository().delete(id);
+    }
 
-  /**
-   * ManyToMany Relationship GET
-   * @generated
-   */
-  @GET
-  @Path("/{instanceId}/Role")
-  public GenericEntity<List<Role>> listRole(@PathParam("instanceId") java.lang.String instanceId, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset) {
-    return new GenericEntity<List<Role>>(this.business.listRole(instanceId, limit, offset)){};
-  }
-  
-  /**
-   * ManyToMany Relationship POST
-   * @generated
-   */  
-  @POST
-  @Path("/{instanceId}/Role")
-  public Response postRole(Role entity, @PathParam("instanceId") java.lang.String instanceId) {
-		try {
-			session.begin();
-			UserRole newUserRole = new UserRole();
+// NamedQueries
 
-			User instance = this.business.findById(instanceId);
-
-
-			newUserRole.setRole(entity);
-			newUserRole.setUser(instance);
-			
-			this.userRoleBusiness.save(newUserRole);
-			session.commit();
-			this.userRoleBusiness.refresh(newUserRole);
-			return Response.ok(newUserRole.getUser()).build();
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }   
-  
-  /**
-   * ManyToMany Relationship DELETE
-   * @generated
-   */  
-  @DELETE
-  @Path("/{instanceId}/Role/{relationId}")
-  public Response deleteRole(@PathParam("instanceId") java.lang.String instanceId, @PathParam("relationId") java.lang.String relationId) {
-		try {
-			session.begin();
-			if (this.business.deleteRole(instanceId, relationId) > 0) {
-				session.commit();
-				return Response.ok().build();
-			} else {
-				session.rollBack();
-				return Response.status(404).build();
-			}
-		} catch(Exception exception) {
-			session.rollBack();
-			throw new CustomWebApplicationException(exception);	
-		}
-  }  
-  
-  
-  /**
-   * NamedQuery list
-   * @generated
-   */
-  @GET
-  	
-  public GenericEntity<List<User>> list(@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<User>>(business.list(limit, offset)){};
-
-  }
   /**
    * NamedQuery findByRole
    * @generated
    */
-  @GET
-  @Path("/findByRole/{roleid}")	
-  public GenericEntity<List<User>> findByRole(@PathParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<User>>(business.findByRole(roleid, limit, offset)){};
-
+  @RequestMapping(method = RequestMethod.GET
+  , value="/findByRole")    
+  public  List<User> findByRoleParams (@RequestParam("roleid") java.lang.String roleid, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
+      return userBusiness.getRepository().findByRole(roleid, new PageRequest(offset, limit)   );  
   }
+
   /**
    * NamedQuery findByLogin
    * @generated
    */
-  @GET
-  @Path("/findByLogin/{login}")	
-  public GenericEntity<List<User>> findByLogin(@PathParam("login")java.lang.String login, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<User>>(business.findByLogin(login, limit, offset)){};
+  @RequestMapping(method = RequestMethod.GET
+  , value="/findByLogin")    
+  public  List<User> findByLoginParams (@RequestParam("login") java.lang.String login, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
+      return userBusiness.getRepository().findByLogin(login, new PageRequest(offset, limit)   );  
+  }
 
-  }
-	
-  /**
-   * NamedQuery findByRole
-   * @generated
-   */
-  @GET
-  @Path("/findByRole")	
-  public GenericEntity<List<User>> findByRoleParams(@QueryParam("roleid")java.lang.String roleid, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<User>>(business.findByRole(roleid, limit, offset)){};	
-  }
-  /**
-   * NamedQuery findByLogin
-   * @generated
-   */
-  @GET
-  @Path("/findByLogin")	
-  public GenericEntity<List<User>> findByLoginParams(@QueryParam("login")java.lang.String login, @DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset){
-      return new GenericEntity<List<User>>(business.findByLogin(login, limit, offset)){};	
-  }
 }

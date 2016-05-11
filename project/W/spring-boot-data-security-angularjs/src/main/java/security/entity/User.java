@@ -4,9 +4,6 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
-import javax.crypto.*;
-import javax.crypto.spec.*;
-import java.security.*;
 
 /**
  * Classe que representa a tabela USER
@@ -14,11 +11,6 @@ import java.security.*;
  */
 @Entity
 @Table(name = "\"USER\"")
-@NamedQueries({
-        @NamedQuery(name = "userList", query = "select u from User u"),
-        @NamedQuery(name = "userFindByRole", query = "select u.user from UserRole u where u.role.id = :roleid"),
-        @NamedQuery(name = "userFindByLogin", query = "select u from User u where u.login = :login")
-})
 @XmlRootElement
 public class User implements Serializable {
 
@@ -90,8 +82,9 @@ public class User implements Serializable {
 	 * @param email email
 	 * @generated
 	 */
-	public void setEmail(java.lang.String email){
+	public User setEmail(java.lang.String email){
 		this.email = email;
+		return this;
 	}
 	
 	/**
@@ -109,8 +102,9 @@ public class User implements Serializable {
 	 * @param name name
 	 * @generated
 	 */
-	public void setName(java.lang.String name){
+	public User setName(java.lang.String name){
 		this.name = name;
+		return this;
 	}
 	
 	/**
@@ -128,8 +122,9 @@ public class User implements Serializable {
 	 * @param id id
 	 * @generated
 	 */
-	public void setId(java.lang.String id){
+	public User setId(java.lang.String id){
 		this.id = id;
+		return this;
 	}
 	
 	/**
@@ -147,8 +142,9 @@ public class User implements Serializable {
 	 * @param login login
 	 * @generated
 	 */
-	public void setLogin(java.lang.String login){
+	public User setLogin(java.lang.String login){
 		this.login = login;
+		return this;
 	}
 	
 	/**
@@ -166,8 +162,9 @@ public class User implements Serializable {
 	 * @param picture picture
 	 * @generated
 	 */
-	public void setPicture(java.lang.String picture){
+	public User setPicture(java.lang.String picture){
 		this.picture = picture;
+		return this;
 	}
 	
 	/**
@@ -185,8 +182,9 @@ public class User implements Serializable {
 	 * @param password password
 	 * @generated
 	 */
-	public void setPassword(java.lang.String password){
+	public User setPassword(java.lang.String password){
 		this.password = password;
+		return this;
 	}
 	
 	/**
@@ -227,61 +225,5 @@ public class User implements Serializable {
 
 	    return true;
 	    
-	}
-	
-	private static final String ALGORITHM = "AES/ECB/PKCS5Padding";
-	private static final byte[] KEY = auth.util.Hash.md5(String.valueOf(serialVersionUID)).substring(0, 16).getBytes();
-	private static final String MAGIC_STRING = "*!&$%#@";
-
-	private String decodePassword(String password) {
-		if (password != null) {
-			if (password.startsWith(MAGIC_STRING)) {
-				Key key = new SecretKeySpec(KEY, "AES");
-				String value = password.substring(MAGIC_STRING.length());
-				try {
-					Cipher c = Cipher.getInstance(ALGORITHM);
-					c.init(Cipher.DECRYPT_MODE, key);
-					return new String(c.doFinal(Base64.getDecoder().decode(value.getBytes())));
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				}
-			} else {
-				return auth.util.Hash.md5(password);
-			}
-		}
-
-		return null;
-	}
-
-	private String encodePassword(String password) {
-		if (password != null) {
-			if (!password.startsWith(MAGIC_STRING)) {
-				Key key = new SecretKeySpec(KEY, "AES");
-				try {
-					Cipher c = Cipher.getInstance(ALGORITHM);
-					c.init(Cipher.ENCRYPT_MODE, key);
-					return MAGIC_STRING + Base64.getEncoder().encodeToString(c.doFinal(password.getBytes()));
-				} catch (Exception e) {
-					throw new RuntimeException(e);
-				}
-			}
-		}
-
-		return password;
-	}
-
-	@PrePersist
-	@PreUpdate
-	public void unmaskPassword() {
-		this.password = this.decodePassword(this.password);
-	}
-
-	@PostLoad
-	public void maskPassword() {
-		this.password = this.encodePassword(this.password);
-	}
-
-	public String getHashedPassword() {
-		return this.decodePassword(this.password);
 	}
 }

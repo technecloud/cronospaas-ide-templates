@@ -11,9 +11,6 @@ import javax.xml.bind.annotation.*;
  */
 @Entity
 @Table(name = "\"PERMISSION\"")
-@NamedQueries({
-        @NamedQuery(name = "permissionList", query = "select p from Permission p")
-})
 @XmlRootElement
 public class Permission implements Serializable {
 
@@ -98,8 +95,9 @@ public class Permission implements Serializable {
 	 * @param response response
 	 * @generated
 	 */
-	public void setResponse(java.lang.Integer response){
+	public Permission setResponse(java.lang.Integer response){
 		this.response = response;
+		return this;
 	}
 	
 	/**
@@ -117,8 +115,9 @@ public class Permission implements Serializable {
 	 * @param path path
 	 * @generated
 	 */
-	public void setPath(java.lang.String path){
+	public Permission setPath(java.lang.String path){
 		this.path = path;
+		return this;
 	}
 	
 	/**
@@ -136,8 +135,9 @@ public class Permission implements Serializable {
 	 * @param verb verb
 	 * @generated
 	 */
-	public void setVerb(java.lang.String verb){
+	public Permission setVerb(java.lang.String verb){
 		this.verb = verb;
+		return this;
 	}
 	
 	/**
@@ -155,8 +155,9 @@ public class Permission implements Serializable {
 	 * @param id id
 	 * @generated
 	 */
-	public void setId(java.lang.String id){
+	public Permission setId(java.lang.String id){
 		this.id = id;
+		return this;
 	}
 	
 	/**
@@ -174,8 +175,9 @@ public class Permission implements Serializable {
 	 * @param priority priority
 	 * @generated
 	 */
-	public void setPriority(java.lang.Integer priority){
+	public Permission setPriority(java.lang.Integer priority){
 		this.priority = priority;
+		return this;
 	}
 	
 	/**
@@ -193,8 +195,9 @@ public class Permission implements Serializable {
 	 * @param exclude exclude
 	 * @generated
 	 */
-	public void setExclude(java.lang.String exclude){
+	public Permission setExclude(java.lang.String exclude){
 		this.exclude = exclude;
+		return this;
 	}
 	
 	/**
@@ -212,8 +215,9 @@ public class Permission implements Serializable {
 	 * @param enabled enabled
 	 * @generated
 	 */
-	public void setEnabled(boolean enabled){
+	public Permission setEnabled(boolean enabled){
 		this.enabled = enabled;
+		return this;
 	}
 	
 	/**
@@ -231,8 +235,9 @@ public class Permission implements Serializable {
 	 * @param role role
 	 * @generated
 	 */
-	public void setRole(Role role){
+	public Permission setRole(Role role){
 		this.role = role;
+		return this;
 	}
 	
 	/**

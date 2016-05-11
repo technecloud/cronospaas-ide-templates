@@ -1,4 +1,4 @@
-package security.entity;
+package sample.pessoa.entity;
 
 import java.io.*;
 import javax.persistence.*;
@@ -6,19 +6,19 @@ import java.util.*;
 import javax.xml.bind.annotation.*;
 
 /**
- * Classe que representa a tabela USERROLE
+ * Classe que representa a tabela CIDADE
  * @generated
  */
 @Entity
-@Table(name = "\"USERROLE\"")
+@Table(name = "\"CIDADE\"")
 @XmlRootElement
-public class UserRole implements Serializable {
+public class Cidade implements Serializable {
 
 	/**
 	 * UID da classe, necessário na serialização 
 	 * @generated
 	 */
-	private static final long serialVersionUID = -201887997l;
+	private static final long serialVersionUID = 2018200409l;
 	
 	/**
 	 * @generated
@@ -31,23 +31,15 @@ public class UserRole implements Serializable {
 	/**
 	 * @generated
 	 */
-	@ManyToOne
-	@JoinColumn(name="fk_user", referencedColumnName = "id")
-	private User user;
-	
-	/**
-	 * @generated
-	 */
-	@ManyToOne
-	@JoinColumn(name="fk_role", referencedColumnName = "id")
-	private Role role;
+	@Column(name = "nome", nullable = true, unique = false)
+	private java.lang.String nome;
 	
 	
 	/**
 	 * Construtor
 	 * @generated
 	 */
-	public UserRole(){
+	public Cidade(){
 	}
 
 	
@@ -66,48 +58,28 @@ public class UserRole implements Serializable {
 	 * @param id id
 	 * @generated
 	 */
-	public UserRole setId(java.lang.String id){
+	public Cidade setId(java.lang.String id){
 		this.id = id;
 		return this;
 	}
 	
 	/**
-	 * Obtém user
-	 * @param user user
-	 * return user
+	 * Obtém nome
+	 * @param nome nome
+	 * return nome
 	 * @generated
 	 */
-	public User getUser(){
-		return this.user;
+	public java.lang.String getNome(){
+		return this.nome;
 	}
 	
 	/**
-	 * Define user
-	 * @param user user
+	 * Define nome
+	 * @param nome nome
 	 * @generated
 	 */
-	public UserRole setUser(User user){
-		this.user = user;
-		return this;
-	}
-	
-	/**
-	 * Obtém role
-	 * @param role role
-	 * return role
-	 * @generated
-	 */
-	public Role getRole(){
-		return this.role;
-	}
-	
-	/**
-	 * Define role
-	 * @param role role
-	 * @generated
-	 */
-	public UserRole setRole(Role role){
-		this.role = role;
+	public Cidade setNome(java.lang.String nome){
+		this.nome = nome;
 		return this;
 	}
 	
@@ -136,10 +108,10 @@ public class UserRole implements Serializable {
 	    if(obj == null)
 	      return false;
 	    
-	    if(!(obj instanceof UserRole))
+	    if(!(obj instanceof Cidade))
 	      return false;
 	    
-	    UserRole other = (UserRole)obj;
+	    Cidade other = (Cidade)obj;
 	    
 		if(this.id == null && other.id != null)
 	    	return false;

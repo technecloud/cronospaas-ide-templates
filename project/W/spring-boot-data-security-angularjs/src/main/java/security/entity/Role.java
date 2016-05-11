@@ -11,9 +11,6 @@ import javax.xml.bind.annotation.*;
  */
 @Entity
 @Table(name = "\"ROLE\"")
-@NamedQueries({
-        @NamedQuery(name = "roleList", query = "select r from Role r")
-})
 @XmlRootElement
 public class Role implements Serializable {
 
@@ -61,8 +58,9 @@ public class Role implements Serializable {
 	 * @param name name
 	 * @generated
 	 */
-	public void setName(java.lang.String name){
+	public Role setName(java.lang.String name){
 		this.name = name;
+		return this;
 	}
 	
 	/**
@@ -80,8 +78,9 @@ public class Role implements Serializable {
 	 * @param id id
 	 * @generated
 	 */
-	public void setId(java.lang.String id){
+	public Role setId(java.lang.String id){
 		this.id = id;
+		return this;
 	}
 	
 	/**
