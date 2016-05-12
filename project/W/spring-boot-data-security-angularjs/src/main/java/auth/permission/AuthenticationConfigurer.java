@@ -58,13 +58,15 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 		LOGGER.info("Creating database");
 
 		User userAdmin = new User();
-		userAdmin.setName("admin").setLogin("admin").setPassword(passwordEncoder.encode("admin"));
+		userAdmin.setName("admin").setLogin("admin").setPassword("admin");
 
 		Role roleAdmin = new Role();
 		roleAdmin.setId(ROLE_ADMIN_ID).setName(ROLE_ADMIN_NAME);
 
 		Permission permissionAdmin = new Permission();
 		permissionAdmin.setPath("/views/admin/**").setVerb("ALL").setRole(roleAdmin).setPriority(1).setEnabled(true);
+		Permission permissionAdminRest = new Permission();
+		permissionAdminRest.setPath("/api/rest/security/**").setVerb("ALL").setRole(roleAdmin).setPriority(1).setEnabled(true);
 
 		Role roleLogged = new Role();
 		roleLogged.setId(ROLE_LOGGED_ID).setName("Logged");
@@ -76,7 +78,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 		userRoleAdmin.setRole(roleAdmin).setUser(userAdmin);
 
 		User userOrdinary = new User();
-		userOrdinary.setName("techne").setLogin("techne").setPassword(passwordEncoder.encode("techne"));
+		userOrdinary.setName("techne").setLogin("techne").setPassword("techne");
 
 		userRepository.save(userOrdinary);
 		userRepository.save(userAdmin);
@@ -84,6 +86,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 		roleRepository.save(roleLogged);
 		permissionRepository.save(permissionAdmin);
 		permissionRepository.save(permissionLogged);
+		permissionRepository.save(permissionAdminRest);
 		userRoleRepository.save(userRoleAdmin);
 	}
 

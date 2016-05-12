@@ -5,6 +5,9 @@ import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+
 /**
  * Classe que representa a tabela USER
  * @generated
@@ -176,14 +179,15 @@ public class User implements Serializable {
 	public java.lang.String getPassword(){
 		return this.password;
 	}
-	
+
+
 	/**
 	 * Define password
 	 * @param password password
 	 * @generated
 	 */
 	public User setPassword(java.lang.String password){
-		this.password = password;
+		this.password = new BCryptPasswordEncoder().encode( password );
 		return this;
 	}
 	
@@ -227,3 +231,4 @@ public class User implements Serializable {
 	    
 	}
 }
+
