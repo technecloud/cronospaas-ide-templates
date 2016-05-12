@@ -57,8 +57,15 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		// post sem csrf
-		http.csrf().disable();
-
+    http
+      .csrf().disable();
+      
+    // session manager
+    http
+      .sessionManagement()
+      .maximumSessions(1)
+      .maxSessionsPreventsLogin(false);
+    
 		// public 
 		String [] publics = {"/index.html", "/views/login.view.html", "/public/**", "/plugins/**", "/components/**", "/js/**", "/css/**", "/img/**", "/i18n/**", "/views/error/**"};
 		http.authorizeRequests()
@@ -74,13 +81,16 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
 //		http.authorizeRequests().anyRequest().anonymous();
 
 		// login/logout
-		http.formLogin()
-		.loginProcessingUrl("/auth")
-		.successHandler(successHandler())
-		.failureHandler(failureHandler())
+		http
+		  .formLogin()
+    		.loginProcessingUrl("/auth")
+    		.successHandler(successHandler())
+    		.failureHandler(failureHandler())
 		.and()
-		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/login");
+		.logout()
+		  .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		  .logoutSuccessUrl("/login")
+		  .invalidateHttpSession(true);
 		
 	}
 	
@@ -138,4 +148,3 @@ private AuthenticationFailureHandler failureHandler() {
 	
 	
 }
-
