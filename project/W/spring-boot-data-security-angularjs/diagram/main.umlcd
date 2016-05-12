@@ -14,7 +14,7 @@
 			"id": "paperCell",
 			"runtimeClass": "cronos.widgets.joint.uml.Paper",
 			"z": 1,
-			"dataSource": "jdbc/Angular",
+			"dataSource": "jdbc/main",
 			"namespace": "security",
 			"attrs": {}
 		},

@@ -5,7 +5,6 @@ import org.springframework.context.annotation.*;
 
 @ComponentScan(basePackages = {
 "security" , 
-"sample.pessoa" ,
 "auth.permission"
 })
 @SpringBootApplication
