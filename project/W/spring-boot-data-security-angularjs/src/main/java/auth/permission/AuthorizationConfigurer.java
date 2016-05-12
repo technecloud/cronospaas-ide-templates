@@ -19,6 +19,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.config.http.*;
 
 
 import security.dao.PermissionDAO;
@@ -64,8 +65,12 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
     http
       .sessionManagement()
       .maximumSessions(1)
-      .maxSessionsPreventsLogin(false);
-    
+      .maxSessionsPreventsLogin(false)
+      .expiredUrl("/")
+      .and()
+      .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+      .invalidSessionUrl("/");
+
 		// public 
 		String [] publics = {"/index.html", "/views/login.view.html", "/public/**", "/plugins/**", "/components/**", "/js/**", "/css/**", "/img/**", "/i18n/**", "/views/error/**"};
 		http.authorizeRequests()
@@ -86,12 +91,12 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
     		.loginProcessingUrl("/auth")
     		.successHandler(successHandler())
     		.failureHandler(failureHandler())
-		.and()
+  	.and()
 		.logout()
 		  .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		  .logoutSuccessUrl("/login")
 		  .invalidateHttpSession(true);
-		
+
 	}
 	
 
@@ -134,8 +139,7 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
 
 		};
 	}
-	
-	
+		
 private AuthenticationFailureHandler failureHandler() {
         return new AuthenticationFailureHandler() {
             @Override
@@ -145,6 +149,5 @@ private AuthenticationFailureHandler failureHandler() {
         };
     }
 	
-	
-	
+		
 }
