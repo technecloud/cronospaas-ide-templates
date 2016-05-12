@@ -1,13 +1,11 @@
-<div class="degrade"> 
-  <div class="container"> 
-    <div class="card card-container"> 
-      <img id="profile-img" class="profile-img-card" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"> 
-      <p id="profile-name" class="profile-name-card"></p> 
+<div class="degrade" data-container="true"> 
+  <div class="container" data-container="true"> 
+    <div class="card card-container" data-container="true"> 
+      <img data-container="true" id="profile-img" class="profile-img-card" src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png"> 
       <form class="form-signin" ng-submit="login()" role="form"> 
-        <span id="reauth-email" class="reauth-email"></span> 
-        <input type="text" id="username" class="form-control" ng-model="username.value" placeholder="{{'Login.view.Username' | translate}}" required autofocus> 
-        <input type="password" id="password" class="form-control" ng-model="password.value" placeholder="{{'Login.view.Password' | translate}}" required> 
-        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" ng-disabled="form.$invalid || vm.dataLoading">{{"Login.view.Login" | translate}}</button> 
+        <input data-container="true" type="text" id="username" class="form-control" ng-model="username.value" placeholder="{{'Login.view.Username' | translate}}" required autofocus> 
+        <input data-container="true" type="password" id="password" class="form-control" ng-model="password.value" placeholder="{{'Login.view.Password' | translate}}" required> 
+        <button data-container="true" class="btn btn-lg btn-primary btn-block btn-signin" type="submit" ng-disabled="form.$invalid || vm.dataLoading">{{"Login.view.Login" | translate}}</button> 
       </form> 
     </div> 
   </div> 
