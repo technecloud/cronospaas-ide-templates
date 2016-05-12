@@ -1,0 +1,49 @@
+package auth.permission;
+
+import org.springframework.data.domain.*;
+import org.springframework.web.bind.annotation.*;
+
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.*;
+
+import org.springframework.http.*;
+
+import java.util.*;
+
+import security.entity.*;
+import security.business.*;
+
+@RestController
+@RequestMapping(value = "/changePassword")
+@PreAuthorize("hasRole('Logged')")
+public class ChangePassword {
+
+	@Autowired
+	@Qualifier("UserBusiness")
+	private UserBusiness userBusiness;
+
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public User post(final String oldPassword, final String newPassword,
+			final String newPasswordConfirmation) throws Exception {
+
+		if (!newPassword.equals(newPasswordConfirmation))
+			throw new RuntimeException("Senha de confirmacao diferente");
+
+		org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+
+		List<User> users = userBusiness.getRepository().findByLogin(
+				userDetails.getUsername(), new PageRequest(0, 100));
+		if (users.size() > 0) {
+			User user = users.get(0);
+			user.setPassword(newPassword);
+			userBusiness.getRepository().saveAndFlush(user);
+			return user;
+		}
+
+		throw new RuntimeException("Usuario não encontrado!");
+	}
+}
+
