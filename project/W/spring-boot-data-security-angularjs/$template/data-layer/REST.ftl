@@ -4,10 +4,9 @@ import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.*;
 
-
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -30,46 +29,73 @@ public class ${class_name} {
     @Qualifier("${class_business_name}")
     private ${class_business_name} ${class_business_variable_name};
 
-    // CRUD
+  /**
+   * CRUD - Create
+   * @generated
+   */
     @RequestMapping(method = RequestMethod.POST)
     public ${class_entity_name} post(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         ${class_business_variable_name}.getRepository().save(entity);
         return entity;
     }
 
+  /**
+   * CRUD - Read
+   * @generated
+   */
     @RequestMapping(method = RequestMethod.GET)
     public List<${class_entity_name}> get(@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) throws Exception {
         Page<${class_entity_name}> pages = ${class_business_variable_name}.getRepository().findAll(new PageRequest(offset, limit));
         return pages.getContent();
     }
 
+  /**
+   * CRUD - Read
+   * @generated
+   */
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<?> get(@PathVariable("id") final String id) throws Exception {
         ${class_entity_name} entity = ${class_business_variable_name}.getRepository().findOne(id);
         return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
     }
 
+  /**
+   * CRUD - Update
+   * @generated
+   */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> put(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         return ResponseEntity.ok( ${class_business_variable_name}.getRepository().saveAndFlush(entity));
     }
 
+  /**
+   * CRUD - Update
+   * @generated
+   */
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
     public ${class_entity_name} put(@PathVariable("id") final String id, @Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         return ${class_business_variable_name}.getRepository().saveAndFlush(entity);
     }
 
+  /**
+   * CRUD - Delete
+   * @generated
+   */
     @RequestMapping(method = RequestMethod.DELETE)
     public void delete(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
          ${class_business_variable_name}.getRepository().delete(entity);
     }
 
+  /**
+   * CRUD - Delete
+   * @generated
+   */
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public void delete(@PathVariable("id") final String id) throws Exception {
          ${class_business_variable_name}.getRepository().delete(id);
     }
 
-// NamedQueries
+
 <#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys><#if namedQuery.isRest()>    
 <#if namedQuery.name != "list">
 <#if keys?size gt 0>    
@@ -88,5 +114,35 @@ public class ${class_name} {
 </#if>
 </#if>
 </#list>  
+
+
+<#list clazz.oneToManyRelation as relation>
+  /**
+   * OneToMany Relationship GET
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")    
+  public List<${relation.clazz.name}> find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) {
+    return ${class_business_variable_name}.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> new PageRequest(offset, limit) );
+  }
+
+</#list>
+
+
+<#list clazz.manyToManyRelation as relation>
+  /**
+   * ManyToMany Relationship GET
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
+  public List<${relation.relationClassField.type}> list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset ) {
+    return ${class_business_variable_name}.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> new PageRequest(offset, limit) );
+  }
+
+</#list>
+
+
 
 }
