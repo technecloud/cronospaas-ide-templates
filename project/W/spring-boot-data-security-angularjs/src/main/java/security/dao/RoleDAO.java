@@ -16,5 +16,37 @@ public interface RoleDAO extends JpaRepository<Role, String> {
   public List<Role> list ( Pageable pageable );
   
 
+  /**
+   * OneToMany Relation
+   * @generated
+   */
+  @Query("SELECT entity FROM UserRole entity WHERE entity.role.id = :id")
+  public List<UserRole> findUserRole(@Param(value="id") java.lang.String id,  Pageable pageable );
+  /**
+   * OneToMany Relation
+   * @generated
+   */
+  @Query("SELECT entity FROM Permission entity WHERE entity.role.id = :id")
+  public List<Permission> findPermission(@Param(value="id") java.lang.String id,  Pageable pageable );
+
+
+
+  /**
+   * ManyToOne Relation
+   * @generated
+   */
+  @Query("SELECT entity.user FROM UserRole entity WHERE entity.role.id = :id")
+  public List<User> listUser(@Param(value="id") java.lang.String id,  Pageable pageable);
+
+    /**
+     * ManyToOne Relation Delete
+     * @generated
+     */
+    @Modifying
+    @Query("DELETE FROM UserRole entity WHERE entity.role.id = :instanceId AND entity.user.id = :relationId")
+    public int deleteUser(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
+
+
+
 
 }

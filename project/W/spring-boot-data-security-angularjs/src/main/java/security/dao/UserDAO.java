@@ -24,5 +24,31 @@ public interface UserDAO extends JpaRepository<User, String> {
   public List<User> findByLogin (@Param(value="login") java.lang.String login , Pageable pageable );
   
 
+  /**
+   * OneToMany Relation
+   * @generated
+   */
+  @Query("SELECT entity FROM UserRole entity WHERE entity.user.id = :id")
+  public List<UserRole> findUserRole(@Param(value="id") java.lang.String id,  Pageable pageable );
+
+
+
+  /**
+   * ManyToOne Relation
+   * @generated
+   */
+  @Query("SELECT entity.role FROM UserRole entity WHERE entity.user.id = :id")
+  public List<Role> listRole(@Param(value="id") java.lang.String id,  Pageable pageable);
+
+    /**
+     * ManyToOne Relation Delete
+     * @generated
+     */
+    @Modifying
+    @Query("DELETE FROM UserRole entity WHERE entity.user.id = :instanceId AND entity.role.id = :relationId")
+    public int deleteRole(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
+
+
+
 
 }

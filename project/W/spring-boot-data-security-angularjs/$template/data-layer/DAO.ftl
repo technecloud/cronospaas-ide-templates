@@ -11,7 +11,7 @@ import org.springframework.data.repository.query.*;
 @Repository("${clazz.name}DAO")
 public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, String> {
 
-<#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys>	
+<#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys> 
 
 <#assign method_named_query_name = "${namedQuery.name?uncap_first}">
 
@@ -43,6 +43,7 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, String> {
      * ManyToOne Relation Delete
      * @generated
      */
+    @Modifying
     @Query("DELETE FROM ${relation.associativeClassField.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.associativeClassField.name}.${field.pathName} = :instance${field.name?cap_first}<#if field_has_next> AND </#if></#list><#if clazz.primaryKeys?size gt 0> AND </#if><#list relation.relationClass.primaryKeys as field>entity.${relation.relationClassField.pathName}.${field.pathName} = :relation${field.name?cap_first}<#if field_has_next> AND </#if></#list>")
     public int delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@Param(value="instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>@Param(value="relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
 

@@ -17,4 +17,9 @@ public interface PermissionDAO extends JpaRepository<Permission, String> {
   
 
 
+
+
+
+
+
 }

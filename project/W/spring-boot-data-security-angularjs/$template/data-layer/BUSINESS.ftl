@@ -25,6 +25,7 @@ public class ${clazz_name} {
     @Qualifier("${qualified_repository_name}")
     protected ${clazz.name}DAO repository;
 
+
     public ${clazz.name}DAO getRepository() {
         return repository;
     }
@@ -39,7 +40,7 @@ public class ${clazz_name} {
       List<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
       // begin-user-code  
       // end-user-code        
-      return result;	  
+      return result;    
   }
 
 </#list>
@@ -55,7 +56,7 @@ public class ${clazz_name} {
       List<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
       // begin-user-code
       // end-user-code
-      return result;        	  
+      return result;            
   }
   
   /**
