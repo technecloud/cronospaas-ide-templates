@@ -4,21 +4,34 @@ import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 import org.springframework.beans.factory.annotation.*;
 
-
 import security.dao.*;
 
-
-
+/**
+ * Classe que representa a camada de negócios de UserRole
+ * 
+ * @generated
+ **/
 @Service("UserRoleBusiness")
-@Transactional(transactionManager="security-TransactionManager")
+@Transactional(transactionManager = "security-TransactionManager")
 public class UserRoleBusiness {
-
-    @Autowired
-    @Qualifier("UserRoleDAO")
-    protected UserRoleDAO repository;
-
-    public UserRoleDAO getRepository() {
-        return repository;
-    }
-    
+  
+  /**
+   * Instância da classe UserRoleDAO que faz o acesso ao banco de dados
+   * 
+   * @generated
+   */
+  @Autowired
+  @Qualifier("UserRoleDAO")
+  protected UserRoleDAO repository;
+  
+  
+  /**
+   * Método de acesso ao UserRoleDAO
+   * 
+   * @generated
+   */
+  public UserRoleDAO getRepository() {
+    return repository;
+  }
+  
 }
