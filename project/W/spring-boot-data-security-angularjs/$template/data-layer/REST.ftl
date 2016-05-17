@@ -20,50 +20,96 @@ import ${bussinessPackage}.*;
 <#assign class_business_variable_name = "${clazz.name?uncap_first}Business">
 <#assign request_mapping_value = restPath + "/" + clazz.name >
 
-
+/**
+ * Controller para expor serviços REST de ${class_entity_name}
+ * 
+ * @author ${UserName}
+ * @version 1.0
+ * @since ${.now?string("yyyy-MM-dd")}
+ * @generated
+ **/
 @RestController
 @RequestMapping(value = "${request_mapping_value}")
 public class ${class_name} {
 
-
+    /**
+     * Classe de negócio para manipulação de dados
+     * 
+     * @generated
+     */
     @Autowired
     @Qualifier("${class_business_name}")
     private ${class_business_name} ${class_business_variable_name};
 
-    // CRUD
+    /**
+     * Serviço exposto para novo registro de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
     @RequestMapping(method = RequestMethod.POST)
     public ${class_entity_name} post(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         ${class_business_variable_name}.getRepository().save(entity);
         return entity;
     }
 
+    /**
+     * Serviço exposto para recuperar entidades de acordo com os paramêtros para limite
+     * 
+     * @generated
+     */
     @RequestMapping(method = RequestMethod.GET)
     public List<${class_entity_name}> get(@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) throws Exception {
         Page<${class_entity_name}> pages = ${class_business_variable_name}.getRepository().findAll(new PageRequest(offset, limit));
         return pages.getContent();
     }
 
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ResponseEntity<?> get(@PathVariable("id") final String id) throws Exception {
         ${class_entity_name} entity = ${class_business_variable_name}.getRepository().findOne(id);
         return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
     }
 
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade fornecida
+     * 
+     * @generated
+     */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> put(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         return ResponseEntity.ok( ${class_business_variable_name}.getRepository().saveAndFlush(entity));
     }
 
+    /**
+     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
+     * 
+     * @generated
+     */
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
     public ${class_entity_name} put(@PathVariable("id") final String id, @Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         return ${class_business_variable_name}.getRepository().saveAndFlush(entity);
     }
 
+
+    /**
+     * Serviço exposto para remover a entidade fornecida
+     * 
+     * @generated
+     */
     @RequestMapping(method = RequestMethod.DELETE)
     public void delete(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
          ${class_business_variable_name}.getRepository().delete(entity);
     }
 
+    /**
+     * Serviço exposto para remover a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public void delete(@PathVariable("id") final String id) throws Exception {
          ${class_business_variable_name}.getRepository().delete(id);

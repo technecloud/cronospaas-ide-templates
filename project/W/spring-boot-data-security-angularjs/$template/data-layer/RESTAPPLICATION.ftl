@@ -15,14 +15,18 @@ import org.springframework.transaction.annotation.*;
 
 <#assign first_pu = workspaceView.allDiagrams[0].getGlobalAttribute("namespace")?replace('"', '')>
 
+/**
+ * Classe que configura os beans para persistencia
+ * 
+ * @author ${UserName}
+ *
+ */
 @Configuration
-
 @EnableTransactionManagement
 @EnableJpaRepositories(
         entityManagerFactoryRef = "${entityManagerFactoryRef}",
         transactionManagerRef = "${transactionManagerRef}"
 )
-
 class ${clazz_name} {
   
     <#if persistence_unit_name == first_pu>
