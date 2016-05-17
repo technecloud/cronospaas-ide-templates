@@ -4,10 +4,9 @@ import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.*;
 
-
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -115,7 +114,7 @@ public class ${class_name} {
          ${class_business_variable_name}.getRepository().delete(id);
     }
 
-// NamedQueries
+
 <#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys><#if namedQuery.isRest()>    
 <#if namedQuery.name != "list">
 <#if keys?size gt 0>    
