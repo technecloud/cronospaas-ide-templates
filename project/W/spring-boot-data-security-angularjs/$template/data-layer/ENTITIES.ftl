@@ -15,7 +15,7 @@ import ${import};
 @Entity
 @Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\""
 
-<#if (clazz.fieldsUniqueKey.relationNames?size > 0) >	
+<#if (clazz.fieldsUniqueKey?size > 0) >	
 ,uniqueConstraints=@UniqueConstraint(columnNames={
 <#list clazz.fieldsUniqueKey as field>
 "${field.name}" <#if field?has_next>,</#if>
