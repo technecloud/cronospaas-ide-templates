@@ -40,6 +40,15 @@ public class ${class_name} {
     @Qualifier("${class_business_name}")
     private ${class_business_name} ${class_business_variable_name};
 
+<#list clazz.allRelations as relation>
+  /**
+   * @generated
+   */
+    @Autowired
+    @Qualifier("${relation.name}Business")
+    private ${relation.name}Business ${relation.name?uncap_first}Business;
+</#list>   
+
     /**
      * Serviço exposto para novo registro de acordo com a entidade fornecida
      * 
