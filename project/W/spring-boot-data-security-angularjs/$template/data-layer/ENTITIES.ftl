@@ -13,7 +13,17 @@ import ${import};
  * @generated
  */
 @Entity
-@Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\"")
+@Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\""
+
+<#if (clazz.fieldsUniqueKey?size > 0) >	
+,uniqueConstraints=@UniqueConstraint(columnNames={
+<#list clazz.fieldsUniqueKey as field>
+"${field.name}" <#if field?has_next>,</#if>
+</#list>
+})
+</#if>		
+
+)
 @XmlRootElement
 public class ${clazz.name} implements Serializable {
 

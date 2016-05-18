@@ -40,6 +40,15 @@ public class ${class_name} {
     @Qualifier("${class_business_name}")
     private ${class_business_name} ${class_business_variable_name};
 
+<#list clazz.allRelations as relation>
+  /**
+   * @generated
+   */
+    @Autowired
+    @Qualifier("${relation.name}Business")
+    private ${relation.name}Business ${relation.name?uncap_first}Business;
+</#list>   
+
     /**
      * Serviço exposto para novo registro de acordo com a entidade fornecida
      * 
@@ -182,7 +191,7 @@ public class ${class_name} {
    */  
   @RequestMapping(method = RequestMethod.POST
   ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
-  public ResponseEntity<?> post${relation.relationName?cap_first}(${relation.relationClassField.type} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
+  public ResponseEntity<?> post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.relationClassField.type} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
       ${relation.relationClassField.clazz.name} new${relation.relationClassField.clazz.name?cap_first} = new ${relation.relationClassField.clazz.name}();
 
       ${clazz.name} instance = this.${class_business_variable_name}.getRepository().findOne(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
@@ -191,8 +200,7 @@ public class ${class_name} {
       new${relation.relationClassField.clazz.name?cap_first}.set${relation.associativeClassField.name?cap_first}(instance);
       
       this.${relation.relationClassField.clazz.name?uncap_first}Business.getRepository().saveAndFlush(new${relation.relationClassField.clazz.name?cap_first});
-//      session.commit();
-//      this.${relation.relationClassField.clazz.name?uncap_first}Business.refresh(new${relation.relationClassField.clazz.name?cap_first});
+
       return ResponseEntity.ok(new${relation.relationClassField.clazz.name?cap_first}.get${relation.associativeClassField.name?cap_first}());
   }   
 

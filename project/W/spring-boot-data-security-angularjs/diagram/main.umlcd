@@ -33,8 +33,8 @@
 				"y": 72.66448974609375
 			},
 			"size": {
-				"width": 152,
-				"height": 119.65808868408203
+				"width": 158.33333206176758,
+				"height": 121.67058944702148
 			},
 			"angle": 0,
 			"isRest": "true",
@@ -103,7 +103,7 @@
 					"text": "name\nid\n"
 				},
 				".uml-class-attrs-value": {
-					"ref-x": 61,
+					"ref-x": 63.516666412353516,
 					"font-size": 11,
 					"text": "java.lang.String\njava.lang.String\n"
 				},
@@ -131,11 +131,11 @@
 			],
 			"position": {
 				"x": 281.5,
-				"y": 275.03394317626953
+				"y": 275.033935546875
 			},
 			"size": {
-				"width": 261,
-				"height": 188.43113708496094
+				"width": 267.8833312988281,
+				"height": 190.45925903320312
 			},
 			"angle": 0,
 			"isRest": "true",
@@ -189,6 +189,10 @@
 					"name": "id",
 					"type": "java.lang.String",
 					"dbName": "id",
+					"dbLength": "",
+					"dbPrecision": "",
+					"dbScale": "",
+					"dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
 					"label": "",
 					"mask": "",
 					"isPrimaryKey": true,
@@ -200,10 +204,14 @@
 					"name": "user",
 					"type": "User",
 					"dbName": "fk_user",
+					"dbLength": "",
+					"dbPrecision": "",
+					"dbScale": "",
+					"dbDefaultValue": "",
 					"label": "",
 					"mask": "",
 					"isPrimaryKey": false,
-					"isUniqueKey": false,
+					"isUniqueKey": true,
 					"isNullable": true,
 					"pkType": ""
 				},
@@ -211,10 +219,14 @@
 					"name": "role",
 					"type": "Role",
 					"dbName": "fk_role",
+					"dbLength": "",
+					"dbPrecision": "",
+					"dbScale": "",
+					"dbDefaultValue": "",
 					"label": "",
 					"mask": "",
 					"isPrimaryKey": false,
-					"isUniqueKey": false,
+					"isUniqueKey": true,
 					"isNullable": true,
 					"pkType": ""
 				}
@@ -247,7 +259,7 @@
 					"text": "id\nuser\nrole\n"
 				},
 				".uml-class-attrs-value": {
-					"ref-x": 170,
+					"ref-x": 173.06666564941406,
 					"font-size": 11,
 					"text": "java.lang.String\nUser\nRole\n"
 				},

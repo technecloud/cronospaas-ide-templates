@@ -170,12 +170,12 @@ public class UserREST {
   @RequestMapping(method = RequestMethod.DELETE
   , value="/{instanceId}/UserRole/{relationId}")    
   public ResponseEntity<?> deleteUserRole(@PathVariable("relationId") java.lang.String relationId) {
-			try {
-			  this.userRoleBusiness.getRepository().delete(relationId);
-				return ResponseEntity.ok().build();
-			} catch (Exception e) {
-				return ResponseEntity.status(404).build();
-			}
+      try {
+        this.userRoleBusiness.getRepository().delete(relationId);
+        return ResponseEntity.ok().build();
+      } catch (Exception e) {
+        return ResponseEntity.status(404).build();
+      }
   }
 
 
@@ -196,18 +196,16 @@ public class UserREST {
    */  
   @RequestMapping(method = RequestMethod.POST
   ,value="/{instanceId}/Role")
-  public ResponseEntity<?> postRole(Role entity, @PathVariable("instanceId") java.lang.String instanceId) {
-			UserRole newUserRole = new UserRole();
+  public ResponseEntity<?> postRole(@Validated @RequestBody final Role entity, @PathVariable("instanceId") java.lang.String instanceId) {
+      UserRole newUserRole = new UserRole();
 
-			User instance = this.userBusiness.getRepository().findOne(instanceId);
+      User instance = this.userBusiness.getRepository().findOne(instanceId);
 
-			newUserRole.setRole(entity);
-			newUserRole.setUser(instance);
-			
-			this.userRoleBusiness.getRepository().saveAndFlush(newUserRole);
-//			session.commit();
-//			this.userRoleBusiness.refresh(newUserRole);
-			return ResponseEntity.ok(newUserRole.getUser());
+      newUserRole.setRole(entity);
+      newUserRole.setUser(instance);
+      
+      this.userRoleBusiness.getRepository().saveAndFlush(newUserRole);
+      return ResponseEntity.ok(newUserRole.getUser());
   }   
 
   /**
@@ -217,8 +215,8 @@ public class UserREST {
   @RequestMapping(method = RequestMethod.DELETE
   ,value="/{instanceId}/Role/{relationId}")
   public ResponseEntity<?> deleteRole(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
-			this.userBusiness.deleteRole(instanceId, relationId);
-			return ResponseEntity.ok().build();
+      this.userBusiness.deleteRole(instanceId, relationId);
+      return ResponseEntity.ok().build();
   }  
 
 
