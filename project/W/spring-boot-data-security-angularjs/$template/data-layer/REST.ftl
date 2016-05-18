@@ -200,7 +200,7 @@ public class ${class_name} {
       new${relation.relationClassField.clazz.name?cap_first}.set${relation.associativeClassField.name?cap_first}(instance);
       
       this.${relation.relationClassField.clazz.name?uncap_first}Business.getRepository().saveAndFlush(new${relation.relationClassField.clazz.name?cap_first});
-new${relation.relationClassField.clazz.name?cap_first});
+
       return ResponseEntity.ok(new${relation.relationClassField.clazz.name?cap_first}.get${relation.associativeClassField.name?cap_first}());
   }   
 
