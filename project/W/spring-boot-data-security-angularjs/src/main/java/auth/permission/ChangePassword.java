@@ -15,42 +15,47 @@ import java.util.*;
 import security.entity.*;
 import security.business.*;
 
+/**
+ * Controller responsável por gerir a troca de
+ * senha do usuário através de serviço REST
+ * 
+ * @author Humberto Dias
+ *
+ */
 @RestController
 @RequestMapping(value = "/changePassword")
 @PreAuthorize("hasRole('Logged')")
 public class ChangePassword {
-
-	@Autowired
-	@Qualifier("UserBusiness")
-	private UserBusiness userBusiness;
-
-	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
-	public User post(final String oldPassword, final String newPassword,
-			final String newPasswordConfirmation) throws Exception {
-
-		if (!newPassword.equals(newPasswordConfirmation))
-			throw new RuntimeException("Senha de confirmação diferente");
-
-		org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal();
-
-		List<User> users = userBusiness.getRepository().findByLogin(
-				userDetails.getUsername(), new PageRequest(0, 100));
-		if (users.size() > 0) {
-			User user = users.get(0);
-
-  		if (!passwordEncoder.matches(oldPassword, user.getPassword()))
-    		throw new RuntimeException("Senha anterior não confere!");
-
-			user.setPassword(newPassword);
-			userBusiness.getRepository().saveAndFlush(user);
-			return user;
-		}
-
-		throw new RuntimeException("Usuario não encontrado!");
-	}
+  
+  @Autowired
+  @Qualifier("UserBusiness")
+  private UserBusiness userBusiness;
+  
+  private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+  
+  @RequestMapping(method = RequestMethod.POST)
+  @ResponseStatus(HttpStatus.OK)
+  public User post(final String oldPassword, final String newPassword, final String newPasswordConfirmation)
+          throws Exception {
+    
+    if(!newPassword.equals(newPasswordConfirmation))
+      throw new RuntimeException("Senha de confirmação diferente");
+    
+    org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User)SecurityContextHolder
+            .getContext().getAuthentication().getPrincipal();
+    
+    List<User> users = userBusiness.getRepository().findByLogin(userDetails.getUsername(), new PageRequest(0, 100));
+    if(users.size() > 0) {
+      User user = users.get(0);
+      
+      if(!passwordEncoder.matches(oldPassword, user.getPassword()))
+        throw new RuntimeException("Senha anterior não confere!");
+      
+      user.setPassword(newPassword);
+      userBusiness.getRepository().saveAndFlush(user);
+      return user;
+    }
+    
+    throw new RuntimeException("Usuario não encontrado!");
+  }
 }
