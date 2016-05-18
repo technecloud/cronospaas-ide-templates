@@ -37,6 +37,25 @@ public class UserREST {
    * 
    * @generated
    */
+  /**
+   * @generated
+   */
+    @Autowired
+    @Qualifier("RoleBusiness")
+    private RoleBusiness roleBusiness;
+  /**
+   * @generated
+   */
+    @Autowired
+    @Qualifier("UserRoleBusiness")
+    private UserRoleBusiness userRoleBusiness;
+    
+
+  /**
+   * Serviço exposto para novo registro de acordo com a entidade fornecida
+   * 
+   * @generated
+   */
   @RequestMapping(method = RequestMethod.POST)
   public User post(@Validated @RequestBody final User entity) throws Exception {
     userBusiness.getRepository().save(entity);
@@ -133,4 +152,75 @@ public class UserREST {
     return userBusiness.getRepository().findByLogin(login, new PageRequest(offset, limit));
   }
   
+
+  /**
+   * OneToMany Relationship GET
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  , value="/{instanceId}/UserRole")    
+  public List<UserRole> findUserRole(@PathVariable("instanceId") java.lang.String instanceId, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) {
+    return userBusiness.findUserRole(instanceId,  new PageRequest(offset, limit) );
+  }
+
+  /**
+   * OneToMany Relationship DELETE 
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.DELETE
+  , value="/{instanceId}/UserRole/{relationId}")    
+  public ResponseEntity<?> deleteUserRole(@PathVariable("relationId") java.lang.String relationId) {
+			try {
+			  this.userRoleBusiness.getRepository().delete(relationId);
+				return ResponseEntity.ok().build();
+			} catch (Exception e) {
+				return ResponseEntity.status(404).build();
+			}
+  }
+
+
+
+  /**
+   * ManyToMany Relationship GET
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  ,value="/{instanceId}/Role")
+  public List<Role> listRole(@PathVariable("instanceId") java.lang.String instanceId,  @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset ) {
+    return userBusiness.listRole(instanceId,  new PageRequest(offset, limit) );
+  }
+
+  /**
+   * ManyToMany Relationship POST
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.POST
+  ,value="/{instanceId}/Role")
+  public ResponseEntity<?> postRole(Role entity, @PathVariable("instanceId") java.lang.String instanceId) {
+			UserRole newUserRole = new UserRole();
+
+			User instance = this.userBusiness.getRepository().findOne(instanceId);
+
+			newUserRole.setRole(entity);
+			newUserRole.setUser(instance);
+			
+			this.userRoleBusiness.getRepository().saveAndFlush(newUserRole);
+//			session.commit();
+//			this.userRoleBusiness.refresh(newUserRole);
+			return ResponseEntity.ok(newUserRole.getUser());
+  }   
+
+  /**
+   * ManyToMany Relationship DELETE
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.DELETE
+  ,value="/{instanceId}/Role/{relationId}")
+  public ResponseEntity<?> deleteRole(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
+			this.userBusiness.deleteRole(instanceId, relationId);
+			return ResponseEntity.ok().build();
+  }  
+
+
+
 }

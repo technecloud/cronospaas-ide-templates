@@ -84,7 +84,4 @@ public class ${clazz_name} {
       return result;  
   }
 </#list>
-
-
-    
 }

@@ -33,4 +33,40 @@ public class UserBusiness {
     return repository;
   }
   
+  /**
+   * @generated modifiable
+   */
+  public List<UserRole> findUserRole(java.lang.String id, Pageable pageable) {
+    // begin-user-code
+    // end-user-code
+    List<UserRole> result = repository.findUserRole(id, pageable);
+    // begin-user-code
+    // end-user-code
+    return result;
+  }
+  
+  /**
+   * @generated modifiable
+   */
+  public List<Role> listRole(java.lang.String id, Pageable pageable) {
+    // begin-user-code
+    // end-user-code
+    List<Role> result = repository.listRole(id, pageable);
+    // begin-user-code
+    // end-user-code
+    return result;
+  }
+  
+  /**
+   * @generated modifiable
+   */
+  public int deleteRole(java.lang.String instanceId, java.lang.String relationId) {
+    // begin-user-code
+    // end-user-code
+    int result = repository.deleteRole(instanceId, relationId);
+    // begin-user-code
+    // end-user-code
+    return result;
+  }
+  
 }

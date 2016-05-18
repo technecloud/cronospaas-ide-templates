@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.*;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.*;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -103,12 +103,9 @@ public class PermissionREST {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.DELETE)
   @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
   public void delete(@PathVariable("id") final String id) throws Exception {
     permissionBusiness.getRepository().delete(id);
   }
-  
-  // NamedQueries
   
 }

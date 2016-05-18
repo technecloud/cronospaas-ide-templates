@@ -108,7 +108,6 @@ public class UserRoleREST {
     userRoleBusiness.getRepository().delete(id);
   }
   
-  // NamedQueries
   
   /**
    * NamedQuery findByUser

@@ -134,4 +134,80 @@ public class ${class_name} {
 </#if>
 </#list>  
 
+
+
+<#list clazz.oneToManyRelation as relation>
+  /**
+   * OneToMany Relationship GET
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")    
+  public List<${relation.clazz.name}> find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) {
+    return ${class_business_variable_name}.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> new PageRequest(offset, limit) );
+  }
+
+  /**
+   * OneToMany Relationship DELETE 
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.DELETE
+  , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.clazz.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")    
+  public ResponseEntity<?> delete${relation.relationName?cap_first}(<#list relation.clazz.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
+      try {
+        this.${relation.clazz.name?uncap_first}Business.getRepository().delete(<#list relation.clazz.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+        return ResponseEntity.ok().build();
+      } catch (Exception e) {
+        return ResponseEntity.status(404).build();
+      }
+  }
+
+</#list>
+
+
+<#list clazz.manyToManyRelation as relation>
+  /**
+   * ManyToMany Relationship GET
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
+  public List<${relation.relationClassField.type}> list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset ) {
+    return ${class_business_variable_name}.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> new PageRequest(offset, limit) );
+  }
+
+  /**
+   * ManyToMany Relationship POST
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.POST
+  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
+  public ResponseEntity<?> post${relation.relationName?cap_first}(${relation.relationClassField.type} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
+      ${relation.relationClassField.clazz.name} new${relation.relationClassField.clazz.name?cap_first} = new ${relation.relationClassField.clazz.name}();
+
+      ${clazz.name} instance = this.${class_business_variable_name}.getRepository().findOne(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+
+      new${relation.relationClassField.clazz.name?cap_first}.set${relation.relationClassField.name?cap_first}(entity);
+      new${relation.relationClassField.clazz.name?cap_first}.set${relation.associativeClassField.name?cap_first}(instance);
+      
+      this.${relation.relationClassField.clazz.name?uncap_first}Business.getRepository().saveAndFlush(new${relation.relationClassField.clazz.name?cap_first});
+//      session.commit();
+//      this.${relation.relationClassField.clazz.name?uncap_first}Business.refresh(new${relation.relationClassField.clazz.name?cap_first});
+      return ResponseEntity.ok(new${relation.relationClassField.clazz.name?cap_first}.get${relation.associativeClassField.name?cap_first}());
+  }   
+
+  /**
+   * ManyToMany Relationship DELETE
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.DELETE
+  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.relationClass.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
+  public ResponseEntity<?> delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, <#list relation.relationClass.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
+      this.${clazz.name?uncap_first}Business.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+      return ResponseEntity.ok().build();
+  }  
+
+
+</#list>
+
 }
