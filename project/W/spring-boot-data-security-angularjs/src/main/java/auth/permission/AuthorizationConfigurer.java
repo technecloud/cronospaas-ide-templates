@@ -73,22 +73,21 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
 
 		// public 
 		String [] publics = {"/index.html", "/views/login.view.html", "/public/**", "/plugins/**", "/components/**", "/js/**", "/css/**", "/img/**", "/i18n/**", "/views/error/**"};
-		http.authorizeRequests()
-        .antMatchers(publics).permitAll()
-        .anyRequest().authenticated();
+		http.authorizeRequests().antMatchers(publics).permitAll();
 		
 		List<Permission> permissions = permissionRepository.findAll();
 		for (Permission p : permissions) {
-			http.authorizeRequests().antMatchers(method(p.getVerb()), p.getPath()).hasAuthority(p.getRole().getName())
-					.anyRequest().authenticated();
+			http.authorizeRequests().antMatchers(method(p.getVerb()), p.getPath()).hasAuthority(p.getRole().getName());
 		}
 		
-//		http.authorizeRequests().anyRequest().anonymous();
+		// denyAll
+		http.authorizeRequests().antMatchers("/**").denyAll();
 
 		// login/logout
 		http
 		  .formLogin()
     		.loginProcessingUrl("/auth")
+ 		    .loginPage("/")
     		.successHandler(successHandler())
     		.failureHandler(failureHandler())
   	.and()
