@@ -17,7 +17,7 @@ import security.business.*;
 /**
  * Controller para expor serviços REST de User
  * 
- * @author local
+ * @author Techne
  * @version 1.0
  * @since 2016-05-18
  * @generated

@@ -16,7 +16,7 @@ import security.business.*;
 /**
  * Controller para expor serviços REST de Permission
  * 
- * @author Humberto Dias
+ * @author Techne
  * @generated
  **/
 @RestController

@@ -19,7 +19,7 @@ import security.business.*;
  * Controller responsável por gerir a troca de
  * senha do usuário através de serviço REST
  * 
- * @author Humberto Dias
+ * @author Techne
  *
  */
 @RestController

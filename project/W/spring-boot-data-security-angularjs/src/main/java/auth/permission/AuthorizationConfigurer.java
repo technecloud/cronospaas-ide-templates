@@ -34,7 +34,7 @@ import java.io.IOException;
  * Classe que configura o WebSecurity, possibilitando requerer que o
  * usuário esteja logado para acessar qualquer usuário
  * 
- * @author Humberto Dias
+ * @author Techne
  *
  */
 @Configuration

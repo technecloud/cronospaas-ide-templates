@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.*;
 /**
  * Classe que configura os beans para persistencia
  * 
- * @author Humberto Dias
+ * @author Techne
  *
  */
 @Configuration
