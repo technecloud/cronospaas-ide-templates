@@ -51,7 +51,7 @@ public class ChangePassword {
       if(!passwordEncoder.matches(oldPassword, user.getPassword()))
         throw new RuntimeException("Senha anterior não confere!");
       
-      user.setPassword(newPassword);
+      user.setPassword( passwordEncoder.encode(newPassword) );
       userBusiness.getRepository().saveAndFlush(user);
       return user;
     }

@@ -31,9 +31,6 @@ import security.entity.Role;
 import security.entity.User;
 import security.entity.UserRole;
 
-import org.springframework.security.crypto.password.*;
-import org.springframework.security.crypto.bcrypt.*;
-
 
 @Component
 public class AuthenticationConfigurer implements AuthenticationProvider {
@@ -85,6 +82,10 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     permissionLogged.setPath("/views/logged/**").setVerb("ALL")
         .setRole(roleLogged).setPriority(1).setEnabled(true);
 
+    Permission changePasswordLogged = new Permission();
+    changePasswordLogged.setPath("/changePassword").setVerb("POST")
+        .setRole(roleLogged).setPriority(1).setEnabled(true);
+
     UserRole userRoleAdmin = new UserRole();
     userRoleAdmin.setRole(roleAdmin).setUser(userAdmin);
 
@@ -97,6 +98,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     roleRepository.save(roleLogged);
     permissionRepository.save(permissionAdmin);
     permissionRepository.save(permissionLogged);
+    permissionRepository.save(changePasswordLogged);
     permissionRepository.save(permissionAdminRest);
     userRoleRepository.save(userRoleAdmin);
   }
