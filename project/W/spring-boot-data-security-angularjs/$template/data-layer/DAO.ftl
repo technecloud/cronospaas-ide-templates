@@ -7,6 +7,13 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.repository.query.*;
 
+<#assign field_pk_type = "String">
+<#list clazz.fields as field>
+  <#if field.primaryKey && !field.typePrimitive>
+    <#assign field_pk_type = "${field.type}">
+  </#if>
+</#list>
+
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
  * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
@@ -16,7 +23,7 @@ import org.springframework.data.repository.query.*;
  * @generated
  */
 @Repository("${clazz.name}DAO")
-public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, String> {
+public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_pk_type}> {
 
 <#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys> 
 

@@ -19,12 +19,18 @@ import ${bussinessPackage}.*;
 <#assign class_business_variable_name = "${clazz.name?uncap_first}Business">
 <#assign request_mapping_value = restPath + "/" + clazz.name >
 
+<#assign field_pk_type = "String">
+<#list clazz.fields as field>
+  <#if field.primaryKey && !field.typePrimitive>
+    <#assign field_pk_type = "${field.type}">
+  </#if>
+</#list>
+
 /**
  * Controller para expor serviços REST de ${class_entity_name}
  * 
  * @author ${UserName}
  * @version 1.0
- * @since ${.now?string("yyyy-MM-dd")}
  * @generated
  **/
 @RestController
@@ -77,7 +83,7 @@ public class ${class_name} {
      * @generated
      */
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<?> get(@PathVariable("id") final String id) throws Exception {
+    public ResponseEntity<?> get(@PathVariable("id") final ${field_pk_type} id) throws Exception {
         ${class_entity_name} entity = ${class_business_variable_name}.getRepository().findOne(id);
         return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
     }
@@ -98,7 +104,7 @@ public class ${class_name} {
      * @generated
      */
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-    public ${class_entity_name} put(@PathVariable("id") final String id, @Validated @RequestBody final ${class_entity_name} entity) throws Exception {
+    public ${class_entity_name} put(@PathVariable("id") final ${field_pk_type} id, @Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         return ${class_business_variable_name}.getRepository().saveAndFlush(entity);
     }
 
@@ -119,7 +125,7 @@ public class ${class_name} {
      * @generated
      */
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public void delete(@PathVariable("id") final String id) throws Exception {
+    public void delete(@PathVariable("id") final ${field_pk_type} id) throws Exception {
          ${class_business_variable_name}.getRepository().delete(id);
     }
 
