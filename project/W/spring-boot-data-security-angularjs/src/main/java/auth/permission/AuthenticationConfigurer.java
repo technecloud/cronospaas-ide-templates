@@ -21,7 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-
 import security.dao.PermissionDAO;
 import security.dao.RoleDAO;
 import security.dao.UserDAO;
@@ -30,7 +29,6 @@ import security.entity.Permission;
 import security.entity.Role;
 import security.entity.User;
 import security.entity.UserRole;
-
 
 @Component
 public class AuthenticationConfigurer implements AuthenticationProvider {
@@ -59,11 +57,12 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
   public void createDatabase() {
 
     LOGGER.info("Creating database");
-    
+
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     User userAdmin = new User();
-    userAdmin.setName("admin").setLogin("admin").setPassword( passwordEncoder.encode("admin") );
+    userAdmin.setName("admin").setLogin("admin")
+        .setPassword(passwordEncoder.encode("admin"));
 
     Role roleAdmin = new Role();
     roleAdmin.setId(ROLE_ADMIN_ID).setName(ROLE_ADMIN_NAME);
@@ -90,7 +89,8 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     userRoleAdmin.setRole(roleAdmin).setUser(userAdmin);
 
     User userOrdinary = new User();
-    userOrdinary.setName("techne").setLogin("techne").setPassword(passwordEncoder.encode("techne"));
+    userOrdinary.setName("techne").setLogin("techne")
+        .setPassword(passwordEncoder.encode("techne"));
 
     userRepository.save(userOrdinary);
     userRepository.save(userAdmin);
@@ -103,16 +103,15 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     userRoleRepository.save(userRoleAdmin);
   }
 
-  @Override
-  public Authentication authenticate(Authentication authentication)
-      throws AuthenticationException {
+  private UsernamePasswordAuthenticationToken authenticateDataBase(
+      Authentication authentication) throws AuthenticationException {
     String name = authentication.getName();
     String rawPassword = authentication.getCredentials().toString();
     List<User> users = userRepository.findByLogin(name, new PageRequest(0,
         100));
 
     if (users.isEmpty())
-      throw new UsernameNotFoundException("Usuario nao encontrado!");
+      throw new UsernameNotFoundException("Usuário não encontrado!");
 
     User user = users.get(0);
     if (passwordEncoder.matches(rawPassword, user.getPassword())) {
@@ -125,8 +124,45 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
       userToken.setDetails(userDetails);
       return userToken;
     } else {
-      throw new BadCredentialsException("Usuario ou senha incorreta!");
+      throw new BadCredentialsException("Usuário ou senha incorreta!");
     }
+  }
+
+  private UsernamePasswordAuthenticationToken authenticateLocal(
+      Authentication authentication) throws AuthenticationException {
+
+    User user = new User().setLogin("local").setName("local")
+        .setPassword("local");
+
+    String formLogin = authentication.getName();
+    String formPassword = authentication.getCredentials().toString();
+
+    if (!user.getLogin().equals(formLogin)) {
+      throw new BadCredentialsException("Usuário não encontrado!");
+    } else {
+      if (!user.getPassword().equals(formPassword))
+        throw new BadCredentialsException("Usuário ou senha incorreta!");
+    }
+
+    Set<GrantedAuthority> roles = new HashSet<>();
+    roles.add(new SimpleGrantedAuthority("Administrators"));
+    roles.add(new SimpleGrantedAuthority("Logged"));
+
+    org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
+        user.getName(), user.getPassword(), false, false, false, false,
+        roles);
+
+    UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(
+        userDetails, user.getPassword(), roles);
+
+    return userToken;
+  }
+
+  @Override
+  public Authentication authenticate(Authentication authentication)
+      throws AuthenticationException {
+    return authenticateDataBase(authentication);
+    //return authenticateLocal(authentication);
   }
 
   @Override
@@ -155,6 +191,5 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     LOGGER.debug("user authorities are " + authorities.toString());
     return authorities;
   }
-
 
 }
