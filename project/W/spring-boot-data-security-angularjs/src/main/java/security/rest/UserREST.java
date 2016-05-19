@@ -101,6 +101,11 @@ public class UserREST {
      */
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
     public User put(@PathVariable("id") final String id, @Validated @RequestBody final User entity) throws Exception {
+
+        String formPassword = entity.getPassword();
+        String hashPassword = formPassword.startsWith("2$") ? formPassword : new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(formPassword);
+        entity.setPassword(hashPassword);
+
         return userBusiness.getRepository().saveAndFlush(entity);
     }
 
