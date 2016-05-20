@@ -103,14 +103,13 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
     http
 		  .formLogin()
     		.loginProcessingUrl("/auth")
- 		    .loginPage("/")
+ 		    .loginPage("/index.html")
     		.successHandler(successHandler())
     		.failureHandler(failureHandler())
   	.and()
 		.logout()
 		  .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		  .logoutSuccessUrl("/login")
-            .invalidateHttpSession(true);
+      .invalidateHttpSession(true);
     
   }
   
