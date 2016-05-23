@@ -43,7 +43,16 @@ class JasperPrintReport implements PrintReport {
 				JRQuery jrQuery = jasperDesign.getQuery();
 				if (jrQuery != null && Functions.isExists(jrQuery.getText())) {
 					String jrQueryText = jrQuery.getText();
-					jrQueryText = jrQueryText.concat(" limit $P{DATA_LIMIT}");
+					
+					if ("Oracle".equals(connection.getMetaData().getDatabaseProductName())) {
+                    	if (jrQueryText.toLowerCase().contains("where"))
+                            jrQueryText = jrQueryText.concat(" AND (ROWNUM <= $P{DATA_LIMIT})");
+                        else
+                            jrQueryText = jrQueryText.concat(" WHERE (ROWNUM <= $P{DATA_LIMIT})");
+                    } else {
+                        if (!jrQueryText.toLowerCase().contains("limit"))
+                            jrQueryText = jrQueryText.concat(" limit $P{DATA_LIMIT}");
+                    }
 
 					JRDesignQuery newQuery = new JRDesignQuery();
 					newQuery.setText(jrQueryText);

@@ -60,11 +60,17 @@ class AdhocPrintReport implements PrintReport {
 
 			String query = adhocReportProperty.getSql();
 			if (Functions.isExists(query) && !("select *".equalsIgnoreCase(query))) {
-
-				// TODO Será criada uma definição para quando o usuário escolher Zero registros, imprimir todos...
-				query = query.concat(" limit $P{DATA_LIMIT}");
-
 				try {
+					if ("Oracle".equals(connection.getMetaData().getDatabaseProductName())) {
+                        if (query.toLowerCase().contains("where"))
+                            query = query.concat(" AND (ROWNUM <= $P{DATA_LIMIT})");
+                        else
+                            query = query.concat(" WHERE (ROWNUM <= $P{DATA_LIMIT})");
+                    } else {
+                        if (!query.toLowerCase().contains("limit"))
+                            query = query.concat(" limit $P{DATA_LIMIT}");
+                    }
+					
 					JasperReportBuilder jasperReportBuilder = net.sf.dynamicreports.adhoc.AdhocManager
 							.createReport(adhocReportProperty.newAdhocReport(), new CronosAdhocReportCustomize());
 
