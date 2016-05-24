@@ -22,7 +22,6 @@ import java.util.*;
  * @generated
  **/
 @Service("${clazz_name}")
-@Transactional(transactionManager="${persistence_unit_name}-TransactionManager")
 public class ${clazz_name} {
 
     /**

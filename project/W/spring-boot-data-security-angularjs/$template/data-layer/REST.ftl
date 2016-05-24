@@ -67,24 +67,13 @@ public class ${class_name} {
     }
 
     /**
-     * Serviço exposto para recuperar entidades de acordo com os paramêtros para limite
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public List<${class_entity_name}> get(@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) throws Exception {
-        Page<${class_entity_name}> pages = ${class_business_variable_name}.getRepository().findAll(new PageRequest(offset, limit));
-        return pages.getContent();
-    }
-
-    /**
      * Serviço exposto para recuperar a entidade de acordo com o id fornecido
      * 
      * @generated
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<?> get(@PathVariable("id") final ${field_pk_type} id) throws Exception {
-        ${class_entity_name} entity = ${class_business_variable_name}.getRepository().findOne(id);
+    @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
+    public ResponseEntity<?> get(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+        ${class_entity_name} entity = ${class_business_variable_name}.getRepository().findOne(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
         return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
     }
 
@@ -103,36 +92,23 @@ public class ${class_name} {
      * 
      * @generated
      */
-    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    @RequestMapping(method = RequestMethod.PUT, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
     public ${class_entity_name} put(@PathVariable("id") final ${field_pk_type} id, @Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         return ${class_business_variable_name}.getRepository().saveAndFlush(entity);
     }
 
 
     /**
-     * Serviço exposto para remover a entidade fornecida
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void delete(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
-         ${class_business_variable_name}.getRepository().delete(entity);
-    }
-
-    /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
      * 
      * @generated
      */
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public void delete(@PathVariable("id") final ${field_pk_type} id) throws Exception {
-         ${class_business_variable_name}.getRepository().delete(id);
+    @RequestMapping(method = RequestMethod.DELETE, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
+    public void delete(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+         ${class_business_variable_name}.getRepository().delete(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
     }
 
-
 <#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys><#if namedQuery.isRest()>    
-<#if namedQuery.name != "list">
-<#if keys?size gt 0>    
 <#assign method_named_query_name = "${namedQuery.name?uncap_first}">
 
   /**
@@ -140,16 +116,12 @@ public class ${class_name} {
    * @generated
    */
   @RequestMapping(method = RequestMethod.<#if namedQuery.queryType == "select">GET</#if><#if namedQuery.queryType == "update">PUT</#if><#if namedQuery.queryType == "delete">DELETE</#if>
-  , value="/${namedQuery.name}")    
-  public <#if !namedQuery.void> List<${clazz.name}><#else>int</#if> ${namedQuery.name}Params (<#list keys as key>@RequestParam("${key}") ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset</#if>){
+  <#if namedQuery.name != "list">, value="/${namedQuery.name}<#if keys?size gt 0>/</#if><#list keys as key>{${key}}<#if key_has_next>/</#if></#list>"</#if>)    
+  public <#if !namedQuery.void> List<${clazz.name}><#else>int</#if> ${namedQuery.name}Params (<#list keys as key>@PathVariable("${key}") ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset</#if>){
       return ${class_business_variable_name}.getRepository().${method_named_query_name}(<#list keys as key>${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>new PageRequest(offset, limit) </#if>  );  
   }
-</#if>  
-</#if>
 </#if>
 </#list>  
-
-
 
 <#list clazz.oneToManyRelation as relation>
   /**

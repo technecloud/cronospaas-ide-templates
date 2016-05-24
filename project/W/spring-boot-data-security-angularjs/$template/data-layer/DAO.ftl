@@ -6,6 +6,7 @@ import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
 
 <#assign field_pk_type = "String">
 <#list clazz.fields as field>
@@ -13,6 +14,8 @@ import org.springframework.data.repository.query.*;
     <#assign field_pk_type = "${field.type}">
   </#if>
 </#list>
+
+<#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
@@ -23,7 +26,35 @@ import org.springframework.data.repository.query.*;
  * @generated
  */
 @Repository("${clazz.name}DAO")
+@Transactional(transactionManager="${persistence_unit_name}-TransactionManager")
 public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_pk_type}> {
+
+  /**
+   * Obtém a instância de ${clazz.name} utilizando os identificadores
+   * 
+   <#list clazz.primaryKeys as field>
+   * @param ${field.name}
+   *          Identificador 
+   </#list>
+   * @return Instância relacionada com o filtro indicado
+   * @generated
+   */    
+  @Query("SELECT entity FROM ${clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list>")
+  public ${clazz.name} findOne(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>);
+
+  /**
+   * Remove a instância de ${clazz.name} utilizando os identificadores
+   * 
+   <#list clazz.primaryKeys as field>
+   * @param ${field.name}
+   *          Identificador 
+   </#list>
+   * @return Quantidade de modificações efetuadas
+   * @generated
+   */    
+  @Modifying
+  @Query("DELETE FROM ${clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list>")
+  public void delete(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>);
 
 <#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys> 
 
