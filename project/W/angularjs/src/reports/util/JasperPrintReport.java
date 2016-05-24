@@ -11,7 +11,6 @@ import java.util.Base64;
 import java.util.Map;
 import java.util.UUID;
 
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRQuery;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -43,16 +42,16 @@ class JasperPrintReport implements PrintReport {
 				JRQuery jrQuery = jasperDesign.getQuery();
 				if (jrQuery != null && Functions.isExists(jrQuery.getText())) {
 					String jrQueryText = jrQuery.getText();
-					
+
 					if ("Oracle".equals(connection.getMetaData().getDatabaseProductName())) {
-                    	if (jrQueryText.toLowerCase().contains("where"))
-                            jrQueryText = jrQueryText.concat(" AND (ROWNUM <= $P{DATA_LIMIT})");
-                        else
-                            jrQueryText = jrQueryText.concat(" WHERE (ROWNUM <= $P{DATA_LIMIT})");
-                    } else {
-                        if (!jrQueryText.toLowerCase().contains("limit"))
-                            jrQueryText = jrQueryText.concat(" limit $P{DATA_LIMIT}");
-                    }
+						if (jrQueryText.toLowerCase().contains("where"))
+							jrQueryText = jrQueryText.concat(" AND (ROWNUM <= $P{DATA_LIMIT})");
+						else
+							jrQueryText = jrQueryText.concat(" WHERE (ROWNUM <= $P{DATA_LIMIT})");
+					} else {
+						if (!jrQueryText.toLowerCase().contains("limit"))
+							jrQueryText = jrQueryText.concat(" limit $P{DATA_LIMIT}");
+					}
 
 					JRDesignQuery newQuery = new JRDesignQuery();
 					newQuery.setText(jrQueryText);
@@ -78,7 +77,7 @@ class JasperPrintReport implements PrintReport {
 			}
 
 			JasperExportManager.exportReportToPdfFile(jasperPrint, pdf.getAbsolutePath());
-		} catch (JRException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 
