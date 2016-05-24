@@ -85,6 +85,10 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     changePasswordLogged.setPath("/changePassword").setVerb("POST")
         .setRole(roleLogged).setPriority(1).setEnabled(true);
 
+    Permission permissionLoggedRest = new Permission();
+    permissionLoggedRest.setPath("/api/rest/**").setVerb("ALL")
+        .setRole(roleLogged).setPriority(1).setEnabled(true);
+
     UserRole userRoleAdmin = new UserRole();
     userRoleAdmin.setRole(roleAdmin).setUser(userAdmin);
 
@@ -100,6 +104,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     permissionRepository.save(permissionLogged);
     permissionRepository.save(changePasswordLogged);
     permissionRepository.save(permissionAdminRest);
+    permissionRepository.save(permissionLoggedRest);
     userRoleRepository.save(userRoleAdmin);
   }
 
