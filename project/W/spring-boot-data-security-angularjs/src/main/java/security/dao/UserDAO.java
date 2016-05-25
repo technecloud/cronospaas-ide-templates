@@ -6,6 +6,9 @@ import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
@@ -16,32 +19,57 @@ import org.springframework.data.repository.query.*;
  * @generated
  */
 @Repository("UserDAO")
-public interface UserDAO extends JpaRepository<User, String> {
-  
+@Transactional(transactionManager="security-TransactionManager")
+public interface UserDAO extends JpaRepository<User, java.lang.String> {
+
   /**
-   * Método para lista com paginação
+   * Obtém a instância de User utilizando os identificadores
+   * 
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
+   * @generated
+   */    
+  @Query("SELECT entity FROM User entity WHERE entity.id = :id")
+  public User findOne(@Param(value="id") java.lang.String id);
+
+  /**
+   * Remove a instância de User utilizando os identificadores
+   * 
+   * @param id
+   *          Identificador 
+   * @return Quantidade de modificações efetuadas
+   * @generated
+   */    
+  @Modifying
+  @Query("DELETE FROM User entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
+  /**
+   * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
   @Query("select u from User u")
-  public List<User> list(Pageable pageable);
+  public List<User> list ( Pageable pageable );
   
   /**
-   * Lista com paginação de usuários de uma determinada Role 
+   * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
   @Query("select u.user from UserRole u where u.role.id = :roleid")
-  public List<User> findByRole(@Param(value = "roleid") java.lang.String roleid, Pageable pageable);
+  public List<User> findByRole (@Param(value="roleid") java.lang.String roleid , Pageable pageable );
   
   /**
-   * Lista com paginação de usuários que tenham login igual ao informado 
+   * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
   @Query("select u from User u where u.login = :login")
-  public List<User> findByLogin(@Param(value = "login") java.lang.String login, Pageable pageable);
+  public List<User> findByLogin (@Param(value="login") java.lang.String login , Pageable pageable );
   
+
   /**
    * OneToMany Relation
    * @generated
@@ -65,6 +93,8 @@ public interface UserDAO extends JpaRepository<User, String> {
     @Modifying
     @Query("DELETE FROM UserRole entity WHERE entity.user.id = :instanceId AND entity.role.id = :relationId")
     public int deleteRole(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
+
+
 
 
 }

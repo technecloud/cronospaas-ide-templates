@@ -44,7 +44,7 @@ public class ChangePassword {
     org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User)SecurityContextHolder
             .getContext().getAuthentication().getPrincipal();
     
-    List<User> users = userBusiness.getRepository().findByLogin(userDetails.getUsername(), new PageRequest(0, 100));
+    List<User> users = userBusiness.findByLogin(userDetails.getUsername(), new PageRequest(0, 100));
     if(users.size() > 0) {
       User user = users.get(0);
       
@@ -52,7 +52,7 @@ public class ChangePassword {
         throw new RuntimeException("Senha anterior não confere!");
       
       user.setPassword( passwordEncoder.encode(newPassword) );
-      userBusiness.getRepository().saveAndFlush(user);
+      userBusiness.put(user);
       return user;
     }
     

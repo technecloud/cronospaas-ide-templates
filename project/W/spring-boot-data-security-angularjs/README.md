@@ -15,7 +15,8 @@ Aplicação Web com Spring e módulos: **Data** e **Security**.
 4. Execute 
 
 ```
-mvn spring-boot:run
+mvn spring-boot:run -Dserver.port=8080
+
 ```
 ```
   .   ____          _            __ _ _

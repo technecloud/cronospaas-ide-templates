@@ -10,16 +10,20 @@ import org.springframework.context.annotation.*;
  *  - Atualizar o contexto de aplicação para carregar os singletons
  *  - Executar qualquer bean do tipo CommandLineRunner 
  * 
- * @author Techne
+ * @author Usuário de Teste
  *
  */
-@ComponentScan(basePackages = { "security", "auth.permission" })
+@ComponentScan(basePackages = {
+"security"  
+, "auth.permission"
+})
 @SpringBootApplication
 public class SpringBootMain extends SpringBootServletInitializer {
   
-  
-  public static void main(String[] args) {
-    SpringApplication.run(SpringBootMain.class, args);
-  }
-  
+    public static void main(String[] args) {
+        SpringApplication.run(SpringBootMain.class, args);
+    }
+
 }
+
+

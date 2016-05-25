@@ -6,6 +6,9 @@ import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.repository.query.*;
+import org.springframework.transaction.annotation.*;
+
+
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
@@ -16,46 +19,77 @@ import org.springframework.data.repository.query.*;
  * @generated
  */
 @Repository("UserRoleDAO")
-public interface UserRoleDAO extends JpaRepository<UserRole, String> {
-  
+@Transactional(transactionManager="security-TransactionManager")
+public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
+
   /**
-   * Lista com paginação de UserRole
+   * Obtém a instância de UserRole utilizando os identificadores
+   * 
+   * @param id
+   *          Identificador 
+   * @return Instância relacionada com o filtro indicado
+   * @generated
+   */    
+  @Query("SELECT entity FROM UserRole entity WHERE entity.id = :id")
+  public UserRole findOne(@Param(value="id") java.lang.String id);
+
+  /**
+   * Remove a instância de UserRole utilizando os identificadores
+   * 
+   * @param id
+   *          Identificador 
+   * @return Quantidade de modificações efetuadas
+   * @generated
+   */    
+  @Modifying
+  @Query("DELETE FROM UserRole entity WHERE entity.id = :id")
+  public void delete(@Param(value="id") java.lang.String id);
+
+  /**
+   * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
   @Query("select u from UserRole u")
-  public List<UserRole> list(Pageable pageable);
+  public List<UserRole> list ( Pageable pageable );
   
   /**
-   * Lista com paginação de UserRole de um determinado User
+   * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
   @Query("select u from UserRole u where u.user = :user ")
-  public List<UserRole> findByUser(@Param(value = "user") User user, Pageable pageable);
+  public List<UserRole> findByUser (@Param(value="user") User user , Pageable pageable );
   
   /**
-   * Lista com paginação de UserRole onde os usuários associados a ele possuam email igual ao informado
+   * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
   @Query("select u from UserRole u where u.user.email = :email")
-  public List<UserRole> findByEmail(@Param(value = "email") java.lang.String email, Pageable pageable);
+  public List<UserRole> findByEmail (@Param(value="email") java.lang.String email , Pageable pageable );
   
   /**
-   * Lista com paginação de UserRole onde os usuários associados a ele possuam login igual ao informado
+   * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
   @Query("select u from UserRole u where u.user.login = :login")
-  public List<UserRole> findByLogin(@Param(value = "login") java.lang.String login, Pageable pageable);
+  public List<UserRole> findByLogin (@Param(value="login") java.lang.String login , Pageable pageable );
   
   /**
-   * Lista com paginação de UserRole onde as roles associadas a ele possuam id igual ao informado
+   * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
   @Query("select u from UserRole u where u.role.id = :roleid")
-  public List<UserRole> findByRole(@Param(value = "roleid") java.lang.String roleid, Pageable pageable);
+  public List<UserRole> findByRole (@Param(value="roleid") java.lang.String roleid , Pageable pageable );
   
+
+
+
+
+
+
+
 }

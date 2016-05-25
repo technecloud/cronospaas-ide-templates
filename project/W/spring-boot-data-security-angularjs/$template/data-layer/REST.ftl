@@ -62,7 +62,7 @@ public class ${class_name} {
      */
     @RequestMapping(method = RequestMethod.POST)
     public ${class_entity_name} post(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
-        ${class_business_variable_name}.getRepository().save(entity);
+        ${class_business_variable_name}.post(entity);
         return entity;
     }
 
@@ -73,7 +73,7 @@ public class ${class_name} {
      */
     @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
     public ResponseEntity<?> get(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
-        ${class_entity_name} entity = ${class_business_variable_name}.getRepository().findOne(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
+        ${class_entity_name} entity = ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
         return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
     }
 
@@ -84,7 +84,7 @@ public class ${class_name} {
      */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> put(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
-        return ResponseEntity.ok( ${class_business_variable_name}.getRepository().saveAndFlush(entity));
+        return ResponseEntity.ok(${class_business_variable_name}.put(entity));
     }
 
     /**
@@ -94,7 +94,7 @@ public class ${class_name} {
      */
     @RequestMapping(method = RequestMethod.PUT, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
     public ${class_entity_name} put(@PathVariable("id") final ${field_pk_type} id, @Validated @RequestBody final ${class_entity_name} entity) throws Exception {
-        return ${class_business_variable_name}.getRepository().saveAndFlush(entity);
+        return ${class_business_variable_name}.put(entity);
     }
 
 
@@ -105,7 +105,7 @@ public class ${class_name} {
      */
     @RequestMapping(method = RequestMethod.DELETE, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
     public void delete(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
-         ${class_business_variable_name}.getRepository().delete(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
+        ${class_business_variable_name}.delete(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
     }
 
 <#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys><#if namedQuery.isRest()>    
@@ -118,7 +118,7 @@ public class ${class_name} {
   @RequestMapping(method = RequestMethod.<#if namedQuery.queryType == "select">GET</#if><#if namedQuery.queryType == "update">PUT</#if><#if namedQuery.queryType == "delete">DELETE</#if>
   <#if namedQuery.name != "list">, value="/${namedQuery.name}<#if keys?size gt 0>/</#if><#list keys as key>{${key}}<#if key_has_next>/</#if></#list>"</#if>)    
   public <#if !namedQuery.void> List<${clazz.name}><#else>int</#if> ${namedQuery.name}Params (<#list keys as key>@PathVariable("${key}") ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset</#if>){
-      return ${class_business_variable_name}.getRepository().${method_named_query_name}(<#list keys as key>${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>new PageRequest(offset, limit) </#if>  );  
+      return ${class_business_variable_name}.${method_named_query_name}(<#list keys as key>${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>new PageRequest(offset, limit) </#if>  );  
   }
 </#if>
 </#list>  
@@ -142,7 +142,7 @@ public class ${class_name} {
   , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.clazz.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")    
   public ResponseEntity<?> delete${relation.relationName?cap_first}(<#list relation.clazz.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
       try {
-        this.${relation.clazz.name?uncap_first}Business.getRepository().delete(<#list relation.clazz.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+        this.${relation.clazz.name?uncap_first}Business.delete(<#list relation.clazz.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
         return ResponseEntity.ok().build();
       } catch (Exception e) {
         return ResponseEntity.status(404).build();
@@ -169,15 +169,15 @@ public class ${class_name} {
    */  
   @RequestMapping(method = RequestMethod.POST
   ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
-  public ResponseEntity<?> post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.relationClassField.type} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
+  public ResponseEntity<?> post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.relationClassField.type} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
       ${relation.relationClassField.clazz.name} new${relation.relationClassField.clazz.name?cap_first} = new ${relation.relationClassField.clazz.name}();
 
-      ${clazz.name} instance = this.${class_business_variable_name}.getRepository().findOne(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+      ${clazz.name} instance = this.${class_business_variable_name}.get(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
 
       new${relation.relationClassField.clazz.name?cap_first}.set${relation.relationClassField.name?cap_first}(entity);
       new${relation.relationClassField.clazz.name?cap_first}.set${relation.associativeClassField.name?cap_first}(instance);
       
-      this.${relation.relationClassField.clazz.name?uncap_first}Business.getRepository().saveAndFlush(new${relation.relationClassField.clazz.name?cap_first});
+      this.${relation.relationClassField.clazz.name?uncap_first}Business.post(new${relation.relationClassField.clazz.name?cap_first});
 
       return ResponseEntity.ok(new${relation.relationClassField.clazz.name?cap_first}.get${relation.associativeClassField.name?cap_first}());
   }   

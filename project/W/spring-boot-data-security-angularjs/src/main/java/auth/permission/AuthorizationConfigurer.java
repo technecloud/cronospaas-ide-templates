@@ -84,8 +84,8 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
     http.csrf().disable();
     
     // session manager
-    http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/").and()
-            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/");
+    http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(false).expiredUrl("/index.html").and()
+            .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/index.html");
     
     // public
     String [] publics = {"/index.html", "/views/login.view.html", "/public/**", "/plugins/**", "/components/**", "/js/**", "/css/**", "/img/**", "/i18n/**", "/views/error/**"};
