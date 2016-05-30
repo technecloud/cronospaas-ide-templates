@@ -69,6 +69,9 @@ public class UserBusiness {
      */
     public User put(final User entity) throws Exception {
       // before-begin-user-code  
+      String formPassword = entity.getPassword();
+      String hashPassword = formPassword.startsWith("$2a$10$") ? formPassword : new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(formPassword);
+      entity.setPassword(hashPassword);      
       // before-end-user-code        
       repository.saveAndFlush(entity);
       // after-begin-user-code  
@@ -83,9 +86,6 @@ public class UserBusiness {
      */
     public User put(final java.lang.String id,final User entity) throws Exception {
       // before-begin-user-code  
-      String formPassword = entity.getPassword();
-      String hashPassword = formPassword.startsWith("$2a$10$") ? formPassword : new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(formPassword);
-      entity.setPassword(hashPassword);      
       // before-end-user-code        
       repository.saveAndFlush(entity);
       // after-begin-user-code  
