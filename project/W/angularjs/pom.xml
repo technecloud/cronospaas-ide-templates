@@ -144,13 +144,13 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>5.1.35</version>
       <scope>runtime</scope>
+    </dependency>    
+    <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>2.3.1</version>
     </dependency>
   </dependencies>
-  <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.3.1</version>
-  </dependency>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
