@@ -37,11 +37,11 @@ public class UserRoleBusiness {
      * @generated
      */
     public UserRole post(final UserRole entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code  
+      // begin-user-code  
+      // end-user-code  
       repository.save(entity);
-      // after-begin-user-code  
-      // after-end-user-code  
+      // begin-user-code  
+      // end-user-code  
       return entity;
     }
 
@@ -51,11 +51,11 @@ public class UserRoleBusiness {
      * @generated
      */
     public UserRole get(java.lang.String id) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
        UserRole result = repository.findOne(id);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return result;
     }
 
@@ -65,11 +65,11 @@ public class UserRoleBusiness {
      * @generated
      */
     public UserRole put(final UserRole entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -79,11 +79,11 @@ public class UserRoleBusiness {
      * @generated
      */
     public UserRole put(final java.lang.String id,final UserRole entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -94,11 +94,11 @@ public class UserRoleBusiness {
      * @generated
      */
     public void delete( java.lang.String id) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.delete(id);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
     }
 
 
@@ -111,11 +111,11 @@ public class UserRoleBusiness {
    * @generated
    */
   public List<UserRole> list ( Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<UserRole> result = repository.list (  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
   /**
@@ -124,11 +124,11 @@ public class UserRoleBusiness {
    * @generated
    */
   public List<UserRole> findByUser ( User user , Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<UserRole> result = repository.findByUser ( user ,  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
   /**
@@ -137,11 +137,11 @@ public class UserRoleBusiness {
    * @generated
    */
   public List<UserRole> findByEmail ( java.lang.String email , Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<UserRole> result = repository.findByEmail ( email ,  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
   /**
@@ -150,11 +150,11 @@ public class UserRoleBusiness {
    * @generated
    */
   public List<UserRole> findByLogin ( java.lang.String login , Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<UserRole> result = repository.findByLogin ( login ,  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
   /**
@@ -163,11 +163,11 @@ public class UserRoleBusiness {
    * @generated
    */
   public List<UserRole> findByRole ( java.lang.String roleid , Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<UserRole> result = repository.findByRole ( roleid ,  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
     

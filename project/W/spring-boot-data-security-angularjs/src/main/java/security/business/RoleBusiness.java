@@ -37,11 +37,11 @@ public class RoleBusiness {
      * @generated
      */
     public Role post(final Role entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code  
+      // begin-user-code  
+      // end-user-code  
       repository.save(entity);
-      // after-begin-user-code  
-      // after-end-user-code  
+      // begin-user-code  
+      // end-user-code  
       return entity;
     }
 
@@ -51,11 +51,11 @@ public class RoleBusiness {
      * @generated
      */
     public Role get(java.lang.String id) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
        Role result = repository.findOne(id);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return result;
     }
 
@@ -65,11 +65,11 @@ public class RoleBusiness {
      * @generated
      */
     public Role put(final Role entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -79,11 +79,11 @@ public class RoleBusiness {
      * @generated
      */
     public Role put(final java.lang.String id,final Role entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -94,11 +94,11 @@ public class RoleBusiness {
      * @generated
      */
     public void delete( java.lang.String id) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.delete(id);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
     }
 
 
@@ -111,11 +111,11 @@ public class RoleBusiness {
    * @generated
    */
   public List<Role> list ( Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<Role> result = repository.list (  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
     
@@ -126,11 +126,11 @@ public class RoleBusiness {
    * OneToManyRelation
    */  
   public List<UserRole> findUserRole(java.lang.String id,  Pageable pageable) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       List<UserRole> result = repository.findUserRole(id,  pageable );
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return result;	  
   }
 
@@ -139,11 +139,11 @@ public class RoleBusiness {
    * OneToManyRelation
    */  
   public List<Permission> findPermission(java.lang.String id,  Pageable pageable) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       List<Permission> result = repository.findPermission(id,  pageable );
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return result;	  
   }
 
@@ -154,11 +154,11 @@ public class RoleBusiness {
    * ManyToManyRelation
    */  
   public List<User> listUser(java.lang.String id,  Pageable pageable ) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       List<User> result = repository.listUser(id,  pageable );
-      // after-begin-user-code
-      // after-end-user-code
+      // begin-user-code
+      // end-user-code
       return result;        	  
   }
   
@@ -166,11 +166,11 @@ public class RoleBusiness {
    * @generated modifiable
    */    
   public int deleteUser(java.lang.String instanceId, java.lang.String relationId) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       int result = repository.deleteUser(instanceId, relationId);
-      // after-begin-user-code
-      // after-end-user-code  
+      // begin-user-code
+      // end-user-code  
       return result;  
   }
 }

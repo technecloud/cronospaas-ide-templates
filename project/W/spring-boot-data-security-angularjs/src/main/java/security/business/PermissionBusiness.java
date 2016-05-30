@@ -37,11 +37,11 @@ public class PermissionBusiness {
      * @generated
      */
     public Permission post(final Permission entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code  
+      // begin-user-code  
+      // end-user-code  
       repository.save(entity);
-      // after-begin-user-code  
-      // after-end-user-code  
+      // begin-user-code  
+      // end-user-code  
       return entity;
     }
 
@@ -51,11 +51,11 @@ public class PermissionBusiness {
      * @generated
      */
     public Permission get(java.lang.String id) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
        Permission result = repository.findOne(id);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return result;
     }
 
@@ -65,11 +65,11 @@ public class PermissionBusiness {
      * @generated
      */
     public Permission put(final Permission entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -79,11 +79,11 @@ public class PermissionBusiness {
      * @generated
      */
     public Permission put(final java.lang.String id,final Permission entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -94,11 +94,11 @@ public class PermissionBusiness {
      * @generated
      */
     public void delete( java.lang.String id) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.delete(id);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
     }
 
 
@@ -111,11 +111,11 @@ public class PermissionBusiness {
    * @generated
    */
   public List<Permission> list ( Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<Permission> result = repository.list (  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
     

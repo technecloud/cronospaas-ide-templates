@@ -37,14 +37,14 @@ public class UserBusiness {
      * @generated
      */
     public User post(final User entity) throws Exception {
-      // before-begin-user-code  
+      // begin-user-code  
       String rawPassword = entity.getPassword();
       String hashPassword = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(rawPassword);
       entity.setPassword(hashPassword);      
-      // before-end-user-code  
+      // end-user-code  
       repository.save(entity);
-      // after-begin-user-code  
-      // after-end-user-code  
+      // begin-user-code  
+      // end-user-code  
       return entity;
     }
 
@@ -54,11 +54,11 @@ public class UserBusiness {
      * @generated
      */
     public User get(java.lang.String id) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
        User result = repository.findOne(id);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return result;
     }
 
@@ -68,14 +68,14 @@ public class UserBusiness {
      * @generated
      */
     public User put(final User entity) throws Exception {
-      // before-begin-user-code  
+      // begin-user-code  
       String formPassword = entity.getPassword();
       String hashPassword = formPassword.startsWith("$2a$10$") ? formPassword : new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(formPassword);
       entity.setPassword(hashPassword);      
-      // before-end-user-code        
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -85,11 +85,11 @@ public class UserBusiness {
      * @generated
      */
     public User put(final java.lang.String id,final User entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -100,11 +100,11 @@ public class UserBusiness {
      * @generated
      */
     public void delete( java.lang.String id) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.delete(id);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
     }
 
 
@@ -117,11 +117,11 @@ public class UserBusiness {
    * @generated
    */
   public List<User> list ( Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<User> result = repository.list (  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
   /**
@@ -130,11 +130,11 @@ public class UserBusiness {
    * @generated
    */
   public List<User> findByRole ( java.lang.String roleid , Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<User> result = repository.findByRole ( roleid ,  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
   /**
@@ -143,11 +143,11 @@ public class UserBusiness {
    * @generated
    */
   public List<User> findByLogin ( java.lang.String login , Pageable pageable ){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     List<User> result = repository.findByLogin ( login ,  pageable );
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
     
@@ -158,11 +158,11 @@ public class UserBusiness {
    * OneToManyRelation
    */  
   public List<UserRole> findUserRole(java.lang.String id,  Pageable pageable) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       List<UserRole> result = repository.findUserRole(id,  pageable );
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return result;	  
   }
 
@@ -173,11 +173,11 @@ public class UserBusiness {
    * ManyToManyRelation
    */  
   public List<Role> listRole(java.lang.String id,  Pageable pageable ) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       List<Role> result = repository.listRole(id,  pageable );
-      // after-begin-user-code
-      // after-end-user-code
+      // begin-user-code
+      // end-user-code
       return result;        	  
   }
   
@@ -185,11 +185,11 @@ public class UserBusiness {
    * @generated modifiable
    */    
   public int deleteRole(java.lang.String instanceId, java.lang.String relationId) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       int result = repository.deleteRole(instanceId, relationId);
-      // after-begin-user-code
-      // after-end-user-code  
+      // begin-user-code
+      // end-user-code  
       return result;  
   }
 }

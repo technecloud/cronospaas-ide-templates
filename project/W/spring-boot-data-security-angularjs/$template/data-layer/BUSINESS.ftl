@@ -49,11 +49,11 @@ public class ${clazz_name} {
      * @generated
      */
     public ${class_entity_name} post(final ${class_entity_name} entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code  
+      // begin-user-code  
+      // end-user-code  
       repository.save(entity);
-      // after-begin-user-code  
-      // after-end-user-code  
+      // begin-user-code  
+      // end-user-code  
       return entity;
     }
 
@@ -63,11 +63,11 @@ public class ${clazz_name} {
      * @generated
      */
     public ${class_entity_name} get(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
        ${class_entity_name} result = repository.findOne(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return result;
     }
 
@@ -77,11 +77,11 @@ public class ${clazz_name} {
      * @generated
      */
     public ${class_entity_name} put(final ${class_entity_name} entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -91,11 +91,11 @@ public class ${clazz_name} {
      * @generated
      */
     public ${class_entity_name} put(final ${field_pk_type} id,final ${class_entity_name} entity) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.saveAndFlush(entity);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return entity;
     }
 
@@ -106,11 +106,11 @@ public class ${clazz_name} {
      * @generated
      */
     public void delete(<#list clazz.primaryKeys as field> ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
-      // before-begin-user-code  
-      // before-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       repository.delete(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
     }
 
     // CRUD
@@ -124,11 +124,11 @@ public class ${clazz_name} {
    * @generated
    */
   public <#if !namedQuery.void>List<${clazz.name}><#else>int</#if> ${method_named_query_name} (<#list keys as key> ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable </#if>){
-    // before-begin-user-code  
-    // before-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     <#if !namedQuery.void>List<${clazz.name}><#else>int</#if> result = repository.${method_named_query_name} (<#list keys as key> ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if> pageable </#if>);
-    // after-begin-user-code  
-    // after-end-user-code        
+    // begin-user-code  
+    // end-user-code        
     return result;
   }
 </#list>
@@ -141,11 +141,11 @@ public class ${clazz_name} {
    * OneToManyRelation
    */  
   public List<${relation.clazz.name}> find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       List<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
-      // after-begin-user-code  
-      // after-end-user-code        
+      // begin-user-code  
+      // end-user-code        
       return result;	  
   }
 
@@ -158,11 +158,11 @@ public class ${clazz_name} {
    * ManyToManyRelation
    */  
   public List<${relation.relationClassField.type}> list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable ) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       List<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
-      // after-begin-user-code
-      // after-end-user-code
+      // begin-user-code
+      // end-user-code
       return result;        	  
   }
   
@@ -170,11 +170,11 @@ public class ${clazz_name} {
    * @generated modifiable
    */    
   public int delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
-      // before-begin-user-code
-      // before-end-user-code  
+      // begin-user-code
+      // end-user-code  
       int result = repository.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
-      // after-begin-user-code
-      // after-end-user-code  
+      // begin-user-code
+      // end-user-code  
       return result;  
   }
 </#list>
