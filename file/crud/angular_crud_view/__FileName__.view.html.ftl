@@ -41,6 +41,10 @@
                 {{rowData.${field.getProperty("firstStringField")}}}
               <#else>
                 <#if field.isDate() >
+                  {{rowData.${field.name} | date:'dd/MM/yyyy'}}
+                <#elseif field.isTime() >
+                  {{rowData.${field.name} | date:'HH:mm:ss'}}
+                <#elseif field.isTimestamp() >
                   {{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
                 <#else>
                   {{rowData.${field.name}}}
@@ -87,10 +91,18 @@
 
   <#if field.isBoolean() >
         <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
-  <#elseif field.isDate() >
+  <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
         <div style="position:relative">
-          <input type="text" as-date format="DD/MM/YYYY HH:mm:ss" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
-        </div> 
+          <input type="text" as-date 
+            <#if field.isDate() >
+            format="DD/MM/YYYY"
+            <#elseif field.isTime()>
+            format="HH:mm:ss"
+            <#elseif field.isTimestamp()>
+            format="DD/MM/YYYY HH:mm:ss"
+            </#if>
+          ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+        </div>
   <#elseif field.isNumber() >
         <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
   <#elseif field.getProperty("ngOptions")?? >
