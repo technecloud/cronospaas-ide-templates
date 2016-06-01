@@ -42,9 +42,9 @@ angular.module('datasourcejs', [])
     var unregisterDataWatch = null;
     
     // Public methods
-	/**
-	* Initialize a single datasource
-	*/
+  /**
+  * Initialize a single datasource
+  */
     this.init = function() {
 
       var dsScope = this;
@@ -90,8 +90,8 @@ angular.module('datasourcejs', [])
       }
       
       /**
-		 * Check if the datasource is waiting for any request response
-		 */
+     * Check if the datasource is waiting for any request response
+     */
       this.isBusy = function() {
         return busy;
       }
@@ -108,7 +108,7 @@ angular.module('datasourcejs', [])
               var indexFunc = callBackFunction.indexOf('(')==-1 ? callBackFunction.length: callBackFunction.indexOf('(');
               var func = eval( callBackFunction.substring(0,indexFunc) );
               var isFunc = typeof(func) === 'function';
-              if(isFunc) func.call(this);
+              if(isFunc) func.call(this, this);
             }catch(e){
               this.handleError(e);
             }
@@ -125,7 +125,7 @@ angular.module('datasourcejs', [])
             var indexFunc = callBackFunction.indexOf('(')==-1 ? callBackFunction.length: callBackFunction.indexOf('(');
             var func = eval( callBackFunction.substring(0,indexFunc) );
             var isFunc = typeof(func) === 'function';
-            if(isFunc) func.call(this);
+            if(isFunc) func.call(this, this.active);
           }catch(e){
               isValid = false;
               this.handleError(e);
@@ -138,11 +138,11 @@ angular.module('datasourcejs', [])
 
       
       /**
-		 * Error Handler function
-		 */
+     * Error Handler function
+     */
       /**
-		 * Error Handler function
-		 */
+     * Error Handler function
+     */
       this.handleError = function(data) {
         console.log(data);
         var error = ""; 
@@ -172,20 +172,20 @@ angular.module('datasourcejs', [])
         this.errorMessage = error;
         
         if (this.onError &&  this.onError != '') {
-	        if(typeof(this.onError) === 'string'){
-	          try {
-	            var indexFunc = this.onError.indexOf('(')==-1 ? this.onError.length: this.onError.indexOf('(');
-	            var func = eval( this.onError.substring(0,indexFunc) );
-	            if(typeof(func) === 'function'){
-	              this.onError = func;
-	            }
-	          }catch(e){
-	              isValid = false;
-	              Notification.error(e);
-	          }
-	        }
+          if(typeof(this.onError) === 'string'){
+            try {
+              var indexFunc = this.onError.indexOf('(')==-1 ? this.onError.length: this.onError.indexOf('(');
+              var func = eval( this.onError.substring(0,indexFunc) );
+              if(typeof(func) === 'function'){
+                this.onError = func;
+              }
+            }catch(e){
+                isValid = false;
+                Notification.error(e);
+            }
+          }
         }else{
-        	this.onError = function(error) {
+          this.onError = function(error) {
                 Notification.error(error);
               };
         }
@@ -284,9 +284,9 @@ angular.module('datasourcejs', [])
       this.inserting = false;
     };
 
-	/**
-	* Cancel the editing or inserting state
-	*/
+  /**
+  * Cancel the editing or inserting state
+  */
     this.cancel = function() {
       if(this.inserting) {
         this.active = this.data[0];
@@ -295,9 +295,9 @@ angular.module('datasourcejs', [])
       this.editing = false;
     };
     
-	/**
-	* Put the datasource into the inserting state
-	*/
+  /**
+  * Put the datasource into the inserting state
+  */
    this.startInserting = function () {
      this.inserting = true;
      this.active = {};
@@ -307,8 +307,8 @@ angular.module('datasourcejs', [])
    };
    
    /**
-	* Put the datasource into the editing state
-	*/
+  * Put the datasource into the editing state
+  */
    this.startEditing = function (item) {
      if(item) this.active = this.copy(item);
      this.editing = true;
@@ -391,7 +391,7 @@ angular.module('datasourcejs', [])
         return keyValues;
     }.bind(this);
     
-	/**
+  /**
      * Check if two objects are equals by comparing their keys
      * PRIVATE FUNCTION
      */
@@ -413,8 +413,8 @@ angular.module('datasourcejs', [])
     this.hasNext = function () {
       return this.data && (cursor < this.data.length - 1);
     };
-	
-	/**
+  
+  /**
     * Check if the cursor is not at the beginning of the datasource
     */
     this.hasPrevious = function () {
@@ -428,36 +428,36 @@ angular.module('datasourcejs', [])
       _savedProps.order = order;
     };
   
-	  /**
-	  * Get the values of the active row as an array.
-	  * This method will ignore any keys and only return the values
-	  */
-	  this.getActiveValues = function() {
-		  if(this.active && !this._activeValues) {
-		    $rootScope.$watch(function(scope) { 
-		      return this.active; 
-		    }.bind(this),
+    /**
+    * Get the values of the active row as an array.
+    * This method will ignore any keys and only return the values
+    */
+    this.getActiveValues = function() {
+      if(this.active && !this._activeValues) {
+        $rootScope.$watch(function(scope) { 
+          return this.active; 
+        }.bind(this),
         function(newValue, oldValue) {
             this._activeValues = this.getRowValues(this.active);
         }.bind(this), true);
-		  }
-		  return this._activeValues;
-	  }
-	  
-	  this.__defineGetter__('activeValues', function() { return _self.getActiveValues(); });
-	  
-	  /**
-	  * Get the values of the given row
-	  */
-	  this.getRowValues = function(rowData) {
-		var arr = [];
-		for( var i in rowData ) {
-			if (rowData.hasOwnProperty(i)){
-			   arr.push(rowData[i]);
-			}
-		}
-		return arr;
-	  }
+      }
+      return this._activeValues;
+    }
+    
+    this.__defineGetter__('activeValues', function() { return _self.getActiveValues(); });
+    
+    /**
+    * Get the values of the given row
+    */
+    this.getRowValues = function(rowData) {
+    var arr = [];
+    for( var i in rowData ) {
+      if (rowData.hasOwnProperty(i)){
+         arr.push(rowData[i]);
+      }
+    }
+    return arr;
+    }
   
     /**
     *  Get the current item moving the cursor to the next element
@@ -567,15 +567,15 @@ angular.module('datasourcejs', [])
     /**
      *  refresh dataset by URL and queryParams, 
      */
-	this.refresh = function(query, url, minChar){
-		this.cleanup();
-		if(minChar === undefined){
-			minChar = 0;
-		}
-		if(query.length >= minChar){
-			this.filter(url+"/"+query);
-		}
-	};
+  this.refresh = function(query, url, minChar){
+    this.cleanup();
+    if(minChar === undefined){
+      minChar = 0;
+    }
+    if(query.length >= minChar){
+      this.filter(url+"/"+query);
+    }
+  };
     
     /**
      * Cleanup datasource  
@@ -668,7 +668,7 @@ angular.module('datasourcejs', [])
               // When neither  nor preppend was set
               // Just replace the current data
               if(!this.prepend && !this.append) {
-            	  Array.prototype.push.apply(this.data, data);
+                Array.prototype.push.apply(this.data, data);
                 if (this.data.length > 0) {
                   this.active = data[0];
                   cursor = 0;
@@ -922,9 +922,9 @@ angular.module('datasourcejs', [])
     template: '',
     link: function( scope, element, attrs ) {
       var init = function () {
-	    
-    	//Add in header the path from the request was executed
-    	var originPath = "origin-path:" + $location.path();
+      
+      //Add in header the path from the request was executed
+      var originPath = "origin-path:" + $location.path();
         if(attrs.headers === undefined || attrs.headers === null){
           attrs.headers = originPath;
         }else{
