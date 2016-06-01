@@ -10,7 +10,10 @@ import javax.xml.bind.annotation.*;
  * @generated
  */
 @Entity
-@Table(name = "\"PERMISSION\"")
+@Table(name = "\"PERMISSION\""
+
+
+)
 @XmlRootElement
 public class Permission implements Serializable {
 

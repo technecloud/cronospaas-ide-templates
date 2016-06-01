@@ -17,9 +17,8 @@ import security.business.*;
 /**
  * Controller para expor serviços REST de User
  * 
- * @author Techne
+ * @author Usuário de Teste
  * @version 1.0
- * @since 2016-05-18
  * @generated
  **/
 @RestController
@@ -55,22 +54,8 @@ public class UserREST {
      */
     @RequestMapping(method = RequestMethod.POST)
     public User post(@Validated @RequestBody final User entity) throws Exception {
-        String rawPassword = entity.getPassword();
-        String hashPassword = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(rawPassword);
-        entity.setPassword(hashPassword);
-        userBusiness.getRepository().save(entity);
+        userBusiness.post(entity);
         return entity;
-    }
-
-    /**
-     * Serviço exposto para recuperar entidades de acordo com os paramêtros para limite
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.GET)
-    public List<User> get(@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) throws Exception {
-        Page<User> pages = userBusiness.getRepository().findAll(new PageRequest(offset, limit));
-        return pages.getContent();
     }
 
     /**
@@ -79,8 +64,8 @@ public class UserREST {
      * @generated
      */
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<?> get(@PathVariable("id") final String id) throws Exception {
-        User entity = userBusiness.getRepository().findOne(id);
+    public ResponseEntity<?> get(@PathVariable("id") java.lang.String id) throws Exception {
+        User entity = userBusiness.get(id);
         return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
     }
 
@@ -91,7 +76,7 @@ public class UserREST {
      */
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity<?> put(@Validated @RequestBody final User entity) throws Exception {
-        return ResponseEntity.ok( userBusiness.getRepository().saveAndFlush(entity));
+        return ResponseEntity.ok(userBusiness.put(entity));
     }
 
     /**
@@ -100,25 +85,10 @@ public class UserREST {
      * @generated
      */
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-    public User put(@PathVariable("id") final String id, @Validated @RequestBody final User entity) throws Exception {
-
-        String formPassword = entity.getPassword();
-        String hashPassword = formPassword.startsWith("$2a$10$") ? formPassword : new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(formPassword);
-        entity.setPassword(hashPassword);
-
-        return userBusiness.getRepository().saveAndFlush(entity);
+    public User put(@PathVariable("id") final java.lang.String id, @Validated @RequestBody final User entity) throws Exception {
+        return userBusiness.put(entity);
     }
 
-
-    /**
-     * Serviço exposto para remover a entidade fornecida
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.DELETE)
-    public void delete(@Validated @RequestBody final User entity) throws Exception {
-         userBusiness.getRepository().delete(entity);
-    }
 
     /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
@@ -126,20 +96,29 @@ public class UserREST {
      * @generated
      */
     @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public void delete(@PathVariable("id") final String id) throws Exception {
-         userBusiness.getRepository().delete(id);
+    public void delete(@PathVariable("id") java.lang.String id) throws Exception {
+        userBusiness.delete(id);
     }
 
 
+  /**
+   * NamedQuery list
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  )    
+  public  List<User> listParams (@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
+      return userBusiness.list(new PageRequest(offset, limit)   );  
+  }
 
   /**
    * NamedQuery findByRole
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
-  , value="/findByRole")    
-  public  List<User> findByRoleParams (@RequestParam("roleid") java.lang.String roleid, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userBusiness.getRepository().findByRole(roleid, new PageRequest(offset, limit)   );  
+  , value="/findByRole/{roleid}")    
+  public  List<User> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
+      return userBusiness.findByRole(roleid, new PageRequest(offset, limit)   );  
   }
 
   /**
@@ -147,12 +126,10 @@ public class UserREST {
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
-  , value="/findByLogin")    
-  public  List<User> findByLoginParams (@RequestParam("login") java.lang.String login, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userBusiness.getRepository().findByLogin(login, new PageRequest(offset, limit)   );  
+  , value="/findByLogin/{login}")    
+  public  List<User> findByLoginParams (@PathVariable("login") java.lang.String login, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
+      return userBusiness.findByLogin(login, new PageRequest(offset, limit)   );  
   }
-
-
 
   /**
    * OneToMany Relationship GET
@@ -172,7 +149,7 @@ public class UserREST {
   , value="/{instanceId}/UserRole/{relationId}")    
   public ResponseEntity<?> deleteUserRole(@PathVariable("relationId") java.lang.String relationId) {
       try {
-        this.userRoleBusiness.getRepository().delete(relationId);
+        this.userRoleBusiness.delete(relationId);
         return ResponseEntity.ok().build();
       } catch (Exception e) {
         return ResponseEntity.status(404).build();
@@ -197,15 +174,15 @@ public class UserREST {
    */  
   @RequestMapping(method = RequestMethod.POST
   ,value="/{instanceId}/Role")
-  public ResponseEntity<?> postRole(@Validated @RequestBody final Role entity, @PathVariable("instanceId") java.lang.String instanceId) {
+  public ResponseEntity<?> postRole(@Validated @RequestBody final Role entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
       UserRole newUserRole = new UserRole();
 
-      User instance = this.userBusiness.getRepository().findOne(instanceId);
+      User instance = this.userBusiness.get(instanceId);
 
       newUserRole.setRole(entity);
       newUserRole.setUser(instance);
       
-      this.userRoleBusiness.getRepository().saveAndFlush(newUserRole);
+      this.userRoleBusiness.post(newUserRole);
 
       return ResponseEntity.ok(newUserRole.getUser());
   }   

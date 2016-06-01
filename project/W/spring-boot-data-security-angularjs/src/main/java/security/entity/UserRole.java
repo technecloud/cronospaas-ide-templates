@@ -11,7 +11,13 @@ import javax.xml.bind.annotation.*;
  */
 @Entity
 @Table(name = "\"USERROLE\""
-	, uniqueConstraints={@UniqueConstraint(columnNames = {"role" , "user"})} )
+
+,uniqueConstraints=@UniqueConstraint(columnNames={
+"user" ,
+"role" 
+})
+
+)
 @XmlRootElement
 public class UserRole implements Serializable {
 

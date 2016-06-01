@@ -10,7 +10,10 @@ import javax.xml.bind.annotation.*;
  * @generated
  */
 @Entity
-@Table(name = "\"ROLE\"")
+@Table(name = "\"ROLE\""
+
+
+)
 @XmlRootElement
 public class Role implements Serializable {
 
