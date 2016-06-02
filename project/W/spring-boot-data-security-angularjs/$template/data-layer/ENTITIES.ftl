@@ -30,9 +30,15 @@ import org.eclipse.persistence.annotations.*;
 @XmlRootElement
 <#if (clazz.multitenantClass)>
 @Multitenant(MultitenantType.SINGLE_TABLE)
+<#if (clazz.multitententFields?size > 1)>
+@TenantDiscriminatorColumns({
+</#if>
 <#list clazz.multitententFields as field>
-@TenantDiscriminatorColumn(name = "${field.dbFieldName}", contextProperty = "multitenancy.tenant-id")
+@TenantDiscriminatorColumn(name = "${field.dbFieldName}", contextProperty = "${field.multitenantContext}")<#if field_has_next>,</#if>
 </#list>
+<#if (clazz.multitententFields?size > 1)>
+})
+</#if>
 </#if>
 public class ${clazz.name} implements Serializable {
 
