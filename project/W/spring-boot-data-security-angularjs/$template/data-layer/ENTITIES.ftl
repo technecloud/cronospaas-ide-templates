@@ -4,6 +4,7 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 <#list clazz.imports as import>
 import ${import};
 </#list>
@@ -84,7 +85,10 @@ public class ${clazz.name} implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="${field.mappedBy}"<#if field.multitenant>, insertable=false, updatable=false</#if>)	
 	<#else>
 	@Column(name = "${field.dbFieldName?lower_case}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if><#if field.multitenant>, insertable=false, updatable=false</#if>)
-	</#if>	
+	</#if>
+<#if (field.ignore)>
+	@JsonIgnore
+</#if>
 	${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
 	
 	</#list>
