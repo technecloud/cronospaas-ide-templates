@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.*;
         entityManagerFactoryRef = "${entityManagerFactoryRef}",
         transactionManagerRef = "${transactionManagerRef}"
 )
-class ${clazz_name} {
+class ${configurationName} {
   
     <#if persistence_unit_name == first_pu>
     @Primary
