@@ -70,6 +70,10 @@
                "removable":false,
                "type":"datasourceKeys"
             },
+            "filter":{
+               "removable":true,
+               "global":true
+            },
             "on-before-create":{
                "removable":true,
                "type":"event",
