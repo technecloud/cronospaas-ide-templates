@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.*;
 <#list clazz.imports as import>
 import ${import};
 </#list>
+<#if (clazz.multitenantClass)>
+import org.eclipse.persistence.annotations.*;
+</#if>
 
 /**
  * Classe que representa a tabela <#if tableName??>${tableName}<#else>${clazz.name?upper_case}</#if>
@@ -20,6 +23,14 @@ import ${import};
 	</#list>
 })
 @XmlRootElement
+<#if (clazz.multitenantClass)>
+@Multitenant(MultitenantType.SINGLE_TABLE)
+<#if (clazz.multitententFields?size > 1)>
+@TenantDiscriminatorColumns({
+</#if>
+<#list clazz.multitententFields as field>
+@TenantDiscriminatorColumn(name = "${field.dbFieldName}", contextProperty = "${field.multitenantContext}")<#if field_has_next>,</#if>
+</#list>
 public class ${clazz.name} implements Serializable {
 
 	/**
@@ -50,7 +61,7 @@ public class ${clazz.name} implements Serializable {
 	</#if>	
 	<#if (field.relationNames?size == 1)>
 	<#list field.relationNames?keys as key>
-	<#if key??>@JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}")</#if>
+	<#if key??>@JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}"<#if field.multitenant>, insertable=false, updatable=false</#if>)</#if>
 	</#list>
 	<#elseif (field.relationNames?size > 1)>
 	<#assign i= field.relationNames?size>	
@@ -61,9 +72,9 @@ public class ${clazz.name} implements Serializable {
 	</#list>	
 	})	
 	<#elseif field.arrayRelation>
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="${field.mappedBy}")	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="${field.mappedBy}"<#if field.multitenant>, insertable=false, updatable=false</#if>)	
 	<#else>
-	@Column(name = "${field.dbFieldName?lower_case}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>)
+	@Column(name = "${field.dbFieldName?lower_case}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if><#if field.multitenant>, insertable=false, updatable=false</#if>)
 	</#if>	
 	${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
 	

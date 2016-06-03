@@ -72,9 +72,9 @@ public class ${class_name} {
      * @generated
      */
     @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
-    public ResponseEntity<?> get(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+    public List<${class_entity_name}> get(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
         ${class_entity_name} entity = ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
-        return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
+        return entity == null ? Collections.emptyList() : Arrays.asList(entity);
     }
 
     /**
