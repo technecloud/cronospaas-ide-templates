@@ -31,6 +31,7 @@ import org.eclipse.persistence.annotations.*;
 <#list clazz.multitententFields as field>
 @TenantDiscriminatorColumn(name = "${field.dbFieldName}", contextProperty = "${field.multitenantContext}")<#if field_has_next>,</#if>
 </#list>
+</#if>
 public class ${clazz.name} implements Serializable {
 
 	/**
