@@ -370,6 +370,8 @@ angular.module('datasourcejs', [])
       if(this.deleteMessage && this.deleteMessage.length > 0) {
         if(confirm(this.deleteMessage)) {
           _remove(object, callback); 
+        }else{
+          this.filter();
         }
       } else {
         _remove(object, callback);
