@@ -215,14 +215,20 @@
       {
          "name":"crn-datepicker",
          "text":"Date",
-         "class":"cpn cpn-datepicker",
-         "templateURL":"webcontent/components/templates/datepicker.template.html"
+         "class":"cpn cpn-date",
+         "templateURL":"webcontent/components/templates/date.template.html"
+      },
+      {
+         "name":"crn-timepicker",
+         "text":"Time",
+         "class":"cpn cpn-time",
+         "templateURL":"webcontent/components/templates/time.template.html"
       },
       {
          "name":"crn-datetimepicker",
-         "text":"Date and Time",
-         "class":"cpn cpn-datetimepicker",
-         "templateURL":"webcontent/components/templates/datetimepicker.template.html"
+         "text":"DateTime",
+         "class":"cpn cpn-datetime",
+         "templateURL":"webcontent/components/templates/datetime.template.html"
       },
       {
          "name":"crn-upload",
