@@ -10,6 +10,7 @@
   <url>http://maven.apache.org</url>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
     <resources>
       <resource>
         <directory>src</directory>
@@ -21,11 +22,6 @@
         </excludes>
       </resource>
     </resources>
-    <testResources>
-     <testResource>
-       <directory>src/test/resources</directory>
-     </testResource>
-   </testResources>
     <plugins>
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
@@ -61,7 +57,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.12</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
