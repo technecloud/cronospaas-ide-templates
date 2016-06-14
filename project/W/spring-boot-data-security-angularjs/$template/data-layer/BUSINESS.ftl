@@ -86,21 +86,6 @@ public class ${clazz_name} {
     }
 
     /**
-     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
-     * 
-     * @generated
-     */
-    public ${class_entity_name} put(final ${field_pk_type} id,final ${class_entity_name} entity) throws Exception {
-      // begin-user-code  
-      // end-user-code        
-      repository.saveAndFlush(entity);
-      // begin-user-code  
-      // end-user-code        
-      return entity;
-    }
-
-
-    /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
      * 
      * @generated
