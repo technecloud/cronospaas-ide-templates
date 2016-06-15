@@ -62,8 +62,7 @@ public class ${class_name} {
      */
     @RequestMapping(method = RequestMethod.POST)
     public ${class_entity_name} post(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
-        ${class_business_variable_name}.post(entity);
-        return entity;
+        return ${class_business_variable_name}.post(entity);
     }
 
     /**
@@ -72,8 +71,8 @@ public class ${class_name} {
      * @generated
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> put(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
-        return ResponseEntity.ok(${class_business_variable_name}.put(entity));
+    public ${class_entity_name} put(@Validated @RequestBody final ${class_entity_name} entity) throws Exception {
+        return ${class_business_variable_name}.put(entity);
     }
 
     /**
@@ -129,13 +128,8 @@ public class ${class_name} {
    */  
   @RequestMapping(method = RequestMethod.DELETE
   , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.clazz.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")    
-  public ResponseEntity<?> delete${relation.relationName?cap_first}(<#list relation.clazz.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
-      try {
-        this.${relation.clazz.name?uncap_first}Business.delete(<#list relation.clazz.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
-        return ResponseEntity.ok().build();
-      } catch (Exception e) {
-        return ResponseEntity.status(404).build();
-      }
+  public void delete${relation.relationName?cap_first}(<#list relation.clazz.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+    this.${relation.clazz.name?uncap_first}Business.delete(<#list relation.clazz.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
   }
   
   /**
@@ -144,9 +138,8 @@ public class ${class_name} {
    */  
   @RequestMapping(method = RequestMethod.PUT
   , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.clazz.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public ResponseEntity<?> put${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.clazz.name} entity, <#list relation.clazz.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
-		${relation.clazz.name} updatedEntity = this.${relation.clazz.name?uncap_first}Business.put(entity);
-		return ResponseEntity.ok(updatedEntity);
+  public ${relation.clazz.name} put${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.clazz.name} entity, <#list relation.clazz.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+	return this.${relation.clazz.name?uncap_first}Business.put(entity);
   }  
   
   /**
@@ -155,11 +148,10 @@ public class ${class_name} {
    */  
   @RequestMapping(method = RequestMethod.POST
   , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
-  public ResponseEntity<?> post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.clazz.name} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
-		${clazz.name} ${relation.relationField.name} = this.${class_business_variable_name}.get(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
-		entity.set${relation.relationField.name?cap_first}(${relation.relationField.name});
-		this.${relation.clazz.name?uncap_first}Business.post(entity);
-		return ResponseEntity.ok(entity);
+  public ${relation.clazz.name} post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.clazz.name} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+	${clazz.name} ${relation.relationField.name} = this.${class_business_variable_name}.get(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+	entity.set${relation.relationField.name?cap_first}(${relation.relationField.name});
+	return this.${relation.clazz.name?uncap_first}Business.post(entity);
   }   
 
 </#list>
@@ -181,7 +173,7 @@ public class ${class_name} {
    */  
   @RequestMapping(method = RequestMethod.POST
   ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
-  public ${class_entity_name} post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.relationClassField.type} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+  public ${clazz.name} post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.relationClassField.type} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
       ${relation.relationClassField.clazz.name} new${relation.relationClassField.clazz.name?cap_first} = new ${relation.relationClassField.clazz.name}();
 
       ${clazz.name} instance = this.${class_business_variable_name}.get(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
@@ -191,7 +183,7 @@ public class ${class_name} {
       
       this.${relation.relationClassField.clazz.name?uncap_first}Business.post(new${relation.relationClassField.clazz.name?cap_first});
 
-      return ResponseEntity.ok(new${relation.relationClassField.clazz.name?cap_first}.get${relation.associativeClassField.name?cap_first}());
+      return new${relation.relationClassField.clazz.name?cap_first}.get${relation.associativeClassField.name?cap_first}();
   }   
 
   /**
@@ -200,9 +192,8 @@ public class ${class_name} {
    */  
   @RequestMapping(method = RequestMethod.DELETE
   ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.relationClass.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public ResponseEntity<?> delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, <#list relation.relationClass.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
-      this.${clazz.name?uncap_first}Business.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
-      return ResponseEntity.ok().build();
+  public void delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, <#list relation.relationClass.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
+	  this.${clazz.name?uncap_first}Business.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
   }  
 
 
@@ -214,8 +205,7 @@ public class ${class_name} {
      * @generated
      */
     @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
-    public List<${class_entity_name}> get(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
-        ${class_entity_name} entity = ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
-        return entity == null ? Collections.emptyList() : Arrays.asList(entity);
+    public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+        return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
     }
 }
