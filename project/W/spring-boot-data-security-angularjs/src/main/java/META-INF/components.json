@@ -6,7 +6,7 @@
          "name":"crn-anchor",
          "text":"Link",
          "class":"cpn cpn-anchor",
-         "templateURL":"webcontent/components/templates/anchor.template.html",
+         "templateURL":"src/main/webapp/components/templates/anchor.template.html",
          "properties":{
             "onclick":{
                "type":"event"
@@ -44,7 +44,7 @@
          "name":"crn-button",
          "text":"Button",
          "class":"cpn cpn-button",
-         "templateURL":"webcontent/components/templates/button.template.html",
+         "templateURL":"src/main/webapp/components/templates/button.template.html",
          "properties":{
             "ng-click":{
                "removable":true,
@@ -115,7 +115,7 @@
          "name":"crn-textinput",
          "text":"Caixa de texto",
          "class":"cpn cpn-textinput",
-         "templateURL":"webcontent/components/templates/textinput.template.html",
+         "templateURL":"src/main/webapp/components/templates/textinput.template.html",
          "properties":{
             "onchange":{
                "removable":true,
@@ -178,7 +178,7 @@
          "name":"crn-form",
          "text":"Form",
          "class":"cpn cpn-form",
-         "templateURL":"webcontent/components/templates/form.template.html",
+         "templateURL":"src/main/webapp/components/templates/form.template.html",
          "properties":{
             "crn-datasource":{
                "displayName":"Datasource",
@@ -210,31 +210,31 @@
                }
             ]
          },
-         "templateURL":"webcontent/components/templates/tabs.template.html"
+         "templateURL":"src/main/webapp/components/templates/tabs.template.html"
       },
       {
          "name":"crn-datepicker",
          "text":"Date",
          "class":"cpn cpn-date",
-         "templateURL":"webcontent/components/templates/date.template.html"
+         "templateURL":"src/main/webapp/components/templates/date.template.html"
       },
       {
          "name":"crn-timepicker",
          "text":"Time",
          "class":"cpn cpn-time",
-         "templateURL":"webcontent/components/templates/time.template.html"
+         "templateURL":"src/main/webapp/components/templates/time.template.html"
       },
       {
          "name":"crn-datetimepicker",
          "text":"DateTime",
          "class":"cpn cpn-datetime",
-         "templateURL":"webcontent/components/templates/datetime.template.html"
+         "templateURL":"src/main/webapp/components/templates/datetime.template.html"
       },
       {
          "name":"crn-upload",
          "text":"File Upload",
          "class":"cpn cpn-upload",
-         "templateURL":"webcontent/components/templates/fileupload.template.html",
+         "templateURL":"src/main/webapp/components/templates/fileupload.template.html",
          "properties":{
 
          }
@@ -243,7 +243,7 @@
          "name":"crn-grid",
          "text":"Table",
          "class":"cpn cpn-table",
-         "templateURL":"webcontent/components/templates/grid.template.html",
+         "templateURL":"src/main/webapp/components/templates/grid.template.html",
          "properties":{
 
          },
@@ -278,7 +278,7 @@
          "name":"crn-combobox",
          "text":"Combobox",
          "class":"cpn cpn-combobox",
-         "templateURL":"webcontent/components/templates/combobox.template.html",
+         "templateURL":"src/main/webapp/components/templates/combobox.template.html",
          "handleRules":{
             "canToggle":true,
             "rules":[
@@ -310,7 +310,7 @@
          "name":"crn-combobox-dynamic",
          "text":"Dynamic Combobox",
          "class":"cpn cpn-combobox-dynamic",
-         "templateURL":"webcontent/components/templates/combobox-dynamic.template.html",
+         "templateURL":"src/main/webapp/components/templates/combobox-dynamic.template.html",
          "handleRules":{
             "canToggle":true,
             "rules":[
@@ -337,7 +337,7 @@
          "name":"crn-radiogroup",
          "text":"Radio Group",
          "class":"cpn cpn-radiogroup",
-         "templateURL":"webcontent/components/templates/radiogroup.template.html",
+         "templateURL":"src/main/webapp/components/templates/radiogroup.template.html",
          "handleRules":{
             "canIncrement":true,
             "rules":[
@@ -352,13 +352,13 @@
          "name":"crn-checkbox",
          "text":"Checkbox",
          "class":"cpn cpn-checkbox",
-         "templateURL":"webcontent/components/templates/checkbox.template.html"
+         "templateURL":"src/main/webapp/components/templates/checkbox.template.html"
       },
       {
          "name":"crn-navbar",
          "text":"Navbar",
          "class":"cpn cpn-navbar",
-         "templateURL":"webcontent/components/templates/navbar.template.html",
+         "templateURL":"src/main/webapp/components/templates/navbar.template.html",
          "handleRules":{
             "canIncrement":true,
             "rules":[
@@ -392,7 +392,7 @@
          "name":"crn-sidebar",
          "text":"Sidebar",
          "class":"cpn cpn-sidebar",
-         "templateURL":"webcontent/components/templates/sidebar.template.html",
+         "templateURL":"src/main/webapp/components/templates/sidebar.template.html",
          "handleRules":{
             "canIncrement":true,
             "rules":[
@@ -426,55 +426,55 @@
          "name":"crn-chart-bar",
          "text":"Chart Bar",
          "class":"cpn cpn-chart-bar",
-         "templateURL":"webcontent/components/templates/chart-bar.template.html"
+         "templateURL":"src/main/webapp/components/templates/chart-bar.template.html"
       },
       {
          "name":"crn-chart-doughnut",
          "text":"Chart Doughnut",
          "class":"cpn cpn-chart-doughnut",
-         "templateURL":"webcontent/components/templates/chart-doughnut.template.html"
+         "templateURL":"src/main/webapp/components/templates/chart-doughnut.template.html"
       },
       {
          "name":"crn-chart-line",
          "text":"Chart Line",
          "class":"cpn cpn-chart-line",
-         "templateURL":"webcontent/components/templates/chart-line.template.html"
+         "templateURL":"src/main/webapp/components/templates/chart-line.template.html"
       },
       {
          "name":"crn-chart-pie",
          "text":"Chart Pie",
          "class":"cpn cpn-chart-pie",
-         "templateURL":"webcontent/components/templates/chart-pie.template.html"
+         "templateURL":"src/main/webapp/components/templates/chart-pie.template.html"
       },
       {
          "name":"crn-chart-polar-area",
          "text":"Chart Polar Area",
          "class":"cpn cpn-chart-polar-area",
-         "templateURL":"webcontent/components/templates/chart-polar-area.template.html"
+         "templateURL":"src/main/webapp/components/templates/chart-polar-area.template.html"
       },
       {
          "name":"crn-chart-radar",
          "text":"Chart Radar",
          "class":"cpn cpn-chart-radar",
-         "templateURL":"webcontent/components/templates/chart-radar.template.html"
+         "templateURL":"src/main/webapp/components/templates/chart-radar.template.html"
       },
       {
          "name":"crn-chart-gauge",
          "text":"Chart Gauge",
          "class":"cpn cpn-chart-gauge",
-         "templateURL":"webcontent/components/templates/chart-gauge.template.html"
+         "templateURL":"src/main/webapp/components/templates/chart-gauge.template.html"
       },
       {
          "name":"crn-title",
          "text":"Título",
          "class":"cpn cpn-title",
-         "templateURL":"webcontent/components/templates/title.template.html"
+         "templateURL":"src/main/webapp/components/templates/title.template.html"
       },
       {
          "name":"crn-text",
          "text":"Texto",
          "class":"cpn cpn-text",
-         "templateURL":"webcontent/components/templates/text.template.html"
+         "templateURL":"src/main/webapp/components/templates/text.template.html"
       },
       {
          "name":"crn-tags",
@@ -485,7 +485,7 @@
             ]
          },
          "class":"cpn cpn-tags-input",
-         "templateURL":"webcontent/components/templates/multiselect.template.html",
+         "templateURL":"src/main/webapp/components/templates/multiselect.template.html",
          "childrenProperties":[
             {
                "name":"crn-datasource",
