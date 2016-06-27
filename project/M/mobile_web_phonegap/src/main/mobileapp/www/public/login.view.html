@@ -1,0 +1,29 @@
+<ion-modal-view> 
+  <ion-header-bar> 
+    <h1 class="title">Login</h1> 
+    <div class="buttons"> 
+      <button class="button button-clear" ng-click="closeLogin()">Close</button> 
+    </div> 
+  </ion-header-bar> 
+  <ion-content> 
+    <form ng-submit="doLogin()" name="form" role=""> 
+      <div class="list list-inset"> 
+      
+        <label class="item item-input"> 
+        <i class="icon ion-monitor placeholder-icon"></i> 
+        <input type="text" style="text-transform: lowercase;" placeholder="http://meu.host.com:8080/" ng-model="loginData.host" id="host"></label> 
+        
+        <label class="item item-input"> 
+        <i class="icon ion-person placeholder-icon"></i> 
+        <input type="text" placeholder="Username" ng-model="loginData.username" id="username"></label> 
+        
+        <label class="item item-input"> 
+        <i class="icon ion-asterisk placeholder-icon"></i> 
+        <input type="password" placeholder="Password" ng-model="loginData.password" id="password"> </label> 
+        
+        <label class="item"> <button class="button button-block button-positive" type="submit">Log in</button> </label> 
+        
+      </div> 
+    </form> 
+  </ion-content> 
+</ion-modal-view>
