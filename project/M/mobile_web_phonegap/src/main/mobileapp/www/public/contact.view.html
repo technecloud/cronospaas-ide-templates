@@ -1,26 +1,29 @@
-<ion-view view-title="Contact"> 
+<ion-view view-title="{{'Contact.view.Contact' | translate}}"> 
   <ion-content class=""> 
     <div class="list card"> 
       <div class="item item-avatar item-button-right"> 
         <img ng-src="{{contact.avatar}}" class=""> 
         <h2 class="">{{contact.title}}</h2> 
-        <p class="">Cell Phone: {{contact.number}}</p> 
+        <p class="">{{'Contact.view.CellPhone' | translate}}</p> 
         <button class="button icon ion-gear-a"></button> 
       </div> 
       <div class="item item-body"> 
         <p class=""> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mi nisi, ullamcorper faucibus leo a, sodales mattis leo. Curabitur vitae tortor non justo posuere consectetur porta quis ligula. Pellentesque id elit feugiat, dapibus justo id, accumsan risus. Sed nec augue nisl. Suspendisse scelerisque euismod libero, eu commodo diam vehicula id. Suspendisse eget est cursus, viverra felis vel, rutrum mi. Vestibulum nec bibendum lorem. Maecenas viverra porta turpis, suscipit tempor lectus aliquet non. Aenean at placerat purus. </p>
-        <div class="component-holder ng-binding ng-scope" data-component="crn-image" id="crn-image-792484"></div>
-        <div class="component-holder ng-binding ng-scope" data-component="crn-textinput" id="crn-textinput-975051"></div>
-        <div class="component-holder ng-binding ng-scope" data-component="crn-button" id="crn-button-392544"></div>
-        <div class="component-holder ng-binding ng-scope" data-component="crn-button" id="crn-button-560952"></div>
+        <div class="component-holder ng-binding ng-scope" data-component="crn-div" id="crn-div-338603">
+        </div>
+        <div class="component-holder ng-binding ng-scope" data-component="crn-div" id="crn-div-111135"></div> 
+        <div class="component-holder ng-binding ng-scope" data-component="crn-image" id="crn-image-792484"></div> 
+        <div class="component-holder ng-binding ng-scope" data-component="crn-textinput" id="crn-textinput-975051"></div> 
+        <div class="component-holder ng-binding ng-scope" data-component="crn-button" id="crn-button-392544"></div> 
+        <div class="component-holder ng-binding ng-scope" data-component="crn-button" id="crn-button-560952"></div> 
         <div class="component-holder ng-binding ng-scope" data-component="crn-button" id="crn-button-657283"></div> 
-      </div>
+      </div> 
       <div class="component-holder ng-binding ng-scope" data-component="crn-textinput" id="crn-textinput-915738"></div> 
     </div> 
     <div class="list card"> 
-      <a href="#" class="item item-icon-left"> <i class="icon ion-home"></i> Home Address </a> 
-      <a href="#" class="item item-icon-left"> <i class="icon ion-ios-telephone"></i> Others Phone Number </a> 
-      <a href="#" class="item item-icon-left"> <i class="icon ion-card"></i> Card Information </a> 
+      <a href="#" class="item item-icon-left"> <i class="icon ion-home"></i> {{'Contact.view.HomeAddress' | translate}} </a> 
+      <a href="#" class="item item-icon-left"> <i class="icon ion-ios-telephone"></i> {{'Contact.view.OthersPhoneNumber' | translate}} </a> 
+      <a href="#" class="item item-icon-left"> <i class="icon ion-card"></i> {{'Contact.view.CardInformation' | translate}} </a> 
     </div> 
   </ion-content> 
 </ion-view>

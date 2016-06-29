@@ -1,9 +1,16 @@
-<ion-view view-title="Search"> 
+<ion-view view-title="{{'Search.view.Search' | translate}}"> 
   <ion-content> 
-    <h1>Search</h1> 
-    <div class="list list-inset"> 
-      <label class="item item-input"> <i class="icon ion-search placeholder-icon"></i> <input type="text" placeholder="Search" ng-model="searchTitle"> </label> 
+    <div class="list card text-center"> 
+      <h1>{{'Search.view.Search' | translate}}</h1> 
     </div> 
-    <div ng-include src="'public/partial/_contactlist.view.html'"></div>
+    <div class="list list-inset"> 
+      <label class="item item-input"> 
+        <i class="icon ion-search placeholder-icon"></i> 
+        <input type="text" placeholder="{{'Search.view.Search' | translate}}" ng-model="searchTitle"> 
+      </label> 
+    </div> 
+    <div class="list card"> 
+      <div ng-include="" src="'public/partial/_contactlist.view.html'"></div> 
+    </div> 
   </ion-content> 
 </ion-view>

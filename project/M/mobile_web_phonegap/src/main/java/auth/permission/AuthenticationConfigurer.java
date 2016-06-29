@@ -10,13 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -68,8 +68,10 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     roleAdmin.setId(ROLE_ADMIN_ID).setName(ROLE_ADMIN_NAME);
 
     Permission permissionAdmin = new Permission();
+    
     permissionAdmin.setPath("/views/admin/**").setVerb("ALL")
         .setRole(roleAdmin).setPriority(1).setEnabled(true);
+        
     Permission permissionAdminRest = new Permission();
     permissionAdminRest.setPath("/api/rest/security/**").setVerb("ALL")
         .setRole(roleAdmin).setPriority(1).setEnabled(true);

@@ -6,7 +6,20 @@
 // 'starter.controllers' is found in controllers.js
 
 var app = (function() {
-	return angular.module('starter', ['ionic', 'starter.controllers'])
+	return angular.module('starter', [ 
+						'ionic', 
+						'starter.controllers', 
+						'datasourcejs' , 
+						'pascalprecht.translate',
+						'tmh.dynamicLocale'])
+
+    .constant('LOCALES', {
+      'locales': {
+        'pt_BR': 'Portugues (Brasil)',
+        'en_US': 'English'
+      },
+      'preferredLocale': 'pt_BR'
+    })
 
 	.run(function($ionicPlatform) {
 		$ionicPlatform.ready(function() {
@@ -44,6 +57,33 @@ var app = (function() {
 			}
 		};
 	}])
+
+	.config(function ($translateProvider, tmhDynamicLocaleProvider) {
+      
+      $translateProvider.useMissingTranslationHandlerLog();
+      
+      $translateProvider.useStaticFilesLoader({
+        prefix: 'i18n/locale_',
+        suffix: '.json'
+      });
+      
+      $translateProvider.registerAvailableLanguageKeys(
+        ['pt_BR', 'en_US'],
+        {
+          'en*': 'en_US',
+          'pt*': 'pt_BR',
+          '*'  : 'pt_BR'
+        }
+      );
+      
+      var locale = (window.navigator.userLanguage || window.navigator.language || 'pt_BR').replace('-', '_');
+      
+      $translateProvider.use(locale);
+      $translateProvider.useSanitizeValueStrategy('escaped');
+
+      tmhDynamicLocaleProvider.localeLocationPattern('plugins/angular-i18n/angular-locale_{{locale}}.js');
+    })
+
 
 	.config(function($stateProvider, $urlRouterProvider) {
 		$stateProvider
@@ -89,13 +129,13 @@ var app = (function() {
         url: "/error/404",
         controller: 'AppController',
         templateUrl: function(urlattr){
-            return 'views/error/404.view.html';
+            return 'public/error/404.view.html';
         }
       }).state('403', {
         url: "/error/403",
         controller: 'AppController',
         templateUrl: function(urlattr){
-            return 'views/error/403.view.html';
+            return 'public/error/403.view.html';
         }
       });
       

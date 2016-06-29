@@ -80,5 +80,14 @@
   "template.crud.search": "Pesquisar",
   "template.crud.actions": "Ações",
   "template.crud.load_more": "Carregar mais",
-  "template.crud.new": "Novo"
+  "template.crud.new": "Novo",
+  "Search.view.Search": "Procurar",
+  "Contactlist.view.ContactList": "Lista de Contato",
+  "Login.view.LogIn": "Logar",
+  "Login.view.Close": "Fechar",
+  "Contact.view.CellPhone": "Celular",
+  "Contact.view.OthersPhoneNumber": "Outros Telefones",
+  "Contact.view.HomeAddress": "Endereço",
+  "Contact.view.CardInformation": "Cartão de Informação",
+  "Contact.view.Contact": "Contato"
 }
