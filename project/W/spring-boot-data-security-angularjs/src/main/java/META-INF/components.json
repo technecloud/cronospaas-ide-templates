@@ -108,7 +108,11 @@
                "removable":true,
                "type":"event",
                "global":true
-            }
+            },
+            "dependent-by":{
+               "removable":false,
+               "global":true
+            }            
          }
       },
       {

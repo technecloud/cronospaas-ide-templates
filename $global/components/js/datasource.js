@@ -850,6 +850,8 @@ angular.module('datasourcejs', [])
       dts.onAfterUpdate  = props.onAfterUpdate;
       dts.onBeforeDelete = props.onBeforeDelete;
       dts.onAfterDelete  = props.onAfterDelete;
+      
+      dts.dependentBy = props.dependentBy;
 
       // Check for headers
       if(props.headers && props.headers.length > 0) {
@@ -864,11 +866,14 @@ angular.module('datasourcejs', [])
         }
       }
       
-      // Init
-      dts.init();
       this.storeDataset(dts);
-
-      if(!props.lazy && (Object.prototype.toString.call(props.watch) !== "[object String]") && !props.filterURL) {
+      dts.allowFetch = true;
+      
+      if(dts.dependentBy){
+        dts.allowFetch = (Object.prototype.toString.call(props.dependentBy) === "[object Object]")? dts.dependentBy.data.length>0 : false;
+      }
+      
+      if(!props.lazy && dts.allowFetch && (Object.prototype.toString.call(props.watch) !== "[object String]") && !props.filterURL) {
         // Query string object
         var queryObj = {};
 
@@ -957,7 +962,8 @@ angular.module('datasourcejs', [])
           onAfterUpdate  : attrs.onAfterUpdate,
           onBeforeDelete : attrs.onBeforeDelete,
           onAfterDelete  : attrs.onAfterDelete,
-          defaultNotSpecifiedErrorMessage: $translate.instant('General.ErrorNotSpecified')
+          defaultNotSpecifiedErrorMessage: $translate.instant('General.ErrorNotSpecified'),
+          dependentBy : attrs.dependentBy,
         }
         
         var firstLoad = {
@@ -1000,6 +1006,16 @@ angular.module('datasourcejs', [])
               } else {
                 $timeout(function() { firstLoad.entity = false; });
               }
+        });
+        
+        attrs.$observe('dependentBy', function( value ){
+          datasource.dependentBy = JSON.parse(value);
+          if(datasource.dependentBy !== null && Object.prototype.toString.call(datasource.dependentBy) !== "[object String]" ){
+            if(datasource.dependentBy.data.length > 0){
+              datasource.enabled = true;
+              datasource.fetch({params:{}});
+            }
+          }
         });
       };
       init();
