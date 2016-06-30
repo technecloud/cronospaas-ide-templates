@@ -47,7 +47,10 @@ public class ${clazz.name} implements Serializable {
 	<#if field.primaryKey>
 	@Id
     <#if field.generationType?? && field.generationType == "Identity"><#if persistenceProvider == "mysql">@GeneratedValue(strategy = GenerationType.AUTO)<#else>@GeneratedValue(strategy = GenerationType.IDENTITY)</#if></#if>
-	</#if>		
+	</#if>	
+	<#if field.transient>
+	@Transient
+	</#if>	
 	<#if field.relation>	
 	@OneToOne	
 	<#elseif field.reverseRelation>	
@@ -62,20 +65,20 @@ public class ${clazz.name} implements Serializable {
 	</#if>	
 	<#if (field.relationNames?size == 1)>
 	<#list field.relationNames?keys as key>
-	<#if key??>@JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}"<#if field.multitenant>, insertable=false, updatable=false</#if>)</#if>
+	<#if key??>@JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})</#if>
 	</#list>
 	<#elseif (field.relationNames?size > 1)>
 	<#assign i= field.relationNames?size>	
 	@JoinColumns({
 	<#list field.relationNames?keys as key>
-		<#if key??>@JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}")<#if (i>1)>,</#if></#if>
+		<#if key??>@JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})<#if (i>1)>,</#if></#if>
 		<#assign i = i-1>
 	</#list>	
 	})	
 	<#elseif field.arrayRelation>
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="${field.mappedBy}"<#if field.multitenant>, insertable=false, updatable=false</#if>)	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="${field.mappedBy}", insertable=${field.insertable?c}, updatable=${field.updatable?c})	
 	<#else>
-	@Column(name = "${field.dbFieldName?lower_case}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if><#if field.multitenant>, insertable=false, updatable=false</#if>)
+	@Column(name = "${field.dbFieldName?lower_case}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
 	</#if>	
 	${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
 	
