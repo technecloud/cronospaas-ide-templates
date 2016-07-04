@@ -93,5 +93,9 @@
   "Login.view.Host": "Host",
   "Home.view.Sair": "Logout",
   "Users.view.Salvar": "Save",
-  "Users.view.Cancel": "Cancel"
+  "Users.view.Cancel": "Cancel",
+  "Roles.view.Salvar": "Save",
+  "Roles.view.Voltar": "Cancel",
+  "Permission.view.Salvar": "Save",
+  "Permission.view.Voltar": "Cancel"
 }

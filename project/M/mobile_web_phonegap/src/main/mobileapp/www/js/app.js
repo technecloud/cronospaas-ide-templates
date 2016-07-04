@@ -68,6 +68,16 @@ var app = (function() {
 							templateUrl : 'views/logged/home.view.html'
 						})
 
+						.state('home.app', {
+							url : "/app",
+							controller : 'HomeController',
+							views : {
+								'menuContent' : {
+									templateUrl : 'views/logged/app.view.html'
+								}
+							}
+						})
+
 						.state(
 								'home.pages',
 								{
@@ -76,7 +86,8 @@ var app = (function() {
 									views : {
 										'menuContent' : {
 											templateUrl : function(urlattr) {
-												return 'views/' + urlattr.name + '.view.html';
+												return 'views/' + urlattr.name
+														+ '.view.html';
 											}
 										}
 									}

@@ -14,9 +14,10 @@
 							'Notification',
 							'$ionicLoading',
 							'$timeout',
+							'$stateParams',
 							function($scope, $http, $location, $rootScope,
 									$window, $state, $translate, Notification,
-									$ionicLoading, $timeout) {
+									$ionicLoading, $timeout, $stateParams) {
 
 								$scope.user = {};
 								$scope.message = {};
@@ -76,7 +77,7 @@
 									}
 
 									// Redirect to home page
-									$state.go("home");
+									$state.go("home.app");
 								}
 
 								function handleError(data, status, headers,
@@ -133,13 +134,14 @@
 							'$state',
 							'$translate',
 							'Notification',
+							'$ionicHistory',
 							function($scope, $http, $rootScope, $state,
-									$translate, Notification) {
-									  
-               $scope.shouldShowDelete = false;
-               $scope.shouldShowReorder = false;
-               $scope.listCanSwipe = true
-                
+									$translate, Notification, $ionicHistory) {
+
+								$scope.shouldShowDelete = false;
+								$scope.shouldShowReorder = false;
+								$scope.listCanSwipe = true
+
 								$scope.message = {};
 
 								$scope.selecionado = {
@@ -168,7 +170,7 @@
 										name : 'Regras',
 										url : '#/home/admin/roles'
 									}, {
-										name : 'UsuárPermissõesios',
+										name : 'Usuário Permissão',
 										url : '#/home/admin/permission'
 									}]
 								}];
@@ -188,6 +190,12 @@
 								$scope.isGroupShown = function(group) {
 									return $scope.shownGroup === group;
 								};
+
+								$scope.goBack = function() {
+									alert(1);
+									console.log($ionicHistory.viewHistory());
+									//$ionicHistory.goBack();
+								}
 
 								$rootScope.logout = function logout() {
 

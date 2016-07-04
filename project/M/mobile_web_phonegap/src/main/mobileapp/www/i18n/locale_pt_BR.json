@@ -93,5 +93,9 @@
   "Login.view.Host": "Servidor",
   "Home.view.Sair": "Sair",
   "Users.view.Salvar": "Salvar",
-  "Users.view.Cancel": "Voltar"
+  "Users.view.Cancel": "Voltar",
+  "Roles.view.Salvar": "Salvar",
+  "Roles.view.Voltar": "Voltar",
+  "Permission.view.Salvar": "Salvar",
+  "Permission.view.Voltar": "Voltar"
 }
