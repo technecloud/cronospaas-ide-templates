@@ -3,7 +3,7 @@ angular.module('datasourcejs', [])
 /**
 * Global factory responsible for managing all datasets
 */
-.factory('DatasetManager', ['$http','$q', '$timeout','$rootScope', function($http, $q, $timeout, $rootScope) {
+.factory('DatasetManager', ['$http','$q', '$timeout','$rootScope', 'Notification', function($http, $q, $timeout, $rootScope, Notification) {
    // Global dataset List
   this.datasets = {};
 
@@ -12,6 +12,7 @@ angular.module('datasourcejs', [])
   */
   var DataSet = function(name, scope) {
     // Publiic members
+    this.Notification = Notification;
     this.$scope = scope;
     this.$apply = function(fc) { scope.$apply(fc); }.bind(scope);
     this.data = [];
@@ -41,16 +42,6 @@ angular.module('datasourcejs', [])
     var unregisterDataWatch = null;
     
     // Public methods
-	
-	function showAlert(error) 
-	{
-		console.log(error);
-		var alertPopup = $ionicPopup.alert({
-			title : '1',
-			template : '2'
-		});
-	}
-	
   /**
   * Initialize a single datasource
   */
@@ -190,12 +181,12 @@ angular.module('datasourcejs', [])
               }
             }catch(e){
                 isValid = false;
-                showAlert(e);
+                Notification.error(e);
             }
           }
         }else{
           this.onError = function(error) {
-                showAlert(error);
+                Notification.error(error);
               };
         }
         this.onError.call(this, error);
@@ -926,7 +917,7 @@ angular.module('datasourcejs', [])
 /**
 * Cronus Dataset Directive
 */
-.directive('datasource',['DatasetManager','$timeout','$parse', '$translate', '$location', function (DatasetManager,$timeout,$parse,$translate,$location) {
+.directive('datasource',['DatasetManager','$timeout','$parse', 'Notification', '$translate', '$location', function (DatasetManager,$timeout,$parse,Notification,$translate,$location) {
   return {
     restrict: 'E',
     scope: true,

@@ -1,8 +1,0 @@
-<div class="list"> 
-  <a class="item item-avatar item-icon-right " ng-repeat="contact in contactlist | filter: searchTitle |orderBy : 'title'" href="#/app/contact/{{contact.id}}"> 
-      <img ng-src="{{contact.avatar}}" class="" /> 
-      <h2>{{contact.title}}</h2> 
-      <p>{{'Contact.view.CellPhone' | translate}}: {{contact.number}}</p> 
-      <i class="icon ion-ios-telephone-outline"></i> 
-  </a> 
-</div> 

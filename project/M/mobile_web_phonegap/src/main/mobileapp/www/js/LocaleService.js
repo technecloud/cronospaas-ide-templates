@@ -1,4 +1,4 @@
-angular.module('starter').service('LocaleService', function ($translate, LOCALES, $rootScope, tmhDynamicLocale) {
+angular.module('MyApp').service('LocaleService', function ($translate, LOCALES, $rootScope, tmhDynamicLocale) {
     'use strict';
     // PREPARING LOCALES INFO
     var localesObj = LOCALES.locales;

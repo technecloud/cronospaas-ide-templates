@@ -13,7 +13,7 @@ import org.springframework.context.annotation.*;
  * @author Usuário de Teste
  *
  */
-@ComponentScan(basePackages = { "security", "diagram.contact", "auth.permission" })
+@ComponentScan(basePackages = { "security",  "auth.permission" })
 @SpringBootApplication
 public class SpringBootMain extends SpringBootServletInitializer {
 

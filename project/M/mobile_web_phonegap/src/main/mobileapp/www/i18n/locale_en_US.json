@@ -89,5 +89,9 @@
   "Contact.view.OthersPhoneNumber": "Others Phone Number",
   "Contact.view.HomeAddress": "Home Address",
   "Contact.view.CardInformation": "Card Information",
-  "Contact.view.Contact": "Contact"
+  "Contact.view.Contact": "Contact",
+  "Login.view.Host": "Host",
+  "Home.view.Sair": "Logout",
+  "Users.view.Salvar": "Save",
+  "Users.view.Cancel": "Cancel"
 }

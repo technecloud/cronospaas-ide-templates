@@ -1,147 +1,210 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
-
 var app = (function() {
-	return angular.module('starter', [ 
-						'ionic', 
-						'starter.controllers', 
-						'datasourcejs' , 
-						'pascalprecht.translate',
-						'tmh.dynamicLocale'])
+	return angular
+			.module(
+					'MyApp',
+					['ionic', 'ui.router', 'ngResource', 'ngSanitize',
+							'custom.controllers', 'custom.services',
+							'datasourcejs', 'pascalprecht.translate',
+							'tmh.dynamicLocale', 'ui-notification'])
 
-    .constant('LOCALES', {
-      'locales': {
-        'pt_BR': 'Portugues (Brasil)',
-        'en_US': 'English'
-      },
-      'preferredLocale': 'pt_BR'
-    })
+			.constant('LOCALES', {
+				'locales' : {
+					'pt_BR' : 'Portugues (Brasil)',
+					'en_US' : 'English'
+				},
+				'preferredLocale' : 'pt_BR'
+			})
 
-	.run(function($ionicPlatform) {
-		$ionicPlatform.ready(function() {
-			// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-			// for form inputs)
-			if (window.cordova && window.cordova.plugins.Keyboard) {
-				cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-				cordova.plugins.Keyboard.disableScroll(true);
+			.run(
+					function($ionicPlatform) {
+						$ionicPlatform.ready(function() {
+							// Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+							// for form inputs)
+							if (window.cordova
+									&& window.cordova.plugins.Keyboard) {
+								cordova.plugins.Keyboard
+										.hideKeyboardAccessoryBar(true);
+								cordova.plugins.Keyboard.disableScroll(true);
 
-			}
-			if (window.StatusBar) {
-				// org.apache.cordova.statusbar required
-				StatusBar.styleDefault();
-			}
-		});
-	})
+							}
+							if (window.StatusBar) {
+								// org.apache.cordova.statusbar required
+								StatusBar.styleDefault();
+							}
+						});
+					})
 
-	.directive('crnValue', ['$parse', function($parse) {
-		return {
-			restrict : 'A',
-			require : '^ngModel',
-			link : function(scope, element, attr, ngModel) {
-				var evaluatedValue;
-				if (attr.value) {
-					evaluatedValue = attr.value;
-				} else {
-					evaluatedValue = $parse(attr.crnValue)(scope);
-				}
-				element.attr("data-evaluated", JSON.stringify(evaluatedValue));
-				element.bind("click", function(event) {
-					scope.$apply(function() {
-						ngModel.$setViewValue(evaluatedValue);
-					}.bind(element));
-				});
-			}
-		};
-	}])
+			.config(
+					function($stateProvider, $urlRouterProvider,
+							NotificationProvider) {
+						NotificationProvider.setOptions({
+							delay : 5000,
+							startTop : 20,
+							startRight : 10,
+							verticalSpacing : 20,
+							horizontalSpacing : 20,
+							positionX : 'right',
+							positionY : 'top'
+						});
 
-	.config(function ($translateProvider, tmhDynamicLocaleProvider) {
-      
-      $translateProvider.useMissingTranslationHandlerLog();
-      
-      $translateProvider.useStaticFilesLoader({
-        prefix: 'i18n/locale_',
-        suffix: '.json'
-      });
-      
-      $translateProvider.registerAvailableLanguageKeys(
-        ['pt_BR', 'en_US'],
-        {
-          'en*': 'en_US',
-          'pt*': 'pt_BR',
-          '*'  : 'pt_BR'
-        }
-      );
-      
-      var locale = (window.navigator.userLanguage || window.navigator.language || 'pt_BR').replace('-', '_');
-      
-      $translateProvider.use(locale);
-      $translateProvider.useSanitizeValueStrategy('escaped');
+						// Set up the states
+						$stateProvider
 
-      tmhDynamicLocaleProvider.localeLocationPattern('plugins/angular-i18n/angular-locale_{{locale}}.js');
-    })
+						.state('login', {
+							url : "",
+							controller : 'LoginController',
+							templateUrl : 'views/login.view.html'
+						})
 
+						.state('main', {
+							url : "/",
+							controller : 'LoginController',
+							templateUrl : 'views/login.view.html'
+						})
 
-	.config(function($stateProvider, $urlRouterProvider) {
-		$stateProvider
+						.state('home', {
+							url : "/home",
+							controller : 'HomeController',
+							templateUrl : 'views/logged/home.view.html'
+						})
 
-		.state('app', {
-			url : '/app',
-			abstract : true,
-			templateUrl : 'public/menu.view.html',
-			controller : 'AppController'
-		})
+						.state(
+								'home.pages',
+								{
+									url : "/{name:.*}",
+									controller : 'PageController',
+									views : {
+										'menuContent' : {
+											templateUrl : function(urlattr) {
+												return 'views/' + urlattr.name + '.view.html';
+											}
+										}
+									}
 
-		.state('app.search', {
-			url : '/search',
-			views : {
-				'menuContent' : {
-					templateUrl : 'public/search.view.html'
-				}
-			}
-		}).state('app.login', {
-			url : '/login',
-			views : {
-				'menuContent' : {
-					templateUrl : 'public/login.view.html'
-				}
-			}
-		}).state('app.contactlist', {
-			url : '/contactlist',
-			views : {
-				'menuContent' : {
-					templateUrl : 'public/contactlist.view.html',
-					controller : 'ContactListController'
-				}
-			}
-		}).state('app.single', {
-			url : '/contact/:contactId',
-			views : {
-				'menuContent' : {
-					templateUrl : 'public/contact.view.html',
-					controller : 'ContactController'
-				}
-			}
-		}).state('404', {
-        url: "/error/404",
-        controller: 'AppController',
-        templateUrl: function(urlattr){
-            return 'public/error/404.view.html';
-        }
-      }).state('403', {
-        url: "/error/403",
-        controller: 'AppController',
-        templateUrl: function(urlattr){
-            return 'public/error/403.view.html';
-        }
-      });
-      
-     // For any unmatched url, redirect to /state1
-     $urlRouterProvider.otherwise("/app/search");
-	});
+								})
+
+						.state('404', {
+							url : "/error/404",
+							controller : 'PageController',
+							templateUrl : function(urlattr) {
+								return 'views/error/404.view.html';
+							}
+						})
+
+						.state('403', {
+							url : "/error/403",
+							controller : 'PageController',
+							templateUrl : function(urlattr) {
+								return 'views/error/403.view.html';
+							}
+						});
+
+						// For any unmatched url, redirect to /state1
+						$urlRouterProvider.otherwise("/error/404");
+					})
+
+			.config(
+					function($translateProvider, tmhDynamicLocaleProvider) {
+
+						$translateProvider.useMissingTranslationHandlerLog();
+
+						$translateProvider.useStaticFilesLoader({
+							prefix : 'i18n/locale_',
+							suffix : '.json'
+						});
+
+						$translateProvider.registerAvailableLanguageKeys([
+								'pt_BR', 'en_US'], {
+							'en*' : 'en_US',
+							'pt*' : 'pt_BR',
+							'*' : 'pt_BR'
+						});
+
+						var locale = (window.navigator.userLanguage
+								|| window.navigator.language || 'pt_BR')
+								.replace('-', '_');
+
+						$translateProvider.use(locale);
+						$translateProvider.useSanitizeValueStrategy('escaped');
+
+						tmhDynamicLocaleProvider
+								.localeLocationPattern('plugins/angular-i18n/angular-locale_{{locale}}.js');
+					})
+
+			.directive(
+					'crnValue',
+					[
+							'$parse',
+							function($parse) {
+								return {
+									restrict : 'A',
+									require : '^ngModel',
+									link : function(scope, element, attr,
+											ngModel) {
+										var evaluatedValue;
+										if (attr.value) {
+											evaluatedValue = attr.value;
+										} else {
+											evaluatedValue = $parse(
+													attr.crnValue)(scope);
+										}
+										element.attr("data-evaluated", JSON
+												.stringify(evaluatedValue));
+										element
+												.bind(
+														"click",
+														function(event) {
+															scope
+																	.$apply(function() {
+																		ngModel
+																				.$setViewValue(evaluatedValue);
+																	}
+																			.bind(element));
+														});
+									}
+								};
+							}])
+
+			// General controller
+			.controller(
+					'PageController',
+					[
+							"$scope",
+							"$stateParams",
+							"$location",
+							"$http",
+							function($scope, $stateParams, $location, $http) {
+								for ( var x in app.userEvents)
+									$scope[x] = app.userEvents[x].bind($scope);
+
+								// save state params into scope
+								$scope.params = $stateParams;
+								$scope.$http = $http;
+
+								// Query string params
+								var queryStringParams = $location.search();
+								for ( var key in queryStringParams) {
+									if (queryStringParams.hasOwnProperty(key)) {
+										$scope.params[key] = queryStringParams[key];
+									}
+								}
+							}])
+
+			.run(
+					function($rootScope, $state) {
+						$rootScope.$on('$stateChangeError', function() {
+							if (arguments.length >= 6) {
+								var requestObj = arguments[5];
+								if (requestObj.status === 404
+										|| requestObj.status === 403) {
+									$state.go(requestObj.status.toString());
+								}
+							} else {
+								$state.go('404');
+							}
+						});
+					});
+
 }(window));
 
 app.userEvents = {};

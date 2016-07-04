@@ -89,5 +89,9 @@
   "Contact.view.OthersPhoneNumber": "Outros Telefones",
   "Contact.view.HomeAddress": "Endereço",
   "Contact.view.CardInformation": "Cartão de Informação",
-  "Contact.view.Contact": "Contato"
+  "Contact.view.Contact": "Contato",
+  "Login.view.Host": "Servidor",
+  "Home.view.Sair": "Sair",
+  "Users.view.Salvar": "Salvar",
+  "Users.view.Cancel": "Voltar"
 }
