@@ -46,7 +46,7 @@
             <div class="bar bar-footer"> 
               <div class="button-bar"> 
                 <a class="button button-stable" ng-show="Permission.inserting || Permission.editing" ng-click="datasource.cancel()"> {{'Permission.view.Voltar' | translate}} </a> 
-                <a class="button button-positive" ng-hide="Permission.inserting || Permission.editing" ng-click="datasource.post()"> {{'Permission.view.Salvar' | translate}} </a> 
+                <a class="button button-positive" ng-show="Permission.inserting || Permission.editing" ng-click="datasource.post()"> {{'Permission.view.Salvar' | translate}} </a> 
               </div> 
             </div> 
           </div> 
