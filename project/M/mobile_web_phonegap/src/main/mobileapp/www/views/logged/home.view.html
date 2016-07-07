@@ -28,7 +28,7 @@
             <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{group.name}} 
           </ion-item> 
           <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)" menu-close> 
-            <a ng-href="{{item.url}}" class="item-content ng-binding">{{item.name}}</a> 
+            <a ng-href="{{item.url}}" class="item-content ng-binding" ng-click="toggleGroup(null)">{{item.name}}</a> 
           </ion-item> 
         </div> 
         <div class="item item-divider"></div> 
