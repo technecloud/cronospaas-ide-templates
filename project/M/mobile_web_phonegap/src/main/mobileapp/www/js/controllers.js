@@ -34,15 +34,13 @@
 
 									$scope.message.error = undefined;
 
-									if ($scope.user.host
-											&& $scope.user.host.indexOf('http') > -1) {
-										var hostBackEnd = $scope.user.host
-												+ '/auth';
+									if ($scope.user.host) {
+										window.hostApp = $scope.user.host + '/';
 
 										$http(
 												{
 													method : 'POST',
-													url : hostBackEnd,
+													url : hostApp  + 'auth',
 													data : serializeData($scope.user),
 													headers : {
 														'Content-Type' : 'application/x-www-form-urlencoded'

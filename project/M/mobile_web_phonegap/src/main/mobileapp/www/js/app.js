@@ -1,3 +1,5 @@
+window.hostApp;
+
 var app = (function() {
 	return angular
 			.module(

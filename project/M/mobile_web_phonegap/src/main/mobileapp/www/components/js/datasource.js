@@ -67,10 +67,12 @@ angular.module('datasourcejs', [])
           var _callback;
           busy = true;
           
+          var hostpApp = window.hostApp ? window.hostApp + "/"  : "";
+          
           // Get an ajax promise
           this.$promise = $http({
             method: verb,
-            url: url,
+            url: hostpApp + url,
             data : (object) ? JSON.stringify(object) : null,
             headers: _self.headers
           }).success(function(data, status, headers, config) {
@@ -615,7 +617,9 @@ angular.module('datasourcejs', [])
 
       // Adjust property parameters and the endpoint url
       props.params = props.params || {};
-      var resourceURL = this.entity + (props.path || "");
+      
+      var hostpApp = window.hostApp ? window.hostApp + "/"  : "";
+      var resourceURL = hostpApp + this.entity + (props.path || "");
       
       // Set Limit and offset
       if(this.rowsPerPage > 0) {
