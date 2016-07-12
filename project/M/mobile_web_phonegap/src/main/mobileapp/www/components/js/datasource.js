@@ -3,7 +3,7 @@ angular.module('datasourcejs', [])
 /**
 * Global factory responsible for managing all datasets
 */
-.factory('DatasetManager', ['$http','$q', '$timeout','$rootScope', 'Notification', function($http, $q, $timeout, $rootScope, Notification) {
+.factory('DatasetManager', ['$http','$q','$state','$timeout','$rootScope', 'Notification', function($http, $q, $state ,$timeout, $rootScope, Notification) {
    // Global dataset List
   this.datasets = {};
 
