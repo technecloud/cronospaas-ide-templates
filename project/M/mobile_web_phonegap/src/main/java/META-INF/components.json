@@ -30,14 +30,121 @@
          }
       },
       {
+         "name":"crn-radiogroup",
+         "text":"RadioGroup",
+         "class":"cpn cpn-radiogroup",
+         "templateURL":"src/main/mobileapp/www/components/templates/radiogroup.template.html",
+         "handleRules":{
+            "canIncrement":true,
+            "rules":[
+               {
+                  "sourceHTML":"<label class=\"item item-radio\">\n <input id=\"optionsRadios${RANDOM}\" type=\"radio\" name=\"group\" value=\"go\" checked=\"checked\"><div class=\"radio-content\"><div class=\"item-content\">Choose</div><i class=\"radio-icon ion-checkmark\"></i></div>\n </label>",
+                  "targetSelector":".radio-group"
+               }
+            ]
+         }
+      },
+      {
+         "name":"crn-radiogroup-dynamic",
+         "text":"RadioGroup Dynamic",
+         "class":"cpn cpn-radiogroup",
+         "templateURL":"src/main/mobileapp/www/components/templates/radiogroup-dynamic.template.html",
+         "handleRules":{
+            "canToggle":true,
+            "rules":[
+               {
+                  "toggleSelector":"ui-select-choices",
+                  "toggleClass":"invisible"
+               }
+            ]
+         },
+         "childrenProperties":[
+            {
+               "name":"crn-datasource",
+               "selector":"ui-select",
+               "displayName":"datasource"
+            },
+            {
+               "name":"repeat",
+               "selector":"ui-select-choices",
+               "displayName":"repeat"
+            }
+         ]
+      },
+      {
+         "name":"crn-checkbox",
+         "text":"Checkbox",
+         "class":"cpn cpn-checkbox",
+         "templateURL":"src/main/mobileapp/www/components/templates/checkbox.template.html",
+         "handleRules":{
+            "canIncrement":true,
+            "rules":[
+               {
+                  "sourceHTML":"<li class=\"item item-checkbox\"><label class=\"checkbox\"><input id=\"check${RANDOM}\" type=\"checkbox\" checked=\"\"></label>Choose</li>",
+                  "targetSelector":".checkbox-group"
+               }
+            ]
+         }
+      },
+      {
+         "name":"crn-toggle",
+         "text":"Toggle",
+         "class":"cpn cpn-checkbox",
+         "templateURL":"src/main/mobileapp/www/components/templates/toggle.template.html",
+         "handleRules":{
+            "canIncrement":true,
+            "rules":[
+               {
+                  "sourceHTML":"<li class=\"item item-toggle\"> Choose <label class=\"toggle toggle-assertive\"> <input id=\"toggle${RANDOM}\" type=\"checkbox\"> <div class=\"track\"> <div class=\"handle\"></div> </div> </label></li>",
+                  "targetSelector":".toggle-group"
+               }
+            ]
+         }
+      },
+      {
+         "name":"crn-title",
+         "text":"Título",
+         "class":"cpn cpn-title",
+         "templateURL":"src/main/mobileapp/www/components/templates/title.template.html"
+      },
+      {
+         "name":"crn-range",
+         "text":"Range",
+         "class":"cpn cpn-chart-line",
+         "templateURL":"src/main/mobileapp/www/components/templates/range.template.html",
+         "properties":{
+            "ng-click":{
+               "removable":true,
+               "type":"event"
+            },
+            "onmouseover":{
+               "removable":true,
+               "type":"event"
+            }
+         }
+      },
+      {
          "name":"crn-textinput",
-         "text":"Input",
+         "text":"Caixa de Texto",
          "class":"cpn cpn-textinput",
          "templateURL":"src/main/mobileapp/www/components/templates/textinput.template.html",
          "properties":{
             "onchange":{
                "removable":true,
                "type":"event"
+            }
+         }
+      },
+      {
+         "name":"crn-form",
+         "text":"Form",
+         "class":"cpn cpn-form",
+         "templateURL":"src/main/mobileapp/www/components/templates/form.template.html",
+         "properties":{
+            "crn-datasource":{
+               "displayName":"Datasource",
+               "removable":false,
+               "type":"pageDatasource"
             }
          }
       },
@@ -74,6 +181,33 @@
          ]
       },
       {
+         "name":"crn-toggle-dynamic",
+         "text":"Toggle Dynamic",
+         "class":"cpn cpn-checkbox",
+         "templateURL":"src/main/mobileapp/www/components/templates/toggle-dynamic.template.html",
+         "handleRules":{
+            "canToggle":true,
+            "rules":[
+               {
+                  "toggleSelector":"ui-select-choices",
+                  "toggleClass":"invisible"
+               }
+            ]
+         },
+         "childrenProperties":[
+            {
+               "name":"crn-datasource",
+               "selector":"ui-select",
+               "displayName":"datasource"
+            },
+            {
+               "name":"repeat",
+               "selector":"ui-select-choices",
+               "displayName":"repeat"
+            }
+         ]
+      },
+      {
          "name":"crn-image",
          "text":"Image",
          "class":"cpn cpn-image",
@@ -84,6 +218,18 @@
                "type":"projectResource",
                "resourceType":"image/jpeg,image/gif,image/png"
             },
+            "onclick":{
+               "removable":true,
+               "type":"event"
+            }
+         }
+      },
+      {
+         "name":"crn-footer",
+         "text":"Footer",
+         "class":"cpn cpn-footer",
+         "template":"<div class=\"bar bar-footer bar-balanced\"><div class=\"title\">Footer</div></div>",
+         "properties":{
             "onclick":{
                "removable":true,
                "type":"event"

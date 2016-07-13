@@ -6,12 +6,10 @@
     </ion-nav-buttons>
   <ion-content> 
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
-      <i data-container="true" class="wrapped-node wrapped-node-datasource" draggable="true"> 
-        <datasource name="User" entity="api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="{RemoverUsuario}?" ______delete-message="{{'Users.view.RemoverUsuario' | translate}}?"></datasource></i> 
+      <i data-container="true" class="wrapped-node wrapped-node-datasource"><datasource name="User" entity="api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="{RemoverUsuario}?" _________delete-message="{{'Users.view.RemoverUsuario' | translate}}?"></datasource></i> 
     </div> 
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-276971"> 
-      <i data-container="true" class="wrapped-node wrapped-node-datasource" draggable="true"> 
-        <datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></i> 
+      <i data-container="true" class="wrapped-node wrapped-node-datasource"><datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></i> 
     </div> 
     <div crn-datasource="User" class="table-responsive panel panel-primary" ng-hide="User.editing || User.inserting"> 
       <ion-list can-swipe="listCanSwipe"> 
@@ -33,8 +31,7 @@
       <form crn-datasource="User"> 
         <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
           <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-656503"> 
-            <i data-container="true" class="wrapped-node wrapped-node-datasource" draggable="true"> 
-              <datasource append="false" name="Roles" entity="api/rest/security/User/[User.id]/Role" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}" ______entity="api/rest/security/User/{{User.active.id}}/Role"></datasource></i> 
+            <i data-container="true" class="wrapped-node wrapped-node-datasource"><datasource append="false" name="Roles" entity="api/rest/security/User/[User.id]/Role" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}" _________entity="api/rest/security/User/{{User.active.id}}/Role"></datasource></i> 
           </div> 
           <div class="list"> 
             <label class="item item-input item-stacked-label"> <span class="input-label">{{'Users.view.Name' | translate}}</span> <input type="text" placeholder="{{'Users.view.Name' | translate}}" ng-model="User.active.name" id="textinput-name"> </label> 
