@@ -10,7 +10,6 @@
     </div> 
     <form class="form-validation" autocomplete="off" name="form" ng-submit="login()" role="form"> 
       <div class="list list-inset" data-container="true"> 
-        <label class="item item-input"> <i class="icon ion-monitor placeholder-icon"></i> <input type="text" class="form-control" ng-model="user.host" id="host" placeholder="{{'Login.view.Host' | translate}}" > </label> 
         <label class="item item-input"> <i class="icon ion-person placeholder-icon"></i> <input type="text" class="form-control" ng-model="user.username" id="username" placeholder="{{'Login.view.Username' | translate}}"> </label> 
         <label class="item item-input"> <i class="icon ion-asterisk placeholder-icon"></i> <input type="password" class="form-control" ng-model="user.password" id="password" placeholder="{{'Login.view.Password' | translate}}"> </label> 
         <label class="item"> <button type="submit" class="button button-block button-positive" ng-disabled="form.$invalid || vm.dataLoading">{{"Login.view.Login" | translate}}</button> </label> 
