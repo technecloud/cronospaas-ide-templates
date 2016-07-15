@@ -33,7 +33,9 @@ var app = (function() {
 							}
 						});
 					})
-
+      .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+        $ionicConfigProvider.navBar.alignTitle('center')
+      })
 			.config(
 					function($stateProvider, $urlRouterProvider,
 							NotificationProvider) {

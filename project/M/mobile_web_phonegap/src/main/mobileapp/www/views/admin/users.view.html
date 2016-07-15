@@ -1,15 +1,20 @@
-<ion-view cache-view="false" view-title="{{'Users.view.Users' | translate}}"> 
-    <ion-nav-buttons side="primary">
-      <button class="button button-stable" ng-hide="User.inserting || User.editing" ng-click="User.startInserting()">
-          <i class="icon ion-plus-round"></i> 
-      </button>
-    </ion-nav-buttons>
+<ion-view cache-view="false" view-title="{{'Users.view.Users' | translate}}"  align-title="center"> 
+  <ion-nav-buttons side="right"> 
+    <button class="button button-stable" ng-hide="User.inserting || User.editing" ng-click="User.startInserting()"> <i class="icon ion-plus-round"></i> </button> 
+    <button class="button button-stable" ng-show="User.inserting || User.editing" ng-click="User.post()"> <i class="icon ion-checkmark"></i> </button> 
+  </ion-nav-buttons> 
+    <ion-nav-buttons side="left"> 
+    <button class="button button-icon button-clear ion-navicon" ng-hide="User.inserting || User.editing" menu-toggle="left"> </button>
+    <button class="button button-stable" ng-show="User.inserting || User.editing" ng-click="User.cancel()"> <i class="icon ion-android-arrow-back"></i> </button> 
+  </ion-nav-buttons> 
   <ion-content> 
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
-      <i data-container="true" class="wrapped-node wrapped-node-datasource"><datasource name="User" entity="api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="{RemoverUsuario}?" _________delete-message="{{'Users.view.RemoverUsuario' | translate}}?"></datasource></i> 
+      <i data-container="true" class="wrapped-node wrapped-node-datasource">
+        <datasource name="User" entity="api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="{RemoverUsuario}?" _________delete-message="{{'Users.view.RemoverUsuario' | translate}}?"></datasource></i> 
     </div> 
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-276971"> 
-      <i data-container="true" class="wrapped-node wrapped-node-datasource"><datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></i> 
+      <i data-container="true" class="wrapped-node wrapped-node-datasource">
+        <datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></i> 
     </div> 
     <div crn-datasource="User" class="table-responsive panel panel-primary" ng-hide="User.editing || User.inserting"> 
       <ion-list can-swipe="listCanSwipe"> 
@@ -31,7 +36,8 @@
       <form crn-datasource="User"> 
         <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
           <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-656503"> 
-            <i data-container="true" class="wrapped-node wrapped-node-datasource"><datasource append="false" name="Roles" entity="api/rest/security/User/[User.id]/Role" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}" _________entity="api/rest/security/User/{{User.active.id}}/Role"></datasource></i> 
+            <i data-container="true" class="wrapped-node wrapped-node-datasource">
+              <datasource append="false" name="Roles" entity="api/rest/security/User/[User.id]/Role" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}" _________entity="api/rest/security/User/{{User.active.id}}/Role"></datasource></i> 
           </div> 
           <div class="list"> 
             <label class="item item-input item-stacked-label"> <span class="input-label">{{'Users.view.Name' | translate}}</span> <input type="text" placeholder="{{'Users.view.Name' | translate}}" ng-model="User.active.name" id="textinput-name"> </label> 
@@ -41,14 +47,6 @@
               <div class="input-label">
                  {{'Users.view.Roles' | translate}} 
               </div> <select crn-datasource="AllRoles" ng-model="Roles.data.id"> <option ng-repeat="rowData in datasource.data" value="{{rowData.id}}">{{rowData.name}}</option> </select> </label> 
-          </div> 
-          <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle"> 
-            <div class="bar bar-footer"> 
-              <div class="button-bar"> 
-                <a class="button button-stable" ng-show="User.editing || User.inserting" ng-click="datasource.cancel()"> {{'Users.view.Cancel' | translate}} </a> 
-                <a class="button button-positive" ng-show="User.editing || User.inserting" ng-click="datasource.post()"> {{'Users.view.Salvar' | translate}} </a> 
-              </div> 
-            </div> 
           </div> 
         </fieldset> 
       </form> 
