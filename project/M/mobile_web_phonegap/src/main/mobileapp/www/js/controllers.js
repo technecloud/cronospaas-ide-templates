@@ -31,7 +31,7 @@
           }
           else {
             $ionicLoading.hide();
-            Notification.error("Host is required!");
+            Notification.error("HostApp is required!");
           }
 
         }
@@ -217,7 +217,7 @@
             newPasswordConfirmation.value = "";
             $("#modalPassword").modal("hide");
           }
-        }
+        };
 
       } ]);
 }(app));
