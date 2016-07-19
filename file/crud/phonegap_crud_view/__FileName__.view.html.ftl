@@ -60,7 +60,7 @@
 			<div class="item item-toggle">
 				<#if field.label?has_content>${field.label}<#else>${field.name}</#if>
 			 <label for="textinput-${field.name}" class="toggle toggle-assertive">
-			   <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" <#if !field.isNullable()>required="required"</#if>>
+			   <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if !field.isNullable()>required="required"</#if>>
 			   <div class="track">
 				 <div class="handle"></div>
 			   </div>
@@ -69,30 +69,30 @@
 			<#elseif (field.isDate()) >
 			<label for="textinput-${field.name}" class="item item-input item-stacked-label">
 				<span class="input-label">${model.formMapLabels[field.name]!}</span> 
-				<input type="date" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
+				<input type="date" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
 			</label> 
 			<#elseif (field.isTime() || field.isTimestamp()) >
 			<label for="textinput-${field.name}" class="item item-input item-stacked-label">
 				<span class="input-label">${model.formMapLabels[field.name]!}</span> 
-				<input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
+				<input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
 			</label> 
 			<#elseif field.isNumber() >
 			<label for="textinput-${field.name}" class="item item-input item-stacked-label">
 				<span class="input-label">${model.formMapLabels[field.name]!}</span> 
-				<input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
+				<input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
 			</label>
 			<#elseif field.getProperty("ngOptions")?? >		
 			 <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class=""></datasource> 
 			<label for="textinput-${field.name}" class="item item-input item-select">
 				<span class="input-label">${model.formMapLabels[field.name]!}</span> 
-				<select ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" ng-options="${field.getProperty("ngOptions").options}" <#if !field.isNullable()>required="required"</#if>>
+				<select ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" name="textinput-${field.name}" ng-options="${field.getProperty("ngOptions").options}" <#if !field.isNullable()>required="required"</#if>>
 				  <option value=''>None</option>
 				</select>
 			</label> 
 			<#else>
 			<label for="textinput-${field.name}" class="item item-input item-stacked-label">
 				<span class="input-label">${model.formMapLabels[field.name]!}</span> 
-				<input type="text" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
+				<input type="text" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
 			</label> 
 			</#if>
 			<!-- ${field.name} end -->
