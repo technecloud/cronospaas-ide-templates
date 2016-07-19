@@ -1,10 +1,22 @@
 (function($app) {
   angular.module('custom.controllers', []);
-  app.controller('LoginController', [ '$scope', '$http', '$location', '$rootScope', '$window', '$state', '$translate', 'Notification', '$ionicLoading', '$timeout', '$stateParams',
-      function($scope, $http, $location, $rootScope, $window, $state, $translate, Notification, $ionicLoading, $timeout, $stateParams) {
+  app.controller('LoginController', [ 
+    '$scope', 
+    '$http', 
+    '$location', 
+    '$rootScope', 
+    '$window', 
+    '$state', 
+    '$translate', 
+    'Notification', 
+    '$ionicLoading', 
+    '$timeout',
+    '$stateParams',
+    function($scope, $http, $location, $rootScope, $window, $state, $translate, Notification, $ionicLoading, $timeout, $stateParams) {
 
         $scope.user = {};
         $scope.message = {};
+
 
         $scope.login = function() {
 
@@ -96,8 +108,17 @@
 
       } ]);
 
-  app.controller('HomeController', [ '$scope', '$http', '$rootScope', '$state','$timeout' , '$translate', 'Notification', '$ionicHistory',
-      function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory) {
+  app.controller('HomeController', [ 
+      '$scope', 
+      '$http', 
+      '$rootScope', 
+      '$state',
+      '$timeout',
+      '$translate', 
+      'Notification', 
+      '$ionicHistory',
+      '$cordovaVibration',
+      function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration) {
 
         $scope.shouldShowDelete = false;
         $scope.shouldShowReorder = false;
@@ -109,6 +130,10 @@
           valor : 1
         }
 
+        $scope.vibrate = function() {
+           $cordovaVibration.vibrate(1000);
+        };
+        
         // When access home page we have to check
         // if the user is authenticated and the userData
         // was saved on the browser's sessionStorage

@@ -10,7 +10,8 @@ var app = (function() {
         'pascalprecht.translate',
         'tmh.dynamicLocale',
         'ui-notification',
-        'ngInputDate'
+        'ngInputDate',
+        'ngCordova'
     ])
 
     .constant('LOCALES', {
