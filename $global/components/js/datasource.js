@@ -42,9 +42,9 @@ angular.module('datasourcejs', [])
     var unregisterDataWatch = null;
     
     // Public methods
-	/**
-	* Initialize a single datasource
-	*/
+  	/**
+  	* Initialize a single datasource
+  	*/
     this.init = function() {
 
       var dsScope = this;
@@ -238,9 +238,21 @@ angular.module('datasourcejs', [])
     };
 
     /**
+     * Valid if required field is valid 
+     */
+    this.missingRequiredField = function() {
+      return $('input[required]').hasClass('ng-invalid-required') || $('input[required]').hasClass('ng-invalid')
+      ||  $('input[required]').hasClass('ng-empty');
+    }
+    
+    /**
     * Insert or update based on the the datasource state
     */ 
     this.post = function () {
+      
+      if (this.missingRequiredField())
+        return;
+      
       if(this.inserting) {
         // Make a new request to persist the new item
         this.insert(this.active, function(obj) {
@@ -813,6 +825,8 @@ angular.module('datasourcejs', [])
         unregisterDataWatch = undefined;
       }
     }
+    
+    this.init();
     
   };
 
