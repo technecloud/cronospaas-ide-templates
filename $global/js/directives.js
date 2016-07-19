@@ -69,7 +69,8 @@
               
               ngModel.$render = function(){
                 if(ngModel.$viewValue){
-                  var momentDate = moment(ngModel.$viewValue);
+                  var dateInMilliseconds = parseInt(ngModel.$viewValue, 10);
+                  var momentDate = moment(dateInMilliseconds);
                   if(momentDate.isValid()){
                     element.val( momentDate.format(patternFormat(element)));
                   }else{
