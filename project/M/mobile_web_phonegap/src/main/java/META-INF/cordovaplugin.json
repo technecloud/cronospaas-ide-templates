@@ -1,0 +1,71 @@
+{
+   "name":"cordova-plugin-mobile-phonegap",
+   "version":"1.0.0",
+   "plugins":[
+	  {
+         "id"   : "$cordovaAdMob ",
+         "name" : "Cordova AdMob Ads Plugin",
+		 "cmd"  : "cordova plugin add https://github.com/floatinghotpot/cordova-plugin-admob.git"
+      },
+	  {
+         "id"   : "$cordovaAppRate ",
+         "name" : "Cordova App Rate Plugin",
+		 "cmd"  : "cordova plugin add https://github.com/pushandplay/cordova-plugin-apprate.git"
+      },
+      {
+         "id"   : "$cordovaCamera ",
+         "name" : "Cordova Camera Plugin",
+		 "cmd"  : "cordova plugin add ccordova-plugin-camera"
+      },
+      {
+         "id"   : "$cordovaCapture ",
+         "name" : "Cordova Capture Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-media-capture"
+      },
+      {
+         "id"   : "$cordovaDevice",
+         "name" : "Cordova Device Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-device"
+      },
+      {
+         "id"   : "$cordovaDeviceMotion",
+         "name" : "Cordova Device Motion Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-device-motion"
+      },
+      {
+         "id"   : "$cordovaDeviceOrientation",
+         "name" : "Cordova Device Orientation Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-device-orientation"
+      },
+	  {
+         "id"   : "$cordovaFile",
+         "name" : "Cordova File Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-file"
+      },
+	  {
+         "id"   : "$cordovaGeolocation",
+         "name" : "Cordova Geolocation Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-geolocation"
+      },
+	  {
+         "id"   : "$cordovaInAppBrowser",
+         "name" : "Cordova InAppBrowser Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-inappbrowser"
+      },
+	  {
+         "id"   : "$cordovaFile",
+         "name" : "Cordova File Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-file"
+      },
+	  {
+         "id"   : "$cordovaVibration",
+         "name" : "Cordova Vibration Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-vibration"
+      },
+	  {
+         "id"   : "$cordovaNetwork",
+         "name" : "Cordova Network Plugin",
+		 "cmd"  : "cordova plugin add cordova-plugin-network-information"
+      }
+   ]
+}
