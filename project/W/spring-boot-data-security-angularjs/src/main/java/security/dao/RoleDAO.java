@@ -51,7 +51,7 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    * @generated
    */
   @Query("select r from Role r")
-  public List<Role> list ( Pageable pageable );
+  public Page<Role> list ( Pageable pageable );
   
 
   /**
@@ -59,13 +59,13 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    * @generated
    */
   @Query("SELECT entity FROM UserRole entity WHERE entity.role.id = :id")
-  public List<UserRole> findUserRole(@Param(value="id") java.lang.String id,  Pageable pageable );
+  public Page<UserRole> findUserRole(@Param(value="id") java.lang.String id,  Pageable pageable );
   /**
    * OneToMany Relation
    * @generated
    */
   @Query("SELECT entity FROM Permission entity WHERE entity.role.id = :id")
-  public List<Permission> findPermission(@Param(value="id") java.lang.String id,  Pageable pageable );
+  public Page<Permission> findPermission(@Param(value="id") java.lang.String id,  Pageable pageable );
 
 
 
@@ -74,7 +74,7 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    * @generated
    */
   @Query("SELECT entity.user FROM UserRole entity WHERE entity.role.id = :id")
-  public List<User> listUser(@Param(value="id") java.lang.String id,  Pageable pageable);
+  public Page<User> listUser(@Param(value="id") java.lang.String id,  Pageable pageable);
 
     /**
      * ManyToOne Relation Delete

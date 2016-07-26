@@ -3,6 +3,8 @@ package security.rest;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.*;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.*;
@@ -54,19 +56,7 @@ public class UserREST {
      */
     @RequestMapping(method = RequestMethod.POST)
     public User post(@Validated @RequestBody final User entity) throws Exception {
-        userBusiness.post(entity);
-        return entity;
-    }
-
-    /**
-     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<?> get(@PathVariable("id") java.lang.String id) throws Exception {
-        User entity = userBusiness.get(id);
-        return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
+        return userBusiness.post(entity);
     }
 
     /**
@@ -75,8 +65,8 @@ public class UserREST {
      * @generated
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> put(@Validated @RequestBody final User entity) throws Exception {
-        return ResponseEntity.ok(userBusiness.put(entity));
+    public User put(@Validated @RequestBody final User entity) throws Exception {
+        return userBusiness.put(entity);
     }
 
     /**
@@ -107,8 +97,8 @@ public class UserREST {
    */
   @RequestMapping(method = RequestMethod.GET
   )    
-  public  List<User> listParams (@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userBusiness.list(new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<User>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(userBusiness.list(pageable   )), HttpStatus.OK);    
   }
 
   /**
@@ -117,8 +107,8 @@ public class UserREST {
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByRole/{roleid}")    
-  public  List<User> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userBusiness.findByRole(roleid, new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<User>> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(userBusiness.findByRole(roleid, pageable   )), HttpStatus.OK);    
   }
 
   /**
@@ -127,8 +117,8 @@ public class UserREST {
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByLogin/{login}")    
-  public  List<User> findByLoginParams (@PathVariable("login") java.lang.String login, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userBusiness.findByLogin(login, new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<User>> findByLoginParams (@PathVariable("login") java.lang.String login, Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(userBusiness.findByLogin(login, pageable   )), HttpStatus.OK);    
   }
 
   /**
@@ -137,8 +127,8 @@ public class UserREST {
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/{instanceId}/UserRole")    
-  public List<UserRole> findUserRole(@PathVariable("instanceId") java.lang.String instanceId, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) {
-    return userBusiness.findUserRole(instanceId,  new PageRequest(offset, limit) );
+  public HttpEntity<PagedResources<UserRole>> findUserRole(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(userBusiness.findUserRole(instanceId,  pageable )), HttpStatus.OK);
   }
 
   /**
@@ -147,15 +137,31 @@ public class UserREST {
    */  
   @RequestMapping(method = RequestMethod.DELETE
   , value="/{instanceId}/UserRole/{relationId}")    
-  public ResponseEntity<?> deleteUserRole(@PathVariable("relationId") java.lang.String relationId) {
-      try {
-        this.userRoleBusiness.delete(relationId);
-        return ResponseEntity.ok().build();
-      } catch (Exception e) {
-        return ResponseEntity.status(404).build();
-      }
+  public void deleteUserRole(@PathVariable("relationId") java.lang.String relationId) throws Exception {
+    this.userRoleBusiness.delete(relationId);
   }
-
+  
+  /**
+   * OneToMany Relationship PUT
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.PUT
+  , value="/{instanceId}/UserRole/{relationId}")
+  public UserRole putUserRole(@Validated @RequestBody final UserRole entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
+	return this.userRoleBusiness.put(entity);
+  }  
+  
+  /**
+   * OneToMany Relationship POST
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.POST
+  , value="/{instanceId}/UserRole")
+  public UserRole postUserRole(@Validated @RequestBody final UserRole entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+	User user = this.userBusiness.get(instanceId);
+	entity.setUser(user);
+	return this.userRoleBusiness.post(entity);
+  }   
 
 
   /**
@@ -164,8 +170,8 @@ public class UserREST {
    */
   @RequestMapping(method = RequestMethod.GET
   ,value="/{instanceId}/Role")
-  public List<Role> listRole(@PathVariable("instanceId") java.lang.String instanceId,  @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset ) {
-    return userBusiness.listRole(instanceId,  new PageRequest(offset, limit) );
+  public HttpEntity<PagedResources<Role>> listRole(@PathVariable("instanceId") java.lang.String instanceId,  Pageable pageable, PagedResourcesAssembler assembler ) {
+    return new ResponseEntity<>(assembler.toResource(userBusiness.listRole(instanceId,  pageable )), HttpStatus.OK); 
   }
 
   /**
@@ -174,7 +180,7 @@ public class UserREST {
    */  
   @RequestMapping(method = RequestMethod.POST
   ,value="/{instanceId}/Role")
-  public ResponseEntity<?> postRole(@Validated @RequestBody final Role entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+  public User postRole(@Validated @RequestBody final Role entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
       UserRole newUserRole = new UserRole();
 
       User instance = this.userBusiness.get(instanceId);
@@ -184,7 +190,7 @@ public class UserREST {
       
       this.userRoleBusiness.post(newUserRole);
 
-      return ResponseEntity.ok(newUserRole.getUser());
+      return newUserRole.getUser();
   }   
 
   /**
@@ -193,11 +199,19 @@ public class UserREST {
    */  
   @RequestMapping(method = RequestMethod.DELETE
   ,value="/{instanceId}/Role/{relationId}")
-  public ResponseEntity<?> deleteRole(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
-      this.userBusiness.deleteRole(instanceId, relationId);
-      return ResponseEntity.ok().build();
+  public void deleteRole(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
+	  this.userBusiness.deleteRole(instanceId, relationId);
   }  
 
 
 
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public User get(@PathVariable("id") java.lang.String id) throws Exception {
+        return userBusiness.get(id);
+    }
 }

@@ -51,7 +51,7 @@ public interface UserDAO extends JpaRepository<User, java.lang.String> {
    * @generated
    */
   @Query("select u from User u")
-  public List<User> list ( Pageable pageable );
+  public Page<User> list ( Pageable pageable );
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -59,7 +59,7 @@ public interface UserDAO extends JpaRepository<User, java.lang.String> {
    * @generated
    */
   @Query("select u.user from UserRole u where u.role.id = :roleid")
-  public List<User> findByRole (@Param(value="roleid") java.lang.String roleid , Pageable pageable );
+  public Page<User> findByRole (@Param(value="roleid") java.lang.String roleid , Pageable pageable );
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -67,7 +67,7 @@ public interface UserDAO extends JpaRepository<User, java.lang.String> {
    * @generated
    */
   @Query("select u from User u where u.login = :login")
-  public List<User> findByLogin (@Param(value="login") java.lang.String login , Pageable pageable );
+  public Page<User> findByLogin (@Param(value="login") java.lang.String login , Pageable pageable );
   
 
   /**
@@ -75,7 +75,7 @@ public interface UserDAO extends JpaRepository<User, java.lang.String> {
    * @generated
    */
   @Query("SELECT entity FROM UserRole entity WHERE entity.user.id = :id")
-  public List<UserRole> findUserRole(@Param(value="id") java.lang.String id,  Pageable pageable );
+  public Page<UserRole> findUserRole(@Param(value="id") java.lang.String id,  Pageable pageable );
 
 
 
@@ -84,7 +84,7 @@ public interface UserDAO extends JpaRepository<User, java.lang.String> {
    * @generated
    */
   @Query("SELECT entity.role FROM UserRole entity WHERE entity.user.id = :id")
-  public List<Role> listRole(@Param(value="id") java.lang.String id,  Pageable pageable);
+  public Page<Role> listRole(@Param(value="id") java.lang.String id,  Pageable pageable);
 
     /**
      * ManyToOne Relation Delete

@@ -29,7 +29,7 @@ public class UserRoleBusiness {
     @Qualifier("UserRoleDAO")
     protected UserRoleDAO repository;
 
-// CRUD
+    // CRUD
 
     /**
      * Serviço exposto para novo registro de acordo com a entidade fornecida
@@ -74,21 +74,6 @@ public class UserRoleBusiness {
     }
 
     /**
-     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
-     * 
-     * @generated
-     */
-    public UserRole put(final java.lang.String id,final UserRole entity) throws Exception {
-      // begin-user-code  
-      // end-user-code        
-      repository.saveAndFlush(entity);
-      // begin-user-code  
-      // end-user-code        
-      return entity;
-    }
-
-
-    /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
      * 
      * @generated
@@ -101,32 +86,17 @@ public class UserRoleBusiness {
       // end-user-code        
     }
 
-
-
-// CRUD
+    // CRUD
     
   /**
    * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
-  public List<UserRole> list ( Pageable pageable ){
+  public Page<UserRole> list ( Pageable pageable ){
     // begin-user-code  
     // end-user-code        
-    List<UserRole> result = repository.list (  pageable );
-    // begin-user-code  
-    // end-user-code        
-    return result;
-  }
-  /**
-   * Lista com paginação de acordo com a NamedQuery
-   * 
-   * @generated
-   */
-  public List<UserRole> findByUser ( User user , Pageable pageable ){
-    // begin-user-code  
-    // end-user-code        
-    List<UserRole> result = repository.findByUser ( user ,  pageable );
+    Page<UserRole> result = repository.list (  pageable );
     // begin-user-code  
     // end-user-code        
     return result;
@@ -136,23 +106,10 @@ public class UserRoleBusiness {
    * 
    * @generated
    */
-  public List<UserRole> findByEmail ( java.lang.String email , Pageable pageable ){
+  public Page<UserRole> findByUser ( User user , Pageable pageable ){
     // begin-user-code  
     // end-user-code        
-    List<UserRole> result = repository.findByEmail ( email ,  pageable );
-    // begin-user-code  
-    // end-user-code        
-    return result;
-  }
-  /**
-   * Lista com paginação de acordo com a NamedQuery
-   * 
-   * @generated
-   */
-  public List<UserRole> findByLogin ( java.lang.String login , Pageable pageable ){
-    // begin-user-code  
-    // end-user-code        
-    List<UserRole> result = repository.findByLogin ( login ,  pageable );
+    Page<UserRole> result = repository.findByUser ( user ,  pageable );
     // begin-user-code  
     // end-user-code        
     return result;
@@ -162,10 +119,36 @@ public class UserRoleBusiness {
    * 
    * @generated
    */
-  public List<UserRole> findByRole ( java.lang.String roleid , Pageable pageable ){
+  public Page<UserRole> findByEmail ( java.lang.String email , Pageable pageable ){
     // begin-user-code  
     // end-user-code        
-    List<UserRole> result = repository.findByRole ( roleid ,  pageable );
+    Page<UserRole> result = repository.findByEmail ( email ,  pageable );
+    // begin-user-code  
+    // end-user-code        
+    return result;
+  }
+  /**
+   * Lista com paginação de acordo com a NamedQuery
+   * 
+   * @generated
+   */
+  public Page<UserRole> findByLogin ( java.lang.String login , Pageable pageable ){
+    // begin-user-code  
+    // end-user-code        
+    Page<UserRole> result = repository.findByLogin ( login ,  pageable );
+    // begin-user-code  
+    // end-user-code        
+    return result;
+  }
+  /**
+   * Lista com paginação de acordo com a NamedQuery
+   * 
+   * @generated
+   */
+  public Page<UserRole> findByRole ( java.lang.String roleid , Pageable pageable ){
+    // begin-user-code  
+    // end-user-code        
+    Page<UserRole> result = repository.findByRole ( roleid ,  pageable );
     // begin-user-code  
     // end-user-code        
     return result;
@@ -176,3 +159,4 @@ public class UserRoleBusiness {
 
 
 }
+

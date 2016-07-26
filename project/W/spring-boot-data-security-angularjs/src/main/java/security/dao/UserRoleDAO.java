@@ -51,7 +51,7 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u")
-  public List<UserRole> list ( Pageable pageable );
+  public Page<UserRole> list ( Pageable pageable );
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -59,7 +59,7 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u where u.user = :user ")
-  public List<UserRole> findByUser (@Param(value="user") User user , Pageable pageable );
+  public Page<UserRole> findByUser (@Param(value="user") User user , Pageable pageable );
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -67,7 +67,7 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u where u.user.email = :email")
-  public List<UserRole> findByEmail (@Param(value="email") java.lang.String email , Pageable pageable );
+  public Page<UserRole> findByEmail (@Param(value="email") java.lang.String email , Pageable pageable );
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -75,7 +75,7 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u where u.user.login = :login")
-  public List<UserRole> findByLogin (@Param(value="login") java.lang.String login , Pageable pageable );
+  public Page<UserRole> findByLogin (@Param(value="login") java.lang.String login , Pageable pageable );
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -83,7 +83,7 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u where u.role.id = :roleid")
-  public List<UserRole> findByRole (@Param(value="roleid") java.lang.String roleid , Pageable pageable );
+  public Page<UserRole> findByRole (@Param(value="roleid") java.lang.String roleid , Pageable pageable );
   
 
 

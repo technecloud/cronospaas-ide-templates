@@ -4,6 +4,7 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Classe que representa a tabela USER
@@ -29,13 +30,13 @@ public class User implements Serializable {
 	/**
 	 * @generated
 	 */
-	@Column(name = "email", nullable = true, unique = false)
+	@Column(name = "email", nullable = true, unique = false, insertable=true, updatable=true)
 	private java.lang.String email;
 	
 	/**
 	 * @generated
 	 */
-	@Column(name = "name", nullable = false, unique = false)
+	@Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.String name;
 	
 	/**
@@ -43,25 +44,25 @@ public class User implements Serializable {
 	 */
 	@Id
     
-	@Column(name = "id")
+	@Column(name = "id", insertable=true, updatable=true)
 	private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 	
 	/**
 	 * @generated
 	 */
-	@Column(name = "login", nullable = false, unique = true)
+	@Column(name = "login", nullable = false, unique = true, insertable=true, updatable=true)
 	private java.lang.String login;
 	
 	/**
 	 * @generated
 	 */
-	@Column(name = "picture", nullable = true, unique = false)
+	@Column(name = "picture", nullable = true, unique = false, insertable=true, updatable=true)
 	private java.lang.String picture;
 	
 	/**
 	 * @generated
 	 */
-	@Column(name = "password", nullable = false, unique = false)
+	@Column(name = "password", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.String password;
 	
 	

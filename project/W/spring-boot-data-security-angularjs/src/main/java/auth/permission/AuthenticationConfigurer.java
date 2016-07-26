@@ -113,7 +113,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     String name = authentication.getName();
     String rawPassword = authentication.getCredentials().toString();
     List<User> users = userRepository.findByLogin(name, new PageRequest(0,
-        100));
+        100)).getContent();
 
     if (users.isEmpty())
       throw new UsernameNotFoundException("Usuário não encontrado!");
@@ -180,7 +180,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 
     Pageable pageable = new PageRequest(0, 100);
     List<UserRole> roles = userRoleRepository.findByLogin(user.getLogin(),
-        pageable);
+        pageable).getContent();
     for (UserRole userRole : roles) {
       GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(
           userRole.getRole().getName());

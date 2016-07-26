@@ -4,6 +4,7 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Classe que representa a tabela ROLE
@@ -26,7 +27,7 @@ public class Role implements Serializable {
 	/**
 	 * @generated
 	 */
-	@Column(name = "name", nullable = true, unique = false)
+	@Column(name = "name", nullable = true, unique = false, insertable=true, updatable=true)
 	private java.lang.String name;
 	
 	/**
@@ -34,7 +35,7 @@ public class Role implements Serializable {
 	 */
 	@Id
     
-	@Column(name = "id")
+	@Column(name = "id", insertable=true, updatable=true)
 	private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 	
 	

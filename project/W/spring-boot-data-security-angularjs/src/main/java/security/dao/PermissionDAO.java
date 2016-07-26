@@ -51,7 +51,7 @@ public interface PermissionDAO extends JpaRepository<Permission, java.lang.Strin
    * @generated
    */
   @Query("select p from Permission p")
-  public List<Permission> list ( Pageable pageable );
+  public Page<Permission> list ( Pageable pageable );
   
 
 

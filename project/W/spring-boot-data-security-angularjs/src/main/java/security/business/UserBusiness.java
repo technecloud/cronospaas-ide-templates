@@ -29,7 +29,7 @@ public class UserBusiness {
     @Qualifier("UserDAO")
     protected UserDAO repository;
 
-// CRUD
+    // CRUD
 
     /**
      * Serviço exposto para novo registro de acordo com a entidade fornecida
@@ -38,9 +38,6 @@ public class UserBusiness {
      */
     public User post(final User entity) throws Exception {
       // begin-user-code  
-      String rawPassword = entity.getPassword();
-      String hashPassword = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(rawPassword);
-      entity.setPassword(hashPassword);      
       // end-user-code  
       repository.save(entity);
       // begin-user-code  
@@ -80,21 +77,6 @@ public class UserBusiness {
     }
 
     /**
-     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
-     * 
-     * @generated
-     */
-    public User put(final java.lang.String id,final User entity) throws Exception {
-      // begin-user-code  
-      // end-user-code        
-      repository.saveAndFlush(entity);
-      // begin-user-code  
-      // end-user-code        
-      return entity;
-    }
-
-
-    /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
      * 
      * @generated
@@ -107,32 +89,17 @@ public class UserBusiness {
       // end-user-code        
     }
 
-
-
-// CRUD
+    // CRUD
     
   /**
    * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
-  public List<User> list ( Pageable pageable ){
+  public Page<User> list ( Pageable pageable ){
     // begin-user-code  
     // end-user-code        
-    List<User> result = repository.list (  pageable );
-    // begin-user-code  
-    // end-user-code        
-    return result;
-  }
-  /**
-   * Lista com paginação de acordo com a NamedQuery
-   * 
-   * @generated
-   */
-  public List<User> findByRole ( java.lang.String roleid , Pageable pageable ){
-    // begin-user-code  
-    // end-user-code        
-    List<User> result = repository.findByRole ( roleid ,  pageable );
+    Page<User> result = repository.list (  pageable );
     // begin-user-code  
     // end-user-code        
     return result;
@@ -142,10 +109,23 @@ public class UserBusiness {
    * 
    * @generated
    */
-  public List<User> findByLogin ( java.lang.String login , Pageable pageable ){
+  public Page<User> findByRole ( java.lang.String roleid , Pageable pageable ){
     // begin-user-code  
     // end-user-code        
-    List<User> result = repository.findByLogin ( login ,  pageable );
+    Page<User> result = repository.findByRole ( roleid ,  pageable );
+    // begin-user-code  
+    // end-user-code        
+    return result;
+  }
+  /**
+   * Lista com paginação de acordo com a NamedQuery
+   * 
+   * @generated
+   */
+  public Page<User> findByLogin ( java.lang.String login , Pageable pageable ){
+    // begin-user-code  
+    // end-user-code        
+    Page<User> result = repository.findByLogin ( login ,  pageable );
     // begin-user-code  
     // end-user-code        
     return result;
@@ -155,12 +135,12 @@ public class UserBusiness {
 
   /**
    * @generated modifiable
-   * OneToManyRelation
+   * OneToMany Relation
    */  
-  public List<UserRole> findUserRole(java.lang.String id,  Pageable pageable) {
+  public Page<UserRole> findUserRole(java.lang.String id,  Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      List<UserRole> result = repository.findUserRole(id,  pageable );
+      Page<UserRole> result = repository.findUserRole(id,  pageable );
       // begin-user-code  
       // end-user-code        
       return result;	  
@@ -170,12 +150,12 @@ public class UserBusiness {
 
   /**
    * @generated modifiable
-   * ManyToManyRelation
+   * ManyToMany Relation
    */  
-  public List<Role> listRole(java.lang.String id,  Pageable pageable ) {
+  public Page<Role> listRole(java.lang.String id,  Pageable pageable ) {
       // begin-user-code
       // end-user-code  
-      List<Role> result = repository.listRole(id,  pageable );
+      Page<Role> result = repository.listRole(id,  pageable );
       // begin-user-code
       // end-user-code
       return result;        	  
@@ -183,6 +163,7 @@ public class UserBusiness {
   
   /**
    * @generated modifiable
+   * ManyToMany Relation
    */    
   public int deleteRole(java.lang.String instanceId, java.lang.String relationId) {
       // begin-user-code
@@ -193,3 +174,4 @@ public class UserBusiness {
       return result;  
   }
 }
+

@@ -108,10 +108,10 @@ public class ${clazz_name} {
    * 
    * @generated
    */
-  public <#if !namedQuery.void>List<${clazz.name}><#else>int</#if> ${method_named_query_name} (<#list keys as key> ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable </#if>){
+  public <#if !namedQuery.void>Page<${clazz.name}><#else>int</#if> ${method_named_query_name} (<#list keys as key> ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable </#if>){
     // begin-user-code  
     // end-user-code        
-    <#if !namedQuery.void>List<${clazz.name}><#else>int</#if> result = repository.${method_named_query_name} (<#list keys as key> ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if> pageable </#if>);
+    <#if !namedQuery.void>Page<${clazz.name}><#else>int</#if> result = repository.${method_named_query_name} (<#list keys as key> ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if> pageable </#if>);
     // begin-user-code  
     // end-user-code        
     return result;
@@ -125,10 +125,10 @@ public class ${clazz_name} {
    * @generated modifiable
    * OneToMany Relation
    */  
-  public List<${relation.clazz.name}> find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable) {
+  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      List<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
+      Page<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
       // begin-user-code  
       // end-user-code        
       return result;	  
@@ -142,10 +142,10 @@ public class ${clazz_name} {
    * @generated modifiable
    * ManyToMany Relation
    */  
-  public List<${relation.relationClassField.type}> list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable ) {
+  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable ) {
       // begin-user-code
       // end-user-code  
-      List<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
+      Page<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
       // begin-user-code
       // end-user-code
       return result;        	  

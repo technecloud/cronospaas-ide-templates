@@ -3,6 +3,8 @@ package security.rest;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.*;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.*;
@@ -42,19 +44,7 @@ public class UserRoleREST {
      */
     @RequestMapping(method = RequestMethod.POST)
     public UserRole post(@Validated @RequestBody final UserRole entity) throws Exception {
-        userRoleBusiness.post(entity);
-        return entity;
-    }
-
-    /**
-     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<?> get(@PathVariable("id") java.lang.String id) throws Exception {
-        UserRole entity = userRoleBusiness.get(id);
-        return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
+        return userRoleBusiness.post(entity);
     }
 
     /**
@@ -63,8 +53,8 @@ public class UserRoleREST {
      * @generated
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> put(@Validated @RequestBody final UserRole entity) throws Exception {
-        return ResponseEntity.ok(userRoleBusiness.put(entity));
+    public UserRole put(@Validated @RequestBody final UserRole entity) throws Exception {
+        return userRoleBusiness.put(entity);
     }
 
     /**
@@ -95,8 +85,8 @@ public class UserRoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   )    
-  public  List<UserRole> listParams (@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userRoleBusiness.list(new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<UserRole>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(userRoleBusiness.list(pageable   )), HttpStatus.OK);    
   }
 
   /**
@@ -105,8 +95,8 @@ public class UserRoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByUser/{user}")    
-  public  List<UserRole> findByUserParams (@PathVariable("user") User user, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userRoleBusiness.findByUser(user, new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<UserRole>> findByUserParams (@PathVariable("user") User user, Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByUser(user, pageable   )), HttpStatus.OK);    
   }
 
   /**
@@ -115,8 +105,8 @@ public class UserRoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByEmail/{email}")    
-  public  List<UserRole> findByEmailParams (@PathVariable("email") java.lang.String email, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userRoleBusiness.findByEmail(email, new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<UserRole>> findByEmailParams (@PathVariable("email") java.lang.String email, Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByEmail(email, pageable   )), HttpStatus.OK);    
   }
 
   /**
@@ -125,8 +115,8 @@ public class UserRoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByLogin/{login}")    
-  public  List<UserRole> findByLoginParams (@PathVariable("login") java.lang.String login, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userRoleBusiness.findByLogin(login, new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<UserRole>> findByLoginParams (@PathVariable("login") java.lang.String login, Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByLogin(login, pageable   )), HttpStatus.OK);    
   }
 
   /**
@@ -135,11 +125,19 @@ public class UserRoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByRole/{roleid}")    
-  public  List<UserRole> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return userRoleBusiness.findByRole(roleid, new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<UserRole>> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByRole(roleid, pageable   )), HttpStatus.OK);    
   }
 
 
 
-
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public UserRole get(@PathVariable("id") java.lang.String id) throws Exception {
+        return userRoleBusiness.get(id);
+    }
 }

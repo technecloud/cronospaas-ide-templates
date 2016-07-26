@@ -165,3 +165,7 @@ var app = (function() {
 }(window));
 
 app.userEvents = {};
+
+//Configuration
+app.config = {};
+app.config.datasourceApiVersion = 2;

@@ -3,6 +3,8 @@ package security.rest;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.*;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.*;
@@ -60,19 +62,7 @@ public class RoleREST {
      */
     @RequestMapping(method = RequestMethod.POST)
     public Role post(@Validated @RequestBody final Role entity) throws Exception {
-        roleBusiness.post(entity);
-        return entity;
-    }
-
-    /**
-     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<?> get(@PathVariable("id") java.lang.String id) throws Exception {
-        Role entity = roleBusiness.get(id);
-        return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
+        return roleBusiness.post(entity);
     }
 
     /**
@@ -81,8 +71,8 @@ public class RoleREST {
      * @generated
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> put(@Validated @RequestBody final Role entity) throws Exception {
-        return ResponseEntity.ok(roleBusiness.put(entity));
+    public Role put(@Validated @RequestBody final Role entity) throws Exception {
+        return roleBusiness.put(entity);
     }
 
     /**
@@ -113,8 +103,8 @@ public class RoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   )    
-  public  List<Role> listParams (@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return roleBusiness.list(new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<Role>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(roleBusiness.list(pageable   )), HttpStatus.OK);    
   }
 
   /**
@@ -123,8 +113,8 @@ public class RoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/{instanceId}/UserRole")    
-  public List<UserRole> findUserRole(@PathVariable("instanceId") java.lang.String instanceId, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) {
-    return roleBusiness.findUserRole(instanceId,  new PageRequest(offset, limit) );
+  public HttpEntity<PagedResources<UserRole>> findUserRole(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(roleBusiness.findUserRole(instanceId,  pageable )), HttpStatus.OK);
   }
 
   /**
@@ -133,14 +123,31 @@ public class RoleREST {
    */  
   @RequestMapping(method = RequestMethod.DELETE
   , value="/{instanceId}/UserRole/{relationId}")    
-  public ResponseEntity<?> deleteUserRole(@PathVariable("relationId") java.lang.String relationId) {
-      try {
-        this.userRoleBusiness.delete(relationId);
-        return ResponseEntity.ok().build();
-      } catch (Exception e) {
-        return ResponseEntity.status(404).build();
-      }
+  public void deleteUserRole(@PathVariable("relationId") java.lang.String relationId) throws Exception {
+    this.userRoleBusiness.delete(relationId);
   }
+  
+  /**
+   * OneToMany Relationship PUT
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.PUT
+  , value="/{instanceId}/UserRole/{relationId}")
+  public UserRole putUserRole(@Validated @RequestBody final UserRole entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
+	return this.userRoleBusiness.put(entity);
+  }  
+  
+  /**
+   * OneToMany Relationship POST
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.POST
+  , value="/{instanceId}/UserRole")
+  public UserRole postUserRole(@Validated @RequestBody final UserRole entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+	Role role = this.roleBusiness.get(instanceId);
+	entity.setRole(role);
+	return this.userRoleBusiness.post(entity);
+  }   
 
   /**
    * OneToMany Relationship GET
@@ -148,8 +155,8 @@ public class RoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/{instanceId}/Permission")    
-  public List<Permission> findPermission(@PathVariable("instanceId") java.lang.String instanceId, @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset) {
-    return roleBusiness.findPermission(instanceId,  new PageRequest(offset, limit) );
+  public HttpEntity<PagedResources<Permission>> findPermission(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(roleBusiness.findPermission(instanceId,  pageable )), HttpStatus.OK);
   }
 
   /**
@@ -158,15 +165,31 @@ public class RoleREST {
    */  
   @RequestMapping(method = RequestMethod.DELETE
   , value="/{instanceId}/Permission/{relationId}")    
-  public ResponseEntity<?> deletePermission(@PathVariable("relationId") java.lang.String relationId) {
-      try {
-        this.permissionBusiness.delete(relationId);
-        return ResponseEntity.ok().build();
-      } catch (Exception e) {
-        return ResponseEntity.status(404).build();
-      }
+  public void deletePermission(@PathVariable("relationId") java.lang.String relationId) throws Exception {
+    this.permissionBusiness.delete(relationId);
   }
-
+  
+  /**
+   * OneToMany Relationship PUT
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.PUT
+  , value="/{instanceId}/Permission/{relationId}")
+  public Permission putPermission(@Validated @RequestBody final Permission entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
+	return this.permissionBusiness.put(entity);
+  }  
+  
+  /**
+   * OneToMany Relationship POST
+   * @generated
+   */  
+  @RequestMapping(method = RequestMethod.POST
+  , value="/{instanceId}/Permission")
+  public Permission postPermission(@Validated @RequestBody final Permission entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+	Role role = this.roleBusiness.get(instanceId);
+	entity.setRole(role);
+	return this.permissionBusiness.post(entity);
+  }   
 
 
   /**
@@ -175,8 +198,8 @@ public class RoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   ,value="/{instanceId}/User")
-  public List<User> listUser(@PathVariable("instanceId") java.lang.String instanceId,  @RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset ) {
-    return roleBusiness.listUser(instanceId,  new PageRequest(offset, limit) );
+  public HttpEntity<PagedResources<User>> listUser(@PathVariable("instanceId") java.lang.String instanceId,  Pageable pageable, PagedResourcesAssembler assembler ) {
+    return new ResponseEntity<>(assembler.toResource(roleBusiness.listUser(instanceId,  pageable )), HttpStatus.OK); 
   }
 
   /**
@@ -185,7 +208,7 @@ public class RoleREST {
    */  
   @RequestMapping(method = RequestMethod.POST
   ,value="/{instanceId}/User")
-  public ResponseEntity<?> postUser(@Validated @RequestBody final User entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
+  public Role postUser(@Validated @RequestBody final User entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
       UserRole newUserRole = new UserRole();
 
       Role instance = this.roleBusiness.get(instanceId);
@@ -195,7 +218,7 @@ public class RoleREST {
       
       this.userRoleBusiness.post(newUserRole);
 
-      return ResponseEntity.ok(newUserRole.getRole());
+      return newUserRole.getRole();
   }   
 
   /**
@@ -204,11 +227,19 @@ public class RoleREST {
    */  
   @RequestMapping(method = RequestMethod.DELETE
   ,value="/{instanceId}/User/{relationId}")
-  public ResponseEntity<?> deleteUser(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
-      this.roleBusiness.deleteUser(instanceId, relationId);
-      return ResponseEntity.ok().build();
+  public void deleteUser(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
+	  this.roleBusiness.deleteUser(instanceId, relationId);
   }  
 
 
 
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public Role get(@PathVariable("id") java.lang.String id) throws Exception {
+        return roleBusiness.get(id);
+    }
 }

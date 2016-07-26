@@ -4,6 +4,7 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Classe que representa a tabela PERMISSION
@@ -26,19 +27,19 @@ public class Permission implements Serializable {
 	/**
 	 * @generated
 	 */
-	@Column(name = "response", nullable = true, unique = false)
+	@Column(name = "response", nullable = true, unique = false, insertable=true, updatable=true)
 	private java.lang.Integer response;
 	
 	/**
 	 * @generated
 	 */
-	@Column(name = "path", nullable = false, unique = false)
+	@Column(name = "path", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.String path;
 	
 	/**
 	 * @generated
 	 */
-	@Column(name = "verb", nullable = false, unique = false)
+	@Column(name = "verb", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.String verb;
 	
 	/**
@@ -46,32 +47,32 @@ public class Permission implements Serializable {
 	 */
 	@Id
     
-	@Column(name = "id")
+	@Column(name = "id", insertable=true, updatable=true)
 	private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 	
 	/**
 	 * @generated
 	 */
-	@Column(name = "priority", nullable = false, unique = false)
+	@Column(name = "priority", nullable = false, unique = false, insertable=true, updatable=true)
 	private java.lang.Integer priority;
 	
 	/**
 	 * @generated
 	 */
-	@Column(name = "exclude", nullable = true, unique = false)
+	@Column(name = "exclude", nullable = true, unique = false, insertable=true, updatable=true)
 	private java.lang.String exclude;
 	
 	/**
 	 * @generated
 	 */
-	@Column(name = "enabled", nullable = true, unique = false)
+	@Column(name = "enabled", nullable = true, unique = false, insertable=true, updatable=true)
 	private boolean enabled;
 	
 	/**
 	 * @generated
 	 */
 	@ManyToOne
-	@JoinColumn(name="fk_role", referencedColumnName = "id")
+	@JoinColumn(name="fk_role", referencedColumnName = "id", insertable=true, updatable=true)
 	private Role role;
 	
 	

@@ -29,7 +29,7 @@ public class RoleBusiness {
     @Qualifier("RoleDAO")
     protected RoleDAO repository;
 
-// CRUD
+    // CRUD
 
     /**
      * Serviço exposto para novo registro de acordo com a entidade fornecida
@@ -74,21 +74,6 @@ public class RoleBusiness {
     }
 
     /**
-     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
-     * 
-     * @generated
-     */
-    public Role put(final java.lang.String id,final Role entity) throws Exception {
-      // begin-user-code  
-      // end-user-code        
-      repository.saveAndFlush(entity);
-      // begin-user-code  
-      // end-user-code        
-      return entity;
-    }
-
-
-    /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
      * 
      * @generated
@@ -101,19 +86,17 @@ public class RoleBusiness {
       // end-user-code        
     }
 
-
-
-// CRUD
+    // CRUD
     
   /**
    * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
-  public List<Role> list ( Pageable pageable ){
+  public Page<Role> list ( Pageable pageable ){
     // begin-user-code  
     // end-user-code        
-    List<Role> result = repository.list (  pageable );
+    Page<Role> result = repository.list (  pageable );
     // begin-user-code  
     // end-user-code        
     return result;
@@ -123,12 +106,12 @@ public class RoleBusiness {
 
   /**
    * @generated modifiable
-   * OneToManyRelation
+   * OneToMany Relation
    */  
-  public List<UserRole> findUserRole(java.lang.String id,  Pageable pageable) {
+  public Page<UserRole> findUserRole(java.lang.String id,  Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      List<UserRole> result = repository.findUserRole(id,  pageable );
+      Page<UserRole> result = repository.findUserRole(id,  pageable );
       // begin-user-code  
       // end-user-code        
       return result;	  
@@ -136,12 +119,12 @@ public class RoleBusiness {
 
   /**
    * @generated modifiable
-   * OneToManyRelation
+   * OneToMany Relation
    */  
-  public List<Permission> findPermission(java.lang.String id,  Pageable pageable) {
+  public Page<Permission> findPermission(java.lang.String id,  Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      List<Permission> result = repository.findPermission(id,  pageable );
+      Page<Permission> result = repository.findPermission(id,  pageable );
       // begin-user-code  
       // end-user-code        
       return result;	  
@@ -151,12 +134,12 @@ public class RoleBusiness {
 
   /**
    * @generated modifiable
-   * ManyToManyRelation
+   * ManyToMany Relation
    */  
-  public List<User> listUser(java.lang.String id,  Pageable pageable ) {
+  public Page<User> listUser(java.lang.String id,  Pageable pageable ) {
       // begin-user-code
       // end-user-code  
-      List<User> result = repository.listUser(id,  pageable );
+      Page<User> result = repository.listUser(id,  pageable );
       // begin-user-code
       // end-user-code
       return result;        	  
@@ -164,6 +147,7 @@ public class RoleBusiness {
   
   /**
    * @generated modifiable
+   * ManyToMany Relation
    */    
   public int deleteUser(java.lang.String instanceId, java.lang.String relationId) {
       // begin-user-code
@@ -174,3 +158,4 @@ public class RoleBusiness {
       return result;  
   }
 }
+

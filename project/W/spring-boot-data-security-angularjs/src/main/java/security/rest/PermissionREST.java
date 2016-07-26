@@ -3,6 +3,8 @@ package security.rest;
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.*;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.*;
@@ -42,19 +44,7 @@ public class PermissionREST {
      */
     @RequestMapping(method = RequestMethod.POST)
     public Permission post(@Validated @RequestBody final Permission entity) throws Exception {
-        permissionBusiness.post(entity);
-        return entity;
-    }
-
-    /**
-     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public ResponseEntity<?> get(@PathVariable("id") java.lang.String id) throws Exception {
-        Permission entity = permissionBusiness.get(id);
-        return entity == null ? ResponseEntity.status(404).build() : ResponseEntity.ok(entity);
+        return permissionBusiness.post(entity);
     }
 
     /**
@@ -63,8 +53,8 @@ public class PermissionREST {
      * @generated
      */
     @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<?> put(@Validated @RequestBody final Permission entity) throws Exception {
-        return ResponseEntity.ok(permissionBusiness.put(entity));
+    public Permission put(@Validated @RequestBody final Permission entity) throws Exception {
+        return permissionBusiness.put(entity);
     }
 
     /**
@@ -95,11 +85,19 @@ public class PermissionREST {
    */
   @RequestMapping(method = RequestMethod.GET
   )    
-  public  List<Permission> listParams (@RequestParam(defaultValue = "100", required = false) Integer limit, @RequestParam(defaultValue = "0", required = false) Integer offset){
-      return permissionBusiness.list(new PageRequest(offset, limit)   );  
+  public  HttpEntity<PagedResources<Permission>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+      return new ResponseEntity<>(assembler.toResource(permissionBusiness.list(pageable   )), HttpStatus.OK);    
   }
 
 
 
-
+    /**
+     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+     * 
+     * @generated
+     */
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+    public Permission get(@PathVariable("id") java.lang.String id) throws Exception {
+        return permissionBusiness.get(id);
+    }
 }

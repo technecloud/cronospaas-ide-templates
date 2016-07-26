@@ -29,7 +29,7 @@ public class PermissionBusiness {
     @Qualifier("PermissionDAO")
     protected PermissionDAO repository;
 
-// CRUD
+    // CRUD
 
     /**
      * Serviço exposto para novo registro de acordo com a entidade fornecida
@@ -74,21 +74,6 @@ public class PermissionBusiness {
     }
 
     /**
-     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
-     * 
-     * @generated
-     */
-    public Permission put(final java.lang.String id,final Permission entity) throws Exception {
-      // begin-user-code  
-      // end-user-code        
-      repository.saveAndFlush(entity);
-      // begin-user-code  
-      // end-user-code        
-      return entity;
-    }
-
-
-    /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
      * 
      * @generated
@@ -101,19 +86,17 @@ public class PermissionBusiness {
       // end-user-code        
     }
 
-
-
-// CRUD
+    // CRUD
     
   /**
    * Lista com paginação de acordo com a NamedQuery
    * 
    * @generated
    */
-  public List<Permission> list ( Pageable pageable ){
+  public Page<Permission> list ( Pageable pageable ){
     // begin-user-code  
     // end-user-code        
-    List<Permission> result = repository.list (  pageable );
+    Page<Permission> result = repository.list (  pageable );
     // begin-user-code  
     // end-user-code        
     return result;
@@ -124,3 +107,4 @@ public class PermissionBusiness {
 
 
 }
+
