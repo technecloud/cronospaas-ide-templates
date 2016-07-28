@@ -3,9 +3,35 @@
  * to support infinity list of items
  *
  */
+
 angular
     .module('ui-select-infinity', [])
     .directive('reachInfinity', ['$parse', '$timeout', function($parse, $timeout) {
+        function height(elem) {
+            elem = elem[0] || elem;
+            if (isNaN(elem.offsetHeight)) {
+                return elem.document.documentElement.clientHeight;
+            } else {
+                return elem.offsetHeight;
+            }
+        }
+
+        function offsetTop(elem) {
+            if (!elem[0].getBoundingClientRect || elem.css('none')) {
+                return;
+            }
+            return elem[0].getBoundingClientRect().top + pageYOffset(elem);
+        }
+
+        function pageYOffset(elem) {
+            elem = elem[0] || elem;
+            if (isNaN(window.pageYOffset)) {
+                return elem.document.documentElement.scrollTop;
+            } else {
+                return elem.ownerDocument.defaultView.pageYOffset;
+            }
+        }
+
         /**
          * Since scroll events can fire at a high rate, the event handler
          * shouldn't execute computationally expensive operations such as DOM modifications.
@@ -27,7 +53,7 @@ angular
                 }
 
                 running = true;
-                setTimeout(function() {
+                requestAnimationFrame(function() {
                     obj.dispatchEvent(new CustomEvent(name));
                     running = false;
                 });
@@ -47,11 +73,31 @@ angular
                     removeThrottle;
 
                 function tryToSetupInfinityScroll() {
-                    container = elem.querySelectorAll('.ui-select-choices');
+                    var rows = elem.querySelectorAll('.ui-select-choices-row');
+
+                    if (rows.length === 0) {
+                        return false;
+                    }
+
+                    var lastChoice = angular.element(rows[rows.length - 1]);
+
+                    container = angular.element(elem.querySelectorAll('.ui-select-choices'));
 
                     var handler = function() {
-                        var containerDOM = container.get(0);
-                        if ((containerDOM.scrollHeight - containerDOM.scrollTop) === containerDOM.clientHeight) {
+                        var containerBottom = height(container),
+                            containerTopOffset = 0,
+                            elementBottom;
+
+                        if (offsetTop(container) !== void 0) {
+                            containerTopOffset = offsetTop(container);
+                        }
+
+                        elementBottom = offsetTop(lastChoice) - containerTopOffset + height(lastChoice);
+
+                        var remaining = elementBottom - containerBottom,
+                            shouldScroll = remaining <= height(container) * scrollDistance + 1;
+
+                        if (shouldScroll) {
                             scope.$apply(function() {
                                 $parse(attrs['reachInfinity'])(scope);
                             });

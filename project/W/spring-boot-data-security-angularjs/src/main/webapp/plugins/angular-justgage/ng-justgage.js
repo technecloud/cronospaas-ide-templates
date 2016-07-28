@@ -23,9 +23,9 @@ angular.module('ngJustGage', [])
           };
 
           if (scope.options) {
-            for (var key in scope.options) {
-              options[key] = scope.options[key];
-            }
+              for (var key in scope.options) {
+                  options[key] = scope.options[key];
+              }
           }
 
           var graph = new JustGage(options);

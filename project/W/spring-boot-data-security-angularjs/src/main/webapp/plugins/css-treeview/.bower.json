@@ -24,8 +24,7 @@
     "branch": "master",
     "commit": "c2f2617b4a96ca1f77c5be215be0b1d0b19c85b0"
   },
-  "_source": "git://github.com/nanndoj/css-treeview.git",
+  "_source": "https://github.com/nanndoj/css-treeview.git",
   "_target": "*",
-  "_originalSource": "purecss-treeview",
-  "_direct": true
+  "_originalSource": "purecss-treeview"
 }
