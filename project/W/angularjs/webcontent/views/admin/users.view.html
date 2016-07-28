@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<h3>{{'Users.view.Users' | translate}}</h3>
 	<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
-	  <i data-container="true" class="wrapped-node wrapped-node-datasource" draggable="true"><datasource name="User" entity="api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="{RemoverUsuario}?" ______delete-message="{{'Users.view.RemoverUsuario' | translate}}?"></datasource></i> 
+	  <i data-container="true" class="wrapped-node wrapped-node-datasource" draggable="true"><datasource name="User" entity="api/rest/security/User" keys="id" rows-per-page="100" class="" delete-message="{{'Users.view.RemoverUsuario' | translate}}?"></datasource></i> 
 	</div> 
 	<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-276971"> 
 	  <i data-container="true" class="wrapped-node wrapped-node-datasource" draggable="true"><datasource name="AllRoles" entity="api/rest/security/Role" keys="id" rows-per-page="100" class=""></datasource></i> 
@@ -69,7 +69,7 @@
 			    <form crn-datasource="User" class="col-xs-12 col-sm-5"> 
 			      <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
 			        <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-656503"> 
-			          <i data-container="true" class="wrapped-node wrapped-node-datasource" draggable="true"><datasource append="false" name="Roles" entity="api/rest/security/User/[User.id]/Role" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}" ______entity="api/rest/security/User/{{User.active.id}}/Role"></datasource></i> 
+			          <i data-container="true" class="wrapped-node wrapped-node-datasource" draggable="true"><datasource append="false" name="Roles" entity="api/rest/security/User/{{User.active.id}}/Role" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}"></datasource></i> 
 			        </div> 
 			        <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-61057"> 
 			          <div class="form-group"> 
@@ -95,7 +95,7 @@
 			          <label for="select-roles" class="">{{'Users.view.Roles' | translate}}</label> 
 			          <div id="select-roles" class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-tags"> 
 			            <ui-select multiple="" crn-datasource="AllRoles" ng-model="Roles.data" class="crn-select" style="min-width: 200px" theme="bootstrap"> 
-			              <ui-select-match placeholder="{Select Person}..." class="" ___placeholder="{{'Users.view.Select Person' | translate}}...">
+			              <ui-select-match placeholder="{{'Users.view.Select Person' | translate}}..." class="">
 			                 {{$item.name}} 
 			              </ui-select-match> 
 			              <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
