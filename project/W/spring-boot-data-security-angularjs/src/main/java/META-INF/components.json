@@ -60,7 +60,7 @@
          "name":"crn-datasource",
          "text":"Datasource",
          "class":"cpn cpn-datasource",
-         "template":"<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\" on-before-create=\"\" on-after-create=\"\" on-before-update=\"\" on-after-update=\"\" on-before-delete=\"\" on-after-delete=\"\"><i class=\"cpn cpn-datasource\" ></i></datasource>",
+         "template":"<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\" on-before-create=\"\" on-after-create=\"\" on-before-update=\"\" on-after-update=\"\" on-before-delete=\"\" on-after-delete=\"\" on-after-fill=\"\"><i class=\"cpn cpn-datasource\" ></i></datasource>",
          "properties":{
             "entity":{
                "removable":false,
@@ -100,6 +100,11 @@
                "global":true
             },
             "on-after-delete":{
+               "removable":true,
+               "type":"event",
+               "global":true
+            },
+            "on-after-fill":{
                "removable":true,
                "type":"event",
                "global":true
