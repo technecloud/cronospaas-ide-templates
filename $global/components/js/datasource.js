@@ -39,6 +39,7 @@ angular.module('datasourcejs', [])
     var _savedProps;
     var hasMoreResults = false;
     var busy = false;
+    var loaded = false;
     var _self = this;
     var unregisterDataWatch = null;
     
@@ -90,11 +91,18 @@ angular.module('datasourcejs', [])
         }
       }
       
-      /**
-		 * Check if the datasource is waiting for any request response
-		 */
+     /**
+  		* Check if the datasource is waiting for any request response
+  		*/
       this.isBusy = function() {
         return busy;
+      }
+      
+     /**
+      * Check if the datasource was loaded by service
+      */
+      this.isLoaded = function() {
+        return loaded;
       }
       
       this.toString = function() {
@@ -743,10 +751,11 @@ angular.module('datasourcejs', [])
             if(this.autoPost) {
               this.startAutoPost();
             }
+            loaded= true;
+            this.handleAfterCallBack(this.onAfterFill);
           } 
         }.bind(this);
     };
-
     
     /**
     * Asynchronously notify observers 
@@ -892,6 +901,8 @@ angular.module('datasourcejs', [])
       dts.offset = (props.offset) ? props.offset : 0; // Default offset is 0
       dts.onError = props.onError;
       dts.defaultNotSpecifiedErrorMessage = props.defaultNotSpecifiedErrorMessage;
+
+      dts.onAfterFill = props.onAfterFill;
       
       dts.onBeforeCreate = props.onBeforeCreate;
       dts.onAfterCreate  = props.onAfterCreate;
@@ -1006,6 +1017,7 @@ angular.module('datasourcejs', [])
           headers : attrs.headers,
           autoPost : (attrs.hasOwnProperty('autoPost') && attrs.autoPost === "") || attrs.autoPost === "true",
           onError : attrs.onError,
+          onAfterFill : attrs.onAfterFill,
           onBeforeCreate : attrs.onBeforeCreate,
           onAfterCreate  : attrs.onAfterCreate,
           onBeforeUpdate : attrs.onBeforeUpdate,
