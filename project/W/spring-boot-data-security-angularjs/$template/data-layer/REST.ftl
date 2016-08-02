@@ -49,12 +49,15 @@ public class ${class_name} {
     private ${class_business_name} ${class_business_variable_name};
 
 <#list clazz.allRelations as relation>
-  /**
-   * @generated
-   */
-    @Autowired
-    @Qualifier("${relation.name}Business")
-    private ${relation.name}Business ${relation.name?uncap_first}Business;
+    <#assign relation_name = "${relation.name}Business">
+    <#if relation_name != class_business_name >
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("${relation.name}Business")
+      private ${relation.name}Business ${relation.name?uncap_first}Business;
+    </#if>
 </#list>   
 
     /**
