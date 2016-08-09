@@ -46,7 +46,7 @@
         <repository>
             <id>artifactory-cronospaas</id>
             <name>artifactory-cronospaas-releases</name>
-            <url>http://artifactory.cronospaas.com.br/artifactory/ext-release-local</url>
+            <url>https://artifactory.oncronos.io/artifactory/ext-release-local</url>
         </repository>
     </repositories>
     <dependencies>
