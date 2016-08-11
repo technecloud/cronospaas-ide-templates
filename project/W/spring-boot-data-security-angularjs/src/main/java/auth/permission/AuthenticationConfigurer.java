@@ -38,6 +38,9 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
   private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
   @Autowired
+  private HttpServletRequest request;
+  
+  @Autowired
   private UserDAO userRepository;
 
   @Autowired
@@ -85,8 +88,8 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     changePasswordLogged.setPath("/changePassword").setVerb("POST")
         .setRole(roleLogged).setPriority(1).setEnabled(true);
     
-    Permission userSettingsLogged = new Permission();
-    userSettingsLogged.setPath("/changeTheme").setVerb("POST")
+    Permission changeThemeLogged = new Permission();
+    changeThemeLogged.setPath("/changeTheme").setVerb("POST")
         .setRole(roleLogged).setPriority(1).setEnabled(true);
 
     Permission permissionLoggedRest = new Permission();
@@ -107,6 +110,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     permissionRepository.save(permissionAdmin);
     permissionRepository.save(permissionLogged);
     permissionRepository.save(changePasswordLogged);
+    permissionRepository.save(changeThemeLogged);
     permissionRepository.save(permissionAdminRest);
     permissionRepository.save(permissionLoggedRest);
     userRoleRepository.save(userRoleAdmin);
@@ -131,6 +135,10 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
       UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(
           userDetails, user.getPassword(), roles);
       userToken.setDetails(userDetails);
+      
+      HttpSession session = request.getSession();
+      session.setAttribute("theme", user.getTheme());
+      
       return userToken;
     } else {
       throw new BadCredentialsException("Usuário ou senha incorreta!");
@@ -163,7 +171,10 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 
     UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(
         userDetails, user.getPassword(), roles);
-
+    
+    HttpSession session = request.getSession();
+    session.setAttribute("theme", user.getTheme());
+    
     return userToken;
   }
 
