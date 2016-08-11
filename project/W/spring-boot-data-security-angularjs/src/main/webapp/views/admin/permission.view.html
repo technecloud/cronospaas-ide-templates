@@ -121,6 +121,11 @@
                   type="number" ng-model="Permission.active.priority" class="form-control" id="textinput-priority-id">
               </div>
             </div>
+            <div class="component-holder ng-binding ng-scope" data-component="crn-checkbox" id="crn-checkbox-372055">
+              <label> <input type="checkbox" ng-model="Permission.active.enabled" ng-true-value="true"
+                ng-false-value="false"> <span>{{'Permission.view.Enable' | translate}}</span>
+              </label>
+            </div>
           </fieldset>
           <div class="active-bar pull-right" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting">
             <button class="btn btn-success" ng-click="datasource.post()">
