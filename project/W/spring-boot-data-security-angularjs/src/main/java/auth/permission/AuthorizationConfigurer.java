@@ -88,7 +88,7 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED).invalidSessionUrl("/index.html");
     
     // public
-    String [] publics = {"/index.html", "/views/login.view.html", "/public/**", "/plugins/**", "/components/**", "/js/**", "/css/**", "/img/**", "/i18n/**", "/views/error/**"};
+    String [] publics = {"/index.html", "/favicon.ico", "/views/login.view.html", "/public/**", "/plugins/**", "/components/**", "/js/**", "/css/**", "/img/**", "/i18n/**", "/views/error/**"};
 		http.authorizeRequests().antMatchers(publics).permitAll();
     
     List<Permission> permissions = permissionRepository.findAll();
@@ -138,9 +138,11 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
         
         String roles = authUser.getAuthorities().toString().replaceFirst("\\[", "").replaceFirst("\\]", "");
         
-        String str = String.format("{\"name\":\"%s\",\"id\":\"%s\",\"login\":\"%s\",\"roles\":\"%s\",\"root\":%s}",
+        String theme = session.getAttribute("theme").toString();
+        String str = String.format("{\"name\":\"%s\",\"id\":\"%s\",\"login\":\"%s\",\"roles\":\"%s\",\"root\":%s,\"theme\":\"%s\"}",
                 authUser.getUsername(), -1, authUser.getUsername(), roles,
-                roles.contains(AuthenticationConfigurer.ROLE_ADMIN_NAME));
+                roles.contains(AuthenticationConfigurer.ROLE_ADMIN_NAME), theme);
+        System.out.println(str);
         resp.getOutputStream().print(str);
         resp.setHeader("Content-Type", "application/json");
         // {"name":"Administrator","id":"6C2B5EB7-AFE7-4A04-9CE2-F6B2E8BB7503","login":"admin","roles":"11111111-1111-1111-1111-111111111111,00000000-0000-0000-0000-000000000000","root":true}

@@ -84,6 +84,10 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
     Permission changePasswordLogged = new Permission();
     changePasswordLogged.setPath("/changePassword").setVerb("POST")
         .setRole(roleLogged).setPriority(1).setEnabled(true);
+    
+    Permission userSettingsLogged = new Permission();
+    userSettingsLogged.setPath("/changeTheme").setVerb("POST")
+        .setRole(roleLogged).setPriority(1).setEnabled(true);
 
     Permission permissionLoggedRest = new Permission();
     permissionLoggedRest.setPath("/api/rest/**").setVerb("ALL")

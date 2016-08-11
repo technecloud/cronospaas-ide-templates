@@ -133,6 +133,7 @@ var app = (function() {
 
     // General controller
     .controller('PageController',["$scope","$stateParams","$location","$http",function($scope, $stateParams, $location, $http){
+      
       for(var x in app.userEvents)
         $scope[x]= app.userEvents[x].bind($scope);
       

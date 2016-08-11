@@ -136,5 +136,41 @@
           navMain.off("click", "a", closeMenuHandler);
           navMain.on("click", "a", closeMenuHandler);
         });
+        
+        $rootScope.myTheme = $rootScope.session.theme;
+        $scope.$watch('myTheme', function(value) {
+          if (value !== undefined) {
+            $rootScope.myTheme = value;
+          }
+        });
+        
+        $scope.themes = ["cerulean","cosmo","cyborg","darkly","flatly","journal","lumen","paper","readable","sandstone","simplex","slate","spacelab","superhero","united","yeti"];
+
+        $scope.changeTheme = function(theme) {
+          console.log(theme);
+          if (theme !== undefined) {
+            $rootScope.myTheme = theme;
+            
+            var user = { theme: theme };
+
+            $http({
+                method: 'POST',
+                url: 'changeTheme',
+                data: $.param(user),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            }).success(changeSuccess).error(changeError);
+            
+            function changeSuccess(data, status, headers, config) {
+              $rootScope.session.theme = theme;
+              Notification.info($translate.instant('Home.view.themeChanged'));
+            }
+    
+            function changeError(data, status, headers, config) {
+                var error = data;
+                Notification.error(error);
+            }     
+            
+          }
+        }
     }]);
 } (app));
