@@ -140,7 +140,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
       userToken.setDetails(userDetails);
       
       HttpSession session = request.getSession();
-      session.setAttribute("theme", user.getTheme());
+      session.setAttribute("theme", (user.getTheme()!=null)?user.getTheme():"");
       
       return userToken;
     } else {
@@ -176,7 +176,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
         userDetails, user.getPassword(), roles);
     
     HttpSession session = request.getSession();
-    session.setAttribute("theme", user.getTheme());
+    session.setAttribute("theme", (user.getTheme()!=null)?user.getTheme():"");
     
     return userToken;
   }

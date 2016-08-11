@@ -80,5 +80,7 @@
   "template.crud.search": "Pesquisar",
   "template.crud.actions": "Ações",
   "template.crud.load_more": "Carregar mais",
-  "template.crud.new": "Novo"
+  "template.crud.new": "Novo",
+  "Theme": "Tema",
+  "Home.view.themeChanged": "Tema alterado!"
 }
