@@ -59,9 +59,9 @@ var app = (function() {
           .state('home.pages', {
             url: "/{name:.*}",
             controller: 'PageController',
-            templateUrl: function(urlattr){
-                return 'views/'+urlattr.name+'.view.html';
-            }
+                templateUrl: function(urlattr){
+                  return 'views/'+urlattr.name+'.view.html';
+                }
           }) 
           
           .state('404', {
@@ -132,7 +132,7 @@ var app = (function() {
     }])
 
     // General controller
-    .controller('PageController',["$scope","$stateParams","$location","$http",function($scope, $stateParams, $location, $http){
+    .controller('PageController',["$scope","$stateParams","$location","$http", "$rootScope",function($scope, $stateParams, $location, $http, $rootScope){
       
       for(var x in app.userEvents)
         $scope[x]= app.userEvents[x].bind($scope);

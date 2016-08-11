@@ -57,6 +57,14 @@
         // if the user is authenticated and the userData
         // was saved on the browser's sessionStorage
         $rootScope.session = (sessionStorage._u) ? JSON.parse(sessionStorage._u) : null;
+        
+        $rootScope.myTheme = $rootScope.session.theme;
+        $scope.$watch('myTheme', function(value) {
+          if (value !== undefined) {
+            $rootScope.myTheme = value;
+          }
+        });
+
         if(!$rootScope.session) {
           // If there isn't a user registered on the sessionStorage
           // we must send back to login page
@@ -135,13 +143,6 @@
           //Here your view content is fully loaded !!
           navMain.off("click", "a", closeMenuHandler);
           navMain.on("click", "a", closeMenuHandler);
-        });
-        
-        $rootScope.myTheme = $rootScope.session.theme;
-        $scope.$watch('myTheme', function(value) {
-          if (value !== undefined) {
-            $rootScope.myTheme = value;
-          }
         });
         
         $scope.themes = ["cerulean","cosmo","cyborg","darkly","flatly","journal","lumen","paper","readable","sandstone","simplex","slate","spacelab","superhero","united","yeti"];
