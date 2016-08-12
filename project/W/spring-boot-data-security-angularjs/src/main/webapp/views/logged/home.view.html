@@ -38,7 +38,7 @@
                     <span class="caret"></span>
                 </a> 
                 <ul class="dropdown-menu"> 
-                  <li ng-repeat="theme in themes" ng-click="changeTheme(theme)"><a href="javascript:void(0);">{{theme}}</a></li> 
+                  <li ng-repeat="theme in themes" ng-click="changeTheme(theme)">  <a href="javascript:void(0);" ng-class="{'bg-primary': myTheme==theme}">{{theme}} <i class="fa fa-lg fa-check pull-right" ng-if="myTheme==theme"></i></a></li> 
                 </ul> 
             </li>
             

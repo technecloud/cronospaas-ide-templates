@@ -81,6 +81,7 @@
   "template.crud.actions": "Ações",
   "template.crud.load_more": "Carregar mais",
   "template.crud.new": "Novo",
+  "ChooseTheme": "Escolha o Tema",
   "Theme": "Tema",
   "Home.view.themeChanged": "Tema alterado!"
 }
