@@ -150,7 +150,24 @@
         $scope.changeTheme = function(theme) {
           console.log(theme);
           if (theme !== undefined) {
-            $rootScope.myTheme = theme;
+            console.log(theme);
+            if (theme !== undefined) {
+              $('body').append('<div id="transition" />');
+              $('#transition').css({
+                'background-color':'#FFF',
+                'zIndex':100000,
+                'position':'fixed',
+                'top':'0px',
+                'right':'0px',
+                'bottom':'0px',
+                'left':'0px',
+                'overflow':'hidden',
+                'display':'block'
+              });
+              $('#transition').fadeIn(800, function(){
+                $rootScope.myTheme = theme;
+                $('#transition').fadeOut(1000,function(){$('#transition').remove();});  
+              });
             
             var user = { theme: theme };
 
