@@ -4,7 +4,7 @@
     app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$window', '$state', '$translate', 'Notification', function ($scope, $http, $location, $rootScope, $window, $state, $translate, Notification) {
 
         $scope.message = {};
-
+        $rootScope.myTheme = themeSelected;
         $scope.login = function () {
 
             $scope.message.error = undefined;
@@ -180,7 +180,7 @@
             
             function changeSuccess(data, status, headers, config) {
               $rootScope.session.theme = theme;
-              Notification.info($translate.instant('Home.view.themeChanged'));
+              Notification.success($translate.instant('Home.view.themeChanged'));
             }
     
             function changeError(data, status, headers, config) {
