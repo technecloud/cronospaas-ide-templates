@@ -64,6 +64,7 @@
   "Perfil.view.Idioma": "Idioma",
   "Permission.view.Priority": "Prioridade",
   "Permission.view.Exclude": "Exceção",
+  "Permission.view.Enable": "Ativo",
   "General.RemoveData": "Deseja remover?",
   "General.ErrorNotSpecified": "Erro não especificado",
   "Login.view.invalidPassword": "Usuário ou senha inválidos!",
