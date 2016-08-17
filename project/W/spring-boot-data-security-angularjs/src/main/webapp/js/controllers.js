@@ -60,8 +60,10 @@
         
         $rootScope.myTheme = $rootScope.session.theme;
         $scope.$watch('myTheme', function(value) {
-          if (value !== undefined) {
+          if (value !== undefined && value != "") {
             $rootScope.myTheme = value;
+          }else{
+            $rootScope.myTheme = themeSelected;
           }
         });
 
