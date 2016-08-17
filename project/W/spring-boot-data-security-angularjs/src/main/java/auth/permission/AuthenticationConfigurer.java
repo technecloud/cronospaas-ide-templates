@@ -32,106 +32,107 @@ import security.entity.UserRole;
 
 @Component
 public class AuthenticationConfigurer implements AuthenticationProvider {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationConfigurer.class);
-
-	private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-	@Autowired
-	private HttpServletRequest request;
-
-	@Autowired
-	private UserDAO userRepository;
-
-	@Autowired
-	private UserRoleDAO userRoleRepository;
-
-	@Autowired
-	private RoleDAO roleRepository;
-
-	private UsernamePasswordAuthenticationToken authenticateDataBase(Authentication authentication)
-			throws AuthenticationException {
-		String name = authentication.getName();
-		String rawPassword = authentication.getCredentials().toString();
-		List<User> users = userRepository.findByLogin(name, new PageRequest(0, 100)).getContent();
-
-		if (users.isEmpty())
-			throw new UsernameNotFoundException("Usuário não encontrado!");
-
-		User user = users.get(0);
-		if (passwordEncoder.matches(rawPassword, user.getPassword())) {
-			Set<GrantedAuthority> roles = getAuthorities(user);
-			org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
-					user.getName(), user.getPassword(), false, false, false, false, roles);
-			UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(userDetails,
-					user.getPassword(), roles);
-			userToken.setDetails(userDetails);
-
-			HttpSession session = request.getSession();
-			session.setAttribute("theme", (user.getTheme() != null) ? user.getTheme() : "");
-
-			return userToken;
-		} else {
-			throw new BadCredentialsException("Usuário ou senha incorreta!");
-		}
-	}
-
-	private UsernamePasswordAuthenticationToken authenticateLocal(Authentication authentication)
-			throws AuthenticationException {
-
-		User user = new User().setLogin("local").setName("local").setPassword("local");
-
-		String formLogin = authentication.getName();
-		String formPassword = authentication.getCredentials().toString();
-
-		if (!user.getLogin().equals(formLogin)) {
-			throw new BadCredentialsException("Usuário não encontrado!");
-		} else {
-			if (!user.getPassword().equals(formPassword))
-				throw new BadCredentialsException("Usuário ou senha incorreta!");
-		}
-
-		Set<GrantedAuthority> roles = new HashSet<>();
-		roles.add(new SimpleGrantedAuthority("Administrators"));
-		roles.add(new SimpleGrantedAuthority("Logged"));
-
-		org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
-				user.getName(), user.getPassword(), false, false, false, false, roles);
-
-		UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(userDetails,
-				user.getPassword(), roles);
-
-		HttpSession session = request.getSession();
-		session.setAttribute("theme", (user.getTheme() != null) ? user.getTheme() : "");
-
-		return userToken;
-	}
-
-	@Override
-	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		return authenticateDataBase(authentication);
-		//return authenticateLocal(authentication);
-	}
-
-	@Override
-	public boolean supports(Class<?> authentication) {
-		return authentication.equals(UsernamePasswordAuthenticationToken.class);
-	}
-
-	private Set<GrantedAuthority> getAuthorities(User user) {
-		Set<GrantedAuthority> authorities = new HashSet<>();
-
-		Pageable pageable = new PageRequest(0, 100);
-		List<UserRole> roles = userRoleRepository.findByLogin(user.getLogin(), pageable).getContent();
-		for (UserRole userRole : roles) {
-			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRole.getRole().getName());
-			authorities.add(grantedAuthority);
-		}
-
-		// Virtual Role Logged
-		authorities.add(new SimpleGrantedAuthority(SecurityPermission.ROLE_LOGGED_NAME));
-
-		LOGGER.debug("user authorities are " + authorities.toString());
-		return authorities;
-	}
-
+  private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationConfigurer.class);
+  
+  private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+  
+  @Autowired
+  private HttpServletRequest request;
+  
+  @Autowired
+  private UserDAO userRepository;
+  
+  @Autowired
+  private UserRoleDAO userRoleRepository;
+  
+  @Autowired
+  private RoleDAO roleRepository;
+  
+  private UsernamePasswordAuthenticationToken authenticateDataBase(Authentication authentication)
+          throws AuthenticationException {
+    String name = authentication.getName();
+    String rawPassword = authentication.getCredentials().toString();
+    List<User> users = userRepository.findByLogin(name, new PageRequest(0, 100)).getContent();
+    
+    if(users.isEmpty())
+      throw new UsernameNotFoundException("Usuário não encontrado!");
+    
+    User user = users.get(0);
+    if(passwordEncoder.matches(rawPassword, user.getPassword())) {
+      Set<GrantedAuthority> roles = getAuthorities(user);
+      org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
+              user.getName(), user.getPassword(), false, false, false, false, roles);
+      UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(userDetails,
+              user.getPassword(), roles);
+      userToken.setDetails(userDetails);
+      
+      HttpSession session = request.getSession();
+      session.setAttribute("theme", (user.getTheme() != null) ? user.getTheme() : "");
+      
+      return userToken;
+    }
+    else {
+      throw new BadCredentialsException("Usuário ou senha incorreta!");
+    }
+  }
+  
+  private UsernamePasswordAuthenticationToken authenticateLocal(Authentication authentication)
+          throws AuthenticationException {
+    
+    User user = new User().setLogin("local").setName("local").setPassword("local");
+    
+    String formLogin = authentication.getName();
+    String formPassword = authentication.getCredentials().toString();
+    
+    if(!user.getLogin().equals(formLogin)) {
+      throw new BadCredentialsException("Usuário não encontrado!");
+    }
+    else {
+      if(!user.getPassword().equals(formPassword))
+        throw new BadCredentialsException("Usuário ou senha incorreta!");
+    }
+    
+    Set<GrantedAuthority> roles = new HashSet<>();
+    roles.add(new SimpleGrantedAuthority("Administrators"));
+    roles.add(new SimpleGrantedAuthority("Logged"));
+    
+    org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
+            user.getName(), user.getPassword(), false, false, false, false, roles);
+    
+    UsernamePasswordAuthenticationToken userToken = new UsernamePasswordAuthenticationToken(userDetails,
+            user.getPassword(), roles);
+    
+    HttpSession session = request.getSession();
+    session.setAttribute("theme", (user.getTheme() != null) ? user.getTheme() : "");
+    
+    return userToken;
+  }
+  
+  @Override
+  public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    return authenticateDataBase(authentication);
+  }
+  
+  @Override
+  public boolean supports(Class<?> authentication) {
+    return authentication.equals(UsernamePasswordAuthenticationToken.class);
+  }
+  
+  private Set<GrantedAuthority> getAuthorities(User user) {
+    Set<GrantedAuthority> authorities = new HashSet<>();
+    
+    Pageable pageable = new PageRequest(0, 100);
+    List<UserRole> roles = userRoleRepository.findByLogin(user.getLogin(), pageable).getContent();
+    for(UserRole userRole : roles) {
+      GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRole.getRole().getName());
+      authorities.add(grantedAuthority);
+    }
+    
+    // Virtual Role Logged
+    authorities.add(new SimpleGrantedAuthority(SecurityPermission.ROLE_LOGGED_NAME));
+    
+    LOGGER.debug("user authorities are " + authorities.toString());
+    return authorities;
+  }
+  
 }

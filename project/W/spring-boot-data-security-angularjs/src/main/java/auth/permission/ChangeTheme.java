@@ -25,27 +25,27 @@ import security.entity.User;
 @RestController
 @RequestMapping(value = "/changeTheme")
 public class ChangeTheme {
-
-	@Autowired
-	@Qualifier("UserBusiness")
-	private UserBusiness userBusiness;
-
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseStatus(HttpStatus.OK)
-	public User post(final String theme) throws Exception {
-
-		org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal();
-
-		List<User> users = userBusiness.findByLogin(userDetails.getUsername(), new PageRequest(0, 100)).getContent();
-		if (users.size() > 0) {
-			User user = users.get(0);
-
-			user.setTheme(theme);
-			userBusiness.put(user);
-			return user;
-		}
-
-		throw new RuntimeException("Usuario não encontrado!");
-	}
+  
+  @Autowired
+  @Qualifier("UserBusiness")
+  private UserBusiness userBusiness;
+  
+  @RequestMapping(method = RequestMethod.POST)
+  @ResponseStatus(HttpStatus.OK)
+  public User post(final String theme) throws Exception {
+    
+    org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User)SecurityContextHolder
+            .getContext().getAuthentication().getPrincipal();
+    
+    List<User> users = userBusiness.findByLogin(userDetails.getUsername(), new PageRequest(0, 100)).getContent();
+    if(users.size() > 0) {
+      User user = users.get(0);
+      
+      user.setTheme(theme);
+      userBusiness.put(user);
+      return user;
+    }
+    
+    throw new RuntimeException("Usuario não encontrado!");
+  }
 }
