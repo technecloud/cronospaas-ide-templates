@@ -36,18 +36,18 @@ public class UserREST {
     @Qualifier("UserBusiness")
     private UserBusiness userBusiness;
 
-  /**
-   * @generated
-   */
-    @Autowired
-    @Qualifier("RoleBusiness")
-    private RoleBusiness roleBusiness;
-  /**
-   * @generated
-   */
-    @Autowired
-    @Qualifier("UserRoleBusiness")
-    private UserRoleBusiness userRoleBusiness;
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("RoleBusiness")
+      private RoleBusiness roleBusiness;
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("UserRoleBusiness")
+      private UserRoleBusiness userRoleBusiness;
 
     /**
      * Serviço exposto para novo registro de acordo com a entidade fornecida

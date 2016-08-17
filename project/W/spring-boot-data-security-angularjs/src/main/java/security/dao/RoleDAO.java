@@ -60,12 +60,6 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    */
   @Query("SELECT entity FROM UserRole entity WHERE entity.role.id = :id")
   public Page<UserRole> findUserRole(@Param(value="id") java.lang.String id,  Pageable pageable );
-  /**
-   * OneToMany Relation
-   * @generated
-   */
-  @Query("SELECT entity FROM Permission entity WHERE entity.role.id = :id")
-  public Page<Permission> findPermission(@Param(value="id") java.lang.String id,  Pageable pageable );
 
 
 

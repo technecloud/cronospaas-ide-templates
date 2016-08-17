@@ -117,19 +117,6 @@ public class RoleBusiness {
       return result;	  
   }
 
-  /**
-   * @generated modifiable
-   * OneToMany Relation
-   */  
-  public Page<Permission> findPermission(java.lang.String id,  Pageable pageable) {
-      // begin-user-code
-      // end-user-code  
-      Page<Permission> result = repository.findPermission(id,  pageable );
-      // begin-user-code  
-      // end-user-code        
-      return result;	  
-  }
-
 
 
   /**

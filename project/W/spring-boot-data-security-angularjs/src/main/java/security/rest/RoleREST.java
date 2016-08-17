@@ -36,24 +36,18 @@ public class RoleREST {
     @Qualifier("RoleBusiness")
     private RoleBusiness roleBusiness;
 
-  /**
-   * @generated
-   */
-    @Autowired
-    @Qualifier("UserBusiness")
-    private UserBusiness userBusiness;
-  /**
-   * @generated
-   */
-    @Autowired
-    @Qualifier("UserRoleBusiness")
-    private UserRoleBusiness userRoleBusiness;
-  /**
-   * @generated
-   */
-    @Autowired
-    @Qualifier("PermissionBusiness")
-    private PermissionBusiness permissionBusiness;
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("UserBusiness")
+      private UserBusiness userBusiness;
+    /**
+     * @generated
+     */
+      @Autowired
+      @Qualifier("UserRoleBusiness")
+      private UserRoleBusiness userRoleBusiness;
 
     /**
      * Serviço exposto para novo registro de acordo com a entidade fornecida
@@ -147,48 +141,6 @@ public class RoleREST {
 	Role role = this.roleBusiness.get(instanceId);
 	entity.setRole(role);
 	return this.userRoleBusiness.post(entity);
-  }   
-
-  /**
-   * OneToMany Relationship GET
-   * @generated
-   */
-  @RequestMapping(method = RequestMethod.GET
-  , value="/{instanceId}/Permission")    
-  public HttpEntity<PagedResources<Permission>> findPermission(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
-    return new ResponseEntity<>(assembler.toResource(roleBusiness.findPermission(instanceId,  pageable )), HttpStatus.OK);
-  }
-
-  /**
-   * OneToMany Relationship DELETE 
-   * @generated
-   */  
-  @RequestMapping(method = RequestMethod.DELETE
-  , value="/{instanceId}/Permission/{relationId}")    
-  public void deletePermission(@PathVariable("relationId") java.lang.String relationId) throws Exception {
-    this.permissionBusiness.delete(relationId);
-  }
-  
-  /**
-   * OneToMany Relationship PUT
-   * @generated
-   */  
-  @RequestMapping(method = RequestMethod.PUT
-  , value="/{instanceId}/Permission/{relationId}")
-  public Permission putPermission(@Validated @RequestBody final Permission entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
-	return this.permissionBusiness.put(entity);
-  }  
-  
-  /**
-   * OneToMany Relationship POST
-   * @generated
-   */  
-  @RequestMapping(method = RequestMethod.POST
-  , value="/{instanceId}/Permission")
-  public Permission postPermission(@Validated @RequestBody final Permission entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
-	Role role = this.roleBusiness.get(instanceId);
-	entity.setRole(role);
-	return this.permissionBusiness.post(entity);
   }   
 
 

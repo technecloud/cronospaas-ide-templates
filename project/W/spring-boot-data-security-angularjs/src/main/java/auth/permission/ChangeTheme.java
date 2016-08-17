@@ -1,19 +1,19 @@
 package auth.permission;
 
-import org.springframework.data.domain.*;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.http.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
-
-import security.entity.*;
-import security.business.*;
+import security.business.UserBusiness;
+import security.entity.User;
 
 /**
  * Controller responsável por gerir a troca de
@@ -24,30 +24,28 @@ import security.business.*;
  */
 @RestController
 @RequestMapping(value = "/changeTheme")
-@PreAuthorize("hasRole('Logged')")
 public class ChangeTheme {
-  
-  @Autowired
-  @Qualifier("UserBusiness")
-  private UserBusiness userBusiness;
-  
-  @RequestMapping(method = RequestMethod.POST)
-  @ResponseStatus(HttpStatus.OK)
-  public User post(final String theme)
-          throws Exception {
-    
-    org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User)SecurityContextHolder
-            .getContext().getAuthentication().getPrincipal();
-    
-    List<User> users = userBusiness.findByLogin(userDetails.getUsername(), new PageRequest(0, 100)).getContent();
-    if(users.size() > 0) {
-      User user = users.get(0);
-      
-      user.setTheme(theme);
-      userBusiness.put(user);
-      return user;
-    }
-    
-    throw new RuntimeException("Usuario não encontrado!");
-  }
+
+	@Autowired
+	@Qualifier("UserBusiness")
+	private UserBusiness userBusiness;
+
+	@RequestMapping(method = RequestMethod.POST)
+	@ResponseStatus(HttpStatus.OK)
+	public User post(final String theme) throws Exception {
+
+		org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+
+		List<User> users = userBusiness.findByLogin(userDetails.getUsername(), new PageRequest(0, 100)).getContent();
+		if (users.size() > 0) {
+			User user = users.get(0);
+
+			user.setTheme(theme);
+			userBusiness.put(user);
+			return user;
+		}
+
+		throw new RuntimeException("Usuario não encontrado!");
+	}
 }

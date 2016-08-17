@@ -1,0 +1,44 @@
+[
+	{
+		"_class": "security.entity.User",
+		"id": "304BF43E-0E62-4F4A-8A63-3F22D7AD4611",
+		"name": "admin",
+		"login": "admin",
+		"password": "$2a$10$LjzpM1Q3VoAtG2dTCCabNuW0/amVPjL3Iyvyi2Dj7NP.HngtzSewu"
+	},
+	{
+		"_class": "security.entity.User",
+		"id": "404BF43E-0E62-4F4A-8A63-3F22D7AD4611",
+		"name": "techne",
+		"login": "techne",
+		"password": "$2a$10$9kBFwD6mQzTgichp25c/Ruj3p3rUe2wFSBV/tAXuhAtSYWThIZhce"
+	},
+	{
+		"_class": "security.entity.Role",
+		"id": "404BF43E-0000-4F4A-8A63-3F22D7AD6556",
+		"name": "{{ROLE_ADMIN_NAME}}"
+	},
+	{
+		"_class": "security.entity.Role",
+		"id": "404BF43E-1111-4F4A-8A63-3F22D7AD6556",
+		"name": "{{ROLE_LOGGED_NAME}}"
+	},
+	{
+		"_class": "security.entity.UserRole",
+		"id": "404BF43E-0E62-4F4A-8A63-3F22D7AD6556",
+		"user": { "id" : "304BF43E-0E62-4F4A-8A63-3F22D7AD4611" } ,
+		"role": { "id" : "404BF43E-0000-4F4A-8A63-3F22D7AD6556" }
+	},
+	{
+		"_class": "security.entity.UserRole",
+		"id": "404BF43E-0E62-4F4A-8A63-3F22D7AD6557",
+		"user": { "id" : "304BF43E-0E62-4F4A-8A63-3F22D7AD4611" } ,
+		"role": { "id" : "404BF43E-1111-4F4A-8A63-3F22D7AD6556" }
+	},
+	{
+		"_class": "security.entity.UserRole",
+		"id": "404BF43E-0E62-4F4A-8A63-3F22D7AD6558",
+		"user": { "id" : "404BF43E-0E62-4F4A-8A63-3F22D7AD4611" } ,
+		"role": { "id" : "404BF43E-1111-4F4A-8A63-3F22D7AD6556" }
+	}
+]
