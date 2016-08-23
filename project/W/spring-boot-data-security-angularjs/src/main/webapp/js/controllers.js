@@ -181,7 +181,6 @@
             
             function changeSuccess(data, status, headers, config) {
               $rootScope.session.theme = theme;
-              Notification.success($translate.instant('Home.view.themeChanged'));
             }
     
             function changeError(data, status, headers, config) {
