@@ -102,7 +102,7 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
         String str = String.format(
                 "{\"name\":\"%s\",\"id\":\"%s\",\"login\":\"%s\",\"roles\":\"%s\",\"root\":%s,\"theme\":\"%s\"}",
                 authUser.getUsername(), -1, authUser.getUsername(), roles,
-                roles.contains(securityPermission.ROLE_ADMIN_NAME), theme);
+                roles.contains(SecurityPermission.ROLE_ADMIN_NAME), theme);
         System.out.println(str);
         resp.getOutputStream().print(str);
         resp.setHeader("Content-Type", "application/json");
