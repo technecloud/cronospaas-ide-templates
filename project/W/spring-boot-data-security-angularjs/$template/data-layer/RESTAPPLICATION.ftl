@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.*;
 <#assign entityManagerFactoryRef = persistence_unit_name + "-EntityManagerFactory">
 <#assign transactionManagerRef = persistence_unit_name + "-TransactionManager">
 
-<#assign first_pu = workspaceView.allDiagrams[0].getGlobalAttribute("namespace")?replace('"', '')>
+<#assign first_pu = workspaceView.primaryDiagram>
 
 /**
  * Classe que configura os beans para persistencia
@@ -29,7 +29,7 @@ import org.springframework.transaction.annotation.*;
 )
 class ${configurationName} {
   
-    <#if persistence_unit_name == first_pu>
+    <#if persistence_unit_name == first_pu || first_pu == "">
     @Primary
     </#if>
 
