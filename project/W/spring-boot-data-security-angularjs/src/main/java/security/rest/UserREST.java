@@ -30,7 +30,7 @@ import security.entity.UserRole;
  * @generated
  **/
 @RestController
-@RequestMapping(value = "/api/rest/security/User")
+@RequestMapping(value = "/api/security/rest/User")
 public class UserREST {
 
 	/**
