@@ -1,7 +1,7 @@
 package auth.permission;
 
 import java.io.IOException;
-
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -21,6 +22,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import security.dao.UserDAO;
+import security.entity.User;
 
 /**
  * Classe que configura o WebSecurity, possibilitando requerer que o
@@ -43,6 +47,9 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
   
   @Autowired
   private SecurityPermission securityPermission;
+  
+  @Autowired
+  private UserDAO userRepository;
   
   /**
    * Método que configura o SpringSecurite com o authenticationProvider,
@@ -98,11 +105,17 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
         
         String roles = authUser.getAuthorities().toString().replaceFirst("\\[", "").replaceFirst("\\]", "");
         
+        List<User> users = userRepository.findByLogin(authUser.getUsername(), new PageRequest(0, 100)).getContent();
+        String id = "-1";
+        if(!users.isEmpty()) {
+          id = users.get(0).getId();
+        }
+        
         String theme = session.getAttribute("theme").toString();
         String str = String.format(
                 "{\"name\":\"%s\",\"id\":\"%s\",\"login\":\"%s\",\"roles\":\"%s\",\"root\":%s,\"theme\":\"%s\"}",
-                authUser.getUsername(), -1, authUser.getUsername(), roles,
-                roles.contains(securityPermission.ROLE_ADMIN_NAME), theme);
+                authUser.getUsername(), id, authUser.getUsername(), roles,
+                roles.contains(SecurityPermission.ROLE_ADMIN_NAME), theme);
         System.out.println(str);
         resp.getOutputStream().print(str);
         resp.setHeader("Content-Type", "application/json");

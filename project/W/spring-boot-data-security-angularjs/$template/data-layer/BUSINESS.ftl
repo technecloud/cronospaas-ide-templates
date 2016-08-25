@@ -1,15 +1,14 @@
 package ${bussinessPackage};
 
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.data.domain.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 
 import ${daoPackage}.*;
 import ${entityPackage}.*;
-import java.util.*;
-
 
 <#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
 

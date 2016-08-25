@@ -1,7 +1,6 @@
 package ${daoPackage};
 
 import ${entityPackage}.*;
-import java.util.List;
 import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;

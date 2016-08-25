@@ -4,7 +4,7 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 <#list clazz.imports as import>
 import ${import};
 </#list>
