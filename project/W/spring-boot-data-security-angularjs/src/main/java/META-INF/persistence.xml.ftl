@@ -3,7 +3,6 @@
     <persistence-unit name="security" transaction-type="RESOURCE_LOCAL">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>java:comp/env/jdbc/main</jta-data-source>
-        <class>security.entity.Permission</class>
         <class>security.entity.User</class>
         <class>security.entity.Role</class>
         <class>security.entity.UserRole</class>
