@@ -48,9 +48,7 @@ public class ${clazz.name} implements Serializable {
 	@Id
     <#if field.generationType?? && field.generationType == "Identity"><#if persistenceProvider == "mysql">@GeneratedValue(strategy = GenerationType.AUTO)<#else>@GeneratedValue(strategy = GenerationType.IDENTITY)</#if></#if>
 	</#if>	
-	<#if field.transient>
-	@Transient
-	</#if>	
+	
 	<#if field.relation>	
 	@OneToOne	
 	<#elseif field.reverseRelation>	
@@ -77,9 +75,11 @@ public class ${clazz.name} implements Serializable {
 	})	
 	<#elseif field.arrayRelation>
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="${field.mappedBy}", insertable=${field.insertable?c}, updatable=${field.updatable?c})	
+	<#elseif field.transient>
+  @Transient
 	<#else>
 	@Column(name = "${field.dbFieldName?lower_case}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
-	</#if>	
+  </#if>  	
 	${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
 	
 	</#list>
