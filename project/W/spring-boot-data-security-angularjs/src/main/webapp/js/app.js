@@ -15,7 +15,7 @@ var app = (function() {
     'tmh.dynamicLocale',
     'ui-notification'
     ])
-    
+     
     .constant('LOCALES', {
       'locales': {
         'pt_BR': 'Portugues (Brasil)',
