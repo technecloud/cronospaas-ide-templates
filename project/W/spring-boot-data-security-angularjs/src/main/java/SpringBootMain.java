@@ -13,7 +13,7 @@ import org.springframework.context.annotation.*;
  * @author Tecnhe
  *
  */
-@ComponentScan(basePackages = { "security", "auth.permission", "api.events" })
+@ComponentScan(basePackages = { "security", "auth.permission", "api.rest.events" })
 @SpringBootApplication
 public class SpringBootMain extends SpringBootServletInitializer {
   
