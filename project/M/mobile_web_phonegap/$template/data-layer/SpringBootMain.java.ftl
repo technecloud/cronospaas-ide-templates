@@ -17,7 +17,7 @@ import org.springframework.context.annotation.*;
 <#list workspaceView.allDiagrams as diagram>
 ${diagram.getGlobalAttribute("namespace")} <#if diagram_has_next>,</#if> 
 </#list>
-, "auth.permission"
+, "auth.permission", "api.events"
 })
 @SpringBootApplication
 public class SpringBootMain extends SpringBootServletInitializer {
