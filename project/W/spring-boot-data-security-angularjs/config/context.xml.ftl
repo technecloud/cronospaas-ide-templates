@@ -3,7 +3,7 @@
     <Resource accessToUnderlyingConnectionAllowed="true" 
         type="javax.sql.DataSource"
         driverClassName="org.h2.Driver"
-        name="jdbc/security" 
+        name="jdbc/main" 
         username="root"
         password="root" 
         removeAbandoned="false" 
