@@ -14,7 +14,11 @@
         <link rel="stylesheet" type="text/css" href="css/cronos-bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="css/app.css"/>
         <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
-        <link rel="stylesheet" ng-href="css/themes/{{myTheme}}.min.css" ng-if="myTheme">
+        <#if theme == "">
+        <link id="themeSytleSheet" rel="stylesheet" href="">
+        <#else >
+        <link id="themeSytleSheet" rel="stylesheet" href="css/themes/${theme?lower_case}.min.css">
+        </#if>
     </head>
     <body >
         <div ui-view class="fill"></div>
@@ -50,7 +54,6 @@
         <script type="text/javascript" src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         
         <!-- Customs -->
-        <script src="js/constants.js"></script>
         <script src="js/app.js"></script>
         <script src="components/js/datasource.js"></script>
         <script src="js/controllers.js"></script>
