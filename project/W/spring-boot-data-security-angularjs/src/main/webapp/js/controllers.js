@@ -87,6 +87,7 @@
             if(typeof(Storage) !== "undefined") {
                 // save the user data on localStorage
                 sessionStorage.removeItem("_u");
+                $('#themeSytleSheet').attr('href', "");
             } else {
                 // It's not working with sessionStorage
             }
