@@ -4,7 +4,6 @@
     app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$window', '$state', '$translate', 'Notification', function ($scope, $http, $location, $rootScope, $window, $state, $translate, Notification) {
 
         $scope.message = {};
-        $rootScope.myTheme = themeSelected;
         $scope.login = function () {
 
             $scope.message.error = undefined;
@@ -57,13 +56,10 @@
         // if the user is authenticated and the userData
         // was saved on the browser's sessionStorage
         $rootScope.session = (sessionStorage._u) ? JSON.parse(sessionStorage._u) : null;
-        
         $rootScope.myTheme = $rootScope.session.theme;
         $scope.$watch('myTheme', function(value) {
           if (value !== undefined && value != "") {
-            $rootScope.myTheme = value;
-          }else{
-            $rootScope.myTheme = themeSelected;
+            $('#themeSytleSheet').attr('href', "css/themes/"+value+".min.css");
           }
         });
 
@@ -91,6 +87,7 @@
             if(typeof(Storage) !== "undefined") {
                 // save the user data on localStorage
                 sessionStorage.removeItem("_u");
+                $('#themeSytleSheet').attr('href', "");
             } else {
                 // It's not working with sessionStorage
             }
@@ -166,6 +163,7 @@
               'display':'block'
             });
             $('#transition').fadeIn(800, function(){
+              $('#themeSytleSheet').attr('href', "css/themes/"+theme+".min.css");
               $rootScope.myTheme = theme;
               $('#transition').fadeOut(1000,function(){$('#transition').remove();});  
             });
@@ -181,6 +179,7 @@
             
             function changeSuccess(data, status, headers, config) {
               $rootScope.session.theme = theme;
+              sessionStorage.setItem("_u",JSON.stringify($rootScope.session));
             }
     
             function changeError(data, status, headers, config) {
