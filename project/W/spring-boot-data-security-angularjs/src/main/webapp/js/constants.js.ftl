@@ -1,1 +1,0 @@
-var themeSelected = "${theme?lower_case}";
