@@ -6,11 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import security.dao.UserDAO;
-import security.entity.Role;
-import security.entity.User;
-import security.entity.UserRole;
+import security.dao.*;
+import security.entity.*;
 
+// Exists Encrypt
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 /**
@@ -20,6 +20,13 @@ import security.entity.UserRole;
  **/
 @Service("UserBusiness")
 public class UserBusiness {
+
+    /**
+     * Variável privada para verificação da criptofrafia
+     * 
+     * @generated
+     */
+     private String ENCRYPT = "$2a$10$";
 
     /**
      * Instância da classe UserDAO que faz o acesso ao banco de dados
@@ -40,10 +47,12 @@ public class UserBusiness {
     public User post(final User entity) throws Exception {
       // begin-user-code  
       // end-user-code  
-      String formPassword = entity.getPassword();
-      String hashPassword = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(formPassword);
-      entity.setPassword(hashPassword);      
-      repository.save(entity);
+        // isEncryption() Password
+        String formPassword = entity.getPassword();
+        String encryptionPassword = new BCryptPasswordEncoder()
+            .encode(formPassword);
+        entity.setPassword(encryptionPassword);      
+        repository.save(entity);
       // begin-user-code  
       // end-user-code  
       return entity;
@@ -70,11 +79,13 @@ public class UserBusiness {
      */
     public User put(final User entity) throws Exception {
       // begin-user-code  
-      String formPassword = entity.getPassword();
-      String hashPassword = formPassword.startsWith("$2a$10$") ? formPassword : new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(formPassword);
-      entity.setPassword(hashPassword);      
-      // end-user-code        
-      repository.saveAndFlush(entity);
+      // end-user-code
+        // isEncryption() Password
+        String formPassword = entity.getPassword();
+        String encryptionPassword = formPassword.startsWith(ENCRYPT) ? formPassword 
+            : new BCryptPasswordEncoder().encode(formPassword);
+        entity.setPassword(encryptionPassword);      
+        repository.saveAndFlush(entity);
       // begin-user-code  
       // end-user-code        
       return entity;
@@ -147,7 +158,7 @@ public class UserBusiness {
       Page<UserRole> result = repository.findUserRole(id,  pageable );
       // begin-user-code  
       // end-user-code        
-      return result;	  
+      return result;    
   }
 
 
@@ -162,7 +173,7 @@ public class UserBusiness {
       Page<Role> result = repository.listRole(id,  pageable );
       // begin-user-code
       // end-user-code
-      return result;        	  
+      return result;            
   }
   
   /**
@@ -178,4 +189,3 @@ public class UserBusiness {
       return result;  
   }
 }
-
