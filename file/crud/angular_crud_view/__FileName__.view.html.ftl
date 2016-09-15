@@ -107,13 +107,13 @@
         <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
   <#elseif field.getProperty("ngOptions")?? >
 
-	<datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource> 
-	<select ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" ng-options="opt as opt.${field.getProperty("ngOptionsFkName")} for opt in ${model.formMapLabels[field.name]!}.data track by opt.${field.getProperty("ngOptions").keys}" <#if !field.isNullable()>required="required"</#if>>
-	  <option value=''>None</option>
-	</select>
+  <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource> 
+  <select ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" ng-options="opt as opt.${field.getProperty("ngOptionsFkName")} for opt in ${model.formMapLabels[field.name]!}.data track by opt.${field.getProperty("ngOptions").keys}" <#if !field.isNullable()>required="required"</#if>>
+    <option value=''>None</option>
+  </select>
 
   <#else>
-        <input type="text" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
+        <input type="<#if field.isEncryption()>password<#else>text</#if>" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
   </#if>
 
           </div> 
