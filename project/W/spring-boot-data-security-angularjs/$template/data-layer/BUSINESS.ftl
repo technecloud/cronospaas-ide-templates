@@ -6,9 +6,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
 import ${daoPackage}.*;
 import ${entityPackage}.*;
+
+<#assign isExistsEncrypt = false>
+<#list clazz.fields as field>
+  <#if field.isEncryption()>
+    <#assign isExistsEncrypt = true>
+  </#if>
+</#list>
+<#if isExistsEncrypt>
+// Exists Encrypt
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+</#if>
 
 <#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
 
@@ -31,6 +41,15 @@ import ${entityPackage}.*;
 @Service("${clazz_name}")
 public class ${clazz_name} {
 
+    <#if isExistsEncrypt>
+    /**
+     * Variável privada para verificação da criptofrafia
+     * 
+     * @generated
+     */
+     private String ENCRYPT = "$2a$10$";
+    </#if>
+
     /**
      * Instância da classe ${qualified_repository_name} que faz o acesso ao banco de dados
      * 
@@ -50,7 +69,16 @@ public class ${clazz_name} {
     public ${class_entity_name} post(final ${class_entity_name} entity) throws Exception {
       // begin-user-code  
       // end-user-code  
-      repository.save(entity);
+      <#list clazz.fields as field> 
+        <#if field.isEncryption()>
+        // isEncryption() ${field.name?cap_first}
+        String form${field.name?cap_first} = entity.get${field.name?cap_first}();
+        String encryption${field.name?cap_first} = new BCryptPasswordEncoder()
+            .encode(form${field.name?cap_first});
+        entity.set${field.name?cap_first}(encryption${field.name?cap_first});      
+        </#if>
+      </#list>  
+        repository.save(entity);
       // begin-user-code  
       // end-user-code  
       return entity;
@@ -77,8 +105,17 @@ public class ${clazz_name} {
      */
     public ${class_entity_name} put(final ${class_entity_name} entity) throws Exception {
       // begin-user-code  
-      // end-user-code        
-      repository.saveAndFlush(entity);
+      // end-user-code
+      <#list clazz.fields as field> 
+        <#if field.isEncryption()>
+        // isEncryption() ${field.name?cap_first}
+        String form${field.name?cap_first} = entity.get${field.name?cap_first}();
+        String encryption${field.name?cap_first} = form${field.name?cap_first}.startsWith(ENCRYPT) ? form${field.name?cap_first} 
+            : new BCryptPasswordEncoder().encode(form${field.name?cap_first});
+        entity.set${field.name?cap_first}(encryption${field.name?cap_first});      
+        </#if>
+      </#list>  
+        repository.saveAndFlush(entity);
       // begin-user-code  
       // end-user-code        
       return entity;
@@ -130,7 +167,7 @@ public class ${clazz_name} {
       Page<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
       // begin-user-code  
       // end-user-code        
-      return result;	  
+      return result;    
   }
 
 </#list>
@@ -147,7 +184,7 @@ public class ${clazz_name} {
       Page<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
       // begin-user-code
       // end-user-code
-      return result;        	  
+      return result;            
   }
   
   /**
@@ -164,4 +201,3 @@ public class ${clazz_name} {
   }
 </#list>
 }
-
