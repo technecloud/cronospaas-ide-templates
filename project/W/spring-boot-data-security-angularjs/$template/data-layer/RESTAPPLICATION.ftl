@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 <#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
 <#assign persistence_unit_name_formatted = persistence_unit_name?replace('.',' ')?capitalize?replace(' ','')>
-<#assign persistence_unit_name_path = persistence_unit_name?replace('.','\\\\')>
+<#assign persistence_unit_name_path = persistence_unit_name?replace('.','//')>
 <#assign clazz_name = persistence_unit_name_formatted + "Configuration">
 <#if persistence_unit_name_formatted == "Security" >
 import java.util.regex.Pattern;
@@ -63,7 +63,7 @@ class ${configurationName} {
     //Criando dinamicamente os dados do ${persistence_unit_name_formatted}
 
     Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
-    URL url = this.getClass().getClassLoader().getResource("${persistence_unit_name_path}\\populate.json");
+    URL url = this.getClass().getClassLoader().getResource("${persistence_unit_name_path}//populate.json");
 
     String strJSON = "[]";
     if (url != null) {

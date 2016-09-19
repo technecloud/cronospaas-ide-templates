@@ -51,7 +51,7 @@ class SecurityConfiguration {
     //Criando dinamicamente os dados do Security
 
     Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
-    URL url = this.getClass().getClassLoader().getResource("security\\populate.json");
+    URL url = this.getClass().getClassLoader().getResource("security//populate.json");
 
     String strJSON = "[]";
     if (url != null) {
