@@ -1,4 +1,4 @@
-package ${daoPackage};
+package ${daoPackage}<#if subPackage??>.${subPackage}</#if>;
 
 import ${entityPackage}.*;
 import org.springframework.stereotype.*;

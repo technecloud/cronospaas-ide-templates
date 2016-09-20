@@ -1,4 +1,4 @@
-package ${entityPackage};
+package ${entityPackage}<#if subPackage??>.${subPackage}</#if>;
 
 import java.io.*;
 import javax.persistence.*;

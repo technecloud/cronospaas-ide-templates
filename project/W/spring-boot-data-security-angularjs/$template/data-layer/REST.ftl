@@ -1,4 +1,4 @@
-package ${restPackage};
+package ${restPackage}<#if subPackage??>.${subPackage}</#if>;
 
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
