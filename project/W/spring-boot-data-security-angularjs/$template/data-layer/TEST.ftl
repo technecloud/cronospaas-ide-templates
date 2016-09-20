@@ -1,4 +1,4 @@
-package ${testPackage};
+package ${testPackage}<#if subPackage??>.${subPackage}</#if>;
 
 /**
  * Classe utilitária de teste ${clazz.name}
