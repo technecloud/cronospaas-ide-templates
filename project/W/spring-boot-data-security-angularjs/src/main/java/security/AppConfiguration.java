@@ -25,21 +25,21 @@ import auth.permission.SecurityPermission;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "security-EntityManagerFactory",
-        transactionManagerRef = "security-TransactionManager"
+        entityManagerFactoryRef = "app-EntityManagerFactory",
+        transactionManagerRef = "app-TransactionManager"
 )
 class SecurityConfiguration {
   
     @Primary
 
-    @Bean(name="security-EntityManagerFactory")
+    @Bean(name="app-EntityManagerFactory")
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
-        factoryBean.setPersistenceUnitName("security");
+        factoryBean.setPersistenceUnitName("app");
         return factoryBean;
     }
 
-    @Bean(name = "security-TransactionManager")
+    @Bean(name = "app-TransactionManager")
     public PlatformTransactionManager transactionManager() {
         return new JpaTransactionManager(entityManagerFactory().getObject());
     }
@@ -51,7 +51,7 @@ class SecurityConfiguration {
     //Criando dinamicamente os dados do Security
 
     Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
-    URL url = this.getClass().getClassLoader().getResource("security//populate.json");
+    URL url = this.getClass().getClassLoader().getResource("app//populate.json");
 
     String strJSON = "[]";
     if (url != null) {
