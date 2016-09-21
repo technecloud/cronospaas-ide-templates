@@ -6,8 +6,8 @@ import ${entityPackage}.*;
 import ${entityPackage}.${subPackage}.*;
 </#if>
 
-<#list clazz.subPackageToImport as subpackage>
-import ${entityPackage}.${subpackage}.*;
+<#list clazz.subPackageToImport as subPackageToImport>
+import ${entityPackage}.${subPackageToImport}.*;
 </#list>
 
 

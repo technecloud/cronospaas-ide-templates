@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import ${import};
 </#list>
 <#if subPackage??>import ${entityPackage}.*;</#if>
-<#list clazz.subPackageToImport as subpackage>
-import ${entityPackage}.${subpackage}.*;
+<#list clazz.subPackageToImport as subPackageToImport>
+import ${entityPackage}.${subPackageToImport}.*;
 </#list>
 
 <#if (clazz.multitenantClass)>

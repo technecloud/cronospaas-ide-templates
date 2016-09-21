@@ -19,9 +19,9 @@ import ${entityPackage}.${subPackage}.*;
 import ${bussinessPackage}.${subPackage}.*;
 </#if>
 
-<#list clazz.subPackageToImport as subpackage>
-import ${bussinessPackage}.${subpackage}.*;
-import ${entityPackage}.${subpackage}.*;
+<#list clazz.subPackageToImport as subPackageToImport>
+import ${bussinessPackage}.${subPackageToImport}.*;
+import ${entityPackage}.${subPackageToImport}.*;
 </#list>
 
 <#assign class_name = "${clazz.name}REST">

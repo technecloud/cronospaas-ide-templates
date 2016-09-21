@@ -8,9 +8,13 @@ import org.springframework.stereotype.Service;
 
 import ${daoPackage}.*;
 import ${entityPackage}.*;
-<#list clazz.subPackageToImport as subpackage>
+<#if subPackage??>
 import ${daoPackage}.${subpackage}.*;
 import ${entityPackage}.${subpackage}.*;
+</#if>
+<#list clazz.subPackageToImport as subPackageToImport>
+import ${daoPackage}.${subPackageToImport}.*;
+import ${entityPackage}.${subPackageToImport}.*;
 </#list>
 
 <#assign isExistsEncrypt = false>
