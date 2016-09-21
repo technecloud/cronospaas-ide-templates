@@ -9,6 +9,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 <#list clazz.imports as import>
 import ${import};
 </#list>
+<#if subPackage??>import ${entityPackage}.*;</#if>
+<#list clazz.subPackageToImport as subpackage>
+import ${entityPackage}.${subpackage}.*;
+</#list>
+
 <#if (clazz.multitenantClass)>
 import org.eclipse.persistence.annotations.*;
 </#if>

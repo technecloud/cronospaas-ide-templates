@@ -14,6 +14,16 @@ import java.util.*;
 import ${entityPackage}.*;
 import ${bussinessPackage}.*;
 
+<#if subPackage??>
+import ${entityPackage}.${subPackage}.*;
+import ${bussinessPackage}.${subPackage}.*;
+</#if>
+
+<#list clazz.subPackageToImport as subpackage>
+import ${bussinessPackage}.${subpackage}.*;
+import ${entityPackage}.${subpackage}.*;
+</#list>
+
 <#assign class_name = "${clazz.name}REST">
 <#assign class_entity_name = "${clazz.name}">
 <#assign class_business_name = "${clazz.name}Business">
