@@ -10,16 +10,13 @@ import org.springframework.data.repository.init.*;
 import java.net.URL;
 import java.io.File;
 import java.util.Scanner;
-
+import java.util.regex.Pattern;
+import auth.permission.SecurityPermission;
 
 <#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
 <#assign persistence_unit_name_formatted = persistence_unit_name?replace('.',' ')?capitalize?replace(' ','')>
 <#assign persistence_unit_name_path = persistence_unit_name?replace('.','//')>
 <#assign clazz_name = persistence_unit_name_formatted + "Configuration">
-<#if persistence_unit_name_formatted == "Security" >
-import java.util.regex.Pattern;
-import auth.permission.SecurityPermission;
-</#if>
 
 <#assign entityManagerFactoryRef = persistence_unit_name + "-EntityManagerFactory">
 <#assign transactionManagerRef = persistence_unit_name + "-TransactionManager">
