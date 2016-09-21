@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import ${daoPackage}.*;
 import ${entityPackage}.*;
 <#if subPackage??>
-import ${daoPackage}.${subpackage}.*;
-import ${entityPackage}.${subpackage}.*;
+import ${daoPackage}.${subPackage}.*;
+import ${entityPackage}.${subPackage}.*;
 </#if>
 <#list clazz.subPackageToImport as subPackageToImport>
 import ${daoPackage}.${subPackageToImport}.*;
