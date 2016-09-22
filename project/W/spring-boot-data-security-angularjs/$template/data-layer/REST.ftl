@@ -28,7 +28,7 @@ import ${entityPackage}.${subPackageToImport}.*;
 <#assign class_entity_name = "${clazz.name}">
 <#assign class_business_name = "${clazz.name}Business">
 <#assign class_business_variable_name = "${clazz.name?uncap_first}Business">
-<#assign request_mapping_value = (clazz.restPath??)?clazz.restPath:restPath + "/" + clazz.name >
+<#assign request_mapping_value = (clazz.restPath??) ? clazz.restPath : restPath + "/" + clazz.name >
 
 <#assign field_pk_type = "String">
 <#list clazz.fields as field>
