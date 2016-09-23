@@ -91,9 +91,6 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 			authorities.add(grantedAuthority);
 		}
 
-		// Virtual Role Logged
-		authorities.add(new SimpleGrantedAuthority(SecurityPermission.ROLE_LOGGED_NAME));
-
 		LOGGER.debug("user authorities are " + authorities.toString());
 		return authorities;
 	}
