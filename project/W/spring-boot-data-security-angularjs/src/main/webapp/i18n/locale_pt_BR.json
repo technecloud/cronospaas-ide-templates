@@ -84,5 +84,13 @@
   "template.crud.new": "Novo",
   "ChooseTheme": "Escolha o Tema",
   "Theme": "Tema",
-  "Home.view.themeChanged": "Tema alterado!"
+  "Home.view.themeChanged": "Tema alterado!",
+  "Home.view.Product": "Produto",
+  "Home.view.Category": "Categoria",
+  "Home.view.CodeData": "Cadastros Básicos",
+  "Category.view.Category": "Categoria",
+  "Category.view.Name": "Nome",
+  "Name": "Nome",
+  "Description": "Descrição",
+  "Product.view.Product": "Produto"
 }

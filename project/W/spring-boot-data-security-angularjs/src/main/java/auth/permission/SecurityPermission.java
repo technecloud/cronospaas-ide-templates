@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class SecurityPermission {
   
   public static final String ROLE_ADMIN_NAME = "Administrators";
-  public static final String ROLE_LOGGED_NAME = "Logged";
   
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
     
