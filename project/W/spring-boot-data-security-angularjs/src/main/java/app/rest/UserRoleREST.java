@@ -24,7 +24,7 @@ import app.business.*;
  * @generated
  **/
 @RestController
-@RequestMapping(value = "/app/security/UserRole")
+@RequestMapping(value = "/api/security/UserRole")
 public class UserRoleREST {
 
     /**
