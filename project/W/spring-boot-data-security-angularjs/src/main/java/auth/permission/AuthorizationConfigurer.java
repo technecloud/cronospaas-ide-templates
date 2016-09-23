@@ -23,8 +23,8 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import security.dao.UserDAO;
-import security.entity.User;
+import app.dao.UserDAO;
+import app.entity.User;
 
 /**
  * Classe que configura o WebSecurity, possibilitando requerer que o

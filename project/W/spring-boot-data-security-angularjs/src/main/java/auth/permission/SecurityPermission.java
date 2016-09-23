@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public class SecurityPermission {
   
   public static final String ROLE_ADMIN_NAME = "Administrators";
-  public static final String ROLE_LOGGED_NAME = "Logged";
   
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
     
@@ -32,13 +31,13 @@ public class SecurityPermission {
     
     // role admin permission
     http.authorizeRequests().antMatchers("/views/admin/**").hasAuthority(ROLE_ADMIN_NAME);
-    http.authorizeRequests().antMatchers("/api/security/rest/**").hasAuthority(ROLE_ADMIN_NAME);
+    http.authorizeRequests().antMatchers("/api/security/**").hasAuthority(ROLE_ADMIN_NAME);
     
     // role logged permission
-    http.authorizeRequests().antMatchers("/views/logged/**").hasAuthority(ROLE_LOGGED_NAME);
-    http.authorizeRequests().antMatchers("/api/rest/**").hasAuthority(ROLE_LOGGED_NAME);
-    http.authorizeRequests().antMatchers("POST", "/changePassword").hasAuthority(ROLE_LOGGED_NAME);
-    http.authorizeRequests().antMatchers("POST", "/changeTheme").hasAuthority(ROLE_LOGGED_NAME);
+    http.authorizeRequests().antMatchers("/views/logged/**").authenticated();
+    http.authorizeRequests().antMatchers("/api/rest/**").authenticated();
+    http.authorizeRequests().antMatchers("POST", "/changePassword").authenticated();
+    http.authorizeRequests().antMatchers("POST", "/changeTheme").authenticated();
     
     // deny all
     http.authorizeRequests().antMatchers("/**").denyAll();

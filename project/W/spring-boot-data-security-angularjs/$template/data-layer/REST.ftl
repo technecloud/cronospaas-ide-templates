@@ -18,7 +18,11 @@ import ${bussinessPackage}.*;
 <#assign class_entity_name = "${clazz.name}">
 <#assign class_business_name = "${clazz.name}Business">
 <#assign class_business_variable_name = "${clazz.name?uncap_first}Business">
+<#if clazz.restPath != "" >
+<#assign request_mapping_value = clazz.restPath + "/" + clazz.name >
+<#else>
 <#assign request_mapping_value = restPath + "/" + clazz.name >
+</#if>
 
 <#assign field_pk_type = "String">
 <#list clazz.fields as field>

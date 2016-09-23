@@ -1,4 +1,4 @@
-package security.business;
+package app.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -6,9 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import security.dao.UserRoleDAO;
-import security.entity.User;
-import security.entity.UserRole;
+import app.dao.*;
+import app.entity.*;
 
 
 
@@ -19,6 +18,7 @@ import security.entity.UserRole;
  **/
 @Service("UserRoleBusiness")
 public class UserRoleBusiness {
+
 
     /**
      * Instância da classe UserRoleDAO que faz o acesso ao banco de dados
@@ -39,7 +39,7 @@ public class UserRoleBusiness {
     public UserRole post(final UserRole entity) throws Exception {
       // begin-user-code  
       // end-user-code  
-      repository.save(entity);
+        repository.save(entity);
       // begin-user-code  
       // end-user-code  
       return entity;
@@ -66,8 +66,8 @@ public class UserRoleBusiness {
      */
     public UserRole put(final UserRole entity) throws Exception {
       // begin-user-code  
-      // end-user-code        
-      repository.saveAndFlush(entity);
+      // end-user-code
+        repository.saveAndFlush(entity);
       // begin-user-code  
       // end-user-code        
       return entity;
@@ -159,4 +159,3 @@ public class UserRoleBusiness {
 
 
 }
-

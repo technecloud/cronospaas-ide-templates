@@ -1,4 +1,4 @@
-package security;
+package app;
 
 import org.springframework.orm.jpa.*;
 import org.springframework.context.annotation.*;
@@ -12,8 +12,6 @@ import java.io.File;
 import java.util.Scanner;
 
 
-import java.util.regex.Pattern;
-import auth.permission.SecurityPermission;
 
 
 /**
@@ -25,21 +23,21 @@ import auth.permission.SecurityPermission;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        entityManagerFactoryRef = "security-EntityManagerFactory",
-        transactionManagerRef = "security-TransactionManager"
+        entityManagerFactoryRef = "app-EntityManagerFactory",
+        transactionManagerRef = "app-TransactionManager"
 )
-class SecurityConfiguration {
+class AppConfiguration {
   
     @Primary
 
-    @Bean(name="security-EntityManagerFactory")
+    @Bean(name="app-EntityManagerFactory")
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
-        factoryBean.setPersistenceUnitName("security");
+        factoryBean.setPersistenceUnitName("app");
         return factoryBean;
     }
 
-    @Bean(name = "security-TransactionManager")
+    @Bean(name = "app-TransactionManager")
     public PlatformTransactionManager transactionManager() {
         return new JpaTransactionManager(entityManagerFactory().getObject());
     }
@@ -48,10 +46,10 @@ class SecurityConfiguration {
     @Bean
     public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() {
   
-    //Criando dinamicamente os dados do Security
+    //Criando dinamicamente os dados do App
 
     Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
-    URL url = this.getClass().getClassLoader().getResource("security//populate.json");
+    URL url = this.getClass().getClassLoader().getResource("app//populate.json");
 
     String strJSON = "[]";
     if (url != null) {
@@ -61,9 +59,6 @@ class SecurityConfiguration {
         Scanner scanner = new Scanner(file);
         strJSON = scanner.useDelimiter("\\A").next();
         scanner.close();
-      
-        strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), SecurityPermission.ROLE_ADMIN_NAME);
-        strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_LOGGED_NAME}}"), SecurityPermission.ROLE_LOGGED_NAME);
       } catch (Exception e) {
       }
     }

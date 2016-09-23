@@ -12,27 +12,30 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityPermission {
 
-        //static
+  //static
 	<#list listRole as role>
-		${role}
+	${role}
 	</#list>
 	
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
+    // public
+    <#list listPermitAll as role>
+    ${role}
+    </#list>
     
-		// public
-	<#list listPermitAll as role>
-		${role}
-	</#list>
-    
-		// role hasAuthority permission
-	<#list listHasAuthority as role>
-		${role}
-	</#list>
+    // role hasAuthority permission
+    <#list listHasAuthority as role>
+    ${role}
+    </#list>
+	
+    // autenticated
+  	<#list listAutenticated as role>
+    ${role}
+  	</#list>
     
 		// deny all
-	<#list listDenyAll as role>
-		${role}
-	</#list>
-    
+    <#list listDenyAll as role>
+    ${role}
+    </#list>
   }
 }

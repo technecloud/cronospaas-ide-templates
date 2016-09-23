@@ -1,10 +1,10 @@
 <div class="container-fluid"> 
   <h3>{{'Users.view.Users' | translate}}</h3> 
   <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
-    <datasource name="User" entity="/api/security/rest/User" keys="id" rows-per-page="100" class="" delete-message="{{'Users.view.RemoverUsuario' | translate}}?"></datasource> 
+    <datasource name="User" entity="/api/security/User" keys="id" rows-per-page="100" class="" delete-message="{{'Users.view.RemoverUsuario' | translate}}?"></datasource> 
   </div> 
   <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-276971"> 
-    <datasource name="AllRoles" entity="/api/security/rest/Role" keys="id" rows-per-page="100" class=""></datasource> 
+    <datasource name="AllRoles" entity="/api/security/Role" keys="id" rows-per-page="100" class=""></datasource> 
   </div> 
   <div class="row"> 
     <div class="col-xl-12 component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
@@ -67,7 +67,7 @@
         <form crn-datasource="User" class="col-xs-12 col-sm-5"> 
           <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
             <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-656503"> 
-              <datasource append="false" name="Roles" entity="/api/security/rest//User/{{User.active.id}}/Role" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}"></datasource> 
+              <datasource append="false" name="Roles" entity="/api/security/User/{{User.active.id}}/Role" keys="id" rows-per-page="100" class="" lazy="true" auto-post="true" enabled="{{User.editing}}"></datasource> 
             </div> 
             <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-61057"> 
               <div class="form-group"> 

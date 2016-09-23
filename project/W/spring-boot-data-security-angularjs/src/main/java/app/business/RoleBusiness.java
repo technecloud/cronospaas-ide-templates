@@ -1,4 +1,4 @@
-package security.business;
+package app.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -6,36 +6,28 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import security.dao.*;
-import security.entity.*;
+import app.dao.*;
+import app.entity.*;
 
-// Exists Encrypt
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 /**
- * Classe que representa a camada de negócios de UserBusiness
+ * Classe que representa a camada de negócios de RoleBusiness
  * 
  * @generated
  **/
-@Service("UserBusiness")
-public class UserBusiness {
+@Service("RoleBusiness")
+public class RoleBusiness {
+
 
     /**
-     * Variável privada para verificação da criptofrafia
-     * 
-     * @generated
-     */
-     private String ENCRYPT = "$2a$10$";
-
-    /**
-     * Instância da classe UserDAO que faz o acesso ao banco de dados
+     * Instância da classe RoleDAO que faz o acesso ao banco de dados
      * 
      * @generated
      */
     @Autowired
-    @Qualifier("UserDAO")
-    protected UserDAO repository;
+    @Qualifier("RoleDAO")
+    protected RoleDAO repository;
 
     // CRUD
 
@@ -44,14 +36,9 @@ public class UserBusiness {
      * 
      * @generated
      */
-    public User post(final User entity) throws Exception {
+    public Role post(final Role entity) throws Exception {
       // begin-user-code  
       // end-user-code  
-        // isEncryption() Password
-        String formPassword = entity.getPassword();
-        String encryptionPassword = new BCryptPasswordEncoder()
-            .encode(formPassword);
-        entity.setPassword(encryptionPassword);      
         repository.save(entity);
       // begin-user-code  
       // end-user-code  
@@ -63,10 +50,10 @@ public class UserBusiness {
      * 
      * @generated
      */
-    public User get(java.lang.String id) throws Exception {
+    public Role get(java.lang.String id) throws Exception {
       // begin-user-code  
       // end-user-code        
-       User result = repository.findOne(id);
+       Role result = repository.findOne(id);
       // begin-user-code  
       // end-user-code        
       return result;
@@ -77,14 +64,9 @@ public class UserBusiness {
      * 
      * @generated
      */
-    public User put(final User entity) throws Exception {
+    public Role put(final Role entity) throws Exception {
       // begin-user-code  
       // end-user-code
-        // isEncryption() Password
-        String formPassword = entity.getPassword();
-        String encryptionPassword = formPassword.startsWith(ENCRYPT) ? formPassword 
-            : new BCryptPasswordEncoder().encode(formPassword);
-        entity.setPassword(encryptionPassword);      
         repository.saveAndFlush(entity);
       // begin-user-code  
       // end-user-code        
@@ -111,36 +93,10 @@ public class UserBusiness {
    * 
    * @generated
    */
-  public Page<User> list ( Pageable pageable ){
+  public Page<Role> list ( Pageable pageable ){
     // begin-user-code  
     // end-user-code        
-    Page<User> result = repository.list (  pageable );
-    // begin-user-code  
-    // end-user-code        
-    return result;
-  }
-  /**
-   * Lista com paginação de acordo com a NamedQuery
-   * 
-   * @generated
-   */
-  public Page<User> findByRole ( java.lang.String roleid , Pageable pageable ){
-    // begin-user-code  
-    // end-user-code        
-    Page<User> result = repository.findByRole ( roleid ,  pageable );
-    // begin-user-code  
-    // end-user-code        
-    return result;
-  }
-  /**
-   * Lista com paginação de acordo com a NamedQuery
-   * 
-   * @generated
-   */
-  public Page<User> findByLogin ( java.lang.String login , Pageable pageable ){
-    // begin-user-code  
-    // end-user-code        
-    Page<User> result = repository.findByLogin ( login ,  pageable );
+    Page<Role> result = repository.list (  pageable );
     // begin-user-code  
     // end-user-code        
     return result;
@@ -167,10 +123,10 @@ public class UserBusiness {
    * @generated modifiable
    * ManyToMany Relation
    */  
-  public Page<Role> listRole(java.lang.String id,  Pageable pageable ) {
+  public Page<User> listUser(java.lang.String id,  Pageable pageable ) {
       // begin-user-code
       // end-user-code  
-      Page<Role> result = repository.listRole(id,  pageable );
+      Page<User> result = repository.listUser(id,  pageable );
       // begin-user-code
       // end-user-code
       return result;            
@@ -180,10 +136,10 @@ public class UserBusiness {
    * @generated modifiable
    * ManyToMany Relation
    */    
-  public int deleteRole(java.lang.String instanceId, java.lang.String relationId) {
+  public int deleteUser(java.lang.String instanceId, java.lang.String relationId) {
       // begin-user-code
       // end-user-code  
-      int result = repository.deleteRole(instanceId, relationId);
+      int result = repository.deleteUser(instanceId, relationId);
       // begin-user-code
       // end-user-code  
       return result;  

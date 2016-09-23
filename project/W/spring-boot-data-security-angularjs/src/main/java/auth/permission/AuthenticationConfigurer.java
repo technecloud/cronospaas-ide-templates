@@ -24,10 +24,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import security.dao.UserDAO;
-import security.dao.UserRoleDAO;
-import security.entity.User;
-import security.entity.UserRole;
+import app.dao.UserDAO;
+import app.dao.UserRoleDAO;
+import app.entity.User;
+import app.entity.UserRole;
 
 @Component
 public class AuthenticationConfigurer implements AuthenticationProvider {
@@ -90,9 +90,6 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(userRole.getRole().getName());
 			authorities.add(grantedAuthority);
 		}
-
-		// Virtual Role Logged
-		authorities.add(new SimpleGrantedAuthority(SecurityPermission.ROLE_LOGGED_NAME));
 
 		LOGGER.debug("user authorities are " + authorities.toString());
 		return authorities;
