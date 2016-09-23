@@ -1,0 +1,51 @@
+[
+	{
+		"_class": "app.entity.security.User",
+		"id": "304BF43E-0E62-4F4A-8A63-3F22D7AD4611",
+		"name": "admin",
+		"login": "admin",
+		"password": "$2a$10$LjzpM1Q3VoAtG2dTCCabNuW0/amVPjL3Iyvyi2Dj7NP.HngtzSewu"
+	},
+	{
+		"_class": "app.entity.security.Role",
+		"id": "404BF43E-0000-4F4A-8A63-3F22D7AD6556",
+		"name": "{{ROLE_ADMIN_NAME}}"
+	},
+	{
+		"_class": "app.entity.security.Role",
+		"id": "404BF43E-1111-4F4A-8A63-3F22D7AD6556",
+		"name": "{{ROLE_LOGGED_NAME}}"
+	},
+	{
+		"_class": "app.entity.security.UserRole",
+		"id": "404BF43E-0E62-4F4A-8A63-3F22D7AD6556",
+		"user": { "id" : "304BF43E-0E62-4F4A-8A63-3F22D7AD4611" } ,
+		"role": { "id" : "404BF43E-0000-4F4A-8A63-3F22D7AD6556" }
+	},
+	{
+		"_class": "app.entity.security.UserRole",
+		"id": "404BF43E-0E62-4F4A-8A63-3F22D7AD6557",
+		"user": { "id" : "304BF43E-0E62-4F4A-8A63-3F22D7AD4611" } ,
+		"role": { "id" : "404BF43E-1111-4F4A-8A63-3F22D7AD6556" }
+	},
+	{
+		"_class": "app.entity.codedata.Category",
+		"id": "2B5DCA45-B437-4E8B-B60C-2FA815A2C77F",
+		"name": "Drinks",
+		"description": "Drinks like water, beer, wine and so forth"
+	},
+	{
+		"_class": "app.entity.codedata.Product",
+		"id": "509986E6-94DD-49C1-931D-69FA10C4ECE4",
+		"name": "Wine",
+		"description": "Wine Bottle",
+		"category":{"id":"2B5DCA45-B437-4E8B-B60C-2FA815A2C77F"}
+	},
+	{
+		"_class": "app.entity.codedata.Product",
+		"id": "654719B6-6B79-4EC8-8118-51B39046F168",
+		"name": "Beer",
+		"description": "Beer Bottle of 600ml",
+		"category":{"id":"2B5DCA45-B437-4E8B-B60C-2FA815A2C77F"}
+	}
+]

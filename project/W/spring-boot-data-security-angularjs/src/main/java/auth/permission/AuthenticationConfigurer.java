@@ -24,10 +24,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import security.dao.UserDAO;
-import security.dao.UserRoleDAO;
-import security.entity.User;
-import security.entity.UserRole;
+import app.dao.security.UserDAO;
+import app.dao.security.UserRoleDAO;
+import app.entity.security.User;
+import app.entity.security.UserRole;
 
 @Component
 public class AuthenticationConfigurer implements AuthenticationProvider {

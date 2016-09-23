@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import security.business.UserBusiness;
-import security.entity.User;
+import app.business.security.UserBusiness;
+import app.entity.security.User;
 
 /**
  * Controller responsável por gerir a troca de

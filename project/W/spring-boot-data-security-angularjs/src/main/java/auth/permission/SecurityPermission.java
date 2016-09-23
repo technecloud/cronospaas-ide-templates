@@ -32,7 +32,7 @@ public class SecurityPermission {
     
     // role admin permission
     http.authorizeRequests().antMatchers("/views/admin/**").hasAuthority(ROLE_ADMIN_NAME);
-    http.authorizeRequests().antMatchers("/api/security/rest/**").hasAuthority(ROLE_ADMIN_NAME);
+    http.authorizeRequests().antMatchers("/api/security/**").hasAuthority(ROLE_ADMIN_NAME);
     
     // role logged permission
     http.authorizeRequests().antMatchers("/views/logged/**").authenticated();
