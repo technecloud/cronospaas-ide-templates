@@ -18,12 +18,6 @@
 		"role": { "id" : "404BF43E-0000-4F4A-8A63-3F22D7AD6556" }
 	},
 	{
-		"_class": "app.entity.security.UserRole",
-		"id": "404BF43E-0E62-4F4A-8A63-3F22D7AD6557",
-		"user": { "id" : "304BF43E-0E62-4F4A-8A63-3F22D7AD4611" } ,
-		"role": { "id" : "404BF43E-1111-4F4A-8A63-3F22D7AD6556" }
-	},
-	{
 		"_class": "app.entity.codedata.Category",
 		"id": "2B5DCA45-B437-4E8B-B60C-2FA815A2C77F",
 		"name": "Drinks",
