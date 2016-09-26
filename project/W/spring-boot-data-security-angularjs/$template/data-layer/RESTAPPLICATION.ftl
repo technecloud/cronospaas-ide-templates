@@ -53,7 +53,7 @@ class ${configurationName} {
         return new JpaTransactionManager(entityManagerFactory().getObject());
     }
 
-  
+    <#if persistence_unit_name == first_pu || first_pu == "">  
     @Bean
     public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() {
   
@@ -81,6 +81,6 @@ class ${configurationName} {
     return factory;
   
     }
-  
+    </#if>
     
 }
