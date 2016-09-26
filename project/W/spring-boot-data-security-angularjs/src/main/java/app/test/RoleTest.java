@@ -1,4 +1,4 @@
-package security.test;
+package app.test;
 
 /**
  * Classe utilitária de teste Role

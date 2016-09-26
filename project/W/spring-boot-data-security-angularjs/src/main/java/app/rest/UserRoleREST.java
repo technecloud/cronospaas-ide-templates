@@ -1,23 +1,19 @@
-package security.rest;
+package app.rest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.annotation.*;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
-import security.business.UserRoleBusiness;
-import security.entity.User;
-import security.entity.UserRole;
+import org.springframework.http.*;
+import org.springframework.beans.factory.annotation.*;
+
+import java.util.*;
+
+import app.entity.*;
+import app.business.*;
+
 
 
 /**
@@ -28,7 +24,7 @@ import security.entity.UserRole;
  * @generated
  **/
 @RestController
-@RequestMapping(value = "/api/security/rest/UserRole")
+@RequestMapping(value = "/api/security/UserRole")
 public class UserRoleREST {
 
     /**
