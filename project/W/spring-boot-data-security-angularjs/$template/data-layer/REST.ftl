@@ -107,7 +107,6 @@ public class ${class_name} {
         return ${class_business_variable_name}.put(entity);
     }
 
-
     /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
      * 
