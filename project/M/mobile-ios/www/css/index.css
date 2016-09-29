@@ -1,0 +1,27 @@
+body {
+     background-color:#E4E4E4;
+     font-family: "Courier New";
+}
+
+h1 {
+     text-align: center;
+     font-size: 40px;
+     padding: 10px;
+     margin: 0px;
+}
+
+fieldset{
+     border-radius: 10px;
+}
+
+input{
+     width: 95%;
+
+     border-radius: 10px;
+     height: 40px;
+     text-align: center;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     margin-right: 10px;
+}
+
