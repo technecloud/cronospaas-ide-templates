@@ -10,7 +10,6 @@ import org.springframework.context.annotation.*;
  *  - Atualizar o contexto de aplicação para carregar os singletons
  *  - Executar qualquer bean do tipo CommandLineRunner 
  * 
- * @author ${UserName}
  *
  */
 @ComponentScan(basePackages = {
