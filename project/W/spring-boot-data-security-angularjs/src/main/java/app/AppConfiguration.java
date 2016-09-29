@@ -42,7 +42,6 @@ class AppConfiguration {
         return new JpaTransactionManager(entityManagerFactory().getObject());
     }
 
-  
     @Bean
     public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() {
   
@@ -70,6 +69,5 @@ class AppConfiguration {
     return factory;
   
     }
-  
     
 }

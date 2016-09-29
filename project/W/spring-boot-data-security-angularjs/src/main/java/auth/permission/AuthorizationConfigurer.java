@@ -2,6 +2,7 @@ package auth.permission;
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +24,8 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import app.dao.security.UserDAO;
-import app.entity.security.User;
+import app.dao.UserDAO;
+import app.entity.User;
 
 /**
  * Classe que configura o WebSecurity, possibilitando requerer que o
