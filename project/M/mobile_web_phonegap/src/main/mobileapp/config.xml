@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>CronosPhoneGap</name>
+  <name>CronApp</name>
   <description>&#xD;
-        Developed by CronosIDE&#xD;
+        Developed by IDE CronApp&#xD;
     </description>
   <author email="you@example.com" href="http://example.com.com/">&#xD;
-      CronosIDE&#xD;
+      CronApp&#xD;
     </author>
   <content src="index.html"/>
   <access origin="*"/>
