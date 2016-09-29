@@ -10,7 +10,6 @@ import ${entityPackage}.${subPackage}.*;
 import ${entityPackage}.${subPackageToImport}.*;
 </#list>
 
-
 import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
