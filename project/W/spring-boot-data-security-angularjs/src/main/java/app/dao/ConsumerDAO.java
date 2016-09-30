@@ -20,23 +20,23 @@ import org.springframework.transaction.annotation.*;
  * 
  * @generated
  */
-@Repository("RoleDAO")
+@Repository("ConsumerDAO")
 @Transactional(transactionManager="app-TransactionManager")
-public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
+public interface ConsumerDAO extends JpaRepository<Consumer, java.lang.String> {
 
   /**
-   * Obtém a instância de Role utilizando os identificadores
+   * Obtém a instância de Consumer utilizando os identificadores
    * 
    * @param id
    *          Identificador 
    * @return Instância relacionada com o filtro indicado
    * @generated
    */    
-  @Query("SELECT entity FROM Role entity WHERE entity.id = :id")
-  public Role findOne(@Param(value="id") java.lang.String id);
+  @Query("SELECT entity FROM Consumer entity WHERE entity.id = :id")
+  public Consumer findOne(@Param(value="id") java.lang.String id);
 
   /**
-   * Remove a instância de Role utilizando os identificadores
+   * Remove a instância de Consumer utilizando os identificadores
    * 
    * @param id
    *          Identificador 
@@ -44,7 +44,7 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    * @generated
    */    
   @Modifying
-  @Query("DELETE FROM Role entity WHERE entity.id = :id")
+  @Query("DELETE FROM Consumer entity WHERE entity.id = :id")
   public void delete(@Param(value="id") java.lang.String id);
 
   /**
@@ -52,16 +52,16 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    * 
    * @generated
    */
-  @Query("select r from Role r")
-  public Page<Role> list ( Pageable pageable );
+  @Query("select c from Consumer c")
+  public Page<Consumer> list ( Pageable pageable );
   
 
   /**
    * OneToMany Relation
    * @generated
    */
-  @Query("SELECT entity FROM UserRole entity WHERE entity.role.id = :id")
-  public Page<UserRole> findUserRole(@Param(value="id") java.lang.String id,  Pageable pageable );
+  @Query("SELECT entity FROM Order entity WHERE entity.consumer.id = :id")
+  public Page<Order> findOrder(@Param(value="id") java.lang.String id,  Pageable pageable );
 
 
 
@@ -69,16 +69,16 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    * ManyToOne Relation
    * @generated
    */
-  @Query("SELECT entity.user FROM UserRole entity WHERE entity.role.id = :id")
-  public Page<User> listUser(@Param(value="id") java.lang.String id,  Pageable pageable);
+  @Query("SELECT entity.product FROM Order entity WHERE entity.consumer.id = :id")
+  public Page<Product> listProduct(@Param(value="id") java.lang.String id,  Pageable pageable);
 
     /**
      * ManyToOne Relation Delete
      * @generated
      */
     @Modifying
-    @Query("DELETE FROM UserRole entity WHERE entity.role.id = :instanceId AND entity.user.id = :relationId")
-    public int deleteUser(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
+    @Query("DELETE FROM Order entity WHERE entity.consumer.id = :instanceId AND entity.product.id = :relationId")
+    public int deleteProduct(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
 
 
 

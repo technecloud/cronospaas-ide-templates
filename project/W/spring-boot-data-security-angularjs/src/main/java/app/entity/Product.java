@@ -10,22 +10,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * Classe que representa a tabela USERROLE
+ * Classe que representa a tabela PRODUCT
  * @generated
  */
 @Entity
-@Table(name = "\"USERROLE\""
+@Table(name = "\"PRODUCT\""
 
 
 )
 @XmlRootElement
-public class UserRole implements Serializable {
+public class Product implements Serializable {
 
   /**
    * UID da classe, necessário na serialização 
    * @generated
    */
-  private static final long serialVersionUID = -201887997l;
+  private static final long serialVersionUID = 1355181247l;
   
   /**
    * @generated
@@ -38,23 +38,28 @@ public class UserRole implements Serializable {
   /**
    * @generated
    */
-  @ManyToOne
-  @JoinColumn(name="fk_user", referencedColumnName = "id", insertable=true, updatable=true)
-  private User user;
+  @Column(name = "name", nullable = true, unique = false, insertable=true, updatable=true)
+  private java.lang.String name;
+  
+  /**
+   * @generated
+   */
+  @Column(name = "description", nullable = true, unique = false, insertable=true, updatable=true)
+  private java.lang.String description;
   
   /**
    * @generated
    */
   @ManyToOne
-  @JoinColumn(name="fk_role", referencedColumnName = "id", insertable=true, updatable=true)
-  private Role role;
+  @JoinColumn(name="fk_category", referencedColumnName = "id", insertable=true, updatable=true)
+  private Category category;
   
   
   /**
    * Construtor
    * @generated
    */
-  public UserRole(){
+  public Product(){
   }
 
   
@@ -73,48 +78,68 @@ public class UserRole implements Serializable {
    * @param id id
    * @generated
    */
-  public UserRole setId(java.lang.String id){
+  public Product setId(java.lang.String id){
     this.id = id;
     return this;
   }
   
   /**
-   * Obtém user
-   * @param user user
-   * return user
+   * Obtém name
+   * @param name name
+   * return name
    * @generated
    */
-  public User getUser(){
-    return this.user;
+  public java.lang.String getName(){
+    return this.name;
   }
   
   /**
-   * Define user
-   * @param user user
+   * Define name
+   * @param name name
    * @generated
    */
-  public UserRole setUser(User user){
-    this.user = user;
+  public Product setName(java.lang.String name){
+    this.name = name;
     return this;
   }
   
   /**
-   * Obtém role
-   * @param role role
-   * return role
+   * Obtém description
+   * @param description description
+   * return description
    * @generated
    */
-  public Role getRole(){
-    return this.role;
+  public java.lang.String getDescription(){
+    return this.description;
   }
   
   /**
-   * Define role
-   * @param role role
+   * Define description
+   * @param description description
    * @generated
    */
-  public UserRole setRole(Role role){
-    this.role = role;
+  public Product setDescription(java.lang.String description){
+    this.description = description;
+    return this;
+  }
+  
+  /**
+   * Obtém category
+   * @param category category
+   * return category
+   * @generated
+   */
+  public Category getCategory(){
+    return this.category;
+  }
+  
+  /**
+   * Define category
+   * @param category category
+   * @generated
+   */
+  public Product setCategory(Category category){
+    this.category = category;
     return this;
   }
   
@@ -143,10 +168,10 @@ public class UserRole implements Serializable {
       if(obj == null)
         return false;
       
-      if(!(obj instanceof UserRole))
+      if(!(obj instanceof Product))
         return false;
       
-      UserRole other = (UserRole)obj;
+      Product other = (Product)obj;
       
     if(this.id == null && other.id != null)
         return false;

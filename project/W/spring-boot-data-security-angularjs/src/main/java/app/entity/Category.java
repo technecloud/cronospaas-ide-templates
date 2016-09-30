@@ -10,28 +10,22 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
- * Classe que representa a tabela ROLE
+ * Classe que representa a tabela CATEGORY
  * @generated
  */
 @Entity
-@Table(name = "\"ROLE\""
+@Table(name = "\"CATEGORY\""
 
 
 )
 @XmlRootElement
-public class Role implements Serializable {
+public class Category implements Serializable {
 
   /**
    * UID da classe, necessário na serialização 
    * @generated
    */
-  private static final long serialVersionUID = 2555048l;
-  
-  /**
-   * @generated
-   */
-  @Column(name = "name", nullable = true, unique = false, insertable=true, updatable=true)
-  private java.lang.String name;
+  private static final long serialVersionUID = 115157234l;
   
   /**
    * @generated
@@ -41,34 +35,26 @@ public class Role implements Serializable {
   @Column(name = "id", insertable=true, updatable=true)
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
   
+  /**
+   * @generated
+   */
+  @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
+  private java.lang.String name;
+  
+  /**
+   * @generated
+   */
+  @Column(name = "description", nullable = true, unique = false, insertable=true, updatable=true)
+  private java.lang.String description;
+  
   
   /**
    * Construtor
    * @generated
    */
-  public Role(){
+  public Category(){
   }
 
-  
-  /**
-   * Obtém name
-   * @param name name
-   * return name
-   * @generated
-   */
-  public java.lang.String getName(){
-    return this.name;
-  }
-  
-  /**
-   * Define name
-   * @param name name
-   * @generated
-   */
-  public Role setName(java.lang.String name){
-    this.name = name;
-    return this;
-  }
   
   /**
    * Obtém id
@@ -85,8 +71,48 @@ public class Role implements Serializable {
    * @param id id
    * @generated
    */
-  public Role setId(java.lang.String id){
+  public Category setId(java.lang.String id){
     this.id = id;
+    return this;
+  }
+  
+  /**
+   * Obtém name
+   * @param name name
+   * return name
+   * @generated
+   */
+  public java.lang.String getName(){
+    return this.name;
+  }
+  
+  /**
+   * Define name
+   * @param name name
+   * @generated
+   */
+  public Category setName(java.lang.String name){
+    this.name = name;
+    return this;
+  }
+  
+  /**
+   * Obtém description
+   * @param description description
+   * return description
+   * @generated
+   */
+  public java.lang.String getDescription(){
+    return this.description;
+  }
+  
+  /**
+   * Define description
+   * @param description description
+   * @generated
+   */
+  public Category setDescription(java.lang.String description){
+    this.description = description;
     return this;
   }
   
@@ -115,10 +141,10 @@ public class Role implements Serializable {
       if(obj == null)
         return false;
       
-      if(!(obj instanceof Role))
+      if(!(obj instanceof Category))
         return false;
       
-      Role other = (Role)obj;
+      Category other = (Category)obj;
       
     if(this.id == null && other.id != null)
         return false;

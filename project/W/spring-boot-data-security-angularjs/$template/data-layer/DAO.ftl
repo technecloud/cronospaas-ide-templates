@@ -1,6 +1,15 @@
-package ${daoPackage};
+package ${daoPackage}<#if subPackage??>.${subPackage}</#if>;
 
 import ${entityPackage}.*;
+
+<#if subPackage??>
+import ${entityPackage}.${subPackage}.*;
+</#if>
+
+<#list clazz.subPackageToImport as subPackageToImport>
+import ${entityPackage}.${subPackageToImport}.*;
+</#list>
+
 import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
