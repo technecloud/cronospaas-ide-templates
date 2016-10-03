@@ -118,7 +118,23 @@
       'Notification', 
       '$ionicHistory',
       '$cordovaVibration',
-      function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration) {
+      '$ionicModal',
+      function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal) {
+
+        $ionicModal.fromTemplateUrl('views/logged/_changepassword.view.html', {
+          scope: $scope,
+          animation: 'slide-in-up'
+        }).then(function(modal) {
+          $scope.modal = modal;
+        });
+        
+        $scope.openChangePassword = function() {
+          $scope.modal.show();
+        };
+
+        $scope.closeChangePassword = function() {
+          $scope.modal.hide();
+        };
 
         $scope.shouldShowDelete = false;
         $scope.shouldShowReorder = false;
@@ -146,19 +162,7 @@
         }
 
         // Menu
-        $scope.groups = [ {
-          name : 'Administrador',
-          items : [ {
-            name : 'Usuários',
-            url : '#/home/admin/users'
-          }, {
-            name : 'Regras',
-            url : '#/home/admin/roles'
-          }, {
-            name : 'Usuário Permissão',
-            url : '#/home/admin/permission'
-          } ]
-        } ];
+        $scope.groups = [];
 
         /*
          * if given group is the selected group, deselect it else, select the given group
@@ -240,7 +244,7 @@
             oldPassword.value = "";
             newPassword.value = "";
             newPasswordConfirmation.value = "";
-            $("#modalPassword").modal("hide");
+            $scope.closeChangePassword();
           }
         };
 
