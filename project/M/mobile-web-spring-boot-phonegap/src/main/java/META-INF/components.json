@@ -4,9 +4,20 @@
    "components":[
       {
          "name":"crn-div",
-         "text":"Div",
+         "text":"Div Vertical",
+         "class":"cpn cpn-horizontal-grid",
+         "templateURL":"src/main/mobileapp/www/components/templates/div.vertical.template.html",
+         "properties":{
+            "onclick":{
+               "type":"event"
+            }
+         }
+      },
+      {
+         "name":"crn-div",
+         "text":"Div Horizontal",
          "class":"cpn cpn-vertical-grid",
-         "templateURL":"src/main/mobileapp/www/components/templates/div.template.html",
+         "templateURL":"src/main/mobileapp/www/components/templates/div.horizontal.template.html",
          "properties":{
             "onclick":{
                "type":"event"
