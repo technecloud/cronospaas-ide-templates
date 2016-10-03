@@ -67,7 +67,6 @@ public class UserRoleREST {
         return userRoleBusiness.put(entity);
     }
 
-
     /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
      * 

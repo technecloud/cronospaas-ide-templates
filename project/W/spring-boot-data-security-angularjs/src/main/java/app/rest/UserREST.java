@@ -79,7 +79,6 @@ public class UserREST {
         return userBusiness.put(entity);
     }
 
-
     /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido
      * 

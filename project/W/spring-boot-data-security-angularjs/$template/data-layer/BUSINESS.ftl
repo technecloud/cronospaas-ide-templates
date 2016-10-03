@@ -1,4 +1,4 @@
-package ${bussinessPackage};
+package ${bussinessPackage}<#if subPackage??>.${subPackage}</#if>;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,6 +8,14 @@ import org.springframework.stereotype.Service;
 
 import ${daoPackage}.*;
 import ${entityPackage}.*;
+<#if subPackage??>
+import ${daoPackage}.${subPackage}.*;
+import ${entityPackage}.${subPackage}.*;
+</#if>
+<#list clazz.subPackageToImport as subPackageToImport>
+import ${daoPackage}.${subPackageToImport}.*;
+import ${entityPackage}.${subPackageToImport}.*;
+</#list>
 
 <#assign isExistsEncrypt = false>
 <#list clazz.fields as field>

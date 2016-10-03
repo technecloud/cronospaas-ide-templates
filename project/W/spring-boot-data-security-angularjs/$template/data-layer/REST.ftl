@@ -1,4 +1,4 @@
-package ${restPackage};
+package ${restPackage}<#if subPackage??>.${subPackage}</#if>;
 
 import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +14,15 @@ import java.util.*;
 import ${entityPackage}.*;
 import ${bussinessPackage}.*;
 
+<#if subPackage??>
+import ${entityPackage}.${subPackage}.*;
+import ${bussinessPackage}.${subPackage}.*;
+</#if>
+
+<#list clazz.subPackageToImport as subPackageToImport>
+import ${bussinessPackage}.${subPackageToImport}.*;
+import ${entityPackage}.${subPackageToImport}.*;
+</#list>
 <#assign class_name = "${clazz.name}REST">
 <#assign class_entity_name = "${clazz.name}">
 <#assign class_business_name = "${clazz.name}Business">
@@ -23,7 +32,12 @@ import ${bussinessPackage}.*;
 <#else>
 <#assign request_mapping_value = restPath + "/" + clazz.name >
 </#if>
-
+<#assign field_pk_type = "String">
+<#list clazz.fields as field>
+  <#if field.primaryKey && !field.typePrimitive>
+    <#assign field_pk_type = "${field.type}">
+  </#if>
+</#list>
 <#assign field_pk_type = "String">
 <#list clazz.fields as field>
   <#if field.primaryKey && !field.typePrimitive>
@@ -92,7 +106,6 @@ public class ${class_name} {
     public ${class_entity_name} put(@PathVariable("id") final ${field_pk_type} id, @Validated @RequestBody final ${class_entity_name} entity) throws Exception {
         return ${class_business_variable_name}.put(entity);
     }
-
 
     /**
      * Serviço exposto para remover a entidade de acordo com o id fornecido

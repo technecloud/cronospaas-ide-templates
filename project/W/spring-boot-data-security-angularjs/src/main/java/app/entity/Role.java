@@ -7,6 +7,8 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
+
+
 /**
  * Classe que representa a tabela ROLE
  * @generated
