@@ -7,13 +7,13 @@
 </div>
 <br/>
 </#if>
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
+<div data-component="crn-datasource" id="crn-datasource-763276"> 
    <datasource <#if model.hasColumnFilter()>filter="{{query == '' || query == null ? null : ('/${model.gridFilter}/' + query)}}"</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource> 
 </div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
+<div data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick="" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button> 
 </div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-${model.dataSourceName}"> 
+<div data-component="crn-grid" id="crn-grid-${model.dataSourceName}"> 
   <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting"> 
     <table class="table  table-bordered table-hover table-striped"> 
       <thead> 
@@ -64,7 +64,7 @@
     </div> 
   </div> 
 </div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-form-${model.dataSourceName}"> 
+<div data-component="crn-form" id="crn-form-form-${model.dataSourceName}"> 
   <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting"> 
     <form crn-datasource="${model.dataSourceName}" class=""> 
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
@@ -80,7 +80,7 @@
       </div> 
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
         <#list model.formFields as field>
-        <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-${field.name}"> 
+        <div data-component="crn-textinput" id="crn-textinput-${field.name}"> 
           <div class="form-group"> 
             <label for="textinput-${field.name}" class="">${model.formMapLabels[field.name]!}</label> 
 
