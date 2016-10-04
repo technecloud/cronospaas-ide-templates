@@ -10,14 +10,10 @@ import org.springframework.context.annotation.*;
  *  - Atualizar o contexto de aplicação para carregar os singletons
  *  - Executar qualquer bean do tipo CommandLineRunner 
  * 
- * @author ${UserName}
  *
  */
 @ComponentScan(basePackages = {
-<#list workspaceView.allDiagrams as diagram>
-${diagram.getGlobalAttribute("namespace")} <#if diagram_has_next>,</#if> 
-</#list>
-, "auth.permission", "api.rest.events"
+"auth.permission", "api.rest.events"<#list workspaceView.allDiagrams as diagram>, ${diagram.getGlobalAttribute("namespace")}</#list>
 })
 @SpringBootApplication
 public class SpringBootMain extends SpringBootServletInitializer {

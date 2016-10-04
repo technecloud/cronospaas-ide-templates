@@ -1,0 +1,2 @@
+rem compila e executa windows phone emulator
+cordova platform rm wp8 && cordova plugin add cordova-plugin-dialogs && cordova plugin add cordova-plugin-vibration && cordova plugin add cordova-plugin-camera && cordova platform add wp8 && cordova run wp8

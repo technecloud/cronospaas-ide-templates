@@ -18,24 +18,26 @@ public class SecurityPermission {
 	</#list>
 	
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
-    // public
-    <#list listPermitAll as role>
-    ${role}
-    </#list>
     
-    // role hasAuthority permission
-    <#list listHasAuthority as role>
+	// public
+	<#list listPermitAll as role>
     ${role}
-    </#list>
+	</#list>
+    
+	// role hasAuthority permission
+	<#list listHasAuthority as role>
+    ${role}
+	</#list>
 	
     // autenticated
   	<#list listAutenticated as role>
     ${role}
   	</#list>
     
-		// deny all
-    <#list listDenyAll as role>
+	// deny all
+	<#list listDenyAll as role>
     ${role}
-    </#list>
+	</#list>
+    
   }
 }

@@ -84,5 +84,7 @@
   "template.crud.new": "New",
   "ChooseTheme": "Choose Theme",
   "Theme": "Theme",
-  "Home.view.themeChanged": "Changed theme!"
+  "Home.view.themeChanged": "Changed theme!",
+  "Name": "Name",
+  "Description": "Description"
 }
