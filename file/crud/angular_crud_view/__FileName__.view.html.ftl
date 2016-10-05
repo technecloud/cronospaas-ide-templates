@@ -22,7 +22,7 @@
           <th class=""> 
             <div class="">${model.formMapLabels[field.name]!}</div>
           </th> 
-    </#list>
+        </#list>
           <th class=""> 
           <div class="">{{"template.crud.actions" | translate}}</div>
           </th> 
@@ -102,18 +102,17 @@
         <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
   <#elseif field.getProperty("ngOptions")?? >
 
-  <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource> 
-  <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="textinput-${field.name}"> 
-    <ui-select-match class="">
-      {{$select.selected.${field.getProperty("ngOptionsFkName")}}} 
-    </ui-select-match> 
-    <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search"  class=""> 
-      <div class="" data-container="true">
-        {{rowData.${field.getProperty("ngOptionsFkName")}}}
-      </div> 
-    </ui-select-choices> 
-  </ui-select> 
-  
+        <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource> 
+        <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="textinput-${field.name}"> 
+          <ui-select-match class="">
+            {{$select.selected.${field.getProperty("ngOptionsFkName")}}} 
+          </ui-select-match> 
+          <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search"  class=""> 
+            <div class="" data-container="true">
+              {{rowData.${field.getProperty("ngOptionsFkName")}}}
+            </div> 
+          </ui-select-choices> 
+        </ui-select> 
   <#else>
         <input type="<#if field.isEncryption()>password<#else>text</#if>" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
   </#if>
@@ -121,7 +120,32 @@
           </div> 
         </div> 
     </#list>
+    
+    <#list model.clazz.getManyToManyRelation() as man>
+      
+      <datasource append="false" name="${man.getRelationClass().getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${man.getRelationClass().getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
+      <datasource name="All${man.getRelationClass().getName()}" entity="${model.getDataSourceOfEntity(man.getRelationClass().getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
+
+      <label for="select-ui">${model.transformToLowerCase(man.getRelationClass().getName())}</label> 
+      <div id="select-ui" data-component="crn-tags"> 
+        <ui-select multiple crn-datasource="All${man.getRelationClass().getName()}" ng-model="${man.getRelationClass().getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
+          <ui-select-match placeholder="${model.transformToLowerCase(man.getRelationClass().getName())}...">
+             {{$item.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())} }} 
+          </ui-select-match> 
+          <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
+            <div class="" data-container="true" draggable="true">
+               {{rowData.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())}}} 
+            </div> 
+          </ui-select-choices> 
+        </ui-select> 
+      </div>
+      
+    </#list>
+    
       </fieldset> 
+      
+    
+      
     </form> 
   </div> 
 </div> 
