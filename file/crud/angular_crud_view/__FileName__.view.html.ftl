@@ -7,16 +7,13 @@
 </div>
 <br/>
 </#if>
-<div class=""></div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-763276"> 
+<div data-component="crn-datasource" id="crn-datasource-763276"> 
    <datasource <#if model.hasColumnFilter()>filter="{{query == '' || query == null ? null : ('/${model.gridFilter}/' + query)}}"</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource> 
 </div> 
-<div class=""></div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-button" id="crn-button-564202"> 
+<div data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick="" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button> 
 </div> 
-<div class=""></div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-grid" id="crn-grid-${model.dataSourceName}"> 
+<div data-component="crn-grid" id="crn-grid-${model.dataSourceName}"> 
   <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting"> 
     <table class="table  table-bordered table-hover table-striped"> 
       <thead> 
@@ -25,7 +22,7 @@
           <th class=""> 
             <div class="">${model.formMapLabels[field.name]!}</div>
           </th> 
-    </#list>
+        </#list>
           <th class=""> 
           <div class="">{{"template.crud.actions" | translate}}</div>
           </th> 
@@ -67,8 +64,7 @@
     </div> 
   </div> 
 </div> 
-<div class=""></div> 
-<div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-form" id="crn-form-form-${model.dataSourceName}"> 
+<div data-component="crn-form" id="crn-form-form-${model.dataSourceName}"> 
   <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting"> 
     <form crn-datasource="${model.dataSourceName}" class=""> 
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
@@ -83,9 +79,8 @@
         <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
       </div> 
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
-        <div class=""></div> 
         <#list model.formFields as field>
-        <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-textinput" id="crn-textinput-${field.name}"> 
+        <div data-component="crn-textinput" id="crn-textinput-${field.name}"> 
           <div class="form-group"> 
             <label for="textinput-${field.name}" class="">${model.formMapLabels[field.name]!}</label> 
 
@@ -107,21 +102,50 @@
         <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
   <#elseif field.getProperty("ngOptions")?? >
 
-  <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource> 
-  <select ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" ng-options="opt as opt.${field.getProperty("ngOptionsFkName")} for opt in ${model.formMapLabels[field.name]!}.data track by opt.${field.getProperty("ngOptions").keys}" <#if !field.isNullable()>required="required"</#if>>
-    <option value=''>None</option>
-  </select>
-
+        <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource> 
+        <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="textinput-${field.name}"> 
+          <ui-select-match class="">
+            {{$select.selected.${field.getProperty("ngOptionsFkName")}}} 
+          </ui-select-match> 
+          <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search"  class=""> 
+            <div class="" data-container="true">
+              {{rowData.${field.getProperty("ngOptionsFkName")}}}
+            </div> 
+          </ui-select-choices> 
+        </ui-select> 
   <#else>
         <input type="<#if field.isEncryption()>password<#else>text</#if>" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
   </#if>
 
           </div> 
         </div> 
-        <div class=""></div> 
     </#list>
+    
+    <#list model.clazz.getManyToManyRelation() as man>
+      
+      <datasource append="false" name="${man.getRelationClass().getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${man.getRelationClass().getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
+      <datasource name="All${man.getRelationClass().getName()}" entity="${model.getDataSourceOfEntity(man.getRelationClass().getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
+
+      <label for="select-ui">${model.transformToLowerCase(man.getRelationClass().getName())}</label> 
+      <div id="select-ui" data-component="crn-tags"> 
+        <ui-select multiple crn-datasource="All${man.getRelationClass().getName()}" ng-model="${man.getRelationClass().getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
+          <ui-select-match placeholder="${model.transformToLowerCase(man.getRelationClass().getName())}...">
+             {{$item.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())} }} 
+          </ui-select-match> 
+          <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
+            <div class="" data-container="true" draggable="true">
+               {{rowData.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())}}} 
+            </div> 
+          </ui-select-choices> 
+        </ui-select> 
+      </div>
+      
+    </#list>
+    
       </fieldset> 
+      
+    
+      
     </form> 
   </div> 
 </div> 
-<div class=""></div>
