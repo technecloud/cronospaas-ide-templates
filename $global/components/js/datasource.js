@@ -70,10 +70,12 @@ angular.module('datasourcejs', [])
           var _callback;
           busy = true;
           
+          var hostpApp = window.hostApp ? window.hostApp + "/"  : "";
+          
           // Get an ajax promise
           this.$promise = $http({
             method: verb,
-            url: url,
+            url: hostpApp + url,
             data : (object) ? JSON.stringify(object) : null,
             headers: _self.headers
           }).success(function(data, status, headers, config) {
