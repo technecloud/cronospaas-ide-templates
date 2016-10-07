@@ -126,8 +126,8 @@
       <datasource append="false" name="${man.getRelationClass().getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${man.getRelationClass().getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
       <datasource name="All${man.getRelationClass().getName()}" entity="${model.getDataSourceOfEntity(man.getRelationClass().getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
 
-      <label for="select-ui">${model.transformToLowerCase(man.getRelationClass().getName())}</label> 
-      <div id="select-ui" data-component="crn-tags"> 
+      <label ng-show="datasource.editing" for="select-ui">${model.transformToLowerCase(man.getRelationClass().getName())}</label> 
+      <div ng-show="datasource.editing" id="select-ui" data-component="crn-tags"> 
         <ui-select multiple crn-datasource="All${man.getRelationClass().getName()}" ng-model="${man.getRelationClass().getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
           <ui-select-match placeholder="${model.transformToLowerCase(man.getRelationClass().getName())}...">
              {{$item.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())} }} 
