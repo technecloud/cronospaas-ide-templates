@@ -123,22 +123,68 @@
     
     <#list model.clazz.getManyToManyRelation() as man>
       
+      
       <datasource append="false" name="${man.getRelationClass().getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${man.getRelationClass().getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
       <datasource name="All${man.getRelationClass().getName()}" entity="${model.getDataSourceOfEntity(man.getRelationClass().getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
-
-      <label ng-show="datasource.editing" for="select-ui">${model.transformToLowerCase(man.getRelationClass().getName())}</label> 
-      <div ng-show="datasource.editing" id="select-ui" data-component="crn-tags"> 
-        <ui-select multiple crn-datasource="All${man.getRelationClass().getName()}" ng-model="${man.getRelationClass().getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
-          <ui-select-match placeholder="${model.transformToLowerCase(man.getRelationClass().getName())}...">
-             {{$item.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())} }} 
-          </ui-select-match> 
-          <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
-            <div class="" data-container="true" draggable="true">
-               {{rowData.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())}}} 
+      
+      <#if model.isNToNOptionList()>
+        <div class="form-group" ng-show="datasource.editing">
+          <label for="select-ui">${model.transformToLowerCase(man.getRelationClass().getName())}</label> 
+          <div id="select-ui" data-component="crn-tags"> 
+            <ui-select multiple crn-datasource="All${man.getRelationClass().getName()}" ng-model="${man.getRelationClass().getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
+              <ui-select-match placeholder="${model.transformToLowerCase(man.getRelationClass().getName())}...">
+                 {{$item.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())} }} 
+              </ui-select-match> 
+              <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
+                <div class="" data-container="true" draggable="true">
+                   {{rowData.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())}}} 
+                </div> 
+              </ui-select-choices> 
+            </ui-select> 
+          </div>
+        </div>
+      <#else>
+        <div class="form-group" ng-show="datasource.editing"> 
+          <label for="select-ui">${model.transformToLowerCase(man.getRelationClass().getName())}</label> 
+          <div class="row" > 
+            <div class="col-md-6"> 
+              <div id="select-ui" data-component="crn-tags"> 
+                <ui-select crn-datasource="All${man.getRelationClass().getName()}" ng-model="All${man.getRelationClass().getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
+                  <ui-select-match placeholder="role...">
+                     {{$select.selected.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())} }} 
+                  </ui-select-match> 
+                  <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
+                    <div class="" data-container="true" draggable="true">
+                       {{rowData.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())}}} 
+                    </div> 
+                  </ui-select-choices> 
+                </ui-select> 
+              </div> 
             </div> 
-          </ui-select-choices> 
-        </ui-select> 
-      </div>
+            <div class="col-md-6"> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="${man.getRelationClass().getName()}.insert(All${man.getRelationClass().getName()}.active); ${man.getRelationClass().getName()}.data.push(All${man.getRelationClass().getName()}.active);"><i class="fa fa-plus"></i></button> 
+            </div> 
+          </div> 
+        </div> 
+        <div class="form-group" ng-show="datasource.editing"> 
+          <table class="table table-bordered table-hover table-striped"> 
+            <tbody> 
+              <tr class="table-content" ng-repeat="rowData in ${man.getRelationClass().getName()}.data"> 
+                <td class=""> 
+                  <div class="">
+                     {{rowData.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())}}} 
+                  </div> 
+                </td> 
+                <td class=""> 
+                  <div class=""> 
+                    <button class="btn btn-default btn-sm" type="submit" ng-click="${man.getRelationClass().getName()}.remove(rowData)"><i class="fa fa-times"></i></button> 
+                  </div>
+                </td> 
+              </tr> 
+            </tbody> 
+          </table> 
+        </div>
+      </#if>
        
     </#list>
     
