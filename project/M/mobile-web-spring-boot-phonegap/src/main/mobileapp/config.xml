@@ -17,6 +17,7 @@
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
   <icon src=""/>
+  <splash src=""/>
   <plugin name="cordova-plugin-whitelist" spec="~1.2.2"/>
   <plugin name="cordova-plugin-vibration" spec="~2.1.1"/>
 </widget>
