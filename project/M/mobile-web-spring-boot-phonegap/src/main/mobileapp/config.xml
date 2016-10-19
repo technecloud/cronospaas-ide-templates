@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>CronApp</name>
-  <description>&#xD;
-        Developed by IDE CronApp&#xD;
-    </description>
-  <author email="you@example.com" href="http://example.com.com/">&#xD;
-      CronApp&#xD;
-    </author>
+  <description>Developed by IDE CronApp</description>
+  <author email="you@example.com" href="http://example.com.com/">CronApp</author>
   <content src="index.html"/>
   <access origin="*"/>
   <preference name="webviewbounce" value="false"/>
@@ -20,4 +16,7 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+  <icon src=""/>
+  <plugin name="cordova-plugin-whitelist" spec="~1.2.2"/>
+  <plugin name="cordova-plugin-vibration" spec="~2.1.1"/>
 </widget>
