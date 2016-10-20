@@ -83,6 +83,11 @@ public class AuthorizationConfigurer extends WebSecurityConfigurerAdapter {
     http.formLogin().loginProcessingUrl("/auth").loginPage("/index.html").successHandler(successHandler())
             .failureHandler(failureHandler()).and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             .invalidateHttpSession(true);
+
+    // x-frame-options disable        
+		http.headers()
+			.frameOptions().disable()
+			.httpStrictTransportSecurity().disable();
     
   }
   
