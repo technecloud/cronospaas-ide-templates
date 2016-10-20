@@ -150,7 +150,7 @@
             <div class="col-md-6"> 
               <div id="select-ui" data-component="crn-tags"> 
                 <ui-select crn-datasource="All${man.getRelationClass().getName()}" ng-model="All${man.getRelationClass().getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
-                  <ui-select-match placeholder="role...">
+                  <ui-select-match placeholder="${model.transformToLowerCase(man.getRelationClass().getName())}...">
                      {{$select.selected.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())} }} 
                   </ui-select-match> 
                   <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
