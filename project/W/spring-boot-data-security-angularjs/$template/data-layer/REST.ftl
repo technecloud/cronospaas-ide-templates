@@ -18,11 +18,14 @@ import ${bussinessPackage}.*;
 import ${entityPackage}.${subPackage}.*;
 import ${bussinessPackage}.${subPackage}.*;
 </#if>
-
 <#list clazz.subPackageToImport as subPackageToImport>
+<#if subPackage?? && subPackageToImport != subPackage >
 import ${bussinessPackage}.${subPackageToImport}.*;
 import ${entityPackage}.${subPackageToImport}.*;
+</#if>
+
 </#list>
+
 <#assign class_name = "${clazz.name}REST">
 <#assign class_entity_name = "${clazz.name}">
 <#assign class_business_name = "${clazz.name}Business">

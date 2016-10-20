@@ -11,7 +11,9 @@ import ${import};
 </#list>
 <#if subPackage??>import ${entityPackage}.*;</#if>
 <#list clazz.subPackageToImport as subPackageToImport>
+<#if subPackage?? && subPackageToImport != subPackage >
 import ${entityPackage}.${subPackageToImport}.*;
+</#if>
 </#list>
 
 <#if (clazz.multitenantClass)>

@@ -5,9 +5,10 @@ import ${entityPackage}.*;
 <#if subPackage??>
 import ${entityPackage}.${subPackage}.*;
 </#if>
-
 <#list clazz.subPackageToImport as subPackageToImport>
+<#if subPackage?? && subPackageToImport != subPackage >
 import ${entityPackage}.${subPackageToImport}.*;
+</#if>
 </#list>
 
 import org.springframework.stereotype.*;
