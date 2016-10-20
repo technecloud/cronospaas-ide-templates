@@ -13,8 +13,10 @@ import ${daoPackage}.${subPackage}.*;
 import ${entityPackage}.${subPackage}.*;
 </#if>
 <#list clazz.subPackageToImport as subPackageToImport>
+<#if subPackage?? && subPackageToImport != subPackage >
 import ${daoPackage}.${subPackageToImport}.*;
 import ${entityPackage}.${subPackageToImport}.*;
+</#if>
 </#list>
 
 <#assign isExistsEncrypt = false>
