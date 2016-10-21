@@ -4,8 +4,8 @@
    "components":[
       {
          "name":"crn-div-vertical",
-         "text":"Div Vertical",
-         "class":"cpn cpn-horizontal-grid",
+         "text":"Grid Vertical",
+         "class":"cpn cpn-vertical-grid",
          "templateURL":"src/main/mobileapp/www/components/templates/div.vertical.template.html",
          "properties":{
             "onclick":{
@@ -15,8 +15,8 @@
       },
       {
          "name":"crn-div-horizontal",
-         "text":"Div Horizontal",
-         "class":"cpn cpn-vertical-grid",
+         "text":"Grid Horizontal",
+         "class":"cpn cpn-horizontal-grid",
          "templateURL":"src/main/mobileapp/www/components/templates/div.horizontal.template.html",
          "properties":{
             "onclick":{
@@ -222,7 +222,7 @@
          "name":"crn-image",
          "text":"Image",
          "class":"cpn cpn-image",
-         "template":"<img ng-src=\"http://placehold.it/50x50\" class=\"\" width=\"50\" height=\"50\" />",
+         "template":"<img src=\"img/nophoto.png\" class=\"\" width=\"50\" height=\"50\" />",
          "properties":{
             "src":{
                "removable":false,
