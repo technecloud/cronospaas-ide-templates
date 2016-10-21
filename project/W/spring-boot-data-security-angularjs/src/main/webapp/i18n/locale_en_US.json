@@ -86,5 +86,7 @@
   "Theme": "Theme",
   "Home.view.themeChanged": "Changed theme!",
   "Name": "Name",
-  "Description": "Description"
+  "Description": "Description",
+  "Add": "Add",
+  "Save": "Save"
 }
