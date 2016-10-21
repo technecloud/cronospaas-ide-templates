@@ -17,28 +17,29 @@
       </ion-header-bar> 
       <ion-content data-container="true"> 
         <ion-list> 
-          <div class="item item-divider"> 
-            <i class="icon ion-ios-person"></i> &nbsp; {{session.name}} 
+          <!-- Menu --> 
+          <div class="component-holder" data-component="crn-navbar" id="crn-navbar-986427"> 
+            <div class="nav navbar-nav"> 
+              <div class="item item-divider"> 
+                <i class="icon ion-ios-person"></i> &nbsp; {{session.name}} 
+              </div> 
+              <div menu-close="" class="item-icon-left item item-complex"> 
+                <a class="component-holder item-content ng-binding" href="#/home/app" data-component="crn-anchor"> <i class="icon ion-home"></i>{{"Home.view.Home" | translate}}</a> 
+              </div> 
+              <div class="item item-divider"></div> 
+              <div menu-close="" class="item-icon-left item item-complex"> 
+                <a class="component-holder item-content ng-binding" href="#/home/app" data-component="crn-anchor">Menu</a> 
+              </div> 
+              <div class="item item-divider"></div> 
+              <div menu-close="" class="item-icon-left item item-complex"> 
+                <a class="item-content ng-binding" ng-click="openChangePassword()"> <i class="icon ion-lock-combination"></i>{{"Home.view.ChangePassword" | translate}}</a> 
+              </div> 
+              <div menu-close="" class="item-icon-left item item-complex"> 
+                <a class="item-content ng-binding" ng-click="logout()"> <i class="icon icon ion-arrow-left-a"></i>{{"Home.view.Sair" | translate}}</a> 
+              </div> 
+            </div> 
           </div> 
-          <div menu-close class="item-icon-left item item-complex"> 
-            <a class="item-content ng-binding" ng-href="#/home/app"> <i class="icon ion-home"></i>{{"Home.view.Home" | translate}}</a> 
-          </div> 
-          <div class="item item-divider"></div> 
-          <div ng-repeat="group in groups" class=""> 
-              <ion-item class="item-stable" ng-click="toggleGroup(group)" ng-class="{active: isGroupShown(group)}"> 
-                <i class="icon" ng-class="isGroupShown(group) ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{group.name}} 
-              </ion-item> 
-              <ion-item class="item-accordion" ng-repeat="item in group.items" ng-show="isGroupShown(group)" menu-close> 
-                <a ng-href="{{item.url}}" class="item-content ng-binding" ng-click="toggleGroup(null)">{{item.name}}</a> 
-              </ion-item> 
-          </div>
-          <div class="item item-divider"></div> 
-          <div menu-close class="item-icon-left item item-complex"> 
-            <a class="item-content ng-binding" ng-click="openChangePassword()"> <i class="icon ion-lock-combination"></i>{{"Home.view.ChangePassword" | translate}}</a> 
-          </div> 
-          <div menu-close class="item-icon-left item item-complex"> 
-            <a class="item-content ng-binding" ng-click="logout()"> <i class="icon icon ion-arrow-left-a"></i>{{"Home.view.Sair" | translate}}</a> 
-          </div> 
+          <!-- Menu -->  
         </ion-list> 
       </ion-content> 
     </ion-side-menu> 
