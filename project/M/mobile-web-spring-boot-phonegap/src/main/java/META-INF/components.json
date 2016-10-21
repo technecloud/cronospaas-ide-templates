@@ -3,6 +3,60 @@
    "version":"1.0.0",
    "components":[
       {
+         "name":"crn-anchor",
+         "text":"Link",
+         "class":"cpn cpn-anchor",
+         "templateURL":"src/main/mobileapp/www/components/templates/anchor.template.html",
+         "properties":{
+            "onclick":{
+               "type":"event"
+            },
+            "target":{
+               "removable":false,
+               "type":"list",
+               "options":[
+                  {
+                     "key":"_blank",
+                     "value":"Nova janela"
+                  },
+                  {
+                     "key":"_self",
+                     "value":"Mesma janela"
+                  },
+                  {
+                     "key":"_parent",
+                     "value":"Janela pai"
+                  },
+                  {
+                     "key":"_top",
+                     "value":"Top"
+                  }
+               ]
+            },
+            "href":{
+               "removable":false,
+               "type":"projectResource",
+               "resourceType":"text/html"
+            }
+         }
+      },
+      {
+          "name":"crn-navbar",
+          "text":"MenuItem",
+          "class":"cpn cpn-navbar",
+          "template":"",
+          "pallete":false,
+          "handleRules":{
+          "canIncrement":true,
+          "rules":[
+              {
+                  "sourceHTML":"<div menu-close class=\"item-icon-left item item-complex\"><a href=\"#\" class=\"component-holder item-content ng-binding\" data-component=\"crn-anchor\">Action item</a></div> ",
+                  "targetSelector":".nav.navbar-nav"
+              }
+          ]
+          }
+      },
+      {
          "name":"crn-div-vertical",
          "text":"Grid Vertical",
          "class":"cpn cpn-vertical-grid",
