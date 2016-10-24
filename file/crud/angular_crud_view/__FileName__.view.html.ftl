@@ -100,6 +100,105 @@
         </div>
   <#elseif field.isNumber() >
         <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
+  <#elseif field.isOneToN() >
+      
+      
+      <!-- INICIO --> 
+        <datasource name="${field.getName()}Grid" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="id" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill=""></datasource> 
+        
+        <button class="btn btn-primary" ng-show="${model.dataSourceName}.editing" onclick="$('#modal${field.getName()}Grid').modal('show');" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> <span class="">{{"Add" | translate}} ${field.getName()}</span> </button> 
+        <div data-component="crn-textinput" id="crn-textinput-descricao" ng-show="${model.dataSourceName}.editing"> 
+          <div class="form-group"> 
+            <label for="textinput-descricao" class="">${field.getName()}</label> 
+            <table class="table table-bordered table-hover table-striped"> 
+              <thead> 
+                <tr class="table-header"> 
+                  
+                  <#list field.getClazz().getFields() as gField>
+                  <th class=""> 
+                    <div class="">
+                       ${gField.getName()} 
+                    </div> </th> 
+                  </#list>
+                  <th class=""> 
+                    <div class="">
+                       {{"template.crud.actions" | translate}} 
+                    </div> </th> 
+                </tr> 
+              </thead> 
+              <tbody> 
+                <tr class="table-content" ng-repeat="rowData in ${field.getName()}Grid.data"> 
+                  <#list field.getClazz().getFields() as gField>
+                  <td> 
+                    <div>
+                       <#if gField.isReverseRelation() >
+                        {{rowData.${gField.getName()}.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()} }}
+                       <#else>
+                        {{rowData.${gField.getDbFieldName()}}}
+                       </#if>
+                    </div> </td> 
+                  </#list>
+                  <td> 
+                    <div> 
+                      <button class="btn btn-default btn-sm" ng-click="${field.getName()}Grid.remove(rowData)"><i class="fa fa-times"></i></button> 
+                    </div> </td> 
+                </tr> 
+              </tbody> 
+            </table> 
+          </div> 
+        </div> 
+        <div class="modal fade" id="modal${field.getName()}Grid"> 
+          <div class="modal-dialog"> 
+            <div class="modal-content"> 
+              <div class="modal-header"> 
+                <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button> 
+                <h4 class="modal-title">${field.getName()}</h4> 
+              </div> 
+              <div class="modal-body"> 
+                <div class="text-danger wrapper text-center" ng-show="authError"> 
+                </div> 
+                <div class="list-group list-group-sm">
+                  <#list field.getClazz().getFields() as gField>
+                    <#if gField.isReverseRelation() >
+                      <#if (gField.getRelationClazz().getName() != model.dataSourceName) >
+                        <div data-component="crn-textinput" id="crn-textinput-teste3"> 
+                          <div class="form-group"> 
+                            <label for="textinput-${gField.getName()}" class="">${gField.getName()}</label> 
+                            <datasource name="${gField.getName()}" entity="${gField.getRelationClazz().getRestPath()}/${gField.getRelationClazz().getName()}" keys="id" class=""></datasource> 
+                            <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}" class="crn-select" id="textinput-${gField.getName()}"> 
+                              <ui-select-match class="">
+                                 {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}} 
+                              </ui-select-match> 
+                              <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
+                                <div class="" data-container="true">
+                                   {{rowData.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}} 
+                                </div> 
+                              </ui-select-choices> 
+                            </ui-select> 
+                          </div> 
+                        </div>
+                      </#if>
+                    <#elseif (!gField.isPrimaryKey())>
+                      <div data-component="crn-textinput" id="crn-textinput-categoria"> 
+                        <div class="form-group"> 
+                          <label for="textinput-${gField.getDbFieldName()}">${gField.getName()}</label> 
+                          <input type="text" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="${gField.getDbFieldName()}" required> 
+                        </div> 
+                      </div> 
+                    </#if>
+                  </#list>
+                   
+                </div> 
+              </div> 
+              <div class="modal-footer"> 
+                <button class="btn btn-primary" ng-click="${field.getName()}Grid.post();" onclick="(!${field.getName()}Grid.missingRequiredField()?$('#modal${field.getName()}Grid').modal('hide'):void(0))">{{'Save' | translate}}</button> 
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{'Home.view.Close' | translate}}</button> 
+              </div> 
+            </div> 
+          </div> 
+        </div> 
+        <!-- FIM--> 
+  
   <#elseif field.getProperty("ngOptions")?? >
 
         <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource> 
