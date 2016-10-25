@@ -103,7 +103,6 @@
   <#elseif field.isOneToN() >
       
       
-      <!-- INICIO --> 
         <datasource name="${field.getName()}Grid" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="id" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill=""></datasource> 
         
         <button class="btn btn-primary" ng-show="${model.dataSourceName}.editing" onclick="$('#modal${field.getName()}Grid').modal('show');" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> <span class="">{{"Add" | translate}} ${field.getName()}</span> </button> 
@@ -117,7 +116,7 @@
                   <#list field.getClazz().getFields() as gField>
                   <th class=""> 
                     <div class="">
-                       ${gField.getName()} 
+                       <#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>
                     </div> </th> 
                   </#list>
                   <th class=""> 
@@ -163,9 +162,10 @@
                       <#if (gField.getRelationClazz().getName() != model.dataSourceName) >
                         <div data-component="crn-textinput" id="crn-textinput-teste3"> 
                           <div class="form-group"> 
-                            <label for="textinput-${gField.getName()}" class="">${gField.getName()}</label> 
-                            <datasource name="${gField.getName()}" entity="${gField.getRelationClazz().getRestPath()}/${gField.getRelationClazz().getName()}" keys="id" class=""></datasource> 
-                            <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}" class="crn-select" id="textinput-${gField.getName()}"> 
+                            <label for="textinput-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if></label> 
+                            <datasource name="${gField.getName()}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing}}" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill=""></datasource> 
+                            
+                            <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="textinput-${gField.getName()}"> 
                               <ui-select-match class="">
                                  {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}} 
                               </ui-select-match> 
@@ -179,10 +179,31 @@
                         </div>
                       </#if>
                     <#elseif (!gField.isPrimaryKey())>
-                      <div data-component="crn-textinput" id="crn-textinput-categoria"> 
+                    
+                      
+                      <div data-component="crn-textinput" id="crn-textinput-${gField.getDbFieldName()}"> 
                         <div class="form-group"> 
-                          <label for="textinput-${gField.getDbFieldName()}">${gField.getName()}</label> 
-                          <input type="text" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="${gField.getDbFieldName()}" required> 
+                          <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if></label> 
+                          
+                          <#if gField.isBoolean() >
+                              <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}"  id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>> 
+                          <#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
+                              <div style="position:relative">
+                                <input type="text" as-date 
+                                  <#if gField.isDate() >
+                                  format="DD/MM/YYYY"
+                                  <#elseif gField.isTime()>
+                                  format="HH:mm:ss"
+                                  <#elseif gField.isTimestamp()>
+                                  format="DD/MM/YYYY HH:mm:ss"
+                                  </#if>
+                                ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                              </div>
+                          <#elseif gField.isNumber() >
+                              <input type="number" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>> 
+                          <#else>
+                              <input type="text" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                          </#if>
                         </div> 
                       </div> 
                     </#if>
@@ -197,7 +218,7 @@
             </div> 
           </div> 
         </div> 
-        <!-- FIM--> 
+  
   
   <#elseif field.getProperty("ngOptions")?? >
 
