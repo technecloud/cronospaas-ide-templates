@@ -82,8 +82,11 @@
         <#list model.formFields as field>
         <div data-component="crn-textinput" id="crn-textinput-${field.name}"> 
           <div class="form-group"> 
+          
+          <#if !field.isOneToN() >
             <label for="textinput-${field.name}" class="">${model.formMapLabels[field.name]!}</label> 
-
+          </#if>
+        
   <#if field.isBoolean() >
         <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
   <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
