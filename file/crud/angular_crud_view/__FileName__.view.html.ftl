@@ -80,10 +80,11 @@
       </div> 
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
         <#list model.formFields as field>
+        
         <div data-component="crn-textinput" id="crn-textinput-${field.name}"> 
           <div class="form-group"> 
           
-          <#if !field.isOneToN() >
+          <#if !field.isOneToN() && !field.isNToN() >
             <label for="textinput-${field.name}" class="">${model.formMapLabels[field.name]!}</label> 
           </#if>
         
@@ -119,7 +120,7 @@
                   <#list field.getClazz().getFields() as gField>
                   <th class=""> 
                     <div class="">
-                       <#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>
+                       <#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>
                     </div> </th> 
                   </#list>
                   <th class=""> 
@@ -165,7 +166,7 @@
                       <#if (gField.getRelationClazz().getName() != model.dataSourceName) >
                         <div data-component="crn-textinput" id="crn-textinput-teste3"> 
                           <div class="form-group"> 
-                            <label for="textinput-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if></label> 
+                            <label for="textinput-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label> 
                             <datasource name="${gField.getName()}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing}}" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill=""></datasource> 
                             
                             <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="textinput-${gField.getName()}"> 
@@ -186,10 +187,10 @@
                       
                       <div data-component="crn-textinput" id="crn-textinput-${gField.getDbFieldName()}"> 
                         <div class="form-group"> 
-                          <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if></label> 
+                          <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label> 
                           
                           <#if gField.isBoolean() >
-                              <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}"  id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>> 
+                              <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}"  id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>> 
                           <#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
                               <div style="position:relative">
                                 <input type="text" as-date 
@@ -200,12 +201,12 @@
                                   <#elseif gField.isTimestamp()>
                                   format="DD/MM/YYYY HH:mm:ss"
                                   </#if>
-                                ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                                ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                               </div>
                           <#elseif gField.isNumber() >
-                              <input type="number" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>> 
+                              <input type="number" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>> 
                           <#else>
-                              <input type="text" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                              <input type="text" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                           </#if>
                         </div> 
                       </div> 
@@ -221,7 +222,68 @@
             </div> 
           </div> 
         </div> 
-  
+  <#elseif field.isNToN() >
+      <datasource append="false" name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
+      <datasource name="All${field.getName()}" entity="${model.getDataSourceOfEntity(field.getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
+      
+      <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
+        <div class="form-group" ng-show="datasource.editing">
+          <label for="select-ui">${field.getName()}</label> 
+          <div id="select-ui" data-component="crn-tags"> 
+            <ui-select multiple crn-datasource="All${field.getName()}" ng-model="${field.getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
+              <ui-select-match placeholder="${field.getName()}...">
+                 {{$item.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }} 
+              </ui-select-match> 
+              <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
+                <div class="" data-container="true" draggable="true">
+                   {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}} 
+                </div> 
+              </ui-select-choices> 
+            </ui-select> 
+          </div>
+        </div>
+      <#else>
+        <div class="form-group" ng-show="datasource.editing"> 
+          <label for="select-ui">${field.getName()}</label> 
+          <div class="row" > 
+            <div class="col-md-6"> 
+              <div id="select-ui" data-component="crn-tags"> 
+                <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
+                  <ui-select-match placeholder="${field.getName()}...">
+                     {{$select.selected.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }} 
+                  </ui-select-match> 
+                  <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
+                    <div class="" data-container="true" draggable="true">
+                       {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}} 
+                    </div> 
+                  </ui-select-choices> 
+                </ui-select> 
+              </div> 
+            </div> 
+            <div class="col-md-6"> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="${field.getName()}.insert(All${field.getName()}.active); ${field.getName()}.data.push(All${field.getName()}.active);"><i class="fa fa-plus"></i></button> 
+            </div> 
+          </div> 
+        </div> 
+        <div class="form-group" ng-show="datasource.editing"> 
+          <table class="table table-bordered table-hover table-striped"> 
+            <tbody> 
+              <tr class="table-content" ng-repeat="rowData in ${field.getName()}.data"> 
+                <td class=""> 
+                  <div class="">
+                     {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}} 
+                  </div> 
+                </td> 
+                <td class=""> 
+                  <div class=""> 
+                    <button class="btn btn-default btn-sm" type="submit" ng-click="${field.getName()}.remove(rowData)"><i class="fa fa-times"></i></button> 
+                  </div>
+                </td> 
+              </tr> 
+            </tbody> 
+          </table> 
+        </div>
+      </#if>
   
   <#elseif field.getProperty("ngOptions")?? >
 
@@ -242,73 +304,6 @@
 
           </div> 
         </div> 
-    </#list>
-    
-    <#list model.clazz.getManyToManyRelation() as man>
-      
-      
-      <datasource append="false" name="${man.getRelationClass().getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${man.getRelationClass().getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
-      <datasource name="All${man.getRelationClass().getName()}" entity="${model.getDataSourceOfEntity(man.getRelationClass().getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
-      
-      <#if model.isNToNOptionList()>
-        <div class="form-group" ng-show="datasource.editing">
-          <label for="select-ui">${model.transformToLowerCase(man.getRelationClass().getName())}</label> 
-          <div id="select-ui" data-component="crn-tags"> 
-            <ui-select multiple crn-datasource="All${man.getRelationClass().getName()}" ng-model="${man.getRelationClass().getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
-              <ui-select-match placeholder="${model.transformToLowerCase(man.getRelationClass().getName())}...">
-                 {{$item.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())} }} 
-              </ui-select-match> 
-              <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
-                <div class="" data-container="true" draggable="true">
-                   {{rowData.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())}}} 
-                </div> 
-              </ui-select-choices> 
-            </ui-select> 
-          </div>
-        </div>
-      <#else>
-        <div class="form-group" ng-show="datasource.editing"> 
-          <label for="select-ui">${model.transformToLowerCase(man.getRelationClass().getName())}</label> 
-          <div class="row" > 
-            <div class="col-md-6"> 
-              <div id="select-ui" data-component="crn-tags"> 
-                <ui-select crn-datasource="All${man.getRelationClass().getName()}" ng-model="All${man.getRelationClass().getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
-                  <ui-select-match placeholder="${model.transformToLowerCase(man.getRelationClass().getName())}...">
-                     {{$select.selected.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())} }} 
-                  </ui-select-match> 
-                  <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class=""> 
-                    <div class="" data-container="true" draggable="true">
-                       {{rowData.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())}}} 
-                    </div> 
-                  </ui-select-choices> 
-                </ui-select> 
-              </div> 
-            </div> 
-            <div class="col-md-6"> 
-              <button class="btn btn-default btn-sm" type="submit" ng-click="${man.getRelationClass().getName()}.insert(All${man.getRelationClass().getName()}.active); ${man.getRelationClass().getName()}.data.push(All${man.getRelationClass().getName()}.active);"><i class="fa fa-plus"></i></button> 
-            </div> 
-          </div> 
-        </div> 
-        <div class="form-group" ng-show="datasource.editing"> 
-          <table class="table table-bordered table-hover table-striped"> 
-            <tbody> 
-              <tr class="table-content" ng-repeat="rowData in ${man.getRelationClass().getName()}.data"> 
-                <td class=""> 
-                  <div class="">
-                     {{rowData.${model.getFirstTextFieldOfManyToManyRelation(man.getRelationClass().getName())}}} 
-                  </div> 
-                </td> 
-                <td class=""> 
-                  <div class=""> 
-                    <button class="btn btn-default btn-sm" type="submit" ng-click="${man.getRelationClass().getName()}.remove(rowData)"><i class="fa fa-times"></i></button> 
-                  </div>
-                </td> 
-              </tr> 
-            </tbody> 
-          </table> 
-        </div>
-      </#if>
-       
     </#list>
     
       </fieldset> 
