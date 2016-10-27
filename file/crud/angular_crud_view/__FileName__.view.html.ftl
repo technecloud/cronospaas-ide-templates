@@ -226,7 +226,7 @@
       <datasource append="false" name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
       <datasource name="All${field.getName()}" entity="${model.getDataSourceOfEntity(field.getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
       
-      <#if field.getProperty("NToNOption") == "Lista">
+      <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
         <div class="form-group" ng-show="datasource.editing">
           <label for="select-ui">${field.getName()}</label> 
           <div id="select-ui" data-component="crn-tags"> 
