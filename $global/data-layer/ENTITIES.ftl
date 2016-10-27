@@ -41,9 +41,11 @@ public class ${clazz.name} implements Serializable {
 	private static final long serialVersionUID = ${clazz.randomSerialVersionUID};
 	
 	<#list clazz.fields as field>
+	<#if !field.isNToN() && !field.isOneToN()>
 	/**
 	 * @generated
 	 */
+	</#if>
 	<#if field.primaryKey>
 	@Id
     <#if field.generationType?? && field.generationType == "Identity"><#if persistenceProvider == "mysql">@GeneratedValue(strategy = GenerationType.AUTO)<#else>@GeneratedValue(strategy = GenerationType.IDENTITY)</#if></#if>
@@ -51,7 +53,7 @@ public class ${clazz.name} implements Serializable {
 	
 	<#if field.relation>	
 	@OneToOne	
-	<#elseif field.reverseRelation>	
+	<#elseif field.reverseRelation && !field.isNToN() && !field.isOneToN()>	
 	@ManyToOne
 	</#if>
 	<#if field.isDate() >
@@ -61,11 +63,11 @@ public class ${clazz.name} implements Serializable {
 	<#elseif field.isTimestamp() >
 	@Temporal(TemporalType.TIMESTAMP)
 	</#if>	
-	<#if (field.relationNames?size == 1)>
+	<#if (field.relationNames?size == 1) && !field.isNToN() && !field.isOneToN()>
 	<#list field.relationNames?keys as key>
 	<#if key??>@JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})</#if>
 	</#list>
-	<#elseif (field.relationNames?size > 1)>
+	<#elseif (field.relationNames?size > 1) && !field.isNToN() && !field.isOneToN()>
 	<#assign i= field.relationNames?size>	
 	@JoinColumns({
 	<#list field.relationNames?keys as key>
@@ -78,10 +80,13 @@ public class ${clazz.name} implements Serializable {
 	<#elseif field.transient>
   @Transient
 	<#else>
+	<#if !field.isNToN() && !field.isOneToN()>
 	@Column(name = "${field.dbFieldName?lower_case}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
-  </#if>  	
+  </#if>
+  </#if>
+  <#if !field.isNToN() && !field.isOneToN()>  	
 	${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
-	
+	</#if>
 	</#list>
 	
 	/**
@@ -92,6 +97,7 @@ public class ${clazz.name} implements Serializable {
 	}
 
 	<#list clazz.fields as field>
+	<#if !field.isNToN() && !field.isOneToN()>
 	
 	/**
 	 * Obtém ${field.name}
@@ -111,6 +117,7 @@ public class ${clazz.name} implements Serializable {
 	public void set${field.name?cap_first}(${field.type} ${field.name}){
 		this.${field.name} = ${field.name};
 	}
+	</#if>
 	</#list>
 	
 	/**
