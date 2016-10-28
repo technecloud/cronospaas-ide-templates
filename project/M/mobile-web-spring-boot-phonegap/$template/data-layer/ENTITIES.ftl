@@ -68,7 +68,7 @@ public class ${clazz.name} implements Serializable {
     <#if field.generationType?? && field.generationType == "Identity"><#if persistenceProvider == "mysql">@GeneratedValue(strategy = GenerationType.AUTO)<#else>@GeneratedValue(strategy = GenerationType.IDENTITY)</#if></#if>
   </#if>  
   <#if field.relation>  
-  @OneToOne 
+  @OneToOne
   <#elseif field.reverseRelation && !field.isNToN() && !field.isOneToN()> 
   @ManyToOne
   </#if>
