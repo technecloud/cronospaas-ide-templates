@@ -56,7 +56,7 @@ import ${entityPackage}.${subPackageToImport}.*;
  * @generated
  **/
 @RestController
-@RequestMapping(value = "${request_mapping_value}")
+@RequestMapping(value = "${request_mapping_value?trim}")
 public class ${class_name} {
 
     /**
