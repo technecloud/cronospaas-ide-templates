@@ -118,20 +118,24 @@
                 <tr class="table-header"> 
                   
                   <#list field.getClazz().getFields() as gField>
+                  <#if !gField.isPrimaryKey() && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case)) >
                   <th class=""> 
                     <div class="">
                        <#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>
                     </div> </th> 
+                  </#if>
                   </#list>
                   <th class=""> 
                     <div class="">
                        {{"template.crud.actions" | translate}} 
                     </div> </th> 
+                    
                 </tr> 
               </thead> 
               <tbody> 
                 <tr class="table-content" ng-repeat="rowData in ${field.getName()}Grid.data"> 
                   <#list field.getClazz().getFields() as gField>
+                  <#if !gField.isPrimaryKey() && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case))>
                   <td> 
                     <div>
                        <#if gField.isReverseRelation() >
@@ -140,6 +144,7 @@
                         {{rowData.${gField.getDbFieldName()}}}
                        </#if>
                     </div> </td> 
+                  </#if>
                   </#list>
                   <td> 
                     <div> 
@@ -206,7 +211,7 @@
                           <#elseif gField.isNumber() >
                               <input type="number" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>> 
                           <#else>
-                              <input type="text" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                              <input type="<#if gField.isEncryption()>password<#else>text</#if>" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapMasks[gField.name]?has_content>mask="${model.formMapMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
                           </#if>
                         </div> 
                       </div> 
