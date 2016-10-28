@@ -2,7 +2,9 @@ import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.context.web.*;
 import org.springframework.context.annotation.*;
-
+<#if withoutH2>
+import org.springframework.boot.autoconfigure.jdbc.*;
+</#if>
 /**
  * Classe responsável iniciar a aplicação, por padrão ela executará as seguintes etapas:
  *  - Criar uma instância do ApplicationContext
