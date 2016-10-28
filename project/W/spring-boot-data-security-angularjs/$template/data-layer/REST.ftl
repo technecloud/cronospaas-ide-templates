@@ -26,7 +26,7 @@ import ${entityPackage}.${subPackageToImport}.*;
 
 </#list>
 
-<#assign class_name = "${clazz.name}REST">
+<#assign class_name = "${clazz.name}EventREST">
 <#assign class_entity_name = "${clazz.name}">
 <#assign class_business_name = "${clazz.name}Business">
 <#assign class_business_variable_name = "${clazz.name?uncap_first}Business">
@@ -56,7 +56,7 @@ import ${entityPackage}.${subPackageToImport}.*;
  * @generated
  **/
 @RestController
-@RequestMapping(value = "${request_mapping_value}")
+@RequestMapping(value = "${request_mapping_value?trim}")
 public class ${class_name} {
 
     /**
