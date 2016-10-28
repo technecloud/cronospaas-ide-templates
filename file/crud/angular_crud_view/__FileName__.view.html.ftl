@@ -13,7 +13,7 @@
 <div data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick="" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button> 
 </div> 
-<div data-component="crn-grid" id="crn-grid-${model.dataSourceName}"> 
+<div class="component-holder" data-component="crn-grid" id="crn-grid-${model.dataSourceName}"> 
   <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting"> 
     <table class="table  table-bordered table-hover table-striped"> 
       <thead> 
@@ -113,47 +113,49 @@
         <div data-component="crn-textinput" id="crn-textinput-descricao" ng-show="${model.dataSourceName}.editing"> 
           <div class="form-group"> 
             <label for="textinput-descricao" class="">${field.getName()}</label> 
-            <table class="table table-bordered table-hover table-striped"> 
-              <thead> 
-                <tr class="table-header"> 
-                  
-                  <#list field.getClazz().getFields() as gField>
-                  <#if !gField.isPrimaryKey() && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case)) >
-                  <th class=""> 
-                    <div class="">
-                       <#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>
-                    </div> </th> 
-                  </#if>
-                  </#list>
-                  <th class=""> 
-                    <div class="">
-                       {{"template.crud.actions" | translate}} 
-                    </div> </th> 
+            <div class="component-holder" data-component="crn-grid" id="crn-grid-${field.getName()}Grid"> 
+              <table class="table table-bordered table-hover table-striped"> 
+                <thead> 
+                  <tr class="table-header"> 
                     
-                </tr> 
-              </thead> 
-              <tbody> 
-                <tr class="table-content" ng-repeat="rowData in ${field.getName()}Grid.data"> 
-                  <#list field.getClazz().getFields() as gField>
-                  <#if !gField.isPrimaryKey() && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case))>
-                  <td> 
-                    <div>
-                       <#if gField.isReverseRelation() >
-                        {{rowData.${gField.getName()}.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()} }}
-                       <#else>
-                        {{rowData.${gField.getDbFieldName()}}}
-                       </#if>
-                    </div> </td> 
-                  </#if>
-                  </#list>
-                  <td> 
-                    <div> 
-                      <button class="btn btn-default btn-sm" ng-click="${field.getName()}Grid.remove(rowData)"><i class="fa fa-times"></i></button> 
-                    </div> </td> 
-                </tr> 
-              </tbody> 
-            </table> 
-          </div> 
+                    <#list field.getClazz().getFields() as gField>
+                    <#if !gField.isPrimaryKey() && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case)) >
+                    <th class=""> 
+                      <div class="">
+                         <#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>
+                      </div> </th> 
+                    </#if>
+                    </#list>
+                    <th class=""> 
+                      <div class="">
+                         {{"template.crud.actions" | translate}} 
+                      </div> </th> 
+                      
+                  </tr> 
+                </thead> 
+                <tbody> 
+                  <tr class="table-content" ng-repeat="rowData in ${field.getName()}Grid.data"> 
+                    <#list field.getClazz().getFields() as gField>
+                    <#if !gField.isPrimaryKey() && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case))>
+                    <td> 
+                      <div>
+                         <#if gField.isReverseRelation() >
+                          {{rowData.${gField.getName()}.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()} }}
+                         <#else>
+                          {{rowData.${gField.getDbFieldName()}}}
+                         </#if>
+                      </div> </td> 
+                    </#if>
+                    </#list>
+                    <td> 
+                      <div> 
+                        <button class="btn btn-default btn-sm" ng-click="${field.getName()}Grid.remove(rowData)"><i class="fa fa-times"></i></button> 
+                      </div> </td> 
+                  </tr> 
+                </tbody> 
+              </table>
+            </div>
+          </div>
         </div> 
         <div class="modal fade" id="modal${field.getName()}Grid"> 
           <div class="modal-dialog"> 
@@ -271,22 +273,24 @@
           </div> 
         </div> 
         <div class="form-group" ng-show="datasource.editing"> 
-          <table class="table table-bordered table-hover table-striped"> 
-            <tbody> 
-              <tr class="table-content" ng-repeat="rowData in ${field.getName()}.data"> 
-                <td class=""> 
-                  <div class="">
-                     {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}} 
-                  </div> 
-                </td> 
-                <td class=""> 
-                  <div class=""> 
-                    <button class="btn btn-default btn-sm" type="submit" ng-click="${field.getName()}.remove(rowData)"><i class="fa fa-times"></i></button> 
-                  </div>
-                </td> 
-              </tr> 
-            </tbody> 
-          </table> 
+          <div class="component-holder" data-component="crn-grid" id="crn-grid-All${field.getName()}"> 
+            <table class="table table-bordered table-hover table-striped"> 
+              <tbody> 
+                <tr class="table-content" ng-repeat="rowData in ${field.getName()}.data"> 
+                  <td class=""> 
+                    <div class="">
+                       {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}} 
+                    </div> 
+                  </td> 
+                  <td class=""> 
+                    <div class=""> 
+                      <button class="btn btn-default btn-sm" type="submit" ng-click="${field.getName()}.remove(rowData)"><i class="fa fa-times"></i></button> 
+                    </div>
+                  </td> 
+                </tr> 
+              </tbody> 
+            </table> 
+          </div>
         </div>
       </#if>
   
