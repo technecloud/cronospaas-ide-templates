@@ -175,8 +175,8 @@
                           <div class="form-group"> 
                             <label for="textinput-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label> 
                             <datasource name="${gField.getName()}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing}}" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill=""></datasource> 
-                            
-                            <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="textinput-${gField.getName()}"> 
+                            <input type="text" style="border: 0px; width: 1px;" required="required" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" onkeypress="this.value='';this.disabled=1;setTimeout(function() { document.getElementById('${field.getName()}Grid.active.${gField.getName()}').disabled=0;  },100);" onfocus="setTimeout(function() {$(document.getElementById('${field.getName()}Grid.active.${gField.getName()}')).blur();  },1000);" />
+                            <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="textinput-${gField.getName()}" required="required" > 
                               <ui-select-match class="">
                                  {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}} 
                               </ui-select-match> 
