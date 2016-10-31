@@ -16,15 +16,6 @@
     <build>
         <resources>
             <resource>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <resource>
                 <directory>src/main/java</directory>
             </resource>
         </resources>
@@ -43,7 +34,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
-                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <warSourceDirectory>src/main/mobileapp/www</warSourceDirectory>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
@@ -121,14 +112,27 @@
             <artifactId>spring-hateoas</artifactId>
             <version>0.20.0.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.mobile</groupId>
+            <artifactId>spring-mobile-device</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.0</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.cronospass.resource mimetype="folder/src">src/test/java</project.cronospass.resource>
-        <project.cronospass.resource mimetype="folder/src">src/main/java</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/web">src/main/mobileapp/www</project.cronospass.resource>
-        <project.cronospass.resource mimetype="folder/servercontext">config</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/libs">lib</project.cronospass.resource>
+        <project.cronospass.resource mimetype="folder/src">src/main/java</project.cronospass.resource>
+        <project.cronospass.resource mimetype="folder/servercontext">config</project.cronospass.resource>
     </properties>
 </project>

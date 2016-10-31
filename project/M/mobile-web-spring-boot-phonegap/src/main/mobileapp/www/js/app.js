@@ -26,7 +26,9 @@ var app = (function() {
         $ionicPlatform.ready(function() {
             // Remove splash screen
             setTimeout(function() {
+              if (navigator.splashscreen) {
                 navigator.splashscreen.hide();
+              }
             }, 100);
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -43,7 +45,26 @@ var app = (function() {
             }
         });
     })
-
+    // .factory('TokenAuthInterceptor', function($q, TokenStorage) {
+    // 	return {
+    // 		request: function(config) {
+    // 			var authToken = TokenStorage.retrieve();
+    // 			if (authToken) {
+    // 				config.headers['X-AUTH-TOKEN'] = authToken;
+    // 			}
+    // 			return config;
+    // 		},
+    // 		responseError: function(error) {
+    // 			if (error.status === 401 || error.status === 403) {
+    // 				TokenStorage.clear();
+    // 			}
+    // 			return $q.reject(error);
+    // 		}
+    // 	};
+    // })
+    // .config(function($httpProvider) {
+    // 	$httpProvider.interceptors.push('TokenAuthInterceptor');
+    // })
     .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $ionicConfigProvider.navBar.alignTitle('center')
     })
