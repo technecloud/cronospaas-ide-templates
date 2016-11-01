@@ -1,4 +1,4 @@
-<ion-view cache-view="false" view-title="${model.dataSourceName}"> 
+<ion-view cache-view="false" view-title="${model.dataSourceName}" hide-back-button="true"> 
   <ion-nav-buttons side="right"> 
     <button class="button button-stable" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.startInserting()"> <i class="icon ion-plus-round"></i> </button> 
     <button class="button button-stable" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.post()"> <i class="icon ion-checkmark"></i> </button> 
@@ -95,7 +95,6 @@
 				<input type="text" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
 			</label> 
 			</#if>
-			<!-- ${field.name} end -->
 			</#list>
           </div> 
         </fieldset> 

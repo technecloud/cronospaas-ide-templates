@@ -13,10 +13,9 @@
     '$timeout',
     '$stateParams',
     function($scope, $http, $location, $rootScope, $window, $state, $translate, Notification, $ionicLoading, $timeout, $stateParams) {
-
+        
         $scope.user = {};
         $scope.message = {};
-
 
         $scope.login = function() {
 
@@ -28,15 +27,16 @@
             showDelay : 0
           });
 
-          $scope.message.error = undefined;
 
+          $scope.message.error = undefined;
+          
           if(window.hostApp) {
             $http({
               method : 'POST',
               url : window.hostApp + 'auth',
-              data : serializeData($scope.user),
+              data : $scope.user,
               headers : {
-                'Content-Type' : 'application/x-www-form-urlencoded'
+                'Content-Type' : 'application/json'
               }
             }).success(handleSuccess).error(handleError);
 
@@ -53,19 +53,17 @@
         }
 
         function handleSuccess(data, status, headers, config) {
-
           // Store data response on session storage
           // The session storage will be cleaned when the browser window is closed
           if(typeof (Storage) !== "undefined") {
             // save the user data on localStorage
-            sessionStorage.setItem("_u", JSON.stringify(data));
+            sessionStorage.setItem('_t', JSON.stringify(data));
           }
           else {
             // Sorry! No Web Storage support.
             // The home page may not work if it depends
             // on the logged user data
           }
-
           // Redirect to home page
           $state.go("home.app");
           window.location.reload();
@@ -80,30 +78,7 @@
 
           $ionicLoading.hide();
           Notification.error(error);
-        }
-
-        function serializeData(data) {
-          // If this is not an object, defer to native stringification.
-          if(!angular.isObject(data)) {
-            return ((data === null) ? "" : data.toString());
-          }
-
-          var buffer = [];
-
-          // Serialize each key in the object.
-          for( var name in data) {
-            if(!data.hasOwnProperty(name)) {
-              continue;
-            }
-
-            var value = data[name];
-
-            buffer.push(encodeURIComponent(name) + "=" + encodeURIComponent((value === null) ? "" : value));
-          }
-
-          // Serialize the buffer and clean it up for transportation.
-          var source = buffer.join("&").replace(/%20/g, "+");
-          return (source);
+          console.log(error);
         }
 
       } ]);
@@ -147,18 +122,23 @@
         }
 
         $scope.vibrate = function() {
-           $cordovaVibration.vibrate(1000);
+          try {
+             $cordovaVibration.vibrate(1000);   
+          } catch (err) {
+            console.log('cordovaVibration.vibrate');
+          }
         };
         
         // When access home page we have to check
         // if the user is authenticated and the userData
         // was saved on the browser's sessionStorage
-        $rootScope.session = (sessionStorage._u) ? JSON.parse(sessionStorage._u) : null;
+        $rootScope.session = (sessionStorage._t) ? JSON.parse(sessionStorage._t) : null;
+
         if(!$rootScope.session) {
           // If there isn't a user registered on the sessionStorage
           // we must send back to login page
           // TODO - REVISAR login oauth2
-          // $state.go("login");
+           $state.go("login");
         }
 
         // Menu
@@ -181,36 +161,15 @@
         };
 
         $rootScope.logout = function logout() {
-
-          $http({
-            method : 'GET',
-            url : 'logout',
-          }).then(handleSuccess, handleError)
-
           $rootScope.session = {};
+          if(typeof (Storage) !== "undefined") {
+            // save the user data on localStorage
+            sessionStorage.removeItem("_t");
+          }
           $state.go("login");
     			$timeout(function() {
     			  $state.reload();
     			},500);
-        }
-
-        function handleSuccess(data) {
-          // Before redirect to login page we
-          // have to clean the user data from the
-          // session storage
-          if(typeof (Storage) !== "undefined") {
-            // save the user data on localStorage
-            sessionStorage.removeItem("_u");
-          }
-          else {
-            // It's not working with sessionStorage
-          }
-
-          $state.go("login");
-        }
-
-        function handleError(error) {
-          $rootScope.session.error = error;
         }
 
         $scope.changePassword = function() {
