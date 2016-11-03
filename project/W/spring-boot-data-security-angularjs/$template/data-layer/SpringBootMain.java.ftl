@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.jdbc.*;
  *  - Atualizar o contexto de aplicação para carregar os singletons
  *  - Executar qualquer bean do tipo CommandLineRunner 
  * 
- *
+ * 
  */
 @ComponentScan(basePackages = {
 "auth.permission", "api.rest.events"<#list workspaceView.allDiagrams as diagram>, ${diagram.getGlobalAttribute("namespace")}</#list>

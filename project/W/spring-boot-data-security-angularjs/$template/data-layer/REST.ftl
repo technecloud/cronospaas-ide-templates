@@ -5,15 +5,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.*;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
-
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.*;
-
 import java.util.*;
-
 import ${entityPackage}.*;
 import ${bussinessPackage}.*;
-
 <#if subPackage??>
 import ${entityPackage}.${subPackage}.*;
 import ${bussinessPackage}.${subPackage}.*;
@@ -23,7 +19,6 @@ import ${bussinessPackage}.${subPackage}.*;
 import ${bussinessPackage}.${subPackageToImport}.*;
 import ${entityPackage}.${subPackageToImport}.*;
 </#if>
-
 </#list>
 
 <#assign class_name = "${clazz.name}REST">
@@ -47,12 +42,9 @@ import ${entityPackage}.${subPackageToImport}.*;
     <#assign field_pk_type = "${field.type}">
   </#if>
 </#list>
-
 /**
  * Controller para expor serviços REST de ${class_entity_name}
  * 
- * @author ${UserName}
- * @version 1.0
  * @generated
  **/
 @RestController

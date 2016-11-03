@@ -12,13 +12,9 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import auth.permission.SecurityPermission;
-
-
 /**
  * Classe que configura os beans para persistencia
- * 
- * @author Usuário de Teste
- *
+ * @generated
  */
 @Configuration
 @EnableTransactionManagement
@@ -27,7 +23,7 @@ import auth.permission.SecurityPermission;
         transactionManagerRef = "app-TransactionManager"
 )
 class AppConfiguration {
-  
+
     @Primary
 
     @Bean(name="app-EntityManagerFactory")

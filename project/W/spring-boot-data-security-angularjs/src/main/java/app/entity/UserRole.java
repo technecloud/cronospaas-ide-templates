@@ -1,13 +1,9 @@
 package app.entity;
-
 import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-
 
 /**
  * Classe que representa a tabela USERROLE
@@ -15,8 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "\"USERROLE\""
-
-
 )
 @XmlRootElement
 public class UserRole implements Serializable {
@@ -34,21 +28,18 @@ public class UserRole implements Serializable {
     
   @Column(name = "id", insertable=true, updatable=true)
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-  
   /**
    * @generated
    */
   @ManyToOne
   @JoinColumn(name="fk_user", referencedColumnName = "id", insertable=true, updatable=true)
   private User user;
-  
   /**
    * @generated
    */
   @ManyToOne
   @JoinColumn(name="fk_role", referencedColumnName = "id", insertable=true, updatable=true)
   private Role role;
-  
   
   /**
    * Construtor

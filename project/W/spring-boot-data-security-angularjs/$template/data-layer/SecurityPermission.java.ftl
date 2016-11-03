@@ -5,9 +5,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Classe que configura as permissões de acesso
- * 
- * @author Generated SecurityPermission
- *
+ * @generated
  */
 @Component
 public class SecurityPermission {
