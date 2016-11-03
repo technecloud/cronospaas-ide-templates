@@ -161,14 +161,14 @@
          "name":"crn-vertical-container",
          "text":"Vertical Grid",
          "class":"cpn cpn-vertical-grid",
-         "template":"<div class=\"crn-layout-container\" data-container=\"true\" draggable=\"true\"><div class=\"row\"><div class=\"\"><div data-container=\"true\">Content goes here</div></div></div><div class=\"row\"><div class=\"\"><div data-container=\"true\">Content goes here</div></div></div></div>",
+         "template":"<div class=\"crn-layout-container\" data-container=\"true\" draggable=\"true\"><div class=\"row\"><div class=\"\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div></div><div class=\"row\"><div class=\"\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div></div></div>",
          "handleRules":{
             "canOrder":false,
             "canActivate":false,
             "canIncrement":true,
             "rules":[
                {
-                  "sourceHTML":"<div class=\"row\"><div class=\"\"><div data-container=\"true\">Content goes here</div></div></div>",
+                  "sourceHTML":"<div class=\"row\"><div class=\"\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div></div>",
                   "targetSelector":"div.crn-layout-container"
                }
             ]
@@ -178,7 +178,7 @@
          "name":"crn-horizontal-container",
          "text":"Horizontal Grid",
          "class":"cpn cpn-horizontal-grid",
-         "template":"<div class=\"row\" data-container=\"true\" draggable=\"true\">\r\n        <div class=\"column col-md-4\"><div data-container=\"true\">Content goes here</div></div>\r\n        <div class=\"column col-md-4\"><div data-container=\"true\">Content goes here</div></div>\r\n      </div>",
+         "template":"<div class=\"row\" data-container=\"true\" draggable=\"true\">\r\n        <div class=\"column col-md-4\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div>\r\n        <div class=\"column col-md-4\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div>\r\n      </div>",
          "handleRules":{
             "canOrder":false,
             "canActivate":false,
