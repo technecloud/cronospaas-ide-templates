@@ -1,13 +1,9 @@
 package app.entity;
-
 import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-
 
 /**
  * Classe que representa a tabela ROLE
@@ -15,8 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "\"ROLE\""
-
-
 )
 @XmlRootElement
 public class Role implements Serializable {
@@ -32,7 +26,6 @@ public class Role implements Serializable {
    */
   @Column(name = "name", nullable = true, unique = false, insertable=true, updatable=true)
   private java.lang.String name;
-  
   /**
    * @generated
    */
@@ -40,7 +33,6 @@ public class Role implements Serializable {
     
   @Column(name = "id", insertable=true, updatable=true)
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-  
   
   /**
    * Construtor

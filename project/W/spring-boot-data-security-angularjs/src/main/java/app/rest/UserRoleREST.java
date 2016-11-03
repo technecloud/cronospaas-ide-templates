@@ -5,22 +5,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.*;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
-
 import org.springframework.http.*;
 import org.springframework.beans.factory.annotation.*;
-
 import java.util.*;
-
 import app.entity.*;
 import app.business.*;
-
-
 
 /**
  * Controller para expor serviços REST de UserRole
  * 
- * @author Usuário de Teste
- * @version 1.0
  * @generated
  **/
 @RestController
