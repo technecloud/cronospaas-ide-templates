@@ -33,6 +33,7 @@ angular.module('datasourcejs', [])
     this.onError = null;
     this.links = null;
     this.loadedFinish = null;
+    
 
     // Private members
     var cursor = 0;
@@ -46,6 +47,7 @@ angular.module('datasourcejs', [])
     
     var dependentBufferLazyPostData = null; //TRM
     var lastAction = null;//TRM
+    var dependentData = null; //TRM
     
     // Public methods
     /**
@@ -225,8 +227,10 @@ angular.module('datasourcejs', [])
     this.insert = function (obj, callback) {
       if(this.handleBeforeCallBack(this.onBeforeCreate)) {
         //Check if contains dependentBy, if contains, only store in data TRM
-        if(this.dependentLazyPost && Object.prototype.toString.call(this.dependentLazyPost) !== "[object String]"
-           && (this.dependentLazyPost.inserting || this.dependentLazyPost.editing) && this.dependentLazyPostField ){ //&& this.dependentByFieldRelation !== null
+        if(this.dependentLazyPost && this.dependentLazyPostField && (eval(this.dependentLazyPost).inserting ||  eval(this.dependentLazyPost).editing) ){ 
+          var random = Math.floor(Math.random() * 9999) + 1;
+          obj.tempBufferId = random;
+          
           if (callback) 
             callback(obj);
             
@@ -240,14 +244,98 @@ angular.module('datasourcejs', [])
       }
     };
     
+    //Public methods
+    /**
+    * Append a datasource to be notify when has a post or cancel
+    */ 
+    this.addDependentData = function(obj) {
+      this.dependentData = obj;
+    }
+    
+    
+    //TRM
+    this.storeAndResetDependentBuffer = function(action) {
+      var thisContextDataSet = this;
+      if (action == 'post' && thisContextDataSet.dependentBufferLazyPostData) {
+        
+        $(thisContextDataSet.dependentBufferLazyPostData).each(function() { 
+          this[thisContextDataSet.dependentLazyPostField] = eval(thisContextDataSet.dependentLazyPost).active;
+          
+          if (thisContextDataSet.entity.indexOf('//') > -1) {
+            var keyObj = getKeyValues(eval(thisContextDataSet.dependentLazyPost).active);
+            var suffixPath = '';
+            for(var key in keyObj) {
+              if(keyObj.hasOwnProperty(key)) {
+                suffixPath += '/' + keyObj[key];
+              }
+            }
+            suffixPath+='/';
+            thisContextDataSet.entity = thisContextDataSet.entity.replace('//',suffixPath);
+          }
+          
+          thisContextDataSet.insert(this);
+        });
+      }
+      else {
+        var indexObj = 0;
+        while (indexObj > -1) {
+          indexObj = -1;
+          for (var i=0; i<thisContextDataSet.data.length;i++) {
+            if (thisContextDataSet.data[i].tempBufferId) {
+              indexObj = i;
+              break;
+            }
+          }
+          if (indexObj > -1)
+            thisContextDataSet.data.splice(indexObj, 1);
+        }
+      }
+      
+      thisContextDataSet.dependentBufferLazyPostData = null;
+      
+    }
+    
+    //TRM
+    /**
+     * Find object in list by tempBufferId
+     */
+    this.getIndexOfListTempBuffer = function(list, obj) {
+      var indexObj = -1;
+      for (var i=0; i<list.length;i++) {
+        if (list[i].tempBufferId && obj.tempBufferId && list[i].tempBufferId == obj.tempBufferId) {
+          indexObj = i;
+          break;
+        }
+      }
+      return indexObj;
+    }
 
     /**
     * Uptade a value into this dataset by using the dataset key to compare
     * the objects
     */ 
     this.update = function (obj, callback) {
+      
       // Get the keys values
       var keyObj = getKeyValues(obj);
+      
+      
+      //TRM
+      if (this.dependentBufferLazyPostData && obj.tempBufferId) {
+        var indexObj = this.getIndexOfListTempBuffer(this.dependentBufferLazyPostData, obj);
+        
+        if (indexObj > -1 ) {
+          this.dependentBufferLazyPostData.splice(indexObj,1);
+          this.dependentBufferLazyPostData.push(obj);
+          indexObj = this.getIndexOfListTempBuffer(this.data, obj);
+          this.data.splice(indexObj,1);
+          //this.data.push(obj);
+          this.data.splice(indexObj,0,obj);
+          return;
+        }
+      }
+      
+      
       
       var url = this.entity;
       
@@ -261,7 +349,7 @@ angular.module('datasourcejs', [])
       url = url + suffixPath;
       
       if(this.handleBeforeCallBack(this.onBeforeUpdate))
-        service.update(url, obj).$promise.then(callback);        
+        service.update(url, obj).$promise.then(callback); 
     };
 
     /**
@@ -291,6 +379,10 @@ angular.module('datasourcejs', [])
           // The new object is now the active
           this.active = obj;
           this.handleAfterCallBack(this.onAfterCreate);
+          
+          if (this.dependentData)
+            this.dependentData.storeAndResetDependentBuffer('post');
+          
         }.bind(this));
         
       } else if(this.editing) {
@@ -316,7 +408,13 @@ angular.module('datasourcejs', [])
               this.copy(obj,currentRow);
             }
             this.handleAfterCallBack(this.onAfterUpdate);
+            
+            
           }.bind(this));
+          
+          if (this.dependentData)
+              this.dependentData.storeAndResetDependentBuffer('post');
+              
         }.bind(this));
       }
       
@@ -335,6 +433,8 @@ angular.module('datasourcejs', [])
       this.inserting = false;
       this.editing = false;
       this.lastAction = "cancel"; //TRM 
+      if (this.dependentData)
+        this.dependentData.storeAndResetDependentBuffer();
     };
     
   /**
@@ -947,8 +1047,10 @@ angular.module('datasourcejs', [])
       dts.onAfterDelete  = props.onAfterDelete;
       
       dts.dependentBy = props.dependentBy;
-      if (props.dependentLazyPost && props.dependentLazyPost.length > 0)
-        dts.dependentLazyPost = JSON.parse(props.dependentLazyPost); //TRM
+      if (props.dependentLazyPost && props.dependentLazyPost.length > 0) {
+        dts.dependentLazyPost = props.dependentLazyPost;
+        eval(dts.dependentLazyPost).addDependentData(dts);
+      }
       dts.dependentLazyPostField = props.dependentLazyPostField;//TRM
       
 
@@ -1120,26 +1222,6 @@ angular.module('datasourcejs', [])
               datasource.fetch({params:{}});
             }
             
-          }
-        });
-        
-        //TRM
-        attrs.$observe('dependentLazyPost',function(value) {
-          datasource.dependentLazyPost = JSON.parse(value);
-          if (!datasource.dependentBufferLazyPostData)
-            datasource.fetch({params:{}});
-          
-          
-          if (!datasource.dependentLazyPost.inserting && !datasource.dependentLazyPost.editing && datasource.dependentLazyPost.active.id) {
-            if (datasource.dependentBufferLazyPostData) {
-              if (datasource.dependentLazyPost.lastAction == 'post') {
-                $(datasource.dependentBufferLazyPostData).each(function() { 
-                  this[datasource.dependentLazyPostField] = datasource.dependentLazyPost.active;
-                  datasource.insert(this);
-                });
-              }
-              datasource.dependentBufferLazyPostData = null;
-            }
           }
         });
       };
