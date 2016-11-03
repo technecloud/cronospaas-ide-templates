@@ -117,6 +117,14 @@
             "dependent-by":{
                "removable":false,
                "global":true
+            },
+            "dependent-lazy-post":{
+               "removable":false,
+               "global":true
+            },
+            "dependent-lazy-post-field":{
+               "removable":false,
+               "global":true
             }            
          }
       },

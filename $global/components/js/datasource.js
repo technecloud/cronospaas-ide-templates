@@ -44,6 +44,9 @@ angular.module('datasourcejs', [])
     var _self = this;
     var unregisterDataWatch = null;
     
+    var dependentBufferLazyPostData = null; //TRM
+    var lastAction = null;//TRM
+    
     // Public methods
     /**
     * Initialize a single datasource
@@ -220,9 +223,23 @@ angular.module('datasourcejs', [])
     * Append a new value to the end of this dataset.
     */ 
     this.insert = function (obj, callback) {
-      if(this.handleBeforeCallBack(this.onBeforeCreate))
-        service.save(obj).$promise.then(callback);
+      if(this.handleBeforeCallBack(this.onBeforeCreate)) {
+        //Check if contains dependentBy, if contains, only store in data TRM
+        if(this.dependentLazyPost && Object.prototype.toString.call(this.dependentLazyPost) !== "[object String]"
+           && (this.dependentLazyPost.inserting || this.dependentLazyPost.editing) && this.dependentLazyPostField ){ //&& this.dependentByFieldRelation !== null
+          if (callback) 
+            callback(obj);
+            
+          if (!this.dependentBufferLazyPostData)
+            this.dependentBufferLazyPostData = [];
+          
+          this.dependentBufferLazyPostData.push(obj);
+        }
+        else
+          service.save(obj).$promise.then(callback);
+      }
     };
+    
 
     /**
     * Uptade a value into this dataset by using the dataset key to compare
@@ -251,8 +268,8 @@ angular.module('datasourcejs', [])
      * Valid if required field is valid 
      */
     this.missingRequiredField = function() {
-      return $('input[required][ng-model*="'+this.name+'."]').hasClass('ng-invalid-required') || $('input[required][ng-model*="'+this.name+'."]').hasClass('ng-invalid')
-      ||  $('input[required][ng-model*="'+this.name+'."]').hasClass('ng-empty');
+      return $('input[required][ng-model*="'+this.name+'"]').hasClass('ng-invalid-required') || $('input[required][ng-model*="'+this.name+'"]').hasClass('ng-invalid')
+      ||  $('input[required][ng-model*="'+this.name+'"]').hasClass('ng-empty');
     }
     
     /**
@@ -262,6 +279,8 @@ angular.module('datasourcejs', [])
       
       if (this.missingRequiredField())
         return;
+        
+      this.lastAction = "post"; //TRM
       
       if(this.inserting) {
         // Make a new request to persist the new item
@@ -315,6 +334,7 @@ angular.module('datasourcejs', [])
       }
       this.inserting = false;
       this.editing = false;
+      this.lastAction = "cancel"; //TRM 
     };
     
   /**
@@ -347,6 +367,17 @@ angular.module('datasourcejs', [])
           }
           
           var keyObj = getKeyValues(object);
+          
+          //TRM
+          if (this.dependentBufferLazyPostData) {
+            if (this.dependentBufferLazyPostData.indexOf(object) > -1 ) {
+              var indexObj = this.dependentBufferLazyPostData.indexOf(object);
+              this.dependentBufferLazyPostData.splice(indexObj,1);
+              indexObj = this.data.indexOf(object);
+              this.data.splice(indexObj,1);
+              return;
+            }
+          }
           
           var suffixPath = "";
           for(var key in keyObj) {
@@ -692,8 +723,7 @@ angular.module('datasourcejs', [])
       
         // Success Handler
         var sucessHandler = function (data) {
-          if(data) {
-            
+          if(data) {//TRM
             if(Object.prototype.toString.call( data ) !== '[object Array]' ) {
               if (data && data.links && Object.prototype.toString.call(data.content) === '[object Array]') {
                 this.links = data.links;
@@ -702,60 +732,63 @@ angular.module('datasourcejs', [])
                 data = [data];
               }
             }
+          }
+          else {
+            data = []
+          }
             
             // Call the before fill callback
-            if(callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
+          if(callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
 
-            if (isNextOrPrev) {
-              // If prepend property was set. 
-              // Add the new data before the old one
-              if(this.prepend) Array.prototype.unshift.apply(this.data, data);  
-  
-              // If append property was set. 
-              // Add the new data after the old one
-              if(this.append) Array.prototype.push.apply(this.data, data);
-  
-              // When neither  nor preppend was set
-              // Just replace the current data
-              if(!this.prepend && !this.append) {
-                Array.prototype.push.apply(this.data, data);
-                if (this.data.length > 0) {
-                  this.active = data[0];
-                  cursor = 0;
-                } else {
-                  this.active = {};
-                  cursor = -1;
-                }
-              }
-              
-              
-            } else {
-              this.cleanup();
+          if (isNextOrPrev) {
+            // If prepend property was set. 
+            // Add the new data before the old one
+            if(this.prepend) Array.prototype.unshift.apply(this.data, data);  
+
+            // If append property was set. 
+            // Add the new data after the old one
+            if(this.append) Array.prototype.push.apply(this.data, data);
+
+            // When neither  nor preppend was set
+            // Just replace the current data
+            if(!this.prepend && !this.append) {
               Array.prototype.push.apply(this.data, data);
               if (this.data.length > 0) {
                 this.active = data[0];
                 cursor = 0;
+              } else {
+                this.active = {};
+                cursor = -1;
               }
             }
-             
-            if(callbacks.success) callbacks.success.call(this, data);
-            hasMoreResults = (data.length >= this.rowsPerPage);
-            if (this.apiVersion == 2) {
-              hasMoreResults = this.getLink("next") != null;
+            
+            
+          } else {
+            this.cleanup();
+            Array.prototype.push.apply(this.data, data);
+            if (this.data.length > 0) {
+              this.active = data[0];
+              cursor = 0;
             }
-            /* 
-            *  Register a watcher for data
-            *  if the autopost property was set
-            *  It means that any change on dataset items will
-            *  generate a new request on the server
-            */
-            if(this.autoPost) {
-              this.startAutoPost();
-            }
-            loaded= true;
-            this.loadedFinish = true;
-            this.handleAfterCallBack(this.onAfterFill);
-          } 
+          }
+           
+          if(callbacks.success) callbacks.success.call(this, data);
+          hasMoreResults = (data.length >= this.rowsPerPage);
+          if (this.apiVersion == 2) {
+            hasMoreResults = this.getLink("next") != null;
+          }
+          /* 
+          *  Register a watcher for data
+          *  if the autopost property was set
+          *  It means that any change on dataset items will
+          *  generate a new request on the server
+          */
+          if(this.autoPost) {
+            this.startAutoPost();
+          }
+          loaded= true;
+          this.loadedFinish = true;
+          this.handleAfterCallBack(this.onAfterFill);
         }.bind(this);
     };
     
@@ -914,6 +947,10 @@ angular.module('datasourcejs', [])
       dts.onAfterDelete  = props.onAfterDelete;
       
       dts.dependentBy = props.dependentBy;
+      if (props.dependentLazyPost && props.dependentLazyPost.length > 0)
+        dts.dependentLazyPost = JSON.parse(props.dependentLazyPost); //TRM
+      dts.dependentLazyPostField = props.dependentLazyPostField;//TRM
+      
 
       // Check for headers
       if(props.headers && props.headers.length > 0) {
@@ -1028,6 +1065,8 @@ angular.module('datasourcejs', [])
           onAfterDelete  : attrs.onAfterDelete,
           defaultNotSpecifiedErrorMessage: $translate.instant('General.ErrorNotSpecified'),
           dependentBy : attrs.dependentBy,
+          dependentLazyPost : attrs.dependentLazyPost, //TRM
+          dependentLazyPostField : attrs.dependentLazyPostField,//TRM
         }
         
         var firstLoad = {
@@ -1072,12 +1111,34 @@ angular.module('datasourcejs', [])
               }
         });
         
+        
         attrs.$observe('dependentBy', function( value ){
           datasource.dependentBy = JSON.parse(value);
           if(datasource.dependentBy !== null && Object.prototype.toString.call(datasource.dependentBy) !== "[object String]" ){
             if(datasource.dependentBy.data.length > 0 || datasource.dependentBy.loadedFinish){
               datasource.enabled = true;
               datasource.fetch({params:{}});
+            }
+            
+          }
+        });
+        
+        //TRM
+        attrs.$observe('dependentLazyPost',function(value) {
+          datasource.dependentLazyPost = JSON.parse(value);
+          if (!datasource.dependentBufferLazyPostData)
+            datasource.fetch({params:{}});
+          
+          
+          if (!datasource.dependentLazyPost.inserting && !datasource.dependentLazyPost.editing && datasource.dependentLazyPost.active.id) {
+            if (datasource.dependentBufferLazyPostData) {
+              if (datasource.dependentLazyPost.lastAction == 'post') {
+                $(datasource.dependentBufferLazyPostData).each(function() { 
+                  this[datasource.dependentLazyPostField] = datasource.dependentLazyPost.active;
+                  datasource.insert(this);
+                });
+              }
+              datasource.dependentBufferLazyPostData = null;
             }
           }
         });
