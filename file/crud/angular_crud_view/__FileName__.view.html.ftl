@@ -106,8 +106,7 @@
         <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
   <#elseif field.isOneToN() >
       
-      
-        <datasource name="${field.getName()}Grid" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="id" rows-per-page="100" lazy="true" auto-post="true" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill="" dependent-lazy-post="{{${model.dataSourceName}}}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource> 
+        <datasource name="${field.getName()}Grid" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="id" rows-per-page="100" lazy="true" auto-post="true" on-before-create="" on-after-create="" on-before-update="" on-after-update="" on-before-delete="" on-after-delete="" on-after-fill="" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource> 
         
         <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> <span class="">{{"Add" | translate}} ${field.getName()}</span> </button> 
         <div data-component="crn-textinput" id="crn-textinput-descricao"> 
@@ -149,6 +148,7 @@
                     </#list>
                     <td> 
                       <div> 
+                        <button class="btn btn-default btn-sm" ng-click="${field.getName()}.startEditing(rowData)" onclick="$('#modal${field.getName()}Grid').modal('show');" ><i class="fa fa-edit"></i></button>
                         <button class="btn btn-default btn-sm" ng-click="${field.getName()}Grid.remove(rowData)"><i class="fa fa-times"></i></button> 
                       </div> </td> 
                   </tr> 
@@ -228,7 +228,7 @@
               </div> 
             </div> 
           </div> 
-        </div>  
+        </div> 
   <#elseif field.isNToN() >
       <datasource append="false" name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
       <datasource name="All${field.getName()}" entity="${model.getDataSourceOfEntity(field.getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing}}"></datasource> 
