@@ -148,7 +148,7 @@
                     </#list>
                     <td> 
                       <div> 
-                        <button class="btn btn-default btn-sm" ng-click="${field.getName()}.startEditing(rowData)" onclick="$('#modal${field.getName()}Grid').modal('show');" ><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-default btn-sm" ng-click="${field.getName()}Grid.startEditing(rowData)" onclick="$('#modal${field.getName()}Grid').modal('show');" ><i class="fa fa-edit"></i></button>
                         <button class="btn btn-default btn-sm" ng-click="${field.getName()}Grid.remove(rowData)"><i class="fa fa-times"></i></button> 
                       </div> </td> 
                   </tr> 
