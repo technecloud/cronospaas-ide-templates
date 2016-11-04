@@ -474,7 +474,8 @@ angular.module('datasourcejs', [])
               var indexObj = this.dependentBufferLazyPostData.indexOf(object);
               this.dependentBufferLazyPostData.splice(indexObj,1);
               indexObj = this.data.indexOf(object);
-              this.data.splice(indexObj,1);
+              if (indexObj > -1)
+                this.data.splice(indexObj,1);
               return;
             }
           }
