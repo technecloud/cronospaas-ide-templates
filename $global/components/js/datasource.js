@@ -15,6 +15,7 @@ angular.module('datasourcejs', [])
     this.Notification = Notification;
     this.$scope = scope;
     this.$apply = function(fc) { scope.$apply(fc); }.bind(scope);
+    
     this.data = [];
     this.name = name;
     this.keys = [];
@@ -780,7 +781,6 @@ angular.module('datasourcejs', [])
         return;
       }
       
-      
       var props = properties || {};
       var callbacks = callbacksObj || {};
 
@@ -839,10 +839,6 @@ angular.module('datasourcejs', [])
             data = [];
           }
           
-          if (data.length == 0) {
-            var contextThis = this;
-            setTimeout(function() {contextThis.cleanup(); }, 1000);
-          }
             // Call the before fill callback
           if(callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
 
