@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
 import ${daoPackage}.*;
 import ${entityPackage}.*;
 <#if subPackage??>
@@ -18,7 +17,6 @@ import ${daoPackage}.${subPackageToImport}.*;
 import ${entityPackage}.${subPackageToImport}.*;
 </#if>
 </#list>
-
 <#assign isExistsEncrypt = false>
 <#list clazz.fields as field>
   <#if field.isEncryption()>
@@ -26,23 +24,18 @@ import ${entityPackage}.${subPackageToImport}.*;
   </#if>
 </#list>
 <#if isExistsEncrypt>
-// Exists Encrypt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 </#if>
-
 <#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
-
 <#assign qualified_repository_name = "${clazz.name}DAO">
 <#assign clazz_name = "${clazz.name}Business">
 <#assign class_entity_name = "${clazz.name}">
-
 <#assign field_pk_type = "String">
 <#list clazz.fields as field>
   <#if field.primaryKey && !field.typePrimitive>
     <#assign field_pk_type = "${field.type}">
   </#if>
 </#list>
-
 /**
  * Classe que representa a camada de negócios de ${clazz_name}
  * 

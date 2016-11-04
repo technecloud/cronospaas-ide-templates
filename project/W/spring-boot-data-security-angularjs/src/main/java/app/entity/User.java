@@ -1,13 +1,9 @@
 package app.entity;
-
 import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
-
 
 /**
  * Classe que representa a tabela USER
@@ -15,11 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "\"USER\""
-
 ,uniqueConstraints=@UniqueConstraint(columnNames={
 "login" 
 })
-
 )
 @XmlRootElement
 public class User implements Serializable {
@@ -35,13 +29,11 @@ public class User implements Serializable {
    */
   @Column(name = "email", nullable = true, unique = false, insertable=true, updatable=true)
   private java.lang.String email;
-  
   /**
    * @generated
    */
   @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
   private java.lang.String name;
-  
   /**
    * @generated
    */
@@ -49,31 +41,26 @@ public class User implements Serializable {
     
   @Column(name = "id", insertable=true, updatable=true)
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-  
   /**
    * @generated
    */
   @Column(name = "login", nullable = false, unique = true, insertable=true, updatable=true)
   private java.lang.String login;
-  
   /**
    * @generated
    */
   @Column(name = "picture", nullable = true, unique = false, insertable=true, updatable=true)
   private java.lang.String picture;
-  
   /**
    * @generated
    */
   @Column(name = "password", nullable = false, unique = false, insertable=true, updatable=true)
   private java.lang.String password;
-  
   /**
    * @generated
    */
   @Column(name = "theme", nullable = true, unique = false, insertable=true, updatable=true)
   private java.lang.String theme;
-  
   
   /**
    * Construtor

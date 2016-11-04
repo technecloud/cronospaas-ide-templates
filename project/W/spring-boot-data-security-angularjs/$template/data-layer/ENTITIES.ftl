@@ -1,11 +1,9 @@
 package ${entityPackage}<#if subPackage??>.${subPackage}</#if>;
-
 import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 <#list clazz.imports as import>
 import ${import};
 </#list>
@@ -15,18 +13,15 @@ import ${import};
 import ${entityPackage}.${subPackageToImport}.*;
 </#if>
 </#list>
-
 <#if (clazz.multitenantClass)>
 import org.eclipse.persistence.annotations.*;
 </#if>
-
 /**
  * Classe que representa a tabela <#if tableName??>${tableName}<#else>${clazz.name?upper_case}</#if>
  * @generated
  */
 @Entity
 @Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\""
-
 <#if (clazz.fieldsUniqueKey?size > 0) > 
 ,uniqueConstraints=@UniqueConstraint(columnNames={
 <#list clazz.fieldsUniqueKey as field>
@@ -34,7 +29,6 @@ import org.eclipse.persistence.annotations.*;
 </#list>
 })
 </#if>    
-
 )
 @XmlRootElement
 <#if (clazz.multitenantClass)>
