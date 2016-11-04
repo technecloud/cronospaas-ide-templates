@@ -825,11 +825,9 @@ angular.module('datasourcejs', [])
       
         // Success Handler
         var sucessHandler = function (data) {
+          if (this.entity.indexOf('//') > -1)
+            data = [];
           if(data) {
-            
-            if (this.entity.indexOf('//') > -1)
-              data = [];
-            
             if(Object.prototype.toString.call( data ) !== '[object Array]' ) {
               if (data && data.links && Object.prototype.toString.call(data.content) === '[object Array]') {
                 this.links = data.links;
