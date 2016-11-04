@@ -250,12 +250,12 @@
           </div>
         </div>
       <#else>
-        <div class="form-group" ng-show="datasource.editing"> 
+        <div class="form-group" ng-show="datasource.editing || datasource.inserting"> 
           <label for="select-ui">${field.getName()}</label> 
           <div class="row" > 
             <div class="col-md-6"> 
               <div id="select-ui" data-component="crn-tags"> 
-                <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing}}"> 
+                <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}"> 
                   <ui-select-match placeholder="${field.getName()}...">
                      {{$select.selected.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }} 
                   </ui-select-match> 
@@ -272,7 +272,7 @@
             </div> 
           </div> 
         </div> 
-        <div class="form-group" ng-show="datasource.editing"> 
+        <div class="form-group" ng-show="datasource.editing || datasource.inserting"> 
           <div class="component-holder" data-component="crn-grid" id="crn-grid-All${field.getName()}"> 
             <table class="table table-bordered table-hover table-striped"> 
               <tbody> 

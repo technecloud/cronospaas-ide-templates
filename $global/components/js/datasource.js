@@ -356,8 +356,8 @@ angular.module('datasourcejs', [])
      * Valid if required field is valid 
      */
     this.missingRequiredField = function() {
-      return $('input[required][ng-model*="'+this.name+'"]').hasClass('ng-invalid-required') || $('input[required][ng-model*="'+this.name+'"]').hasClass('ng-invalid')
-      ||  $('input[required][ng-model*="'+this.name+'"]').hasClass('ng-empty');
+      return $('input[required][ng-model*="'+this.name+'."]').hasClass('ng-invalid-required') || $('input[required][ng-model*="'+this.name+'."]').hasClass('ng-invalid')
+      ||  $('input[required][ng-model*="'+this.name+'."]').hasClass('ng-empty');
     }
     
     /**
@@ -780,6 +780,7 @@ angular.module('datasourcejs', [])
         return;
       }
       
+      
       var props = properties || {};
       var callbacks = callbacksObj || {};
 
@@ -835,9 +836,13 @@ angular.module('datasourcejs', [])
             }
           }
           else {
-            data = []
+            data = [];
           }
-            
+          
+          if (data.length == 0) {
+            var contextThis = this;
+            setTimeout(function() {contextThis.cleanup(); }, 1000);
+          }
             // Call the before fill callback
           if(callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
 
