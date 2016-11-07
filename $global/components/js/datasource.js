@@ -788,6 +788,21 @@ angular.module('datasourcejs', [])
       props.params = props.params || {};
       var resourceURL = (window.hostApp || "" ) + this.entity + (props.path || "");
       
+      //Check request, if  is dependentLazyPost, break old request
+      if (this.dependentLazyPost) {
+        if (eval(this.dependentLazyPost).active) {
+            var checkRequestId = '';
+            var keyDependentLazyPost = getKeyValues(eval(this.dependentLazyPost).active);
+            for (var key in keyDependentLazyPost) { 
+              checkRequestId =  keyDependentLazyPost[key] 
+              break;
+            }
+            if (checkRequestId.length > 0)
+              if (resourceURL.indexOf(checkRequestId) == -1)
+                return;
+        }
+      }
+      
       // Set Limit and offset
       if(this.rowsPerPage > 0) {
         if (this.apiVersion == 1) {
