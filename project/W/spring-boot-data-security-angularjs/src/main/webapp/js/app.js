@@ -13,7 +13,8 @@ var app = (function() {
     'ngJustGage',
     'pascalprecht.translate',
     'tmh.dynamicLocale',
-    'ui-notification'
+    'ui-notification',
+    'ui.bootstrap'
     ])
      
     .constant('LOCALES', {
