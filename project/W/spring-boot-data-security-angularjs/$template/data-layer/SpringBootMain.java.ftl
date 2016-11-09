@@ -2,7 +2,7 @@ import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.context.web.*;
 import org.springframework.context.annotation.*;
-<#if workspaceView.withoutH2()>
+<#if withoutH2>
 import org.springframework.boot.autoconfigure.jdbc.*;
 </#if>
 /**
@@ -16,7 +16,7 @@ import org.springframework.boot.autoconfigure.jdbc.*;
   "auth.permission", "api.rest.events"<#list workspaceView.allDiagrams as diagram>, ${diagram.getGlobalAttribute("namespace")}</#list><#list packages as package>, ${package}</#list>
 })
 @SpringBootApplication
-<#if workspaceView.withoutH2()>
+<#if withoutH2>
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 </#if>
 public class SpringBootMain extends SpringBootServletInitializer {
