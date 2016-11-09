@@ -797,7 +797,7 @@ angular.module('datasourcejs', [])
               checkRequestId =  keyDependentLazyPost[key] 
               break;
             }
-            if (checkRequestId.length > 0)
+            if (checkRequestId && checkRequestId.length > 0)
               if (resourceURL.indexOf(checkRequestId) == -1)
                 return;
         }
