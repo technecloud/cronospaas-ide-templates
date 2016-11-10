@@ -34,7 +34,7 @@ public class ReportService {
     private final ClassLoader loader;
 
     public ReportService() {
-    this.loader = Thread.currentThread().getContextClassLoader();
+        this.loader = Thread.currentThread().getContextClassLoader();
     }
 
     public ReportFront getReport(String reportName) {
