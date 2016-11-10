@@ -128,7 +128,7 @@ public class AuthorizationFilter implements Filter {
     userRoleDAO.save(role);
 
     permissionDAO.save(buildPermission(roleEveryOne, "(.)*", "ALL", "/api/rest/(.)*|/views/admin/(.)*|/views/logged/(.)*"));
-    permissionDAO.save(buildPermission(roleLogged, "/views/logged/(.)*|/api/rest/(.)*", "ALL", "/api/rest/security/(.)*"));
+    permissionDAO.save(buildPermission(roleLogged, "/views/logged/(.)*|/api/rest/(.)*", "ALL", "/api/rest/security/(.)*|/api/rest/report/(.)*"));
     permissionDAO.save(buildPermission(roleAdmin, "/views/admin/(.)*|/api/rest/security/(.)*", "ALL", null));
 
     session.commit();
