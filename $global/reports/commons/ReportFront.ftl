@@ -8,9 +8,9 @@ public class ReportFront implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String reportName;
+    private String reportName;
 
-    private final List<Parameter> parameters;
+    private List<Parameter> parameters;
 
     public ReportFront() {
         this.reportName = "";
@@ -26,8 +26,16 @@ public class ReportFront implements Serializable {
         return reportName;
     }
 
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
+    }
+
     public List<Parameter> getParameters() {
         return parameters;
+    }
+
+    public void setParameters(List<Parameter> parameters) {
+        this.parameters = parameters;
     }
 
     public ReportFront addParameter(Parameter parameter) {
