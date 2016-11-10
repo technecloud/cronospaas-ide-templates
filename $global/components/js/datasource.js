@@ -250,7 +250,9 @@ angular.module('datasourcejs', [])
     * Append a datasource to be notify when has a post or cancel
     */ 
     this.addDependentData = function(obj) {
-      this.dependentData = obj;
+      if (!this.dependentData)
+        this.dependentData = [];
+      this.dependentData.push(obj);
     }
     
     
@@ -381,8 +383,11 @@ angular.module('datasourcejs', [])
           this.active = obj;
           this.handleAfterCallBack(this.onAfterCreate);
           
-          if (this.dependentData)
-            this.dependentData.storeAndResetDependentBuffer('post');
+          if (this.dependentData) {
+            $(this.dependentData).each(function() { 
+              this.storeAndResetDependentBuffer('post');
+            });
+          }
           
         }.bind(this));
         
@@ -413,8 +418,12 @@ angular.module('datasourcejs', [])
             
           }.bind(this));
           
-          if (this.dependentData)
-              this.dependentData.storeAndResetDependentBuffer('post');
+          if (this.dependentData) {
+            $(this.dependentData).each(function() { 
+              this.storeAndResetDependentBuffer('post');
+            });
+          }
+              
               
         }.bind(this));
       }
@@ -434,8 +443,11 @@ angular.module('datasourcejs', [])
       this.inserting = false;
       this.editing = false;
       this.lastAction = "cancel"; //TRM 
-      if (this.dependentData)
-        this.dependentData.storeAndResetDependentBuffer();
+      if (this.dependentData) {
+        $(this.dependentData).each(function() { 
+          this.storeAndResetDependentBuffer();
+        });
+      }
     };
     
   /**
