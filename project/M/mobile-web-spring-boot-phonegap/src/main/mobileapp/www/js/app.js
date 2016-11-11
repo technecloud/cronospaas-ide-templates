@@ -16,10 +16,10 @@ var app = (function() {
 
     .constant('LOCALES', {
         'locales': {
-            'pt_BR': 'Portugues (Brasil)',
-            'en_US': 'English'
+            'pt_br': 'Portugues (Brasil)',
+            'en_us': 'English'
         },
-        'preferredLocale': 'pt_BR'
+        'preferredLocale': 'pt_br'
     })
 
     .run(function($ionicPlatform) {
@@ -45,26 +45,6 @@ var app = (function() {
             }
         });
     })
-    // .factory('TokenAuthInterceptor', function($q, TokenStorage) {
-    // 	return {
-    // 		request: function(config) {
-    // 			var authToken = TokenStorage.retrieve();
-    // 			if (authToken) {
-    // 				config.headers['X-AUTH-TOKEN'] = authToken;
-    // 			}
-    // 			return config;
-    // 		},
-    // 		responseError: function(error) {
-    // 			if (error.status === 401 || error.status === 403) {
-    // 				TokenStorage.clear();
-    // 			}
-    // 			return $q.reject(error);
-    // 		}
-    // 	};
-    // })
-    // .config(function($httpProvider) {
-    // 	$httpProvider.interceptors.push('TokenAuthInterceptor');
-    // })
     .config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
         $ionicConfigProvider.navBar.alignTitle('center')
     })
@@ -151,18 +131,18 @@ var app = (function() {
             });
 
             $translateProvider.registerAvailableLanguageKeys([
-                'pt_BR', 'en_US'
+                'pt_br', 'en_us'
             ], {
-                'en*': 'en_US',
-                'pt*': 'pt_BR',
-                '*': 'pt_BR'
+                'en*': 'en_us',
+                'pt*': 'pt_br',
+                '*': 'pt_br'
             });
 
             var locale = (window.navigator.userLanguage ||
-                    window.navigator.language || 'pt_BR')
+                    window.navigator.language || 'pt_br')
                 .replace('-', '_');
 
-            $translateProvider.use(locale);
+            $translateProvider.use(locale.toLowerCase());
             $translateProvider.useSanitizeValueStrategy('escaped');
 
             tmhDynamicLocaleProvider

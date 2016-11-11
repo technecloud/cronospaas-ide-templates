@@ -66,7 +66,6 @@
           }
           // Redirect to home page
           $state.go("home.app");
-          window.location.reload();
           
           $timeout(function() {
             $ionicLoading.hide();
