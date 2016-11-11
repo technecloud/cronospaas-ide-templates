@@ -166,9 +166,6 @@
             sessionStorage.removeItem("_t");
           }
           $state.go("login");
-    			$timeout(function() {
-    			  $state.reload();
-    			},500);
         }
 
         $scope.changePassword = function() {
