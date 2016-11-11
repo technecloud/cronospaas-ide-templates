@@ -57,6 +57,40 @@
          }
       },
       {
+         "name":"crn-accordion",
+         "text":"Accordion",
+         "class":"cpn cpn-accordion",
+         "handleRules":{
+            "canOrder":true,
+            "canActivate":true,
+            "canIncrement":true,
+            "rules":[
+               {
+                  "activeSelector":"div.panel-collapse.collapse.in",
+                  "activeClass":"in",
+                  "sourceHTML":"<div class=\"panel panel-default\"><div class=\"panel-heading\" role=\"tab\" id=\"heading${RANDOM}\"><h4 class=\"panel-title\"><a class=\"collapsed\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse${RANDOM}\" aria-expanded=\"false\" aria-controls=\"collapse${RANDOM}\" target=\"self\">New Group Title</a></h4></div><div class=\"panel-collapse content\" role=\"tabpanel\"><div id=\"collapse${RANDOM}\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading${RANDOM}\"><div class=\"panel-body\">New Group Description     </div></div></div></div>",
+                  "targetSelector":"div.panel-group"
+               },
+               {
+                  "activeSelector":"div.panel-collapse.collapse.in",
+                  "activeClass":"in",
+                  "targetSelector":"div.panel-collapse.content"
+               }
+            ]
+         },
+         "templateURL":"src/main/webapp/components/templates/accordion.template.html",
+         "properties":{
+            "ng-click":{
+               "removable":true,
+               "type":"event"
+            },
+            "onmouseover":{
+               "removable":true,
+               "type":"event"
+            }
+         }
+      },
+      {
          "name":"crn-datasource",
          "text":"Datasource",
          "class":"cpn cpn-datasource",
