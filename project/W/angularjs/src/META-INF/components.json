@@ -57,6 +57,21 @@
          }
       },
       {
+         "name":"crn-report-button",
+         "text":"Button Report",
+         "class":"cpn cpn-button",
+         "templateURL":"webcontent/components/templates/button-report.template.html",
+         "properties":{
+            "ng-click":{
+               "type":"report-event"
+            },
+            "onmouseover":{
+               "removable":true,
+               "type":"event"
+            }
+         }
+      },
+      {
          "name":"crn-datasource",
          "text":"Datasource",
          "class":"cpn cpn-datasource",
