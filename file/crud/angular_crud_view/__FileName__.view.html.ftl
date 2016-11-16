@@ -287,7 +287,7 @@
             <div crn-datasource="${field.getName()}">
               <table class="table table-bordered table-hover table-striped"> 
                 <tbody> 
-                  <tr class="table-content" ng-repeat="rowData in datasource.data"> 
+                  <tr class="table-content" ng-repeat="rowData in datasource.data track by $index"> 
                     <td class=""> 
                       <div class="">
                          {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}} 
