@@ -124,7 +124,7 @@ public class ${class_name} {
   public <#if !namedQuery.void> HttpEntity<PagedResources<${clazz.name}>><#else>int</#if> ${namedQuery.name}Params (<#list keys as key>@PathVariable("${key}") ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable, PagedResourcesAssembler assembler</#if>){
       return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.${method_named_query_name}(<#list keys as key>${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>pageable </#if>  )), HttpStatus.OK);    
   }
-</#if>
+</#if> 
 </#list>  
 
 <#list clazz.oneToManyRelation as relation>
@@ -155,7 +155,7 @@ public class ${class_name} {
   @RequestMapping(method = RequestMethod.PUT
   , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.clazz.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
   public ${relation.clazz.name} put${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.clazz.name} entity, <#list relation.clazz.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
-	return this.${relation.clazz.name?uncap_first}Business.put(entity);
+  return this.${relation.clazz.name?uncap_first}Business.put(entity);
   }  
   
   /**
@@ -165,9 +165,9 @@ public class ${class_name} {
   @RequestMapping(method = RequestMethod.POST
   , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
   public ${relation.clazz.name} post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.clazz.name} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
-	${clazz.name} ${relation.relationField.name} = this.${class_business_variable_name}.get(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
-	entity.set${relation.relationField.name?cap_first}(${relation.relationField.name});
-	return this.${relation.clazz.name?uncap_first}Business.post(entity);
+  ${clazz.name} ${relation.relationField.name} = this.${class_business_variable_name}.get(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+  entity.set${relation.relationField.name?cap_first}(${relation.relationField.name});
+  return this.${relation.clazz.name?uncap_first}Business.post(entity);
   }   
 
 </#list>
@@ -209,19 +209,39 @@ public class ${class_name} {
   @RequestMapping(method = RequestMethod.DELETE
   ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.relationClass.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
   public void delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, <#list relation.relationClass.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
-	  this.${clazz.name?uncap_first}Business.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+    this.${clazz.name?uncap_first}Business.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
   }  
 
 
-</#list>
+</#list> 
 
-    /**
-     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
-    public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
-        return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
-    }
+<#if clazz.hasSearchableField()>
+  /**
+   * Searchable fields - General search (Only strings fields)
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET, value = "/generalSearch")
+  public HttpEntity<PagedResources<${clazz.name}>> generalSearch(java.lang.String search, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(${clazz.name?uncap_first}Business.generalSearch(search, pageable)), HttpStatus.OK);
+  }
+  
+  /**
+   * Searchable fields - Specific search
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET, value = "/specificSearch")
+  public HttpEntity<PagedResources<${clazz.name}>> specificSearch(<#list clazz.fields as field><#if field.isSearchable()>${field.type} ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(${clazz.name?uncap_first}Business.specificSearch(<#list clazz.fields as field><#if field.isSearchable()>${field.name}, </#if></#list>pageable)), HttpStatus.OK);
+  }
+</#if>
+
+  /**
+   * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+   * 
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
+  public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+      return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
+  }
 }

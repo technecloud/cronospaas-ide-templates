@@ -75,6 +75,8 @@ angular.module('datasourcejs', [])
         call: function(url, verb, object, applyScope) {
           var _callback;
           busy = true;
+          url = url.replace('/specificSearch','');
+          url = url.replace('/generalSearch','');
                     
           // Get an ajax promise
           this.$promise = $http({

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import java.util.*;
 import ${daoPackage}.*;
 import ${entityPackage}.*;
 <#if subPackage??>
@@ -203,4 +204,23 @@ public class ${clazz_name} {
       return result;  
   }
 </#list>
+
+<#if clazz.hasSearchableField()>
+  /**
+   * Searchable fields - General search (Only strings fields)
+   * @generated
+   */
+  public Page<${clazz.name}> generalSearch(java.lang.String search, Pageable pageable) {
+    return repository.generalSearch(search, pageable);
+  }
+  
+  /**
+   * Searchable fields - Specific search
+   * @generated
+   */
+  public Page<${clazz.name}> specificSearch(<#list clazz.fields as field><#if field.isSearchable()>${field.type} ${field.name}, </#if></#list>Pageable pageable) {
+    return repository.specificSearch(<#list clazz.fields as field><#if field.isSearchable()>${field.name}, </#if></#list>pageable);
+  }
+</#if>
+
 }

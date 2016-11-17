@@ -9,11 +9,12 @@ import ${entityPackage}.${subPackage}.*;
 import ${entityPackage}.${subPackageToImport}.*;
 </#if>
 </#list>
+import java.util.*;
 import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.repository.query.*;
-import org.springframework.transaction.annotation.*;
+import org.springframework.transaction.annotation.*; 
 <#assign field_pk_type = "String">
 <#list clazz.fields as field>
   <#if field.primaryKey && !field.typePrimitive>
@@ -92,16 +93,63 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
   @Query("SELECT entity.${relation.relationClassField.name} FROM ${relation.associativeClassField.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.associativeClassField.name}.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list>")
   public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable);
 
-    /**
-     * ManyToOne Relation Delete
-     * @generated
-     */
-    @Modifying
-    @Query("DELETE FROM ${relation.associativeClassField.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.associativeClassField.name}.${field.pathName} = :instance${field.name?cap_first}<#if field_has_next> AND </#if></#list><#if clazz.primaryKeys?size gt 0> AND </#if><#list relation.relationClass.primaryKeys as field>entity.${relation.relationClassField.pathName}.${field.pathName} = :relation${field.name?cap_first}<#if field_has_next> AND </#if></#list>")
-    public int delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@Param(value="instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>@Param(value="relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+  /**
+   * ManyToOne Relation Delete
+   * @generated
+   */
+  @Modifying
+  @Query("DELETE FROM ${relation.associativeClassField.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.associativeClassField.name}.${field.pathName} = :instance${field.name?cap_first}<#if field_has_next> AND </#if></#list><#if clazz.primaryKeys?size gt 0> AND </#if><#list relation.relationClass.primaryKeys as field>entity.${relation.relationClassField.pathName}.${field.pathName} = :relation${field.name?cap_first}<#if field_has_next> AND </#if></#list>")
+  public int delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@Param(value="instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>@Param(value="relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
 
 </#list>
 
+<#if clazz.hasSearchableField()>
+  <#assign filter_query = "">
+  <#assign filter_index = 0>
+  <#list clazz.fields as field>
+    <#if field.isSearchable() && field.getType()=="java.lang.String" >
+      <#if filter_index == 0>
+        <#assign filter_query += "entity.${field.name} like concat('%',:search,'%')" >
+        <#assign filter_index++>
+      <#else>
+        <#assign filter_query += " OR entity.${field.name} like concat('%',:search,'%')" >
+      </#if>
+    </#if>
+  </#list>
+  /**
+   * Searchable fields - General search (Only strings fields)
+   * @generated
+   */
+  @Query("SELECT entity FROM ${clazz.name} entity WHERE ${filter_query}")
+  public Page<${clazz.name}> generalSearch (@Param(value="search") java.lang.String search, Pageable pageable );
 
+  <#assign filter_query = "">
+  <#assign filter_index = 0>
+  <#list clazz.fields as field>
+    <#if field.isSearchable() >
+      <#if filter_index == 0>
+        <#if field.getType()=="java.lang.String" >
+          <#assign filter_query += "(:${field.name} is null OR entity.${field.name} like concat('%',:${field.name},'%'))" >
+        <#else>
+          <#assign filter_query += "(:${field.name} is null OR entity.${field.name} = :${field.name})" >
+        </#if>
+        <#assign filter_index++>
+      <#else>
+        <#if field.getType()=="java.lang.String" >
+          <#assign filter_query += " AND (:${field.name} is null OR entity.${field.name} like concat('%',:${field.name},'%'))" >
+        <#else>
+          <#assign filter_query += " AND (:${field.name} is null OR entity.${field.name} = :${field.name})" >
+        </#if>
+      </#if>
+    </#if>
+  </#list>
+  /**
+   * Searchable fields - Specific search
+   * @generated
+   */
+  @Query("SELECT entity FROM ${clazz.name} entity WHERE ${filter_query}")
+  public Page<${clazz.name}> specificSearch (<#list clazz.fields as field><#if field.isSearchable()>@Param(value="${field.name}") ${field.type} ${field.name}, </#if></#list>Pageable pageable);
+  
+</#if>
 
 }
