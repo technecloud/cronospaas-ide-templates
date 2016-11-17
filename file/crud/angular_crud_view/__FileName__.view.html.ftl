@@ -1,4 +1,4 @@
-<h3>${model.dataSourceName}</h3>
+<h3>${model.dataSourceName}</h3> 
 
 <#if model.hasColumnFilter()>
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
@@ -6,9 +6,27 @@
   <input type="text" ng-model="query" class="form-control" value="%" placeholder="{{'template.crud.search' | translate}}"> 
 </div>
 <br/>
+<#elseif model.hasSearchableFilter()>
+  <#if model.getGridFilterSearchable()=="generalSearch">
+<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
+  <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label> 
+  <input type="text" ng-model="search" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}"> 
+</div>
+<br/>
+  </#if>
+</#if>
+<#assign filterSearch = "">
+<#assign entitySearch = "">
+<#if model.hasColumnFilter()>
+  <#assign filterSearch = "{{query == '' || query == null ? null : ('/${model.gridFilter}/' + query)}}">
+<#elseif model.hasSearchableFilter()>
+  <#if model.getGridFilterSearchable()=="generalSearch">
+    <#assign filterSearch = "?search={{search}}">
+    <#assign entitySearch = "/generalSearch">
+  </#if>
 </#if>
 <div data-component="crn-datasource" id="crn-datasource-763276" class="component-holder"> 
-   <datasource <#if model.hasColumnFilter()>filter="{{query == '' || query == null ? null : ('/${model.gridFilter}/' + query)}}"</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource> 
+   <datasource filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.dataSourceFullName}${entitySearch}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource> 
 </div> 
 <div data-component="crn-button" id="crn-button-564202"> 
   <button class="btn btn-primary" type="submit" onclick="" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button> 
