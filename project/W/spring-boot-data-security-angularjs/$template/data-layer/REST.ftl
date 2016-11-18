@@ -230,8 +230,29 @@ public class ${class_name} {
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET, value = "/specificSearch")
-  public HttpEntity<PagedResources<${clazz.name}>> specificSearch(<#list clazz.fields as field><#if field.isSearchable()>${field.type} ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
-    return new ResponseEntity<>(assembler.toResource(${clazz.name?uncap_first}Business.specificSearch(<#list clazz.fields as field><#if field.isSearchable()>${field.name}, </#if></#list>pageable)), HttpStatus.OK);
+  public HttpEntity<PagedResources<${clazz.name}>> specificSearch(<#list clazz.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>java.lang.String<#else>${field.type}</#if> ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
+  <#list clazz.fields as field>
+    <#if field.isSearchable()>
+      <#if (field.isTime() || field.isDate() || field.isTimestamp())>
+    Date ${field.name}Aux = null;
+    if (${field.name} != null && ${field.name}.length() > 0 ) {
+      try {
+        <#if field.isTimestamp()>
+        java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        <#elseif field.isTime()>
+        java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("HH:mm:ss");
+        <#else>
+        java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("dd/MM/yyyy");
+        </#if>
+        ${field.name}Aux = formatter.parse(${field.name});
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+    }
+      </#if> 
+    </#if>
+  </#list>
+    return new ResponseEntity<>(assembler.toResource(${clazz.name?uncap_first}Business.specificSearch(<#list clazz.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>${field.name}Aux, <#else>${field.name}, </#if></#if></#list>pageable)), HttpStatus.OK);
   }
 </#if>
 
