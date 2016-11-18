@@ -19,7 +19,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import reports.commons.Parameter;
@@ -29,127 +34,117 @@ import reports.commons.ReportFront;
 @Service
 public class ReportService {
 
-    private static final Logger log = LoggerFactory.getLogger(ReportService.class);
+	private static final Logger log = LoggerFactory.getLogger(ReportService.class);
 
-    private final ClassLoader loader;
+	private final ClassLoader loader;
 
-    public ReportService() {
-        this.loader = Thread.currentThread().getContextClassLoader();
-    }
+	public ReportService() {
+		this.loader = Thread.currentThread().getContextClassLoader();
+	}
 
-    public ReportFront getReport(String reportName) {
-        InputStream inputStream = getReportInputStream(reportName);
-        ReportFront reportFront = new ReportFront(reportName);
-        try {
-            JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-            Stream.of(jasperDesign.getParameters()).filter(jrParameter -> !jrParameter.isSystemDefined())
-                .forEach(jrParameter -> {
-                    Parameter parameter = new Parameter();
-                    parameter.setName(jrParameter.getName());
-                    parameter.setType(ParameterType.toType(jrParameter.getValueClass()));
-                    reportFront.addParameter(parameter);
-            });
-        }
-        catch(JRException e) {
-            log.error("Problems to make JasperDesing object.");
-            throw new RuntimeException(e);
-        }
-        return reportFront;
-    }
+	public ReportFront getReport(String reportName) {
+		InputStream inputStream = getReportInputStream(reportName);
+		ReportFront reportFront = new ReportFront(reportName);
+		try {
+			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
+			Stream.of(jasperDesign.getParameters()).filter(jrParameter -> !jrParameter.isSystemDefined())
+					.forEach(jrParameter -> {
+						Parameter parameter = new Parameter();
+						parameter.setName(jrParameter.getName());
+						parameter.setType(ParameterType.toType(jrParameter.getValueClass()));
+						reportFront.addParameter(parameter);
+					});
+		} catch (JRException e) {
+			log.error("Problems to make JasperDesing object.");
+			throw new RuntimeException(e);
+		}
+		return reportFront;
+	}
 
-    public byte[] getPDF(ReportFront reportFront) {
-        File pdf = null;
-        try {
-            try {
-                pdf = File.createTempFile(UUID.randomUUID().toString(), ".pdf");
-            }
-            catch(IOException e) {
-                log.error("Problems to make the temporary report file.");
-                throw new RuntimeException(e);
-            }
+	public byte[] getPDF(ReportFront reportFront) {
+		File pdf = null;
+		try {
+			try {
+				pdf = File.createTempFile(UUID.randomUUID().toString(), ".pdf");
+			} catch (IOException e) {
+				log.error("Problems to make the temporary report file.");
+				throw new RuntimeException(e);
+			}
 
-            InputStream reportInputStream = this.getReportInputStream(reportFront.getReportName());
+			InputStream reportInputStream = this.getReportInputStream(reportFront.getReportName());
 
-            JasperDesign jasperDesign;
-            try {
-                jasperDesign = JRXmlLoader.load(reportInputStream);
-            }
-            catch(JRException e) {
-                log.error("Problems to make the design file from report.");
-                throw new RuntimeException(e);
-            }
+			JasperDesign jasperDesign;
+			try {
+				jasperDesign = JRXmlLoader.load(reportInputStream);
+			} catch (JRException e) {
+				log.error("Problems to make the design file from report.");
+				throw new RuntimeException(e);
+			}
 
-            HashMap<String, Object> parameters = new HashMap<>();
-            reportFront.getParameters().forEach(parameter -> parameters.put(parameter.getName(), parameter.getValue()));
+			HashMap<String, Object> parameters = new HashMap<>();
+			reportFront.getParameters().forEach(parameter -> parameters.put(parameter.getName(), parameter.getValue()));
 
-            JasperPrint jasperPrint;
-            try {
-                JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-                jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, this.getConnection(jasperDesign));
-            }
-            catch(JRException e) {
-                log.error("Problems during the compile.");
-                throw new RuntimeException(e);
-            }
+			JasperPrint jasperPrint;
+			try (Connection connection = this.getConnection(jasperDesign)) {
+				JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+				jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
+			} catch (JRException | SQLException e) {
+				log.error("Problems during the compile.");
+				throw new RuntimeException(e);
+			}
 
-            try {
-                JasperExportManager.exportReportToPdfFile(jasperPrint, pdf.getAbsolutePath());
-            }
-            catch(JRException e) {
-                log.error("Problems to export report to PDF file.");
-                throw new RuntimeException(e);
-            }
+			try {
+				JasperExportManager.exportReportToPdfFile(jasperPrint, pdf.getAbsolutePath());
+			} catch (JRException e) {
+				log.error("Problems to export report to PDF file.");
+				throw new RuntimeException(e);
+			}
 
-            java.nio.file.Path path = Paths.get(pdf.getAbsolutePath());
-            try {
-                return Files.readAllBytes(path);
-            }
-            catch(IOException e) {
-                log.error("Problems to export report file to byte array.");
-                throw new RuntimeException(e);
-            }
-        }
-        finally {
-            if(pdf != null && pdf.exists())
-            pdf.delete();
-        }
-    }
+			java.nio.file.Path path = Paths.get(pdf.getAbsolutePath());
+			try {
+				return Files.readAllBytes(path);
+			} catch (IOException e) {
+				log.error("Problems to export report file to byte array.");
+				throw new RuntimeException(e);
+			}
+		} finally {
+			if (pdf != null && pdf.exists())
+				pdf.delete();
+		}
+	}
 
-    private InputStream getReportInputStream(String reportName) {
-        String report = "reports/".concat(reportName).concat(".jrxml");
-        InputStream inputStream = loader.getResourceAsStream(report);
-        if(inputStream == null)
-            throw new RuntimeException("File [" + reportName + "].jrxml not found.");
-        return inputStream;
-    }
+	private InputStream getReportInputStream(String reportName) {
+		String report = "reports/".concat(reportName).concat(".jrxml");
+		InputStream inputStream = loader.getResourceAsStream(report);
+		if (inputStream == null)
+			throw new RuntimeException("File [" + reportName + "].jrxml not found.");
+		return inputStream;
+	}
 
-    private Connection getConnection(JasperDesign jasperDesign) {
-        String datasource = jasperDesign.getProperty("DATASOURCE");
-        if(datasource != null && !datasource.isEmpty() && !"null".equals(datasource)) {
-            javax.naming.Context context = null;
-            DataSource dataSource = null;
-            try {
-                context = (javax.naming.Context)new InitialContext().lookup("java:/comp/env");
-                dataSource = (DataSource)context.lookup(datasource);
-            }
-            catch(NamingException e) {
-                try {
-                    if(context != null)
-                        dataSource = (DataSource)context.lookup(datasource.toLowerCase());
-                }
-                catch(NamingException e1) {
-                    throw new RuntimeException(new Exception("Connection context not found.\nError: " + e.getMessage()));
-                }
-            }
-            try {
-                if(dataSource != null)
-                return dataSource.getConnection();
-            }
-            catch(SQLException e) {
-                throw new RuntimeException(new Exception("Trouble getting a connection from the context.\nError: " + e.getMessage()));
-            }
-        }
-        return null;
-    }
+	private Connection getConnection(JasperDesign jasperDesign) {
+		String datasource = jasperDesign.getProperty("DATASOURCE");
+		if (datasource != null && !datasource.isEmpty() && !"null".equals(datasource)) {
+			javax.naming.Context context = null;
+			DataSource dataSource = null;
+			try {
+				context = (javax.naming.Context) new InitialContext().lookup("java:/comp/env");
+				dataSource = (DataSource) context.lookup(datasource);
+			} catch (NamingException e) {
+				try {
+					if (context != null)
+						dataSource = (DataSource) context.lookup(datasource.toLowerCase());
+				} catch (NamingException e1) {
+					throw new RuntimeException(new Exception("Connection context not found.\nError: " + e.getMessage()));
+				}
+			}
+			try {
+				if (dataSource != null)
+					return dataSource.getConnection();
+			} catch (SQLException e) {
+				throw new RuntimeException(new Exception("Trouble getting a connection from the context.\nError: " + e.getMessage()));
+			}
+		}
+		return null;
+	}
 
 }
