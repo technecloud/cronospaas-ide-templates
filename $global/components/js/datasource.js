@@ -790,6 +790,9 @@ angular.module('datasourcejs', [])
       // Ignore any call if the datasource is busy (fetching another request)
       if(this.busy) return;
       
+      //Ignore call witouth ids
+      if (this.entity.indexOf('//') > -1) return;
+      
       if(!this.enabled) {
         this.cleanup();
         return;
