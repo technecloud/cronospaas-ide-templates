@@ -65,7 +65,7 @@
             // on the logged user data
           }
           // Redirect to home page
-          $state.go("home.app");
+          $state.go("app.home");
           
           $timeout(function() {
             $ionicLoading.hide();
@@ -74,10 +74,12 @@
 
         function handleError(data, status, headers, config) {
           var error = status == 401 ? $translate.instant('Login.view.invalidPassword') : data;
-
+          if (!error) {
+            error = $translate.instant('General.ErrorNotSpecified');
+          }
+          console.log(error);
           $ionicLoading.hide();
           Notification.error(error);
-          console.log(error);
         }
 
       } ]);
@@ -139,25 +141,6 @@
           // TODO - REVISAR login oauth2
            $state.go("login");
         }
-
-        // Menu
-        $scope.groups = [];
-
-        /*
-         * if given group is the selected group, deselect it else, select the given group
-         */
-        $scope.toggleGroup = function(group) {
-          if($scope.isGroupShown(group)) {
-            $scope.shownGroup = null;
-          }
-          else {
-            $scope.shownGroup = group;
-          }
-        };
-
-        $scope.isGroupShown = function(group) {
-          return $scope.shownGroup === group;
-        };
 
         $rootScope.logout = function logout() {
           $rootScope.session = {};
