@@ -218,6 +218,49 @@ public class ${class_name} {
 </#list>
 
 <#list clazz.manyToManyRelation as relation>
+  <#if relation.relationClass.hasSearchableField()>
+  /**
+   * ManyToMany Relationship GET - Searchable fields - General search (Only strings fields)
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/generalSearch")
+  public HttpEntity<PagedResources<${relation.relationClassField.type}>> list${relation.relationName?cap_first}GeneralSearch(java.lang.String search, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.list${relation.relationName?cap_first}GeneralSearch(search, <#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>pageable)), HttpStatus.OK); 
+  }
+  
+  /**
+   * ManyToMany Relationship GET - Searchable fields - Specific search
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET
+  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/specificSearch")
+  public HttpEntity<PagedResources<${relation.relationClassField.type}>> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>java.lang.String<#else>${field.type}</#if> ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
+  <#list relation.relationClass.fields as field>
+    <#if field.isSearchable()>
+      <#if (field.isTime() || field.isDate() || field.isTimestamp())>
+    Date ${field.name}Aux = null;
+    if (${field.name} != null && ${field.name}.length() > 0 ) {
+      try {
+        <#if field.isTimestamp()>
+        java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        <#elseif field.isTime()>
+        java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("HH:mm:ss");
+        <#else>
+        java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("dd/MM/yyyy");
+        </#if>
+        ${field.name}Aux = formatter.parse(${field.name});
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
+    }
+      </#if> 
+    </#if>
+  </#list>  
+    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>${field.name}Aux, <#else>${field.name}, </#if></#if></#list>pageable)), HttpStatus.OK); 
+  }
+  </#if>
+
   /**
    * ManyToMany Relationship GET
    * @generated
