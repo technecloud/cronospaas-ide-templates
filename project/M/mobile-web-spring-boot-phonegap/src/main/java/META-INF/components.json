@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "cronos-components-mobile-phonegap",
   "version": "1.0.0",
   "components": [
@@ -235,7 +235,7 @@
     },
     {
       "name": "crn-title",
-      "text": "Título",
+      "text": "T�tulo",
       "class": "cpn cpn-title",
       "templateURL": "src/main/mobileapp/www/components/templates/title.template.html"
     },
