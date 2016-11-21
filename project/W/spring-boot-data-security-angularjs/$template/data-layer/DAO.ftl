@@ -8,7 +8,7 @@ import ${entityPackage}.${subPackage}.*;
 <#if subPackage?? && subPackageToImport != subPackage >
 import ${entityPackage}.${subPackageToImport}.*;
 </#if>
-</#list>
+</#list> 
 import java.util.*;
 import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
@@ -75,6 +75,54 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
 </#list>
 
 <#list clazz.oneToManyRelation as relation>
+  <#if relation.clazz.hasSearchableField()>
+    <#assign filter_query = "">
+    <#assign filter_index = 0>
+    <#list relation.clazz.fields as field>
+      <#if field.isSearchable() && field.getType()=="java.lang.String" >
+        <#if filter_index == 0>
+          <#assign filter_query += "entity.${field.name} like concat('%',:search,'%')" >
+          <#assign filter_index++>
+        <#else>
+          <#assign filter_query += " OR entity.${field.name} like concat('%',:search,'%')" >
+        </#if>
+      </#if>
+    </#list>
+  /**
+   * OneToMany Relation - Searchable fields - General search (Only strings fields)
+   * @generated
+   */
+  @Query("SELECT entity FROM ${relation.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.relationField.pathName}.${field.name} = :${field.name}<#if field_has_next> AND </#if></#list> AND (${filter_query})")
+  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}GeneralSearch(@Param(value="search") java.lang.String search, <#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable);
+
+    <#assign filter_query = "">
+    <#assign filter_index = 0>
+    <#list relation.clazz.fields as field>
+      <#if field.isSearchable() >
+        <#if filter_index == 0>
+          <#if field.getType()=="java.lang.String" >
+            <#assign filter_query += "(:${field.name} is null OR entity.${field.name} like concat('%',:${field.name},'%'))" >
+          <#else>
+            <#assign filter_query += "(:${field.name} is null OR entity.${field.name} = :${field.name})" >
+          </#if>
+          <#assign filter_index++>
+        <#else>
+          <#if field.getType()=="java.lang.String" >
+            <#assign filter_query += " AND (:${field.name} is null OR entity.${field.name} like concat('%',:${field.name},'%'))" >
+          <#else>
+            <#assign filter_query += " AND (:${field.name} is null OR entity.${field.name} = :${field.name})" >
+          </#if>
+        </#if>
+      </#if>
+    </#list>
+  /**
+   * OneToMany Relation - Searchable fields - Specific search
+   * @generated
+   */
+  @Query("SELECT entity FROM ${relation.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.relationField.pathName}.${field.name} = :${field.name}<#if field_has_next> AND </#if></#list> AND ${filter_query}")
+  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable()>@Param(value="${field.name}") ${field.type} ${field.name}, </#if></#list>Pageable pageable);
+  </#if>
+
   /**
    * OneToMany Relation
    * @generated
@@ -86,6 +134,54 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
 
 
 <#list clazz.manyToManyRelation as relation>
+  <#if relation.relationClass.hasSearchableField()>
+  <#assign filter_query = "">
+  <#assign filter_index = 0>
+  <#list relation.relationClass.fields as field>
+    <#if field.isSearchable() && field.getType()=="java.lang.String" >
+      <#if filter_index == 0>
+        <#assign filter_query += "entity.${relation.relationClassField.name}.${field.name} like concat('%',:search,'%')" >
+        <#assign filter_index++>
+      <#else>
+        <#assign filter_query += " OR entity.${relation.relationClassField.name}.${field.name} like concat('%',:search,'%')" >
+      </#if>
+    </#if>
+  </#list>
+  /**
+   * ManyToOne Relation - Searchable fields - General search (Only strings fields)
+   * @generated
+   */
+  @Query("SELECT entity.${relation.relationClassField.name} FROM ${relation.associativeClassField.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.associativeClassField.name}.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list> AND (${filter_query})")
+  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}GeneralSearch(@Param(value="search") java.lang.String search, <#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable);
+
+  <#assign filter_query = "">
+  <#assign filter_index = 0>
+  <#list relation.relationClass.fields as field>
+    <#if field.isSearchable() >
+      <#if filter_index == 0>
+        <#if field.getType()=="java.lang.String" >
+          <#assign filter_query += "(:${field.name} is null OR entity.${relation.relationClassField.name}.${field.name} like concat('%',:${field.name},'%'))" >
+        <#else>
+          <#assign filter_query += "(:${field.name} is null OR entity.${relation.relationClassField.name}.${field.name} = :${field.name})" >
+        </#if>
+        <#assign filter_index++>
+      <#else>
+        <#if field.getType()=="java.lang.String" >
+          <#assign filter_query += " AND (:${field.name} is null OR entity.${relation.relationClassField.name}.${field.name} like concat('%',:${field.name},'%'))" >
+        <#else>
+          <#assign filter_query += " AND (:${field.name} is null OR entity.${relation.relationClassField.name}.${field.name} = :${field.name})" >
+        </#if>
+      </#if>
+    </#if>
+  </#list>
+  /**
+   * ManyToOne Relation - Searchable fields - Specific search
+   * @generated
+   */
+  @Query("SELECT entity.${relation.relationClassField.name} FROM ${relation.associativeClassField.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.associativeClassField.name}.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list> AND ${filter_query}")
+  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()>@Param(value="${field.name}") ${field.type} ${field.name}, </#if></#list>Pageable pageable);
+
+  </#if>
   /**
    * ManyToOne Relation
    * @generated

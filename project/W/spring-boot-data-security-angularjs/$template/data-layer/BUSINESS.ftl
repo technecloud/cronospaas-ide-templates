@@ -158,9 +158,35 @@ public class ${clazz_name} {
   }
 </#list>
     
-    
-
 <#list clazz.oneToManyRelation as relation>
+  <#if relation.clazz.hasSearchableField()>
+  /**
+   * @generated modifiable
+   * OneToMany Relation - Searchable fields - General search (Only strings fields)
+   */  
+  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}GeneralSearch(java.lang.String search, <#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable) {
+      // begin-user-code
+      // end-user-code  
+      Page<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}GeneralSearch(search, <#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable);
+      // begin-user-code  
+      // end-user-code        
+      return result;    
+  }
+  
+  /**
+   * @generated modifiable
+   * OneToMany Relation - Searchable fields - Specific search
+   */  
+  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable()>${field.type} ${field.name}, </#if></#list>Pageable pageable) {
+      // begin-user-code
+      // end-user-code  
+      Page<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable()>${field.name}, </#if></#list>pageable);
+      // begin-user-code  
+      // end-user-code        
+      return result;    
+  }
+  </#if>
+  
   /**
    * @generated modifiable
    * OneToMany Relation
@@ -173,11 +199,37 @@ public class ${clazz_name} {
       // end-user-code        
       return result;    
   }
-
 </#list>
 
-
 <#list clazz.manyToManyRelation as relation>
+  <#if relation.relationClass.hasSearchableField()>
+  /**
+   * @generated modifiable
+   * ManyToMany Relation - Searchable fields - General search (Only strings fields)
+   */  
+  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}GeneralSearch(java.lang.String search, <#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable) {
+      // begin-user-code
+      // end-user-code  
+      Page<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}GeneralSearch(search, <#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>pageable);
+      // begin-user-code
+      // end-user-code
+      return result;            
+  }
+  
+  /**
+   * @generated modifiable
+   * ManyToMany Relation - Searchable fields - Specific search
+   */  
+  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()>${field.type} ${field.name}, </#if></#list>Pageable pageable) {
+      // begin-user-code
+      // end-user-code  
+      Page<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()>${field.name}, </#if></#list>pageable);
+      // begin-user-code
+      // end-user-code
+      return result;            
+  }
+  
+  </#if>
   /**
    * @generated modifiable
    * ManyToMany Relation
