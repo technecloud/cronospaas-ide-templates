@@ -74,7 +74,7 @@
 			},
 			"templateURL": "src/main/mobileapp/www/components/templates/tabs.template.html"
 		},
-		{
+		 {
 			"name": "crn-navbar",
 			"text": "MenuItem",
 			"class": "cpn cpn-navbar",
