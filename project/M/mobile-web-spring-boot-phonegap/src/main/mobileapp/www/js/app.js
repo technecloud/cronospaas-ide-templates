@@ -63,7 +63,7 @@ var app = (function() {
         // Set up the states
         $stateProvider
 
-            .state('login', {
+        .state('login', {
             url: "",
             controller: 'LoginController',
             templateUrl: 'views/login.view.html'
@@ -75,23 +75,23 @@ var app = (function() {
             templateUrl: 'views/login.view.html'
         })
 
-        .state('home', {
-            url: "/home",
+        .state('app', {
+            url: "/app",
             controller: 'HomeController',
-            templateUrl: 'views/logged/home.view.html'
+            templateUrl: 'views/logged/menu.view.html'
         })
 
-        .state('home.app', {
-            url: "/app",
+        .state('app.home', {
+            url: "/home",
             controller: 'HomeController',
             views: {
                 'menuContent': {
-                    templateUrl: 'views/logged/app.view.html'
+                    templateUrl: 'views/logged/home.view.html'
                 }
             }
         })
 
-        .state('home.pages', {
+        .state('app.pages', {
           url: "/{name:.*}",
           controller: 'PageController',
           views: { 'menuContent': {

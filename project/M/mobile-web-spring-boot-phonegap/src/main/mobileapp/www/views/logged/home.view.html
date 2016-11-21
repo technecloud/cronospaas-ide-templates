@@ -1,47 +1,43 @@
-<ion-side-menus enable-menu-with-back-views="false"> 
-  <div class="row" data-container="true"> 
-    <ion-side-menu-content> 
-      <ion-nav-bar class="bar-stable"> 
-        <ion-nav-back-button> 
-        </ion-nav-back-button> 
-        <ion-nav-buttons side="left"> 
-          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"> </button> 
-        </ion-nav-buttons> 
-      </ion-nav-bar> 
-      <ion-nav-view name="menuContent"> 
-      </ion-nav-view> 
-    </ion-side-menu-content> 
-    <ion-side-menu side="left"> 
-      <ion-header-bar class="bar-stable"> 
-        <h1 class="title">Menu</h1> 
-      </ion-header-bar> 
-      <ion-content data-container="true"> 
-        <ion-list> 
-          <!-- Menu --> 
-          <div class="component-holder" data-component="crn-navbar" id="crn-navbar-986427"> 
-            <div class="nav navbar-nav"> 
-              <div class="item item-divider"> 
-                <i class="icon ion-ios-person"></i> &nbsp; {{session.username}} 
-              </div> 
-              <div menu-close="" class="item-icon-left item item-complex"> 
-                <a class="component-holder item-content ng-binding" href="#/home/app" data-component="crn-anchor"> <i class="icon ion-home"></i>{{"Home.view.Home" | translate}}</a> 
-              </div> 
-              <div class="item item-divider"></div> 
-              <div menu-close="" class="item-icon-left item item-complex"> 
-                <a class="component-holder item-content ng-binding" href="#/home/logged/user" data-component="crn-anchor"> <i class="icon ion-ios-person"></i> {{ "Users.view.Users" | translate }}</a> 
-              </div> 
-              <div class="item item-divider"></div> 
-              <div menu-close="" class="item-icon-left item item-complex"> 
-                <a class="component-holder item-content ng-binding" href="#/home/app" ng-click="openChangePassword()" data-component="crn-anchor"> <i class="icon ion-lock-combination"></i>{{"Home.view.ChangePassword" | translate}}</a> 
-              </div> 
-              <div menu-close="" class="item-icon-left item item-complex"> 
-                <a class="component-holder item-content ng-binding" ng-click="logout()" href="#" data-component="crn-anchor"> <i class="icon icon ion-arrow-left-a"></i>{{"Home.view.Sair" | translate}}</a> 
+<ion-view view-title="CronApp"> 
+  <ion-content> 
+    <div class="component-holder ng-binding ng-scope" data-component="crn-div" id="crn-div-929090" style="padding-top: 60px;"> 
+      <div class="list"> 
+        <div class="col text-center"> 
+          <div class="component-holder ng-binding ng-scope" data-component="crn-image" id="crn-image-174578" ng-click="vibrate()"> 
+            <img src="img/logo.png" style="height: 125px;"> 
+          </div> 
+        </div> 
+        <div class="component-holder ng-binding ng-scope" data-component="crn-div-horizontal" id="crn-div-horizontal-270296"> 
+          <div class="row"> 
+            <div class="col active"> 
+              <div class="text-center"> 
+                <div class="component-holder ng-binding ng-scope" data-component="crn-anchor" id="crn-anchor-1006017"> 
+                  <a href="#/app/logged/user" target="_self"> 
+                    <div class="component-holder ng-binding ng-scope"> 
+                      <i class="icon ion-person placeholder-icon" style="font-size: 60px"></i> 
+                    </div> 
+                    <div class="component-holder ng-binding ng-scope" data-component="crn-title" id="crn-title-864330"> 
+                      <p class="text-center" content=" {{ &quot;Users.view.Users&quot; | translate }}"> {{ "Users.view.Users" | translate }}</p> 
+                    </div> </a> 
+                </div> 
               </div> 
             </div> 
-          </div> 
-          <!-- Menu -->  
-        </ion-list> 
-      </ion-content> 
-    </ion-side-menu> 
-  </div> 
-</ion-side-menus>
+            <div class="col"> 
+              <div></div> 
+            </div> 
+            <div class="col"> 
+              <div></div> 
+            </div> 
+            <div class="col"> 
+              <div></div> 
+            </div> 
+            <div class="col"> 
+              <div></div> 
+            </div> 
+          </div>
+           
+        </div> 
+      </div> 
+    </div> 
+  </ion-content> 
+</ion-view>
