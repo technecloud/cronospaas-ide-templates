@@ -117,7 +117,7 @@
                {
                   "activeSelector":"ol.carousel-indicators li.active",
                   "activeClass":"active",
-                  "sourceHTML":"<li data-target=\"#carousel-example-generic\" data-slide-to=\"${RANDOM}\" class=\"\"></li>",
+                  "sourceHTML":" <li></li>",
                   "targetSelector":"ol.carousel-indicators"
                },
                {
