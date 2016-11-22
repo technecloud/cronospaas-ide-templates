@@ -81,10 +81,10 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
     <#list relation.clazz.fields as field>
       <#if field.isSearchable() && field.getType()=="java.lang.String" >
         <#if filter_index == 0>
-          <#assign filter_query += "entity.${field.name} like concat('%',:search,'%')" >
+          <#assign filter_query += "entity.${field.name} like concat('%',coalesce(:search,''),'%')" >
           <#assign filter_index++>
         <#else>
-          <#assign filter_query += " OR entity.${field.name} like concat('%',:search,'%')" >
+          <#assign filter_query += " OR entity.${field.name} like concat('%',coalesce(:search,''),'%')" >
         </#if>
       </#if>
     </#list>
@@ -140,10 +140,10 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
   <#list relation.relationClass.fields as field>
     <#if field.isSearchable() && field.getType()=="java.lang.String" >
       <#if filter_index == 0>
-        <#assign filter_query += "entity.${relation.relationClassField.name}.${field.name} like concat('%',:search,'%')" >
+        <#assign filter_query += "entity.${relation.relationClassField.name}.${field.name} like concat('%',coalesce(:search,''),'%')" >
         <#assign filter_index++>
       <#else>
-        <#assign filter_query += " OR entity.${relation.relationClassField.name}.${field.name} like concat('%',:search,'%')" >
+        <#assign filter_query += " OR entity.${relation.relationClassField.name}.${field.name} like concat('%',coalesce(:search,''),'%')" >
       </#if>
     </#if>
   </#list>
@@ -205,10 +205,10 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
   <#list clazz.fields as field>
     <#if field.isSearchable() && field.getType()=="java.lang.String" >
       <#if filter_index == 0>
-        <#assign filter_query += "entity.${field.name} like concat('%',:search,'%')" >
+        <#assign filter_query += "entity.${field.name} like concat('%',coalesce(:search,''),'%')" >
         <#assign filter_index++>
       <#else>
-        <#assign filter_query += " OR entity.${field.name} like concat('%',:search,'%')" >
+        <#assign filter_query += " OR entity.${field.name} like concat('%',coalesce(:search,''),'%')" >
       </#if>
     </#if>
   </#list>
