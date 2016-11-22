@@ -1036,6 +1036,13 @@ angular.module('datasourcejs', [])
       }
     }
     
+    this.hasDataBuffered = function() {
+      if (this.dependentBufferLazyPostData && this.dependentBufferLazyPostData.length > 0)
+        return true;
+      else
+        return false;
+    }
+    
     this.init();
     
   };
