@@ -64,6 +64,7 @@
               element.datetimepicker(options);
   
               element.on('dp.change', function(){
+                if ($(this).is(":visible"))
                   scope.$apply(read);
               });
               
