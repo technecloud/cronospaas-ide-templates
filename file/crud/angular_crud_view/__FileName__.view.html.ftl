@@ -193,11 +193,106 @@
         </div>
   <#elseif field.isNumber() >
         <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>> 
-  <#elseif field.isOneToN() >
+  <#elseif field.isOneToN()>
+  
+    <!--query filter 1toN -->
+    <#assign filterSearch = "">
+    <#assign entitySearch = "">
+    <#if model.hasSearchableFilter()>
+      <#if model.getGridFilterSearchable()=="generalSearch">
+        <#assign filterSearch = "?search={{search${field.getName()}}}">
+        <#assign entitySearch = "/generalSearch">
+      <#else>
+        <#assign filter_index = 0>
+        <#assign entitySearch = "/specificSearch">
+        <#list field.getClazz().getFields() as scfield>
+          <#if scfield.isSearchable()>
+            <#assign parameter_angular_date = "">
+            <#if scfield.isDate() >
+              <#assign parameter_angular_date = "| date:'dd/MM/yyyy'">
+            <#elseif scfield.isTime()>
+              <#assign parameter_angular_date = "| date:'HH:mm:ss'">
+            <#elseif scfield.isTimestamp() >
+              <#assign parameter_angular_date = "| date:'dd/MM/yyyy HH:mm:ss'">
+            </#if>
+            
+            <#if filter_index == 0>
+              <#assign filterSearch += "?${scfield.name}={{${scfield.name}${field.getName()}${parameter_angular_date}}}">
+              <#assign filter_index++>
+            <#else>
+              <#assign filterSearch += "&${scfield.name}={{${scfield.name}${field.getName()}${parameter_angular_date}}}">
+            </#if>
+          </#if>
+        </#list>
+      </#if>
+    </#if>
+    <!-- query filter 1toN end-->
+    
         <div data-component="crn-datasource" class="component-holder"> 
-          <datasource name="${field.getName()}Grid" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource> 
+          <datasource filter="${filterSearch}" name="${field.getName()}Grid" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}${entitySearch}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource> 
         </div>
         <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> <span class="">{{"Add" | translate}} ${field.getName()}</span> </button> 
+        
+    <!--search 1toN-->
+    <#if model.hasSearchableFilter()>
+      <#if model.getGridFilterSearchable()=="generalSearch">
+    <br/><br/><br/>
+    <div ng-show="${model.dataSourceName}.editing && !${field.getName()}Grid.hasDataBuffered()">
+      <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label> 
+      <input type="text" ng-model="search${field.getName()}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}"> 
+    </div>
+      <#else>
+    <br/><br/><br/>
+    <div class="row" ng-show="${model.dataSourceName}.editing && !${field.getName()}Grid.hasDataBuffered()">
+        <#list field.getClazz().getFields() as scfield>
+          <#if scfield.isSearchable()>
+            <#if (scfield.isDate() || scfield.isTime() || scfield.isTimestamp()) >
+        <div class="col-md-2">
+          <div class="component-holder ng-binding ng-scope" data-component="crn-datepicker" id="crn-datepicker-21329">
+            <div class="form-group">
+              <label for="exampleInputDate">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
+              <div style="position:relative">
+                <input type="text" as-date="" class="form-control" 
+                  <#if scfield.isDate() >
+                  format="DD/MM/YYYY"
+                  <#elseif scfield.isTime()>
+                  format="HH:mm:ss"
+                  <#elseif scfield.isTimestamp()>
+                  format="DD/MM/YYYY HH:mm:ss"
+                  </#if>
+                ng-model="${scfield.name}${field.getName()}" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>">
+              </div>
+            </div>
+          </div>
+        </div>
+            <#elseif scfield.isNumber() >
+        <div class="col-md-2">
+          <div>
+            <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label> 
+            <input type="number" ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>"> 
+          </div>
+        </div>
+            <#elseif scfield.isBoolean() >
+        <div class="col-md-2">
+          <div>
+            <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label> 
+            <input type="checkbox" ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>"> 
+          </div>
+        </div>
+            <#else>
+        <div class="col-md-2">
+          <div>
+            <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label> 
+            <input type="text" ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>" <#if model.formMapRelationFieldMasks[scfield.name]?has_content>mask="${model.formMapRelationFieldMasks[scfield.name]}"</#if>> 
+          </div>
+        </div>
+            </#if>
+          </#if>
+        </#list>
+    </div>
+      </#if>
+    </#if>
+    <!-- seach 1toN end-->
         <div data-component="crn-textinput" id="crn-textinput-descricao"> 
           <div class="form-group"> 
             <label for="textinput-descricao" class="">${field.getName()}</label> 
@@ -230,9 +325,15 @@
                         <div>
                            <#if gField.isReverseRelation() >
                             {{rowData.${gField.getName()}.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()} }}
-                           <#else>
+                           <#elseif gField.isDate() >
+                            {{rowData.${gField.getDbFieldName()} | date:'dd/MM/yyyy'}}
+                          <#elseif gField.isTime() >
+                            {{rowData.${gField.getDbFieldName()} | date:'HH:mm:ss'}}
+                          <#elseif gField.isTimestamp() >
+                            {{rowData.${gField.getDbFieldName()} | date:'dd/MM/yyyy HH:mm:ss'}}
+                          <#else>
                             {{rowData.${gField.getDbFieldName()}}}
-                           </#if>
+                          </#if>
                         </div> </td> 
                       </#if>
                       </#list>
