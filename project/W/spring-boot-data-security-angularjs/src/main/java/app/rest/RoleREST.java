@@ -20,67 +20,67 @@ import app.business.*;
 @RequestMapping(value = "/api/security/Role")
 public class RoleREST {
 
-    /**
-     * Classe de negócio para manipulação de dados
-     * 
-     * @generated
-     */
-    @Autowired
-    @Qualifier("RoleBusiness")
-    private RoleBusiness roleBusiness;
+  /**
+   * Classe de negócio para manipulação de dados
+   * 
+   * @generated
+   */
+  @Autowired
+  @Qualifier("RoleBusiness")
+  private RoleBusiness roleBusiness;
 
-    /**
-     * @generated
-     */
-      @Autowired
-      @Qualifier("UserBusiness")
-      private UserBusiness userBusiness;
-    /**
-     * @generated
-     */
-      @Autowired
-      @Qualifier("UserRoleBusiness")
-      private UserRoleBusiness userRoleBusiness;
+  /**
+   * @generated
+   */
+  @Autowired
+  @Qualifier("UserBusiness")
+  private UserBusiness userBusiness;
+  /**
+   * @generated
+   */
+  @Autowired
+  @Qualifier("UserRoleBusiness")
+  private UserRoleBusiness userRoleBusiness;
 
-    /**
-     * Serviço exposto para novo registro de acordo com a entidade fornecida
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public Role post(@Validated @RequestBody final Role entity) throws Exception {
-        return roleBusiness.post(entity);
-    }
+  /**
+   * Serviço exposto para novo registro de acordo com a entidade fornecida
+   * 
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.POST)
+  public Role post(@Validated @RequestBody final Role entity) throws Exception {
+    return roleBusiness.post(entity);
+  }
 
-    /**
-     * Serviço exposto para salvar alterações de acordo com a entidade fornecida
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.PUT)
-    public Role put(@Validated @RequestBody final Role entity) throws Exception {
-        return roleBusiness.put(entity);
-    }
+  /**
+   * Serviço exposto para salvar alterações de acordo com a entidade fornecida
+   * 
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.PUT)
+  public Role put(@Validated @RequestBody final Role entity) throws Exception {
+    return roleBusiness.put(entity);
+  }
 
-    /**
-     * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-    public Role put(@PathVariable("id") final java.lang.String id, @Validated @RequestBody final Role entity) throws Exception {
-        return roleBusiness.put(entity);
-    }
+  /**
+   * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
+   * 
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+  public Role put(@PathVariable("id") final java.lang.String id, @Validated @RequestBody final Role entity) throws Exception {
+    return roleBusiness.put(entity);
+  }
 
-    /**
-     * Serviço exposto para remover a entidade de acordo com o id fornecido
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-    public void delete(@PathVariable("id") java.lang.String id) throws Exception {
-        roleBusiness.delete(id);
-    }
+  /**
+   * Serviço exposto para remover a entidade de acordo com o id fornecido
+   * 
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+  public void delete(@PathVariable("id") java.lang.String id) throws Exception {
+    roleBusiness.delete(id);
+  }
 
 
   /**
@@ -90,8 +90,10 @@ public class RoleREST {
   @RequestMapping(method = RequestMethod.GET
   )    
   public  HttpEntity<PagedResources<Role>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
-      return new ResponseEntity<>(assembler.toResource(roleBusiness.list(pageable   )), HttpStatus.OK);    
+    return new ResponseEntity<>(assembler.toResource(roleBusiness.list(pageable   )), HttpStatus.OK);    
   }
+
+
 
   /**
    * OneToMany Relationship GET
@@ -120,7 +122,7 @@ public class RoleREST {
   @RequestMapping(method = RequestMethod.PUT
   , value="/{instanceId}/UserRole/{relationId}")
   public UserRole putUserRole(@Validated @RequestBody final UserRole entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
-	return this.userRoleBusiness.put(entity);
+    return this.userRoleBusiness.put(entity);
   }  
   
   /**
@@ -130,10 +132,11 @@ public class RoleREST {
   @RequestMapping(method = RequestMethod.POST
   , value="/{instanceId}/UserRole")
   public UserRole postUserRole(@Validated @RequestBody final UserRole entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
-	Role role = this.roleBusiness.get(instanceId);
-	entity.setRole(role);
-	return this.userRoleBusiness.post(entity);
+  Role role = this.roleBusiness.get(instanceId);
+  entity.setRole(role);
+    return this.userRoleBusiness.post(entity);
   }   
+
 
 
   /**
@@ -153,16 +156,16 @@ public class RoleREST {
   @RequestMapping(method = RequestMethod.POST
   ,value="/{instanceId}/User")
   public Role postUser(@Validated @RequestBody final User entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
-      UserRole newUserRole = new UserRole();
+    UserRole newUserRole = new UserRole();
 
-      Role instance = this.roleBusiness.get(instanceId);
+    Role instance = this.roleBusiness.get(instanceId);
 
-      newUserRole.setUser(entity);
-      newUserRole.setRole(instance);
-      
-      this.userRoleBusiness.post(newUserRole);
+    newUserRole.setUser(entity);
+    newUserRole.setRole(instance);
+    
+    this.userRoleBusiness.post(newUserRole);
 
-      return newUserRole.getRole();
+    return newUserRole.getRole();
   }   
 
   /**
@@ -172,18 +175,19 @@ public class RoleREST {
   @RequestMapping(method = RequestMethod.DELETE
   ,value="/{instanceId}/User/{relationId}")
   public void deleteUser(@PathVariable("instanceId") java.lang.String instanceId, @PathVariable("relationId") java.lang.String relationId) {
-	  this.roleBusiness.deleteUser(instanceId, relationId);
+    this.roleBusiness.deleteUser(instanceId, relationId);
   }  
 
 
 
-    /**
-     * Serviço exposto para recuperar a entidade de acordo com o id fornecido
-     * 
-     * @generated
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-    public Role get(@PathVariable("id") java.lang.String id) throws Exception {
-        return roleBusiness.get(id);
-    }
+
+  /**
+   * Serviço exposto para recuperar a entidade de acordo com o id fornecido
+   * 
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET, value = "/{id}")
+  public Role get(@PathVariable("id") java.lang.String id) throws Exception {
+    return roleBusiness.get(id);
+  }
 }
