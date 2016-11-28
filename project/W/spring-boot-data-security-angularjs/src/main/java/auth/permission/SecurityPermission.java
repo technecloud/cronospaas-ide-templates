@@ -17,6 +17,7 @@ public class SecurityPermission {
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
     
     // public
+	http.authorizeRequests().antMatchers("/auth/**").permitAll();	
     http.authorizeRequests().antMatchers("/index.html").permitAll();
     http.authorizeRequests().antMatchers("/favicon.ico").permitAll();
     http.authorizeRequests().antMatchers("/public/**").permitAll();

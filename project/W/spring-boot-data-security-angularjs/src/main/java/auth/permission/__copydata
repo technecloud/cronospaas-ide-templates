@@ -1,0 +1,2 @@
+parameter.authentication.normal=../../project/W/spring-boot-data-security-angularjs/$template/authentication/normal/configuration
+parameter.authentication.token=../../project/W/spring-boot-data-security-angularjs/$template/authentication/token/configuration

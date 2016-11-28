@@ -24,7 +24,26 @@ var app = (function() {
       },
       'preferredLocale': 'pt_BR'
     })
-    
+      .config([
+      '$httpProvider',
+      function($httpProvider) {
+        var interceptor = [
+          '$q',
+          '$rootScope',
+          function($q, $rootScope) {
+            var service = {
+              'request': function(config) {
+                var _u = JSON.parse(sessionStorage.getItem('_u'));
+                if (_u && _u.token) config.headers['X-AUTH-TOKEN'] = _u.token;
+                return config;
+              }
+            };
+            return service;
+          }
+        ];
+        $httpProvider.interceptors.push(interceptor);
+      }
+    ])  
     .config(function($stateProvider, $urlRouterProvider, NotificationProvider) {
         NotificationProvider.setOptions({
             delay: 5000,

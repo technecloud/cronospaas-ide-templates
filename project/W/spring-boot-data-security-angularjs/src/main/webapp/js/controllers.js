@@ -18,10 +18,6 @@
             }).success(handleSuccess).error(handleError);
         }
         
-        $rootScope.infiniteReached = function() {
-          //
-        }
-
         function handleSuccess(data, status, headers, config) {
             // Store data response on session storage
             // The session storage will be cleaned when the browser window is closed
@@ -71,33 +67,12 @@
         }
         
         $rootScope.logout = function logout() {
-
-            $http({
-                method: 'GET',
-                url: 'logout',
-            }).then(handleSuccess, handleError)
-
-            $rootScope.session = {};
-        }
-
-        function handleSuccess(data) {
-            // Before redirect to login page we 
-            // have to clean the user data from the 
-            // session storage
-            if(typeof(Storage) !== "undefined") {
-                // save the user data on localStorage
-                sessionStorage.removeItem("_u");
-                $('#themeSytleSheet').attr('href', "");
-            } else {
-                // It's not working with sessionStorage
-            }
-            
-            $state.go("login");
-        }
-
-
-        function handleError(error) {
-            $rootScope.session.error = error;
+          $rootScope.session = {};
+          if(typeof (Storage) !== "undefined") {
+            // save the user data on localStorage
+            sessionStorage.removeItem("_u");
+          }
+          $state.go("login");
         }
         
         $scope.changePassword = function () {
@@ -188,6 +163,32 @@
             }     
             
           }
+        }
+        // refresh token
+        function refreshToken() {
+            $http({
+                method: 'GET',
+                url: 'auth/refresh'
+            }).success(function(data, status, headers, config) {
+                // Store data response on session storage
+                  console.log('revive :' , new Date(data.expires));
+                  sessionStorage.setItem("_u",JSON.stringify(data));
+                  // Recussive 
+                  setTimeout(function() {
+                    refreshToken();
+                    // refres time
+                  },(1800*1000));
+                  
+            }).error(function() {
+              // abafar TODO 
+            });
+        }
+        
+        // exist session
+        if(!$rootScope.session) {
+          $state.go("login");
+        } else {
+           if ($rootScope.session.token) refreshToken();
         }
     }]);
 } (app));
