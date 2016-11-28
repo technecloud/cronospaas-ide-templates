@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import java.util.*;
 import app.dao.*;
 import app.entity.*;
 /**
@@ -98,8 +99,7 @@ public class RoleBusiness {
     return result;
   }
     
-    
-
+  
   /**
    * @generated modifiable
    * OneToMany Relation
@@ -112,8 +112,6 @@ public class RoleBusiness {
       // end-user-code        
       return result;    
   }
-
-
 
   /**
    * @generated modifiable
@@ -140,4 +138,6 @@ public class RoleBusiness {
       // end-user-code  
       return result;  
   }
+
+
 }

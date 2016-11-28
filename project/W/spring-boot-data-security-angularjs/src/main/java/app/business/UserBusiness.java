@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import java.util.*;
 import app.dao.*;
 import app.entity.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -141,8 +142,7 @@ public class UserBusiness {
     return result;
   }
     
-    
-
+  
   /**
    * @generated modifiable
    * OneToMany Relation
@@ -155,8 +155,6 @@ public class UserBusiness {
       // end-user-code        
       return result;    
   }
-
-
 
   /**
    * @generated modifiable
@@ -183,4 +181,6 @@ public class UserBusiness {
       // end-user-code  
       return result;  
   }
+
+
 }
