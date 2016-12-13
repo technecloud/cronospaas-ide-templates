@@ -64,7 +64,7 @@
 <br/>
   </#if>
 </#if>
-<#assign filterSearch = "">
+<#assign filterSearch = "{{'/${model.gridFilter}'}}">
 <#assign entitySearch = "">
 <#if model.hasColumnFilter()>
   <#assign filterSearch = "{{query == '' || query == null ? null : ('/${model.gridFilter}/' + query)}}">
