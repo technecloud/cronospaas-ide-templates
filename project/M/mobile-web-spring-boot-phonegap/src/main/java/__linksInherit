@@ -1,0 +1,3 @@
+<#if (backend??) && (backend?lower_case) == "true" >
+../../project/W/spring-boot-data-security-angularjs/src/main/java/app
+</#if>
