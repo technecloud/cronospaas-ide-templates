@@ -66,7 +66,7 @@
 </#if>
 <#assign filterSearch = "">
 <#if model.gridFilter??>
-  <#assign filterSearch = "{{'/${model.gridFilter}'}}">
+  <#assign filterSearch = "/${model.gridFilter}">
 </#if>
 <#assign entitySearch = "">
 <#if model.hasColumnFilter()>
