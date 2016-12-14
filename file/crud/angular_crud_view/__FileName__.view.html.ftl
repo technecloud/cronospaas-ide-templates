@@ -70,7 +70,7 @@
 </#if>
 <#assign entitySearch = "">
 <#if model.hasColumnFilter()>
-  <#assign filterSearch = "{{query == '' || query == null ? '/${filterSearch}' : ('/${model.gridFilter}/' + query)}}">
+  <#assign filterSearch = "{{query == '' || query == null ? '${filterSearch}' : ('/${model.gridFilter}/' + query)}}">
 <#elseif model.hasSearchableFilter()>
   <#if model.getGridFilterSearchable()=="generalSearch">
     <#assign filterSearch = "?search={{search}}">
