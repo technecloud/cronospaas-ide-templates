@@ -1,3 +1,5 @@
+<#if (backend??) && (backend?lower_case) == "true" >
 ../../project/W/spring-boot-data-security-angularjs/config
 ../../project/W/spring-boot-data-security-angularjs/diagram
+</#if>
 ../../project/W/spring-boot-data-security-angularjs/pom.xml
