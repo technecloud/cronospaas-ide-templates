@@ -1,22 +1,16 @@
-<#if clazz.restPath != "" >
-  <#assign request_mapping_value = clazz.restPath + "/" + clazz.name >
-<#else>
-  <#assign request_mapping_value = restPath + "/" + clazz.name >
-</#if>
-<#assign class_entity_name = "${clazz.name}">
-var model = require("<#list 2..countRestFolderToRoot as i>../</#list>./${entityPackage?replace('.','/')}");
+var model = require("../.././main/models");
 
 module.exports = function(app){
   
   /**
    * Find all obj
    */
-  app.get('${request_mapping_value?trim}', function(req, res){
+  app.get('/api/rest/main/user', function(req, res){
     
-    model.${class_entity_name}.findAll({
+    model.user.findAll({
       offset: getAttribute('offset', req),
       limit: getAttribute('limit', req),
-      include: [<#list clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>]
+      include: []
     }).then(function(obj) {
       res.writeHead(200, {"Content-Type": "application/json"});
       res.end(JSON.stringify(obj));
@@ -30,17 +24,15 @@ module.exports = function(app){
   /**
    * Find by id
    */
-  app.get('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>', function(req, res){
+  app.get('/api/rest/main/user/:id', function(req, res){
   
-  <#list clazz.primaryKeys as field>
-    var ${field.name} = req.param('${field.name}');
-  </#list>  
+    var id = req.param('id');
     
-    model.${class_entity_name}.findOne({ 
+    model.user.findOne({ 
       offset: getAttribute('offset', req),
       limit: getAttribute('limit', req),
-      include: [<#list clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
-      where: { <#list clazz.primaryKeys as field>${field.name}: ${field.name}<#if field_has_next>,</#if></#list> } 
+      include: [],
+      where: { id: id } 
     }).then(function(obj) {
       res.writeHead(200, {"Content-Type": "application/json"});
       res.end(JSON.stringify(obj));
@@ -53,11 +45,11 @@ module.exports = function(app){
   /**
    * Post new obj
    */
-  app.post('${request_mapping_value?trim}', function(req, res){
+  app.post('/api/rest/main/user', function(req, res){
     
     var jsonObj = req.body;
     
-    model.${class_entity_name}.create(jsonObj).then(function(obj) {
+    model.user.create(jsonObj).then(function(obj) {
       res.writeHead(200, {"Content-Type": "application/json"});
       res.end(JSON.stringify(obj));
     }).catch(function (err) {
@@ -69,13 +61,13 @@ module.exports = function(app){
   /**
    * Update a current obj
    */
-  app.put('${request_mapping_value?trim}', function(req, res){
+  app.put('/api/rest/main/user', function(req, res){
     
     var jsonObj = req.body;
     
-    model.${class_entity_name}.update(jsonObj, { where: { <#list clazz.primaryKeys as field>${field.name}: jsonObj.${field.name}<#if field_has_next>,</#if></#list> } }).then(function(obj) {
-      model.${class_entity_name}.findOne({ 
-        where: { <#list clazz.primaryKeys as field>${field.name}: jsonObj.${field.name}<#if field_has_next>,</#if></#list> }  
+    model.user.update(jsonObj, { where: { id: jsonObj.id } }).then(function(obj) {
+      model.user.findOne({ 
+        where: { id: jsonObj.id }  
       }).then(function(localizedOject) {
         res.writeHead(200, {"Content-Type": "application/json"});
         res.end(JSON.stringify(localizedOject));
@@ -92,20 +84,16 @@ module.exports = function(app){
   /**
    * Update a current obj
    */
-  app.put('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>', function(req, res){
+  app.put('/api/rest/main/user/:id', function(req, res){
     
-  <#list clazz.primaryKeys as field>
-    var ${field.name} = req.param('${field.name}');
-  </#list>    
+    var id = req.param('id');
     var jsonObj = req.body;
   
-  <#list clazz.primaryKeys as field>
-    jsonObj.${field.name} = ${field.name};
-  </#list>   
+    jsonObj.id = id;
     
-    model.${class_entity_name}.update(jsonObj, { where: { <#list clazz.primaryKeys as field>${field.name}: jsonObj.${field.name}<#if field_has_next>,</#if></#list> } }).then(function(obj) {
-      model.${class_entity_name}.findOne({ 
-        where: { <#list clazz.primaryKeys as field>${field.name}: jsonObj.${field.name}<#if field_has_next>,</#if></#list> }  
+    model.user.update(jsonObj, { where: { id: jsonObj.id } }).then(function(obj) {
+      model.user.findOne({ 
+        where: { id: jsonObj.id }  
       }).then(function(localizedOject) {
         res.writeHead(200, {"Content-Type": "application/json"});
         res.end(JSON.stringify(localizedOject));
@@ -122,13 +110,11 @@ module.exports = function(app){
   /**
    * Delete a current obj
    */
-  app.delete('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>', function(req, res){
+  app.delete('/api/rest/main/user/:id', function(req, res){
     
-  <#list clazz.primaryKeys as field>
-    var ${field.name} = req.param('${field.name}');
-  </#list>    
+    var id = req.param('id');
     
-    model.${class_entity_name}.destroy({ where: { <#list clazz.primaryKeys as field>${field.name}: ${field.name}<#if field_has_next>,</#if></#list> } }).then(function(obj) {
+    model.user.destroy({ where: { id: id } }).then(function(obj) {
       res.writeHead(200, {"Content-Type": "application/json"});
       res.end(JSON.stringify(obj));
     }).catch(function (err) {

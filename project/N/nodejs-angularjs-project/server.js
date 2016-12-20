@@ -10,8 +10,8 @@ var app = express();
 app.use(bodyParser());
 app.use(express.static('./public'));
 
-require('./app/sync');
-require('./app/loader_rest')(app);
+require('./app/sync_models');
+require('./app/rest_loader')(app);
 
 app.get('/run/:id', function(req, res){
   var id = req.params('id');

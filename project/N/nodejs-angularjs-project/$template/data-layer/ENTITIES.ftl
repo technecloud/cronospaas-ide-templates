@@ -1,24 +1,36 @@
 "use strict";
 
 module.exports = function(sequelize, DataTypes) {  
-  return sequelize.define('<#if tableName??>${tableName?lower_case}<#else>${clazz.name?lower_case}'</#if>, {
+  var ${clazz.name} = sequelize.define('${clazz.name}', {
 <#list clazz.fields as field>
   <#if field.primaryKey>
-	  ${field.name}: {
-	    type: ${field.type},
-    <#if field.generationType?? && field.generationType == "Identity">
-      <#if persistenceProvider == "mysql">
+    ${field.name}: {
+      type: DataTypes.${field.type},
+    <#if field.generationType?? && field.generationType == "UUID">
       defaultValue: DataTypes.UUIDV1,
-      </#if>
+    <#elseif field.generationType?? && field.generationType == "Identity">
+      autoIncrement: true,
     </#if>
-	    primaryKey: true
-	  },
-	<#else>
-	  ${field.name}: ${field.type},
-	</#if>
+      primaryKey: true
+    },
+  <#else>
+    <#if (!field.relation && !field.reverseRelation)>
+    ${field.name}: DataTypes.${field.type},
+    </#if>
+  </#if>
 </#list>
   }, 
   {
+    classMethods: {
+      associate: function(models) {
+  <#list clazz.fields as field>
+    <#if field.reverseRelation>      
+        ${clazz.name}.belongsTo(models.${field.type});
+    </#if>
+  </#list>
+      }
+    },
     freezeTableName: true
   });
+  return ${clazz.name};
 };
