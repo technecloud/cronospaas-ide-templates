@@ -5,7 +5,7 @@ module.exports = function(app){
   /**
    * Find all obj
    */
-  app.get('/api/rest/main/role', function(req, res){
+  app.get('/api/security/role', function(req, res){
     
     model.role.findAll({
       offset: getAttribute('offset', req),
@@ -24,7 +24,7 @@ module.exports = function(app){
   /**
    * Find by id
    */
-  app.get('/api/rest/main/role/:id', function(req, res){
+  app.get('/api/security/role/:id', function(req, res){
   
     var id = req.param('id');
     
@@ -45,7 +45,7 @@ module.exports = function(app){
   /**
    * Post new obj
    */
-  app.post('/api/rest/main/role', function(req, res){
+  app.post('/api/security/role', function(req, res){
     
     var jsonObj = req.body;
     
@@ -61,7 +61,7 @@ module.exports = function(app){
   /**
    * Update a current obj
    */
-  app.put('/api/rest/main/role', function(req, res){
+  app.put('/api/security/role', function(req, res){
     
     var jsonObj = req.body;
     
@@ -84,7 +84,7 @@ module.exports = function(app){
   /**
    * Update a current obj
    */
-  app.put('/api/rest/main/role/:id', function(req, res){
+  app.put('/api/security/role/:id', function(req, res){
     
     var id = req.param('id');
     var jsonObj = req.body;
@@ -110,7 +110,7 @@ module.exports = function(app){
   /**
    * Delete a current obj
    */
-  app.delete('/api/rest/main/role/:id', function(req, res){
+  app.delete('/api/security/role/:id', function(req, res){
     
     var id = req.param('id');
     

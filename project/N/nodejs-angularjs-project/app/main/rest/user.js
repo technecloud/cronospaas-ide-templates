@@ -1,3 +1,4 @@
+//@modified
 var model = require("../.././main/models");
 
 module.exports = function(app){
@@ -5,8 +6,7 @@ module.exports = function(app){
   /**
    * Find all obj
    */
-  app.get('/api/rest/main/user', function(req, res){
-    
+  app.get('/api/security/user', function(req, res){
     model.user.findAll({
       offset: getAttribute('offset', req),
       limit: getAttribute('limit', req),
@@ -24,7 +24,7 @@ module.exports = function(app){
   /**
    * Find by id
    */
-  app.get('/api/rest/main/user/:id', function(req, res){
+  app.get('/api/security/user/:id', function(req, res){
   
     var id = req.param('id');
     
@@ -45,7 +45,7 @@ module.exports = function(app){
   /**
    * Post new obj
    */
-  app.post('/api/rest/main/user', function(req, res){
+  app.post('/api/security/user', function(req, res){
     
     var jsonObj = req.body;
     
@@ -61,7 +61,7 @@ module.exports = function(app){
   /**
    * Update a current obj
    */
-  app.put('/api/rest/main/user', function(req, res){
+  app.put('/api/security/user', function(req, res){
     
     var jsonObj = req.body;
     
@@ -84,7 +84,7 @@ module.exports = function(app){
   /**
    * Update a current obj
    */
-  app.put('/api/rest/main/user/:id', function(req, res){
+  app.put('/api/security/user/:id', function(req, res){
     
     var id = req.param('id');
     var jsonObj = req.body;
@@ -110,7 +110,7 @@ module.exports = function(app){
   /**
    * Delete a current obj
    */
-  app.delete('/api/rest/main/user/:id', function(req, res){
+  app.delete('/api/security/user/:id', function(req, res){
     
     var id = req.param('id');
     

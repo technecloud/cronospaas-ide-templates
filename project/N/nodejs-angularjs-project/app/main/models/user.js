@@ -12,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
 	  login: DataTypes.STRING,
 	  picture: DataTypes.STRING,
 	  theme: DataTypes.STRING,
+	  password: DataTypes.STRING,
   }, 
   {
     classMethods: {
