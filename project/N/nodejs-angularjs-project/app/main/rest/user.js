@@ -1,4 +1,3 @@
-//@modified
 var model = require("../.././main/models");
 
 module.exports = function(app){
