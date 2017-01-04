@@ -88,6 +88,7 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
         </#if>
       </#if>
     </#list>
+    <#if filter_query == ""> <#assign filter_query = ":search = :search"> </#if>
   /**
    * OneToMany Relation - Searchable fields - General search (Only strings fields)
    * @generated
@@ -147,6 +148,7 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
       </#if>
     </#if>
   </#list>
+  <#if filter_query == ""> <#assign filter_query = ":search = :search"> </#if>
   /**
    * ManyToOne Relation - Searchable fields - General search (Only strings fields)
    * @generated
@@ -212,6 +214,7 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
       </#if>
     </#if>
   </#list>
+  <#if filter_query == ""> <#assign filter_query = ":search = :search"> </#if>
   /**
    * Searchable fields - General search (Only strings fields)
    * @generated

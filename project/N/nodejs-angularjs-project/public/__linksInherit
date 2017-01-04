@@ -1,0 +1,25 @@
+<#if (frontend??) && (frontend?lower_case) == "true" && (authentication?lower_case) == "nenhuma"  >
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/bowerscripts
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/components
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/css
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/i18n
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/img
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/js
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/plugins
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/views
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/.bowerrc
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/bower.json
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-sem-autenticacao/webapp/index.html.ftl
+<#elseif (frontend??) && (frontend?lower_case) == "true" && (authentication?lower_case) == "token"  >
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/bowerscripts
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/components
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/css
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/i18n
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/img
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/js
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/plugins
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/views
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/.bowerrc
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/bower.json
+../../project/W/spring-boot-data-security-angularjs/src/main/webapp-autenticacao/webapp/index.html.ftl
+</#if>
