@@ -187,7 +187,7 @@
         function refreshToken() {
             $http({
                 method: 'GET',
-                url: 'auth/refresh'
+                url: window.hostApp + 'auth/refresh'
             }).success(function(data, status, headers, config) {
                 // Store data response on session storage
                   console.log('revive :' , new Date(data.expires));
