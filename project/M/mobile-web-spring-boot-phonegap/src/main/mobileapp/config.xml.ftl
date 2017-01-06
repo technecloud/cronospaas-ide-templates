@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.ionicframework.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>CronApp</name>
+  <name>${projectName}</name>
   <description>Developed by IDE CronApp</description>
   <author email="you@example.com" href="http://example.com.com/">CronApp</author>
   <content src="index.html" />
