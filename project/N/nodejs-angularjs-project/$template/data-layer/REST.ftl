@@ -10,6 +10,7 @@ module.exports = function(app){
   
   /**
    * Find all obj
+   * @generated
    */
   app.get('${request_mapping_value?trim}', function(req, res){
     
@@ -26,9 +27,79 @@ module.exports = function(app){
     });
   });
   
+<#if clazz.hasSearchableField()>
+  /**
+   * Searchable fields - General search (Only strings fields)
+   * @generated
+   */
+  app.get('${request_mapping_value?trim}/generalSearch', function(req, res){
+    
+    var search = req.param('search');
+    
+    model.${class_entity_name}.findAll({ 
+      offset: getAttribute('offset', req),
+      limit: getAttribute('limit', req),
+      include: [<#list clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
+      <#if clazz.hasSearchableFieldString()>
+      where: { $or: [
+        <#list clazz.fields as field>
+          <#if field.isSearchable() && field.getType()=="STRING" >
+                    {${field.name}: {$like: '%'+search+'%'}}, 
+          </#if>
+        </#list>
+                  ]
+              } 
+      </#if>
+    }).then(function(obj) {
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.end(JSON.stringify(obj));
+    }).catch(function (err) {
+      res.writeHead(500, {"Content-Type": "application/json"});
+      res.end(JSON.stringify({error: err}));
+    });
+  });
+  
+  
+  /**
+   * Searchable fields - Specific search
+   * @generated
+   */
+  app.get('${request_mapping_value?trim}/specificSearch', function(req, res){
+  
+    var filter = {};
+  <#list clazz.fields as field>
+    <#if field.isSearchable() >
+      if (req.param('${field.name}'))
+      <#if field.isDate() || field.isTimestamp() >  
+        filter.${field.name} = getDate(req.param('${field.name}'));
+      <#elseif field.isBoolean()>
+        filter.${field.name} = req.param('${field.name}')=='true'?1:0;
+      <#elseif field.isString()>
+        filter.${field.name} = {$like: '%'+req.param('${field.name}')+'%'};
+      <#else>
+        filter.${field.name} = req.param('${field.name}');
+      </#if>
+    </#if>
+  </#list>    
+    
+    model.${class_entity_name}.findAll({ 
+      offset: getAttribute('offset', req),
+      limit: getAttribute('limit', req),
+      include: [<#list clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
+      where: filter
+    }).then(function(obj) {
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.end(JSON.stringify(obj));
+    }).catch(function (err) {
+      res.writeHead(500, {"Content-Type": "application/json"});
+      res.end(JSON.stringify({error: err}));
+    });
+  });
+</#if>
   
   /**
    * Find by id
+   * @generated
    */
   app.get('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>', function(req, res){
   
@@ -52,37 +123,54 @@ module.exports = function(app){
 
   /**
    * Post new obj
+   * @generated
    */
   app.post('${request_mapping_value?trim}', function(req, res){
     
     var jsonObj = req.body;
-    
   <#list clazz.fields as field>
     <#if field.reverseRelation> 
     if (jsonObj.${field.type})
-      jsonObj.${field.type}${field.reverseRelation.clazz?first.name} = jsonObj.${field.type}.${field.reverseRelation.clazz?first.name};
+      jsonObj.${field.type}${field.clazz.primaryKeys?first.name?cap_first} = jsonObj.${field.type}.${field.clazz.primaryKeys?first.name};
     </#if>
   </#list>
     
-    
     model.${class_entity_name}.create(jsonObj).then(function(obj) {
-      res.writeHead(200, {"Content-Type": "application/json"});
-      res.end(JSON.stringify(obj));
+      model.${class_entity_name}.findOne({ 
+        include: [<#list clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
+        where: { <#list clazz.primaryKeys as field>${field.name}: obj.${field.name}<#if field_has_next>,</#if></#list> }  
+      }).then(function(localizedOject) {
+        res.writeHead(200, {"Content-Type": "application/json"});
+        res.end(JSON.stringify(localizedOject));
+      }).catch(function(err) {
+        res.writeHead(500, {"Content-Type": "application/json"});
+        res.end(JSON.stringify({error: err}));  
+      });
     }).catch(function (err) {
       res.writeHead(500, {"Content-Type": "application/json"});
       res.end(JSON.stringify({error: err}));
     });
+    
+    
   });
   
   /**
    * Update a current obj
+   * @generated
    */
   app.put('${request_mapping_value?trim}', function(req, res){
     
     var jsonObj = req.body;
+  <#list clazz.fields as field>
+    <#if field.reverseRelation> 
+    if (jsonObj.${field.type})
+      jsonObj.${field.type}${field.clazz.primaryKeys?first.name?cap_first} = jsonObj.${field.type}.${field.clazz.primaryKeys?first.name};
+    </#if>
+  </#list>
     
     model.${class_entity_name}.update(jsonObj, { where: { <#list clazz.primaryKeys as field>${field.name}: jsonObj.${field.name}<#if field_has_next>,</#if></#list> } }).then(function(obj) {
       model.${class_entity_name}.findOne({ 
+        include: [<#list clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
         where: { <#list clazz.primaryKeys as field>${field.name}: jsonObj.${field.name}<#if field_has_next>,</#if></#list> }  
       }).then(function(localizedOject) {
         res.writeHead(200, {"Content-Type": "application/json"});
@@ -99,6 +187,7 @@ module.exports = function(app){
   
   /**
    * Update a current obj
+   * @generated
    */
   app.put('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>', function(req, res){
     
@@ -106,6 +195,12 @@ module.exports = function(app){
     var ${field.name} = req.param('${field.name}');
   </#list>    
     var jsonObj = req.body;
+    <#list clazz.fields as field>
+    <#if field.reverseRelation> 
+    if (jsonObj.${field.type})
+      jsonObj.${field.type}${field.clazz.primaryKeys?first.name?cap_first} = jsonObj.${field.type}.${field.clazz.primaryKeys?first.name};
+    </#if>
+  </#list>
   
   <#list clazz.primaryKeys as field>
     jsonObj.${field.name} = ${field.name};
@@ -113,6 +208,7 @@ module.exports = function(app){
     
     model.${class_entity_name}.update(jsonObj, { where: { <#list clazz.primaryKeys as field>${field.name}: jsonObj.${field.name}<#if field_has_next>,</#if></#list> } }).then(function(obj) {
       model.${class_entity_name}.findOne({ 
+        include: [<#list clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
         where: { <#list clazz.primaryKeys as field>${field.name}: jsonObj.${field.name}<#if field_has_next>,</#if></#list> }  
       }).then(function(localizedOject) {
         res.writeHead(200, {"Content-Type": "application/json"});
@@ -129,6 +225,7 @@ module.exports = function(app){
 
   /**
    * Delete a current obj
+   * @generated
    */ 
   app.delete('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>', function(req, res){
     
@@ -144,8 +241,85 @@ module.exports = function(app){
       res.end(JSON.stringify({error: err}));
     });
   });
-
+  
 <#list clazz.oneToManyRelation as relation>
+  <#if relation.clazz.hasSearchableField()>
+  /**
+   * OneToMany Relationship - Searchable fields - General search (Only strings fields)
+   * @generated
+   */
+  app.get('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>/${relation.relationName}/generalSearch', function(req, res){
+     
+    <#list clazz.primaryKeys as field>
+    var ${field.name} = req.param('${field.name}');
+    </#list>
+    var search = req.param('search');
+    
+    model.${relation.relationName}.findAll({ 
+      offset: getAttribute('offset', req),
+      limit: getAttribute('limit', req),
+      include: [<#list relation.clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
+      where: {  ${clazz.name}Id: id,
+      <#if relation.clazz.hasSearchableFieldString()>
+                $or: [
+        <#list relation.clazz.fields as field>
+          <#if field.isSearchable() && field.getType()=="STRING" >
+                    {${field.name}: {$like: '%'+search+'%'}}, 
+          </#if>
+        </#list>
+                    ]
+      </#if>
+              } 
+    }).then(function(obj) {
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.end(JSON.stringify(obj));
+    }).catch(function (err) {
+      res.writeHead(500, {"Content-Type": "application/json"});
+      res.end(JSON.stringify({error: err}));
+    });
+  });
+  
+  /**
+   * OneToMany Relationship - Searchable fields - Specific search
+   * @generated
+   */
+  app.get('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>/${relation.relationName}/specificSearch', function(req, res){
+  
+    var filter = {};
+  <#list clazz.primaryKeys as field>
+    filter.${clazz.name}Id = req.param('${field.name}');
+  </#list>
+  <#list relation.clazz.fields as field>
+    <#if field.isSearchable() >
+    if (req.param('${field.name}'))
+      <#if field.isDate() || field.isTimestamp() >  
+      filter.${field.name} = getDate(req.param('${field.name}'));
+      <#elseif field.isBoolean()>
+      filter.${field.name} = req.param('${field.name}')=='true'?1:0;
+      <#elseif field.isString()>
+      filter.${field.name} = {$like: '%'+req.param('${field.name}')+'%'};
+      <#else>
+      filter.${field.name} = req.param('${field.name}');
+      </#if>
+    </#if>
+  </#list>    
+    
+    model.${relation.relationName}.findAll({ 
+      offset: getAttribute('offset', req),
+      limit: getAttribute('limit', req),
+      include: [<#list relation.clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
+      where: filter
+    }).then(function(obj) {
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.end(JSON.stringify(obj));
+    }).catch(function (err) {
+      res.writeHead(500, {"Content-Type": "application/json"});
+      res.end(JSON.stringify({error: err}));
+    });
+  });
+  </#if>
+
+
   /**
    * OneToMany Relationship GET
    * @generated
@@ -248,6 +422,82 @@ module.exports = function(app){
 </#list>  
   
 <#list clazz.manyToManyRelation as relation>
+  <#if relation.relationClassField.clazz.hasSearchableField()>
+  /**
+   * ManyToMany Relationship - Searchable fields - General search (Only strings fields)
+   * @generated
+   */
+  app.get('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>/${relation.relationName}/generalSearch', function(req, res){
+     
+    <#list clazz.primaryKeys as field>
+    var ${field.name} = req.param('${field.name}');
+    </#list>
+    var search = req.param('search');
+    
+    model.${relation.relationClassField.clazz.name}.findAll({ 
+      offset: getAttribute('offset', req),
+      limit: getAttribute('limit', req),
+      include: [<#list relation.relationClassField.clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
+      where: {  ${clazz.name}Id: id,
+      <#if relation.relationClassField.clazz.hasSearchableFieldString()>
+                $or: [
+        <#list relation.relationClassField.clazz.fields as field>
+          <#if field.isSearchable() && field.getType()=="STRING" >
+                    {${field.name}: {$like: '%'+search+'%'}}, 
+          </#if>
+        </#list>
+                    ]
+      </#if>
+              } 
+    }).then(function(obj) {
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.end(JSON.stringify(obj));
+    }).catch(function (err) {
+      res.writeHead(500, {"Content-Type": "application/json"});
+      res.end(JSON.stringify({error: err}));
+    });
+  });
+  
+  /**
+   * ManyToMany Relationship - Searchable fields - Specific search
+   * @generated
+   */
+  app.get('${request_mapping_value?trim}/<#list clazz.primaryKeys as field>:${field.name}<#if field_has_next>/</#if></#list>/${relation.relationName}/specificSearch', function(req, res){
+  
+    var filter = {};
+  <#list clazz.primaryKeys as field>
+    filter.${relation.relationClassField.clazz.name}Id = req.param('${field.name}');
+  </#list>
+  <#list relation.relationClassField.clazz.fields as field>
+    <#if field.isSearchable() >
+    if (req.param('${field.name}'))
+      <#if field.isDate() || field.isTimestamp() >  
+      filter.${field.name} = getDate(req.param('${field.name}'));
+      <#elseif field.isBoolean()>
+      filter.${field.name} = req.param('${field.name}')=='true'?1:0;
+      <#elseif field.isString()>
+      filter.${field.name} = {$like: '%'+req.param('${field.name}')+'%'};
+      <#else>
+      filter.${field.name} = req.param('${field.name}');
+      </#if>
+    </#if>
+  </#list>    
+    
+    model.${relation.relationClassField.clazz.name}.findAll({ 
+      offset: getAttribute('offset', req),
+      limit: getAttribute('limit', req),
+      include: [<#list relation.relationClassField.clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
+      where: filter
+    }).then(function(obj) {
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.end(JSON.stringify(obj));
+    }).catch(function (err) {
+      res.writeHead(500, {"Content-Type": "application/json"});
+      res.end(JSON.stringify({error: err}));
+    });
+  });
+  </#if>
+
   /**
    * ManyToMany Relationship GET
    * @generated
@@ -312,10 +562,8 @@ module.exports = function(app){
       res.writeHead(500, {"Content-Type": "application/json"});
       res.end(JSON.stringify({error: err}));
     });
-    
   });
 </#list> 
-  
 };
 
 var getAttribute = function(attribute ,req) {
@@ -328,3 +576,13 @@ var getAttribute = function(attribute ,req) {
   else if (attribute === 'limit') 
     return limit;
 };
+
+<#if clazz.hasSearchableFieldDate()>
+var getDate = function(st) {
+  var pattern = /(\d{2})\/(\d{2})\/(\d{4})/;
+  var result = st.replace(pattern,'$3-$2-$1');
+  if (result.length == 10)
+    result+='T03:00:00.000Z';
+  return result;
+};
+</#if>
