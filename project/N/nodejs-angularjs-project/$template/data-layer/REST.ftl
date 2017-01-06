@@ -8,6 +8,37 @@ var model = require("<#list 2..countRestFolderToRoot as i>../</#list>./${entityP
 
 module.exports = function(app){
   
+<#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys> 
+  <#assign method_named_query_name = "${namedQuery.name?uncap_first}">
+    <#if method_named_query_name != "list">
+  /**
+   * List with pagination - NamedQuery
+   * @generated
+   */
+  app.get('${request_mapping_value?trim}/${method_named_query_name}', function(req, res){
+    
+    <#assign replacedParams = "${namedQuery.query?replace('\n\r','')?replace('\r\t','')?replace('\n','')?replace('\t','')}">
+    <#list keys as key>
+    var ${key} = req.param('${key}');
+      <#assign replacedParams = "${replacedParams?replace(':${key}','${key}')}">
+    </#list>
+    
+    model.${class_entity_name}.findAll({
+      offset: getAttribute('offset', req),
+      limit: getAttribute('limit', req),
+      include: [<#list clazz.fields as field><#if field.reverseRelation> { model: model.${field.type} }, </#if></#list>],
+      where: ${replacedParams}
+    }).then(function(obj) {
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.end(JSON.stringify(obj));
+    }).catch(function (err) {
+      res.writeHead(500, {"Content-Type": "application/json"});
+      res.end(JSON.stringify({error: err}));
+    });
+  });
+    </#if>
+</#list>
+  
   /**
    * Find all obj
    * @generated

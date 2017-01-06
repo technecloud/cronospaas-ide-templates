@@ -2,11 +2,11 @@
 
 module.exports = function(sequelize, DataTypes) {  
   var userrole = sequelize.define('userrole', {
-	  id: {
-	    type: DataTypes.STRING,
+    id: {
+      type: DataTypes.STRING,
       defaultValue: DataTypes.UUIDV1,
-	    primaryKey: true
-	  },
+      primaryKey: true
+    },
   }, 
   {
     classMethods: {
