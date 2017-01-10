@@ -5,14 +5,33 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.STRING,
       defaultValue: DataTypes.UUIDV1,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false
     },
-    email: DataTypes.STRING,
-    name: DataTypes.STRING,
-    login: DataTypes.STRING,
-    picture: DataTypes.STRING,
-    theme: DataTypes.STRING,
-    password: DataTypes.STRING,
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    login: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    picture: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    theme: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   }, 
   {
     classMethods: {

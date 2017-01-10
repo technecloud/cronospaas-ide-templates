@@ -5,9 +5,13 @@ module.exports = function(sequelize, DataTypes) {
     id: {
       type: DataTypes.STRING,
       defaultValue: DataTypes.UUIDV1,
-      primaryKey: true
+      primaryKey: true,
+      allowNull: false
     },
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   }, 
   {
     classMethods: {
