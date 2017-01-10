@@ -5,17 +5,27 @@ module.exports = function(sequelize, DataTypes) {
 <#list clazz.fields as field>
   <#if field.primaryKey>
     ${field.name}: {
-      type: DataTypes.${field.type},
+      type: DataTypes.${field.type}<#if field.getLength()??>(${field.getLength()})</#if>,
     <#if field.generationType?? && field.generationType == "UUID">
       defaultValue: DataTypes.UUIDV1,
     <#elseif field.generationType?? && field.generationType == "Identity">
       autoIncrement: true,
     </#if>
-      primaryKey: true
+    <#if (field.isUnique())>
+      unique: true,
+    </#if>
+      primaryKey: true,
+      allowNull: ${field.isNullable()?c}
     },
   <#else>
     <#if (!field.relation && !field.reverseRelation)>
-    ${field.name}: DataTypes.${field.type},
+    ${field.name}: {
+      type: DataTypes.${field.type}<#if field.getLength()??>(${field.getLength()})</#if>,
+      <#if (field.isUnique())>
+      unique: true,
+      </#if>
+      allowNull: ${field.isNullable()?c}
+    },
     </#if>
   </#if>
 </#list>
