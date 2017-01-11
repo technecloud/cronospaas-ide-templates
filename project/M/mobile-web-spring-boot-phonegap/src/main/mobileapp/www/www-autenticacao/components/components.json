@@ -235,7 +235,7 @@
     },
     {
       "name": "crn-title",
-      "text": "Título",
+      "text": "Titulo",
       "class": "cpn cpn-title",
       "templateURL": "src/main/mobileapp/www/components/templates/title.template.html"
     },
