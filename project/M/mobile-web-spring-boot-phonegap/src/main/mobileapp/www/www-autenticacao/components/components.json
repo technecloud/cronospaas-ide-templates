@@ -250,7 +250,7 @@
     },
     {
       "name": "crn-title",
-      "text": "T�tulo",
+      "text": "Titulo",
       "class": "cpn cpn-title",
       "templateURL": "src/main/mobileapp/www/components/templates/title.template.html"
     },
