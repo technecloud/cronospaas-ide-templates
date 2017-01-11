@@ -162,7 +162,6 @@
       }
     },
     {
-<<<<<<< HEAD
 			"name": "crn-report-button",
 			"text": "Button Report",
 			"class": "cpn cpn-button",
@@ -177,22 +176,6 @@
 				}
 			}
 		},
-=======
-      "name": "crn-report-button",
-      "text": "Button Report",
-      "class": "cpn cpn-button",
-      "templateURL": "src/main/mobileapp/www/components/templates/button-report.template.html",
-      "properties": {
-        "ng-click": {
-          "type": "report-event"
-        },
-        "onmouseover": {
-          "removable": true,
-          "type": "event"
-        }
-      }
-    },
->>>>>>> release/1.8.0
     {
       "name": "crn-radiogroup",
       "text": "RadioGroup",
