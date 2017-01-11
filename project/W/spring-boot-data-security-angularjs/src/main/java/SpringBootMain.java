@@ -10,7 +10,7 @@ import org.springframework.context.annotation.*;
  *  - Executar qualquer bean do tipo CommandLineRunner;
  */
 @ComponentScan(basePackages = {
-  "auth.permission", "api.rest.events", "app"
+  "auth.permission", "api.rest.events", "app", "reports"
 })
 @SpringBootApplication
 public class SpringBootMain extends SpringBootServletInitializer {

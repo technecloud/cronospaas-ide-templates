@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.jdbc.*;
  *  - Executar qualquer bean do tipo CommandLineRunner;
  */
 @ComponentScan(basePackages = {
-  "auth.permission", "api.rest.events"<#list workspaceView.allDiagrams as diagram>, ${diagram.getGlobalAttribute("namespace")}</#list><#list packages as package>, ${package}</#list>
+  "auth.permission", "api.rest.events", "reports"<#list workspaceView.allDiagrams as diagram>, ${diagram.getGlobalAttribute("namespace")}</#list><#list packages as package>, ${package}</#list>
 })
 @SpringBootApplication
 <#if workspaceView.withoutH2()>
