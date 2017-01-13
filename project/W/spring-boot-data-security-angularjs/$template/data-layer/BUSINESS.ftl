@@ -37,6 +37,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
     <#assign field_pk_type = "${field.type}">
   </#if>
 </#list>
+
 /**
  * Classe que representa a camada de negócios de ${clazz_name}
  * 
@@ -77,12 +78,11 @@ public class ${clazz_name} {
         <#if field.isEncryption()>
         // isEncryption() ${field.name?cap_first}
         String form${field.name?cap_first} = entity.get${field.name?cap_first}();
-        String encryption${field.name?cap_first} = new BCryptPasswordEncoder()
-            .encode(form${field.name?cap_first});
+        String encryption${field.name?cap_first} = new BCryptPasswordEncoder().encode(form${field.name?cap_first});
         entity.set${field.name?cap_first}(encryption${field.name?cap_first});      
         </#if>
       </#list>  
-        repository.save(entity);
+      repository.save(entity);
       // begin-user-code  
       // end-user-code  
       return entity;
@@ -96,7 +96,7 @@ public class ${clazz_name} {
     public ${class_entity_name} get(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
       // begin-user-code  
       // end-user-code        
-       ${class_entity_name} result = repository.findOne(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
+      ${class_entity_name} result = repository.findOne(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
       // begin-user-code  
       // end-user-code        
       return result;
@@ -114,12 +114,11 @@ public class ${clazz_name} {
         <#if field.isEncryption()>
         // isEncryption() ${field.name?cap_first}
         String form${field.name?cap_first} = entity.get${field.name?cap_first}();
-        String encryption${field.name?cap_first} = form${field.name?cap_first}.startsWith(ENCRYPT) ? form${field.name?cap_first} 
-            : new BCryptPasswordEncoder().encode(form${field.name?cap_first});
+        String encryption${field.name?cap_first} = form${field.name?cap_first}.startsWith(ENCRYPT) ? form${field.name?cap_first} : new BCryptPasswordEncoder().encode(form${field.name?cap_first});
         entity.set${field.name?cap_first}(encryption${field.name?cap_first});      
         </#if>
       </#list>  
-        repository.saveAndFlush(entity);
+      repository.saveAndFlush(entity);
       // begin-user-code  
       // end-user-code        
       return entity;
@@ -130,7 +129,7 @@ public class ${clazz_name} {
      * 
      * @generated
      */
-    public void delete(<#list clazz.primaryKeys as field> ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+    public void delete(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
       // begin-user-code  
       // end-user-code        
       repository.delete(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
@@ -139,8 +138,7 @@ public class ${clazz_name} {
     }
 
     // CRUD
-    
-<#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys> 
+<#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys>
 
 <#assign method_named_query_name = "${namedQuery.name?uncap_first}">
   /**
@@ -148,10 +146,10 @@ public class ${clazz_name} {
    * 
    * @generated
    */
-  public <#if !namedQuery.void>Page<${clazz.name}><#else>int</#if> ${method_named_query_name} (<#list keys as key> ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable </#if>){
+  public <#if !namedQuery.void>Page<${clazz.name}><#else>int</#if> ${method_named_query_name}(<#list keys as key> ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable</#if>){
     // begin-user-code  
     // end-user-code        
-    <#if !namedQuery.void>Page<${clazz.name}><#else>int</#if> result = repository.${method_named_query_name} (<#list keys as key> ${key}<#if key_has_next>, </#if></#list> <#if !namedQuery.void><#if keys?size gt 0>, </#if> pageable </#if>);
+    <#if !namedQuery.void>Page<${clazz.name}><#else>int</#if> result = repository.${method_named_query_name}(<#list keys as key> ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>pageable</#if>);
     // begin-user-code  
     // end-user-code        
     return result;
@@ -191,10 +189,10 @@ public class ${clazz_name} {
    * @generated modifiable
    * OneToMany Relation
    */  
-  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable) {
+  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      Page<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
+      Page<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>pageable);
       // begin-user-code  
       // end-user-code        
       return result;    
@@ -234,10 +232,10 @@ public class ${clazz_name} {
    * @generated modifiable
    * ManyToMany Relation
    */  
-  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> Pageable pageable ) {
+  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable) {
       // begin-user-code
       // end-user-code  
-      Page<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if> pageable );
+      Page<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>pageable);
       // begin-user-code
       // end-user-code
       return result;            
@@ -274,5 +272,4 @@ public class ${clazz_name} {
     return repository.specificSearch(<#list clazz.fields as field><#if field.isSearchable()>${field.name}, </#if></#list>pageable);
   }
 </#if>
-
 }
