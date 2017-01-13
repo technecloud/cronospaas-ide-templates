@@ -91,7 +91,7 @@ public class ${clazz.name}Business {
   public ${clazz.name} update(final ${clazz.name} entity) {
     // begin-user-code
     // end-user-code  
-	${clazz.name} updatedEntity = dao.update(entity);
+	  ${clazz.name} updatedEntity = dao.update(entity);
     // begin-user-code
     // end-user-code	
     return updatedEntity;
@@ -106,7 +106,7 @@ public class ${clazz.name}Business {
   public void delete(final ${clazz.name} entity){
     // begin-user-code
     // end-user-code    
-	dao.delete(entity);
+	  dao.delete(entity);
     // begin-user-code
     // end-user-code  	
   }
