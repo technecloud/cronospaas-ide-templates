@@ -33,7 +33,7 @@
           if(window.hostApp) {
             $http({
               method : 'POST',
-              url : window.hostApp + '/auth',
+              url : window.hostApp + 'auth',
 			  data: $.param($scope.user),
 			  headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
             }).success(handleSuccess).error(handleError);
@@ -159,7 +159,7 @@
 
           $http({
             method : 'POST',
-            url : 'changePassword',
+            url: window.hostApp + 'changePassword',
             data : $.param(user),
             headers : {
               'Content-Type' : 'application/x-www-form-urlencoded'
@@ -187,7 +187,7 @@
         function refreshToken() {
             $http({
                 method: 'GET',
-                url: window.hostApp + '/auth/refresh'
+                url: window.hostApp + 'auth/refresh'
             }).success(function(data, status, headers, config) {
                 // Store data response on session storage
                   console.log('revive :' , new Date(data.expires));
