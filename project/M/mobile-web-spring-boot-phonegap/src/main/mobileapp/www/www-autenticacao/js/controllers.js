@@ -159,7 +159,7 @@
 
           $http({
             method : 'POST',
-            url : 'changePassword',
+            url: window.hostApp + 'changePassword',
             data : $.param(user),
             headers : {
               'Content-Type' : 'application/x-www-form-urlencoded'
