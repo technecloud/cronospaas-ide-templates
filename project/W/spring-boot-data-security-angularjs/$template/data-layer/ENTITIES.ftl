@@ -22,7 +22,7 @@ import org.eclipse.persistence.annotations.*;
  * @generated
  */
 @Entity
-<#if clazz.hasComplexPK()>
+<#if clazz.hasCompositeKey()>
 @IdClass(${clazz.name + 'PK'}.class)
 </#if>
 @Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\""<#if (clazz.fieldsUniqueKey?size > 0) > ,uniqueConstraints=@UniqueConstraint(columnNames={
