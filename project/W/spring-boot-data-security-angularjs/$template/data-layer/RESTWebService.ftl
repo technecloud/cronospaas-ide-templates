@@ -35,7 +35,10 @@ public class ${className} {
     ${baseInfo.stubClass} stub = new ${baseInfo.stubClass}();
   
 <#list baseInfo.getAllObjectsToInstance(method) as param>
-    <#if param.type?contains("[]") || param.type?contains("[][]")>
+    <#if param.hasArgumentsInConstructor>
+    //Constructor has arguments - requires manual implementation
+    //${param.type} ${param.name};
+    <#elseif param.type?contains("[]") || param.type?contains("[][]")>
     ${param.type} ${param.name} = null; //Array requires manual implementation
     <#else>
     ${param.type} ${param.name} = new ${param.type}();
@@ -44,7 +47,11 @@ public class ${className} {
 <#list baseInfo.getAllObjectsToInstance(method) as param>
     <#if param.methods??>
       <#list param.methods as methodFromObjParam>
+        <#if baseInfo.checkHasArgumentsConstructorParameterFromMethod(methodFromObjParam)>
+    //${param.name}.${methodFromObjParam.methodName}(<#list baseInfo.getInstanceNameParameterFromMethod(methodFromObjParam) as instanceName>${instanceName}<#if instanceName_has_next>, </#if></#list>);
+        <#else>
     ${param.name}.${methodFromObjParam.methodName}(<#list baseInfo.getInstanceNameParameterFromMethod(methodFromObjParam) as instanceName>${instanceName}<#if instanceName_has_next>, </#if></#list>);
+        </#if>
       </#list>     
     </#if>
 </#list> 
