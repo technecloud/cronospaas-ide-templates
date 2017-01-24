@@ -1,0 +1,11 @@
+<div data-component="crn-textinput" id="crn-textinput-image">
+  <div class="form-group" ngf-drop ngf-change="datasource.setImage($file, datasource.active.image)" ngf-pattern="'image/*'">
+    <label for="textinput-image" class="">image</label> 
+    <img data-ng-src="{{'data:image/png;base64,' + datasource.active.image}}" style="max-height: 100px;" ng-if="datasource.active.image"> 
+    <div ng-if="datasource.active.image" class="help-block clearfix"> 
+      <span class="pull-left">{{datasource.byteSize(datasource.active.image)}}</span> 
+      <button type="button" ng-click="datasource.active.image=null" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button> 
+    </div>
+    <button type="button" ngf-select class="btn btn-default btn-block" ngf-change="datasource.setImage($file, datasource.active, 'image')" accept="image/*">Add</button> 
+  </div>
+</div>

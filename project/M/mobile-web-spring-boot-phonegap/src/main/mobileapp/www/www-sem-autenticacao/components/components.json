@@ -67,14 +67,14 @@
         "rules": [
           {
             "activeClass": "active",
-            "sourceHTML": "<a href='#' class='tab-item component-holder' target='_self' data-component='crn-anchor'>Link</a>",
+            "sourceHTML": "<a href='#' class='tab-item component-holder' target='_self' data-component='crn-anchor'>Link<\/a>",
             "targetSelector": "div.tabs"
           }
         ]
       },
       "templateURL": "src/main/mobileapp/www/components/templates/tabs.template.html"
     },
-     {
+    {
       "name": "crn-navbar",
       "text": "MenuItem",
       "class": "cpn cpn-navbar",
@@ -84,7 +84,7 @@
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<div menu-close class=\"item-icon-left item item-complex\"><a href=\"#\" class=\"component-holder item-content ng-binding\" data-component=\"crn-anchor\">Action item</a></div> ",
+            "sourceHTML": "<div menu-close class=\"item-icon-left item item-complex\"><a href=\"#\" class=\"component-holder item-content ng-binding\" data-component=\"crn-anchor\">Action item<\/a><\/div> ",
             "targetSelector": ".nav.navbar-nav"
           }
         ]
@@ -104,7 +104,7 @@
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<div class='item'>.line</div>",
+            "sourceHTML": "<div class='item'>.line<\/div>",
             "targetSelector": ".list"
           }
         ]
@@ -124,7 +124,7 @@
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<div class='col'><div class='item'>.col</div></div>",
+            "sourceHTML": "<div class='col'><div class='item'>.col<\/div><\/div>",
             "targetSelector": ".row"
           }
         ]
@@ -139,11 +139,18 @@
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<a href='#' class='button button-dark component-holder' target='_self' data-component='crn-anchor'>Link</a> ",
+            "sourceHTML": "<a href='#' class='button button-dark component-holder' target='_self' data-component='crn-anchor'>Link<\/a> ",
             "targetSelector": ".button-bar"
           }
         ]
       }
+    },
+    {
+      "name": "crn-image",
+      "text": "Image Upload",
+      "class": "cpn cpn-image",
+      "templateURL": "src/main/mobileapp/www/components/templates/image.template.html",
+      "properties": {}
     },
     {
       "name": "crn-button",
@@ -162,20 +169,20 @@
       }
     },
     {
-			"name": "crn-report-button",
-			"text": "Button Report",
-			"class": "cpn cpn-button",
-			"templateURL": "src/main/mobileapp/www/components/templates/button-report.template.html",
-			"properties": {
-				"ng-click": {
-					"type": "report-event"
-				},
-				"onmouseover": {
-					"removable": true,
-					"type": "event"
-				}
-			}
-		},
+      "name": "crn-report-button",
+      "text": "Button Report",
+      "class": "cpn cpn-button",
+      "templateURL": "src/main/mobileapp/www/components/templates/button-report.template.html",
+      "properties": {
+        "ng-click": {
+          "type": "report-event"
+        },
+        "onmouseover": {
+          "removable": true,
+          "type": "event"
+        }
+      }
+    },
     {
       "name": "crn-radiogroup",
       "text": "RadioGroup",
@@ -185,7 +192,7 @@
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<label class=\"item item-radio\">\n <input id=\"optionsRadios${RANDOM}\" type=\"radio\" name=\"group\" value=\"go\" checked=\"checked\"><div class=\"radio-content\"><div class=\"item-content\">Choose</div><i class=\"radio-icon ion-checkmark\"></i></div>\n </label>",
+            "sourceHTML": "<label class=\"item item-radio\">\n <input id=\"optionsRadios${RANDOM}\" type=\"radio\" name=\"group\" value=\"go\" checked=\"checked\"><div class=\"radio-content\"><div class=\"item-content\">Choose<\/div><i class=\"radio-icon ion-checkmark\"><\/i><\/div>\n <\/label>",
             "targetSelector": ".radio-group"
           }
         ]
@@ -227,7 +234,7 @@
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<li class=\"item item-checkbox\"><label class=\"checkbox\"><input id=\"check${RANDOM}\" type=\"checkbox\" checked=\"\"></label>Choose</li>",
+            "sourceHTML": "<li class=\"item item-checkbox\"><label class=\"checkbox\"><input id=\"check${RANDOM}\" type=\"checkbox\" checked=\"\"><\/label>Choose<\/li>",
             "targetSelector": ".checkbox-group"
           }
         ]
@@ -242,7 +249,7 @@
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<li class=\"item item-toggle\"> Choose <label class=\"toggle toggle-assertive\"> <input id=\"toggle${RANDOM}\" type=\"checkbox\"> <div class=\"track\"> <div class=\"handle\"></div> </div> </label></li>",
+            "sourceHTML": "<li class=\"item item-toggle\"> Choose <label class=\"toggle toggle-assertive\"> <input id=\"toggle${RANDOM}\" type=\"checkbox\"> <div class=\"track\"> <div class=\"handle\"><\/div> <\/div> <\/label><\/li>",
             "targetSelector": ".toggle-group"
           }
         ]
@@ -381,7 +388,7 @@
       "name": "crn-footer",
       "text": "Footer",
       "class": "cpn cpn-footer",
-      "template": "<div class=\"bar bar-footer bar-balanced\"><div class=\"title\">Footer</div></div>",
+      "template": "<div class=\"bar bar-footer bar-balanced\"><div class=\"title\">Footer<\/div><\/div>",
       "properties": {
         "onclick": {
           "removable": true,
@@ -393,7 +400,7 @@
       "name": "crn-datasource",
       "text": "Datasource",
       "class": "cpn cpn-datasource",
-      "template": "<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\" on-before-create=\"\" on-after-create=\"\" on-before-update=\"\" on-after-update=\"\" on-before-delete=\"\" on-after-delete=\"\"><i class=\"cpn cpn-datasource\" ></i></datasource>",
+      "template": "<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\" on-before-create=\"\" on-after-create=\"\" on-before-update=\"\" on-after-update=\"\" on-before-delete=\"\" on-after-delete=\"\"><i class=\"cpn cpn-datasource\" ><\/i><\/datasource>",
       "properties": {
         "entity": {
           "removable": false,

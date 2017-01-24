@@ -50,6 +50,7 @@
         <script src="plugins/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
         <script src="plugins/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
         <script src="plugins/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
+        <script src="plugins/ng-file-upload/ng-file-upload.min.js"></script>
         <script type="text/javascript" src="plugins/moment/min/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         
