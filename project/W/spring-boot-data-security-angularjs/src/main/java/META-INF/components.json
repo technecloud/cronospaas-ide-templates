@@ -329,7 +329,7 @@
       "properties": {}
     },
     {
-      "name": "crn-image",
+      "name": "crn-image-upload",
       "text": "Image Upload",
       "class": "cpn cpn-image",
       "templateURL": "src/main/webapp/components/templates/image.template.html",
