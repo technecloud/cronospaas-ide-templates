@@ -1,10 +1,6 @@
 package ${restPackage};
 
-import java.io.StringWriter;
-
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
-
+import org.apache.commons.httpclient.protocol.Protocol;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,6 +52,8 @@ public class ${className} {
     </#if>
 </#list> 
     
+    org.apache.commons.httpclient.protocol.Protocol.unregisterProtocol("https");
+    org.apache.commons.httpclient.protocol.Protocol.registerProtocol("https",  new Protocol("https", new org.apache.commons.httpclient.contrib.ssl.EasySSLProtocolSocketFactory(), 443));
     ${method.returnType} respn = stub.${method.methodName}(<#list baseInfo.getInstanceNameParameterFromMethod(method) as instanceName>${instanceName}<#if instanceName_has_next>, </#if></#list>);
     Gson gson = new Gson();
     String json = gson.toJson(respn);
