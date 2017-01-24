@@ -14,7 +14,8 @@ var app = (function() {
     'pascalprecht.translate',
     'tmh.dynamicLocale',
     'ui-notification',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ngFileUpload'
     ])
     
     .constant('LOCALES', {
