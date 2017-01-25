@@ -11,7 +11,8 @@ var app = (function() {
         'tmh.dynamicLocale',
         'ui-notification',
         'ngInputDate',
-        'ngCordova'
+        'ngCordova',
+        'ngFileUpload'
     ])
 
     .constant('LOCALES', {
