@@ -57,6 +57,13 @@
       }
     },
     {
+      "name": "crn-icon",
+      "text": "Icon",
+      "class": "fa fa-star",
+      "style": "margin: 3px",
+      "template": "<i class=\"fa fa-star\"></i>"
+    },
+    {
       "name": "crn-report-button",
       "text": "Button Report",
       "class": "cpn cpn-button",
