@@ -338,7 +338,7 @@
     {
       "name": "crn-image-upload",
       "text": "Image Upload",
-      "class": "cpn cpn-image",
+      "class": "cpn cpn-image-upload",
       "templateURL": "src/main/webapp/components/templates/image.template.html",
       "properties": {}
     },

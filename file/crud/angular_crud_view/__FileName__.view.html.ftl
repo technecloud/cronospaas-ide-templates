@@ -207,15 +207,13 @@
               </ui-select-choices>
             </ui-select>
             <#elseif field.isByteImage()>
-            <div data-component="crn-textinput" id="crn-textinput-imagem">
-              <div class="form-group" ngf-drop ngf-change="datasource.setImage($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
-                <img data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}" style="max-height: 100px;" ng-if="datasource.active.${field.name}"> 
-                <div ng-if="datasource.active.${field.name}" class="help-block clearfix"> 
-                  <span class="pull-left">{{datasource.byteSize(datasource.active.${field.name})}}</span> 
-                  <button type="button" ng-click="datasource.active.${field.name}=null" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button> 
-                </div>
-                <button type="button" ngf-select class="btn btn-default btn-block" ngf-change="datasource.setImage($file, datasource.active, '${field.name}')" accept="image/*">Add</button> 
+            <div class="form-group" ngf-drop ngf-change="datasource.setImage($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
+              <img data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}" style="max-height: 100px;" ng-if="datasource.active.${field.name}"> 
+              <div ng-if="datasource.active.${field.name}" class="help-block clearfix"> 
+                <span class="pull-left">{{datasource.byteSize(datasource.active.${field.name})}}</span> 
+                <button type="button" ng-click="datasource.active.${field.name}=null" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button> 
               </div>
+              <button type="button" ngf-select class="btn btn-default btn-block" ngf-change="datasource.setImage($file, datasource.active, '${field.name}')" accept="image/*">Add</button> 
             </div>
             <#else>
             <input type="<#if field.isEncryption()>password<#else>text</#if>" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
