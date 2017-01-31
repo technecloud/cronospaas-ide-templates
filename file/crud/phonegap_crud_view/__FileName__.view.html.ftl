@@ -116,14 +116,14 @@
               id="textinput-${field.name}" name="textinput-${field.name}" 
               <#if model.formMapMasks[field.name]?has_content>
                 mask="${model.formMapMasks[field.name]}"
-                <#if model.formMapValidations[field.name] == "999.999.999-99" >
+                <#if model.formMapMasks[field.name] == "999.999.999-99" >
                   <#assign valid = "cpf" >
-                <#elseif model.formMapValidations[field.name] == "99.999.999/9999-99">
+                <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
                   <#assign valid = "cnpj" >
                 </#if>
                 <#if valid??>
                   valid="${valid}"
-                  data-error-message="{{'invalid.${model.formMapValidations[field.name]}' | translate}}"
+                  data-error-message="{{'invalid.${valid}' | translate}}"
                </#if>
               </#if>
               <#if !field.isNullable()>required="required"</#if>> 
