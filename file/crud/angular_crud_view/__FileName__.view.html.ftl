@@ -66,7 +66,7 @@
                 <#assign valid = "cnpj" >
               </#if>
               <#if valid??>
-                valid="model.formMapValidations[field.name]"
+                valid="${valid}"
                 data-error-message="{{'invalid.${model.formMapValidations[field.name]}' | translate}}"
              </#if>> 
     </div>

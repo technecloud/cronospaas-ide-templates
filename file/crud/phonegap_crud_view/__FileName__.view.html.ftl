@@ -109,7 +109,24 @@
             <#else>
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
             <span class="input-label">${model.formMapLabels[field.name]!}</span> 
-            <input type="text" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
+            <input 
+              type="text" 
+              placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" 
+              ng-model="${model.dataSourceName}.active.${field.name}" 
+              id="textinput-${field.name}" name="textinput-${field.name}" 
+              <#if model.formMapMasks[field.name]?has_content>
+                mask="${model.formMapMasks[field.name]}"
+                <#if model.formMapValidations[field.name] == "999.999.999-99" >
+                  <#assign valid = "cpf" >
+                <#elseif model.formMapValidations[field.name] == "99.999.999/9999-99">
+                  <#assign valid = "cnpj" >
+                </#if>
+                <#if valid??>
+                  valid="${valid}"
+                  data-error-message="{{'invalid.${model.formMapValidations[field.name]}' | translate}}"
+               </#if>
+              </#if>
+              <#if !field.isNullable()>required="required"</#if>> 
             </label> 
             </#if>
             </#list>
