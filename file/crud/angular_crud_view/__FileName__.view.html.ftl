@@ -52,7 +52,23 @@
   <div class="col-md-2">
     <div>
       <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label> 
-      <input type="text" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>> 
+      
+      <input type="text" 
+             ng-model="${field.name}" 
+             class="form-control" 
+             value="" 
+             placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" 
+             <#if model.formMapMasks[field.name]?has_content>
+              mask="${model.formMapMasks[field.name]}"
+              <#if model.formMapValidations[field.name] == "999.999.999-99" >
+                <#assign valid = "cpf" >
+              <#elseif model.formMapValidations[field.name] == "99.999.999/9999-99">
+                <#assign valid = "cnpj" >
+              </#if>
+              <#if valid??>
+                valid="model.formMapValidations[field.name]"
+                data-error-message="{{'invalid.${model.formMapValidations[field.name]}' | translate}}"
+             </#if>> 
     </div>
   </div>
   </#if>
