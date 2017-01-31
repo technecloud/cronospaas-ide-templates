@@ -109,4 +109,25 @@
       }
     }
   }])
+  
+  .directive('valid', function () {
+      return {
+          require: '^ngModel',
+          restrict: 'A',
+          link: function (scope, element, attrs, ngModel) {
+            var validator = {'cpf': CPF, 'cnpj': CNPJ};
+            
+            ngModel.$validators[attrs.valid] = function(modelValue, viewValue) {
+              var value = modelValue || viewValue;
+              var fieldValid =  validator[attrs.valid].isValid(value);
+              if(!fieldValid){
+                element[0].setCustomValidity(element[0].dataset['errorMessage']);
+              }else{
+                element[0].setCustomValidity("");
+              }
+              return (fieldValid || !value);
+            };
+          }
+      }
+  })
 } (app));
