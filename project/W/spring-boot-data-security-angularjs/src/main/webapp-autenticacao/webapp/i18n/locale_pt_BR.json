@@ -88,5 +88,7 @@
   "Name": "Nome",
   "Description": "Descrição",
   "Add": "Adicionar",
-  "Save": "Salvar"
+  "Save": "Salvar",
+  "invalid.cpf": "CPF inválido",
+  "invalid.cnpj": "CNPJ inválido"
 }
