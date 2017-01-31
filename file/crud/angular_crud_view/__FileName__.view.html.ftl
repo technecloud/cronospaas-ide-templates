@@ -53,6 +53,8 @@
     <div>
       <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label> 
       
+      
+      
       <input type="text" 
              ng-model="${field.name}" 
              class="form-control" 
@@ -68,6 +70,7 @@
               <#if valid??>
                 valid="${valid}"
                 data-error-message="{{'invalid.${model.formMapValidations[field.name]}' | translate}}"
+             </#if>
              </#if>> 
     </div>
   </div>
