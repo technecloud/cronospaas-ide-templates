@@ -110,6 +110,12 @@
     }
   }])
   
+  
+  /**
+   * Validação de campos CPF e CNPJ,
+   * para utilizar essa diretiva, adicione o atributo valid com o valor 
+   * do tipo da validação (cpf ou cnpj). Exemplo <input type="text" valid="cpf"> 
+   */
   .directive('valid', function () {
       return {
           require: '^ngModel',
