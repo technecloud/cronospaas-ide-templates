@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.google.gson.Gson;
 
 <#assign class_name = "${className}">
 /**
@@ -33,29 +32,32 @@ public class ${className} {
     
     
     ${baseInfo.stubClass} stub = new ${baseInfo.stubClass}();
-  
-<#list baseInfo.getAllObjectsToInstance(method) as param>
-    <#if param.type?contains("[]") || param.type?contains("[][]")>
-    ${param.type} ${param.name} = null; //Array requires manual implementation
-    <#else>
+    
+<#list method.parameters as param>
+  <#if param.isObject>
     ${param.type} ${param.name} = new ${param.type}();
-    </#if>
-</#list>  
-<#list baseInfo.getAllObjectsToInstance(method) as param>
-    <#if param.methods??>
-      <#list param.methods as methodFromObjParam>
+    <#list param.methods as methodFromObjParam>
     ${param.name}.${methodFromObjParam.methodName}(<#list baseInfo.getInstanceNameParameterFromMethod(methodFromObjParam) as instanceName>${instanceName}<#if instanceName_has_next>, </#if></#list>);
-      </#list>     
-    </#if>
-</#list> 
+    </#list>      
+  </#if>
+</#list>
     
     ${method.returnType} respn = stub.${method.methodName}(<#list baseInfo.getInstanceNameParameterFromMethod(method) as instanceName>${instanceName}<#if instanceName_has_next>, </#if></#list>);
-    Gson gson = new Gson();
-    String json = gson.toJson(respn);
+    /*org.tempuri.CalcPrecoPrazoWSStub.CalcPrazo calcPrazo = new org.tempuri.CalcPrecoPrazoWSStub.CalcPrazo();
     
-    String result = "{\"content\": %s, \"links\":[{\"rel\": \"self\", \"href\": \"${restPath}/${className?replace("REST", "")}/${method.methodName}\"}]  }";
-    result = String.format(result, json);
-    return result;
+    if (param0!=null && !param0.isEmpty())
+      calcPrazo.setSCepOrigem(param0);
+    
+    org.tempuri.CalcPrecoPrazoWSStub.CalcPrazoResponse resp = stub.calcPrazo(calcPrazo);
+    
+    XMLOutputFactory xmlof = XMLOutputFactory.newInstance();
+    StringWriter stringOut = new StringWriter();
+    XMLStreamWriter xmlw = xmlof.createXMLStreamWriter(stringOut);
+    resp.serialize(resp.MY_QNAME, xmlw);
+    stringOut.toString();*/
+    
+    String result = "{\"content\": %s, \"page\":{\"size\":%s,\"totalElements\":%s,\"totalPages\":1,\"number\":%s},\"links\":[{\"rel\": \"self\", \"href\": \"/api/rest/LyceumListarDocentes\"}]  }";
+    return  result; 
   }
 </#list>
 }

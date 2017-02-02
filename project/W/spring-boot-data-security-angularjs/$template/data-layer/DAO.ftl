@@ -17,7 +17,7 @@ import org.springframework.data.repository.query.*;
 import org.springframework.transaction.annotation.*; 
 <#assign field_pk_type = "String">
 <#list clazz.fields as field>
-  <#if clazz.hasCompositeKey()>
+  <#if clazz.hasComplexPK()>
     <#assign field_pk_type = "${clazz.name + 'PK'}">
   <#elseif field.primaryKey && !field.typePrimitive>
     <#assign field_pk_type = "${field.type}">
