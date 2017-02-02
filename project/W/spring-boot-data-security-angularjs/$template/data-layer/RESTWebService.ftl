@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import com.google.gson.Gson;
 
 <#assign class_name = "${className}">
 /**
@@ -19,7 +18,7 @@ public class ${className} {
 
 <#list baseInfo.methods as method>
   @RequestMapping(method = RequestMethod.GET, value = "/${method.methodName}")   
-  public String ${method.methodName} (
+  public ${method.returnType} ${method.methodName} (
     <#list baseInfo.getTopParams(method.methodName) as parameter>
       <#if parameter.type == "java.util.Date">
     @RequestParam(value="${parameter.name}", required=false) java.lang.String ${parameter.name},
@@ -31,7 +30,7 @@ public class ${className} {
     @RequestParam(value="size", required=false) String size
     ) throws Exception {
     
-    String result = "{\"content\": %s, \"error\": \"%s\", \"links\":[{\"rel\": \"self\", \"href\": \"${restPath}/${className?replace("REST", "")}/${method.methodName}\"}]  }";
+    ${method.returnType} respn = null;
     
     try {
       ${baseInfo.stubClass} stub = new ${baseInfo.stubClass}();
@@ -73,16 +72,13 @@ public class ${className} {
     
       org.apache.commons.httpclient.protocol.Protocol.unregisterProtocol("https");
       org.apache.commons.httpclient.protocol.Protocol.registerProtocol("https",  new Protocol("https", new org.apache.commons.httpclient.contrib.ssl.EasySSLProtocolSocketFactory(), 443));
-      ${method.returnType} respn = stub.${method.methodName}(<#list baseInfo.getInstanceNameParameterFromMethod(method) as instanceName>${instanceName}<#if instanceName_has_next>, </#if></#list>);
-      Gson gson = new Gson();
-      String json = gson.toJson(respn);
-      
-      result = String.format(result, json, "");
+      respn = stub.${method.methodName}(<#list baseInfo.getInstanceNameParameterFromMethod(method) as instanceName>${instanceName}<#if instanceName_has_next>, </#if></#list>);
     }
     catch(Exception e) {
-      result = String.format(result, "{}", e.getMessage());
+      e.printStackTrace();
     }
-    return result;
+    return respn;
   }
+  
 </#list>
 }
