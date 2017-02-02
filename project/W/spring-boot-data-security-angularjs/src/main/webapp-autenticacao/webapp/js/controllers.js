@@ -2,9 +2,7 @@
     angular.module('custom.controllers', []);
 
     app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$window', '$state', '$translate', 'Notification', function ($scope, $http, $location, $rootScope, $window, $state, $translate, Notification) {
-    	for(var x in app.userEvents)
-            $scope[x]= app.userEvents[x].bind($scope);
-    	
+
         $scope.message = {};
         $scope.login = function () {
 
@@ -44,9 +42,6 @@
 
     app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', '$translate', 'Notification', function ($scope, $http, $rootScope, $state, $translate, Notification) {
         
-    	for(var x in app.userEvents)
-            $scope[x]= app.userEvents[x].bind($scope);
-    	
         $scope.message = {};
         
         $scope.selecionado = {

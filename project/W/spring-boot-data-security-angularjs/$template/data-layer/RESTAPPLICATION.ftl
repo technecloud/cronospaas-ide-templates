@@ -64,8 +64,7 @@ class ${configurationName} {
         Scanner scanner = new Scanner(file);
         strJSON = scanner.useDelimiter("\\A").next();
         scanner.close();
-        // Caso queira sobrescrever dados do populate
-        // strJSON = strJSON.replaceAll(Pattern.quote("{{VAR_NAME}}"), "VALUE");
+        strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), SecurityPermission.ROLE_ADMIN_NAME);
       } catch (Exception e) {
       }
     }

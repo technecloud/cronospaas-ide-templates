@@ -162,21 +162,6 @@
       }
     },
     {
-			"name": "crn-report-button",
-			"text": "Button Report",
-			"class": "cpn cpn-button",
-			"templateURL": "src/main/mobileapp/www/components/templates/button-report.template.html",
-			"properties": {
-				"ng-click": {
-					"type": "report-event"
-				},
-				"onmouseover": {
-					"removable": true,
-					"type": "event"
-				}
-			}
-		},
-    {
       "name": "crn-radiogroup",
       "text": "RadioGroup",
       "class": "cpn cpn-radiogroup",
@@ -250,7 +235,7 @@
     },
     {
       "name": "crn-title",
-      "text": "Tï¿½tulo",
+      "text": "Título",
       "class": "cpn cpn-title",
       "templateURL": "src/main/mobileapp/www/components/templates/title.template.html"
     },

@@ -1,5 +1,6 @@
 package ${restPackage};
 
+
 import java.util.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -16,6 +17,7 @@ import ${sessionManagerPackage}.*;
 </#if>
 import javax.servlet.http.HttpServletRequest;
 
+
 /**
  * Publicando metodos de negocio via REST
  * @generated
@@ -24,24 +26,20 @@ import javax.servlet.http.HttpServletRequest;
 @Produces({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON,MediaType.APPLICATION_XML})
 public class ${clazz.name}REST implements RESTService<${clazz.name}> {
-
   /**
    * @generated
    */
   private SessionManager session;
-  
   /**
    * @generated
    */  
   private ${clazz.name}Business business;
-  <#list clazz.allRelations as relation>
+<#list clazz.allRelations as relation>
   /**
    * @generated
    */
   private ${relation.name}Business ${relation.name?uncap_first}Business;
-  
-  </#list>
-  
+</#list>   
   /**
    * @generated
    */  
@@ -55,9 +53,9 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
     this.session = SessionManager.getInstance();
     this.session.getEntityManager().clear();
     this.business = new ${clazz.name}Business(session);
-    <#list clazz.allRelations as relation>
+<#list clazz.allRelations as relation>
     this.${relation.name?uncap_first}Business = new ${relation.name}Business(session);
-    </#list>
+</#list>
   }
   
   /**
@@ -72,9 +70,10 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
 	    business.refresh(entity);
 	    return Response.ok(entity).build();
     }
+    
     catch(Exception exception){
 	    session.rollBack();
-      throw new CustomWebApplicationException(exception);
+        throw new CustomWebApplicationException(exception);
     }
   }
 
@@ -89,9 +88,10 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
 	    session.commit();
 	    return Response.ok(updatedEntity).build();
     }
+    
     catch(Exception exception){
 	    session.rollBack();
-      throw new CustomWebApplicationException(exception);
+        throw new CustomWebApplicationException(exception);
     }  
   }
   
@@ -107,9 +107,10 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
 	    session.commit();
 	    return Response.ok(updatedEntity).build();
     }
+    
     catch(Exception exception){
 	    session.rollBack();
-      throw new CustomWebApplicationException(exception);
+        throw new CustomWebApplicationException(exception);
     }  
   }
   
@@ -125,6 +126,7 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
 			session.commit();
 			return Response.ok().build();
 		}
+
 		catch (Exception exception) {
 			session.rollBack();
 			throw new CustomWebApplicationException(exception);
@@ -146,6 +148,7 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
 				return Response.status(404).build();
 			}
 		}
+
 		catch (Exception exception) {
 			session.rollBack();
 			throw new CustomWebApplicationException(exception);
@@ -154,6 +157,8 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
   
 <#list clazz.fields as field>
 </#list> 
+  
+  
 <#list clazz.oneToManyRelation as relation>
   /**
    * OneToMany Relationship GET
@@ -226,7 +231,9 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
 		}
   }   
   
-</#list>
+</#list>    
+
+
 <#list clazz.manyToManyRelation as relation>
   /**
    * ManyToMany Relationship GET
@@ -250,6 +257,7 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
 			${relation.relationClassField.clazz.name} new${relation.relationClassField.clazz.name?cap_first} = new ${relation.relationClassField.clazz.name}();
 
 			${clazz.name} instance = this.business.findById(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+
 
 			new${relation.relationClassField.clazz.name?cap_first}.set${relation.relationClassField.name?cap_first}(entity);
 			new${relation.relationClassField.clazz.name?cap_first}.set${relation.associativeClassField.name?cap_first}(instance);
@@ -287,14 +295,13 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
   }  
   
 </#list>
+  
 <#list clazz.namedQueries as namedQuery><#if namedQuery.isRest()><#assign keys = namedQuery.params?keys>
   /**
    * NamedQuery ${namedQuery.name}
    * @generated
    */
-  <#if namedQuery.queryType == "select">@GET</#if>
-  <#if namedQuery.queryType == "update">@PUT</#if>
-  <#if namedQuery.queryType == "delete">@DELETE</#if>
+  <#if namedQuery.queryType == "select">@GET</#if><#if namedQuery.queryType == "update">@PUT</#if><#if namedQuery.queryType == "delete">@DELETE</#if>
   <#if namedQuery.name != "list">@Path("/${namedQuery.name}<#if keys?size gt 0>/</#if><#list keys as key>{${key}}<#if key_has_next>/</#if></#list>")</#if>	
   public <#if !namedQuery.void>GenericEntity<List<${clazz.name}>><#else>Response</#if> ${namedQuery.name}(<#list keys as key>@PathParam("${key}")${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset</#if>){
       <#if !namedQuery.void>return new GenericEntity<List<${clazz.name}>>(business.${namedQuery.name}(<#list keys as key>${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>limit, offset</#if>)){};</#if>
@@ -309,9 +316,11 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
       		throw new CustomWebApplicationException(exception);
       }
       </#if>
+
   }
   </#if>
-	</#list>
+	</#list>  
+	
 	<#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys><#if namedQuery.isRest()>	
 <#if namedQuery.name != "list">
 <#if keys?size gt 0>	
@@ -319,10 +328,8 @@ public class ${clazz.name}REST implements RESTService<${clazz.name}> {
    * NamedQuery ${namedQuery.name}
    * @generated
    */
-  <#if namedQuery.queryType == "select">@GET</#if>
-  <#if namedQuery.queryType == "update">@PUT</#if>
-  <#if namedQuery.queryType == "delete">@DELETE</#if>
-  @Path("/${namedQuery.name}")
+  <#if namedQuery.queryType == "select">@GET</#if><#if namedQuery.queryType == "update">@PUT</#if><#if namedQuery.queryType == "delete">@DELETE</#if>
+  @Path("/${namedQuery.name}")	
   public <#if !namedQuery.void>GenericEntity<List<${clazz.name}>><#else>int</#if> ${namedQuery.name}Params(<#list keys as key>@QueryParam("${key}")${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>@DefaultValue("100") @QueryParam("limit") int limit, @DefaultValue("0") @QueryParam("offset") int offset</#if>){
       return new GenericEntity<List<${clazz.name}>>(business.${namedQuery.name}(<#list keys as key>${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>limit, offset</#if>)){};	
   }

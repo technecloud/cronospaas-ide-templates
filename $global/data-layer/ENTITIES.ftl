@@ -34,77 +34,61 @@ import org.eclipse.persistence.annotations.*;
 </#if>
 public class ${clazz.name} implements Serializable {
 
-  /**
-   * UID da classe, necessário na serialização 
-   * @generated
-   */
-  private static final long serialVersionUID = 1L;
-  <#list clazz.fields as field>
-  <#if field.primaryKey>
-  
-  /**
-   * @generated
-   */
-  @Id
-  <#if field.generationType?? && field.generationType == "Identity">
-  <#if persistenceProvider == "mysql">
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  <#else>
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  </#if>
-  </#if>
-  ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
-  <#else>
-  
-  /**
-  * @generated
-  */
-  <#if field.relation>
-  @OneToOne
-  <#elseif field.reverseRelation>
-  @ManyToOne
-  </#if>
-  <#if (field.relationNames?size == 1)>
-  <#list field.relationNames?keys as key>
-  <#if key??>
-  @JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
-  </#if>
-  </#list>
-  <#elseif (field.relationNames?size > 1)>
-  <#assign i= field.relationNames?size>
-  @JoinColumns({
-  <#list field.relationNames?keys as key>
-  <#if key??>
-  @JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
-  <#if (i>1)>,
-  </#if>
-  </#if>
-  <#assign i = i-1>
-  </#list>
-  })
-  <#elseif field.arrayRelation>
-  @OneToMany(fetch = FetchType.LAZY, mappedBy="${field.mappedBy}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
-  <#else>
-  <#if field.transient>
+	/**
+	 * UID da classe, necessário na serialização 
+	 * @generated
+	 */
+	private static final long serialVersionUID = ${clazz.randomSerialVersionUID};
+	
+	<#list clazz.fields as field>
+	<#if !field.isNToN() && !field.isOneToN()>
+	/**
+	 * @generated
+	 */
+	</#if>
+	<#if field.primaryKey>
+	@Id
+    <#if field.generationType?? && field.generationType == "Identity"><#if persistenceProvider == "mysql">@GeneratedValue(strategy = GenerationType.AUTO)<#else>@GeneratedValue(strategy = GenerationType.IDENTITY)</#if></#if>
+	</#if>	
+	
+	<#if field.relation>	
+	@OneToOne	
+	<#elseif field.reverseRelation && !field.isNToN() && !field.isOneToN()>	
+	@ManyToOne
+	</#if>
+	<#if field.isDate() >
+	@Temporal(TemporalType.DATE)
+	<#elseif field.isTime() >
+	@Temporal(TemporalType.TIME)
+	<#elseif field.isTimestamp() >
+	@Temporal(TemporalType.TIMESTAMP)
+	</#if>	
+	<#if (field.relationNames?size == 1) && !field.isNToN() && !field.isOneToN()>
+	<#list field.relationNames?keys as key>
+	<#if key??>@JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})</#if>
+	</#list>
+	<#elseif (field.relationNames?size > 1) && !field.isNToN() && !field.isOneToN()>
+	<#assign i= field.relationNames?size>	
+	@JoinColumns({
+	<#list field.relationNames?keys as key>
+		<#if key??>@JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})<#if (i>1)>,</#if></#if>
+		<#assign i = i-1>
+	</#list>	
+	})	
+	<#elseif field.arrayRelation>
+	@OneToMany(fetch = FetchType.LAZY, mappedBy="${field.mappedBy}", insertable=${field.insertable?c}, updatable=${field.updatable?c})	
+	<#elseif field.transient>
   @Transient
-  <#else>
-  <#if field.isDate()>
-  @Temporal(TemporalType.DATE)
-  <#elseif field.isTime()>
-  @Temporal(TemporalType.TIME)
-  <#elseif field.isTimestamp()>
-  @Temporal(TemporalType.TIMESTAMP)
-  </#if>
-  @Column(name = "${field.dbFieldName}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
+	<#else>
+	<#if !field.isNToN() && !field.isOneToN()>
+	@Column(name = "${field.dbFieldName?lower_case}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
   </#if>
   </#if>
-  <#if (field.ignore)>
-  @JsonIgnore
-  </#if>
-  ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
-  </#if>
-  </#list>
-
+  <#if !field.isNToN() && !field.isOneToN()>  	
+	${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
+	</#if>
+	</#list>
+	
 	/**
 	 * Construtor
 	 * @generated
@@ -112,56 +96,84 @@ public class ${clazz.name} implements Serializable {
 	public ${clazz.name}(){
 	}
 
-  <#list clazz.fields as field>
-  /**
-   * Obtém ${field.name}
-   * 
-   * return ${field.name}
-   * @generated
-   */
-  public ${field.type} get${field.name?cap_first}(){
-    return this.${field.name};
-  }
-  
-  /**
-   * Define ${field.name}
-   * @param ${field.name} ${field.name}
-   * @generated
-   */
-  public ${clazz.name} set${field.name?cap_first}(${field.type} ${field.name}){
-    this.${field.name} = ${field.name};
-    return this;
-  }
-  
-  </#list>
-  /**
-   * @generated
-   */ 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
-    ${clazz.name} object = (${clazz.name})obj;
-    <#list clazz.fields as field>
-    <#if field.primaryKey>
-    if (${field.name} != null ? !${field.name}.equals(object.${field.name}) : object.${field.name} != null) return false;
-    </#if>
-    </#list>
-    return true;
-  }
-  
-  /**
-   * @generated
-   */
-  @Override
-  public int hashCode() {
-    int result = 1;
-    <#list clazz.fields as field>
-    <#if field.primaryKey && !field.isTypePrimitive()>
-    result = 31 * result + ((${field.name} == null) ? 0 : ${field.name}.hashCode());
-    </#if>
-    </#list>
-    return result;
-  }
+	<#list clazz.fields as field>
+	<#if !field.isNToN() && !field.isOneToN()>
+	
+	/**
+	 * Obtém ${field.name}
+	 * @param ${field.name} ${field.name}
+	 * return ${field.name}
+	 * @generated
+	 */
+	public ${field.type} get${field.name?cap_first}(){
+		return this.${field.name};
+	}
+	
+	/**
+	 * Define ${field.name}
+	 * @param ${field.name} ${field.name}
+	 * @generated
+	 */
+	public void set${field.name?cap_first}(${field.type} ${field.name}){
+		this.${field.name} = ${field.name};
+	}
+	</#if>
+	</#list>
+	
+	/**
+	 * @generated
+	 */
+	@Override
+	public int hashCode() {
+        final int prime = 31;
+        int result = 1;
 
+        <#list clazz.fields as field>
+        <#if !field.isTypePrimitive()>
+        <#if field.primaryKey>
+        result = prime * result + ((${field.name} == null) ? 0 : ${field.name}.hashCode());
+        </#if>
+        </#if>
+        </#list>
+
+        return result;
+    }
+	
+	/**
+	 * @generated
+	 */	
+	@Override
+  	public boolean equals(Object obj) {
+    
+	    if(this == obj)
+	      return true;
+	    
+	    if(obj == null)
+	      return false;
+	    
+	    if(!(obj instanceof ${clazz.name}))
+	      return false;
+	    
+	    <#if clazz.fields?has_content  >
+	    ${clazz.name} other = (${clazz.name})obj;
+	    
+		<#list clazz.fields as field>
+		<#if field.primaryKey>
+        <#if field.isTypePrimitive() >
+		if(this.${field.name} != other.${field.name})
+			return false;
+		<#else>
+		if(this.${field.name} == null && other.${field.name} != null)
+	    	return false;
+	    else if(!this.${field.name}.equals(other.${field.name}))
+	     	return false;
+	    </#if>
+		</#if>
+		</#list>
+	
+	    </#if>
+
+	    return true;
+	    
+	}
 }
