@@ -216,7 +216,25 @@
               <button type="button" ngf-select class="btn btn-default btn-block" ngf-change="datasource.setImage($file, datasource.active, '${field.name}')" accept="image/*">Add</button> 
             </div>
             <#else>
-            <input type="<#if field.isEncryption()>password<#else>text</#if>" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>> 
+            <input 
+              type="<#if field.isEncryption()>password<#else>text</#if>" 
+              ng-model="${model.dataSourceName}.active.${field.name}" 
+              class="form-control" 
+              id="textinput-${field.name}" 
+              placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" 
+              <#if model.formMapMasks[field.name]?has_content>
+                mask="${model.formMapMasks[field.name]}"
+                <#if model.formMapMasks[field.name] == "999.999.999-99" >
+                  <#assign valid = "cpf" >
+                <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
+                  <#assign valid = "cnpj" >
+                </#if>
+                <#if valid??>
+                  valid="${valid}"
+                  data-error-message="{{'invalid.${valid}' | translate}}"
+                </#if>
+              </#if> 
+              <#if !field.isNullable()>required="required"</#if>> 
             </#if>
           </div>
         </div>

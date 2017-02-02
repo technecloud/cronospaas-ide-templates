@@ -410,11 +410,21 @@ angular.module('datasourcejs', [])
       }
 
       /**
+       * Valid is other validations like email, date and so on  
+       */
+      this.hasInvalidField = function(){
+        return $('input:invalid').size() > 0;
+      };
+
+      /**
        * Insert or update based on the the datasource state
        */
       this.post = function() {
 
         if (this.missingRequiredField())
+          return;
+          
+        if(this.hasInvalidField())
           return;
 
         this.lastAction = "post"; //TRM
