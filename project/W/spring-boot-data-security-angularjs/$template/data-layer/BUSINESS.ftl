@@ -52,7 +52,7 @@ import cloud.CloudManager;
 @Service("${clazz_name}")
 public class ${clazz_name} {
 
-  private static final Logger log = LoggerFactory.getLogger(LogBusiness.class);
+  private static final Logger log = LoggerFactory.getLogger(${clazz_name}.class);
   <#if isExistsEncrypt>
   /**
    * Variável privada para verificação da criptofrafia
