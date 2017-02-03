@@ -38,7 +38,8 @@ angular.module('datasourcejs', [])
       this.onError = null;
       this.links = null;
       this.loadedFinish = null;
-
+      this.lastFilterParsed = null;
+      
       // Private members
       var cursor = 0;
       var service = null;
@@ -51,6 +52,7 @@ angular.module('datasourcejs', [])
       var dependentBufferLazyPostData = null; //TRM
       var lastAction = null; //TRM
       var dependentData = null; //TRM
+      
 
       // Public methods
 
@@ -859,7 +861,7 @@ angular.module('datasourcejs', [])
 
         // Adjust property parameters and the endpoint url
         props.params = props.params || {};
-        var resourceURL = (window.hostApp || "") + this.entity + (props.path || "");
+        var resourceURL = (window.hostApp || "") + this.entity + (props.path || this.lastFilterParsed || "");
 
         //Check request, if  is dependentLazyPost, break old request
         if (this.dependentLazyPost) {
@@ -1292,6 +1294,7 @@ angular.module('datasourcejs', [])
               // Start a timeout
               timeoutPromise = $timeout(function() {
                 datasource.filter(value);
+                datasource.lastFilterParsed = value;
               }, 200);
             } else {
               $timeout(function() {
