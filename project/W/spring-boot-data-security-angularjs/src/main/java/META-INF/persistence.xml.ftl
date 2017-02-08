@@ -7,6 +7,10 @@
         <class>app.entity.UserRole</class>
         <class>app.entity.User</class>
         <class>app.entity.Role</class>
+    <#if multitenant?lower_case == "sim">
+        <class>app.entity.Company</class>
+        <class>app.entity.Department</class>
+    </#if>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="${databaseConfig[5]}"/>
             <property name="javax.persistence.jdbc.url" value="${databaseConfig[4]}"/>

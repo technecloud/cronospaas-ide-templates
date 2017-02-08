@@ -27,6 +27,9 @@ import app.dao.UserDAO;
 import app.entity.User;
 import auth.permission.SecurityPermission;
 import auth.permission.configuration.model.AuthenticationResponse;
+<#if multitenant?lower_case == "sim">
+import auth.permission.TenantComponent;
+</#if>
 
 @RestController
 @RequestMapping("auth")
@@ -72,7 +75,10 @@ public class AuthenticationController {
 			String roles = userDetails.getAuthorities().toString().replaceFirst("\\[", "").replaceFirst("\\]", "");
 			boolean root = roles.contains(SecurityPermission.ROLE_ADMIN_NAME);
 			user.setPassword(null);
-
+      
+    <#if multitenant?lower_case == "sim">
+      TenantComponent.setId(user.getCompany().getId());
+    </#if>
 			// Return the token
 			return ResponseEntity.ok(new AuthenticationResponse(user, token, expires.getTime(), roles, root));
 		} else {

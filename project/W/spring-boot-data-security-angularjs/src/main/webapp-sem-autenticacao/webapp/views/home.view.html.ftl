@@ -1,4 +1,5 @@
 <div class="component-holder ng-binding ng-scope" data-component="crn-navbar" id="crn-navbar-986427"> 
+  <#if menuPosition == "Horizontal">
   <nav class="navbar navbar-default"> 
     <div class="container-fluid"> 
       <div class="navbar-header"> 
@@ -13,7 +14,26 @@
         </ul> 
       </div> 
     </div> 
-  </nav> 
+  </nav>
+  <#else>
+  <div class="nav-side-menu navbar-default"> 
+    <div class="brand"> 
+      <img src="img/logo.png" class="" width="" height="30"> 
+    </div> 
+    <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content1"></i> 
+    <div class="menu-list"> 
+      <ul id="menu-content1" class="menu-content collapse out navbar-nav"> 
+        <li data-toggle="collapse" data-target="#menu-sub-1" class="collapsed component-holder" data-component="crn-sidebar-item"> 
+            <a href="#/home" class="">
+                <i class="fa fa-lg fa-home"></i> 
+                <span class="">{{"Home.view.Home" | translate}}</span> 
+            </a> 
+        </li> 
+        <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-9831" class="collapsed component-holder"> </li> 
+      </ul> 
+    </div> 
+  </div> 
+  </#if>
 </div> 
 <div ui-view="" class="container-fluid main-view" data-container="true"> 
 </div>

@@ -14,7 +14,10 @@
           <li class="dropdown component-holder" data-component="crn-menu-item" ng-if="session.root"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span content="{{&quot;Home.view.Admin&quot; | translate}}">{{"Home.view.Admin" | translate}}</span> <span class="caret"></span> </a> 
             <ul class="dropdown-menu"> 
               <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor" content="{{&quot;Home.view.Users&quot; | translate}}">{{"Home.view.Users" | translate}}</a></li> 
-              <li><a href="#/home/admin/role" class="component-holder" data-component="crn-anchor" content="{{&quot;Home.view.Roles&quot; | translate}}">{{"Home.view.Roles" | translate}}</a></li> 
+              <li><a href="#/home/admin/role" class="component-holder" data-component="crn-anchor" content="{{&quot;Home.view.Roles&quot; | translate}}">{{"Home.view.Roles" | translate}}</a></li>
+            <#if multitenant?lower_case == "sim">
+              <li><a href="#/home/logged/department" class="component-holder" data-component="crn-anchor">{{"Home.view.Department" | translate}}</a></li>
+            </#if>
             </ul> </li> 
           <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-gear"></i> <span content="{{&quot;ChooseTheme&quot; | translate}}">{{"ChooseTheme" | translate}}</span> <span class="caret"></span> </a> 
             <ul class="dropdown-menu"> 
@@ -69,6 +72,9 @@
             <ul class="sub-menu collapse" id="menu-sub-5099"> 
                 <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor">{{"Home.view.Users" | translate}}</a></li> 
                 <li><a href="#/home/admin/role" class="component-holder" data-component="crn-anchor">{{"Home.view.Roles" | translate}}</a></li> 
+            <#if multitenant?lower_case == "sim">
+                <li><a href="#/home/logged/department" class="component-holder" data-component="crn-anchor">{{"Home.view.Department" | translate}}</a></li>
+            </#if>
             </ul> 
         </li> 
         <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-9831" class="collapsed component-holder"> </li> 
