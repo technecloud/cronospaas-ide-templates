@@ -1,18 +1,18 @@
     <#list clazz.fields as field>
-    <#if field.isCloudStorage()>
+    <#if field.isDropbox()>
     byte[] ${field.name} = entity.get${field.name?cap_first}();
     </#if>
     </#list>
     <#if clazz.getCloudStorage().isClearDatabaseRecord()>
     <#list clazz.fields as field>
-    <#if field.isCloudStorage()>
+    <#if field.isDropbox()>
     entity.set${field.name?cap_first}(null);
     </#if>
     </#list>
     </#if>
     dao.save(entity);
     <#list clazz.fields as field>
-    <#if field.isCloudStorage()>
+    <#if field.isDropbox()>
     entity.set${field.name?cap_first}(${field.name});
     </#if>
     </#list>

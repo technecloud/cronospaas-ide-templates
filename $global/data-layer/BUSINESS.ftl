@@ -104,13 +104,13 @@ public class ${clazz.name}Business {
     <#switch clazz.getCloudStorageType()>
     <#case "Dropbox">
     <#list clazz.fields as field>
-    <#if field.isCloudStorage()>
+    <#if field.isDropbox()>
     byte[] ${field.name} = entity.get${field.name?cap_first}();
     </#if>
     </#list>
     dao.refresh(entity);
     <#list clazz.fields as field>
-    <#if field.isCloudStorage()>
+    <#if field.isDropbox()>
     entity.set${field.name?cap_first}(${field.name});
     </#if>
     </#list>
