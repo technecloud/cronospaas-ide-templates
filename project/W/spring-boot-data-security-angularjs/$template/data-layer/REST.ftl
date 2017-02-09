@@ -92,6 +92,16 @@ public class ${class_name} {
   }
 
   /**
+   * Serviço exposto para salvar alterações de acordo com a entidade e id fornecidos
+   * 
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.PUT, value = "/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
+  public ${class_entity_name} put(@Validated @RequestBody final ${class_entity_name} entity, <#list clazz.primaryKeys as field>@PathVariable("${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+    return ${class_business_variable_name}.put(entity);
+  }  
+
+  /**
    * Serviço exposto para remover a entidade de acordo com o id fornecido
    * 
    * @generated
