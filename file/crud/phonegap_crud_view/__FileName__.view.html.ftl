@@ -97,29 +97,29 @@
               </select>
             </label>
             <#elseif field.isImage()>
-            <div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setImage($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
+            <div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
               <img style="max-height: 128px; max-width: 128px;"
                    ng-if="datasource.active.${field.name}"
                    data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}"
-                   ngf-change="datasource.setImage($file, datasource.active, '${field.name}')"
+                   ngf-change="datasource.setFile($file, datasource.active, '${field.name}')"
                    accept="image/*">
               <img data-ng-src="{{datasource.noImageUpload}}"
                    style="max-height: 128px; max-width: 128px;"
                    ng-if="!datasource.active.${field.name}"
                    ngf-select class="btn btn-default btn-block"
-                   ngf-change="datasource.setImage($file, datasource.active, '${field.name}')" accept="image/*">
+                   ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="image/*">
               <div class="remove btn btn-default btn-xs btn-danger" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
                 <span class="glyphicon glyphicon-remove"></span>
               </div>
             </div>
             <#elseif field.isFile()>
-            <div class="form-group" ngf-drop ngf-change="datasource.setImage($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
+            <div class="form-group" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
               <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
               <div class="btn btn-default btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
                 <span class="glyphicon glyphicon-remove"></span>
               </div>
               <p>
-                <button ng-if="!datasource.active.${field.name}" ngf-select class="btn btn-primary" ngf-change="datasource.setImage($file, datasource.active, '${field.name}')" accept="*/*">
+                <button ng-if="!datasource.active.${field.name}" ngf-select class="btn btn-primary" ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="*/*">
                   <span class="glyphicon glyphicon-open"></span>
                 </button>
               </p>
