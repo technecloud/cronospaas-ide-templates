@@ -28,6 +28,9 @@ import app.dao.UserDAO;
 import app.dao.UserRoleDAO;
 import app.entity.User;
 import app.entity.UserRole;
+<#if multitenant?lower_case == "sim">
+import auth.permission.TenantComponent;
+</#if>
 
 @Component
 public class AuthenticationConfigurer implements AuthenticationProvider {
@@ -53,7 +56,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 		if (users.isEmpty())
 			throw new UsernameNotFoundException("Usuário não encontrado!");
 
-		User user = users.get(0);
+		User user = users.get(0);	
 		if (passwordEncoder.matches(rawPassword, user.getPassword())) {
 			Set<GrantedAuthority> roles = getAuthorities(user);
 			org.springframework.security.core.userdetails.User userDetails = new org.springframework.security.core.userdetails.User(
@@ -64,7 +67,9 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("theme", (user.getTheme() != null) ? user.getTheme() : "");
-
+    <#if multitenant?lower_case == "sim">
+      TenantComponent.setId(user.getCompany().getId());
+    </#if>
 			return userToken;
 		} else {
 			throw new BadCredentialsException("Usuário ou senha incorreta!");

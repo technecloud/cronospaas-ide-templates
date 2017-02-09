@@ -1,7 +1,11 @@
+<#assign databaseConfig = database?split("|")>
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.boot.context.web.*;
 import org.springframework.context.annotation.*;
+<#if database[3]?lower_case!="h2">
+import org.springframework.boot.autoconfigure.jdbc.*;
+</#if>
 /**
  * Classe responsável iniciar a aplicação, por padrão ela executará as seguintes etapas:
  *  - Criar uma instância do ApplicationContext;
@@ -13,6 +17,9 @@ import org.springframework.context.annotation.*;
   "auth.permission", "api.rest.events", "api.rest.webservices", "app", "reports"
 })
 @SpringBootApplication
+<#if database[3]?lower_case!="h2">
+@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+</#if>
 public class SpringBootMain extends SpringBootServletInitializer {
   
     public static void main(String[] args) {
