@@ -33,8 +33,13 @@
               {{rowData.${field.name} | date:'HH:mm:ss'}}
               <#elseif field.isTimestamp() >
               {{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
-              <#elseif field.isByteImage()>
+              <#elseif field.isImage()>
               <img ng-if="rowData.${field.name}" data-ng-src="{{'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
+              <#elseif field.isFile()>
+              <button class="btn btn-sm" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
+                <span class="glyphicon glyphicon-download-alt"></span>
+              </button>
+              <span ng-if="rowData.${field.name}">{{datasource.byteSize(rowData.${field.name})}}</span>
               <#else>
               {{rowData.${field.name}}}
               </#if>
@@ -91,7 +96,7 @@
               <option value=''>None</option>
               </select>
             </label>
-            <#elseif field.isByteImage()>
+            <#elseif field.isImage()>
             <div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setImage($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
               <img style="max-height: 128px; max-width: 128px;"
                    ng-if="datasource.active.${field.name}"
@@ -106,6 +111,18 @@
               <div class="remove btn btn-default btn-xs btn-danger" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
                 <span class="glyphicon glyphicon-remove"></span>
               </div>
+            </div>
+            <#elseif field.isFile()>
+            <div class="form-group" ngf-drop ngf-change="datasource.setImage($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
+              <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
+              <div class="btn btn-default btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
+                <span class="glyphicon glyphicon-remove"></span>
+              </div>
+              <p>
+                <button ng-if="!datasource.active.${field.name}" ngf-select class="btn btn-primary" ngf-change="datasource.setImage($file, datasource.active, '${field.name}')" accept="*/*">
+                  <span class="glyphicon glyphicon-open"></span>
+                </button>
+              </p>
             </div>
             <#else>
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
