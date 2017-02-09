@@ -1,4 +1,4 @@
-<#if multitenant?lower_case == "sim">
+<#if multitenant?? && multitenant?lower_case == "sim">
 file=CompanyBusiness.java
 file=DepartmentBusiness.java
 </#if>
