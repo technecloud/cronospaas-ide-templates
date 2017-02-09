@@ -349,11 +349,11 @@ public class ${class_name} {
 <#list clazz.fields as field>
 <#if field.isFile()>
   @RequestMapping(method = RequestMethod.GET, value = "/download/${field.name}/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
-	public byte[] getFile(@PathVariable String id) throws Exception {
+	public byte[] get${field.name?cap_first}(@PathVariable String id) throws Exception {
 		${class_entity_name} entity = ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>/</#if></#list>);
 		return entity.get${field.name?cap_first}();
 	}
-  
+
 </#if>
 </#list>
 }
