@@ -12,9 +12,12 @@ angular.module('datasourcejs', [])
      */
     var DataSet = function(name, scope) {
 
+      var NO_IMAGE_UPLOAD = "data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjEyOHB4IiBoZWlnaHQ9IjEyOHB4IiB2aWV3Qm94PSIwIDAgNDQuNTAyIDQ0LjUwMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDQuNTAyIDQ0LjUwMjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik05Ljg2MiwzNS42MzhoMjQuNzc5YzAtNS41NDYtMy44NjMtMTAuMjAzLTkuMTEzLTExLjYwNGMyLjc1LTEuMjQ4LDQuNjY4LTQuMDEzLDQuNjY4LTcuMjI5ICAgIGMwLTQuMzg4LTMuNTU5LTcuOTQyLTcuOTQyLTcuOTQyYy00LjM4NywwLTcuOTQzLDMuNTU3LTcuOTQzLDcuOTQyYzAsMy4yMTksMS45MTYsNS45OCw0LjY2OCw3LjIyOSAgICBDMTMuNzI1LDI1LjQzNSw5Ljg2MiwzMC4wOTIsOS44NjIsMzUuNjM4eiIgZmlsbD0iIzkxOTE5MSIvPgoJCTxwYXRoIGQ9Ik0xLjUsMTQuMTY5YzAuODI4LDAsMS41LTAuNjcyLDEuNS0xLjVWNC4zMzNoOC4zMzZjMC44MjgsMCwxLjUtMC42NzIsMS41LTEuNWMwLTAuODI4LTAuNjcyLTEuNS0xLjUtMS41SDIuNzc1ICAgIEMxLjI0NCwxLjMzMywwLDIuNTc3LDAsNC4xMDh2OC41NjFDMCwxMy40OTcsMC42NywxNC4xNjksMS41LDE0LjE2OXoiIGZpbGw9IiM5MTkxOTEiLz4KCQk8cGF0aCBkPSJNNDEuNzI3LDEuMzMzaC04LjU2MmMtMC44MjcsMC0xLjUsMC42NzItMS41LDEuNWMwLDAuODI4LDAuNjczLDEuNSwxLjUsMS41aDguMzM2djguMzM2YzAsMC44MjgsMC42NzMsMS41LDEuNSwxLjUgICAgczEuNS0wLjY3MiwxLjUtMS41di04LjU2QzQ0LjUwMiwyLjU3OSw0My4yNTYsMS4zMzMsNDEuNzI3LDEuMzMzeiIgZmlsbD0iIzkxOTE5MSIvPgoJCTxwYXRoIGQ9Ik00My4wMDIsMzAuMzMzYy0wLjgyOCwwLTEuNSwwLjY3Mi0xLjUsMS41djguMzM2aC04LjMzNmMtMC44MjgsMC0xLjUsMC42NzItMS41LDEuNXMwLjY3MiwxLjUsMS41LDEuNWg4LjU2ICAgIGMxLjUzLDAsMi43NzYtMS4yNDYsMi43NzYtMi43NzZ2LTguNTZDNDQuNTAyLDMxLjAwNSw0My44MywzMC4zMzMsNDMuMDAyLDMwLjMzM3oiIGZpbGw9IiM5MTkxOTEiLz4KCQk8cGF0aCBkPSJNMTEuMzM2LDQwLjE2OUgzdi04LjMzNmMwLTAuODI4LTAuNjcyLTEuNS0xLjUtMS41Yy0wLjgzLDAtMS41LDAuNjcyLTEuNSwxLjV2OC41NmMwLDEuNTMsMS4yNDQsMi43NzYsMi43NzUsMi43NzZoOC41NjEgICAgYzAuODI4LDAsMS41LTAuNjcyLDEuNS0xLjVTMTIuMTY1LDQwLjE2OSwxMS4zMzYsNDAuMTY5eiIgZmlsbD0iIzkxOTE5MSIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=";
+
       // Publiic members
       this.Notification = Notification;
       this.$scope = scope;
+      this.noImageUpload = NO_IMAGE_UPLOAD;
 
       this.$apply = function(fc) {
         scope.$apply(fc);
@@ -39,7 +42,7 @@ angular.module('datasourcejs', [])
       this.links = null;
       this.loadedFinish = null;
       this.lastFilterParsed = null;
-      
+
       // Private members
       var cursor = 0;
       var service = null;
@@ -52,7 +55,7 @@ angular.module('datasourcejs', [])
       var dependentBufferLazyPostData = null; //TRM
       var lastAction = null; //TRM
       var dependentData = null; //TRM
-      
+
 
       // Public methods
 
@@ -404,7 +407,7 @@ angular.module('datasourcejs', [])
       };
 
       /**
-       * Valid if required field is valid 
+       * Valid if required field is valid
        */
       this.missingRequiredField = function() {
         return $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid-required') || $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid') ||
@@ -412,7 +415,7 @@ angular.module('datasourcejs', [])
       }
 
       /**
-       * Valid is other validations like email, date and so on  
+       * Valid is other validations like email, date and so on
        */
       this.hasInvalidField = function(){
         return $('input:invalid').size() > 0;
@@ -425,7 +428,7 @@ angular.module('datasourcejs', [])
 
         if (this.missingRequiredField())
           return;
-          
+
         if(this.hasInvalidField())
           return;
 
@@ -456,7 +459,7 @@ angular.module('datasourcejs', [])
 
             // For each row data
             this.data.forEach(function(currentRow) {
-              // Iterate all keys checking if the 
+              // Iterate all keys checking if the
               // current object match with the
               // extracted key values
               var found;
@@ -496,7 +499,7 @@ angular.module('datasourcejs', [])
         }
         this.inserting = false;
         this.editing = false;
-        this.lastAction = "cancel"; //TRM 
+        this.lastAction = "cancel"; //TRM
         if (this.dependentData) {
           $(this.dependentData).each(function() {
             this.storeAndResetDependentBuffer();
@@ -557,7 +560,7 @@ angular.module('datasourcejs', [])
           callback = callback || function() {
             // For each row data
             for (var i = 0; i < this.data.length; i++) {
-              // Iterate all keys checking if the 
+              // Iterate all keys checking if the
               // current object match with the same
               // vey values
               // Check all keys
@@ -800,7 +803,7 @@ angular.module('datasourcejs', [])
       };
 
       /**
-       *  refresh dataset by URL and queryParams, 
+       *  refresh dataset by URL and queryParams,
        */
       this.refresh = function(query, url, minChar) {
         this.cleanup();
@@ -813,7 +816,7 @@ angular.module('datasourcejs', [])
       };
 
       /**
-       * Cleanup datasource  
+       * Cleanup datasource
        */
       this.cleanup = function() {
         this.offset = 0;
@@ -934,11 +937,11 @@ angular.module('datasourcejs', [])
           if (callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
 
           if (isNextOrPrev) {
-            // If prepend property was set. 
+            // If prepend property was set.
             // Add the new data before the old one
             if (this.prepend) Array.prototype.unshift.apply(this.data, data);
 
-            // If append property was set. 
+            // If append property was set.
             // Add the new data after the old one
             if (this.append) Array.prototype.push.apply(this.data, data);
 
@@ -971,7 +974,7 @@ angular.module('datasourcejs', [])
             hasMoreResults = this.getLink("next") != null;
           }
 
-          /* 
+          /*
            *  Register a watcher for data
            *  if the autopost property was set
            *  It means that any change on dataset items will
@@ -988,7 +991,7 @@ angular.module('datasourcejs', [])
       };
 
       /**
-       * Asynchronously notify observers 
+       * Asynchronously notify observers
        */
       this.notifyObservers = function() {
         for (var key in this.observers) {
@@ -1008,7 +1011,7 @@ angular.module('datasourcejs', [])
           var filter = this.watchFilter;
           var pattern = /\{([A-z][A-z|0-9]*)\}/gim;
 
-          // replace all params found by the 
+          // replace all params found by the
           // respectiveValues in activeRow
           filter = filter.replace(pattern, function(a, b) {
             return activeRow.hasOwnProperty(b) ? activeRow[b] : "";
