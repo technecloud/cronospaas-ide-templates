@@ -222,7 +222,7 @@ angular.module('datasourcejs', [])
 
       //Public methods
 
-      this.setImage = function($file, object, field) {
+      this.setFile = function($file, object, field) {
         if ($file && $file.$error === 'pattern') {
           return;
         }
@@ -237,6 +237,24 @@ angular.module('datasourcejs', [])
         }
       };
 
+      this.downloadFile = function (field, keys) {
+        if (keys === undefined)
+          return;
+        var url = (window.hostApp || "") + this.entity + "/download/" + field;
+        for (var index = 0; index < keys.length; index++) {
+          url += "/" + keys[index];
+        }
+        var req = {
+          url: url,
+          method: 'GET',
+          responseType: 'arraybuffer'
+        };
+        $http(req).then(function (result) {
+          var blob = new Blob([result.data], {type: 'application/*'});
+          $window.open(URL.createObjectURL(blob));
+        });
+      };
+
       function toBase64(file, cb) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL(file);
@@ -246,9 +264,9 @@ angular.module('datasourcejs', [])
         };
       }
 
-      this.openFile = function(data) {
+      this.openImage = function(data) {
         $window.open('data:image/png;base64,' + data, '_blank', 'height=300,width=400');
-      }
+      };
 
       this.byteSize = function(base64String) {
         if (!angular.isString(base64String)) {
@@ -278,7 +296,7 @@ angular.module('datasourcejs', [])
         }
 
         return formatAsBytes(size(base64String));
-      }
+      };
 
       /**
        * Append a new value to the end of this dataset.
