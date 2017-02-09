@@ -27,7 +27,7 @@ import app.dao.UserDAO;
 import app.entity.User;
 import auth.permission.SecurityPermission;
 import auth.permission.configuration.model.AuthenticationResponse;
-<#if multitenant?lower_case == "sim">
+<#if multitenant?? && multitenant?lower_case == "sim">
 import auth.permission.TenantComponent;
 </#if>
 
@@ -76,7 +76,7 @@ public class AuthenticationController {
 			boolean root = roles.contains(SecurityPermission.ROLE_ADMIN_NAME);
 			user.setPassword(null);
       
-    <#if multitenant?lower_case == "sim">
+    <#if multitenant?? && multitenant?lower_case == "sim">
       TenantComponent.setId(user.getCompany().getId());
     </#if>
 			// Return the token
