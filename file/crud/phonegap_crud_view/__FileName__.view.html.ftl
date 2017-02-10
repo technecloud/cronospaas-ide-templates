@@ -96,7 +96,7 @@
               </select>
             </label>
             <#elseif field.isImage()>
-            <label class="item item-input item-stacked-label">
+            <div class="item item-input item-stacked-label">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
               <div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
                 <img style="max-height: 128px; max-width: 128px;"
@@ -111,9 +111,9 @@
                      ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="image/*">
                 <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null"></span>
               </div>
-            </label>
+            </div>
             <#elseif field.isFile()>
-            <label class="item item-input item-stacked-label">
+            <div class="item item-input item-stacked-label">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
               <div class="form-group" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
                 <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
@@ -122,7 +122,7 @@
                   <i class="icon ion-android-upload"></i>
                 </button>
               </div>
-            </label>
+            </div>
             <#else>
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
