@@ -24,7 +24,7 @@
           <div class="row">
             <#list model.gridFields as field>
             <div class="col">
-              <#if field.getProperty("firstStringField")?? >
+              <#if field.getProperty("firstStringField")??>
               {{rowData.${field.getProperty("firstStringField")}}}
               <#else>
               <#if field.isDate() >
@@ -77,7 +77,7 @@
             <span class="input-label">${model.formMapLabels[field.name]!}</span>
             <input type="date" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
-            <#elseif (field.isTime() || field.isTimestamp()) >
+            <#elseif (field.isTime() || field.isTimestamp())>
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
             <span class="input-label">${model.formMapLabels[field.name]!}</span>
             <input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
@@ -87,7 +87,7 @@
             <span class="input-label">${model.formMapLabels[field.name]!}</span>
             <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             </label>
-            <#elseif field.getProperty("ngOptions")?? >
+            <#elseif field.getProperty("ngOptions")??>
             <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class=""></datasource>
             <label for="textinput-${field.name}" class="item item-input item-select">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
@@ -96,6 +96,8 @@
               </select>
             </label>
             <#elseif field.isImage()>
+            <label class="item item-input item-stacked-label">
+            <span class="input-label">${model.formMapLabels[field.name]!}</span>
             <div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
               <img style="max-height: 128px; max-width: 128px;"
                    ng-if="datasource.active.${field.name}"
@@ -110,6 +112,8 @@
               <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null"></span>
             </div>
             <#elseif field.isFile()>
+            <label class="item item-input item-stacked-label">
+            <span class="input-label">${model.formMapLabels[field.name]!}</span>
             <div class="form-group" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
               <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
               <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null"></span>
