@@ -74,75 +74,77 @@
             </div>
             <#elseif (field.isDate()) >
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
-            <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <input type="date" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
+              <span class="input-label">${model.formMapLabels[field.name]!}</span>
+              <input type="date" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
             <#elseif (field.isTime() || field.isTimestamp())>
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
-            <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
+              <span class="input-label">${model.formMapLabels[field.name]!}</span>
+              <input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
             <#elseif field.isNumber() >
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
-            <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+              <span class="input-label">${model.formMapLabels[field.name]!}</span>
+              <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             </label>
             <#elseif field.getProperty("ngOptions")??>
             <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class=""></datasource>
             <label for="textinput-${field.name}" class="item item-input item-select">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
               <select ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" name="textinput-${field.name}" ng-options="${field.getProperty("ngOptions").options}" <#if !field.isNullable()>required="required"</#if>>
-              <option value=''>None</option>
+                <option value=''>None</option>
               </select>
             </label>
             <#elseif field.isImage()>
             <label class="item item-input item-stacked-label">
-            <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
-              <img style="max-height: 128px; max-width: 128px;"
-                   ng-if="datasource.active.${field.name}"
-                   data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}"
-                   ngf-change="datasource.setFile($file, datasource.active, '${field.name}')"
-                   accept="image/*">
-              <img data-ng-src="{{datasource.noImageUpload}}"
-                   style="max-height: 128px; max-width: 128px;"
-                   ng-if="!datasource.active.${field.name}"
-                   ngf-select class="btn btn-default btn-block"
-                   ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="image/*">
-              <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null"></span>
-            </div>
+              <span class="input-label">${model.formMapLabels[field.name]!}</span>
+              <div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
+                <img style="max-height: 128px; max-width: 128px;"
+                     ng-if="datasource.active.${field.name}"
+                     data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}"
+                     ngf-change="datasource.setFile($file, datasource.active, '${field.name}')"
+                     accept="image/*">
+                <img data-ng-src="{{datasource.noImageUpload}}"
+                     style="max-height: 128px; max-width: 128px;"
+                     ng-if="!datasource.active.${field.name}"
+                     ngf-select class="btn btn-default btn-block"
+                     ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="image/*">
+                <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null"></span>
+              </div>
+            </label>
             <#elseif field.isFile()>
             <label class="item item-input item-stacked-label">
-            <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <div class="form-group" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
-              <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
-              <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null"></span>
-              <button class="button button-positive" ng-if="!datasource.active.${field.name}" ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="*/*">
-                <i class="icon ion-android-upload"></i>
-              </button>
-            </div>
+              <span class="input-label">${model.formMapLabels[field.name]!}</span>
+              <div class="form-group" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
+                <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
+                <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null"></span>
+                <button class="button button-positive" ng-if="!datasource.active.${field.name}" ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="*/*">
+                  <i class="icon ion-android-upload"></i>
+                </button>
+              </div>
+            </label>
             <#else>
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
-            <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <input
-              type="text"
-              placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
-              ng-model="${model.dataSourceName}.active.${field.name}"
-              id="textinput-${field.name}"
-              name="textinput-${field.name}"
-              <#if model.formMapMasks[field.name]?has_content>
-                mask="${model.formMapMasks[field.name]}"
-                <#if model.formMapMasks[field.name] == "999.999.999-99" >
-                  <#assign valid = "cpf" >
-                <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
-                  <#assign valid = "cnpj" >
+              <span class="input-label">${model.formMapLabels[field.name]!}</span>
+              <input
+                type="text"
+                placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
+                ng-model="${model.dataSourceName}.active.${field.name}"
+                id="textinput-${field.name}"
+                name="textinput-${field.name}"
+                <#if model.formMapMasks[field.name]?has_content>
+                  mask="${model.formMapMasks[field.name]}"
+                  <#if model.formMapMasks[field.name] == "999.999.999-99" >
+                    <#assign valid = "cpf" >
+                  <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
+                    <#assign valid = "cnpj" >
+                  </#if>
+                  <#if valid??>
+                    valid="${valid}"
+                    data-error-message="{{'invalid.${valid}' | translate}}"
+                  </#if>
                 </#if>
-                <#if valid??>
-                  valid="${valid}"
-                  data-error-message="{{'invalid.${valid}' | translate}}"
-                </#if>
-              </#if>
-              <#if !field.isNullable()>required="required"</#if>>
+                <#if !field.isNullable()>required="required"</#if>>
             </label>
             </#if>
             </#list>
