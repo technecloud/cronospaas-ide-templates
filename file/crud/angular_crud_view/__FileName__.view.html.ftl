@@ -104,6 +104,7 @@
 </div>
 <div class="component-holder" data-component="crn-grid" id="crn-grid-${model.dataSourceName}">
   <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
+    <loader working="datasource.isBusy()" disable-background="true" template="1"></loader>
     <table class="table  table-bordered table-hover table-striped">
       <thead>
         <tr class="table-header">
@@ -135,12 +136,10 @@
               <a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
               <img data-ng-src="{{'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
               </a>
-              <span ng-if="rowData.${field.name}">{{datasource.byteSize(rowData.${field.name})}}</span>
               <#elseif field.isFile()>
               <button class="btn btn-sm" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
                 <span class="glyphicon glyphicon-download-alt"></span>
               </button>
-              <span ng-if="rowData.${field.name}">{{datasource.byteSize(rowData.${field.name})}}</span>
               <#else>
               {{rowData.${field.name}}}
               </#if>
@@ -165,6 +164,7 @@
 <div data-component="crn-form" id="crn-form-form-${model.dataSourceName}">
   <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
     <form crn-datasource="${model.dataSourceName}" class="">
+      <loader working="datasource.isBusy()" disable-background="true" template="1"></loader>
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
         <button class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
         <button class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
@@ -176,6 +176,7 @@
         <button class="btn btn-success" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button>
         <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
       </div>
+      <br/>
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
         <#list model.formFields as field>
         <div data-component="crn-textinput" id="crn-textinput-${field.name}">
@@ -212,32 +213,26 @@
               </ui-select-choices>
             </ui-select>
             <#elseif field.isImage()>
-            <div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
+            <div class="form-group upload-image-component" ngf-drop ngf-drag-over-class="dragover">
               <img style="max-height: 128px; max-width: 128px;"
-                   ng-if="datasource.active.${field.name}"
-                   data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}"
-                   ngf-change="datasource.setFile($file, datasource.active, '${field.name}')"
-                   accept="image/*">
+                ng-if="datasource.active.${field.name}"
+                data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}">
               <img data-ng-src="{{datasource.noImageUpload}}"
-                   style="max-height: 128px; max-width: 128px;"
-                   ng-if="!datasource.active.${field.name}"
-                   ngf-select class="btn btn-default btn-block"
-                   ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="image/*">
-              <div class="remove btn btn-default btn-xs btn-danger" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
+                style="max-height: 128px; max-width: 128px;"
+                class="btn"
+                ng-if="!datasource.active.${field.name}"
+                ngf-drop ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="image/*">
+              <div class="remove btn btn-danger btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
                 <span class="glyphicon glyphicon-remove"></span>
               </div>
             </div>
             <#elseif field.isFile()>
-            <div class="form-group" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
+            <div class="form-group">
+              <img ng-if="!datasource.active.${field.name}" data-ng-src="{{datasource.noFileUpload}}" class="drop-box" style="width:100px;height:50px" ngf-drop ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" ngf-drag-over-class="dragover">
               <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
-              <div class="btn btn-default btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
+              <div class="btn btn-danger btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
                 <span class="glyphicon glyphicon-remove"></span>
               </div>
-              <p>
-                <button ng-if="!datasource.active.${field.name}" ngf-select class="btn btn-primary" ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="*/*">
-                  <span class="glyphicon glyphicon-open"></span>
-                </button>
-              </p>
             </div>
             <#else>
             <input
