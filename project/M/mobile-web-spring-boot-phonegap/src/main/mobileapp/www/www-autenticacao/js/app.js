@@ -12,8 +12,7 @@ var app = (function() {
       'ui-notification',
       'ngInputDate',
       'ngCordova',
-      'ngFileUpload',
-      'ngLoader'
+      'ngFileUpload'
     ])
 
     .constant('LOCALES', {

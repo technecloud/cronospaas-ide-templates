@@ -12,11 +12,8 @@ var app = (function() {
       'ui-notification',
       'ngInputDate',
       'ngCordova',
-      'ngFileUpload',
-      'ngLoader'
+      'ngFileUpload'
     ])
-
-
     .constant('LOCALES', {
       'locales': {
         'pt_br': 'Portugues (Brasil)',
