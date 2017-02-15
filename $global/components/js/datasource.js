@@ -459,8 +459,6 @@ angular.module('datasourcejs', [])
        */
       this.post = function() {
 
-        busy = true;
-
         if (this.missingRequiredField())
           return;
 
@@ -468,6 +466,8 @@ angular.module('datasourcejs', [])
           return;
 
         this.lastAction = "post"; //TRM
+
+        busy = true;
 
         if (this.inserting) {
           // Make a new request to persist the new item
