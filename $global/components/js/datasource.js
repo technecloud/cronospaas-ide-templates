@@ -104,6 +104,7 @@ angular.module('datasourcejs', [])
                     _callback(data);
                 })
                 .error(function(data, status, headers, config) {
+                  busy = false;
                   _self.handleError(data);
                 });
             });
