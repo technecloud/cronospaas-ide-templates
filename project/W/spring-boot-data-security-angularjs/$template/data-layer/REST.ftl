@@ -140,8 +140,7 @@ public class ${class_name} {
    * OneToMany Relationship GET - Searchable fields - Specific search
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET
-  , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/specificSearch")    
+  @RequestMapping(method = RequestMethod.GET, value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/specificSearch")    
   public HttpEntity<PagedResources<${relation.clazz.name}>> find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>java.lang.String<#else>${field.type}</#if> ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
     <#list relation.clazz.fields as field>
     <#if field.isSearchable()>
@@ -172,8 +171,7 @@ public class ${class_name} {
    * OneToMany Relationship GET
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET
-  , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")    
+  @RequestMapping(method = RequestMethod.GET, value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")    
   public HttpEntity<PagedResources<${relation.clazz.name}>> find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable, PagedResourcesAssembler assembler) {
     return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>pageable)), HttpStatus.OK);
   }
@@ -182,8 +180,7 @@ public class ${class_name} {
    * OneToMany Relationship DELETE 
    * @generated
    */  
-  @RequestMapping(method = RequestMethod.DELETE
-  , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.clazz.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")    
+  @RequestMapping(method = RequestMethod.DELETE, value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.clazz.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")    
   public void delete${relation.relationName?cap_first}(<#list relation.clazz.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
     this.${relation.clazz.name?uncap_first}Business.delete(<#list relation.clazz.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
   }
@@ -192,9 +189,8 @@ public class ${class_name} {
    * OneToMany Relationship PUT
    * @generated
    */  
-  @RequestMapping(method = RequestMethod.PUT
-  , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.clazz.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public ${relation.clazz.name} put${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.clazz.name} entity, <#list relation.clazz.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+  @RequestMapping(method = RequestMethod.PUT, value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
+  public ${relation.clazz.name} post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.clazz.name} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
     return this.${relation.clazz.name?uncap_first}Business.put(entity);
   }  
   
@@ -202,11 +198,10 @@ public class ${class_name} {
    * OneToMany Relationship POST
    * @generated
    */  
-  @RequestMapping(method = RequestMethod.POST
-  , value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
+  @RequestMapping(method = RequestMethod.POST, value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
   public ${relation.clazz.name} post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.clazz.name} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
-  ${clazz.name} ${relation.relationField.name} = this.${class_business_variable_name}.get(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
-  entity.set${relation.relationField.name?cap_first}(${relation.relationField.name});
+    ${clazz.name} ${relation.relationField.name} = this.${class_business_variable_name}.get(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+    entity.set${relation.relationField.name?cap_first}(${relation.relationField.name});
     return this.${relation.clazz.name?uncap_first}Business.post(entity);
   }   
 
@@ -217,8 +212,7 @@ public class ${class_name} {
    * ManyToMany Relationship GET - Searchable fields - General search (Only strings fields)
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET
-  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/generalSearch")
+  @RequestMapping(method = RequestMethod.GET,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/generalSearch")
   public HttpEntity<PagedResources<${relation.relationClassField.type}>> list${relation.relationName?cap_first}GeneralSearch(java.lang.String search, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable, PagedResourcesAssembler assembler) {
     return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.list${relation.relationName?cap_first}GeneralSearch(search, <#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>pageable)), HttpStatus.OK); 
   }
@@ -227,8 +221,7 @@ public class ${class_name} {
    * ManyToMany Relationship GET - Searchable fields - Specific search
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET
-  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/specificSearch")
+  @RequestMapping(method = RequestMethod.GET,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/specificSearch")
   public HttpEntity<PagedResources<${relation.relationClassField.type}>> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>java.lang.String<#else>${field.type}</#if> ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
   <#list relation.relationClass.fields as field>
     <#if field.isSearchable()>
@@ -259,8 +252,7 @@ public class ${class_name} {
    * ManyToMany Relationship GET
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET
-  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
+  @RequestMapping(method = RequestMethod.GET,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
   public HttpEntity<PagedResources<${relation.relationClassField.type}>> list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable, PagedResourcesAssembler assembler) {
     return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.list${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>pageable)), HttpStatus.OK); 
   }
@@ -269,8 +261,7 @@ public class ${class_name} {
    * ManyToMany Relationship POST
    * @generated
    */  
-  @RequestMapping(method = RequestMethod.POST
-  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
+  @RequestMapping(method = RequestMethod.POST,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}")
   public ${clazz.name} post${relation.relationName?cap_first}(@Validated @RequestBody final ${relation.relationClassField.type} entity, <#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
     ${relation.relationClassField.clazz.name} new${relation.relationClassField.clazz.name?cap_first} = new ${relation.relationClassField.clazz.name}();
 
@@ -288,8 +279,7 @@ public class ${class_name} {
    * ManyToMany Relationship DELETE
    * @generated
    */  
-  @RequestMapping(method = RequestMethod.DELETE
-  ,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.relationClass.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
+  @RequestMapping(method = RequestMethod.DELETE,value="/<#list clazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.relationClass.primaryKeys as field>{relation${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
   public void delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, <#list relation.relationClass.primaryKeys as field>@PathVariable("relation${field.name?cap_first}") ${field.type} relation${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
     this.${clazz.name?uncap_first}Business.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>relation${field.name?cap_first}<#if field_has_next>, </#if></#list>);
   }  
