@@ -12,9 +12,15 @@ angular.module('datasourcejs', [])
      */
     var DataSet = function(name, scope) {
 
+      var NO_IMAGE_UPLOAD = "data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjEyOHB4IiBoZWlnaHQ9IjEyOHB4IiB2aWV3Qm94PSIwIDAgNDQuNTAyIDQ0LjUwMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDQuNTAyIDQ0LjUwMjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8Zz4KCTxnPgoJCTxwYXRoIGQ9Ik05Ljg2MiwzNS42MzhoMjQuNzc5YzAtNS41NDYtMy44NjMtMTAuMjAzLTkuMTEzLTExLjYwNGMyLjc1LTEuMjQ4LDQuNjY4LTQuMDEzLDQuNjY4LTcuMjI5ICAgIGMwLTQuMzg4LTMuNTU5LTcuOTQyLTcuOTQyLTcuOTQyYy00LjM4NywwLTcuOTQzLDMuNTU3LTcuOTQzLDcuOTQyYzAsMy4yMTksMS45MTYsNS45OCw0LjY2OCw3LjIyOSAgICBDMTMuNzI1LDI1LjQzNSw5Ljg2MiwzMC4wOTIsOS44NjIsMzUuNjM4eiIgZmlsbD0iIzkxOTE5MSIvPgoJCTxwYXRoIGQ9Ik0xLjUsMTQuMTY5YzAuODI4LDAsMS41LTAuNjcyLDEuNS0xLjVWNC4zMzNoOC4zMzZjMC44MjgsMCwxLjUtMC42NzIsMS41LTEuNWMwLTAuODI4LTAuNjcyLTEuNS0xLjUtMS41SDIuNzc1ICAgIEMxLjI0NCwxLjMzMywwLDIuNTc3LDAsNC4xMDh2OC41NjFDMCwxMy40OTcsMC42NywxNC4xNjksMS41LDE0LjE2OXoiIGZpbGw9IiM5MTkxOTEiLz4KCQk8cGF0aCBkPSJNNDEuNzI3LDEuMzMzaC04LjU2MmMtMC44MjcsMC0xLjUsMC42NzItMS41LDEuNWMwLDAuODI4LDAuNjczLDEuNSwxLjUsMS41aDguMzM2djguMzM2YzAsMC44MjgsMC42NzMsMS41LDEuNSwxLjUgICAgczEuNS0wLjY3MiwxLjUtMS41di04LjU2QzQ0LjUwMiwyLjU3OSw0My4yNTYsMS4zMzMsNDEuNzI3LDEuMzMzeiIgZmlsbD0iIzkxOTE5MSIvPgoJCTxwYXRoIGQ9Ik00My4wMDIsMzAuMzMzYy0wLjgyOCwwLTEuNSwwLjY3Mi0xLjUsMS41djguMzM2aC04LjMzNmMtMC44MjgsMC0xLjUsMC42NzItMS41LDEuNXMwLjY3MiwxLjUsMS41LDEuNWg4LjU2ICAgIGMxLjUzLDAsMi43NzYtMS4yNDYsMi43NzYtMi43NzZ2LTguNTZDNDQuNTAyLDMxLjAwNSw0My44MywzMC4zMzMsNDMuMDAyLDMwLjMzM3oiIGZpbGw9IiM5MTkxOTEiLz4KCQk8cGF0aCBkPSJNMTEuMzM2LDQwLjE2OUgzdi04LjMzNmMwLTAuODI4LTAuNjcyLTEuNS0xLjUtMS41Yy0wLjgzLDAtMS41LDAuNjcyLTEuNSwxLjV2OC41NmMwLDEuNTMsMS4yNDQsMi43NzYsMi43NzUsMi43NzZoOC41NjEgICAgYzAuODI4LDAsMS41LTAuNjcyLDEuNS0xLjVTMTIuMTY1LDQwLjE2OSwxMS4zMzYsNDAuMTY5eiIgZmlsbD0iIzkxOTE5MSIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=";
+
+      var NO_FILE_UPLOAD = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4IiB2aWV3Qm94PSIwIDAgNTQ4LjE3NiA1NDguMTc2IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1NDguMTc2IDU0OC4xNzY7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNNTI0LjMyNiwyOTcuMzUyYy0xNS44OTYtMTkuODktMzYuMjEtMzIuNzgyLTYwLjk1OS0zOC42ODRjNy44MS0xMS44LDExLjcwNC0yNC45MzQsMTEuNzA0LTM5LjM5OSAgIGMwLTIwLjE3Ny03LjEzOS0zNy40MDEtMjEuNDA5LTUxLjY3OGMtMTQuMjczLTE0LjI3Mi0zMS40OTgtMjEuNDExLTUxLjY3NS0yMS40MTFjLTE4LjA4MywwLTMzLjg3OSw1LjkwMS00Ny4zOSwxNy43MDMgICBjLTExLjIyNS0yNy40MS0yOS4xNzEtNDkuMzkzLTUzLjgxNy02NS45NWMtMjQuNjQ2LTE2LjU2Mi01MS44MTgtMjQuODQyLTgxLjUxNC0yNC44NDJjLTQwLjM0OSwwLTc0LjgwMiwxNC4yNzktMTAzLjM1Myw0Mi44MyAgIGMtMjguNTUzLDI4LjU0NC00Mi44MjUsNjIuOTk5LTQyLjgyNSwxMDMuMzUxYzAsMi40NzQsMC4xOTEsNi41NjcsMC41NzEsMTIuMjc1Yy0yMi40NTksMTAuNDY5LTQwLjM0OSwyNi4xNzEtNTMuNjc2LDQ3LjEwNiAgIEM2LjY2MSwyOTkuNTk0LDAsMzIyLjQzLDAsMzQ3LjE3OWMwLDM1LjIxNCwxMi41MTcsNjUuMzI5LDM3LjU0NCw5MC4zNThjMjUuMDI4LDI1LjAzNyw1NS4xNSwzNy41NDgsOTAuMzYyLDM3LjU0OGgzMTAuNjM2ICAgYzMwLjI1OSwwLDU2LjA5Ni0xMC43MTEsNzcuNTEyLTMyLjEyYzIxLjQxMy0yMS40MDksMzIuMTIxLTQ3LjI0NiwzMi4xMjEtNzcuNTE2QzU0OC4xNzIsMzM5Ljk0NCw1NDAuMjIzLDMxNy4yNDgsNTI0LjMyNiwyOTcuMzUyICAgeiBNMzYyLjcyOSwyODkuNjQ4Yy0xLjgxMywxLjgwNC0zLjk0OSwyLjcwNy02LjQyLDIuNzA3aC02My45NTN2MTAwLjUwMmMwLDIuNDcxLTAuOTAzLDQuNjEzLTIuNzExLDYuNDIgICBjLTEuODEzLDEuODEzLTMuOTQ5LDIuNzExLTYuNDIsMi43MTFoLTU0LjgyNmMtMi40NzQsMC00LjYxNS0wLjg5Ny02LjQyMy0yLjcxMWMtMS44MDQtMS44MDctMi43MTItMy45NDktMi43MTItNi40MlYyOTIuMzU1ICAgSDE1NS4zMWMtMi42NjIsMC00Ljg1My0wLjg1NS02LjU2My0yLjU2M2MtMS43MTMtMS43MTQtMi41NjgtMy45MDQtMi41NjgtNi41NjZjMC0yLjI4NiwwLjk1LTQuNTcyLDIuODUyLTYuODU1bDEwMC4yMTMtMTAwLjIxICAgYzEuNzEzLTEuNzE0LDMuOTAzLTIuNTcsNi41NjctMi41N2MyLjY2NiwwLDQuODU2LDAuODU2LDYuNTY3LDIuNTdsMTAwLjQ5OSwxMDAuNDk1YzEuNzE0LDEuNzEyLDIuNTYyLDMuOTAxLDIuNTYyLDYuNTcxICAgQzM2NS40MzgsMjg1LjY5NiwzNjQuNTM1LDI4Ny44NDUsMzYyLjcyOSwyODkuNjQ4eiIgZmlsbD0iI2NlY2VjZSIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=";
+
       // Publiic members
       this.Notification = Notification;
       this.$scope = scope;
+      this.noImageUpload = NO_IMAGE_UPLOAD;
+      this.noFileUpload = NO_FILE_UPLOAD;
 
       this.$apply = function(fc) {
         scope.$apply(fc);
@@ -38,6 +44,7 @@ angular.module('datasourcejs', [])
       this.onError = null;
       this.links = null;
       this.loadedFinish = null;
+      this.lastFilterParsed = null;
 
       // Private members
       var cursor = 0;
@@ -64,35 +71,42 @@ angular.module('datasourcejs', [])
         // Get the service resource
         service = {
           save: function(object) {
-            var response = this.call(_self.entity, "POST", object, true);
-            return response;
+            return this.call(_self.entity, "POST", object, true);
           },
           update: function(url, object) {
-            var response = this.call(url, "PUT", object);
-            return response;
+            return this.call(url, "PUT", object);
           },
           remove: function(url) {
-            var response = this.call(url, "DELETE", null, true);
-            return response;
+            return this.call(url, "DELETE", null, true);
           },
           call: function(url, verb, object, applyScope) {
             var _callback;
-            busy = true;
+
             url = url.replace('/specificSearch', '');
             url = url.replace('/generalSearch', '');
 
-            // Get an ajax promise
-            this.$promise = $http({
-              method: verb,
-              url: (window.hostApp || "") + url,
-              data: (object) ? JSON.stringify(object) : null,
-              headers: _self.headers
-            }).success(function(data, status, headers, config) {
-              busy = false;
-              if (_callback) _callback(data);
-            }).error(function(data, status, headers, config) {
-              busy = false;
-              _self.handleError(data);
+            var deferred = $q.defer();
+
+            setTimeout(function() {
+              var json = (object) ? JSON.stringify(object) : null
+              deferred.resolve(json);
+            }, 3000);
+
+            this.$promise = deferred.promise.then(function(object) {
+              $http({
+                  method: verb,
+                  url: (window.hostApp || "") + url,
+                  data: object,
+                  headers: _self.headers
+                })
+                .success(function(data, status, headers, config) {
+                  if (_callback)
+                    _callback(data);
+                })
+                .error(function(data, status, headers, config) {
+                  busy = false;
+                  _self.handleError(data);
+                });
             });
 
             this.$promise.then = function(callback) {
@@ -200,6 +214,7 @@ angular.module('datasourcejs', [])
               Notification.error(error);
             };
           }
+
           this.onError.call(this, error);
         }
 
@@ -217,7 +232,7 @@ angular.module('datasourcejs', [])
 
       //Public methods
 
-      this.setImage = function($file, object, field) {
+      this.setFile = function($file, object, field) {
         if ($file && $file.$error === 'pattern') {
           return;
         }
@@ -232,6 +247,26 @@ angular.module('datasourcejs', [])
         }
       };
 
+      this.downloadFile = function(field, keys) {
+        if (keys === undefined)
+          return;
+        var url = (window.hostApp || "") + this.entity + "/download/" + field;
+        for (var index = 0; index < keys.length; index++) {
+          url += "/" + keys[index];
+        }
+        var req = {
+          url: url,
+          method: 'GET',
+          responseType: 'arraybuffer'
+        };
+        $http(req).then(function(result) {
+          var blob = new Blob([result.data], {
+            type: 'application/*'
+          });
+          $window.open(URL.createObjectURL(blob));
+        });
+      };
+
       function toBase64(file, cb) {
         var fileReader = new FileReader();
         fileReader.readAsDataURL(file);
@@ -241,9 +276,9 @@ angular.module('datasourcejs', [])
         };
       }
 
-      this.openFile = function(data) {
+      this.openImage = function(data) {
         $window.open('data:image/png;base64,' + data, '_blank', 'height=300,width=400');
-      }
+      };
 
       this.byteSize = function(base64String) {
         if (!angular.isString(base64String)) {
@@ -273,7 +308,7 @@ angular.module('datasourcejs', [])
         }
 
         return formatAsBytes(size(base64String));
-      }
+      };
 
       /**
        * Append a new value to the end of this dataset.
@@ -292,8 +327,9 @@ angular.module('datasourcejs', [])
               this.dependentBufferLazyPostData = [];
 
             this.dependentBufferLazyPostData.push(obj);
-          } else
+          } else {
             service.save(obj).$promise.then(callback);
+          }
         }
       };
 
@@ -349,6 +385,7 @@ angular.module('datasourcejs', [])
       }
 
       //TRM
+
       /**
        * Find object in list by tempBufferId
        */
@@ -397,12 +434,13 @@ angular.module('datasourcejs', [])
 
         url = url + suffixPath;
 
-        if (this.handleBeforeCallBack(this.onBeforeUpdate))
+        if (this.handleBeforeCallBack(this.onBeforeUpdate)) {
           service.update(url, obj).$promise.then(callback);
+        }
       };
 
       /**
-       * Valid if required field is valid 
+       * Valid if required field is valid
        */
       this.missingRequiredField = function() {
         return $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid-required') || $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid') ||
@@ -410,9 +448,9 @@ angular.module('datasourcejs', [])
       }
 
       /**
-       * Valid is other validations like email, date and so on  
+       * Valid is other validations like email, date and so on
        */
-      this.hasInvalidField = function(){
+      this.hasInvalidField = function() {
         return $('input:invalid').size() > 0;
       };
 
@@ -423,11 +461,13 @@ angular.module('datasourcejs', [])
 
         if (this.missingRequiredField())
           return;
-          
-        if(this.hasInvalidField())
+
+        if (this.hasInvalidField())
           return;
 
         this.lastAction = "post"; //TRM
+
+        busy = true;
 
         if (this.inserting) {
           // Make a new request to persist the new item
@@ -444,6 +484,8 @@ angular.module('datasourcejs', [])
                 this.storeAndResetDependentBuffer('post');
               });
             }
+
+            this.onBackNomalState();
           }.bind(this));
 
         } else if (this.editing) {
@@ -454,7 +496,7 @@ angular.module('datasourcejs', [])
 
             // For each row data
             this.data.forEach(function(currentRow) {
-              // Iterate all keys checking if the 
+              // Iterate all keys checking if the
               // current object match with the
               // extracted key values
               var found;
@@ -465,6 +507,7 @@ angular.module('datasourcejs', [])
                   found = false;
                 }
               }
+
               if (found) {
                 this.copy(obj, currentRow);
               }
@@ -477,10 +520,15 @@ angular.module('datasourcejs', [])
                 this.storeAndResetDependentBuffer('post');
               });
             }
+
+            this.onBackNomalState();
           }.bind(this));
         }
+      };
 
-        // Set this datasource back to the normal state
+      // Set this datasource back to the normal state
+      this.onBackNomalState = function() {
+        busy = false;
         this.editing = false;
         this.inserting = false;
       };
@@ -492,9 +540,8 @@ angular.module('datasourcejs', [])
         if (this.inserting) {
           this.active = this.data[0];
         }
-        this.inserting = false;
-        this.editing = false;
-        this.lastAction = "cancel"; //TRM 
+        this.onBackNomalState();
+        this.lastAction = "cancel"; //TRM
         if (this.dependentData) {
           $(this.dependentData).each(function() {
             this.storeAndResetDependentBuffer();
@@ -517,7 +564,8 @@ angular.module('datasourcejs', [])
        * Put the datasource into the editing state
        */
       this.startEditing = function(item) {
-        if (item) this.active = this.copy(item);
+        if (item)
+          this.active = this.copy(item);
         this.editing = true;
       };
 
@@ -526,6 +574,9 @@ angular.module('datasourcejs', [])
        * the objects
        */
       this.remove = function(object, callback) {
+
+        busy = true;
+
         var _remove = function(object, callback) {
           if (!object) {
             object = this.active;
@@ -555,7 +606,7 @@ angular.module('datasourcejs', [])
           callback = callback || function() {
             // For each row data
             for (var i = 0; i < this.data.length; i++) {
-              // Iterate all keys checking if the 
+              // Iterate all keys checking if the
               // current object match with the same
               // vey values
               // Check all keys
@@ -572,6 +623,7 @@ angular.module('datasourcejs', [])
                   }
                 }
               }
+
               if (found) {
                 // If it's the object we're loking for
                 // remove it from the array
@@ -579,11 +631,13 @@ angular.module('datasourcejs', [])
                 this.active = (i > 0) ? this.data[i - 1] : null;
               }
 
+              this.onBackNomalState();
             }
           }.bind(this)
 
-          if (this.handleBeforeCallBack(this.onBeforeDelete))
+          if (this.handleBeforeCallBack(this.onBeforeDelete)) {
             service.remove(this.entity + suffixPath).$promise.then(callback);
+          }
         }.bind(this);
 
         if (this.deleteMessage && this.deleteMessage.length > 0) {
@@ -595,6 +649,7 @@ angular.module('datasourcejs', [])
         } else {
           _remove(object, callback);
         }
+
         this.handleAfterCallBack(this.onAfterDelete);
       };
 
@@ -798,7 +853,7 @@ angular.module('datasourcejs', [])
       };
 
       /**
-       *  refresh dataset by URL and queryParams, 
+       *  refresh dataset by URL and queryParams,
        */
       this.refresh = function(query, url, minChar) {
         this.cleanup();
@@ -811,7 +866,7 @@ angular.module('datasourcejs', [])
       };
 
       /**
-       * Cleanup datasource  
+       * Cleanup datasource
        */
       this.cleanup = function() {
         this.offset = 0;
@@ -859,7 +914,7 @@ angular.module('datasourcejs', [])
 
         // Adjust property parameters and the endpoint url
         props.params = props.params || {};
-        var resourceURL = (window.hostApp || "") + this.entity + (props.path || "");
+        var resourceURL = (window.hostApp || "") + this.entity + (props.path || this.lastFilterParsed || "");
 
         //Check request, if  is dependentLazyPost, break old request
         if (this.dependentLazyPost) {
@@ -932,11 +987,11 @@ angular.module('datasourcejs', [])
           if (callbacks.beforeFill) callbacks.beforeFill.apply(this, this.data);
 
           if (isNextOrPrev) {
-            // If prepend property was set. 
+            // If prepend property was set.
             // Add the new data before the old one
             if (this.prepend) Array.prototype.unshift.apply(this.data, data);
 
-            // If append property was set. 
+            // If append property was set.
             // Add the new data after the old one
             if (this.append) Array.prototype.push.apply(this.data, data);
 
@@ -969,7 +1024,7 @@ angular.module('datasourcejs', [])
             hasMoreResults = this.getLink("next") != null;
           }
 
-          /* 
+          /*
            *  Register a watcher for data
            *  if the autopost property was set
            *  It means that any change on dataset items will
@@ -986,7 +1041,7 @@ angular.module('datasourcejs', [])
       };
 
       /**
-       * Asynchronously notify observers 
+       * Asynchronously notify observers
        */
       this.notifyObservers = function() {
         for (var key in this.observers) {
@@ -1006,7 +1061,7 @@ angular.module('datasourcejs', [])
           var filter = this.watchFilter;
           var pattern = /\{([A-z][A-z|0-9]*)\}/gim;
 
-          // replace all params found by the 
+          // replace all params found by the
           // respectiveValues in activeRow
           filter = filter.replace(pattern, function(a, b) {
             return activeRow.hasOwnProperty(b) ? activeRow[b] : "";
@@ -1077,7 +1132,6 @@ angular.module('datasourcejs', [])
             for (var i = 0; i < removedItems.length; i++) {
               this.remove(removedItems[i], function() {});
             }
-
           }
         }.bind(this));
       }
@@ -1292,6 +1346,7 @@ angular.module('datasourcejs', [])
               // Start a timeout
               timeoutPromise = $timeout(function() {
                 datasource.filter(value);
+                datasource.lastFilterParsed = value;
               }, 200);
             } else {
               $timeout(function() {
@@ -1336,7 +1391,6 @@ angular.module('datasourcejs', [])
                   params: {}
                 });
               }
-
             }
           });
         };

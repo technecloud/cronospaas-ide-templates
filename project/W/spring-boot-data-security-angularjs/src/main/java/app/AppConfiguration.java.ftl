@@ -14,6 +14,9 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import auth.permission.SecurityPermission;
 </#if>
+<#if multitenant?? && multitenant?lower_case == "sim">
+import auth.permission.MultitenantJpaTransactionManager;
+</#if>
 /**
  * Classe que configura os beans para persistencia
  * @generated
@@ -37,7 +40,11 @@ class AppConfiguration {
 
     @Bean(name = "app-TransactionManager")
     public PlatformTransactionManager transactionManager() {
+    <#if multitenant?? && multitenant?lower_case == "sim">
+        return new MultitenantJpaTransactionManager();
+    <#else>
         return new JpaTransactionManager(entityManagerFactory().getObject());
+    </#if>
     }
     <#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" >
     @Bean

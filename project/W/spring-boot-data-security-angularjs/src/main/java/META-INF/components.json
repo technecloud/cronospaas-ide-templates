@@ -5,7 +5,7 @@
     {
       "name": "crn-anchor",
       "text": "Link",
-      "class": "cpn cpn-anchor",
+         "class":"adjust-icon mdi mdi-link",
       "templateURL": "src/main/webapp/components/templates/anchor.template.html",
       "properties": {
         "onclick": {
@@ -43,7 +43,7 @@
     {
       "name": "crn-button",
       "text": "Button",
-      "class": "cpn cpn-button",
+         "class":"adjust-icon mdi mdi-view-module",
       "templateURL": "src/main/webapp/components/templates/button.template.html",
       "properties": {
         "ng-click": {
@@ -57,16 +57,9 @@
       }
     },
     {
-      "name": "crn-icon",
-      "text": "Icon",
-      "class": "fa fa-star",
-      "style": "margin: 3px",
-      "template": "<i class=\"fa fa-star\"></i>"
-    },
-    {
       "name": "crn-report-button",
       "text": "Button Report",
-      "class": "cpn cpn-button",
+         "class": "adjust-icon mdi mdi-file-document",
       "templateURL": "src/main/webapp/components/templates/button-report.template.html",
       "properties": {
         "ng-click": {
@@ -81,7 +74,7 @@
     {
       "name": "crn-accordion",
       "text": "Accordion",
-      "class": "cpn cpn-accordion",
+         "class":"adjust-icon mdi mdi-format-list-bulleted",
       "handleRules": {
         "canOrder": true,
         "canActivate": true,
@@ -90,7 +83,7 @@
           {
             "activeSelector": "div.panel-collapse.collapse.in",
             "activeClass": "in",
-            "sourceHTML": "<div class=\"panel panel-default\"><div class=\"panel-heading\" role=\"tab\" id=\"heading${RANDOM}\"><h4 class=\"panel-title\"><a class=\"collapsed\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse${RANDOM}\" aria-expanded=\"false\" aria-controls=\"collapse${RANDOM}\" target=\"self\">New Group Title<\/a><\/h4><\/div><div class=\"panel-collapse content\" role=\"tabpanel\"><div id=\"collapse${RANDOM}\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading${RANDOM}\"><div class=\"panel-body\">New Group Description     <\/div><\/div><\/div><\/div>",
+                  "sourceHTML":"<div class=\"panel panel-default\"><div class=\"panel-heading\" role=\"tab\" id=\"heading${RANDOM}\"><h4 class=\"panel-title\"><a class=\"collapsed\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#collapse${RANDOM}\" aria-expanded=\"false\" aria-controls=\"collapse${RANDOM}\" target=\"self\">New Group Title</a></h4></div><div class=\"panel-collapse content\" role=\"tabpanel\"><div id=\"collapse${RANDOM}\" class=\"panel-collapse collapse\" role=\"tabpanel\" aria-labelledby=\"heading${RANDOM}\"><div class=\"panel-body\">New Group Description     </div></div></div></div>",
             "targetSelector": "div.panel-group"
           },
           {
@@ -115,7 +108,7 @@
     {
       "name": "crn-carousel",
       "text": "Carousel",
-      "class": "cpn cpn-carousel",
+         "class": "adjust-icon mdi mdi-view-carousel",
       "handleRules": {
         "canOrder": true,
         "canActivate": true,
@@ -124,13 +117,13 @@
           {
             "activeSelector": "ol.carousel-indicators li.active",
             "activeClass": "active",
-            "sourceHTML": " <li><\/li>",
+                  "sourceHTML":" <li></li>",
             "targetSelector": "ol.carousel-indicators"
           },
           {
             "activeSelector": "div.carousel-inner div.item.active",
             "activeClass": "active",
-            "sourceHTML": "<div class=\"item\"><img alt=\"New slide [900x500]\" style=\"margin: 0 auto;\" data-src=\"holder.js/900x500/auto/#777:#555/text:New slide\" src=\"data:image/png;base64,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YhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACDy99//Dz8WqnGpeRKeAAAAAElFTkSuQmCC\" data-holder-rendered=\"true\"><\/div>",
+                  "sourceHTML":"<div class=\"item\"><img alt=\"New slide [900x500]\" style=\"margin: 0 auto;\" data-src=\"holder.js/900x500/auto/#777:#555/text:New slide\" src=\"data:image/png;base64,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YhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACAjRgEAyIhRAAAyYhQAgIwYBQAgI0YBAMiIUQAAMmIUAICMGAUAICNGAQDIiFEAADJiFACAjBgFACDy99//Dz8WqnGpeRKeAAAAAElFTkSuQmCC\" data-holder-rendered=\"true\"></div>",
             "targetSelector": "div.carousel-inner"
           }
         ]
@@ -140,8 +133,8 @@
     {
       "name": "crn-datasource",
       "text": "Datasource",
-      "class": "cpn cpn-datasource",
-      "template": "<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\" on-before-create=\"\" on-after-create=\"\" on-before-update=\"\" on-after-update=\"\" on-before-delete=\"\" on-after-delete=\"\" on-after-fill=\"\"><i class=\"cpn cpn-datasource\" ><\/i><\/datasource>",
+         "class": "adjust-icon mdi mdi-table-large",
+         "template":"<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\" on-before-create=\"\" on-after-create=\"\" on-before-update=\"\" on-after-update=\"\" on-before-delete=\"\" on-after-delete=\"\" on-after-fill=\"\"><i class=\"cpn cpn-datasource\" ></i></datasource>",
       "properties": {
         "entity": {
           "removable": false,
@@ -211,8 +204,8 @@
     },
     {
       "name": "crn-textinput",
-      "text": "Caixa de texto",
-      "class": "cpn cpn-textinput",
+         "text":"input",
+         "class": "adjust-icon mdi mdi-label-outline",
       "templateURL": "src/main/webapp/components/templates/textinput.template.html",
       "properties": {
         "onchange": {
@@ -224,7 +217,7 @@
     {
       "name": "crn-image",
       "text": "Image",
-      "class": "cpn cpn-image",
+         "class":"adjust-icon mdi mdi-file-image",
       "template": "<img src=\"http://placehold.it/50x50\" class=\"\" width=\"50\" height=\"50\" />",
       "properties": {
         "src": {
@@ -241,15 +234,15 @@
     {
       "name": "crn-vertical-container",
       "text": "Vertical Grid",
-      "class": "cpn cpn-vertical-grid",
-      "template": "<div class=\"crn-layout-container\" data-container=\"true\" draggable=\"true\"><div class=\"row\"><div class=\"\"><div data-container=\"true\" data-replace=\"true\">Content goes here<\/div><\/div><\/div><div class=\"row\"><div class=\"\"><div data-container=\"true\" data-replace=\"true\">Content goes here<\/div><\/div><\/div><\/div>",
+         "class":"adjust-icon mdi mdi-drag-vertical",
+         "template":"<div class=\"crn-layout-container\" data-container=\"true\" draggable=\"true\"><div class=\"row\"><div class=\"\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div></div><div class=\"row\"><div class=\"\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div></div></div>",
       "handleRules": {
         "canOrder": false,
         "canActivate": false,
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<div class=\"row\"><div class=\"\"><div data-container=\"true\" data-replace=\"true\">Content goes here<\/div><\/div><\/div>",
+                  "sourceHTML":"<div class=\"row\"><div class=\"\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div></div>",
             "targetSelector": "div.crn-layout-container"
           }
         ]
@@ -258,15 +251,15 @@
     {
       "name": "crn-horizontal-container",
       "text": "Horizontal Grid",
-      "class": "cpn cpn-horizontal-grid",
-      "template": "<div class=\"row\" data-container=\"true\" draggable=\"true\">\r\n        <div class=\"column col-md-4\"><div data-container=\"true\" data-replace=\"true\">Content goes here<\/div><\/div>\r\n        <div class=\"column col-md-4\"><div data-container=\"true\" data-replace=\"true\">Content goes here<\/div><\/div>\r\n      <\/div>",
+         "class":"adjust-icon mdi mdi-drag-horizontal",
+         "template":"<div class=\"row\" data-container=\"true\" draggable=\"true\">\r\n        <div class=\"column col-md-4\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div>\r\n        <div class=\"column col-md-4\"><div data-container=\"true\" data-replace=\"true\">Content goes here</div></div>\r\n      </div>",
       "handleRules": {
         "canOrder": false,
         "canActivate": false,
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<div class=\"column col-md-4\"><div data-container=\"true\">.col-md-4<\/div><\/div>",
+                  "sourceHTML":"<div class=\"column col-md-4\"><div data-container=\"true\">.col-md-4</div></div>",
             "targetSelector": "div.row"
           }
         ]
@@ -275,7 +268,7 @@
     {
       "name": "crn-form",
       "text": "Form",
-      "class": "cpn cpn-form",
+         "class":"adjust-icon mdi mdi-application",
       "templateURL": "src/main/webapp/components/templates/form.template.html",
       "properties": {
         "crn-datasource": {
@@ -288,7 +281,7 @@
     {
       "name": "crn-tabs",
       "text": "Tabs",
-      "class": "cpn cpn-tabs",
+         "class":"adjust-icon mdi mdi-window-maximize",
       "handleRules": {
         "canOrder": true,
         "canActivate": true,
@@ -297,13 +290,13 @@
           {
             "activeSelector": "ul.nav-tabs li.active",
             "activeClass": "active",
-            "sourceHTML": "<li role=\"presentation\"><a data-target=\"#tab${RANDOM}\" role=\"tab\" data-toggle=\"tab\">New Tab<\/a><\/li>",
+                  "sourceHTML":"<li role=\"presentation\"><a data-target=\"#tab${RANDOM}\" role=\"tab\" data-toggle=\"tab\">New Tab</a></li>",
             "targetSelector": "ul.nav-tabs"
           },
           {
             "activeSelector": "div.tab-content .tab-pane.active",
             "activeClass": "active",
-            "sourceHTML": "<div role=\"tabpanel\" class=\"tab-pane\" id=\"tab${RANDOM}\"><div class=\"\" data-container=\"true\"><\/div>",
+                  "sourceHTML":"<div role=\"tabpanel\" class=\"tab-pane\" id=\"tab${RANDOM}\"><div class=\"\" data-container=\"true\"></div>",
             "targetSelector": "div.tab-content"
           }
         ]
@@ -313,41 +306,38 @@
     {
       "name": "crn-datepicker",
       "text": "Date",
-      "class": "cpn cpn-date",
+         "class":"adjust-icon mdi mdi-calendar",
       "templateURL": "src/main/webapp/components/templates/date.template.html"
     },
     {
       "name": "crn-timepicker",
       "text": "Time",
-      "class": "cpn cpn-time",
+         "class":"adjust-icon mdi mdi-timer",
       "templateURL": "src/main/webapp/components/templates/time.template.html"
     },
     {
       "name": "crn-datetimepicker",
       "text": "DateTime",
-      "class": "cpn cpn-datetime",
+         "class":"adjust-icon mdi mdi-calendar-clock",
       "templateURL": "src/main/webapp/components/templates/datetime.template.html"
     },
     {
       "name": "crn-upload",
       "text": "File Upload",
-      "class": "cpn cpn-upload",
+         "class":"adjust-icon mdi mdi-cloud-upload",
       "templateURL": "src/main/webapp/components/templates/fileupload.template.html",
-      "properties": {}
-    },
-    {
-      "name": "crn-image-upload",
-      "text": "Image Upload",
-      "class": "cpn cpn-image-upload",
-      "templateURL": "src/main/webapp/components/templates/image.template.html",
-      "properties": {}
+         "properties":{
+
+         }
     },
     {
       "name": "crn-grid",
       "text": "Table",
-      "class": "cpn cpn-table",
+         "class":"adjust-icon mdi mdi-apps",
       "templateURL": "src/main/webapp/components/templates/grid.template.html",
-      "properties": {},
+         "properties":{
+
+         },
       "childrenProperties": [
         {
           "name": "crn-datasource",
@@ -363,13 +353,13 @@
           {
             "activeSelector": ".table-header th.active",
             "activeClass": "active",
-            "sourceHTML": "<th><div data-container=\"true\">New Title<\/div><\/th>",
+                  "sourceHTML":"<th><div data-container=\"true\">New Title</div></th>",
             "targetSelector": ".table-header"
           },
           {
             "activeSelector": ".table-content td.active",
             "activeClass": "active",
-            "sourceHTML": "<td><div data-container=\"true\">New Content<\/div><\/td>",
+                  "sourceHTML":"<td><div data-container=\"true\">New Content</div></td>",
             "targetSelector": ".table-content"
           }
         ]
@@ -378,7 +368,7 @@
     {
       "name": "crn-combobox",
       "text": "Combobox",
-      "class": "cpn cpn-combobox",
+         "class": "adjust-icon mdi mdi-equal-box",
       "templateURL": "src/main/webapp/components/templates/combobox.template.html",
       "handleRules": {
         "canToggle": true,
@@ -420,7 +410,7 @@
     {
       "name": "crn-combobox-dynamic",
       "text": "Dynamic Combobox",
-      "class": "cpn cpn-combobox-dynamic",
+         "class":"adjust-icon mdi mdi-nutrition",
       "templateURL": "src/main/webapp/components/templates/combobox-dynamic.template.html",
       "handleRules": {
         "canToggle": true,
@@ -447,13 +437,13 @@
     {
       "name": "crn-radiogroup",
       "text": "Radio Group",
-      "class": "cpn cpn-radiogroup",
+         "class": "adjust-icon mdi mdi-radiobox-marked",
       "templateURL": "src/main/webapp/components/templates/radiogroup.template.html",
       "handleRules": {
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<div class=\"radio\">\n  <label class=\"\" crn-value value=\"Value Two\"> \n       <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios${RANDOM}\" value=\"\"> \n       <span class=\"\">New option<\/span> \n <\/label> \n<\/div>",
+                  "sourceHTML":"<div class=\"radio\">\n  <label class=\"\" crn-value value=\"Value Two\"> \n       <input type=\"radio\" name=\"optionsRadios\" id=\"optionsRadios${RANDOM}\" value=\"\"> \n       <span class=\"\">New option</span> \n </label> \n</div>",
             "targetSelector": ".form-group"
           }
         ]
@@ -462,19 +452,19 @@
     {
       "name": "crn-checkbox",
       "text": "Checkbox",
-      "class": "cpn cpn-checkbox",
+         "class": " adjust-icon mdi mdi-checkbox-marked-outline",
       "templateURL": "src/main/webapp/components/templates/checkbox.template.html"
     },
     {
       "name": "crn-navbar",
       "text": "Navbar",
-      "class": "cpn cpn-navbar",
+         "class": "adjust-icon mdi mdi-tab",
       "templateURL": "src/main/webapp/components/templates/navbar.template.html",
       "handleRules": {
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<li class=\"dropdown component-holder\" data-component=\"crn-menu-item\"> <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><span>Menu Item<\/span> <span class=\"caret\"><\/span><\/a> <ul class=\"dropdown-menu\">   <li><a href=\"#\" class=\"component-holder\" data-component=\"crn-anchor\">Action Item<\/a><\/li> <\/ul><\/li>",
+                  "sourceHTML":"<li class=\"dropdown component-holder\" data-component=\"crn-menu-item\"> <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"><span>Menu Item</span> <span class=\"caret\"></span></a> <ul class=\"dropdown-menu\">   <li><a href=\"#\" class=\"component-holder\" data-component=\"crn-anchor\">Action Item</a></li> </ul></li>",
             "targetSelector": ".nav.navbar-nav"
           }
         ]
@@ -493,7 +483,7 @@
           {
             "toggleSelector": ".dropdown",
             "toggleClass": "open",
-            "sourceHTML": "<li><a href=\"#\" class=\"component-holder\" data-component=\"crn-anchor\">Action item<\/a><\/li>",
+                  "sourceHTML":"<li><a href=\"#\" class=\"component-holder\" data-component=\"crn-anchor\">Action item</a></li>",
             "targetSelector": "ul.dropdown-menu"
           }
         ]
@@ -502,13 +492,13 @@
     {
       "name": "crn-sidebar",
       "text": "Sidebar",
-      "class": "cpn cpn-sidebar",
+         "class":"adjust-icon mdi mdi-book-open",
       "templateURL": "src/main/webapp/components/templates/sidebar.template.html",
       "handleRules": {
         "canIncrement": true,
         "rules": [
           {
-            "sourceHTML": "<li data-toggle=\"collapse\" data-component=\"crn-sidebar-item\" data-target=\"#menu-sub-${RANDOM}\" class=\"collapsed active component-holder\"><a href=\"javascript:void(0);\" class=\"\"><i class=\"fa fa-users fa-lg\"><\/i> <span>Menu Item<\/span> <span class=\"arrow\"><\/span><\/a> <ul class=\"sub-menu collapse  navbar-nav in\" id=\"menu-sub-${RANDOM}\"> <li><a href=\"#/\" class=\"component-holder\" data-component=\"crn-anchor\">Submenu Item<\/a><\/li>  <\/ul> <\/li> ",
+                  "sourceHTML":"<li data-toggle=\"collapse\" data-component=\"crn-sidebar-item\" data-target=\"#menu-sub-${RANDOM}\" class=\"collapsed active component-holder\"><a href=\"javascript:void(0);\" class=\"\"><i class=\"fa fa-users fa-lg\"></i> <span>Menu Item</span> <span class=\"arrow\"></span></a> <ul class=\"sub-menu collapse  navbar-nav in\" id=\"menu-sub-${RANDOM}\"> <li><a href=\"#/\" class=\"component-holder\" data-component=\"crn-anchor\">Submenu Item</a></li>  </ul> </li> ",
             "targetSelector": ".menu-content"
           }
         ]
@@ -527,7 +517,7 @@
           {
             "toggleSelector": ".sub-menu.collapse",
             "toggleClass": "in",
-            "sourceHTML": "<li><a href=\"#/\" class=\"component-holder\" data-component=\"crn-anchor\">Submenu Item<\/a><\/li>",
+                  "sourceHTML":"<li><a href=\"#/\" class=\"component-holder\" data-component=\"crn-anchor\">Submenu Item</a></li>",
             "targetSelector": ".sub-menu"
           }
         ]
@@ -536,55 +526,55 @@
     {
       "name": "crn-chart-bar",
       "text": "Chart Bar",
-      "class": "cpn cpn-chart-bar",
+         "class":"adjust-icon mdi mdi-chart-bar",
       "templateURL": "src/main/webapp/components/templates/chart-bar.template.html"
     },
     {
       "name": "crn-chart-doughnut",
       "text": "Chart Doughnut",
-      "class": "cpn cpn-chart-doughnut",
+         "class":"adjust-icon mdi mdi-chart-arc",
       "templateURL": "src/main/webapp/components/templates/chart-doughnut.template.html"
     },
     {
       "name": "crn-chart-line",
       "text": "Chart Line",
-      "class": "cpn cpn-chart-line",
+         "class":"adjust-icon mdi mdi-chart-line",
       "templateURL": "src/main/webapp/components/templates/chart-line.template.html"
     },
     {
       "name": "crn-chart-pie",
       "text": "Chart Pie",
-      "class": "cpn cpn-chart-pie",
+         "class":"adjust-icon mdi mdi-chart-pie",
       "templateURL": "src/main/webapp/components/templates/chart-pie.template.html"
     },
     {
       "name": "crn-chart-polar-area",
       "text": "Chart Polar Area",
-      "class": "cpn cpn-chart-polar-area",
+         "class":"adjust-icon mdi mdi-chart-scatterplot-hexbin",
       "templateURL": "src/main/webapp/components/templates/chart-polar-area.template.html"
     },
     {
       "name": "crn-chart-radar",
       "text": "Chart Radar",
-      "class": "cpn cpn-chart-radar",
+         "class":"adjust-icon mdi mdi-speedometer",
       "templateURL": "src/main/webapp/components/templates/chart-radar.template.html"
     },
     {
       "name": "crn-chart-gauge",
       "text": "Chart Gauge",
-      "class": "cpn cpn-chart-gauge",
+         "class":"adjust-icon mdi mdi-gauge",
       "templateURL": "src/main/webapp/components/templates/chart-gauge.template.html"
     },
     {
       "name": "crn-title",
       "text": "Título",
-      "class": "cpn cpn-title",
+         "class":"adjust-icon mdi mdi-format-header-pound",
       "templateURL": "src/main/webapp/components/templates/title.template.html"
     },
     {
       "name": "crn-text",
       "text": "Texto",
-      "class": "cpn cpn-text",
+         "class":"adjust-icon mdi mdi-format-annotation-plus",
       "templateURL": "src/main/webapp/components/templates/text.template.html"
     },
     {
@@ -595,7 +585,7 @@
           "components/css/multiselect-editor.css"
         ]
       },
-      "class": "cpn cpn-tags-input",
+         "class":"adjust-icon mdi mdi-format-list-bulleted",
       "templateURL": "src/main/webapp/components/templates/multiselect.template.html",
       "childrenProperties": [
         {

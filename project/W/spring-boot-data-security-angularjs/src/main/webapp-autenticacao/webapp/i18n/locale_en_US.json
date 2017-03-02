@@ -90,5 +90,6 @@
   "Add": "Add",
   "Save": "Save",
   "invalid.cpf": "CPF invalid",
-  "invalid.cnpj": "CNPJ invalid"
+  "invalid.cnpj": "CNPJ invalid",
+  "Home.view.Department": "Department"
 }
