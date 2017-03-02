@@ -61,7 +61,14 @@ public class User implements Serializable {
    */
   @Column(name = "theme", nullable = true, unique = false, insertable=true, updatable=true)
   private java.lang.String theme;
-  
+<#if multitenant?? && multitenant?lower_case == "sim">
+  /**
+  * @generated
+  */
+  @ManyToOne
+  @JoinColumn(name="fk_company", referencedColumnName = "id", insertable=true, updatable=true)
+  private Company company;
+</#if>
   /**
    * Construtor
    * @generated
@@ -209,7 +216,28 @@ public class User implements Serializable {
     this.theme = theme;
     return this;
   }
+
+<#if multitenant?? && multitenant?lower_case == "sim">
+  /**
+   * Obtém company
+   * 
+   * return company
+   * @generated
+   */
+  public Company getCompany(){
+    return this.company;
+  }
   
+  /**
+   * Define company
+   * @param company company
+   * @generated
+   */
+  public User setCompany(Company company){
+    this.company = company;
+    return this;
+  }
+</#if>
   /**
    * @generated
    */

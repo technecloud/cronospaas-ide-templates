@@ -1,9 +1,14 @@
-<div class="form-group" ngf-drop ngf-change="datasource.setImage($file, datasource.active.image)" ngf-pattern="'image/*'"> 
-  <label>Image Upload</label> 
-  <img data-ng-src="{{'data:image/png;base64,' + datasource.active.image}}" style="max-height: 100px;" ng-if="datasource.active.image"> 
-  <div ng-if="datasource.active.image" class="help-block clearfix"> 
-    <span class="pull-left">{{datasource.byteSize(datasource.active.image)}}</span> 
-    <button type="button" ng-click="datasource.active.image=null" class="btn btn-default btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span></button> 
-  </div> 
-  <button type="button" ngf-select class="btn btn-default btn-block" ngf-change="datasource.setImage($file, datasource.active, 'image')" accept="image/*">Add</button> 
+<div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setImage($file, datasource.active.image)" ngf-pattern="'image/*'">
+  <label>Image Upload</label>
+  <img style="max-height: 128px; max-width: 128px;"
+       ng-if="datasource.active.image"
+       data-ng-src="{{'data:image/png;base64,' + datasource.active.image}}"
+       ngf-change="datasource.setImage($file, datasource.active, 'image')"
+       accept="image/*">
+  <img data-ng-src="{{datasource.noImageUpload}}"
+       style="max-height: 128px; max-width: 128px;"
+       ng-if="!datasource.active.image"
+       ngf-select class="btn btn-default btn-block"
+       ngf-change="datasource.setImage($file, datasource.active, 'image')" accept="image/*">
+  <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.image" ng-click="datasource.active.image=null"></span>
 </div>

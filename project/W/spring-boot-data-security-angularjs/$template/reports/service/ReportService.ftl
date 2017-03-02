@@ -53,7 +53,8 @@ public class ReportService {
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 			Stream.of(jasperDesign.getParameters())
 				.filter(jrParameter -> !jrParameter.isSystemDefined())
-				.filter(jrParameter -> !jrParameter.getName().contains("IMAGE_"))
+				.filter(jrParameter -> !jrParameter.getName().contains("image_"))
+				.filter(jrParameter -> !jrParameter.getName().contains("sub_"))
 				.forEach(jrParameter -> {
 					Parameter parameter = new Parameter();
 					parameter.setName(jrParameter.getName());
@@ -87,17 +88,31 @@ public class ReportService {
 				throw new RuntimeException(e);
 			}
 
+			Map<String, JRParameter> parametersMap = jasperDesign.getParametersMap();
+
 			HashMap<String, Object> parameters = new HashMap<>();
 			reportFront.getParameters().forEach(parameter -> parameters.put(parameter.getName(), parameter.getValue()));
+			parametersMap.entrySet().forEach(parameter -> parameters.put(parameter.getKey(), null));
 
-			Map<String, JRParameter> parametersMap = jasperDesign.getParametersMap();
 			parameters.entrySet().stream()
-				.filter(parameter -> parameter.getKey().contains("IMAGE_"))
+				.filter(parameter -> parameter.getKey().contains("image_"))
 				.forEach(parameter -> {
 					JRParameter jrParameter = parametersMap.get(parameter.getKey());
 					JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
 					if (defaultValueExpression != null) {
 						URL resource = loader.getResource(defaultValueExpression.getText().replaceAll("\"", ""));
+						if (resource != null)
+							parameters.put(parameter.getKey(), resource.getPath());
+					}
+				});
+
+			parameters.entrySet().stream()
+				.filter(parameter -> parameter.getKey().contains("sub_"))
+				.forEach(parameter -> {
+					JRParameter jrParameter = parametersMap.get(parameter.getKey());
+					JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
+					if (defaultValueExpression != null) {
+						URL resource = loader.getResource(defaultValueExpression.getText().replaceAll("\"", "").replaceAll(".jrxml", ".jasper"));
 						if (resource != null)
 							parameters.put(parameter.getKey(), resource.getPath());
 					}
