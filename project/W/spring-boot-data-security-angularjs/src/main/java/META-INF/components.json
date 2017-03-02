@@ -404,6 +404,16 @@
           "name": "repeat",
           "selector": "ui-select-choices",
           "displayName": "repeat"
+        },
+        {
+          "name": "content",
+          "selector":"ui-select-match",
+          "displayName": "option value"
+        },
+        {
+          "name": "content",
+          "selector":"ui-select-choices > div:eq(0)",
+          "displayName": "option text"
         }
       ]
     },
