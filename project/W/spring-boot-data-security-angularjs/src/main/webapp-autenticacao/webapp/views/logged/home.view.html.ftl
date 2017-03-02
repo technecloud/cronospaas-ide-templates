@@ -10,23 +10,23 @@
       </div> 
       <div id="navbar" class="navbar-collapse collapse"> 
         <ul class="nav navbar-nav" style="float:none"> 
-          <li class="dropdown component-holder" data-component=""> <a href="#/home" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-home"></i> <span content="{{&quot;Home.view.Home&quot; | translate}}">{{"Home.view.Home" | translate}}</span> </a> </li> 
-          <li class="dropdown component-holder" data-component="crn-menu-item" ng-if="session.root"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span content="{{&quot;Home.view.Admin&quot; | translate}}">{{"Home.view.Admin" | translate}}</span> <span class="caret"></span> </a> 
+          <li class="dropdown component-holder" data-component=""> <a href="#/home" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-home"></i> <span>{{"Home.view.Home" | translate}}</span> </a> </li> 
+          <li class="dropdown component-holder" data-component="crn-menu-item" ng-if="session.root"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span>{{"Home.view.Admin" | translate}}</span> <span class="caret"></span> </a> 
             <ul class="dropdown-menu"> 
-              <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor" content="{{&quot;Home.view.Users&quot; | translate}}">{{"Home.view.Users" | translate}}</a></li> 
-              <li><a href="#/home/admin/role" class="component-holder" data-component="crn-anchor" content="{{&quot;Home.view.Roles&quot; | translate}}">{{"Home.view.Roles" | translate}}</a></li>
+              <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor" >{{"Home.view.Users" | translate}}</a></li> 
+              <li><a href="#/home/admin/role" class="component-holder" data-component="crn-anchor" >{{"Home.view.Roles" | translate}}</a></li>
             <#if multitenant?? && multitenant?lower_case == "sim">
               <li><a href="#/home/logged/department" class="component-holder" data-component="crn-anchor">{{"Home.view.Department" | translate}}</a></li>
             </#if>
             </ul> </li> 
-          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-gear"></i> <span content="{{&quot;ChooseTheme&quot; | translate}}">{{"ChooseTheme" | translate}}</span> <span class="caret"></span> </a> 
+          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-gear"></i> <span>{{"ChooseTheme" | translate}}</span> <span class="caret"></span> </a> 
             <ul class="dropdown-menu"> 
               <li ng-repeat="theme in themes" ng-click="changeTheme(theme)"> <a href="javascript:void(0);" ng-class="{'bg-primary': myTheme==theme}">{{theme}} <i class="fa fa-lg fa-check pull-right" ng-if="myTheme==theme"></i></a></li> 
             </ul> </li> 
-          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img class="user-avatar" alt="{{session.user.name}}" ng-src="{{session.picture || 'img/nophoto.png'}}" style="max-height:18px;max-width:18px"> <span content="{{session.user.name}}">{{session.user.name}}</span> <span class="caret"></span> </a> 
+          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img class="user-avatar" alt="{{session.user.name}}" ng-src="{{session.picture || 'img/nophoto.png'}}" style="max-height:18px;max-width:18px"> <span>{{session.user.name}}</span> <span class="caret"></span> </a> 
             <ul class="dropdown-menu"> 
-              <li><a class="component-holder" data-toggle="modal" data-target="#modalPassword" data-component="crn-anchor" content="{{&quot;Home.view.ChangePassword&quot; | translate}}">{{"Home.view.ChangePassword" | translate}}</a></li> 
-              <li ng-click="logout()"><a href="javascript:void(0);"><span content="{{&quot;Home.view.Logout&quot; | translate}}">{{"Home.view.Logout" | translate}}</span></a></li> 
+              <li><a class="component-holder" data-toggle="modal" data-target="#modalPassword" data-component="crn-anchor" >{{"Home.view.ChangePassword" | translate}}</a></li> 
+              <li ng-click="logout()"><a href="javascript:void(0);"><span >{{"Home.view.Logout" | translate}}</span></a></li> 
             </ul> </li> 
         </ul> 
       </div> 
@@ -91,7 +91,7 @@
     <div class="modal-content"> 
       <div class="modal-header"> 
         <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button> 
-        <h4 class="modal-title" content="{{&quot;Home.view.ChangePassword&quot; | translate}}">{{"Home.view.ChangePassword" | translate}}</h4> 
+        <h4 class="modal-title" >{{"Home.view.ChangePassword" | translate}}</h4> 
       </div> 
       <div class="modal-body"> 
         <form class="form-validation" autocomplete="off" name="form" role="form"> 
@@ -111,8 +111,8 @@
         </form> 
       </div> 
       <div class="modal-footer"> 
-        <button class="btn btn-primary" type="submit" ng-click="changePassword()" ng-disabled="form.$invalid || vm.dataLoading" content="{{&quot;Home.view.ChangePassword&quot; | translate}}">{{"Home.view.ChangePassword" | translate}}</button> 
-        <button type="button" class="btn btn-default" data-dismiss="modal" content="{{'Home.view.Close' | translate}}">{{'Home.view.Close' | translate}}</button> 
+        <button class="btn btn-primary" type="submit" ng-click="changePassword()" ng-disabled="form.$invalid || vm.dataLoading" >{{"Home.view.ChangePassword" | translate}}</button> 
+        <button type="button" class="btn btn-default" data-dismiss="modal" >{{'Home.view.Close' | translate}}</button> 
       </div> 
     </div> 
   </div> 
