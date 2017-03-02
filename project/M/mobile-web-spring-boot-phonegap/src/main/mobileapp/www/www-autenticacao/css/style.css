@@ -781,3 +781,8 @@ body {
 .dragover {
     border: 2px dashed blue;
 }
+
+.box {
+  width: 100%;
+  min-height: 100px;
+}
