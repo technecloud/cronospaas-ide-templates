@@ -428,6 +428,11 @@
           "displayName": "datasource"
         },
         {
+           "name":"ng-model",
+           "selector":"ui-select",
+           "displayName":"ng-model"
+        },
+        {
           "name": "repeat",
           "selector": "ui-select-choices",
           "displayName": "repeat"
