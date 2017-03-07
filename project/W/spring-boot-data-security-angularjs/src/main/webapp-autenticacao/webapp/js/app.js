@@ -15,8 +15,7 @@ var app = (function() {
       'tmh.dynamicLocale',
       'ui-notification',
       'ui.bootstrap',
-      'ngFileUpload',
-      'ngLoader'
+      'ngFileUpload'
     ])
 
     .constant('LOCALES', {
