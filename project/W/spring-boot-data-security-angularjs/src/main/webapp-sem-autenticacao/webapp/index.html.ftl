@@ -14,7 +14,6 @@
         <link rel="stylesheet" type="text/css" href="css/cronos-bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="css/app.css"/>
         <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
-        <link rel="stylesheet" href="plugins/ng-loaders/ngLoader.min.css">
         <#if !(theme??) ||  theme == "" >
         <link id="themeSytleSheet" rel="stylesheet" href="">
         <#else >
@@ -52,7 +51,6 @@
         <script src="plugins/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
         <script src="plugins/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
         <script src="plugins/ng-file-upload/ng-file-upload.min.js"></script>
-        <script src="plugins/ng-loaders/ngLoader.min.js"></script>
         <script type="text/javascript" src="plugins/moment/min/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         <script src="plugins/cpf_cnpj/build/cpf.js"></script>
