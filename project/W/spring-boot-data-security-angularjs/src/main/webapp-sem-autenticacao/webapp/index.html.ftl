@@ -14,6 +14,7 @@
         <link rel="stylesheet" type="text/css" href="css/cronos-bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="css/app.css"/>
         <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
+        <link rel="stylesheet" href="plugins/pace/pace.css">
         <#if !(theme??) ||  theme == "" >
         <link id="themeSytleSheet" rel="stylesheet" href="">
         <#else >
@@ -55,6 +56,7 @@
         <script type="text/javascript" src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         <script src="plugins/cpf_cnpj/build/cpf.js"></script>
         <script src="plugins/cpf_cnpj/build/cnpj.js"></script>
+        <script src="plugins/pace/pace.min.js"></script>
 
         <!-- Customs -->
         <script src="js/app.js"></script>
