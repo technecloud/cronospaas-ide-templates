@@ -89,8 +89,24 @@ public class ReportService {
 			Map<String, JRParameter> parametersMap = jasperDesign.getParametersMap();
 
 			HashMap<String, Object> parameters = new HashMap<>();
-			reportFront.getParameters().forEach(parameter -> parameters.put(parameter.getName(), parameter.getValue()));
-			parametersMap.entrySet().forEach(parameter -> parameters.put(parameter.getKey(), null));
+			
+			reportFront.getParameters().forEach(parameter -> {
+				parameters.put(parameter.getName(), parameter.getValue());
+			});
+
+			parametersMap.entrySet().stream()
+					.filter(p -> !parameters.containsKey(p.getKey()))
+					.forEach(parameter -> {
+						String key = parameter.getKey();
+						JRParameter value = parameter.getValue();
+						if (value == null)
+							parameters.put(key, null);
+						else {
+							JRExpression valueExpression = value.getDefaultValueExpression();
+							if (valueExpression != null)
+								parameters.put(key, valueExpression.getText());
+						}
+					});
 
 			parameters.entrySet().stream()
 				.filter(parameter -> parameter.getKey().contains("image_"))
