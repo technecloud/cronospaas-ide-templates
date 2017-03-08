@@ -27,6 +27,7 @@
         <!-- Plugins -->
         <script src="plugins/jquery/dist/jquery.min.js"></script>
         <script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script data-pace-options='{"document": true, "eventLag": true, "restartOnPushState": true, "restartOnRequestAfter": true, "ajax": {"trackMethods": [ "PUT","POST","GET"] }}' src='plugins/pace/pace.min.js'></script>
 
         <!-- Angular JS -->
         <script src="plugins/angular/angular.min.js"></script>
@@ -56,7 +57,6 @@
         <script type="text/javascript" src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         <script src="plugins/cpf_cnpj/build/cpf.js"></script>
         <script src="plugins/cpf_cnpj/build/cnpj.js"></script>
-        <script src="plugins/pace/pace.min.js"></script>
 
         <!-- Customs -->
         <script src="js/app.js"></script>
