@@ -104,7 +104,6 @@
 </div>
 <div class="component-holder" data-component="crn-grid" id="crn-grid-${model.dataSourceName}">
   <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
-    <loader working="datasource.isBusy()" disable-background="true" template="1"></loader>
     <table class="table  table-bordered table-hover table-striped">
       <thead>
         <tr class="table-header">
@@ -164,7 +163,6 @@
 <div data-component="crn-form" id="crn-form-form-${model.dataSourceName}">
   <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
     <form crn-datasource="${model.dataSourceName}" class="">
-      <loader working="datasource.isBusy()" disable-background="true" template="1"></loader>
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
         <button class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
         <button class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>

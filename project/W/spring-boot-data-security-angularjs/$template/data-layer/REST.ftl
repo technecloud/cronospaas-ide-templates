@@ -346,4 +346,15 @@ public class ${class_name} {
 
 </#if>
 </#list>
+<#list clazz.fkFields as fkField>
+  /**
+   * Foreign Key ${fkField.relationClazz.name}
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET, value="/${fkField.relationClazz.name}/<#list fkField.relationClazz.primaryKeys as field>{instance${field.name?cap_first}}<#if field_has_next>/</#if></#list>")    
+  public HttpEntity<PagedResources<${clazz.name}>> find${clazz.name}sBy${fkField.relationClazz.name}(<#list fkField.relationClazz.primaryKeys as field>@PathVariable("instance${field.name?cap_first}") ${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.find${clazz.name}sBy${fkField.relationClazz.name}(<#list fkField.relationClazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, pageable)), HttpStatus.OK);
+  }
+  
+</#list>
 }

@@ -19,7 +19,6 @@
       <datasource <#if model.hasColumnFilter()>filter="{{query == '' || query == null ? null : ('/${model.gridFilter}/' + query)}}"</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
     </div>
     <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
-      <loader working="datasource.isBusy()" disable-background="true" template="1"></loader>
       <ion-list can-swipe="listCanSwipe">
         <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)">
           <div class="row">
@@ -59,7 +58,6 @@
     </div>
     <div ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
       <form crn-datasource="${model.dataSourceName}">
-        <loader working="datasource.isBusy()" disable-background="true" template="1"></loader>
         <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
           <div class="list">
             <#list model.formFields as field>
