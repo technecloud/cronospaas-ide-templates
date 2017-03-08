@@ -52,15 +52,15 @@ public class ReportService {
 		try {
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
 			Stream.of(jasperDesign.getParameters())
-				.filter(jrParameter -> !jrParameter.isSystemDefined())
-				.filter(jrParameter -> !jrParameter.getName().contains("image_"))
-				.filter(jrParameter -> !jrParameter.getName().contains("sub_"))
-				.forEach(jrParameter -> {
-					Parameter parameter = new Parameter();
-					parameter.setName(jrParameter.getName());
-					parameter.setType(ParameterType.toType(jrParameter.getValueClass()));
-					reportFront.addParameter(parameter);
-				});
+					.filter(jrParameter -> !jrParameter.isSystemDefined())
+					.filter(jrParameter -> !jrParameter.getName().contains("image_"))
+					.filter(jrParameter -> !jrParameter.getName().contains("sub_"))
+					.forEach(jrParameter -> {
+						Parameter parameter = new Parameter();
+						parameter.setName(jrParameter.getName());
+						parameter.setType(ParameterType.toType(jrParameter.getValueClass()));
+						reportFront.addParameter(parameter);
+					});
 		} catch (JRException e) {
 			log.error("Problems to make JasperDesing object.");
 			throw new RuntimeException(e);
@@ -91,32 +91,48 @@ public class ReportService {
 			Map<String, JRParameter> parametersMap = jasperDesign.getParametersMap();
 
 			HashMap<String, Object> parameters = new HashMap<>();
-			reportFront.getParameters().forEach(parameter -> parameters.put(parameter.getName(), parameter.getValue()));
-			parametersMap.entrySet().forEach(parameter -> parameters.put(parameter.getKey(), null));
+
+			reportFront.getParameters().forEach(parameter -> {
+				parameters.put(parameter.getName(), parameter.getValue());
+			});
+
+			parametersMap.entrySet().stream()
+					.filter(p -> !parameters.containsKey(p.getKey()))
+					.forEach(parameter -> {
+						String key = parameter.getKey();
+						JRParameter value = parameter.getValue();
+						if (value == null)
+							parameters.put(key, null);
+						else {
+							JRExpression valueExpression = value.getDefaultValueExpression();
+							if (valueExpression != null)
+								parameters.put(key, valueExpression.getText());
+						}
+					});
 
 			parameters.entrySet().stream()
-				.filter(parameter -> parameter.getKey().contains("image_"))
-				.forEach(parameter -> {
-					JRParameter jrParameter = parametersMap.get(parameter.getKey());
-					JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
-					if (defaultValueExpression != null) {
-						URL resource = loader.getResource(defaultValueExpression.getText().replaceAll("\"", ""));
-						if (resource != null)
-							parameters.put(parameter.getKey(), resource.getPath());
-					}
-				});
+					.filter(parameter -> parameter.getKey().contains("image_"))
+					.forEach(parameter -> {
+						JRParameter jrParameter = parametersMap.get(parameter.getKey());
+						JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
+						if (defaultValueExpression != null) {
+							URL resource = loader.getResource(defaultValueExpression.getText().replaceAll("\"", ""));
+							if (resource != null)
+								parameters.put(parameter.getKey(), resource.getPath());
+						}
+					});
 
 			parameters.entrySet().stream()
-				.filter(parameter -> parameter.getKey().contains("sub_"))
-				.forEach(parameter -> {
-					JRParameter jrParameter = parametersMap.get(parameter.getKey());
-					JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
-					if (defaultValueExpression != null) {
-						URL resource = loader.getResource(defaultValueExpression.getText().replaceAll("\"", "").replaceAll(".jrxml", ".jasper"));
-						if (resource != null)
-							parameters.put(parameter.getKey(), resource.getPath());
-					}
-				});
+					.filter(parameter -> parameter.getKey().contains("sub_"))
+					.forEach(parameter -> {
+						JRParameter jrParameter = parametersMap.get(parameter.getKey());
+						JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
+						if (defaultValueExpression != null) {
+							URL resource = loader.getResource(defaultValueExpression.getText().replaceAll("\"", "").replaceAll(".jrxml", ".jasper"));
+							if (resource != null)
+								parameters.put(parameter.getKey(), resource.getPath());
+						}
+					});
 
 			JasperPrint jasperPrint;
 			try (Connection connection = this.getConnection(jasperDesign)) {
