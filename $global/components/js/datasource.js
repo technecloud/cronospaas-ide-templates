@@ -1225,6 +1225,9 @@ angular.module('datasourcejs', [])
         dts.allowFetch = true;
 
         if (dts.dependentBy) {
+          if (dts.dependentBy !== null && Object.prototype.toString.call(dts.dependentBy) === "[object String]") {
+            dts.dependentBy = eval(dts.dependentBy);
+          }
           dts.allowFetch = (Object.prototype.toString.call(props.dependentBy) === "[object Object]") ? dts.dependentBy.data.length > 0 : false;
         }
 
@@ -1349,9 +1352,7 @@ angular.module('datasourcejs', [])
                 datasource.lastFilterParsed = value;
               }, 200);
             } else {
-              $timeout(function() {
-                firstLoad.filter = false;
-              });
+              firstLoad.filter = false;
             }
           });
 
