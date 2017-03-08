@@ -190,7 +190,8 @@
         },
         "dependent-by": {
           "removable": false,
-          "global": true
+          "global": true,
+          "type": "pageDatasource"
         },
         "dependent-lazy-post": {
           "removable": false,
