@@ -12,7 +12,7 @@ import java.net.URL;
 import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import auth.permission.SecurityPermission;
+
 </#if>
 <#if multitenant?? && multitenant?lower_case == "sim">
 import auth.permission.MultitenantJpaTransactionManager;
@@ -63,7 +63,7 @@ class AppConfiguration {
         Scanner scanner = new Scanner(file);
         strJSON = scanner.useDelimiter("\\A").next();
         scanner.close();
-        strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), SecurityPermission.ROLE_ADMIN_NAME);
+        strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), "Administrators");
 		
       } catch (Exception e) {
       }

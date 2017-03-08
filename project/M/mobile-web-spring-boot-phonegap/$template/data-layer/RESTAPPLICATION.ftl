@@ -11,7 +11,6 @@ import java.net.URL;
 import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-import auth.permission.SecurityPermission;
 
 <#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
 <#assign persistence_unit_name_formatted = persistence_unit_name?replace('.',' ')?capitalize?replace(' ','')>
@@ -70,7 +69,7 @@ class ${configurationName} {
         strJSON = scanner.useDelimiter("\\A").next();
         scanner.close();
         // Caso queira sobrescrever dados do populate
-        // strJSON = strJSON.replaceAll(Pattern.quote("{{VAR_NAME}}"), "VALUE");
+        strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), "Administrators");
       } catch (Exception e) {
       }
     }
