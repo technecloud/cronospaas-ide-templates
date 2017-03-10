@@ -1220,8 +1220,14 @@ angular.module('datasourcejs', [])
 
         if (dts.dependentBy) {
           if (dts.dependentBy !== null && Object.prototype.toString.call(dts.dependentBy) === "[object String]") {
-            dts.dependentBy = eval(dts.dependentBy);
+            try{
+              dts.dependentBy = JSON.parse(dts.dependentBy);
+            }catch(e) {
+              dts.dependentBy = eval(dts.dependentBy);
+            }
           }
+          
+          
           dts.allowFetch = (Object.prototype.toString.call(props.dependentBy) === "[object Object]") ? dts.dependentBy.data.length > 0 : false;
         }
 
@@ -1346,7 +1352,9 @@ angular.module('datasourcejs', [])
                 datasource.lastFilterParsed = value;
               }, 200);
             } else {
-              firstLoad.filter = false;
+              $timeout(function() {
+                firstLoad.filter = false;
+              });
             }
           });
 
@@ -1378,7 +1386,12 @@ angular.module('datasourcejs', [])
           });
 
           attrs.$observe('dependentBy', function(value) {
-            datasource.dependentBy = JSON.parse(value);
+            try{
+              datasource.dependentBy = JSON.parse(value);
+            }catch(e) {
+              datasource.dependentBy = eval(value);
+            }
+            
             if (datasource.dependentBy !== null && Object.prototype.toString.call(datasource.dependentBy) !== "[object String]") {
               if (datasource.dependentBy.data.length > 0 || datasource.dependentBy.loadedFinish) {
                 datasource.enabled = true;
