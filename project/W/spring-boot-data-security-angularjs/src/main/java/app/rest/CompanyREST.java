@@ -66,9 +66,9 @@ public class CompanyREST {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-  public void delete(@PathVariable("id") java.lang.String id) throws Exception {
-    companyBusiness.delete(id);
+  @RequestMapping(method = RequestMethod.DELETE, value = "/{companyId}")
+  public void delete(@PathVariable("companyId") java.lang.String companyId) throws Exception {
+    companyBusiness.delete(companyId);
   }
 
   /**
@@ -87,9 +87,9 @@ public class CompanyREST {
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
-  , value="/{instanceId}/User")    
-  public HttpEntity<PagedResources<User>> findUser(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
-    return new ResponseEntity<>(assembler.toResource(companyBusiness.findUser(instanceId, pageable)), HttpStatus.OK);
+  , value="/{companyId}/User")    
+  public HttpEntity<PagedResources<User>> findUser(@PathVariable("companyId") java.lang.String companyId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(companyBusiness.findUser(companyId, pageable)), HttpStatus.OK);
   }
 
   /**
@@ -97,9 +97,9 @@ public class CompanyREST {
    * @generated
    */  
   @RequestMapping(method = RequestMethod.DELETE
-  , value="/{instanceId}/User/{relationId}")    
-  public void deleteUser(@PathVariable("relationId") java.lang.String relationId) throws Exception {
-    this.userBusiness.delete(relationId);
+  , value="/{companyId}/User/{userId}")    
+  public void deleteUser(@PathVariable("userId") java.lang.String userId) throws Exception {
+    this.userBusiness.delete(userId);
   }
   
   /**
@@ -107,8 +107,8 @@ public class CompanyREST {
    * @generated
    */  
   @RequestMapping(method = RequestMethod.PUT
-  , value="/{instanceId}/User/{relationId}")
-  public User putUser(@Validated @RequestBody final User entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
+  , value="/{companyId}/User/{userId}")
+  public User putUser(@Validated @RequestBody final User entity, @PathVariable("userId") java.lang.String userId) throws Exception {
     return this.userBusiness.put(entity);
   }  
   
@@ -117,9 +117,9 @@ public class CompanyREST {
    * @generated
    */  
   @RequestMapping(method = RequestMethod.POST
-  , value="/{instanceId}/User")
-  public User postUser(@Validated @RequestBody final User entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
-  Company company = this.companyBusiness.get(instanceId);
+  , value="/{companyId}/User")
+  public User postUser(@Validated @RequestBody final User entity, @PathVariable("companyId") java.lang.String companyId) throws Exception {
+  Company company = this.companyBusiness.get(companyId);
   entity.setCompany(company);
     return this.userBusiness.post(entity);
   }   
@@ -130,9 +130,9 @@ public class CompanyREST {
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
-  , value="/{instanceId}/Department")    
-  public HttpEntity<PagedResources<Department>> findDepartment(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
-    return new ResponseEntity<>(assembler.toResource(companyBusiness.findDepartment(instanceId, pageable)), HttpStatus.OK);
+  , value="/{companyId}/Department")    
+  public HttpEntity<PagedResources<Department>> findDepartment(@PathVariable("companyId") java.lang.String companyId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(companyBusiness.findDepartment(companyId, pageable)), HttpStatus.OK);
   }
 
   /**
@@ -140,9 +140,9 @@ public class CompanyREST {
    * @generated
    */  
   @RequestMapping(method = RequestMethod.DELETE
-  , value="/{instanceId}/Department/{relationId}")    
-  public void deleteDepartment(@PathVariable("relationId") java.lang.String relationId) throws Exception {
-    this.departmentBusiness.delete(relationId);
+  , value="/{companyId}/Department/{departmentId}")    
+  public void deleteDepartment(@PathVariable("departmentId") java.lang.String departmentId) throws Exception {
+    this.departmentBusiness.delete(departmentId);
   }
   
   /**
@@ -150,8 +150,8 @@ public class CompanyREST {
    * @generated
    */  
   @RequestMapping(method = RequestMethod.PUT
-  , value="/{instanceId}/Department/{relationId}")
-  public Department putDepartment(@Validated @RequestBody final Department entity, @PathVariable("relationId") java.lang.String relationId) throws Exception {
+  , value="/{companyId}/Department/{departmentId}")
+  public Department putDepartment(@Validated @RequestBody final Department entity, @PathVariable("departmentId") java.lang.String departmentId) throws Exception {
     return this.departmentBusiness.put(entity);
   }  
   
@@ -160,9 +160,9 @@ public class CompanyREST {
    * @generated
    */  
   @RequestMapping(method = RequestMethod.POST
-  , value="/{instanceId}/Department")
-  public Department postDepartment(@Validated @RequestBody final Department entity, @PathVariable("instanceId") java.lang.String instanceId) throws Exception {
-  Company company = this.companyBusiness.get(instanceId);
+  , value="/{companyId}/Department")
+  public Department postDepartment(@Validated @RequestBody final Department entity, @PathVariable("companyId") java.lang.String companyId) throws Exception {
+  Company company = this.companyBusiness.get(companyId);
   entity.setCompany(company);
     return this.departmentBusiness.post(entity);
   }   
@@ -174,8 +174,8 @@ public class CompanyREST {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-  public Company get(@PathVariable("id") java.lang.String id) throws Exception {
-    return companyBusiness.get(id);
+  @RequestMapping(method = RequestMethod.GET, value = "/{companyId}")
+  public Company get(@PathVariable("companyId") java.lang.String companyId) throws Exception {
+    return companyBusiness.get(companyId);
   }
 }
