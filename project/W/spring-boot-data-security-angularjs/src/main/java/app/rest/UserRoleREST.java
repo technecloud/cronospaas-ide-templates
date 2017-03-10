@@ -28,8 +28,7 @@ public class UserRoleREST {
   @Autowired
   @Qualifier("UserRoleBusiness")
   private UserRoleBusiness userRoleBusiness;
-
-
+  
   /**
    * Serviço exposto para novo registro de acordo com a entidade fornecida
    * 
@@ -56,9 +55,9 @@ public class UserRoleREST {
    * @generated
    */
   @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-  public UserRole put(@PathVariable("id") final java.lang.String id, @Validated @RequestBody final UserRole entity) throws Exception {
+  public UserRole put(@Validated @RequestBody final UserRole entity, @PathVariable("id") java.lang.String id) throws Exception {
     return userRoleBusiness.put(entity);
-  }
+  }  
 
   /**
    * Serviço exposto para remover a entidade de acordo com o id fornecido
@@ -70,57 +69,51 @@ public class UserRoleREST {
     userRoleBusiness.delete(id);
   }
 
-
   /**
    * NamedQuery list
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
   )    
-  public  HttpEntity<PagedResources<UserRole>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.list(pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.list(pageable)), HttpStatus.OK);    
   }
-
   /**
    * NamedQuery findByUser
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByUser/{user}")    
-  public  HttpEntity<PagedResources<UserRole>> findByUserParams (@PathVariable("user") User user, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByUser(user, pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> findByUserParams (@PathVariable("user") User user, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByUser(user, pageable)), HttpStatus.OK);    
   }
-
   /**
    * NamedQuery findByEmail
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByEmail/{email}")    
-  public  HttpEntity<PagedResources<UserRole>> findByEmailParams (@PathVariable("email") java.lang.String email, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByEmail(email, pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> findByEmailParams (@PathVariable("email") java.lang.String email, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByEmail(email, pageable)), HttpStatus.OK);    
   }
-
   /**
    * NamedQuery findByLogin
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByLogin/{login}")    
-  public  HttpEntity<PagedResources<UserRole>> findByLoginParams (@PathVariable("login") java.lang.String login, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByLogin(login, pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> findByLoginParams (@PathVariable("login") java.lang.String login, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByLogin(login, pageable)), HttpStatus.OK);    
   }
-
   /**
    * NamedQuery findByRole
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByRole/{roleid}")    
-  public  HttpEntity<PagedResources<UserRole>> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByRole(roleid, pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByRole(roleid, pageable)), HttpStatus.OK);    
   }
-
 
 
 
@@ -133,4 +126,23 @@ public class UserRoleREST {
   public UserRole get(@PathVariable("id") java.lang.String id) throws Exception {
     return userRoleBusiness.get(id);
   }
+
+  /**
+   * Foreign Key User
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET, value="/User/{instanceId}")    
+  public HttpEntity<PagedResources<UserRole>> findUserRolesByUser(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findUserRolesByUser(instanceId, pageable)), HttpStatus.OK);
+  }
+  
+  /**
+   * Foreign Key Role
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET, value="/Role/{instanceId}")    
+  public HttpEntity<PagedResources<UserRole>> findUserRolesByRole(@PathVariable("instanceId") java.lang.String instanceId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findUserRolesByRole(instanceId, pageable)), HttpStatus.OK);
+  }
+  
 }

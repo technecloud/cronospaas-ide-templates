@@ -1,4 +1,5 @@
 package app.entity;
+
 import java.io.*;
 import javax.persistence.*;
 import java.util.*;
@@ -10,11 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @generated
  */
 @Entity
-@Table(name = "\"USER\""
-,uniqueConstraints=@UniqueConstraint(columnNames={
-"login" 
-})
-)
+@Table(name = "\"USER\"" ,uniqueConstraints=@UniqueConstraint(columnNames={
+"login" }))
 @XmlRootElement
 public class User implements Serializable {
 
@@ -22,53 +20,50 @@ public class User implements Serializable {
    * UID da classe, necessário na serialização 
    * @generated
    */
-  private static final long serialVersionUID = 2648042l;
+  private static final long serialVersionUID = 1L;
+  
+  /**
+  * @generated
+  */
+  @Column(name = "email", nullable = true, unique = false, insertable=true, updatable=true)
+  private java.lang.String email;
+  
+  /**
+  * @generated
+  */
+  @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
+  private java.lang.String name;
   
   /**
    * @generated
    */
-  @Column(name = "email", nullable = true, unique = false, insertable=true, updatable=true)
-  private java.lang.String email;
-  /**
-   * @generated
-   */
-  @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
-  private java.lang.String name;
-  /**
-   * @generated
-   */
   @Id
-    
-  @Column(name = "id", insertable=true, updatable=true)
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-  /**
-   * @generated
-   */
-  @Column(name = "login", nullable = false, unique = true, insertable=true, updatable=true)
-  private java.lang.String login;
-  /**
-   * @generated
-   */
-  @Column(name = "picture", nullable = true, unique = false, insertable=true, updatable=true)
-  private java.lang.String picture;
-  /**
-   * @generated
-   */
-  @Column(name = "password", nullable = false, unique = false, insertable=true, updatable=true)
-  private java.lang.String password;
-  /**
-   * @generated
-   */
-  @Column(name = "theme", nullable = true, unique = false, insertable=true, updatable=true)
-  private java.lang.String theme;
-<#if multitenant?? && multitenant?lower_case == "sim">
+  
   /**
   * @generated
   */
-  @ManyToOne
-  @JoinColumn(name="fk_company", referencedColumnName = "id", insertable=true, updatable=true)
-  private Company company;
-</#if>
+  @Column(name = "login", nullable = false, unique = true, insertable=true, updatable=true)
+  private java.lang.String login;
+  
+  /**
+  * @generated
+  */
+  @Column(name = "picture", nullable = true, unique = false, insertable=true, updatable=true)
+  private java.lang.String picture;
+  
+  /**
+  * @generated
+  */
+  @Column(name = "password", nullable = false, unique = false, insertable=true, updatable=true)
+  private java.lang.String password;
+  
+  /**
+  * @generated
+  */
+  @Column(name = "theme", nullable = true, unique = false, insertable=true, updatable=true)
+  private java.lang.String theme;
+  
   /**
    * Construtor
    * @generated
@@ -76,10 +71,9 @@ public class User implements Serializable {
   public User(){
   }
 
-  
   /**
    * Obtém email
-   * @param email email
+   * 
    * return email
    * @generated
    */
@@ -96,10 +90,9 @@ public class User implements Serializable {
     this.email = email;
     return this;
   }
-  
   /**
    * Obtém name
-   * @param name name
+   * 
    * return name
    * @generated
    */
@@ -116,10 +109,9 @@ public class User implements Serializable {
     this.name = name;
     return this;
   }
-  
   /**
    * Obtém id
-   * @param id id
+   * 
    * return id
    * @generated
    */
@@ -136,10 +128,9 @@ public class User implements Serializable {
     this.id = id;
     return this;
   }
-  
   /**
    * Obtém login
-   * @param login login
+   * 
    * return login
    * @generated
    */
@@ -156,10 +147,9 @@ public class User implements Serializable {
     this.login = login;
     return this;
   }
-  
   /**
    * Obtém picture
-   * @param picture picture
+   * 
    * return picture
    * @generated
    */
@@ -176,10 +166,9 @@ public class User implements Serializable {
     this.picture = picture;
     return this;
   }
-  
   /**
    * Obtém password
-   * @param password password
+   * 
    * return password
    * @generated
    */
@@ -196,10 +185,9 @@ public class User implements Serializable {
     this.password = password;
     return this;
   }
-  
   /**
    * Obtém theme
-   * @param theme theme
+   * 
    * return theme
    * @generated
    */
@@ -216,7 +204,6 @@ public class User implements Serializable {
     this.theme = theme;
     return this;
   }
-
 <#if multitenant?? && multitenant?lower_case == "sim">
   /**
    * Obtém company
@@ -237,44 +224,29 @@ public class User implements Serializable {
     this.company = company;
     return this;
   }
+	
 </#if>
-  /**
-   * @generated
-   */
-  @Override
-  public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-
-        return result;
-    }
   
   /**
    * @generated
    */ 
   @Override
-    public boolean equals(Object obj) {
-    
-      if(this == obj)
-        return true;
-      
-      if(obj == null)
-        return false;
-      
-      if(!(obj instanceof User))
-        return false;
-      
-      User other = (User)obj;
-      
-    if(this.id == null && other.id != null)
-        return false;
-      else if(!this.id.equals(other.id))
-        return false;
-  
-
-      return true;
-      
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    User object = (User)obj;
+    if (id != null ? !id.equals(object.id) : object.id != null) return false;
+    return true;
   }
+  
+  /**
+   * @generated
+   */
+  @Override
+  public int hashCode() {
+    int result = 1;
+    result = 31 * result + ((id == null) ? 0 : id.hashCode());
+    return result;
+  }
+  
 }

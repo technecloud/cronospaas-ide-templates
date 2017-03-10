@@ -397,14 +397,14 @@
           "displayName": "repeat"
         },
         {
-          "name": "option-selected",
+          "name": "content",
           "selector":"ui-select-match",
-          "displayName": "Option Selected"
+          "displayName": "option value"
         },
         {
-          "name": "option-text",
+          "name": "content",
           "selector":"ui-select-choices > div:eq(0)",
-          "displayName": "Option Text"
+          "displayName": "option text"
         }
       ]
     },
@@ -432,21 +432,6 @@
           "name": "repeat",
           "selector": "ui-select-choices",
           "displayName": "repeat"
-        },
-        {
-          "name": "ng-model",
-          "selector": "ui-select",
-          "displayName": "ng-model"
-        },
-        {
-          "name": "option-selected",
-          "selector":"ui-select-match",
-          "displayName": "Option Selected"
-        },
-        {
-          "name": "option-text",
-          "selector":"ui-select-choices > div:eq(0)",
-          "displayName": "Option Text"
         }
       ]
     },

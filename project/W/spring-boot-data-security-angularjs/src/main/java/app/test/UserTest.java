@@ -5,5 +5,5 @@ package app.test;
  * @generated
  **/
 public class UserTest {
-  
+	
 }
