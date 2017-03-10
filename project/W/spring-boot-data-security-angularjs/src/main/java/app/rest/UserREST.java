@@ -78,7 +78,7 @@ public class UserREST {
    */
   @RequestMapping(method = RequestMethod.DELETE, value = "/{userId}")
   public void delete(@PathVariable("userId") java.lang.String userId) throws Exception {
-    userBusiness.delete(id);
+    userBusiness.delete(userId);
   }
 
   /**
