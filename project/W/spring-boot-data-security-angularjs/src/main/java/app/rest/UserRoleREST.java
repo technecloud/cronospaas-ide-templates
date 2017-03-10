@@ -110,9 +110,9 @@ public class UserRoleREST {
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
-  , value="/findByRole/{roleid}")    
-  public HttpEntity<PagedResources<UserRole>> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByRole(roleid, pageable)), HttpStatus.OK);    
+  , value="/findByRole/{roleId}")    
+  public HttpEntity<PagedResources<UserRole>> findByRoleParams (@PathVariable("roleId") java.lang.String roleId, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByRole(roleId, pageable)), HttpStatus.OK);    
   }
 
 
@@ -140,9 +140,9 @@ public class UserRoleREST {
    * Foreign Key Role
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET, value="/Role/{userId}")    
-  public HttpEntity<PagedResources<UserRole>> findUserRolesByRole(@PathVariable("userId") java.lang.String userId, Pageable pageable, PagedResourcesAssembler assembler) {
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findUserRolesByRole(userId, pageable)), HttpStatus.OK);
+  @RequestMapping(method = RequestMethod.GET, value="/Role/{roleId}")    
+  public HttpEntity<PagedResources<UserRole>> findUserRolesByRole(@PathVariable("roleId") java.lang.String roleId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findUserRolesByRole(roleId, pageable)), HttpStatus.OK);
   }
   
 }

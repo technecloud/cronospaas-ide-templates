@@ -148,10 +148,10 @@ public class RoleREST {
   public Role postUser(@Validated @RequestBody final User entity, @PathVariable("roleId") java.lang.String roleId) throws Exception {
     UserRole newUserRole = new UserRole();
 
-    Role instance = this.roleBusiness.get(roleId);
+    Role role = this.roleBusiness.get(roleId);
 
     newUserRole.setUser(entity);
-    newUserRole.setRole(instance);
+    newUserRole.setRole(role);
     
     this.userRoleBusiness.post(newUserRole);
 
