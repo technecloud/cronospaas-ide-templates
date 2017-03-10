@@ -191,7 +191,7 @@
         "dependent-by": {
           "removable": false,
           "global": true,
-          "type": "pageDatasource"
+          "type": "pageDatasourceObject"
         },
         "dependent-lazy-post": {
           "removable": false,
