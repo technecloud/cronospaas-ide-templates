@@ -110,9 +110,9 @@ public class UserRoleREST {
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
-  , value="/findByRole/{roleId}")    
-  public HttpEntity<PagedResources<UserRole>> findByRoleParams (@PathVariable("roleId") java.lang.String roleId, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByRole(roleId, pageable)), HttpStatus.OK);    
+  , value="/findByRole/{roleid}")    
+  public HttpEntity<PagedResources<UserRole>> findByRoleParams (@PathVariable("roleid") java.lang.String roleId, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByRole(roleid, pageable)), HttpStatus.OK);    
   }
 
 
