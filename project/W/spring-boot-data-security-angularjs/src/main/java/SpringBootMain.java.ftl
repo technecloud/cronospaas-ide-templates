@@ -1,6 +1,7 @@
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
-import org.springframework.boot.context.web.*;
+import org.springframework.boot.web.support.*;
+
 import org.springframework.context.annotation.*;
 import org.springframework.boot.autoconfigure.jdbc.*;
 
