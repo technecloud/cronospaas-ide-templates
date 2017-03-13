@@ -3,6 +3,7 @@
   <#if ((backend?lower_case) == "true" && (frontend?lower_case) == "true") ||  (backend?lower_case) == "true" >
 path=/app
 path=/auth
+path=/exception
 path=/i18n
 path=/META-INF
 file=SpringBootMain.java.ftl
@@ -14,6 +15,7 @@ path=/META-INF
 <#else> 
 path=/app
 path=/auth
+path=/exception
 path=/i18n
 path=/META-INF
 file=SpringBootMain.java.ftl
