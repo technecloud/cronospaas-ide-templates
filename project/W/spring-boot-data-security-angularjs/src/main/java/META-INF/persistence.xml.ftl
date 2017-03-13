@@ -12,7 +12,7 @@
     </#if>
     <#if database??>
       <#assign databaseConfig = database?split("|")>
-        <properties>
+    <properties>
             <property name="javax.persistence.jdbc.driver" value="${databaseConfig[5]}"/>
             <property name="javax.persistence.jdbc.url" value="${databaseConfig[4]}"/>
             <property name="javax.persistence.jdbc.user" value="${databaseConfig[1]}"/>
