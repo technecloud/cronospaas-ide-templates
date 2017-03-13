@@ -54,9 +54,9 @@ public class DepartmentREST {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-  public void delete(@PathVariable("id") java.lang.String id) throws Exception {
-    departmentBusiness.delete(id);
+  @RequestMapping(method = RequestMethod.DELETE, value = "/{departmentId}")
+  public void delete(@PathVariable("departmentId") java.lang.String departmentId) throws Exception {
+    departmentBusiness.delete(departmentId);
   }
 
   /**
@@ -76,8 +76,8 @@ public class DepartmentREST {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-  public Department get(@PathVariable("id") java.lang.String id) throws Exception {
-    return departmentBusiness.get(id);
+  @RequestMapping(method = RequestMethod.GET, value = "/{departmentId}")
+  public Department get(@PathVariable("departmentId") java.lang.String departmentId) throws Exception {
+    return departmentBusiness.get(departmentId);
   }
 }

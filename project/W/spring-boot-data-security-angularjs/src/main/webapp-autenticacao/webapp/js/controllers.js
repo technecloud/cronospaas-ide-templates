@@ -74,11 +74,11 @@
             });
         };
 
+        $rootScope.session = (sessionStorage._u) ? JSON.parse(sessionStorage._u) : null;
         if($rootScope.session) {
           // When access home page we have to check
           // if the user is authenticated and the userData
           // was saved on the browser's sessionStorage
-          $rootScope.session = (sessionStorage._u) ? JSON.parse(sessionStorage._u) : null;
           $rootScope.myTheme = $rootScope.session.theme;
           $scope.$watch('myTheme', function(value) {
             if (value !== undefined && value !== "") {

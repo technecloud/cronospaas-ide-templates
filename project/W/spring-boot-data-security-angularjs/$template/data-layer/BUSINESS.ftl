@@ -337,5 +337,21 @@ public class ${clazz_name} {
   public Page<${clazz.name}> specificSearch(<#list clazz.fields as field><#if field.isSearchable()>${field.type} ${field.name}, </#if></#list>Pageable pageable) {
     return repository.specificSearch(<#list clazz.fields as field><#if field.isSearchable()>${field.name}, </#if></#list>pageable);
   }
+  
 </#if>
+<#list clazz.fkFields as fkField>
+  /**
+   * Foreign Key ${fkField.relationClazz.name}
+   * @generated
+   */
+  public Page<${clazz.name}> find${clazz.name}sBy${fkField.relationClazz.name}(<#list fkField.relationClazz.primaryKeys as field>${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, Pageable pageable) {
+    // begin-user-code
+    // end-user-code  
+    Page<${clazz.name}> result = repository.find${clazz.name}sBy${fkField.relationClazz.name}(<#list fkField.relationClazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, pageable);
+    // begin-user-code  
+    // end-user-code        
+    return result;
+  }
+  
+</#list>
 }

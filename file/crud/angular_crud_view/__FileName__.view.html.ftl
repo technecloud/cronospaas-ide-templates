@@ -104,7 +104,6 @@
 </div>
 <div class="component-holder" data-component="crn-grid" id="crn-grid-${model.dataSourceName}">
   <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
-    <loader working="datasource.isBusy()" disable-background="true" template="1"></loader>
     <table class="table  table-bordered table-hover table-striped">
       <thead>
         <tr class="table-header">
@@ -164,7 +163,6 @@
 <div data-component="crn-form" id="crn-form-form-${model.dataSourceName}">
   <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
     <form crn-datasource="${model.dataSourceName}" class="">
-      <loader working="datasource.isBusy()" disable-background="true" template="1"></loader>
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
         <button class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
         <button class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
@@ -179,11 +177,18 @@
       <br/>
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
         <#list model.formFields as field>
-        <div data-component="crn-textinput" id="crn-textinput-${field.name}">
+        <#assign currentType = "textinput">
+        <#if field.getProperty("ngOptions")??>
+          <#assign currentType = "combobox">
+        <div data-component="crn-datasource" class="component-holder">
+          <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
+        </div>
+        </#if>
+        <div data-component="crn-${currentType}" id="crn-${currentType}-${field.name}">
           <div class="form-group">
-            <label for="textinput-${field.name}" class="">${model.formMapLabels[field.name]!}</label>
+            <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!}</label>
             <#if field.isBoolean() >
-            <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+            <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
             <div style="position:relative">
               <input type="text" as-date
@@ -194,19 +199,16 @@
               <#elseif field.isTimestamp()>
               format="DD/MM/YYYY HH:mm:ss"
               </#if>
-              ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+              ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             </div>
             <#elseif field.isNumber() >
-            <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+            <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             <#elseif field.getProperty("ngOptions")?? >
-            <div data-component="crn-datasource" class="component-holder">
-              <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
-            </div>
-            <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="textinput-${field.name}">
+            <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="${currentType}-${field.name}">
               <ui-select-match class="">
                 {{$select.selected.${field.getProperty("ngOptionsFkName")}}}
               </ui-select-match>
-              <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search"  class="">
+              <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="">
                 <div class="" data-container="true">
                   {{rowData.${field.getProperty("ngOptionsFkName")}}}
                 </div>
@@ -239,7 +241,7 @@
               type="<#if field.isEncryption()>password<#else>text</#if>"
               ng-model="${model.dataSourceName}.active.${field.name}"
               class="form-control"
-              id="textinput-${field.name}"
+              id="${currentType}-${field.name}"
               placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
               <#if model.formMapMasks[field.name]?has_content>
                 mask="${model.formMapMasks[field.name]}"
@@ -430,14 +432,14 @@
                   <#list field.getClazz().getFields() as gField>
                   <#if gField.isReverseRelation() >
                   <#if (gField.getRelationClazz().getName() != model.dataSourceName) >
-                  <div data-component="crn-textinput" id="crn-textinput-teste3">
+                  <div data-component="crn-datasource" class="component-holder">
+                    <datasource name="${gField.getName()}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
+                  </div>
+                  <div data-component="crn-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}">
                     <div class="form-group">
-                      <label for="textinput-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
-                      <div data-component="crn-datasource" class="component-holder">
-                        <datasource name="${gField.getName()}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
-                      </div>
+                      <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
                       <input type="text" style="border: 0px; width: 1px;" required="required" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" onkeypress="this.value='';this.disabled=1;setTimeout(function() { document.getElementById('${field.getName()}Grid.active.${gField.getName()}').disabled=0;  },100);" onfocus="setTimeout(function() {$(document.getElementById('${field.getName()}Grid.active.${gField.getName()}')).blur();  },1000);" />
-                      <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="textinput-${gField.getName()}" required="required" >
+                      <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" required="required" >
                         <ui-select-match class="">
                           {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
                         </ui-select-match>

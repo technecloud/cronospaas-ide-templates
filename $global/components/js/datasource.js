@@ -81,38 +81,27 @@ angular.module('datasourcejs', [])
           },
           call: function(url, verb, object, applyScope) {
             var _callback;
-
-            url = url.replace('/specificSearch', '');
-            url = url.replace('/generalSearch', '');
-
-            var deferred = $q.defer();
-
-            setTimeout(function() {
-              var json = (object) ? JSON.stringify(object) : null
-              deferred.resolve(json);
-            }, 3000);
-
-            this.$promise = deferred.promise.then(function(object) {
-              $http({
-                  method: verb,
-                  url: (window.hostApp || "") + url,
-                  data: object,
-                  headers: _self.headers
-                })
-                .success(function(data, status, headers, config) {
-                  if (_callback)
-                    _callback(data);
-                })
-                .error(function(data, status, headers, config) {
-                  busy = false;
-                  _self.handleError(data);
-                });
+            busy = true;
+            url = url.replace('/specificSearch','');
+            url = url.replace('/generalSearch','');
+                      
+            // Get an ajax promise
+            this.$promise = $http({
+              method: verb,
+              url: (window.hostApp || "") + url,
+              data : (object) ? JSON.stringify(object) : null,
+              headers: _self.headers
+            }).success(function(data, status, headers, config) {
+                busy = false;
+                if(_callback) _callback(data);
+            }).error(function(data, status, headers, config) {
+                busy = false;
+                _self.handleError(data);
             });
-
+            
             this.$promise.then = function(callback) {
               _callback = callback;
             }
-
             return this;
           }
         }
@@ -366,6 +355,9 @@ angular.module('datasourcejs', [])
 
             thisContextDataSet.insert(this);
           });
+          busy = false;
+          this.editing = false;
+          this.inserting = false;
         } else {
           var indexObj = 0;
           while (indexObj > -1) {
@@ -431,8 +423,9 @@ angular.module('datasourcejs', [])
             suffixPath += "/" + keyObj[key];
           }
         }
-
-        url = url + suffixPath;
+        
+        if (!this.dependentLazyPost)
+          url = url + suffixPath;
 
         if (this.handleBeforeCallBack(this.onBeforeUpdate)) {
           service.update(url, obj).$promise.then(callback);
@@ -478,14 +471,14 @@ angular.module('datasourcejs', [])
             // The new object is now the active
             this.active = obj;
             this.handleAfterCallBack(this.onAfterCreate);
-
+            this.onBackNomalState();
+            
             if (this.dependentData) {
               $(this.dependentData).each(function() {
                 this.storeAndResetDependentBuffer('post');
               });
             }
-
-            this.onBackNomalState();
+            
           }.bind(this));
 
         } else if (this.editing) {
@@ -514,14 +507,15 @@ angular.module('datasourcejs', [])
 
               this.handleAfterCallBack(this.onAfterUpdate);
             }.bind(this));
+            
+            this.onBackNomalState();
 
             if (this.dependentData) {
               $(this.dependentData).each(function() {
                 this.storeAndResetDependentBuffer('post');
               });
             }
-
-            this.onBackNomalState();
+            
           }.bind(this));
         }
       };
@@ -1225,6 +1219,15 @@ angular.module('datasourcejs', [])
         dts.allowFetch = true;
 
         if (dts.dependentBy) {
+          if (dts.dependentBy !== null && Object.prototype.toString.call(dts.dependentBy) === "[object String]") {
+            try{
+              dts.dependentBy = JSON.parse(dts.dependentBy);
+            }catch(e) {
+              dts.dependentBy = eval(dts.dependentBy);
+            }
+          }
+          
+          
           dts.allowFetch = (Object.prototype.toString.call(props.dependentBy) === "[object Object]") ? dts.dependentBy.data.length > 0 : false;
         }
 
@@ -1383,7 +1386,12 @@ angular.module('datasourcejs', [])
           });
 
           attrs.$observe('dependentBy', function(value) {
-            datasource.dependentBy = JSON.parse(value);
+            try{
+              datasource.dependentBy = JSON.parse(value);
+            }catch(e) {
+              datasource.dependentBy = eval(value);
+            }
+            
             if (datasource.dependentBy !== null && Object.prototype.toString.call(datasource.dependentBy) !== "[object String]") {
               if (datasource.dependentBy.data.length > 0 || datasource.dependentBy.loadedFinish) {
                 datasource.enabled = true;
