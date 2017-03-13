@@ -331,9 +331,9 @@ public class ${class_name} {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
-    return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+  @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name}}<#if field_has_next>/</#if></#list>")
+  public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name}") ${field.type} ${class_entity_name?uncap_first}${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+    return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name}<#if field_has_next>, </#if></#list>);
   }
 
 <#list clazz.fields as field>
