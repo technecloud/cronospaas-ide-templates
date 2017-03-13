@@ -79,7 +79,7 @@
           // When access home page we have to check
           // if the user is authenticated and the userData
           // was saved on the browser's sessionStorage
-          $rootScope.myTheme = $rootScope.session.theme;
+          $rootScope.myTheme = $rootScope.session.user.theme;
           $scope.$watch('myTheme', function(value) {
             if (value !== undefined && value !== "") {
               $('#themeSytleSheet').attr('href', "css/themes/"+value+".min.css");
