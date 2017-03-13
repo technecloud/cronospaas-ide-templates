@@ -13,13 +13,13 @@ import org.springframework.boot.autoconfigure.jdbc.*;
  *  - Executar qualquer bean do tipo CommandLineRunner;
  */
 @ComponentScan(basePackages = {
-  "auth.permission", "api.rest.events", "api.rest.webservices", "reports"<#list workspaceView.allDiagrams as diagram>, ${diagram.getGlobalAttribute("namespace")}</#list><#list packages as package>, ${package}</#list>
+  "auth.permission", "exception", "api.rest.events", "api.rest.webservices", "reports"<#list workspaceView.allDiagrams as diagram>, ${diagram.getGlobalAttribute("namespace")}</#list><#list packages as package>, ${package}</#list>
 })
 @SpringBootApplication
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 public class SpringBootMain extends SpringBootServletInitializer {
   
-    public static void main(String[] args) {
+    public static void main(String ... args) {
         SpringApplication.run(SpringBootMain.class, args);
     }
 
