@@ -2,30 +2,38 @@ package auth.permission;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.EntityManagerHolder;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 public class MultitenantJpaTransactionManager extends JpaTransactionManager {
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
+  
+  @Autowired
+  private TenantComponent tenantComponent;
 
-	@Override
-	protected void doBegin(Object transaction, TransactionDefinition definition) {
-		super.doBegin(transaction, definition);
-		TenantEntityManagerFactory.TENANT.set(TenantComponent.getId());
-		final EntityManagerHolder emHolder = (EntityManagerHolder) TransactionSynchronizationManager
-				.getResource(getEntityManagerFactory());
-		final EntityManager em = emHolder.getEntityManager();
-		final String tenantId = TenantComponent.getId();
+  @Override
+  protected void doBegin(Object transaction, TransactionDefinition definition) {
+    super.doBegin(transaction, definition);
+    final EntityManagerHolder emHolder = (EntityManagerHolder) TransactionSynchronizationManager
+        .getResource(getEntityManagerFactory());
+    final EntityManager em = emHolder.getEntityManager();
 
-		if (tenantId != null) {
-			em.setProperty("tenant", tenantId);
-		}
-	}
+    try {
+      if (tenantComponent != null && tenantComponent.getContextIds() != null) {
+        for(String key: tenantComponent.getContextIds().keySet()) {
+          em.setProperty(key, tenantComponent.getId(key));
+        }
+      }
+    } catch(Exception e) {
+      //
+    }
+  }
 
-	@Override
-	protected EntityManager createEntityManagerForTransaction() {
-		return super.createEntityManagerForTransaction();
-	}
+  @Override
+  protected EntityManager createEntityManagerForTransaction() {
+    return super.createEntityManagerForTransaction();
+  }
 }
