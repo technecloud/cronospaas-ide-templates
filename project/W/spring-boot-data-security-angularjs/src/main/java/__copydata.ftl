@@ -2,6 +2,7 @@
 <#if (backend?? && frontend??) >
   <#if ((backend?lower_case) == "true" && (frontend?lower_case) == "true") ||  (backend?lower_case) == "true" >
 path=/app
+path=/exception
 path=/auth
 path=/i18n
 path=/META-INF
@@ -13,6 +14,7 @@ path=/META-INF
 <#-- Caso contrario copiar tudo -->
 <#else> 
 path=/app
+path=/exception
 path=/auth
 path=/i18n
 path=/META-INF
