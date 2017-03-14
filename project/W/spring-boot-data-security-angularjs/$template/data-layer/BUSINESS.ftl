@@ -1,7 +1,5 @@
 package ${bussinessPackage}<#if subPackage??>.${subPackage}</#if>;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -52,7 +50,6 @@ import cloud.CloudManager;
 @Service("${clazz_name}")
 public class ${clazz_name} {
 
-  private static final Logger log = LoggerFactory.getLogger(${clazz_name}.class);
   <#if isExistsEncrypt>
   /**
    * Variável privada para verificação da criptofrafia
@@ -106,13 +103,7 @@ public class ${clazz_name} {
     <#break>
     </#switch>
     <#else>
-    ${class_entity_name} result = null;
-    try {
-      result = repository.save(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-      throw e;
-    }
+    ${class_entity_name} result = repository.save(entity);
     </#if>
     // begin-user-code
     // end-user-code
@@ -142,13 +133,7 @@ public class ${clazz_name} {
     <#break>
     </#switch>
     <#else>
-    ${class_entity_name} result = null;
-    try {
-      result = repository.saveAndFlush(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-      throw e;
-    }
+    ${class_entity_name} result = repository.saveAndFlush(entity);
     </#if>
     // begin-user-code
     // end-user-code
@@ -164,7 +149,6 @@ public class ${clazz_name} {
     // begin-user-code  
     // end-user-code
     ${class_entity_name} entity = this.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
-    try {
       this.repository.delete(entity);
       <#if hasCloudStorage>
       <#switch clazz.getCloudStorageType()>
@@ -173,10 +157,6 @@ public class ${clazz_name} {
       <#break>
       </#switch>
       </#if>
-    } catch (Exception e) {
-      log.error(e.getMessage());
-      throw e;
-    }
     // begin-user-code  
     // end-user-code        
   }

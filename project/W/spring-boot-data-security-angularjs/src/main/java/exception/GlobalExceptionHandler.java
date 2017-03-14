@@ -6,14 +6,21 @@ import org.springframework.transaction.*;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 @ControllerAdvice
 @RestController
 public class GlobalExceptionHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
     @ExceptionHandler(TransactionSystemException.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public ExceptionResponse handleTransactionSystemException(TransactionSystemException ex) {
-        return new ExceptionResponse( extractRootCauseMessage(ex) );
+    public ExceptionResponse handleTransactionSystemException(TransactionSystemException e) {
+        log.error(e.getMessage());
+        return new ExceptionResponse( extractRootCauseMessage(e) );
     }
 
     private String extractRootCauseMessage(Exception ex){
@@ -23,6 +30,5 @@ public class GlobalExceptionHandler {
             rootCauseMessage = rootCauseMessage.substring(indexLabelException+1);
         return rootCauseMessage;
     }
-
 
 }
