@@ -279,9 +279,9 @@ public class ${class_name} {
    * ManyToMany Relationship DELETE
    * @generated
    */  
-  @RequestMapping(method = RequestMethod.DELETE,value="/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.relationClass.primaryKeys as field>{${relation.relationName?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public void delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>, <#list relation.relationClass.primaryKeys as field>@PathVariable("${relation.relationName?uncap_first}${field.name?cap_first}") ${field.type} ${relation.relationName?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
-    this.${clazz.name?uncap_first}Business.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>${relation.relationName?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+  @RequestMapping(method = RequestMethod.DELETE,value="/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/<#list relation.relationClass.primaryKeys as field>{${relation.relationName?cap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
+  public void delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>, <#list relation.relationClass.primaryKeys as field>@PathVariable("${relation.relationName?cap_first}${field.name?cap_first}") ${field.type} ${relation.relationName?cap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
+    this.${clazz.name?uncap_first}Business.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>${relation.relationName?cap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
   }  
 </#list> 
 
@@ -331,9 +331,9 @@ public class ${class_name} {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
-    return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+  @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name}}<#if field_has_next>/</#if></#list>")
+  public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name}") ${field.type} ${class_entity_name?uncap_first}${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+    return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name}<#if field_has_next>, </#if></#list>);
   }
 
 <#list clazz.fields as field>

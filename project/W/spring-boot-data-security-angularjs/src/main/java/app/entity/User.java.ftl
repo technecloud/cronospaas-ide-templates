@@ -72,7 +72,7 @@ public class User implements Serializable {
   @JoinColumn(name="fk_company", referencedColumnName = "id", insertable=true, updatable=true)
   private Company company;
   </#if>
-/**
+  /**
    * Construtor
    * @generated
    */

@@ -46,6 +46,11 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 
 	@Autowired
 	private UserRoleDAO userRoleRepository;
+	<#if multitenant?? && multitenant?lower_case == "sim">
+  
+  @Autowired
+  private TenantComponent tenantComponent;
+  </#if>
 
 	private UsernamePasswordAuthenticationToken authenticateDataBase(Authentication authentication)
 			throws AuthenticationException {
@@ -68,7 +73,8 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 			HttpSession session = request.getSession();
 			session.setAttribute("theme", (user.getTheme() != null) ? user.getTheme() : "");
     <#if multitenant?? && multitenant?lower_case == "sim">
-      TenantComponent.setId(user.getCompany().getId());
+      tenantComponent.setId("tenant", user.getCompany().getId());
+      //Add new tenant context here
     </#if>
 			return userToken;
 		} else {

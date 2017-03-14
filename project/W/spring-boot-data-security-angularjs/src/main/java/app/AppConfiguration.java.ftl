@@ -12,10 +12,10 @@ import java.net.URL;
 import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
 </#if>
 <#if multitenant?? && multitenant?lower_case == "sim">
 import auth.permission.MultitenantJpaTransactionManager;
+
 </#if>
 /**
  * Classe que configura os beans para persistencia
