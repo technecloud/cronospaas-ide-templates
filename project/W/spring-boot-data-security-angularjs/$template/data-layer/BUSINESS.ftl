@@ -111,6 +111,7 @@ public class ${clazz_name} {
       result = repository.save(entity);
     } catch (Exception e) {
       log.error(e.getMessage());
+      throw e;
     }
     </#if>
     // begin-user-code
@@ -146,6 +147,7 @@ public class ${clazz_name} {
       result = repository.saveAndFlush(entity);
     } catch (Exception e) {
       log.error(e.getMessage());
+      throw e;
     }
     </#if>
     // begin-user-code
@@ -173,6 +175,7 @@ public class ${clazz_name} {
       </#if>
     } catch (Exception e) {
       log.error(e.getMessage());
+      throw e;
     }
     // begin-user-code  
     // end-user-code        

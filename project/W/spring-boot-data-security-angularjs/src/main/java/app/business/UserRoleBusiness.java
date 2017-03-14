@@ -46,6 +46,7 @@ public class UserRoleBusiness {
       result = repository.save(entity);
     } catch (Exception e) {
       log.error(e.getMessage());
+      throw e;
     }
     // begin-user-code
     // end-user-code
@@ -65,6 +66,7 @@ public class UserRoleBusiness {
       result = repository.saveAndFlush(entity);
     } catch (Exception e) {
       log.error(e.getMessage());
+      throw e;
     }
     // begin-user-code
     // end-user-code
@@ -84,6 +86,7 @@ public class UserRoleBusiness {
       this.repository.delete(entity);
     } catch (Exception e) {
       log.error(e.getMessage());
+      throw e;
     }
     // begin-user-code  
     // end-user-code        
