@@ -236,3 +236,4 @@ var app = (function() {
 }(window));
 
 app.userEvents = {};
+app.config.defaultRoute = "/app";
