@@ -13,7 +13,8 @@
     '$timeout',
     '$stateParams',
     function($scope, $http, $location, $rootScope, $window, $state, $translate, Notification, $ionicLoading, $timeout, $stateParams) {
-        
+        for(var x in app.userEvents)
+          $scope[x]= app.userEvents[x].bind($scope);
         $scope.user = {};
         $scope.message = {};
 
@@ -95,6 +96,8 @@
       '$ionicModal',
       function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal) {
 
+        for(var x in app.userEvents)
+          $scope[x]= app.userEvents[x].bind($scope);
         $ionicModal.fromTemplateUrl('views/logged/_changepassword.view.html', {
           scope: $scope,
           animation: 'slide-in-up'
