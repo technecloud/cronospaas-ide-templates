@@ -443,7 +443,6 @@
                   <div data-component="crn-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}">
                     <div class="form-group">
                       <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
-                      <input type="text" style="border: 0px; width: 1px;" required="required" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" onkeypress="this.value='';this.disabled=1;setTimeout(function() { document.getElementById('${field.getName()}Grid.active.${gField.getName()}').disabled=0;  },100);" onfocus="setTimeout(function() {$(document.getElementById('${field.getName()}Grid.active.${gField.getName()}')).blur();  },1000);" />
                       <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" required="required" >
                         <ui-select-match class="">
                           {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
