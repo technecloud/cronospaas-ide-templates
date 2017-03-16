@@ -109,7 +109,7 @@
         <tr class="table-header">
           <#list model.gridFields as field>
           <th class="">
-            <div class="">${model.formMapLabels[field.name]!}</div>
+            <div class="">${model.formMapLabels[field.name]!?cap_first}</div>
           </th>
           </#list>
           <th class="">
@@ -186,7 +186,7 @@
         </#if>
         <div data-component="crn-${currentType}" id="crn-${currentType}-${field.name}">
           <div class="form-group">
-            <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!}</label>
+            <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!?cap_first}</label>
             <#if field.isBoolean() >
             <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
@@ -455,7 +455,7 @@
                   <#elseif (!gField.isPrimaryKey())>
                   <div data-component="crn-textinput" id="crn-textinput-${gField.getDbFieldName()}">
                     <div class="form-group">
-                      <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
+                      <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                       <#if gField.isBoolean() >
                       <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}"  id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                       <#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
@@ -500,7 +500,7 @@
         </div>
         <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
         <div class="form-group" ng-show="datasource.editing || datasource.inserting">
-          <label for="select-ui">${field.getName()}</label>
+          <label for="select-ui">${field.getName()?cap_first}</label>
           <div id="select-ui" data-component="crn-tags">
             <ui-select multiple crn-datasource="All${field.getName()}" ng-model="${field.getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}">
               <ui-select-match placeholder="${field.getName()}...">
@@ -516,7 +516,7 @@
         </div>
         <#else>
         <div class="form-group" ng-show="datasource.editing || datasource.inserting">
-          <label for="select-ui">${field.getName()}</label>
+          <label for="select-ui">${field.getName()?cap_first}</label>
           <div class="row" >
             <div class="col-md-6">
               <div id="select-ui" data-component="crn-tags">
