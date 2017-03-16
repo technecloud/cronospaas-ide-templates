@@ -204,7 +204,7 @@
             <#elseif field.isNumber() >
             <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             <#elseif field.getProperty("ngOptions")?? >
-            <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="${currentType}-${field.name}">
+            <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>required="required"</#if>>
               <ui-select-match class="">
                 {{$select.selected.${field.getProperty("ngOptionsFkName")}}}
               </ui-select-match>
@@ -260,7 +260,12 @@
           </div>
         </div>
         </#list>
-        <!-- OneToN -->
+        
+      </fieldset>
+    </form>
+    <form>
+        <fieldset>
+            <!-- OneToN -->
         <#list model.formFieldsOneToN as field>
         <!--query filter 1toN -->
         <#assign filterSearch = "">
@@ -502,7 +507,7 @@
         <div class="form-group" ng-show="datasource.editing || datasource.inserting">
           <label for="select-ui">${field.getName()?cap_first}</label>
           <div id="select-ui" data-component="crn-tags">
-            <ui-select multiple crn-datasource="All${field.getName()}" ng-model="${field.getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}">
+            <ui-select multiple crn-datasource="All${field.getName()}" ng-model="${field.getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>required="required"</#if>>
               <ui-select-match placeholder="${field.getName()}...">
                 {{$item.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }}
               </ui-select-match>
@@ -520,7 +525,7 @@
           <div class="row" >
             <div class="col-md-6">
               <div id="select-ui" data-component="crn-tags">
-                <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}">
+                <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>required="required"</#if>>
                   <ui-select-match placeholder="${field.getName()}...">
                     {{$select.selected.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }}
                   </ui-select-match>
@@ -565,7 +570,7 @@
         </#if>
         </#list>
         <!-- NtoN  end-->
-      </fieldset>
+        </fieldset>
     </form>
   </div>
 </div>

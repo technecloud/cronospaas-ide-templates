@@ -436,15 +436,15 @@ angular.module('datasourcejs', [])
        * Valid if required field is valid
        */
       this.missingRequiredField = function() {
-        return $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid-required') || $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid') ||
-          $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-empty');
+        return $('[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid-required') || $('[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid') ||
+          $('[required][ng-model*="' + this.name + '."]').hasClass('ng-empty');
       }
 
       /**
        * Valid is other validations like email, date and so on
        */
       this.hasInvalidField = function() {
-        return $('input:invalid').size() > 0;
+        return $('input[ng-model*="' + this.name + '."]:invalid').size() > 0;
       };
 
       /**
