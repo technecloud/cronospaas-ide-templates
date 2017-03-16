@@ -188,7 +188,7 @@
           <div class="form-group">
             <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!}</label>
             <#if field.isBoolean() >
-            <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if field.isNullable()>required="required"</#if>>
+            <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
             <div style="position:relative">
               <input type="text" as-date
@@ -199,10 +199,10 @@
               <#elseif field.isTimestamp()>
               format="DD/MM/YYYY HH:mm:ss"
               </#if>
-              ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if field.isNullable()>required="required"</#if>>
+              ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             </div>
             <#elseif field.isNumber() >
-            <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if field.isNullable()>required="required"</#if>>
+            <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             <#elseif field.getProperty("ngOptions")?? >
             <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="${currentType}-${field.name}">
               <ui-select-match class="">
@@ -255,7 +255,7 @@
                   data-error-message="{{'invalid.${valid}' | translate}}"
                 </#if>
               </#if>
-              <#if field.isNullable()>required="required"</#if>>
+              <#if !field.isNullable()>required="required"</#if>>
             </#if>
           </div>
         </div>
