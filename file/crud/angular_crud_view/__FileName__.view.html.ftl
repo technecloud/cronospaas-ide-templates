@@ -260,7 +260,81 @@
           </div>
         </div>
         </#list>
-        
+        <!-- NtoN  -->
+        <#list model.formFieldsNToN as field>
+        <div data-component="crn-datasource" class="component-holder">
+          <datasource append="false" name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}" ></datasource>
+        </div>
+        <div data-component="crn-datasource" class="component-holder">
+          <datasource name="All${field.getName()}" entity="${model.getDataSourceOfEntity(field.getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"></datasource>
+        </div>
+        <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
+        <div class="form-group" ng-show="datasource.editing || datasource.inserting">
+          <label for="select-ui">${field.getName()?cap_first}</label>
+          <div id="select-ui" data-component="crn-tags">
+            <ui-select multiple crn-datasource="All${field.getName()}" ng-model="${field.getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>required="required"</#if>>
+              <ui-select-match placeholder="${field.getName()}...">
+                {{$item.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }}
+              </ui-select-match>
+              <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="">
+                <div class="" data-container="true" draggable="true">
+                  {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}}
+                </div>
+              </ui-select-choices>
+            </ui-select>
+          </div>
+        </div>
+        <#else>
+        <div class="form-group" ng-show="datasource.editing || datasource.inserting">
+          <label for="select-ui">${field.getName()?cap_first}</label>
+          <div class="row" >
+            <div class="col-md-6">
+              <div id="select-ui" data-component="crn-tags">
+                <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>required="required"</#if>>
+                  <ui-select-match placeholder="${field.getName()}...">
+                    {{$select.selected.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }}
+                  </ui-select-match>
+                  <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="">
+                    <div class="" data-container="true" draggable="true">
+                      {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}}
+                    </div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <button class="btn btn-default btn-sm" type="submit" ng-click="${field.getName()}.insert(All${field.getName()}.active); ${field.getName()}.data.push(All${field.getName()}.active);"><i class="fa fa-plus"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" ng-show="datasource.editing || datasource.inserting">
+          <div class="component-holder" data-component="crn-grid" id="crn-grid-All${field.getName()}">
+            <div crn-datasource="${field.getName()}">
+              <table class="table table-bordered table-hover table-striped">
+                <tbody>
+                  <tr class="table-content" ng-repeat="rowData in datasource.data track by $index">
+                    <td class="">
+                      <div class="">
+                        {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}}
+                      </div>
+                    </td>
+                    <td class="">
+                      <div class="">
+                        <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="table-footer-controls">
+                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()" content="{{&quot;template.crud.load_more&quot; | translate}}...">{{"template.crud.load_more" | translate}}...</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </#if>
+        </#list>
+        <!-- NtoN  end-->
       </fieldset>
     </form>
     <form>
@@ -494,81 +568,7 @@
         </div>
         </#list>
         <!-- OneToOne  end -->
-        <!-- NtoN  -->
-        <#list model.formFieldsNToN as field>
-        <div data-component="crn-datasource" class="component-holder">
-          <datasource append="false" name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}" ></datasource>
-        </div>
-        <div data-component="crn-datasource" class="component-holder">
-          <datasource name="All${field.getName()}" entity="${model.getDataSourceOfEntity(field.getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"></datasource>
-        </div>
-        <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
-        <div class="form-group" ng-show="datasource.editing || datasource.inserting">
-          <label for="select-ui">${field.getName()?cap_first}</label>
-          <div id="select-ui" data-component="crn-tags">
-            <ui-select multiple crn-datasource="All${field.getName()}" ng-model="${field.getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>required="required"</#if>>
-              <ui-select-match placeholder="${field.getName()}...">
-                {{$item.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }}
-              </ui-select-match>
-              <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="">
-                <div class="" data-container="true" draggable="true">
-                  {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}}
-                </div>
-              </ui-select-choices>
-            </ui-select>
-          </div>
-        </div>
-        <#else>
-        <div class="form-group" ng-show="datasource.editing || datasource.inserting">
-          <label for="select-ui">${field.getName()?cap_first}</label>
-          <div class="row" >
-            <div class="col-md-6">
-              <div id="select-ui" data-component="crn-tags">
-                <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>required="required"</#if>>
-                  <ui-select-match placeholder="${field.getName()}...">
-                    {{$select.selected.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }}
-                  </ui-select-match>
-                  <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="">
-                    <div class="" data-container="true" draggable="true">
-                      {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}}
-                    </div>
-                  </ui-select-choices>
-                </ui-select>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <button class="btn btn-default btn-sm" type="submit" ng-click="${field.getName()}.insert(All${field.getName()}.active); ${field.getName()}.data.push(All${field.getName()}.active);"><i class="fa fa-plus"></i></button>
-            </div>
-          </div>
-        </div>
-        <div class="form-group" ng-show="datasource.editing || datasource.inserting">
-          <div class="component-holder" data-component="crn-grid" id="crn-grid-All${field.getName()}">
-            <div crn-datasource="${field.getName()}">
-              <table class="table table-bordered table-hover table-striped">
-                <tbody>
-                  <tr class="table-content" ng-repeat="rowData in datasource.data track by $index">
-                    <td class="">
-                      <div class="">
-                        {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}}
-                      </div>
-                    </td>
-                    <td class="">
-                      <div class="">
-                        <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="table-footer-controls">
-                <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()" content="{{&quot;template.crud.load_more&quot; | translate}}...">{{"template.crud.load_more" | translate}}...</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        </#if>
-        </#list>
-        <!-- NtoN  end-->
+        
         </fieldset>
     </form>
   </div>
