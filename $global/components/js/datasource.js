@@ -165,7 +165,7 @@ angular.module('datasourcejs', [])
             if (Object.prototype.toString.call(data) === "[object String]") {
               error = data;
             } else {
-              var errorMsg = (data.msg || data.desc || data.error || data.message || data.responseText);
+              var errorMsg = (data.msg || data.desc || data.message || data.error || data.responseText);
               if (errorMsg) {
                 error = errorMsg;
               }

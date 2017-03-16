@@ -61,6 +61,7 @@ public class ${clazz.name} implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   </#if>
   </#if>
+  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
   ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
   <#else>
   
@@ -75,7 +76,7 @@ public class ${clazz.name} implements Serializable {
   <#if (field.relationNames?size == 1)>
   <#list field.relationNames?keys as key>
   <#if key??>
-  @JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
   </#if>
   </#list>
   <#elseif (field.relationNames?size > 1)>
@@ -83,7 +84,7 @@ public class ${clazz.name} implements Serializable {
   @JoinColumns({
   <#list field.relationNames?keys as key>
   <#if key??>
-  @JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
   <#if (i>1)>,
   </#if>
   </#if>
@@ -103,7 +104,7 @@ public class ${clazz.name} implements Serializable {
   <#elseif field.isTimestamp()>
   @Temporal(TemporalType.TIMESTAMP)
   </#if>
-  @Column(name = "${field.dbFieldName}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
   </#if>
   </#if>
   <#if (field.ignore)>
