@@ -43,7 +43,7 @@
     {
       "name": "crn-button",
       "text": "Button",
-         "class":"adjust-icon mdi mdi-view-module",
+      "class":"adjust-icon mdi mdi-stop",
       "templateURL": "src/main/webapp/components/templates/button.template.html",
       "properties": {
         "ng-click": {
@@ -59,7 +59,7 @@
     {
       "name": "crn-report-button",
       "text": "Button Report",
-         "class": "adjust-icon mdi mdi-file-document",
+      "class": "adjust-icon mdi mdi-code-equal",
       "templateURL": "src/main/webapp/components/templates/button-report.template.html",
       "properties": {
         "ng-click": {
@@ -74,7 +74,7 @@
     {
       "name": "crn-accordion",
       "text": "Accordion",
-         "class":"adjust-icon mdi mdi-format-list-bulleted",
+      "class":"adjust-icon mdi mdi-view-day",
       "handleRules": {
         "canOrder": true,
         "canActivate": true,
@@ -218,7 +218,7 @@
     {
       "name": "crn-image",
       "text": "Image",
-         "class":"adjust-icon mdi mdi-file-image",
+      "class":"adjust-icon mdi mdi-image",
       "template": "<img src=\"http://placehold.it/50x50\" class=\"\" width=\"50\" height=\"50\" />",
       "properties": {
         "src": {
@@ -269,7 +269,7 @@
     {
       "name": "crn-form",
       "text": "Form",
-         "class":"adjust-icon mdi mdi-application",
+      "class":"adjust-icon mdi mdi-file-document",
       "templateURL": "src/main/webapp/components/templates/form.template.html",
       "properties": {
         "crn-datasource": {
