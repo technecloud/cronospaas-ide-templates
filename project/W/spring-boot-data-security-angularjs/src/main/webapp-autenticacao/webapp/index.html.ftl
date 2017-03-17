@@ -39,7 +39,7 @@
         <script src="plugins/angular-sanitize/angular-sanitize.min.js"></script>
         <script src="plugins/angular-bootstrap/ui-bootstrap.min.js"></script>
         <script src="plugins/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-        <script src="plugins/angular-ui-select/dist/select.js"></script>
+        <script src="plugins/angular-ui-select/dist/select.min.js"></script>
         <script src="plugins/ui-select-infinity/lib/index.js"></script>
         <script src='plugins/ngMask/dist/ngMask.min.js'></script>
         <script src="plugins/raphael/raphael-min.js"></script>
