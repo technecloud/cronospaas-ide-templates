@@ -234,8 +234,6 @@ var app = (function() {
         
         $rootScope.$on('$stateChangeSuccess', function() {
           setTimeout(function() { 
-            //console.log('handle inputs');
-            //console.log($('input').length);
             
             $($('.icon.ion-plus-round').parent()).off('click');
             $($('.icon.ion-plus-round').parent()).on('click',function() {
