@@ -107,11 +107,7 @@ public class ${clazz_name} {
     </#switch>
     <#else>
     ${class_entity_name} result = null;
-    try {
-      result = repository.save(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+    result = repository.save(entity);
     </#if>
     // begin-user-code
     // end-user-code
@@ -142,11 +138,7 @@ public class ${clazz_name} {
     </#switch>
     <#else>
     ${class_entity_name} result = null;
-    try {
-      result = repository.saveAndFlush(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+    result = repository.saveAndFlush(entity);
     </#if>
     // begin-user-code
     // end-user-code
@@ -162,18 +154,14 @@ public class ${clazz_name} {
     // begin-user-code  
     // end-user-code
     ${class_entity_name} entity = this.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
-    try {
-      this.repository.delete(entity);
-      <#if hasCloudStorage>
-      <#switch clazz.getCloudStorageType()>
-      <#case "Dropbox">
-      <#include "/dropbox/DROPBOX_DELETE.ftl">
-      <#break>
-      </#switch>
-      </#if>
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+    this.repository.delete(entity);
+    <#if hasCloudStorage>
+    <#switch clazz.getCloudStorageType()>
+    <#case "Dropbox">
+    <#include "/dropbox/DROPBOX_DELETE.ftl">
+    <#break>
+    </#switch>
+    </#if>
     // begin-user-code  
     // end-user-code        
   }

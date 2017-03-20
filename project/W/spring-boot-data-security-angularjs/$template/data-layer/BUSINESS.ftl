@@ -146,17 +146,17 @@ public class ${clazz_name} {
    * @generated
    */
   public void delete(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
+    ${class_entity_name} entity = this.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
     // begin-user-code  
     // end-user-code
-    ${class_entity_name} entity = this.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list>);
-      this.repository.delete(entity);
-      <#if hasCloudStorage>
-      <#switch clazz.getCloudStorageType()>
-      <#case "Dropbox">
-      <#include "/dropbox/DROPBOX_DELETE.ftl">
-      <#break>
-      </#switch>
-      </#if>
+    this.repository.delete(entity);
+    <#if hasCloudStorage>
+    <#switch clazz.getCloudStorageType()>
+    <#case "Dropbox">
+    <#include "/dropbox/DROPBOX_DELETE.ftl">
+    <#break>
+    </#switch>
+    </#if>
     // begin-user-code  
     // end-user-code        
   }
