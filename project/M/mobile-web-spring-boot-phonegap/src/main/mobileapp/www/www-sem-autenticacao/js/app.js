@@ -178,6 +178,33 @@ var app = (function() {
           $state.go('404');
         }
       });
+      
+      $rootScope.$on('$stateChangeSuccess', function() {
+        setTimeout(function() { 
+          //console.log('handle inputs');
+          //console.log($('input').length);
+          
+          $($('.icon.ion-plus-round').parent()).off('click');
+          $($('.icon.ion-plus-round').parent()).on('click',function() {
+            $('[required]').removeClass('input-validation-error');
+            $('input:invalid').removeClass('input-validation-error');
+          });
+          
+          $($('.icon.ion-checkmark').parent()).off('click');
+          $($('.icon.ion-checkmark').parent()).on('click',function() {
+            $('[required].ng-invalid-required, [required].ng-invalid, [required].ng-empty').addClass('input-validation-error');
+            $('input:invalid').addClass('input-validation-error');
+          });
+          
+          $('input').off('keydown')
+          $('input').on('keydown', function() {
+            $(this).removeClass('input-validation-error');
+          }); 
+          
+        }, 300);
+          
+      });
+      
     });
 
 }(window));
