@@ -42,11 +42,7 @@ public class RoleBusiness {
     // begin-user-code  
     // end-user-code  
     Role result = null;
-    try {
-      result = repository.save(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+    result = repository.save(entity);
     // begin-user-code
     // end-user-code
     return result;
@@ -61,11 +57,7 @@ public class RoleBusiness {
     // begin-user-code  
     // end-user-code
     Role result = null;
-    try {
-      result = repository.saveAndFlush(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+    result = repository.saveAndFlush(entity);
     // begin-user-code
     // end-user-code
     return result;
@@ -80,11 +72,7 @@ public class RoleBusiness {
     // begin-user-code  
     // end-user-code
     Role entity = this.get(id);
-    try {
-      this.repository.delete(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+    this.repository.delete(entity);
     // begin-user-code  
     // end-user-code        
   }

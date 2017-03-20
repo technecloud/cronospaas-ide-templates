@@ -53,11 +53,7 @@ public class UserBusiness {
     String encryptionPassword = new BCryptPasswordEncoder().encode(formPassword);
     entity.setPassword(encryptionPassword);      
     User result = null;
-    try {
-      result = repository.save(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+    result = repository.save(entity);
     // begin-user-code
     // end-user-code
     return result;
@@ -76,11 +72,7 @@ public class UserBusiness {
     String encryptionPassword = formPassword.startsWith(ENCRYPT) ? formPassword : new BCryptPasswordEncoder().encode(formPassword);
     entity.setPassword(encryptionPassword);      
     User result = null;
-    try {
-      result = repository.saveAndFlush(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+    result = repository.saveAndFlush(entity);
     // begin-user-code
     // end-user-code
     return result;
@@ -95,11 +87,7 @@ public class UserBusiness {
     // begin-user-code  
     // end-user-code
     User entity = this.get(id);
-    try {
-      this.repository.delete(entity);
-    } catch (Exception e) {
-      log.error(e.getMessage());
-    }
+    this.repository.delete(entity);
     // begin-user-code  
     // end-user-code        
   }
