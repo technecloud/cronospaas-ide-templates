@@ -95,9 +95,11 @@
       '$cordovaVibration',
       '$ionicModal',
       function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal) {
+        $rootScope.http = $http;
 
         for(var x in app.userEvents)
           $scope[x]= app.userEvents[x].bind($scope);
+        
         $ionicModal.fromTemplateUrl('views/logged/_changepassword.view.html', {
           scope: $scope,
           animation: 'slide-in-up'
