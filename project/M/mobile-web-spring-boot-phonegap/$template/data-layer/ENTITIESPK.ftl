@@ -29,15 +29,14 @@ public class ${clazz.name + "PK"} implements Serializable {
   * @generated
   */
   private static final long serialVersionUID = 1L;
-  <#list clazz.fields as field>
-  <#if field.primaryKey>
+  <#list clazz.primaryKeys as field>
+  <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
   
   /**
    * @generated
    */
   @Column(name = "${field.dbFieldName}"<#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
-  ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
-  </#if>
+  ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
   </#list>
   
   /**
@@ -47,28 +46,27 @@ public class ${clazz.name + "PK"} implements Serializable {
   public ${clazz.name + "PK"}(){
   }
   
-  <#list clazz.fields as field>
-  <#if field.primaryKey>
+  <#list clazz.primaryKeys as field>
+  <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
   /**
-   * Obtém ${field.name}
+   * Obtém ${name}
    * 
-   * return ${field.name}
+   * return ${name}
    * @generated
    */
-  public ${field.type} get${field.name?cap_first}(){
-    return this.${field.name};
+  public ${field.type} get${name?cap_first}(){
+    return this.${name};
   }
   
   /**
-   * Define ${field.name}
-   * @param ${field.name} ${field.name}
+   * Define ${name}
+   * @param ${name} ${name}
    * @generated
    */
-  public ${clazz.name + "PK"} set${field.name?cap_first}(${field.type} ${field.name}){
-    this.${field.name} = ${field.name};
+  public ${clazz.name + "PK"} set${name?cap_first}(${field.type} ${name}){
+    this.${name} = ${name};
     return this;
   }
-  </#if>
   </#list>
   
   /**
@@ -79,10 +77,8 @@ public class ${clazz.name + "PK"} implements Serializable {
     if (this == obj) return true;
     if (obj == null || getClass() != obj.getClass()) return false;
     ${clazz.name + "PK"} object = (${clazz.name + "PK"})obj;
-    <#list clazz.fields as field>
-    <#if field.primaryKey>
-    if (${field.name} != null ? !${field.name}.equals(object.${field.name}) : object.${field.name} != null) return false;
-    </#if>
+    <#list clazz.primaryKeys as field>
+    if (${name} != null ? !${name}.equals(object.${name}) : object.${name} != null) return false;
     </#list>
     return true;
   }
@@ -93,9 +89,9 @@ public class ${clazz.name + "PK"} implements Serializable {
   @Override
   public int hashCode() {
     int result = 1;
-    <#list clazz.fields as field>
-    <#if field.primaryKey && !field.isTypePrimitive()>
-    result = 31 * result + ((${field.name} == null) ? 0 : ${field.name}.hashCode());
+    <#list clazz.primaryKeys as field>
+    <#if !field.isTypePrimitive()>
+    result = 31 * result + ((${name} == null) ? 0 : ${name}.hashCode());
     </#if>
     </#list>
     return result;

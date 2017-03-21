@@ -61,9 +61,31 @@ public class ${clazz.name} implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   </#if>
   </#if>
-  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
-  ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
+  <#if (field.relationNames?size == 1)>
+  <#list field.relationNames?keys as key>
+  <#if key??>
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  </#if>
+  </#list>
+  <#elseif (field.relationNames?size > 1)>
+  <#assign i= field.relationNames?size>
+  @JoinColumns({
+  <#list field.relationNames?keys as key>
+  <#if key??>
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  <#if (i>1)>,</#if>
+  </#if>
+  <#assign i = i-1>
+  </#list>
+  })
   <#else>
+  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  </#if>
+  ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
+  </#if>  
+  </#list>
+  <#list clazz.fields as field>
+  <#if !field.primaryKey>
   
   /**
   * @generated
@@ -85,8 +107,7 @@ public class ${clazz.name} implements Serializable {
   <#list field.relationNames?keys as key>
   <#if key??>
   @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
-  <#if (i>1)>,
-  </#if>
+  <#if (i>1)>,</#if>
   </#if>
   <#assign i = i-1>
   </#list>
@@ -111,7 +132,7 @@ public class ${clazz.name} implements Serializable {
   @JsonIgnore
   </#if>
   ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
-  </#if>
+  </#if>  
   </#list>
   
   /**
