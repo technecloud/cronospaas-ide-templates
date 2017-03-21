@@ -12,10 +12,7 @@ import java.net.URL;
 import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-</#if>
-<#if multitenant?? && multitenant?lower_case == "sim">
-import auth.permission.MultitenantJpaTransactionManager;
-
+import auth.permission.SecurityPermission;
 </#if>
 /**
  * Classe que configura os beans para persistencia
@@ -40,13 +37,8 @@ class AppConfiguration {
 
     @Bean(name = "app-TransactionManager")
     public PlatformTransactionManager transactionManager() {
-    <#if multitenant?? && multitenant?lower_case == "sim">
-        return new MultitenantJpaTransactionManager();
-    <#else>
         return new JpaTransactionManager(entityManagerFactory().getObject());
-    </#if>
     }
-
     <#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" >
     @Bean
     public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() {
@@ -64,8 +56,8 @@ class AppConfiguration {
         Scanner scanner = new Scanner(file);
         strJSON = scanner.useDelimiter("\\A").next();
         scanner.close();
-        // Caso queira sobrescrever dados do populate
-        strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), "Administrators");
+        strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), SecurityPermission.ROLE_ADMIN_NAME);
+		
       } catch (Exception e) {
       }
     }
@@ -76,5 +68,5 @@ class AppConfiguration {
     return factory;
   
     }
-</#if>
+    </#if>
 }

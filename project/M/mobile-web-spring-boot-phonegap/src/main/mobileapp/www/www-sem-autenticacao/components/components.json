@@ -5,7 +5,7 @@
     {
       "name": "crn-anchor",
       "text": "Link",
-      "class": "adjust-icon mdi mdi-link",
+      "class": "cpn cpn-anchor",
       "templateURL": "src/main/mobileapp/www/components/templates/anchor.template.html",
       "properties": {
         "onclick": {
@@ -41,16 +41,9 @@
       }
     },
     {
-      "name": "crn-image-upload",
-      "text": "Image Upload",
-      "class": "adjust-icon mdi mdi-cloud-upload",
-      "templateURL": "src/main/mobileapp/www/components/templates/image.template.html",
-      "properties": {}
-    },
-    {
       "name": "crn-tabs",
       "text": "Tabs",
-      "class": "adjust-icon mdi mdi-window-maximize",
+      "class": "cpn cpn-tabs",
       "properties": {
         "orientation": {
           "removable": false,
@@ -81,7 +74,7 @@
       },
       "templateURL": "src/main/mobileapp/www/components/templates/tabs.template.html"
     },
-    {
+     {
       "name": "crn-navbar",
       "text": "MenuItem",
       "class": "cpn cpn-navbar",
@@ -100,7 +93,7 @@
     {
       "name": "crn-div-vertical",
       "text": "Grid Vertical",
-      "class": "adjust-icon mdi mdi-drag-vertical",
+      "class": "cpn cpn-vertical-grid",
       "templateURL": "src/main/mobileapp/www/components/templates/div.vertical.template.html",
       "properties": {
         "onclick": {
@@ -120,7 +113,7 @@
     {
       "name": "crn-div-horizontal",
       "text": "Grid Horizontal",
-      "class": "adjust-icon mdi mdi-drag-horizontal",
+      "class": "cpn cpn-horizontal-grid",
       "templateURL": "src/main/mobileapp/www/components/templates/div.horizontal.template.html",
       "properties": {
         "onclick": {
@@ -140,7 +133,7 @@
     {
       "name": "crn-button-bar",
       "text": "Button Bar",
-      "class": "adjust-icon mdi mdi-view-module",
+      "class": "cpn cpn-button",
       "templateURL": "src/main/mobileapp/www/components/templates/button-bar.template.html",
       "handleRules": {
         "canIncrement": true,
@@ -155,7 +148,7 @@
     {
       "name": "crn-button",
       "text": "Button",
-      "class": "adjust-icon mdi mdi-stop",
+      "class": "cpn cpn-button",
       "templateURL": "src/main/mobileapp/www/components/templates/button.template.html",
       "properties": {
         "ng-click": {
@@ -169,24 +162,9 @@
       }
     },
     {
-      "name": "crn-report-button",
-      "text": "Button Report",
-      "class": "adjust-icon mdi mdi-code-equal",
-      "templateURL": "src/main/mobileapp/www/components/templates/button-report.template.html",
-      "properties": {
-        "ng-click": {
-          "type": "report-event"
-        },
-        "onmouseover": {
-          "removable": true,
-          "type": "event"
-        }
-      }
-    },
-    {
       "name": "crn-radiogroup",
       "text": "RadioGroup",
-      "class": "adjust-icon mdi mdi-radiobox-marked",
+      "class": "cpn cpn-radiogroup",
       "templateURL": "src/main/mobileapp/www/components/templates/radiogroup.template.html",
       "handleRules": {
         "canIncrement": true,
@@ -201,7 +179,7 @@
     {
       "name": "crn-radiogroup-dynamic",
       "text": "RadioGroup Dynamic",
-      "class": "adjust-icon mdi mdi-radiobox-marked",
+      "class": "cpn cpn-radiogroup",
       "templateURL": "src/main/mobileapp/www/components/templates/radiogroup-dynamic.template.html",
       "handleRules": {
         "canToggle": true,
@@ -228,7 +206,7 @@
     {
       "name": "crn-checkbox",
       "text": "Checkbox",
-      "class": "adjust-icon mdi mdi-checkbox-marked-outline",
+      "class": "cpn cpn-checkbox",
       "templateURL": "src/main/mobileapp/www/components/templates/checkbox.template.html",
       "handleRules": {
         "canIncrement": true,
@@ -243,7 +221,7 @@
     {
       "name": "crn-toggle",
       "text": "Toggle",
-      "class": "adjust-icon mdi mdi-toggle-switch-off",
+      "class": "cpn cpn-checkbox",
       "templateURL": "src/main/mobileapp/www/components/templates/toggle.template.html",
       "handleRules": {
         "canIncrement": true,
@@ -257,14 +235,14 @@
     },
     {
       "name": "crn-title",
-      "text": "Titulo",
-      "class": "adjust-icon mdi mdi-format-header-pound",
+      "text": "Título",
+      "class": "cpn cpn-title",
       "templateURL": "src/main/mobileapp/www/components/templates/title.template.html"
     },
     {
       "name": "crn-range",
       "text": "Range",
-      "class": "adjust-icon mdi mdi-toggle-switch",
+      "class": "cpn cpn-chart-line",
       "templateURL": "src/main/mobileapp/www/components/templates/range.template.html",
       "properties": {
         "ng-click": {
@@ -280,13 +258,13 @@
     {
       "name": "crn-header",
       "text": "Header",
-      "class": "adjust-icon mdi mdi-page-layout-header",
+      "class": "cpn cpn-navbar",
       "templateURL": "src/main/mobileapp/www/components/templates/header.template.html"
     },
     {
       "name": "crn-textinput",
       "text": "Caixa de Texto",
-      "class": "adjust-icon mdi mdi-panorama-horizontal",
+      "class": "cpn cpn-textinput",
       "templateURL": "src/main/mobileapp/www/components/templates/textinput.template.html",
       "properties": {
         "onchange": {
@@ -298,7 +276,7 @@
     {
       "name": "crn-form",
       "text": "Form",
-      "class": "adjust-icon mdi mdi-file-document",
+      "class": "cpn cpn-form",
       "templateURL": "src/main/mobileapp/www/components/templates/form.template.html",
       "properties": {
         "crn-datasource": {
@@ -311,7 +289,7 @@
     {
       "name": "crn-combobox",
       "text": "Combobox",
-      "class": "adjust-icon mdi mdi-equal-box",
+      "class": "cpn cpn-combobox",
       "templateURL": "src/main/mobileapp/www/components/templates/combobox.template.html",
       "handleRules": {
         "canToggle": true,
@@ -343,7 +321,7 @@
     {
       "name": "crn-toggle-dynamic",
       "text": "Toggle Dynamic",
-      "class": "adjust-icon mdi mdi-toggle-switch-off",
+      "class": "cpn cpn-checkbox",
       "templateURL": "src/main/mobileapp/www/components/templates/toggle-dynamic.template.html",
       "handleRules": {
         "canToggle": true,
@@ -370,7 +348,7 @@
     {
       "name": "crn-image",
       "text": "Image",
-      "class": "adjust-icon mdi mdi-image",
+      "class": "cpn cpn-image",
       "template": "<img src=\"img/nophoto.png\" class=\"\" width=\"50\" height=\"50\" />",
       "properties": {
         "src": {
@@ -387,7 +365,7 @@
     {
       "name": "crn-footer",
       "text": "Footer",
-      "class": "adjust-icon mdi mdi-page-layout-footer",
+      "class": "cpn cpn-footer",
       "template": "<div class=\"bar bar-footer bar-balanced\"><div class=\"title\">Footer</div></div>",
       "properties": {
         "onclick": {
@@ -399,7 +377,7 @@
     {
       "name": "crn-datasource",
       "text": "Datasource",
-      "class": "adjust-icon mdi mdi-table-large",
+      "class": "cpn cpn-datasource",
       "template": "<datasource name=\"\" entity=\"\" keys=\"\" rows-per-page=\"100\" on-before-create=\"\" on-after-create=\"\" on-before-update=\"\" on-after-update=\"\" on-before-delete=\"\" on-after-delete=\"\"><i class=\"cpn cpn-datasource\" ></i></datasource>",
       "properties": {
         "entity": {
@@ -448,11 +426,6 @@
           "removable": true,
           "type": "event",
           "global": true
-        },
-        "dependent-by": {
-          "removable": false,
-          "global": true,
-          "type": "pageDatasourceObject"
         }
       }
     }

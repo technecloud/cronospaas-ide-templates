@@ -3,13 +3,11 @@ package reports.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -22,8 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -51,10 +47,7 @@ public class ReportService {
 		ReportFront reportFront = new ReportFront(reportName);
 		try {
 			JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
-			Stream.of(jasperDesign.getParameters())
-					.filter(jrParameter -> !jrParameter.isSystemDefined())
-					.filter(jrParameter -> !jrParameter.getName().contains("image_"))
-					.filter(jrParameter -> !jrParameter.getName().contains("sub_"))
+			Stream.of(jasperDesign.getParameters()).filter(jrParameter -> !jrParameter.isSystemDefined())
 					.forEach(jrParameter -> {
 						Parameter parameter = new Parameter();
 						parameter.setName(jrParameter.getName());
@@ -88,51 +81,8 @@ public class ReportService {
 				throw new RuntimeException(e);
 			}
 
-			Map<String, JRParameter> parametersMap = jasperDesign.getParametersMap();
-
 			HashMap<String, Object> parameters = new HashMap<>();
-
-			reportFront.getParameters().forEach(parameter -> {
-				parameters.put(parameter.getName(), parameter.getValue());
-			});
-
-			parametersMap.entrySet().stream()
-					.filter(p -> !parameters.containsKey(p.getKey()))
-					.forEach(parameter -> {
-						String key = parameter.getKey();
-						JRParameter value = parameter.getValue();
-						if (value == null)
-							parameters.put(key, null);
-						else {
-							JRExpression valueExpression = value.getDefaultValueExpression();
-							if (valueExpression != null)
-								parameters.put(key, valueExpression.getText());
-						}
-					});
-
-			parameters.entrySet().stream()
-					.filter(parameter -> parameter.getKey().contains("image_"))
-					.forEach(parameter -> {
-						JRParameter jrParameter = parametersMap.get(parameter.getKey());
-						JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
-						if (defaultValueExpression != null) {
-							URL resource = loader.getResource(defaultValueExpression.getText().replaceAll("\"", ""));
-							if (resource != null)
-								parameters.put(parameter.getKey(), resource.getPath());
-						}
-					});
-
-			parameters.entrySet().stream()
-					.filter(parameter -> parameter.getKey().contains("sub_"))
-					.forEach(parameter -> {
-						JRParameter jrParameter = parametersMap.get(parameter.getKey());
-						JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
-						if (defaultValueExpression != null) {
-							URL resource = loader.getResource(defaultValueExpression.getText().replaceAll("\"", "").replaceAll(".jrxml", ".jasper"));
-							if (resource != null)
-								parameters.put(parameter.getKey(), resource.getPath());
-						}
-					});
+			reportFront.getParameters().forEach(parameter -> parameters.put(parameter.getName(), parameter.getValue()));
 
 			JasperPrint jasperPrint;
 			try (Connection connection = this.getConnection(jasperDesign)) {

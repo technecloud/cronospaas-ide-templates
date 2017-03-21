@@ -23,7 +23,9 @@
         <tr class="table-content" ng-repeat="rowData in datasource.data"> 
           <td class=""> 
             <div class="">
+
                   {{rowData.name}}
+        
             </div>
           </td> 
           <td class=""> 
@@ -57,11 +59,17 @@
         
         <div data-component="crn-textinput" id="crn-textinput-name"> 
           <div class="form-group"> 
+          
             <label for="textinput-name" class="">name</label> 
-            <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-name" placeholder="name"  > 
+        
+        <input type="text" ng-model="Role.active.name" class="form-control" id="textinput-name" placeholder="name"  > 
+
           </div> 
         </div> 
+    
       </fieldset> 
+      
+    
       
     </form> 
   </div> 

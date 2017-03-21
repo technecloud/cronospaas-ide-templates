@@ -140,11 +140,10 @@
         <div data-component="crn-textinput" id="crn-textinput-Role"> 
           <div class="form-group"> 
           
-        <div data-component="crn-datasource">
-          <datasource append="false" name="Role" entity="/api/security/User/{{User.active.id}}/Role" keys="id" rows-per-page="100" lazy="true" auto-post="true" enabled="{{User.editing}}"></datasource> 
-          <datasource name="AllRole" entity="/api/security/Role" keys="id" rows-per-page="100" enabled="{{User.editing}}"></datasource> 
-        </div>
         
+      <datasource append="false" name="Role" entity="/api/security/User/{{User.active.id}}/Role" keys="id" rows-per-page="100" lazy="true" auto-post="true" enabled="{{User.editing}}"></datasource> 
+      <datasource name="AllRole" entity="/api/security/Role" keys="id" rows-per-page="100" enabled="{{User.editing}}"></datasource> 
+      
         <div class="form-group" ng-show="datasource.editing">
           <label for="select-ui">Role</label> 
           <div id="select-ui" data-component="crn-tags"> 

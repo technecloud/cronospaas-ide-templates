@@ -1,5 +1,4 @@
 package app.entity;
-
 import java.io.*;
 import javax.persistence.*;
 import java.util.*;
@@ -11,7 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @generated
  */
 @Entity
-@Table(name = "\"USERROLE\"")
+@Table(name = "\"USERROLE\""
+)
 @XmlRootElement
 public class UserRole implements Serializable {
 
@@ -19,24 +19,24 @@ public class UserRole implements Serializable {
    * UID da classe, necessário na serialização 
    * @generated
    */
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = -201887997l;
   
   /**
    * @generated
    */
   @Id
+    
+  @Column(name = "id", insertable=true, updatable=true)
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-  
   /**
-  * @generated
-  */
+   * @generated
+   */
   @ManyToOne
   @JoinColumn(name="fk_user", referencedColumnName = "id", insertable=true, updatable=true)
   private User user;
-  
   /**
-  * @generated
-  */
+   * @generated
+   */
   @ManyToOne
   @JoinColumn(name="fk_role", referencedColumnName = "id", insertable=true, updatable=true)
   private Role role;
@@ -48,9 +48,10 @@ public class UserRole implements Serializable {
   public UserRole(){
   }
 
+  
   /**
    * Obtém id
-   * 
+   * @param id id
    * return id
    * @generated
    */
@@ -67,9 +68,10 @@ public class UserRole implements Serializable {
     this.id = id;
     return this;
   }
+  
   /**
    * Obtém user
-   * 
+   * @param user user
    * return user
    * @generated
    */
@@ -86,9 +88,10 @@ public class UserRole implements Serializable {
     this.user = user;
     return this;
   }
+  
   /**
    * Obtém role
-   * 
+   * @param role role
    * return role
    * @generated
    */
@@ -108,24 +111,41 @@ public class UserRole implements Serializable {
   
   /**
    * @generated
-   */ 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
-    UserRole object = (UserRole)obj;
-    if (id != null ? !id.equals(object.id) : object.id != null) return false;
-    return true;
-  }
-  
-  /**
-   * @generated
    */
   @Override
   public int hashCode() {
-    int result = 1;
-    result = 31 * result + ((id == null) ? 0 : id.hashCode());
-    return result;
-  }
+        final int prime = 31;
+        int result = 1;
+
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+
+        return result;
+    }
   
+  /**
+   * @generated
+   */ 
+  @Override
+    public boolean equals(Object obj) {
+    
+      if(this == obj)
+        return true;
+      
+      if(obj == null)
+        return false;
+      
+      if(!(obj instanceof UserRole))
+        return false;
+      
+      UserRole other = (UserRole)obj;
+      
+    if(this.id == null && other.id != null)
+        return false;
+      else if(!this.id.equals(other.id))
+        return false;
+  
+
+      return true;
+      
+  }
 }

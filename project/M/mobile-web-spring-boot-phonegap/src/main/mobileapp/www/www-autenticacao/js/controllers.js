@@ -13,8 +13,7 @@
     '$timeout',
     '$stateParams',
     function($scope, $http, $location, $rootScope, $window, $state, $translate, Notification, $ionicLoading, $timeout, $stateParams) {
-        for(var x in app.userEvents)
-          $scope[x]= app.userEvents[x].bind($scope);
+        
         $scope.user = {};
         $scope.message = {};
 
@@ -95,11 +94,7 @@
       '$cordovaVibration',
       '$ionicModal',
       function($scope, $http, $rootScope, $state, $timeout, $translate, Notification, $ionicHistory, $cordovaVibration, $ionicModal) {
-        $rootScope.http = $http;
 
-        for(var x in app.userEvents)
-          $scope[x]= app.userEvents[x].bind($scope);
-        
         $ionicModal.fromTemplateUrl('views/logged/_changepassword.view.html', {
           scope: $scope,
           animation: 'slide-in-up'
@@ -164,7 +159,7 @@
 
           $http({
             method : 'POST',
-            url: window.hostApp + 'changePassword',
+            url : 'changePassword',
             data : $.param(user),
             headers : {
               'Content-Type' : 'application/x-www-form-urlencoded'

@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="IE=5,9,10,11;Edge" >
-
+            
         <!-- CSS -->
         <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
@@ -14,7 +14,6 @@
         <link rel="stylesheet" type="text/css" href="css/cronos-bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="css/app.css"/>
         <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
-        <link rel="stylesheet" href="plugins/pace/pace.css">
         <#if !(theme??) ||  theme == "" >
         <link id="themeSytleSheet" rel="stylesheet" href="">
         <#else >
@@ -27,12 +26,11 @@
         <!-- Plugins -->
         <script src="plugins/jquery/dist/jquery.min.js"></script>
         <script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script data-pace-options='{"document": true, "eventLag": true, "restartOnPushState": true, "restartOnRequestAfter": true, "ajax": {"trackMethods": [ "PUT","POST","GET"] }}' src='plugins/pace/pace.min.js'></script>
 
         <!-- Angular JS -->
         <script src="plugins/angular/angular.min.js"></script>
-        <script src="plugins/Chart.js/dist/Chart.min.js"></script>
-        <script src="plugins/angular-chart.js/dist/angular-chart.min.js"></script>
+        <script src="plugins/chart.js/dist/Chart.min.js"></script>
+        <script src="plugins/angular-chart.js/dist/angular-chart.min.js"></script>      
         <script src="plugins/angular-ui-router/release/angular-ui-router.min.js"></script>
         <script src="plugins/angular-cookies/angular-cookies.min.js"></script>
         <script src="plugins/angular-resource/angular-resource.min.js"></script>
@@ -52,12 +50,9 @@
         <script src="plugins/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
         <script src="plugins/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
         <script src="plugins/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
-        <script src="plugins/ng-file-upload/ng-file-upload.min.js"></script>
         <script type="text/javascript" src="plugins/moment/min/moment-with-locales.min.js"></script>
         <script type="text/javascript" src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="plugins/cpf_cnpj/build/cpf.js"></script>
-        <script src="plugins/cpf_cnpj/build/cnpj.js"></script>
-
+        
         <!-- Customs -->
         <script src="js/app.js"></script>
         <script src="components/js/datasource.js"></script>
@@ -68,6 +63,6 @@
         <script src="js/LanguageSelectDirective.js"></script>
         <script src="js/directives.js"></script>
         <script src="js/filters.js"></script>
-
+        
     </body>
 </html>

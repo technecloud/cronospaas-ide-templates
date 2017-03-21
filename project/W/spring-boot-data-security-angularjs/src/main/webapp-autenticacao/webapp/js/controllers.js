@@ -2,9 +2,7 @@
     angular.module('custom.controllers', []);
 
     app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$window', '$state', '$translate', 'Notification', function ($scope, $http, $location, $rootScope, $window, $state, $translate, Notification) {
-      for(var x in app.userEvents)
-            $scope[x]= app.userEvents[x].bind($scope);
-      
+
         $scope.message = {};
         $scope.login = function () {
 
@@ -26,7 +24,6 @@
             if(typeof(Storage) !== "undefined") {
                 // save the user data on localStorage
                 sessionStorage.setItem("_u",JSON.stringify(data));
-                $rootScope.session = JSON.parse(sessionStorage._u);
             } else {
                 // Sorry! No Web Storage support.
                 // The home page may not work if it depends
@@ -44,53 +41,29 @@
     }]);
 
     app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', '$translate', 'Notification', function ($scope, $http, $rootScope, $state, $translate, Notification) {
-      
-      $rootScope.http = $http;
-
-      for(var x in app.userEvents)
-            $scope[x]= app.userEvents[x].bind($scope);
-      
+        
         $scope.message = {};
         
         $scope.selecionado = {
           valor : 1
         }
         
-        // refresh token
-        $scope.refreshToken = function() {
-            $http({
-                method: 'GET',
-                url: 'auth/refresh'
-            }).success(function(data, status, headers, config) {
-                // Store data response on session storage
-                  console.log('revive :' , new Date(data.expires));
-                  sessionStorage.setItem("_u",JSON.stringify(data));
-                  // Recussive 
-                  setTimeout(function() {
-                    $scope.refreshToken();
-                    // refres time
-                  },(1800*1000));
-                  
-            }).error(function() {
-              // abafar TODO 
-            });
-        };
-
+        // When access home page we have to check
+        // if the user is authenticated and the userData
+        // was saved on the browser's sessionStorage
         $rootScope.session = (sessionStorage._u) ? JSON.parse(sessionStorage._u) : null;
-        if($rootScope.session) {
-          // When access home page we have to check
-          // if the user is authenticated and the userData
-          // was saved on the browser's sessionStorage
-          $rootScope.myTheme = $rootScope.session.user.theme;
-          $scope.$watch('myTheme', function(value) {
-            if (value !== undefined && value !== "") {
-              $('#themeSytleSheet').attr('href', "css/themes/"+value+".min.css");
-            }
-          });
-          if ($rootScope.session.token) $scope.refreshToken();
-        } else {
-          $state.go("login");
-          sessionStorage.removeItem("_u");
+        $rootScope.myTheme = $rootScope.session.theme;
+        $scope.$watch('myTheme', function(value) {
+          if (value !== undefined && value != "") {
+            $('#themeSytleSheet').attr('href', "css/themes/"+value+".min.css");
+          }
+        });
+
+        if(!$rootScope.session) {
+          // If there isn't a user registered on the sessionStorage
+          // we must send back to login page
+          // TODO - REVISAR login oauth2
+          //$state.go("login");
         }
         
         $rootScope.logout = function logout() {
@@ -100,7 +73,7 @@
             sessionStorage.removeItem("_u");
           }
           $state.go("login");
-        };
+        }
         
         $scope.changePassword = function () {
 
@@ -129,14 +102,14 @@
                 newPasswordConfirmation.value = "";
                 $("#modalPassword").modal("hide");
             }
-        };
+        }
         
         var closeMenuHandler = function () {
           var element = $(this);
           if(element.closest('.sub-menu').length > 0) {
             element.closest(".navbar-nav").collapse('hide');
           }
-        };
+        }
           
         $scope.$on('$viewContentLoaded', function(){
           var navMain = $(".navbar-nav");
@@ -190,6 +163,32 @@
             }     
             
           }
-        };
+        }
+        // refresh token
+        function refreshToken() {
+            $http({
+                method: 'GET',
+                url: 'auth/refresh'
+            }).success(function(data, status, headers, config) {
+                // Store data response on session storage
+                  console.log('revive :' , new Date(data.expires));
+                  sessionStorage.setItem("_u",JSON.stringify(data));
+                  // Recussive 
+                  setTimeout(function() {
+                    refreshToken();
+                    // refres time
+                  },(1800*1000));
+                  
+            }).error(function() {
+              // abafar TODO 
+            });
+        }
+        
+        // exist session
+        if(!$rootScope.session) {
+          $state.go("login");
+        } else {
+           if ($rootScope.session.token) refreshToken();
+        }
     }]);
 } (app));
