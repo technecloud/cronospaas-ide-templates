@@ -28,8 +28,7 @@ public class UserRoleREST {
   @Autowired
   @Qualifier("UserRoleBusiness")
   private UserRoleBusiness userRoleBusiness;
-
-
+  
   /**
    * Serviço exposto para novo registro de acordo com a entidade fornecida
    * 
@@ -55,21 +54,20 @@ public class UserRoleREST {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
-  public UserRole put(@PathVariable("id") final java.lang.String id, @Validated @RequestBody final UserRole entity) throws Exception {
+  @RequestMapping(method = RequestMethod.PUT, value = "/{userRoleId}")
+  public UserRole put(@Validated @RequestBody final UserRole entity, @PathVariable("userRoleId") java.lang.String userRoleId) throws Exception {
     return userRoleBusiness.put(entity);
-  }
+  }  
 
   /**
    * Serviço exposto para remover a entidade de acordo com o id fornecido
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
-  public void delete(@PathVariable("id") java.lang.String id) throws Exception {
-    userRoleBusiness.delete(id);
+  @RequestMapping(method = RequestMethod.DELETE, value = "/{userRoleId}")
+  public void delete(@PathVariable("userRoleId") java.lang.String userRoleId) throws Exception {
+    userRoleBusiness.delete(userRoleId);
   }
-
 
   /**
    * NamedQuery list
@@ -77,50 +75,45 @@ public class UserRoleREST {
    */
   @RequestMapping(method = RequestMethod.GET
   )    
-  public  HttpEntity<PagedResources<UserRole>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.list(pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> listParams (Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.list(pageable)), HttpStatus.OK);    
   }
-
   /**
    * NamedQuery findByUser
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByUser/{user}")    
-  public  HttpEntity<PagedResources<UserRole>> findByUserParams (@PathVariable("user") User user, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByUser(user, pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> findByUserParams (@PathVariable("user") User user, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByUser(user, pageable)), HttpStatus.OK);    
   }
-
   /**
    * NamedQuery findByEmail
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByEmail/{email}")    
-  public  HttpEntity<PagedResources<UserRole>> findByEmailParams (@PathVariable("email") java.lang.String email, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByEmail(email, pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> findByEmailParams (@PathVariable("email") java.lang.String email, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByEmail(email, pageable)), HttpStatus.OK);    
   }
-
   /**
    * NamedQuery findByLogin
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByLogin/{login}")    
-  public  HttpEntity<PagedResources<UserRole>> findByLoginParams (@PathVariable("login") java.lang.String login, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByLogin(login, pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> findByLoginParams (@PathVariable("login") java.lang.String login, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByLogin(login, pageable)), HttpStatus.OK);    
   }
-
   /**
    * NamedQuery findByRole
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET
   , value="/findByRole/{roleid}")    
-  public  HttpEntity<PagedResources<UserRole>> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, Pageable pageable, PagedResourcesAssembler assembler){
-    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByRole(roleid, pageable   )), HttpStatus.OK);    
+  public HttpEntity<PagedResources<UserRole>> findByRoleParams (@PathVariable("roleid") java.lang.String roleid, Pageable pageable, PagedResourcesAssembler assembler){
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findByRole(roleid, pageable)), HttpStatus.OK);    
   }
-
 
 
 
@@ -129,8 +122,27 @@ public class UserRoleREST {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET, value = "/{id}")
-  public UserRole get(@PathVariable("id") java.lang.String id) throws Exception {
-    return userRoleBusiness.get(id);
+  @RequestMapping(method = RequestMethod.GET, value = "/{userRoleId}")
+  public UserRole get(@PathVariable("userRoleId") java.lang.String userRoleId) throws Exception {
+    return userRoleBusiness.get(userRoleId);
   }
+
+  /**
+   * Foreign Key User
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET, value="/User/{userId}")    
+  public HttpEntity<PagedResources<UserRole>> findUserRolesByUser(@PathVariable("userId") java.lang.String userId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findUserRolesByUser(userId, pageable)), HttpStatus.OK);
+  }
+  
+  /**
+   * Foreign Key Role
+   * @generated
+   */
+  @RequestMapping(method = RequestMethod.GET, value="/Role/{roleId}")    
+  public HttpEntity<PagedResources<UserRole>> findUserRolesByRole(@PathVariable("roleId") java.lang.String roleId, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(userRoleBusiness.findUserRolesByRole(roleId, pageable)), HttpStatus.OK);
+  }
+  
 }
