@@ -97,7 +97,7 @@ public class ${class_name} {
    * @generated
    */
   @RequestMapping(method = RequestMethod.PUT, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public ${class_entity_name} put(@Validated @RequestBody final ${class_entity_name} entity, <#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+  public ${class_entity_name} put(@Validated @RequestBody final ${class_entity_name} entity, <#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}")<#if (field.isTime() || field.isDate() || field.isTimestamp())> java.lang.String<#else> ${field.type}</#if> ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
     return ${class_business_variable_name}.put(entity);
   }  
 
@@ -107,8 +107,8 @@ public class ${class_name} {
    * @generated
    */
   @RequestMapping(method = RequestMethod.DELETE, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public void delete(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
-    ${class_business_variable_name}.delete(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+  public void delete(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}")<#if (field.isTime() || field.isDate() || field.isTimestamp())> java.lang.String<#else> ${field.type}</#if> ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+    ${class_business_variable_name}.delete(<#list clazz.primaryKeys as field><#if (field.isTime() || field.isDate() || field.isTimestamp())>new java.util.Date(java.lang.Long.parseLong(${class_entity_name?uncap_first}${field.name?cap_first}))<#else>${class_entity_name?uncap_first}${field.name?cap_first}</#if><#if field_has_next>, </#if></#list>);
   }
 
 <#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys><#if namedQuery.isRest()>    
