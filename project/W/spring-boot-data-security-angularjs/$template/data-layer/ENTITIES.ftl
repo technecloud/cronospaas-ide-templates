@@ -61,6 +61,13 @@ public class ${clazz.name} implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   </#if>
   </#if>
+  <#if field.isDate()>
+  @Temporal(TemporalType.DATE)
+  <#elseif field.isTime()>
+  @Temporal(TemporalType.TIME)
+  <#elseif field.isTimestamp()>
+  @Temporal(TemporalType.TIMESTAMP)
+  </#if>
   <#if (field.relationNames?size == 1)>
   <#list field.relationNames?keys as key>
   <#if key??>

@@ -30,11 +30,22 @@ public class ${clazz.name + "PK"} implements Serializable {
   */
   private static final long serialVersionUID = 1L;
   <#list clazz.primaryKeys as field>
-  <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
+  <#if field.name?contains('_')>
+    <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
+  <#else>
+    <#assign name = "${field.name}">
+  </#if>
   
   /**
    * @generated
    */
+  <#if field.isDate()>
+  @Temporal(TemporalType.DATE)
+  <#elseif field.isTime()>
+  @Temporal(TemporalType.TIME)
+  <#elseif field.isTimestamp()>
+  @Temporal(TemporalType.TIMESTAMP)
+  </#if>
   @Column(name = "${field.dbFieldName}"<#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
   ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
   </#list>
@@ -47,7 +58,11 @@ public class ${clazz.name + "PK"} implements Serializable {
   }
   
   <#list clazz.primaryKeys as field>
-  <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
+  <#if field.name?contains('_')>
+    <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
+  <#else>
+    <#assign name = "${field.name}">
+  </#if>
   /**
    * Obtém ${name}
    * 
