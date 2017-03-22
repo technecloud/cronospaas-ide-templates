@@ -30,10 +30,11 @@ public class ${clazz.name + "PK"} implements Serializable {
   */
   private static final long serialVersionUID = 1L;
   <#list clazz.primaryKeys as field>
-  <#if field.name?contains('_')>
-    <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
-  <#else>
-    <#assign name = "${field.name}">
+  <#assign name = "${field.name}">
+  <#if field.getProperty("FOREIGN")??>
+    <#if name?contains('_')>
+      <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
+    </#if>
   </#if>
   
   /**
@@ -58,14 +59,14 @@ public class ${clazz.name + "PK"} implements Serializable {
   }
   
   <#list clazz.primaryKeys as field>
-  <#if field.name?contains('_')>
-    <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
-  <#else>
-    <#assign name = "${field.name}">
+  <#assign name = "${field.name}">
+  <#if field.getProperty("FOREIGN")??>
+    <#if name?contains('_')>
+      <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
+    </#if>
   </#if>
   /**
    * Obtém ${name}
-   * 
    * return ${name}
    * @generated
    */
@@ -93,6 +94,12 @@ public class ${clazz.name + "PK"} implements Serializable {
     if (obj == null || getClass() != obj.getClass()) return false;
     ${clazz.name + "PK"} object = (${clazz.name + "PK"})obj;
     <#list clazz.primaryKeys as field>
+    <#assign name = "${field.name}">
+    <#if field.getProperty("FOREIGN")??>
+      <#if name?contains('_')>
+        <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
+      </#if>
+    </#if>
     if (${name} != null ? !${name}.equals(object.${name}) : object.${name} != null) return false;
     </#list>
     return true;
@@ -105,6 +112,12 @@ public class ${clazz.name + "PK"} implements Serializable {
   public int hashCode() {
     int result = 1;
     <#list clazz.primaryKeys as field>
+    <#assign name = "${field.name}">
+    <#if field.getProperty("FOREIGN")??>
+      <#if name?contains('_')>
+        <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
+      </#if>
+    </#if>
     <#if !field.isTypePrimitive()>
     result = 31 * result + ((${name} == null) ? 0 : ${name}.hashCode());
     </#if>
