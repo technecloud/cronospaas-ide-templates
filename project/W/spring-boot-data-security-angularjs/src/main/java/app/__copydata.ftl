@@ -8,7 +8,7 @@ path=/dao
 path=/entity
 path=/rest
 path=/test
-file=populate.json
+file=populate.json.ftl
 file=AppConfiguration.java.ftl
 	</#if>
 <#-- Caso contrario copiar tudo -->
@@ -18,6 +18,6 @@ path=/dao
 path=/entity
 path=/rest
 path=/test
-file=populate.json
+file=populate.json.ftl
 file=AppConfiguration.java.ftl
 </#if>

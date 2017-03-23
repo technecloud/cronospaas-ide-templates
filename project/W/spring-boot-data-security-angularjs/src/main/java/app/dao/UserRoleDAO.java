@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.repository.query.*;
 import org.springframework.transaction.annotation.*; 
+
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
  * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
@@ -48,7 +49,7 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u")
-  public Page<UserRole> list ( Pageable pageable );
+  public Page<UserRole> list(Pageable pageable);
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -56,7 +57,7 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u where u.user = :user ")
-  public Page<UserRole> findByUser (@Param(value="user") User user , Pageable pageable );
+  public Page<UserRole> findByUser(@Param(value="user") User user, Pageable pageable);
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -64,7 +65,7 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u where u.user.email = :email")
-  public Page<UserRole> findByEmail (@Param(value="email") java.lang.String email , Pageable pageable );
+  public Page<UserRole> findByEmail(@Param(value="email") java.lang.String email, Pageable pageable);
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -72,7 +73,7 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u where u.user.login = :login")
-  public Page<UserRole> findByLogin (@Param(value="login") java.lang.String login , Pageable pageable );
+  public Page<UserRole> findByLogin(@Param(value="login") java.lang.String login, Pageable pageable);
   
   /**
    * Lista com paginação de acordo com a NamedQuery
@@ -80,12 +81,22 @@ public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
    * @generated
    */
   @Query("select u from UserRole u where u.role.id = :roleid")
-  public Page<UserRole> findByRole (@Param(value="roleid") java.lang.String roleid , Pageable pageable );
+  public Page<UserRole> findByRole(@Param(value="roleid") java.lang.String roleid, Pageable pageable);
   
 
 
+  /**
+   * Foreign Key User
+   * @generated
+   */
+  @Query("SELECT entity FROM UserRole entity WHERE entity.user.id = :id")
+  public Page<UserRole> findUserRolesByUser(@Param(value="id") java.lang.String id, Pageable pageable);
 
-
-
+  /**
+   * Foreign Key Role
+   * @generated
+   */
+  @Query("SELECT entity FROM UserRole entity WHERE entity.role.id = :id")
+  public Page<UserRole> findUserRolesByRole(@Param(value="id") java.lang.String id, Pageable pageable);
 
 }
