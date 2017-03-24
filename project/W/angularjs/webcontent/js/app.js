@@ -20,10 +20,10 @@ var app = (function() {
 
     .constant('LOCALES', {
       'locales': {
-        'pt_BR': 'Portugues (Brasil)',
-        'en_US': 'English'
+        'pt_br': 'Portugues (Brasil)',
+        'en_us': 'English'
       },
-      'preferredLocale': 'pt_BR'
+      'preferredLocale': 'pt_br'
     })
 
     .config(function($stateProvider, $urlRouterProvider, NotificationProvider) {
@@ -96,14 +96,14 @@ var app = (function() {
       });
 
       $translateProvider.registerAvailableLanguageKeys(
-        ['pt_BR', 'en_US'], {
-          'en*': 'en_US',
-          'pt*': 'pt_BR',
-          '*': 'pt_BR'
+        ['pt_br', 'en_us'], {
+          'en*': 'en_us',
+          'pt*': 'pt_br',
+          '*': 'pt_br'
         }
       );
 
-      var locale = (window.navigator.userLanguage || window.navigator.language || 'pt_BR').replace('-', '_');
+      var locale = (window.navigator.userLanguage || window.navigator.language || 'pt_br').replace('-', '_');
 
       $translateProvider.use(locale);
       $translateProvider.useSanitizeValueStrategy('escaped');
