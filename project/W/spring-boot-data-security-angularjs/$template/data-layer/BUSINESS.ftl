@@ -324,13 +324,13 @@ public class ${clazz_name} {
 </#if>
 <#list clazz.fkFields as fkField>
   /**
-   * Foreign Key ${fkField.relationClazz.name}
+   * Foreign Key ${fkField.name}
    * @generated
    */
-  public Page<${clazz.name}> find${clazz.name}sBy${fkField.relationClazz.name}(<#list fkField.relationClazz.primaryKeys as field>${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, Pageable pageable) {
+  public Page<${clazz.name}> find${clazz.name}sBy${fkField.name?cap_first}(<#list fkField.relationClazz.primaryKeys as field>${field.type} instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, Pageable pageable) {
     // begin-user-code
     // end-user-code  
-    Page<${clazz.name}> result = repository.find${clazz.name}sBy${fkField.relationClazz.name}(<#list fkField.relationClazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, pageable);
+    Page<${clazz.name}> result = repository.find${clazz.name}sBy${fkField.name?cap_first}(<#list fkField.relationClazz.primaryKeys as field>instance${field.name?cap_first}<#if field_has_next>, </#if></#list>, pageable);
     // begin-user-code  
     // end-user-code        
     return result;

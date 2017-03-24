@@ -331,9 +331,9 @@ public class ${class_name} {
    * 
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name}}<#if field_has_next>/</#if></#list>")
-  public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name}") ${field.type} ${class_entity_name?uncap_first}${field.name}<#if field_has_next>, </#if></#list>) throws Exception {
-    return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name}<#if field_has_next>, </#if></#list>);
+  @RequestMapping(method = RequestMethod.GET, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
+  public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+    return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
   }
 
 <#list clazz.fields as field>
@@ -348,12 +348,12 @@ public class ${class_name} {
 </#list>
 <#list clazz.fkFields as fkField>
   /**
-   * Foreign Key ${fkField.relationClazz.name}
+   * Foreign Key ${fkField.name}
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET, value="/${fkField.relationClazz.name}/<#list fkField.relationClazz.primaryKeys as field>{${fkField.relationClazz.name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")    
-  public HttpEntity<PagedResources<${clazz.name}>> find${clazz.name}sBy${fkField.relationClazz.name}(<#list fkField.relationClazz.primaryKeys as field>@PathVariable("${fkField.relationClazz.name?uncap_first}${field.name?cap_first}") ${field.type} ${fkField.relationClazz.name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>, Pageable pageable, PagedResourcesAssembler assembler) {
-    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.find${clazz.name}sBy${fkField.relationClazz.name}(<#list fkField.relationClazz.primaryKeys as field>${fkField.relationClazz.name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>, pageable)), HttpStatus.OK);
+  @RequestMapping(method = RequestMethod.GET, value="/${fkField.name?cap_first}/<#list fkField.relationClazz.primaryKeys as field>{${fkField.relationClazz.name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")    
+  public HttpEntity<PagedResources<${clazz.name}>> find${clazz.name}sBy${fkField.name?cap_first}(<#list fkField.relationClazz.primaryKeys as field>@PathVariable("${fkField.relationClazz.name?uncap_first}${field.name?cap_first}") ${field.type} ${fkField.relationClazz.name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>, Pageable pageable, PagedResourcesAssembler assembler) {
+    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.find${clazz.name}sBy${fkField.name?cap_first}(<#list fkField.relationClazz.primaryKeys as field>${fkField.relationClazz.name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>, pageable)), HttpStatus.OK);
   }
   
 </#list>

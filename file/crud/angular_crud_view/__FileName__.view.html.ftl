@@ -55,7 +55,7 @@
       <input type="text" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
     </div>
   </div>
-  </#if>
+  </#if> 
   </#if>
   </#list>
 </div>
@@ -469,13 +469,13 @@
                           <#if gField.isReverseRelation() >
                           {{rowData.${gField.getName()}.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()} }}
                           <#elseif gField.isDate() >
-                          {{rowData.${gField.getDbFieldName()} | date:'dd/MM/yyyy'}}
+                          {{rowData.${gField.getName()} | date:'dd/MM/yyyy'}}
                           <#elseif gField.isTime() >
-                          {{rowData.${gField.getDbFieldName()} | date:'HH:mm:ss'}}
+                          {{rowData.${gField.getName()} | date:'HH:mm:ss'}}
                           <#elseif gField.isTimestamp() >
-                          {{rowData.${gField.getDbFieldName()} | date:'dd/MM/yyyy HH:mm:ss'}}
+                          {{rowData.${gField.getName()} | date:'dd/MM/yyyy HH:mm:ss'}}
                           <#else>
-                          {{rowData.${gField.getDbFieldName()}}}
+                          {{rowData.${gField.getName()}}}
                           </#if>
                         </div>
                       </td>
@@ -510,7 +510,7 @@
                 <div class="list-group list-group-sm">
                   <#list field.getClazz().getFields() as gField>
                   <#if gField.isReverseRelation() >
-                  <#if (gField.getRelationClazz().getName() != model.dataSourceName) >
+                    <#if (field.getDbFieldName() != gField.getDbFieldName())>
                   <div data-component="crn-datasource" class="component-holder">
                     <datasource name="${gField.getName()}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
                   </div>
@@ -529,13 +529,13 @@
                       </ui-select>
                     </div>
                   </div>
-                  </#if>
+                    </#if>
                   <#elseif (!gField.isPrimaryKey())>
                   <div data-component="crn-textinput" id="crn-textinput-${gField.getDbFieldName()}">
                     <div class="form-group">
                       <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                       <#if gField.isBoolean() >
-                      <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}"  id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                      <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}"  id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                       <#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
                       <div style="position:relative">
                         <input type="text" as-date
@@ -546,12 +546,12 @@
                         <#elseif gField.isTimestamp()>
                         format="DD/MM/YYYY HH:mm:ss"
                         </#if>
-                        ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                        ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                       </div>
                       <#elseif gField.isNumber() >
-                      <input type="number" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                      <input type="number" ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                       <#else>
-                      <input type="<#if gField.isEncryption()>password<#else>text</#if>" ng-model="${field.getName()}Grid.active.${gField.getDbFieldName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
+                      <input type="<#if gField.isEncryption()>password<#else>text</#if>" ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
                       </#if>
                     </div>
                   </div>
