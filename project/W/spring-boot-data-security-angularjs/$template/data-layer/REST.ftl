@@ -20,7 +20,6 @@ import ${bussinessPackage}.${subPackageToImport}.*;
 import ${entityPackage}.${subPackageToImport}.*;
 </#if>
 </#list>
-
 <#assign class_name = "${clazz.name}REST">
 <#assign class_entity_name = "${clazz.name}">
 <#assign class_business_name = "${clazz.name}Business">
@@ -42,6 +41,7 @@ import ${entityPackage}.${subPackageToImport}.*;
     <#assign field_pk_type = "${field.type}">
   </#if>
 </#list>
+
 /**
  * Controller para expor serviços REST de ${class_entity_name}
  * 
@@ -59,18 +59,19 @@ public class ${class_name} {
   @Autowired
   @Qualifier("${class_business_name}")
   private ${class_business_name} ${class_business_variable_name};
-  
 <#list clazz.allRelations as relation>
-    <#assign relation_name = "${relation.name}Business">
-    <#if relation_name != class_business_name >
+<#assign relation_name = "${relation.name}Business">
+<#if relation_name != class_business_name>
+
   /**
    * @generated
    */
   @Autowired
   @Qualifier("${relation.name}Business")
   private ${relation.name}Business ${relation.name?uncap_first}Business;
-    </#if>
+</#if>
 </#list>
+
   /**
    * Serviço exposto para novo registro de acordo com a entidade fornecida
    * 
@@ -97,7 +98,7 @@ public class ${class_name} {
    * @generated
    */
   @RequestMapping(method = RequestMethod.PUT, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public ${class_entity_name} put(@Validated @RequestBody final ${class_entity_name} entity, <#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+  public ${class_entity_name} put(@Validated @RequestBody final ${class_entity_name} entity, <#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}")<#if (field.isTime() || field.isDate() || field.isTimestamp())> java.lang.String<#else> ${field.type}</#if> ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
     return ${class_business_variable_name}.put(entity);
   }  
 
@@ -107,26 +108,25 @@ public class ${class_name} {
    * @generated
    */
   @RequestMapping(method = RequestMethod.DELETE, value = "/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list>")
-  public void delete(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
-    ${class_business_variable_name}.delete(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
+  public void delete(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}")<#if (field.isTime() || field.isDate() || field.isTimestamp())> java.lang.String<#else> ${field.type}</#if> ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
+    ${class_business_variable_name}.delete(<#list clazz.primaryKeys as field><#if (field.isTime() || field.isDate() || field.isTimestamp())>new java.util.Date(java.lang.Long.parseLong(${class_entity_name?uncap_first}${field.name?cap_first}))<#else>${class_entity_name?uncap_first}${field.name?cap_first}</#if><#if field_has_next>, </#if></#list>);
   }
-
 <#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys><#if namedQuery.isRest()>    
 <#assign method_named_query_name = "${namedQuery.name?uncap_first}">
+
   /**
    * NamedQuery ${namedQuery.name}
    * @generated
    */
-  @RequestMapping(method = RequestMethod.<#if namedQuery.queryType == "select">GET</#if><#if namedQuery.queryType == "update">PUT</#if><#if namedQuery.queryType == "delete">DELETE</#if>
-  <#if namedQuery.name != "list">, value="/${namedQuery.name}<#if keys?size gt 0>/</#if><#list keys as key>{${key}}<#if key_has_next>/</#if></#list>"</#if>)    
-  public <#if !namedQuery.void>HttpEntity<PagedResources<${clazz.name}>><#else>int</#if> ${namedQuery.name}Params (<#list keys as key>@PathVariable("${key}") ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable, PagedResourcesAssembler assembler</#if>){
+  @RequestMapping(method = RequestMethod.<#if namedQuery.queryType == "select">GET</#if><#if namedQuery.queryType == "update">PUT</#if><#if namedQuery.queryType == "delete">DELETE</#if><#if namedQuery.name != "list">, value="/${namedQuery.name}<#if keys?size gt 0>/</#if><#list keys as key>{${key}}<#if key_has_next>/</#if></#list>"</#if>)
+  public <#if !namedQuery.void>HttpEntity<PagedResources<${clazz.name}>><#else>int</#if> ${namedQuery.name}Params(<#list keys as key>@PathVariable("${key}") ${namedQuery.params[key]} ${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>Pageable pageable, PagedResourcesAssembler assembler</#if>){
     return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.${method_named_query_name}(<#list keys as key>${key}<#if key_has_next>, </#if></#list><#if !namedQuery.void><#if keys?size gt 0>, </#if>pageable</#if>)), HttpStatus.OK);    
   }
 </#if> 
-</#list>  
-
+</#list>
 <#list clazz.oneToManyRelation as relation>
 <#if relation.clazz.hasSearchableField()>
+
   /**
    * OneToMany Relationship GET - Searchable fields - General search (Only strings fields)
    * @generated
@@ -203,11 +203,11 @@ public class ${class_name} {
     ${clazz.name} ${relation.relationField.name} = this.${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
     entity.set${relation.relationField.name?cap_first}(${relation.relationField.name});
     return this.${relation.clazz.name?uncap_first}Business.post(entity);
-  }   
-
+  }
 </#list>
 <#list clazz.manyToManyRelation as relation>
   <#if relation.relationClass.hasSearchableField()>
+  
   /**
    * ManyToMany Relationship GET - Searchable fields - General search (Only strings fields)
    * @generated
@@ -283,9 +283,9 @@ public class ${class_name} {
   public void delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>, <#list relation.relationClass.primaryKeys as field>@PathVariable("${relation.relationName?cap_first}${field.name?cap_first}") ${field.type} ${relation.relationName?cap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) {
     this.${clazz.name?uncap_first}Business.delete${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.primaryKeys as field>${relation.relationName?cap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
   }  
-</#list> 
-
+</#list>
 <#if clazz.hasSearchableField()>
+
   /**
    * Searchable fields - General search (Only strings fields)
    * @generated
@@ -335,18 +335,18 @@ public class ${class_name} {
   public ${class_entity_name} get(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>) throws Exception {
     return ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>);
   }
-
 <#list clazz.fields as field>
 <#if field.isFile()>
+
   @RequestMapping(method = RequestMethod.GET, value = "/download/${field.name}/<#list clazz.primaryKeys as field>{${field.name}}<#if field_has_next>/</#if></#list>")
   public byte[] get${field.name?cap_first}(@PathVariable String id) throws Exception {
     ${class_entity_name} entity = ${class_business_variable_name}.get(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>/</#if></#list>);
     return entity.get${field.name?cap_first}();
   }
-
 </#if>
 </#list>
 <#list clazz.fkFields as fkField>
+
   /**
    * Foreign Key ${fkField.name}
    * @generated
@@ -355,6 +355,5 @@ public class ${class_name} {
   public HttpEntity<PagedResources<${clazz.name}>> find${clazz.name}sBy${fkField.name?cap_first}(<#list fkField.relationClazz.primaryKeys as field>@PathVariable("${fkField.relationClazz.name?uncap_first}${field.name?cap_first}") ${field.type} ${fkField.relationClazz.name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>, Pageable pageable, PagedResourcesAssembler assembler) {
     return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.find${clazz.name}sBy${fkField.name?cap_first}(<#list fkField.relationClazz.primaryKeys as field>${fkField.relationClazz.name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list>, pageable)), HttpStatus.OK);
   }
-  
 </#list>
 }
