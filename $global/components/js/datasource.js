@@ -1058,6 +1058,20 @@ angular.module('datasourcejs', [])
           loaded = true;
           this.loadedFinish = true;
           this.handleAfterCallBack(this.onAfterFill);
+          var thisDatasourceName = this.name;
+          $('datasource').each(function(idx, elem){
+            var dependentBy = null;
+            var dependent = eval(elem.getAttribute('name'));
+            try{
+              dependentBy = JSON.parse(elem.getAttribute('dependent-by'));
+            }catch(ex){
+              dependentBy = eval(elem.getAttribute('dependent-by'));
+            }
+            if(dependentBy && dependentBy.name == thisDatasourceName){
+              if(!dependent.filterURL)
+                eval(dependent.name).fetch();
+            }
+          });
         }.bind(this);
       };
 
@@ -1245,17 +1259,8 @@ angular.module('datasourcejs', [])
         this.storeDataset(dts);
         dts.allowFetch = true;
 
-        if (dts.dependentBy) {
-          if (dts.dependentBy !== null && Object.prototype.toString.call(dts.dependentBy) === "[object String]") {
-            try{
-              dts.dependentBy = JSON.parse(dts.dependentBy);
-            }catch(e) {
-              dts.dependentBy = eval(dts.dependentBy);
-            }
-          }
-          
-          
-          dts.allowFetch = (Object.prototype.toString.call(props.dependentBy) === "[object Object]") ? dts.dependentBy.data.length > 0 : false;
+        if (dts.dependentBy && dts.dependentBy !== "" && dts.dependentBy.trim() !== "" ) {
+          dts.allowFetch = false;
         }
 
         if (!props.lazy && dts.allowFetch && (Object.prototype.toString.call(props.watch) !== "[object String]") && !props.filterURL) {
@@ -1412,22 +1417,6 @@ angular.module('datasourcejs', [])
             }
           });
 
-          attrs.$observe('dependentBy', function(value) {
-            try{
-              datasource.dependentBy = JSON.parse(value);
-            }catch(e) {
-              datasource.dependentBy = eval(value);
-            }
-            
-            if (datasource.dependentBy !== null && Object.prototype.toString.call(datasource.dependentBy) !== "[object String]") {
-              if (datasource.dependentBy.data.length > 0 || datasource.dependentBy.loadedFinish) {
-                datasource.enabled = true;
-                datasource.fetch({
-                  params: {}
-                });
-              }
-            }
-          });
         };
         init();
       }
