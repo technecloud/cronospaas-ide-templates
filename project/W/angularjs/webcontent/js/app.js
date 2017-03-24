@@ -105,7 +105,7 @@ var app = (function() {
 
       var locale = (window.navigator.userLanguage || window.navigator.language || 'pt_br').replace('-', '_');
 
-      $translateProvider.use(locale);
+      $translateProvider.use(locale.toLowerCase());
       $translateProvider.useSanitizeValueStrategy('escaped');
 
       tmhDynamicLocaleProvider.localeLocationPattern('plugins/angular-i18n/angular-locale_{{locale}}.js');
