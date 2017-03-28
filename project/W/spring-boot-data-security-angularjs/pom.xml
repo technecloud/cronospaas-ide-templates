@@ -49,6 +49,13 @@
             </plugin>
         </plugins>
     </build>
+    <repositories>
+        <repository>
+            <id>artifactory-cronospaas</id>
+            <name>artifactory-cronospaas-releases</name>
+            <url>https://artifactory.cronapp.io/libs-release</url>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
