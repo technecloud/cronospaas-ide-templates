@@ -245,12 +245,15 @@
               placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
               <#if model.formMapMasks[field.name]?has_content>
                 mask="${model.formMapMasks[field.name]}"
+                <#assign valid = "" >
                 <#if model.formMapMasks[field.name] == "999.999.999-99" >
                   <#assign valid = "cpf" >
                 <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
                   <#assign valid = "cnpj" >
+                <#elseif model.formMapMasks[field.name] == "(99)9999-9999">
+                  <#assign valid = "" >
                 </#if>
-                <#if valid??>
+                <#if valid?has_content>
                   valid="${valid}"
                   data-error-message="{{'invalid.${valid}' | translate}}"
                 </#if>

@@ -989,7 +989,7 @@ angular.module('datasourcejs', [])
 
         // Success Handler
         var sucessHandler = function(data) {
-          if (this.entity.indexOf('//') > -1)
+          if (this.entity.indexOf('//') > -1 && this.entity.indexOf('://') < 0)
             data = [];
           if (data) {
             if (Object.prototype.toString.call(data) !== '[object Array]') {
