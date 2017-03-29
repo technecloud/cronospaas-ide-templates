@@ -15,11 +15,11 @@ import org.springframework.context.annotation.ComponentScan;
  *  - Executar qualquer bean do tipo CommandLineRunner;
  */
 @SpringBootApplication
-@ComponentScan(basePackages = { "exception", "auth.permission", "api.rest.events", "api.rest.webservices", "reports"<#list workspaceView.allDiagrams as diagram>, ${diagram.getGlobalAttribute("namespace")}</#list><#list packages as package>, ${package}</#list> })
+@ComponentScan(basePackages = { "auth.permission", "api.rest.events", "api.rest.webservices", "reports"<#list workspaceView.allDiagrams as diagram>, ${diagram.getGlobalAttribute("namespace")}</#list><#list packages as package>, ${package}</#list> })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {
 
-	public static void main(String ... args) {
+	public static void main(String[] args) {
 		SpringApplication.run(SpringBootMain.class, args);
 	}
 

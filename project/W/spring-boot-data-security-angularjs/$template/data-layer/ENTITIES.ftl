@@ -4,7 +4,6 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 <#list clazz.imports as import>
 import ${import};
 </#list>
@@ -49,6 +48,7 @@ public class ${clazz.name} implements Serializable {
   private static final long serialVersionUID = 1L;
   <#list clazz.fields as field>
   <#if field.primaryKey>
+  <#assign name = "${field.name}">
   
   /**
    * @generated
@@ -61,8 +61,38 @@ public class ${clazz.name} implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   </#if>
   </#if>
-  ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
+  <#if field.isDate()>
+  @Temporal(TemporalType.DATE)
+  <#elseif field.isTime()>
+  @Temporal(TemporalType.TIME)
+  <#elseif field.isTimestamp()>
+  @Temporal(TemporalType.TIMESTAMP)
+  </#if>
+  <#if (field.relationNames?size == 1)>
+  <#list field.relationNames?keys as key>
+  <#if key??>
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  </#if>
+  </#list>
+  <#elseif (field.relationNames?size > 1)>
+  <#assign i= field.relationNames?size>
+  @JoinColumns({
+  <#list field.relationNames?keys as key>
+  <#if key??>
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  <#if (i>1)>,</#if>
+  </#if>
+  <#assign i = i-1>
+  </#list>
+  })
   <#else>
+  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  </#if>
+  ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
+  </#if>  
+  </#list>
+  <#list clazz.fields as field>
+  <#if !field.primaryKey>
   
   /**
   * @generated
@@ -75,7 +105,7 @@ public class ${clazz.name} implements Serializable {
   <#if (field.relationNames?size == 1)>
   <#list field.relationNames?keys as key>
   <#if key??>
-  @JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
   </#if>
   </#list>
   <#elseif (field.relationNames?size > 1)>
@@ -83,9 +113,8 @@ public class ${clazz.name} implements Serializable {
   @JoinColumns({
   <#list field.relationNames?keys as key>
   <#if key??>
-  @JoinColumn(name="${key}", referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
-  <#if (i>1)>,
-  </#if>
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  <#if (i>1)>,</#if>
   </#if>
   <#assign i = i-1>
   </#list>
@@ -103,14 +132,14 @@ public class ${clazz.name} implements Serializable {
   <#elseif field.isTimestamp()>
   @Temporal(TemporalType.TIMESTAMP)
   </#if>
-  @Column(name = "${field.dbFieldName}"<#if !field.primaryKey>, nullable = ${field.nullable?c}, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
   </#if>
   </#if>
   <#if (field.ignore)>
   @JsonIgnore
   </#if>
   ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
-  </#if>
+  </#if>  
   </#list>
   
   /**
@@ -121,23 +150,24 @@ public class ${clazz.name} implements Serializable {
   }
 
   <#list clazz.fields as field>
+  <#assign name = "${field.name}">
+  
   /**
-   * Obtém ${field.name}
-   * 
-   * return ${field.name}
+   * Obtém ${name}
+   * return ${name}
    * @generated
    */
-  public ${field.type} get${field.name?cap_first}(){
-    return this.${field.name};
+  public ${field.type} get${name?cap_first}(){
+    return this.${name};
   }
   
   /**
-   * Define ${field.name}
-   * @param ${field.name} ${field.name}
+   * Define ${name}
+   * @param ${name} ${name}
    * @generated
    */
-  public ${clazz.name} set${field.name?cap_first}(${field.type} ${field.name}){
-    this.${field.name} = ${field.name};
+  public ${clazz.name} set${name?cap_first}(${field.type} ${name}){
+    this.${name} = ${name};
     return this;
   }
   </#list>
@@ -152,7 +182,8 @@ public class ${clazz.name} implements Serializable {
     ${clazz.name} object = (${clazz.name})obj;
     <#list clazz.fields as field>
     <#if field.primaryKey>
-    if (${field.name} != null ? !${field.name}.equals(object.${field.name}) : object.${field.name} != null) return false;
+    <#assign name = "${field.name}">
+    if (${name} != null ? !${name}.equals(object.${name}) : object.${name} != null) return false;
     </#if>
     </#list>
     return true;
@@ -166,7 +197,8 @@ public class ${clazz.name} implements Serializable {
     int result = 1;
     <#list clazz.fields as field>
     <#if field.primaryKey && !field.isTypePrimitive()>
-    result = 31 * result + ((${field.name} == null) ? 0 : ${field.name}.hashCode());
+    <#assign name = "${field.name}">
+    result = 31 * result + ((${name} == null) ? 0 : ${name}.hashCode());
     </#if>
     </#list>
     return result;

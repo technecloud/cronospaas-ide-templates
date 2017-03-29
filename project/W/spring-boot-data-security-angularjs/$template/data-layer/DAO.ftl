@@ -251,11 +251,11 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
 </#if>
 <#list clazz.fkFields as fkField>
   /**
-   * Foreign Key ${fkField.relationClazz.name}
+   * Foreign Key ${fkField.name}
    * @generated
    */
-  @Query("SELECT entity FROM ${clazz.name} entity WHERE <#list fkField.relationClazz.primaryKeys as field>entity.${fkField.relationClazz.name?uncap_first}.${field.name} = :${field.name}<#if field_has_next> and </#if></#list>")
-  public Page<${clazz.name}> find${clazz.name}sBy${fkField.relationClazz.name}(<#list fkField.relationClazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>, Pageable pageable);
+  @Query("SELECT entity FROM ${clazz.name} entity WHERE <#list fkField.relationClazz.primaryKeys as field>entity.${fkField.name?uncap_first}.${field.name} = :${field.name}<#if field_has_next> and </#if></#list>")
+  public Page<${clazz.name}> find${clazz.name}sBy${fkField.name?cap_first}(<#list fkField.relationClazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>, Pageable pageable);
 
 </#list>
 }

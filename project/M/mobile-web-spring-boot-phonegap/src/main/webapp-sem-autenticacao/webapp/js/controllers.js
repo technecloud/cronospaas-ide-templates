@@ -6,7 +6,7 @@
       $rootScope.http = $http;
       $rootScope.Notification = Notification;
       
-        for(var x in app.userEvents)
+      for(var x in app.userEvents)
           $scope[x]= app.userEvents[x].bind($scope);
         $scope.message = {};
         $scope.shouldShowDelete = false;

@@ -1,5 +1,7 @@
 package app.business;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,10 @@ import app.entity.*;
  **/
 @Service("UserRoleBusiness")
 public class UserRoleBusiness {
+
+  private static final Logger log = LoggerFactory.getLogger(UserRoleBusiness.class);
+
+
   /**
    * Instância da classe UserRoleDAO que faz o acesso ao banco de dados
    * 
@@ -35,7 +41,8 @@ public class UserRoleBusiness {
   public UserRole post(final UserRole entity) throws Exception {
     // begin-user-code  
     // end-user-code  
-    UserRole result = repository.save(entity);
+    UserRole result = null;
+    result = repository.save(entity);
     // begin-user-code
     // end-user-code
     return result;
@@ -49,7 +56,8 @@ public class UserRoleBusiness {
   public UserRole put(final UserRole entity) throws Exception {
     // begin-user-code  
     // end-user-code
-    UserRole result = repository.saveAndFlush(entity);
+    UserRole result = null;
+    result = repository.saveAndFlush(entity);
     // begin-user-code
     // end-user-code
     return result;

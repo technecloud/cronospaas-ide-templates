@@ -1,5 +1,5 @@
-<div class="component-holder ng-binding ng-scope" data-component="crn-navbar" id="crn-navbar-986427"> 
   <#if menuPosition == "Horizontal">
+<div class="component-holder ng-binding ng-scope" data-component="crn-navbar" id="crn-navbar-986427">
   <nav class="navbar navbar-default"> 
     <div class="container-fluid"> 
       <div class="navbar-header"> 
@@ -32,7 +32,9 @@
       </div> 
     </div> 
   </nav>
+</div> 
   <#else>
+<div class="component-holder ng-binding ng-scope" data-component="crn-sidebar" id="crn-sidebar-986427">
   <div class="nav-side-menu navbar-default"> 
     <div class="brand"> 
       <img src="img/logo.png" class="" width="" height="30"> 
@@ -81,8 +83,8 @@
       </ul> 
     </div> 
   </div> 
-  </#if> 
 </div> 
+  </#if> 
 <div ui-view="" class="container-fluid <#if menuPosition == "Horizontal">main-view<#else>main-view-sidebar</#if>" data-container="true"> 
 </div>
  

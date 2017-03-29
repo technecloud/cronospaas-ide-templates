@@ -165,7 +165,7 @@ angular.module('datasourcejs', [])
             if (Object.prototype.toString.call(data) === "[object String]") {
               error = data;
             } else {
-              var errorMsg = (data.msg || data.desc || data.error || data.message || data.responseText);
+              var errorMsg = (data.msg || data.desc || data.message || data.error || data.responseText);
               if (errorMsg) {
                 error = errorMsg;
               }
@@ -436,15 +436,15 @@ angular.module('datasourcejs', [])
        * Valid if required field is valid
        */
       this.missingRequiredField = function() {
-        return $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid-required') || $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid') ||
-          $('input[required][ng-model*="' + this.name + '."]').hasClass('ng-empty');
+        return $('[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid-required') || $('[required][ng-model*="' + this.name + '."]').hasClass('ng-invalid') ||
+          $('[required][ng-model*="' + this.name + '."]').hasClass('ng-empty');
       }
 
       /**
        * Valid is other validations like email, date and so on
        */
       this.hasInvalidField = function() {
-        return $('input:invalid').size() > 0;
+        return $('input[ng-model*="' + this.name + '."]:invalid').size() > 0;
       };
 
       /**
@@ -653,9 +653,36 @@ angular.module('datasourcejs', [])
        */
       var getKeyValues = function(rowData) {
         var keys = this.keys;
+        
         var keyValues = {};
         for (var i = 0; i < this.keys.length; i++) {
-          keyValues[this.keys[i]] = rowData[this.keys[i]];
+          var key = this.keys[i];
+          var rowKey = rowData[key];
+          if(rowKey) {
+            keyValues[key] = rowData[key];
+          } else {
+            /*
+              [Arthemus]
+              Supondo que a chave da entidade é também uma FK (JoinColumn), deve-se buscar o sub-atributo desse objeto.
+              
+              Ex: 
+              key = 'object_id'
+              complexKey = [object, id]
+            */
+            var complexKey = key.split("_");
+            for (var j = 0; j < complexKey.length; j++) {
+              var field = complexKey[j];
+              var _instance = rowData[field];
+              if(_instance) {
+                var _attribute = complexKey[j + 1];
+                if(_attribute) {
+                  var realKey = _instance[_attribute];
+                  if(realKey)
+                    keyValues[field] = realKey;
+                }
+              }
+            }  
+          }
         }
 
         return keyValues;
@@ -895,8 +922,8 @@ angular.module('datasourcejs', [])
         // Ignore any call if the datasource is busy (fetching another request)
         if (this.busy) return;
 
-        //Ignore call witouth ids
-        if (this.entity.indexOf('//') > -1) return;
+        //Ignore call witouth ids if not http:// or https://
+        if (this.entity.indexOf('//') > -1 && this.entity.indexOf('://') < 0 ) return;
 
         if (!this.enabled) {
           this.cleanup();
@@ -962,7 +989,7 @@ angular.module('datasourcejs', [])
 
         // Success Handler
         var sucessHandler = function(data) {
-          if (this.entity.indexOf('//') > -1)
+          if (this.entity.indexOf('//') > -1 && this.entity.indexOf('://') < 0)
             data = [];
           if (data) {
             if (Object.prototype.toString.call(data) !== '[object Array]') {
@@ -1031,6 +1058,20 @@ angular.module('datasourcejs', [])
           loaded = true;
           this.loadedFinish = true;
           this.handleAfterCallBack(this.onAfterFill);
+          var thisDatasourceName = this.name;
+          $('datasource').each(function(idx, elem){
+            var dependentBy = null;
+            var dependent = eval(elem.getAttribute('name'));
+            try{
+              dependentBy = JSON.parse(elem.getAttribute('dependent-by'));
+            }catch(ex){
+              dependentBy = eval(elem.getAttribute('dependent-by'));
+            }
+            if(dependentBy && dependentBy.name == thisDatasourceName){
+              if(!dependent.filterURL)
+                eval(dependent.name).fetch();
+            }
+          });
         }.bind(this);
       };
 
@@ -1218,17 +1259,8 @@ angular.module('datasourcejs', [])
         this.storeDataset(dts);
         dts.allowFetch = true;
 
-        if (dts.dependentBy) {
-          if (dts.dependentBy !== null && Object.prototype.toString.call(dts.dependentBy) === "[object String]") {
-            try{
-              dts.dependentBy = JSON.parse(dts.dependentBy);
-            }catch(e) {
-              dts.dependentBy = eval(dts.dependentBy);
-            }
-          }
-          
-          
-          dts.allowFetch = (Object.prototype.toString.call(props.dependentBy) === "[object Object]") ? dts.dependentBy.data.length > 0 : false;
+        if (dts.dependentBy && dts.dependentBy !== "" && dts.dependentBy.trim() !== "" ) {
+          dts.allowFetch = false;
         }
 
         if (!props.lazy && dts.allowFetch && (Object.prototype.toString.call(props.watch) !== "[object String]") && !props.filterURL) {
@@ -1385,22 +1417,6 @@ angular.module('datasourcejs', [])
             }
           });
 
-          attrs.$observe('dependentBy', function(value) {
-            try{
-              datasource.dependentBy = JSON.parse(value);
-            }catch(e) {
-              datasource.dependentBy = eval(value);
-            }
-            
-            if (datasource.dependentBy !== null && Object.prototype.toString.call(datasource.dependentBy) !== "[object String]") {
-              if (datasource.dependentBy.data.length > 0 || datasource.dependentBy.loadedFinish) {
-                datasource.enabled = true;
-                datasource.fetch({
-                  params: {}
-                });
-              }
-            }
-          });
         };
         init();
       }

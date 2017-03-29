@@ -1,5 +1,7 @@
 package app.business;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,10 @@ import app.entity.*;
  **/
 @Service("DepartmentBusiness")
 public class DepartmentBusiness {
+
+  private static final Logger log = LoggerFactory.getLogger(DepartmentBusiness.class);
+
+
   /**
    * Instância da classe DepartmentDAO que faz o acesso ao banco de dados
    * 
@@ -35,7 +41,8 @@ public class DepartmentBusiness {
   public Department post(final Department entity) throws Exception {
     // begin-user-code  
     // end-user-code  
-    Department result = repository.save(entity);
+    Department result = null;
+    result = repository.save(entity);
     // begin-user-code
     // end-user-code
     return result;
@@ -49,7 +56,8 @@ public class DepartmentBusiness {
   public Department put(final Department entity) throws Exception {
     // begin-user-code  
     // end-user-code
-    Department result = repository.saveAndFlush(entity);
+    Department result = null;
+    result = repository.saveAndFlush(entity);
     // begin-user-code
     // end-user-code
     return result;

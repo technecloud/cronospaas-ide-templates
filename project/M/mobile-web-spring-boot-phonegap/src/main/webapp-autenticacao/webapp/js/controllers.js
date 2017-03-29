@@ -44,7 +44,7 @@
     }]);
 
     app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', '$translate', 'Notification', function ($scope, $http, $rootScope, $state, $translate, Notification) {
-        
+      
       $rootScope.http = $http;
       $rootScope.Notification = Notification;
       
