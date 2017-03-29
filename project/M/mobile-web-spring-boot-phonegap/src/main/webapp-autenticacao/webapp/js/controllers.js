@@ -45,6 +45,9 @@
 
     app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', '$translate', 'Notification', function ($scope, $http, $rootScope, $state, $translate, Notification) {
         
+      $rootScope.http = $http;
+      $rootScope.Notification = Notification;
+      
       for(var x in app.userEvents)
             $scope[x]= app.userEvents[x].bind($scope);
       
