@@ -131,9 +131,9 @@ public class ${class_name} {
    * OneToMany Relationship GET - Searchable fields - General search (Only strings fields)
    * @generated
    */
-  @RequestMapping(method = RequestMethod.GET, value="/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}{field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/generalSearch")    
+  @RequestMapping(method = RequestMethod.GET, value="/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/generalSearch")    
   public HttpEntity<PagedResources<${relation.clazz.name}>> find${relation.relationName?cap_first}GeneralSearch(java.lang.String search, <#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable, PagedResourcesAssembler assembler) {
-    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.find${relation.relationName?cap_first}GeneralSearch(search, <#list clazz.primaryKeys as field>${class_entity_name?uncap_first}{field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>pageable)), HttpStatus.OK);
+    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.find${relation.relationName?cap_first}GeneralSearch(search, <#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>pageable)), HttpStatus.OK);
   }
   
   /**
@@ -141,9 +141,9 @@ public class ${class_name} {
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET, value="/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/specificSearch")    
-  public HttpEntity<PagedResources<${relation.clazz.name}>> find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>java.lang.String<#else>${field.type}</#if> ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
+  public HttpEntity<PagedResources<${relation.clazz.name}>> find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable() && !field.primaryKey><#if (field.isTime() || field.isDate() || field.isTimestamp())>java.lang.String<#else>${field.type}</#if> ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
     <#list relation.clazz.fields as field>
-    <#if field.isSearchable()>
+    <#if field.isSearchable() && !field.primaryKey>
       <#if (field.isTime() || field.isDate() || field.isTimestamp())>
     Date ${field.name}Aux = null;
     if (${field.name} != null && ${field.name}.length() > 0 ) {
@@ -163,7 +163,7 @@ public class ${class_name} {
       </#if> 
     </#if>
   </#list>
-    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>${field.name}Aux, <#else>${field.name}, </#if></#if></#list>pageable)), HttpStatus.OK);
+    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable() && !field.primaryKey><#if (field.isTime() || field.isDate() || field.isTimestamp())>${field.name}Aux, <#else>${field.name}, </#if></#if></#list>pageable)), HttpStatus.OK);
   }
 </#if>
 
@@ -222,9 +222,9 @@ public class ${class_name} {
    * @generated
    */
   @RequestMapping(method = RequestMethod.GET,value="/<#list clazz.primaryKeys as field>{${class_entity_name?uncap_first}${field.name?cap_first}}<#if field_has_next>/</#if></#list><#if clazz.primaryKeys?size gt 0>/</#if>${relation.relationName?cap_first}/specificSearch")
-  public HttpEntity<PagedResources<${relation.relationClassField.type}>> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>java.lang.String<#else>${field.type}</#if> ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
+  public HttpEntity<PagedResources<${relation.relationClassField.type}>> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@PathVariable("${class_entity_name?uncap_first}${field.name?cap_first}") ${field.type} ${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable() && !field.primaryKey><#if (field.isTime() || field.isDate() || field.isTimestamp())>java.lang.String<#else>${field.type}</#if> ${field.name}, </#if></#list>Pageable pageable, PagedResourcesAssembler assembler) {
   <#list relation.relationClass.fields as field>
-    <#if field.isSearchable()>
+    <#if field.isSearchable() && !field.primaryKey>
       <#if (field.isTime() || field.isDate() || field.isTimestamp())>
     Date ${field.name}Aux = null;
     if (${field.name} != null && ${field.name}.length() > 0 ) {
@@ -244,7 +244,7 @@ public class ${class_name} {
       </#if> 
     </#if>
   </#list>  
-    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()><#if (field.isTime() || field.isDate() || field.isTimestamp())>${field.name}Aux, <#else>${field.name}, </#if></#if></#list>pageable)), HttpStatus.OK); 
+    return new ResponseEntity<>(assembler.toResource(${class_business_variable_name}.list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${class_entity_name?uncap_first}${field.name?cap_first}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable() && !field.primaryKey><#if (field.isTime() || field.isDate() || field.isTimestamp())>${field.name}Aux, <#else>${field.name}, </#if></#if></#list>pageable)), HttpStatus.OK); 
   }
   </#if>
 

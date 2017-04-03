@@ -54,7 +54,7 @@ public class ${clazz_name} {
   /**
    * Variável privada para verificação da criptofrafia
    * 
-   * @generated
+   * @generated 
    */
   private String ENCRYPT = "$2a$10$";
   </#if>
@@ -226,10 +226,10 @@ public class ${clazz_name} {
    * @generated modifiable
    * OneToMany Relation - Searchable fields - Specific search
    */  
-  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable()>${field.type} ${field.name}, </#if></#list>Pageable pageable) {
+  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable() && !field.primaryKey>${field.type} ${field.name}, </#if></#list>Pageable pageable) {
     // begin-user-code
     // end-user-code  
-    Page<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable()>${field.name}, </#if></#list>pageable);
+    Page<${relation.clazz.name}> result = repository.find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable() && !field.primaryKey>${field.name}, </#if></#list>pageable);
     // begin-user-code  
     // end-user-code        
     return result;    
@@ -268,10 +268,10 @@ public class ${clazz_name} {
    * @generated modifiable
    * ManyToMany Relation - Searchable fields - Specific search
    */  
-  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()>${field.type} ${field.name}, </#if></#list>Pageable pageable) {
+  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable() && !field.primaryKey>${field.type} ${field.name}, </#if></#list>Pageable pageable) {
     // begin-user-code
     // end-user-code  
-    Page<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()>${field.name}, </#if></#list>pageable);
+    Page<${relation.relationClassField.type}> result = repository.list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable() && !field.primaryKey>${field.name}, </#if></#list>pageable);
     // begin-user-code
     // end-user-code
     return result;            
