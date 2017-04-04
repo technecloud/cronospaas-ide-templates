@@ -1062,14 +1062,22 @@ angular.module('datasourcejs', [])
           $('datasource').each(function(idx, elem){
             var dependentBy = null;
             var dependent = eval(elem.getAttribute('name'));
-            try{
-              dependentBy = JSON.parse(elem.getAttribute('dependent-by'));
-            }catch(ex){
-              dependentBy = eval(elem.getAttribute('dependent-by'));
-            }
-            if(dependentBy && dependentBy.name == thisDatasourceName){
-              if(!dependent.filterURL)
-                eval(dependent.name).fetch();
+            if(elem.getAttribute('dependent-by') !== "" && elem.getAttribute('dependent-by') != null){
+              try{
+                dependentBy = JSON.parse(elem.getAttribute('dependent-by'));
+              }catch(ex){
+                dependentBy = eval(elem.getAttribute('dependent-by'));
+              }
+              
+              if(dependentBy){
+                if(dependentBy.name == thisDatasourceName){
+                  if(!dependent.filterURL)
+                    eval(dependent.name).fetch();
+                  //if has filter, the filter observer will be called
+                }
+              }else{
+                console.log('O dependente '+elem.getAttribute('dependent-by')+' do pai '+thisDatasourceName+' ainda não existe.')
+              }
             }
           });
         }.bind(this);
@@ -1261,6 +1269,17 @@ angular.module('datasourcejs', [])
 
         if (dts.dependentBy && dts.dependentBy !== "" && dts.dependentBy.trim() !== "" ) {
           dts.allowFetch = false;
+          
+          //if dependentBy was loaded, the filter in this ds not will be changed and the filter observer not will be called
+          var dependentBy = null;
+          try{
+            dependentBy = JSON.parse(dependentBy);
+          }catch(ex){
+            dependentBy = eval(dependentBy);
+          }
+          
+          if(dependentBy && dependentBy.loadedFinish)
+            dts.allowFetch = true;
         }
 
         if (!props.lazy && dts.allowFetch && (Object.prototype.toString.call(props.watch) !== "[object String]") && !props.filterURL) {
@@ -1290,7 +1309,7 @@ angular.module('datasourcejs', [])
         }
 
         // Filter the dataset if the filter property was set
-        if (props.filterURL && props.filterURL.length > 0) {
+        if (props.filterURL && props.filterURL.length > 0 && dts.allowFetch) {
           dts.filter(props.filterURL);
         }
 
