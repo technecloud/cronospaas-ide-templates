@@ -15,7 +15,7 @@ import org.springframework.context.annotation.ComponentScan;
  *  - Executar qualquer bean do tipo CommandLineRunner;
  */
 @SpringBootApplication
-@ComponentScan(basePackages = { "auth.permission", "api.rest.events", "api.rest.webservices", "reports", "app", "cronapi.rest" })
+@ComponentScan(basePackages = { "auth.permission", "api.rest.events", "api.rest.webservices", "reports", "app", "cronapi" })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {
 
