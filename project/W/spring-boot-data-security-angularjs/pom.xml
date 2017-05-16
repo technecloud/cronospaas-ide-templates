@@ -55,6 +55,16 @@
             <name>artifactory-cronospaas-releases</name>
             <url>https://artifactory.cronapp.io/libs-release</url>
         </repository>
+        <repository>
+            <id>central</id>
+            <name>artifactory.cronapp.io-releases</name>
+            <url>https://artifactory.cronapp.io/public-release</url>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <name>artifactory.cronapp.io-snapshots</name>
+            <url>https://artifactory.cronapp.io/public-snapshot</url>
+        </repository>
     </repositories>
     <dependencies>
         <dependency>
@@ -152,6 +162,21 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.cronapp</groupId>
+            <artifactId>cronapi-java</artifactId>
+            <version>0.0.2-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-lang3</artifactId>
+                    <groupId>org.apache.commons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>junit</artifactId>
+                    <groupId>junit</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
     <properties>
