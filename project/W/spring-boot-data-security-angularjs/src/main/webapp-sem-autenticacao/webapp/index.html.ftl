@@ -57,6 +57,8 @@
         <script type="text/javascript" src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         <script src="plugins/cpf_cnpj/build/cpf.js"></script>
         <script src="plugins/cpf_cnpj/build/cnpj.js"></script>
+        <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
+        <script src="js/blockly.js"></script>
 
         <!-- Customs -->
         <script src="js/app.js"></script>
