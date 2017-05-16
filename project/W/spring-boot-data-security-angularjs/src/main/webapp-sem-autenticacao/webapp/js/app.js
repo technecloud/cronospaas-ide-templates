@@ -62,22 +62,22 @@ var app = (function() {
       // Set up the states
       $stateProvider
 
-        .state('index', {
+        .state('login', {
           url: "",
-          controller: 'HomeController',
-          templateUrl: 'views/home.view.html'
+          controller: 'LoginController',
+          templateUrl: 'views/login.view.html'
         })
 
         .state('main', {
           url: "/",
-          controller: 'HomeController',
-          templateUrl: 'views/home.view.html'
+          controller: 'LoginController',
+          templateUrl: 'views/login.view.html'
         })
 
         .state('home', {
           url: "/home",
           controller: 'HomeController',
-          templateUrl: 'views/home.view.html'
+          templateUrl: 'views/logged/home.view.html'
         })
 
         .state('home.pages', {
@@ -156,27 +156,6 @@ var app = (function() {
 
     // General controller
     .controller('PageController', ["$scope", "$stateParams", "$location", "$http", "$rootScope", function($scope, $stateParams, $location, $http, $rootScope) {
-
-      for (var x in app.userEvents)
-        $scope[x] = app.userEvents[x].bind($scope);
-      
-      try {
-        if (cronapi)
-          $scope['cronapi'] = cronapi;
-      }
-      catch (e)  {
-        console.info('Not loaded cronapi functions');
-        console.info(e);
-      }
-      try {
-        if (blockly)
-          $scope['blockly'] = blockly;  
-      }
-      catch (e)  {
-        console.info('Not loaded blockly functions');
-        console.info(e);
-      }
-
       // save state params into scope
       $scope.params = $stateParams;
       $scope.$http = $http;
@@ -188,7 +167,18 @@ var app = (function() {
           $scope.params[key] = queryStringParams[key];
         }
       }
-      registerComponentScripts();
+      
+      //Components personalization jquery
+      $scope.registerComponentScripts = function() {
+        //carousel slider
+        $('.carousel-indicators li').on('click', function() {
+          var currentCarousel = '#' + $(this).parent().parent().parent().attr('id');
+          var index = $(currentCarousel + ' .carousel-indicators li').index(this);
+          $(currentCarousel + ' #carousel-example-generic').carousel(index);
+        });
+      }
+      
+      $scope.registerComponentScripts();
     }])
 
     .run(function($rootScope, $state) {
@@ -211,13 +201,3 @@ app.userEvents = {};
 //Configuration
 app.config = {};
 app.config.datasourceApiVersion = 2;
-
-//Components personalization jquery
-var registerComponentScripts = function() {
-  //carousel slider
-  $('.carousel-indicators li').on('click', function() {
-    var currentCarousel = '#' + $(this).parent().parent().parent().attr('id');
-    var index = $(currentCarousel + ' .carousel-indicators li').index(this);
-    $(currentCarousel + ' #carousel-example-generic').carousel(index);
-  });
-}
