@@ -11,8 +11,8 @@
   "devDependencies": {
     "jquery": "~2.1.4"
   },
-  "_source": "npm:chart.js",
+  "_source": "chart.js",
   "_target": "2.1.6",
   "_release": "2.1.6",
-  "_originalSource": "npm:chart.js"
+  "_originalSource": "chart.js"
 }

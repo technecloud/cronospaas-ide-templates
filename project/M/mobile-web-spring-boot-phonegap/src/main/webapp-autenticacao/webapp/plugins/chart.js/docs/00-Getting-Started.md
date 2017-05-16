@@ -32,7 +32,7 @@ Then:
 
 ```bash
 npm install -g bower-npm-resolver
-bower install npm:chart.js --save
+bower install chart.js --save
 ```
 
 ### Selecting the Correct Build
