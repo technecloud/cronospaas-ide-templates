@@ -52,11 +52,15 @@
         $scope[x]= app.userEvents[x].bind($scope);
       
       try {
-        if (cronapi)
+        if (cronapi) {
           $scope['cronapi'] = cronapi;
+          $scope['cronapi'].$scope =  $scope;
+          $scope.safeApply = safeApply;
+        }
       }
       catch (e)  {
         console.info('Not loaded cronapi functions');
+        console.info(e);
       }
       try {
         if (blockly)
@@ -64,6 +68,7 @@
       }
       catch (e)  {
         console.info('Not loaded blockly functions');
+        console.info(e);
       }
       
       $scope.message = {};
@@ -206,3 +211,15 @@
       };
   }]);
 } (app));
+
+window.safeApply = function(fn) {
+  var phase = this.$root.$$phase;
+  if(phase == '$apply' || phase == '$digest') {
+    if(fn && (typeof (fn) === 'function')) {
+      fn();
+    }
+  }
+  else {
+    this.$apply(fn);
+  }
+};
