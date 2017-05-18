@@ -72,7 +72,7 @@
 	"callbackSuccess": "Callback success: callback function when success",
 	"callbackError": "Callback error: callback function when error occurs",
 	"params": "Parameters",
-	"callServerBlockly": "Call blockly server",
+	"callServerBlockly": "Call blockly",
 	"functionToCallServerBlockly": "function to block server call",
 	"makeCallServerBlocklyAsync": "call blockly asynchronous server - callback with blockly",
 	"functionToMakeCallServerBlocklyAsync": "Function to call blockly from the asynchronous server and with possibility to set the callbacks as string (blockly complete name)",
@@ -82,5 +82,14 @@
 	"changeValueOfField": "Change field value",
 	"functionToChangeValueOfField": "Function to change field value",
 	"field": "Field",
-	"Value": "Value"
+	"Value": "Value",
+	"CategoryType.CONVERSION": "Conversion",
+  "CategoryType.UTIL": "Util",
+  "CategoryType.SCREEN": "Screen",
+  "CategoryType.DATETIME": "Date and time",
+  "CategoryType.XML": "Xml",
+  "getValueOfField": "Get value of field",
+  "functionToGetValueOfField": "Function to get value of field",
+  "fieldNameFromScreen": "Get field name",
+  "functionToGetFieldNameFromScreen": "Function to get field name (You need to associate the blockly with the screen)"
 }
