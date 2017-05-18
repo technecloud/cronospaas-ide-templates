@@ -26,7 +26,7 @@
 
         <!-- Angular JS -->
         <script src="plugins/angular/angular.min.js"></script>
-        <script src="plugins/Chart.js/dist/Chart.min.js"></script>
+        <script src="plugins/chart.js/dist/Chart.min.js"></script>
         <script src="plugins/angular-chart.js/dist/angular-chart.min.js"></script>
         <script src="plugins/angular-ui-router/release/angular-ui-router.min.js"></script>
         <script src="plugins/angular-cookies/angular-cookies.min.js"></script>
