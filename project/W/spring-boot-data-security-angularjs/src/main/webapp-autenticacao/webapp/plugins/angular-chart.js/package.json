@@ -1,30 +1,68 @@
 {
-  "name": "angular-chart.js",
-  "version": "1.1.1",
+  "_args": [
+    [
+      {
+        "raw": "angular-chart.js",
+        "scope": null,
+        "escapedName": "angular-chart.js",
+        "name": "angular-chart.js",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Users\\themu\\Downloads"
+    ]
+  ],
+  "_from": "angular-chart.js@latest",
+  "_id": "angular-chart.js@1.0.0",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/angular-chart.js",
+  "_nodeVersion": "6.2.2",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular-chart.js-1.0.0.tgz_1468935499104_0.5913008782081306"
+  },
+  "_npmUser": {
+    "name": "jtblin",
+    "email": "jtblin@gmail.com"
+  },
+  "_npmVersion": "3.9.5",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular-chart.js",
+    "scope": null,
+    "escapedName": "angular-chart.js",
+    "name": "angular-chart.js",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-chart.js/-/angular-chart.js-1.0.0.tgz",
+  "_shasum": "799174fc2af5a8cc9a887ddedb908ea4c4bc8550",
+  "_shrinkwrap": null,
+  "_spec": "angular-chart.js",
+  "_where": "C:\\Users\\themu\\Downloads",
+  "author": {
+    "name": "Jerome Touffe-Blin",
+    "email": "jtblin@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/jtblin/angular-chart.js/issues"
+  },
+  "dependencies": {
+    "angular": "1.x",
+    "chart.js": "2.x"
+  },
   "description": "An angular.js wrapper for Chart.js",
-  "homepage": "http://jtblin.github.io/angular-chart.js/",
-  "main": "dist/angular-chart.js",
-  "directories": {
-    "example": "examples"
-  },
-  "scripts": {
-    "codeclimate": "./node_modules/codeclimate-test-reporter/bin/codeclimate.js < coverage/lcov.info",
-    "docker": "npm run docker-build && npm run docker-test",
-    "docker-build": "docker build -t angular-chart.js .",
-    "docker-test": "docker run --rm -i -v $(pwd)/coverage/:/src/coverage/ -v $(pwd)/test/:/src/test/ -v $(pwd)/angular-chart.js:/src/angular-chart.js angular-chart.js",
-    "test": "gulp check"
-  },
-  "author": "Jerome Touffe-Blin <jtblin@gmail.com>",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jtblin/angular-chart.js.git"
-  },
-  "license": "BSD-2-Clause",
   "devDependencies": {
     "Rainbow": "git+https://github.com/ccampbell/rainbow.git",
     "angular-bootstrap": "^0.12.2",
     "angular-mocks": "^1.5.7",
-    "bootstrap": "^3.3.7",
     "chai": "^3.4.1",
     "chai-string": "^1.2.0",
     "codeclimate-test-reporter": "^0.3.1",
@@ -63,8 +101,36 @@
     "webpack": "^1.13.1",
     "webshot": "^0.18.0"
   },
-  "dependencies": {
-    "angular": "1.x",
-    "chart.js": "2.3.x"
-  }
+  "directories": {
+    "example": "examples"
+  },
+  "dist": {
+    "shasum": "799174fc2af5a8cc9a887ddedb908ea4c4bc8550",
+    "tarball": "https://registry.npmjs.org/angular-chart.js/-/angular-chart.js-1.0.0.tgz"
+  },
+  "gitHead": "65dddb4521050320e2b0aa507b4c8cbf11738412",
+  "homepage": "http://jtblin.github.io/angular-chart.js/",
+  "license": "BSD-2-Clause",
+  "main": "dist/angular-chart.js",
+  "maintainers": [
+    {
+      "name": "jtblin",
+      "email": "jtblin@gmail.com"
+    }
+  ],
+  "name": "angular-chart.js",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jtblin/angular-chart.js.git"
+  },
+  "scripts": {
+    "codeclimate": "./node_modules/codeclimate-test-reporter/bin/codeclimate.js < coverage/lcov.info",
+    "docker": "npm run docker-build && npm run docker-test",
+    "docker-build": "docker build -t angular-chart.js .",
+    "docker-test": "docker run --rm -i -v $(pwd)/coverage/:/src/coverage/ -v $(pwd)/test/:/src/test/ -v $(pwd)/angular-chart.js:/src/angular-chart.js angular-chart.js",
+    "test": "gulp check"
+  },
+  "version": "1.0.0"
 }
