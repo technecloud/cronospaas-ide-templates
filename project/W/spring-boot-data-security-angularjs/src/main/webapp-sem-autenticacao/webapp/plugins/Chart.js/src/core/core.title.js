@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = function(Chart) {
 
@@ -22,14 +22,20 @@ module.exports = function(Chart) {
 		initialize: function(config) {
 			var me = this;
 			helpers.extend(me, config);
+			me.options = helpers.configMerge(Chart.defaults.global.title, config.options);
 
 			// Contains hit boxes for each dataset (in dataset order)
 			me.legendHitBoxes = [];
 		},
 
-		// These methods are ordered by lifecycle. Utilities then follow.
+		// These methods are ordered by lifecyle. Utilities then follow.
 
-		beforeUpdate: noop,
+		beforeUpdate: function () {
+			var chartOpts = this.chart.options;
+			if (chartOpts && chartOpts.title) {
+				this.options = helpers.configMerge(Chart.defaults.global.title, chartOpts.title);
+			}
+		},
 		update: function(maxWidth, maxHeight, margins) {
 			var me = this;
 
@@ -105,7 +111,9 @@ module.exports = function(Chart) {
 
 		beforeFit: noop,
 		fit: function() {
+
 			var me = this,
+				ctx = me.ctx,
 				valueOrDefault = helpers.getValueOrDefault,
 				opts = me.options,
 				globalDefaults = Chart.defaults.global,
@@ -130,10 +138,10 @@ module.exports = function(Chart) {
 		// Shared Methods
 		isHorizontal: function() {
 			var pos = this.options.position;
-			return pos === 'top' || pos === 'bottom';
+			return pos === "top" || pos === "bottom";
 		},
 
-		// Actually draw the title block on the canvas
+		// Actualy draw the title block on the canvas
 		draw: function() {
 			var me = this,
 				ctx = me.ctx,
@@ -152,8 +160,7 @@ module.exports = function(Chart) {
 					top = me.top,
 					left = me.left,
 					bottom = me.bottom,
-					right = me.right,
-					maxWidth;
+					right = me.right;
 
 				ctx.fillStyle = valueOrDefault(opts.fontColor, globalDefaults.defaultFontColor); // render in correct colour
 				ctx.font = titleFont;
@@ -162,11 +169,9 @@ module.exports = function(Chart) {
 				if (me.isHorizontal()) {
 					titleX = left + ((right - left) / 2); // midpoint of the width
 					titleY = top + ((bottom - top) / 2); // midpoint of the height
-					maxWidth = right - left;
 				} else {
 					titleX = opts.position === 'left' ? left + (fontSize / 2) : right - (fontSize / 2);
 					titleY = top + ((bottom - top) / 2);
-					maxWidth = bottom - top;
 					rotation = Math.PI * (opts.position === 'left' ? -0.5 : 0.5);
 				}
 
@@ -175,45 +180,26 @@ module.exports = function(Chart) {
 				ctx.rotate(rotation);
 				ctx.textAlign = 'center';
 				ctx.textBaseline = 'middle';
-				ctx.fillText(opts.text, 0, 0, maxWidth);
+				ctx.fillText(opts.text, 0, 0);
 				ctx.restore();
 			}
 		}
 	});
 
-	function createNewTitleBlockAndAttach(chartInstance, titleOpts) {
-		var title = new Chart.Title({
-			ctx: chartInstance.chart.ctx,
-			options: titleOpts,
-			chart: chartInstance
-		});
-		chartInstance.titleBlock = title;
-		Chart.layoutService.addBox(chartInstance, title);
-	}
-
 	// Register the title plugin
 	Chart.plugins.register({
 		beforeInit: function(chartInstance) {
-			var titleOpts = chartInstance.options.title;
+			var opts = chartInstance.options;
+			var titleOpts = opts.title;
 
 			if (titleOpts) {
-				createNewTitleBlockAndAttach(chartInstance, titleOpts);
-			}
-		},
-		beforeUpdate: function(chartInstance) {
-			var titleOpts = chartInstance.options.title;
+				chartInstance.titleBlock = new Chart.Title({
+					ctx: chartInstance.chart.ctx,
+					options: titleOpts,
+					chart: chartInstance
+				});
 
-			if (titleOpts) {
-				titleOpts = helpers.configMerge(Chart.defaults.global.title, titleOpts);
-
-				if (chartInstance.titleBlock) {
-					chartInstance.titleBlock.options = titleOpts;
-				} else {
-					createNewTitleBlockAndAttach(chartInstance, titleOpts);
-				}
-			} else {
-				Chart.layoutService.removeBox(chartInstance, chartInstance.titleBlock);
-				delete chartInstance.titleBlock;
+				Chart.layoutService.addBox(chartInstance, chartInstance.titleBlock);
 			}
 		}
 	});

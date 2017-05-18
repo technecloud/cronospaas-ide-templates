@@ -1,13 +1,12 @@
-'use strict';
+"use strict";
 
 module.exports = function(Chart) {
 
 	var helpers = Chart.helpers;
 
 	Chart.defaults.radar = {
-		aspectRatio: 1,
 		scale: {
-			type: 'radialLinear'
+			type: "radialLinear"
 		},
 		elements: {
 			line: {
@@ -24,7 +23,14 @@ module.exports = function(Chart) {
 
 		linkScales: helpers.noop,
 
-		update: function(reset) {
+		addElementAndReset: function(index) {
+			Chart.DatasetController.prototype.addElementAndReset.call(this, index);
+
+			// Make sure bezier control points are updated
+			this.updateBezierControlPoints();
+		},
+
+		update: function update(reset) {
 			var me = this;
 			var meta = me.getMeta();
 			var line = meta.dataset;
@@ -72,6 +78,7 @@ module.exports = function(Chart) {
 				me.updateElement(point, index, reset);
 			}, me);
 
+
 			// Update bezier control points
 			me.updateBezierControlPoints();
 		},
@@ -95,7 +102,7 @@ module.exports = function(Chart) {
 					y: reset ? scale.yCenter : pointPosition.y,
 
 					// Appearance
-					tension: custom.tension ? custom.tension : helpers.getValueOrDefault(dataset.lineTension, me.chart.options.elements.line.tension),
+					tension: custom.tension ? custom.tension : helpers.getValueOrDefault(dataset.tension, me.chart.options.elements.line.tension),
 					radius: custom.radius ? custom.radius : helpers.getValueAtIndexOrDefault(dataset.pointRadius, index, pointElementOptions.radius),
 					backgroundColor: custom.backgroundColor ? custom.backgroundColor : helpers.getValueAtIndexOrDefault(dataset.pointBackgroundColor, index, pointElementOptions.backgroundColor),
 					borderColor: custom.borderColor ? custom.borderColor : helpers.getValueAtIndexOrDefault(dataset.pointBorderColor, index, pointElementOptions.borderColor),
@@ -139,7 +146,7 @@ module.exports = function(Chart) {
 			var easingDecimal = ease || 1;
 
 			// Transition Point Locations
-			helpers.each(meta.data, function(point) {
+			helpers.each(meta.data, function(point, index) {
 				point.transition(easingDecimal);
 			});
 
