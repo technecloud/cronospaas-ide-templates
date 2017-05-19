@@ -39,8 +39,6 @@
     "angular-ui-router": "0.2.15",
     "jquery": "2.1.4",
     "bootstrap": "3.3.4",
-
-    "Chart.js": "chart.js#2.1.6",
     "eonasdan-bootstrap-datetimepicker": "^4.17.37",
     "font-awesome": "4.4.0",
     "angular-ui-select": "^0.18.1",
