@@ -627,6 +627,7 @@ angular.module('datasourcejs', [])
 
               this.onBackNomalState();
             }
+            this.handleAfterCallBack(this.onAfterDelete);
           }.bind(this)
 
           if (this.handleBeforeCallBack(this.onBeforeDelete)) {
@@ -643,8 +644,6 @@ angular.module('datasourcejs', [])
         } else {
           _remove(object, callback);
         }
-
-        this.handleAfterCallBack(this.onAfterDelete);
       };
 
       /**
