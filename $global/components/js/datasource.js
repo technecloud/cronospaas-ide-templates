@@ -1453,6 +1453,9 @@ angular.module('datasourcejs', [])
           scope.datasource = {};
           scope.datasource.data = $parse(attrs.crnDatasource)(scope);
         }
+        scope.$on('$destroy', function() {
+          delete $rootScope[attrs.crnDatasource];
+        });
       }
     };
   }]);
