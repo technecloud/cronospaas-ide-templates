@@ -473,8 +473,122 @@
 	this.cronapi.screen.removeRecord = function(datasource) {
 	  window[datasource].$apply( new function(){window[datasource].remove();} );
 	};
-
   
+  /**
+	 * @type function
+	 * @name {{changeView}}
+	 * @nameTags changeView|Mudar tela|Change form|Change screen|Mudar formulário
+	 * @description {{functionToChangeView}}
+	 * @param {ObjectType.STRING} view {{view}}
+	 * @param {ObjectType.LIST} params {{params}}
+	 * @wizard procedures_open_form_callnoreturn
+	 */
+	this.cronapi.screen.changeView = function(view, params) {
+	  try {
+	    var queryString = '?';
+	    var template = '#key#=#value#&';
+	    $(params).each(function(idx) {
+        for (var key in this) 
+          queryString += template.replace('#key#', Url.encode(key)).replace('#value#', Url.encode(this[key]));
+	    });
+	    window.location.hash = view + queryString;
+	  }
+	  catch (e) {
+	    alert(e);
+	  }
+	};
+	
+	/**
+	 * @type function
+	 * @name {{openUrl}}
+	 * @nameTags openUrl|Abrir url
+	 * @description {{functionToOpenUrl}}
+	 * @param {ObjectType.STRING} url {{url}}
+	 * @param {ObjectType.BOOLEAN} newTab {{newTab}}
+	 * @param {ObjectType.LONG} width {{width}}
+	 * @param {ObjectType.LONG} height {{height}}
+	 */
+	this.cronapi.screen.openUrl = function(url, newTab, width, height) {
+	  try {
+	    var target = '_self';
+	    var params = '';
+	    if (newTab && newTab.toString().toLowerCase() == 'true')
+	      target = '_blank';
+	    if (width)
+	      params += 'width=' + width + ',';
+      if (height)
+	      params += 'height=' + height+ ',';
+	    window.open(url, target, params);
+	  }
+	  catch (e) {
+	    alert(e);
+	  }
+	};
+  
+  
+  /**
+	 * @type function
+	 * @name {{hasNextRecordName}}
+	 * @nameTags hasNextRecord
+	 * @description {{hasNextRecordDescription}}
+	 * @param {ObjectType.STRING} datasource {{hasNextRecordParam0}}
+	 * @returns {ObjectType.BOOLEAN}
+	 */
+	this.cronapi.screen.hasNextRecord = function(datasource) {
+	  return window[datasource].hasNext();
+	};
+	
+	/**
+	 * @type function
+	 * @name {{quantityRecordsName}}
+	 * @nameTags quantityRecords
+	 * @description {{quantityRecordsDescription}}
+	 * @param {ObjectType.STRING} datasource {{quantityRecordsParam0}}
+	 * @returns {ObjectType.LONG}
+	 */
+	this.cronapi.screen.quantityRecords = function(datasource) {
+	  return window[datasource].data.length;
+	};
+	
+	/**
+	 * @type function
+	 * @name {{datasourcePostName}}
+	 * @nameTags post|datasource
+	 * @description {{datasourcePostDescription}}
+	 * @param {ObjectType.STRING} datasource {{datasourcePostParam0}}
+	 */
+	this.cronapi.screen.post = function(datasource) {
+	  return window[datasource].post();
+	};
+	
+	/**
+	 * @type function
+	 * @name {{datasourceFilterName}}
+	 * @nameTags filter|datasource
+	 * @description {{datasourceFilterDescription}}
+	 * @param {ObjectType.STRING} datasource {{datasourceFilterParam0}}
+	 * @param {ObjectType.STRING} datasource {{datasourceFilterParam1}}
+	 */
+	this.cronapi.screen.filter = function(datasource,path) {
+	  window[datasource].filter("/"+path);
+	};
+	
+	/**
+	 * @type function
+	 * @name {{getParam}}
+	 * @nameTags getParam|Obter paramêtro
+	 * @description {{functionToGetParam}}
+	 * @param {ObjectType.STRING} paramName {{paramName}}
+	 */
+	this.cronapi.screen.getParam = function(paramName) {
+	  try {
+	    return cronapi.$scope.params[paramName];
+	  }
+	  catch (e) {
+	    alert(e);
+	  }
+	};
+	
 	/**
 	 * @category CategoryType.DATETIME
 	 * @categoryTags Date|Datetime|Data|Hora

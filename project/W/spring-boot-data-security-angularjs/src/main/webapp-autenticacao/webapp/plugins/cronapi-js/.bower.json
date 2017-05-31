@@ -1,6 +1,6 @@
 {
   "name": "cronapi-js",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "homepage": "https://github.com/technecloud/cronapi-js",
   "authors": [
     "Arthemus Cicotti Moreira <arthemus.moreira@gmail.com>"
@@ -15,11 +15,11 @@
     "test",
     "tests"
   ],
-  "_release": "0.0.17",
+  "_release": "0.0.18",
   "_resolution": {
     "type": "version",
-    "tag": "0.0.17",
-    "commit": "b583ffa5b9d279ebf2bf8d8726d28d5a440ab9ac"
+    "tag": "0.0.18",
+    "commit": "88cf7e38835d3337536eebc09bd739edea4a7b79"
   },
   "_source": "https://github.com/technecloud/cronapi-js.git",
   "_target": "*",
