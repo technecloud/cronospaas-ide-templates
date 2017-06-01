@@ -95,6 +95,21 @@
       };
   })
   
+  .directive('ngDestroy', function () {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs, ctrl) {
+        element.on('$destroy', function() {
+          if (attrs.ngDestroy && attrs.ngDestroy.length > 0)
+            if (attrs.ngDestroy.indexOf('app.') > -1 || attrs.ngDestroy.indexOf('blockly.') > -1) 
+              scope.$eval(attrs.ngDestroy);
+            else
+              eval(attrs.ngDestroy);
+        });
+      }
+    }
+  })
+  
   .directive('pwCheck', [function () { 'use strict';
     return {
       require: 'ngModel',
