@@ -1441,7 +1441,7 @@ angular.module('datasourcejs', [])
     };
   }])
 
-  .directive('crnDatasource', ['DatasetManager', '$parse', function(DatasetManager, $parse) {
+  .directive('crnDatasource', ['DatasetManager', '$parse', '$rootScope', function(DatasetManager, $parse, $rootScope) {
     return {
       restrict: 'A',
       scope: true,
