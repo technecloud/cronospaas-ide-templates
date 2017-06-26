@@ -250,6 +250,19 @@
     return fields;
   }
 
+  function getErrorMessage(data, message) {
+    try {
+      var json = JSON.parse(data);
+      if (json && json.error) {
+        return json.error;
+      }
+    } catch(e) {
+      //Abafa
+    }
+
+    return message;
+  }
+
   /**
    * @type internal
    * @name {{makeCallServerBlocklyAsync}}
@@ -276,16 +289,14 @@
       }
     });
     paramsApply.push(function(data, status, errorThrown) {
+      var message = getErrorMessage(data.responseText, errorThrown);
       if (typeof callbackError == "string") {
-        eval(callbackError)(errorThrown);
+        eval(callbackError)(message);
       }
       else if (callbackError) {
-        callbackError(errorThrown);
+        callbackError(message);
       }
       else {
-        var message = 'Unknown error';
-        if (errorThrown)
-          message = errorThrown;
         cronapi.$scope.Notification.error(message);
       }
     });
@@ -385,7 +396,9 @@
         result = evalInContext(resultData.responseText);
     }
     else {
-      cronapi.$scope.Notification.error(resultData.statusText);
+      var message = getErrorMessage(resultData.responseText, resultData.statusText);
+      cronapi.$scope.Notification.error(message);
+      throw message;
     }
     return result;
   };
@@ -464,10 +477,10 @@
    * @multilayer true
    */
   this.cronapi.screen.createScopeVariable = function(name,value) {
-    cronapi.$scope[name] = value;
+    cronapi.$scope.vars[name] = value;
   };
-  
-    /**
+
+  /**
    * @type function
    * @name {{getScopeVariableName}}
    * @nameTags getScopeVariable
@@ -477,7 +490,7 @@
    * @multilayer true
    */
   this.cronapi.screen.getScopeVariable = function(name) {
-    return cronapi.$scope[name];
+    return cronapi.$scope.vars[name];
   };
 
   /**
@@ -487,8 +500,9 @@
    * @description {{screenNotifyDescription}}
    * @param {ObjectType.STRING} name {{screenNotifyParam0}}
    * @param {ObjectType.STRING} value {{screenNotifyParam1}}
+   * @multilayer true
    */
-  this.cronapi.screen.notify = function(type,message) {
+  this.cronapi.screen.notify = function( /** @type {ObjectType.BLOCK} @blockType notify_type*/  type, /** @type {ObjectType.STRING} */ message) {
     cronapi.$scope.Notification({'message':message },type);
   };
 
@@ -500,6 +514,7 @@
    * @param {ObjectType.STRING} datasource {{datasourceFromScreenParam0}}
    * @returns {ObjectType.STRING}
    * @wizard datasource_from_screen
+   * @multilayer true
    */
   this.cronapi.screen.datasourceFromScreen = function(datasource) {
     return datasource;
@@ -685,6 +700,54 @@
       alert(e);
     }
   };
+
+
+  /**
+   * @type function
+   * @name {{confirmDialogName}}
+   * @nameTags confirmDialog|Confirmar
+   * @description {{confirmDialogDescription}}
+   * @returns {ObjectType.BOOLEAN}
+   * @param {ObjectType.STRING} msg {{confirmDialogParam0}}
+   */
+  this.cronapi.screen.confimDialog = function(msg) {
+
+    var value = confirm(msg);
+    return value;
+  };
+
+  /**
+   * @type function
+   * @name {{createDefaultModalName}}
+   * @nameTags createModal|Criar Modal| Modal
+   * @description {{createDefaultModalDescription}}
+   * @returns {ObjectType.STRING}
+   * @param {ObjectType.STRING} idModal {{createDefaultModalParam0}}
+   * @param {ObjectType.STRING} title {{createDefaultModalParam1}}
+   * @param {ObjectType.STRING} msg {{createDefaultModalParam2}}
+   * @param {ObjectType.STRING} buttonCancelName {{createDefaultModalParam3}}
+   * @param {ObjectType.STRING} buttonSaveName {{createDefaultModalParam4}}
+   *
+   */
+  this.cronapi.screen.createDefaultModal = function(idModal,title, msg, buttonCancelName, buttonSaveName, /** @type {ObjectType.STATEMENT}*/ onSuccess, /** @type {ObjectType.STATEMENT}*/ onError) {
+    var template = '<div class="modal fade" id="'+idModal+'" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="modalTemplateTitle">'+title+'</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick='+onError+'><span aria-hidden="true">&times;</span></button></div><div class="modal-body">'+msg+'</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal" onclick='+onError+'>'+buttonCancelName+'</button><button type="button" class="btn btn-primary" data-dismiss="modal" onclick='+ onSuccess +'>'+buttonSaveName+'</button></div></div></div></div>'
+    $('body').append(template);
+    return template;
+  };
+
+  /**
+   * @type function
+   * @name {{showModalName}}
+   * @nameTags showModal|Exibir Modal| Modal
+   * @description {{showModalDescription}}
+   * @param {ObjectType.OBJECT} modal {{showModalParam0}}
+   *
+   */
+  this.cronapi.screen.showModal = function(modal) {
+    $('#'+$(modal)[0].id).modal('show');
+    return null;
+  };
+
 
   /**
    * @category CategoryType.DATETIME
