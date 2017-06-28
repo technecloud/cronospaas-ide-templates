@@ -158,7 +158,7 @@ var app = (function() {
     // General controller
     .controller('PageController', ["$scope", "$stateParams", "$location", "$http", "$rootScope", function($scope, $stateParams, $location, $http, $rootScope) {
       
-      app.registerEventsCronapi($scope);
+      app.registerEventsCronapi($scope, $translate);
       
       // save state params into scope
       $scope.params = $stateParams;
@@ -206,7 +206,7 @@ app.userEvents = {};
 app.config = {};
 app.config.datasourceApiVersion = 2;
 
-app.registerEventsCronapi = function($scope){
+app.registerEventsCronapi = function($scope, $translate){
   for(var x in app.userEvents)
     $scope[x]= app.userEvents[x].bind($scope);
   
@@ -217,6 +217,9 @@ app.registerEventsCronapi = function($scope){
       $scope['cronapi'] = cronapi;
       $scope['cronapi'].$scope =  $scope;
       $scope.safeApply = safeApply;
+      if ($translate) {
+        $scope['cronapi'].$translate =  $translate;
+     }
     }
   }
   catch (e)  {
