@@ -1,5 +1,5 @@
 var app = (function() {
-  
+
   return angular.module('MyApp', [
       'ui.router',
       'ui.select',
@@ -156,10 +156,10 @@ var app = (function() {
     }])
 
     // General controller
-    .controller('PageController', ["$scope", "$stateParams", "$location", "$http", "$rootScope", function($scope, $stateParams, $location, $http, $rootScope) {
-      
-      app.registerEventsCronapi($scope);
-      
+    .controller('PageController', ["$scope", "$stateParams", "$location", "$http", "$rootScope", "$translate", function($scope, $stateParams, $location, $http, $rootScope, $translate) {
+
+      app.registerEventsCronapi($scope, $translate);
+
       // save state params into scope
       $scope.params = $stateParams;
       $scope.$http = $http;
@@ -171,7 +171,7 @@ var app = (function() {
           $scope.params[key] = queryStringParams[key];
         }
       }
-      
+
       //Components personalization jquery
       $scope.registerComponentScripts = function() {
         //carousel slider
@@ -181,7 +181,7 @@ var app = (function() {
           $(currentCarousel + ' #carousel-example-generic').carousel(index);
         });
       }
-      
+
       $scope.registerComponentScripts();
     }])
 
@@ -206,17 +206,20 @@ app.userEvents = {};
 app.config = {};
 app.config.datasourceApiVersion = 2;
 
-app.registerEventsCronapi = function($scope){
+app.registerEventsCronapi = function($scope, $translate){
   for(var x in app.userEvents)
     $scope[x]= app.userEvents[x].bind($scope);
-  
+
   $scope.vars = {};
-  
+
   try {
     if (cronapi) {
       $scope['cronapi'] = cronapi;
       $scope['cronapi'].$scope =  $scope;
       $scope.safeApply = safeApply;
+      if ($translate) {
+        $scope['cronapi'].$translate =  $translate;
+     }
     }
   }
   catch (e)  {
@@ -225,7 +228,7 @@ app.registerEventsCronapi = function($scope){
   }
   try {
     if (blockly)
-      $scope['blockly'] = blockly;  
+      $scope['blockly'] = blockly;
   }
   catch (e)  {
     console.info('Not loaded blockly functions');
