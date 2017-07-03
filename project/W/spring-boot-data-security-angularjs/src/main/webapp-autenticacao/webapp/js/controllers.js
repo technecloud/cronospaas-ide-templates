@@ -3,7 +3,7 @@
     
     app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$window', '$state', '$translate', 'Notification', function ($scope, $http, $location, $rootScope, $window, $state, $translate, Notification) {
       
-      app.registerEventsCronapi($scope);
+      app.registerEventsCronapi($scope, $translate);
     
       $scope.message = {};
       $scope.login = function () {
@@ -44,7 +44,7 @@
 
     app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', '$translate', 'Notification', function ($scope, $http, $rootScope, $state, $translate, Notification) {
       
-      app.registerEventsCronapi($scope);
+      app.registerEventsCronapi($scope, $translate);
         
       $rootScope.http = $http;
       $rootScope.Notification = Notification;
