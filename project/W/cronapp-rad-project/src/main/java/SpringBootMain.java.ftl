@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = {
 	"cronapp.framework.authentication.security",
-	<#if (authentication??)>"cronapp.framework.authentication."${authentication?lower_case},</#if>
+	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
 	"cronapp.framework.rest",
 	"cronapp.framework.tenant",
 	"api.rest.events",

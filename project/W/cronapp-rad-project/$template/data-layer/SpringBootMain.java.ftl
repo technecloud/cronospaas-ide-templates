@@ -7,7 +7,7 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { 
+@ComponentScan(basePackages = {
 	"cronapp.framework.authentication.security",
 	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
 	"cronapp.framework.rest",
