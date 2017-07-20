@@ -9,17 +9,15 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = {
 	"cronapp.framework.authentication.security",
-	<#if (!authentication??)>
-	"cronapp.framework.authentication."${authentication?lower_case},
-	</#if>
+	<#if (authentication??)>"cronapp.framework.authentication."${authentication?lower_case},</#if>
 	"cronapp.framework.rest",
 	"cronapp.framework.tenant",
-	"api.rest.events", 
-	"api.rest.webservices", 
-	"reports", 
-	"app", 
-	"cronapi", 
-	"blockly" 
+	"api.rest.events",
+	"api.rest.webservices",
+	"reports",
+	"cronapi",
+	"blockly",
+	"app"
 })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {
