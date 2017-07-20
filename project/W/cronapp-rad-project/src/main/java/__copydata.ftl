@@ -13,7 +13,6 @@ path=/META-INF
 <#-- Caso contrario copiar tudo -->
 <#else> 
 path=/app
-path=/auth
 path=/i18n
 path=/META-INF
 file=SpringBootMain.java.ftl
