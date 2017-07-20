@@ -10,12 +10,12 @@ file=SpringBootMain.java.ftl
 path=/META-INF
 </#if>
 <#-- Caso contrario copiar tudo -->
-<#else> 
+<#else>
 path=/app
 path=/i18n
 path=/META-INF
 file=SpringBootMain.java.ftl
 </#if>
 <#if (authentication??)>
-path=/permissions
+path=/auth/permission
 </#if>
