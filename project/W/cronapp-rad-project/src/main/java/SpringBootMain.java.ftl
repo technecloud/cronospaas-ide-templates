@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 	"cronapp.framework.authentication.security",
 	"cronapp.framework.rest",
 	"cronapp.framework.tenant",
-	"permission",
+	"auth.permission",
 	"api.rest.events",
 	"api.rest.webservices",
 	"reports",

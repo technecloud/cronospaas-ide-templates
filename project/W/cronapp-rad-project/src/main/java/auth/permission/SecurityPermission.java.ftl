@@ -9,8 +9,7 @@ import cronapp.framework.authentication.security.Permission;
 public class SecurityPermission implements Permission {
 
   <#if (authentication?lower_case) == "normal" || (authentication?lower_case) == "token">
-  public static final String ROLE_ADMIN_NAME = "Administrators";
-  </#if>
+  public static final String ROLE_ADMIN_NAME = "Administrators";</#if>
   
   @Override
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
@@ -31,8 +30,8 @@ public class SecurityPermission implements Permission {
     http.authorizeRequests().antMatchers("/views/error/**").permitAll();
     
     // role admin permission
-    http.authorizeRequests().antMatchers("/views/admin/**").hasAuthority(getRoleAdminName());
-    http.authorizeRequests().antMatchers("/api/security/**").hasAuthority(getRoleAdminName());
+    http.authorizeRequests().antMatchers("/views/admin/**").hasAuthority(ROLE_ADMIN_NAME);
+    http.authorizeRequests().antMatchers("/api/security/**").hasAuthority(ROLE_ADMIN_NAME);
     
     // role logged permission
     http.authorizeRequests().antMatchers("/views/logged/**").authenticated();
@@ -42,10 +41,12 @@ public class SecurityPermission implements Permission {
     http.authorizeRequests().antMatchers("POST", "/changeTheme").authenticated();
     
     // deny all
-    http.authorizeRequests().antMatchers("/**").denyAll();</#if>
+    http.authorizeRequests().antMatchers("/**").denyAll();
+    </#if>
     <#if (authentication?lower_case) == "nenhuma">
     // public
-    http.authorizeRequests().antMatchers("/**").permitAll();</#if>
+    http.authorizeRequests().antMatchers("/**").permitAll();
+    </#if>
   }
   
 }
