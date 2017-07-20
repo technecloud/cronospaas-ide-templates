@@ -3,13 +3,16 @@ package auth.permission;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Component;
 
+import cronapp.framework.authentication.security.Permission;
+
 @Component
-public class SecurityPermission {
+public class SecurityPermission implements Permission {
 
   <#if (authentication?lower_case) == "normal" || (authentication?lower_case) == "token">
   public static final String ROLE_ADMIN_NAME = "Administrators";
   </#if>
   
+  @Override
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
     <#if (authentication?lower_case) == "normal" || (authentication?lower_case) == "token">
     // public
@@ -28,8 +31,8 @@ public class SecurityPermission {
     http.authorizeRequests().antMatchers("/views/error/**").permitAll();
     
     // role admin permission
-    http.authorizeRequests().antMatchers("/views/admin/**").hasAuthority(ROLE_ADMIN_NAME);
-    http.authorizeRequests().antMatchers("/api/security/**").hasAuthority(ROLE_ADMIN_NAME);
+    http.authorizeRequests().antMatchers("/views/admin/**").hasAuthority(getRoleAdminName());
+    http.authorizeRequests().antMatchers("/api/security/**").hasAuthority(getRoleAdminName());
     
     // role logged permission
     http.authorizeRequests().antMatchers("/views/logged/**").authenticated();
