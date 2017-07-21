@@ -161,8 +161,10 @@
    * @returns {ObjectType.STRING}
    */
   this.cronapi.conversion.toString = function(value) {
-    if (value)
-      return new String(value)
+    if (value){
+      var result = new String(value);
+      return result.toString();
+    }
     return "";
   };
 
@@ -250,6 +252,19 @@
     return fields;
   }
 
+  function getErrorMessage(data, message) {
+    try {
+      var json = JSON.parse(data);
+      if (json && json.error) {
+        return json.error;
+      }
+    } catch(e) {
+      //Abafa
+    }
+
+    return message;
+  }
+
   /**
    * @type internal
    * @name {{makeCallServerBlocklyAsync}}
@@ -276,16 +291,14 @@
       }
     });
     paramsApply.push(function(data, status, errorThrown) {
+      var message = getErrorMessage(data.responseText, errorThrown);
       if (typeof callbackError == "string") {
-        eval(callbackError)(errorThrown);
+        eval(callbackError)(message);
       }
       else if (callbackError) {
-        callbackError(errorThrown);
+        callbackError(message);
       }
       else {
-        var message = 'Unknown error';
-        if (errorThrown)
-          message = errorThrown;
         cronapi.$scope.Notification.error(message);
       }
     });
@@ -385,9 +398,35 @@
         result = evalInContext(resultData.responseText);
     }
     else {
-      cronapi.$scope.Notification.error(resultData.statusText);
+      var message = getErrorMessage(resultData.responseText, resultData.statusText);
+      cronapi.$scope.Notification.error(message);
+      throw message;
     }
     return result;
+  };
+  
+  /**
+   * @type function
+   * @name {{executeJavascriptNoReturnName}}
+   * @nameTags executeJavascriptNoReturn
+   * @description {{executeJavascriptNoReturnDescription}}
+   * @param {ObjectType.STRING} value {{executeJavascriptNoReturnParam0}}
+   * @multilayer true
+   */
+  this.cronapi.util.executeJavascriptNoReturn = function(value) {
+    eval( value );
+  };
+  
+  /**
+   * @type function
+   * @name {{executeJavascriptNoReturnName}}
+   * @nameTags executeJavascriptNoReturn
+   * @description {{executeJavascriptNoReturnDescription}}
+   * @param {ObjectType.STRING} value {{executeJavascriptNoReturnParam0}}
+   * @returns {ObjectType.STRING}
+   */
+  this.cronapi.util.executeJavascriptNoReturn = function(value) {
+    return eval( value );
   };
 
   /**
@@ -419,7 +458,7 @@
    * @param {ObjectType.STRING} value {{value}}
    * @multilayer true
    */
-  this.cronapi.screen.changeValueOfField = function(/** @type {ObjectType.BLOCK} @blockType field_from_screen*/ field, /** @type {ObjectType.STRING} */value) {
+  this.cronapi.screen.changeValueOfField = function(/** @type {ObjectType.STRING} @blockType field_from_screen*/ field, /** @type {ObjectType.STRING} */value) {
     try {
       cronapi.$scope.__tempValue = value;
       var func = new Function('cronapi.$scope.' + field + ' = cronapi.$scope.__tempValue;');
@@ -439,7 +478,7 @@
    * @returns {ObjectType.OBJECT}
    * @displayInline true
    */
-  this.cronapi.screen.getValueOfField = function(/** @type {ObjectType.BLOCK} @blockType field_from_screen*/ field) {
+  this.cronapi.screen.getValueOfField = function(/** @type {ObjectType.STRING} @blockType field_from_screen*/ field) {
     try {
       if (field && field.length > 0) {
         if (field.indexOf('vars.') > -1)
@@ -461,34 +500,32 @@
    * @description {{createScopeVariableDescription}}
    * @param {ObjectType.STRING} name {{createScopeVariableParam0}}
    * @param {ObjectType.STRING} value {{createScopeVariableParam1}}
-   * @multilayer true
    */
   this.cronapi.screen.createScopeVariable = function(name,value) {
-    cronapi.$scope[name] = value;
+    cronapi.$scope.vars[name] = value;
   };
-  
-    /**
+
+  /**
    * @type function
    * @name {{getScopeVariableName}}
    * @nameTags getScopeVariable
    * @description {{getScopeVariableDescription}}
    * @param {ObjectType.STRING} name {{getScopeVariableParam0}}
    * @returns {ObjectType.STRING}
-   * @multilayer true
    */
   this.cronapi.screen.getScopeVariable = function(name) {
-    return cronapi.$scope[name];
+    return cronapi.$scope.vars[name];
   };
 
   /**
    * @type function
    * @name {{screenNotifyName}}
-   * @nameTags screenNotify
-   * @description {{screenNotifyDescription}}
-   * @param {ObjectType.STRING} name {{screenNotifyParam0}}
-   * @param {ObjectType.STRING} value {{screenNotifyParam1}}
+   * @param {ObjectType.STRING} type {{screenNotifyParam0}}
+   * @param {ObjectType.STRING} message {{screenNotifyParam1}}
+   * @wizard notify_type
+   * @multilayer true
    */
-  this.cronapi.screen.notify = function(type,message) {
+  this.cronapi.screen.notify = function(/** @type {ObjectType.STRING} */ type, /** @type {ObjectType.STRING} */  message) {
     cronapi.$scope.Notification({'message':message },type);
   };
 
@@ -500,6 +537,7 @@
    * @param {ObjectType.STRING} datasource {{datasourceFromScreenParam0}}
    * @returns {ObjectType.STRING}
    * @wizard datasource_from_screen
+   * @multilayer true
    */
   this.cronapi.screen.datasourceFromScreen = function(datasource) {
     return datasource;
@@ -513,7 +551,7 @@
    * @param {ObjectType.STRING} datasource {{startInsertingModeParam0}}
    * @multilayer true
    */
-  this.cronapi.screen.startInsertingMode = function(datasource) {
+  this.cronapi.screen.startInsertingMode = function(/** @type {ObjectType.OBJECT} @blockType datasource_from_screen*/ datasource) {
     window[datasource].startInserting();
     window[datasource].$apply();
   };
@@ -526,7 +564,7 @@
    * @param {ObjectType.STRING} datasource {{startEditingModeParam0}}
    * @multilayer true
    */
-  this.cronapi.screen.startEditingMode = function(datasource) {
+  this.cronapi.screen.startEditingMode = function(/** @type {ObjectType.OBJECT} @blockType datasource_from_screen*/ datasource) {
     window[datasource].$apply( new function(){window[datasource].startEditing();} );
   };
 
@@ -538,7 +576,7 @@
    * @param {ObjectType.STRING} datasource {{previusRecordParam0}}
    * @multilayer true
    */
-  this.cronapi.screen.previusRecord = function(datasource) {
+  this.cronapi.screen.previusRecord = function(/** @type {ObjectType.OBJECT} @blockType datasource_from_screen*/ datasource) {
     window[datasource].$apply( new function(){window[datasource].previous();} );
   };
 
@@ -550,7 +588,7 @@
    * @param {ObjectType.STRING} datasource {{nextRecordParam0}}
    * @multilayer true
    */
-  this.cronapi.screen.nextRecord = function(datasource) {
+  this.cronapi.screen.nextRecord = function(/** @type {ObjectType.OBJECT} @blockType datasource_from_screen*/ datasource) {
     window[datasource].$apply( new function(){window[datasource].next();} );
   };
 
@@ -562,11 +600,61 @@
    * @param {ObjectType.STRING} datasource {{removeRecordParam0}}
    * @multilayer true
    */
-  this.cronapi.screen.removeRecord = function(datasource) {
+  this.cronapi.screen.removeRecord = function(/** @type {ObjectType.OBJECT} @blockType datasource_from_screen*/ datasource) {
     window[datasource].$apply( new function(){window[datasource].remove();} );
   };
 
+
   /**
+   * @type function
+   * @name {{hasNextRecordName}}
+   * @nameTags hasNextRecord
+   * @description {{hasNextRecordDescription}}
+   * @param {ObjectType.STRING} datasource {{hasNextRecordParam0}}
+   * @returns {ObjectType.BOOLEAN}
+   */
+  this.cronapi.screen.hasNextRecord = function(/** @type {ObjectType.OBJECT} @blockType datasource_from_screen*/ datasource) {
+    return window[datasource].hasNext();
+  };
+
+  /**
+   * @type function
+   * @name {{quantityRecordsName}}
+   * @nameTags quantityRecords
+   * @description {{quantityRecordsDescription}}
+   * @param {ObjectType.STRING} datasource {{quantityRecordsParam0}}
+   * @returns {ObjectType.LONG}
+   */
+  this.cronapi.screen.quantityRecords = function(/** @type {ObjectType.OBJECT} @blockType datasource_from_screen*/ datasource) {
+    return window[datasource].data.length;
+  };
+
+  /**
+   * @type function
+   * @name {{datasourcePostName}}
+   * @nameTags post|datasource
+   * @description {{datasourcePostDescription}}
+   * @param {ObjectType.STRING} datasource {{datasourcePostParam0}}
+   * @multilayer true
+   */
+  this.cronapi.screen.post = function(/** @type {ObjectType.OBJECT} @blockType datasource_from_screen*/ datasource) {
+    return window[datasource].post();
+  };
+
+  /**
+   * @type function
+   * @name {{datasourceFilterName}}
+   * @nameTags filter|datasource
+   * @description {{datasourceFilterDescription}}
+   * @param {ObjectType.STRING} datasource {{datasourceFilterParam0}}
+   * @param {ObjectType.STRING} datasource {{datasourceFilterParam1}}
+   * @multilayer true
+   */
+  this.cronapi.screen.filter = function(/** @type {ObjectType.OBJECT} @blockType datasource_from_screen*/ datasource,/** @type {ObjectType.STRING}*/ path) {
+    window[datasource].filter("/"+path);
+  };
+  
+    /**
    * @type function
    * @name {{changeView}}
    * @nameTags changeView|Mudar tela|Change form|Change screen|Mudar formulário
@@ -619,56 +707,6 @@
     }
   };
 
-
-  /**
-   * @type function
-   * @name {{hasNextRecordName}}
-   * @nameTags hasNextRecord
-   * @description {{hasNextRecordDescription}}
-   * @param {ObjectType.STRING} datasource {{hasNextRecordParam0}}
-   * @returns {ObjectType.BOOLEAN}
-   */
-  this.cronapi.screen.hasNextRecord = function(datasource) {
-    return window[datasource].hasNext();
-  };
-
-  /**
-   * @type function
-   * @name {{quantityRecordsName}}
-   * @nameTags quantityRecords
-   * @description {{quantityRecordsDescription}}
-   * @param {ObjectType.STRING} datasource {{quantityRecordsParam0}}
-   * @returns {ObjectType.LONG}
-   */
-  this.cronapi.screen.quantityRecords = function(datasource) {
-    return window[datasource].data.length;
-  };
-
-  /**
-   * @type function
-   * @name {{datasourcePostName}}
-   * @nameTags post|datasource
-   * @description {{datasourcePostDescription}}
-   * @param {ObjectType.STRING} datasource {{datasourcePostParam0}}
-   * @multilayer true
-   */
-  this.cronapi.screen.post = function(datasource) {
-    return window[datasource].post();
-  };
-
-  /**
-   * @type function
-   * @name {{datasourceFilterName}}
-   * @nameTags filter|datasource
-   * @description {{datasourceFilterDescription}}
-   * @param {ObjectType.STRING} datasource {{datasourceFilterParam0}}
-   * @param {ObjectType.STRING} datasource {{datasourceFilterParam1}}
-   * @multilayer true
-   */
-  this.cronapi.screen.filter = function(datasource,path) {
-    window[datasource].filter("/"+path);
-  };
-
   /**
    * @type function
    * @name {{getParam}}
@@ -685,6 +723,48 @@
       alert(e);
     }
   };
+
+
+  /**
+   * @type function
+   * @name {{confirmDialogName}}
+   * @nameTags confirmDialog|Confirmar
+   * @description {{confirmDialogDescription}}
+   * @returns {ObjectType.BOOLEAN}
+   * @param {ObjectType.STRING} msg {{confirmDialogParam0}}
+   */
+  this.cronapi.screen.confimDialog = function(msg) {
+
+    var value = confirm(msg);
+    return value;
+  };
+
+  /**
+   * @type function
+   * @name {{createDefaultModalName}}
+   * @nameTags createModal|Criar Modal| Modal
+   * @description {{createDefaultModalDescription}}
+   * @param {ObjectType.STRING} title {{createDefaultModalParam1}}
+   * @param {ObjectType.STRING} msg {{createDefaultModalParam2}}
+   * @param {ObjectType.STRING} buttonCancelName {{createDefaultModalParam3}}
+   * @param {ObjectType.STRING} buttonSaveName {{createDefaultModalParam4}}
+   *
+   */
+  this.cronapi.screen.createDefaultModal = function(title, msg, buttonCancelName, buttonSaveName, /** @type {ObjectType.STATEMENT} @description {{createDefaultModalParam5}} */ onSuccess, /** @type {ObjectType.STATEMENT} @description {{createDefaultModalParam6}}*/ onError,/** @type {ObjectType.STATEMENT} @description {{createDefaultModalParam7}}*/ onClose ) {
+   $('#modalTemplateTitle').text(title);
+   $('#modalTemplateBody').text(msg);
+   $('#modalTemplateCancel').text(buttonCancelName);
+   $('#modalTemplateSave').text(buttonSaveName);
+   $( "#modalTemplateClose").unbind( "click" );
+   $('#modalTemplateClose').click(onClose);
+   $( "#modalTemplateCancel").unbind( "click" );
+   $('#modalTemplateCancel').click(onError);
+   $( "#modalTemplateSave").unbind( "click" );   
+   $('#modalTemplateSave').click(onSuccess);
+   $('#modalTemplate').modal('show');
+   
+  };
+
 
   /**
    * @category CategoryType.DATETIME
@@ -975,6 +1055,20 @@
         return str.charAt(i);
     return '';
   };
+  
+  /**
+  * @category CategoryType.TEXT
+  * @categoryTags TEXT|text
+  */
+  this.cronapi.text = {};
+  
+   /**
+  * @type function
+  * @wizard text_prompt_ext
+  */
+  this.cronapi.text.prompt = function(/** @type {ObjectType.STRING} @defaultValue abc*/ value) {
+    return null;
+  }
 
   /**
    * @category CategoryType.XML
@@ -984,10 +1078,10 @@
 
   /**
    * @type function
-   * @name Obtém valor do elemento
+   * @name {{XMLGetElementValueName}}
    * @nameTags XMLGetElementValue
-   * @description Função que retorna o valor de um elemento
-   * @param {ObjectType.OBJECT} node Elemento passado para obter-se o valor;
+   * @description {{XMLGetElementValueDescription}}
+   * @param {ObjectType.OBJECT} node {{XMLGetElementValueParam0}}
    * @returns {ObjectType.STRING}
    */
   this.cronapi.xml.XMLGetElementValue = function(node) {
@@ -999,11 +1093,11 @@
 
   /**
    * @type function
-   * @name Obtém o primeiro filho do elemento
+   * @name {{XMLGetChildElementName}}
    * @nameTags XMLGetChildElement
-   * @description Função para retornar o nó
-   * @param {ObjectType.OBJECT} node Elemento passado para obter-se o valor;
-   * @param {ObjectType.STRING} childName Filho a ser obtido do elemento;
+   * @description {{XMLGetChildElementDescription}}
+   * @param {ObjectType.OBJECT} node {{node}}
+   * @param {ObjectType.STRING} childName {{childName}}
    * @returns {ObjectType.STRING}
    */
   this.cronapi.xml.XMLGetChildElement = function(node, childName) {
@@ -1014,10 +1108,10 @@
 
   /**
    * @type function
-   * @name Obtém a raiz do elemento
+   * @name {{XMLGetRootName}}
    * @nameTags XMLGetRoot
-   * @description Função que retorna o elemento raiz a partir de um elemento
-   * @param {ObjectType.OBJECT} element Elemento passado para obter-se a raiz
+   * @description {{XMLGetRootDescription}}
+   * @param {ObjectType.OBJECT} element {{element}}
    * @returns {ObjectType.OBJECT}
    */
   this.cronapi.xml.XMLGetRoot = function(element) {
@@ -1027,11 +1121,11 @@
 
   /**
    * @type function
-   * @name Obtém o atributo do elemento
+   * @name {{XMLGetAttributeName}}
    * @nameTags XMLGetAttribute
-   * @description Função que retorna o elemento raiz a partir de um elemento
-   * @param {ObjectType.OBJECT} element - Elemento passado para obter-se a raiz
-   * @param {ObjectType.OBJECT} attribute - Atributo a ser obtido
+   * @description {{XMLGetAttributeDescription}}
+   * @param {ObjectType.OBJECT} element  {{element}} 
+   * @param {ObjectType.OBJECT} attribute  {{attribute}}
    * @returns {ObjectType.STRING}
    */
   this.cronapi.xml.XMLGetAttribute = function(element, attribute) {
@@ -1040,10 +1134,10 @@
 
   /**
    * @type function
-   * @name Cria Document
+   * @name {{XMLOpenName}}
    * @nameTags XMLOpen
-   * @description Função que cria um objeto Document a partir de uma String
-   * @param {ObjectType.OBJECT} XMLText - Elemento passado para obter-se a raiz
+   * @description {{XMLOpenDescription}}
+   * @param {ObjectType.OBJECT} XMLText {{XMLOpenParam0}}
    * @returns {ObjectType.OBJECT}
    */
   this.cronapi.xml.XMLOpen = function(XMLText) {
@@ -1051,7 +1145,6 @@
     if (document.implementation && document.implementation.createDocument) { //Mozzila
       var domParser = new DOMParser();
       doc = domParser.parseFromString(XMLText, 'application/xml');
-      fixXMLDocument(doc);
       return doc;
     } else {
       doc = new ActiveXObject("MSXML2.DOMDocument");
@@ -1062,11 +1155,11 @@
 
   /**
    * @type function
-   * @name Busca filhos do elemento
+   * @name {{XMLGetChildrenElementName}}
    * @nameTags XMLGetChildrenElement
-   * @description Função que retorna os filhos do tipo de um determinado elemento
-   * @param {ObjectType.OBJECT} node - Elemento passado para buscar os filhos
-   * @param {ObjectType.OBJECT} childName - Elemento do tipo a ser buscado
+   * @description {{XMLGetChildrenElementDescription}}
+   * @param {ObjectType.OBJECT} node {{node}}
+   * @param {ObjectType.OBJECT} childName {{childName}}
    * @returns {ObjectType.OBJECT}
    */
   this.cronapi.xml.XMLGetChildrenElement = function(node, childName) {
@@ -1079,10 +1172,10 @@
 
   /**
    * @type function
-   * @name Retorna o elemento pai
+   * @name {{XMLGetParentElementName}}
    * @nameTags XMLGetParentElement
-   * @description Função que retorna o pai de um elemento
-   * @param {ObjectType.OBJECT} node - Elemento a ser buscado o pai
+   * @description {{XMLGetParentElementDescription}}
+   * @param {ObjectType.OBJECT} node {{node}}
    * @returns {ObjectType.OBJECT}
    */
   this.cronapi.xml.XMLGetParentElement = function XMLGetParentElement(node) {
@@ -1091,14 +1184,73 @@
 
   /**
    * @type function
-   * @name Retorna a tag do elemento
+   * @name {{XMLGetElementTagNameName}}
    * @nameTags XMLGetElementTagName
-   * @description Função que retorna o nome da tag do elemento
-   * @param {ObjectType.OBJECT} node - Elemento a ser buscado a tag
+   * @description {{XMLGetElementTagNameDescription}}
+   * @param {ObjectType.OBJECT} node {{node}}
    * @returns {ObjectType.STRING}
    */
   this.cronapi.xml.XMLGetElementTagName = function XMLGetElementTagName(node) {
     return node.tagName;
+  };
+   
+  /**
+   * @category CategoryType.LOGIC
+   * @categoryTags LOGIC|logic
+   */
+   this.cronapi.logic = {};
+   
+   /**
+   * @type function
+    * @name {{LogicIsNullName}}
+    * @nameTags isNull
+    * @description {{LogicIsNullDescription}}
+    * @returns {ObjectType.BOOLEAN}
+    * @displayInline true
+   */
+   this.cronapi.logic.isNull = function(/** @type {ObjectType.OBJECT} @description */ value) {
+     return (value === null || typeof value  == 'undefined');
+   }
+   
+   /**
+   * @type function
+    * @name {{LogicIsEmptyName}}
+    * @nameTags isEmpty
+    * @description {{LogicIsEmptyDescription}}
+    * @returns {ObjectType.BOOLEAN}
+    * @displayInline true
+   */
+   this.cronapi.logic.isEmpty = function(/** @type {ObjectType.OBJECT} @description */ value) {
+     return (value  === '');
+   }
+  
+   /**
+   * @type function
+    * @name {{LogicIsNullOrEmptyName}}
+    * @nameTags isNullOrEmpty
+    * @description {{LogicIsNullOrEmptyDescription}}
+    * @returns {ObjectType.BOOLEAN}
+    * @displayInline true
+   */
+   this.cronapi.logic.isNullOrEmpty = function(/** @type {ObjectType.OBJECT} @description */ value) {
+     return (cronapi.logic.isNull(value) || cronapi.logic.isEmpty(value));
+   }
+  
+  this.cronapi.i18n = {};
+
+  this.cronapi.i18n.translate = function(value , params) {
+    if (value) {
+      var text = cronapi.$translate.instant(value);
+      for (var i = 0; i < params.length; i++){
+        var param = params[i];
+        if (param != null && typeof param != "undefined") {
+          var regexp = new RegExp("\\{" + (i) + "\\}", "g");
+          text = text.replace(regexp, param);
+        }
+      }
+      return text;
+    }
+    return;
   };
 
   //Private variables and functions
