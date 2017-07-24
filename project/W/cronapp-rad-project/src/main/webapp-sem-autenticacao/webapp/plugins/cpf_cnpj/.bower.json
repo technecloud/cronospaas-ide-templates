@@ -32,6 +32,6 @@
     "commit": "1ea98d317997d4f39cbfb52fc507bd4e6fa308dc"
   },
   "_source": "https://github.com/fnando/cpf_cnpj.js.git",
-  "_target": "0.2.0",
+  "_target": "^0.2.0",
   "_originalSource": "cpf_cnpj"
 }
