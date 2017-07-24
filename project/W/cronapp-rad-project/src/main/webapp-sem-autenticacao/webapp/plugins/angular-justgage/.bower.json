@@ -43,6 +43,6 @@
     "commit": "cc02e66881953b23a9e54bb8c415335fdc78f639"
   },
   "_source": "https://github.com/mattlaver/angular-justgage.git",
-  "_target": "^1.0.1",
+  "_target": "1.0.1",
   "_originalSource": "angular-justgage"
 }

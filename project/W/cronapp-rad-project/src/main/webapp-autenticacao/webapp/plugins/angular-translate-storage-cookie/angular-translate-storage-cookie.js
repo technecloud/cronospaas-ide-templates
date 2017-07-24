@@ -1,7 +1,7 @@
 /*!
- * angular-translate - v2.15.2 - 2017-06-22
+ * angular-translate - v2.11.1 - 2016-07-17
  * 
- * Copyright (c) 2017 The angular-translate team, Pascal Precht; Licensed MIT
+ * Copyright (c) 2016 The angular-translate team, Pascal Precht; Licensed MIT
  */
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
@@ -9,7 +9,7 @@
     define([], function () {
       return (factory());
     });
-  } else if (typeof module === 'object' && module.exports) {
+  } else if (typeof exports === 'object') {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
@@ -19,7 +19,7 @@
   }
 }(this, function () {
 
-$translateCookieStorageFactory.$inject = ['$injector'];
+$translateCookieStorageFactory.$inject = ['$cookieStore'];
 angular.module('pascalprecht.translate')
 
 /**
@@ -34,33 +34,9 @@ angular.module('pascalprecht.translate')
  */
   .factory('$translateCookieStorage', $translateCookieStorageFactory);
 
-function $translateCookieStorageFactory($injector) {
+function $translateCookieStorageFactory($cookieStore) {
 
   'use strict';
-
-  // Since AngularJS 1.4, $cookieStore is deprecated
-  var delegate;
-  if (angular.version.major === 1 && angular.version.minor >= 4) {
-    var $cookies = $injector.get('$cookies');
-    delegate = {
-      get : function (key) {
-        return $cookies.get(key);
-      },
-      put : function (key, value) {
-        $cookies.put(key, value);
-      }
-    };
-  } else {
-    var $cookieStore = $injector.get('$cookieStore');
-    delegate = {
-      get : function (key) {
-        return $cookieStore.get(key);
-      },
-      put : function (key, value) {
-        $cookieStore.put(key, value);
-      }
-    };
-  }
 
   var $translateCookieStorage = {
 
@@ -75,8 +51,8 @@ function $translateCookieStorageFactory($injector) {
      * @param {string} name Item name
      * @return {string} Value of item name
      */
-    get : function (name) {
-      return delegate.get(name);
+    get: function (name) {
+      return $cookieStore.get(name);
     },
 
     /**
@@ -92,8 +68,8 @@ function $translateCookieStorageFactory($injector) {
      * @param {string} name Item name
      * @param {string} value Item value
      */
-    set : function (name, value) {
-      delegate.put(name, value);
+    set: function (name, value) {
+      $cookieStore.put(name, value);
     },
 
     /**
@@ -107,8 +83,8 @@ function $translateCookieStorageFactory($injector) {
      * @param {string} name Item name
      * @param {string} value Item value
      */
-    put : function (name, value) {
-      delegate.put(name, value);
+    put: function (name, value) {
+      $cookieStore.put(name, value);
     }
   };
 

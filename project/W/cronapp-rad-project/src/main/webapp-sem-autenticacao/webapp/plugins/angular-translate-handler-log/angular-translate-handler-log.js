@@ -1,7 +1,7 @@
 /*!
- * angular-translate - v2.15.2 - 2017-06-22
+ * angular-translate - v2.11.1 - 2016-07-17
  * 
- * Copyright (c) 2017 The angular-translate team, Pascal Precht; Licensed MIT
+ * Copyright (c) 2016 The angular-translate team, Pascal Precht; Licensed MIT
  */
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
@@ -9,7 +9,7 @@
     define([], function () {
       return (factory());
     });
-  } else if (typeof module === 'object' && module.exports) {
+  } else if (typeof exports === 'object') {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
