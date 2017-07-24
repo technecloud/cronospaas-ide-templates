@@ -73,13 +73,8 @@
   <!-- Custom -->
   <script src="js/events.js"></script>
   <!-- CronApp Framework -->
-  <#if (authentication??)>
   <script src="plugins/cronapp-framework-js/js/app.authentication.js"></script>
   <script src="plugins/cronapp-framework-js/js/controllers.authentication.js"></script>
-  <#else>
-  <script src="plugins/cronapp-framework-js/js/app.js"></script>
-  <script src="plugins/cronapp-framework-js/js/controllers.js"></script>
-  </#if>
   <script src="plugins/cronapp-framework-js/js/services.js"></script>
   <script src="plugins/cronapp-framework-js/js/LocaleService.js"></script>
   <script src="plugins/cronapp-framework-js/js/LanguageSelectDirective.js"></script>
