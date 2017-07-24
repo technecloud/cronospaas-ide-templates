@@ -81,7 +81,6 @@
   <script src="plugins/cronapp-framework-js/js/controllers.js"></script>
   </#if>
   <script src="plugins/cronapp-framework-js/js/services.js"></script>
-  <script src="plugins/cronapp-framework-js/js/events.js"></script>
   <script src="plugins/cronapp-framework-js/js/LocaleService.js"></script>
   <script src="plugins/cronapp-framework-js/js/LanguageSelectDirective.js"></script>
   <script src="plugins/cronapp-framework-js/js/directives.js"></script>
