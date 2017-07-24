@@ -7,7 +7,7 @@
       "text_pt_BR": "Link",
       "text_en_US": "Link",
       "class": "adjust-icon mdi mdi-link",
-      "templateURL": "src/main/webapp/components/templates/anchor.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/anchor.template.html",
       "properties": {
         "onclick": {
           "type": "event"
@@ -46,7 +46,7 @@
       "text_pt_BR": "Botão",
       "text_en_US": "Button",
       "class": "adjust-icon mdi mdi-stop",
-      "templateURL": "src/main/webapp/components/templates/button.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/button.template.html",
       "properties": {
         "ng-click": {
           "removable": true,
@@ -63,7 +63,7 @@
       "text_pt_BR": "Botão de Relatório",
       "text_en_US": "Button Report",
       "class": "adjust-icon mdi mdi-code-equal",
-      "templateURL": "src/main/webapp/components/templates/button-report.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/button-report.template.html",
       "properties": {
         "ng-click": {
           "type": "report-event"
@@ -97,7 +97,7 @@
           }
         ]
       },
-      "templateURL": "src/main/webapp/components/templates/accordion.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/accordion.template.html",
       "properties": {
         "ng-click": {
           "removable": true,
@@ -133,7 +133,7 @@
           }
         ]
       },
-      "templateURL": "src/main/webapp/components/templates/carousel.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/carousel.template.html"
     },
     {
       "name": "crn-datasource",
@@ -214,7 +214,7 @@
       "text_pt_BR": "Entrada de texto",
       "text_en_US": "input",
       "class": "adjust-icon mdi mdi-label-outline",
-      "templateURL": "src/main/webapp/components/templates/textinput.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/textinput.template.html",
       "properties": {
         "onchange": {
           "removable": true,
@@ -281,7 +281,7 @@
       "text_pt_BR": "Formulário",
       "text_en_US": "Form",
       "class": "adjust-icon mdi mdi-file-document",
-      "templateURL": "src/main/webapp/components/templates/form.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/form.template.html",
       "properties": {
         "crn-datasource": {
           "displayName_pt_BR": "Fonte de dados",
@@ -315,35 +315,35 @@
           }
         ]
       },
-      "templateURL": "src/main/webapp/components/templates/tabs.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/tabs.template.html"
     },
     {
       "name": "crn-datepicker",
       "text_pt_BR": "Data",
       "text_en_US": "Date",
       "class": "adjust-icon mdi mdi-calendar",
-      "templateURL": "src/main/webapp/components/templates/date.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/date.template.html"
     },
     {
       "name": "crn-timepicker",
       "text_pt_BR": "Hora",
       "text_en_US": "Time",
       "class": "adjust-icon mdi mdi-timer",
-      "templateURL": "src/main/webapp/components/templates/time.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/time.template.html"
     },
     {
       "name": "crn-datetimepicker",
       "text_pt_BR": "Data e hora",
       "text_en_US": "DateTime",
       "class": "adjust-icon mdi mdi-calendar-clock",
-      "templateURL": "src/main/webapp/components/templates/datetime.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/datetime.template.html"
     },
     {
       "name": "crn-upload",
       "text_pt_BR": "Envio de arquivo",
       "text_en_US": "File Upload",
       "class": "adjust-icon mdi mdi-cloud-upload",
-      "templateURL": "src/main/webapp/components/templates/fileupload.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/fileupload.template.html",
       "properties": {}
     },
     {
@@ -351,7 +351,7 @@
       "text_pt_BR": "Tabela",
       "text_en_US": "Table",
       "class": "adjust-icon mdi mdi-apps",
-      "templateURL": "src/main/webapp/components/templates/grid.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/grid.template.html",
       "properties": {},
       "childrenProperties": [
         {
@@ -386,7 +386,7 @@
       "text_pt_BR": "Caixa de seleção",
       "text_en_US": "Combobox",
       "class": "adjust-icon mdi mdi-equal-box",
-      "templateURL": "src/main/webapp/components/templates/combobox.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/combobox.template.html",
       "handleRules": {
         "canToggle": true,
         "rules": [
@@ -434,7 +434,7 @@
       "text_pt_BR": "Caixa de seleção dinâmica",
       "text_en_US": "Dynamic Combobox",
       "class": "adjust-icon mdi mdi-nutrition",
-      "templateURL": "src/main/webapp/components/templates/combobox-dynamic.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/combobox-dynamic.template.html",
       "handleRules": {
         "canToggle": true,
         "rules": [
@@ -482,7 +482,7 @@
       "text_pt_BR": "Lista de opção",
       "text_en_US": "Radio Group",
       "class": "adjust-icon mdi mdi-radiobox-marked",
-      "templateURL": "src/main/webapp/components/templates/radiogroup.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/radiogroup.template.html",
       "handleRules": {
         "canIncrement": true,
         "rules": [
@@ -498,14 +498,14 @@
       "text_pt_BR": "Caixa de checagem",
       "text_en_US": "Checkbox",
       "class": " adjust-icon mdi mdi-checkbox-marked-outline",
-      "templateURL": "src/main/webapp/components/templates/checkbox.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/checkbox.template.html"
     },
     {
       "name": "crn-navbar",
       "text_pt_BR": "Barra de navegação",
       "text_en_US": "Navbar",
       "class": "adjust-icon mdi mdi-tab",
-      "templateURL": "src/main/webapp/components/templates/navbar.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/navbar.template.html",
       "handleRules": {
         "canIncrement": true,
         "rules": [
@@ -541,7 +541,7 @@
       "text_pt_BR": "Barra lateral",
       "text_en_US": "Sidebar",
       "class": "adjust-icon mdi mdi-book-open",
-      "templateURL": "src/main/webapp/components/templates/sidebar.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/sidebar.template.html",
       "handleRules": {
         "canIncrement": true,
         "rules": [
@@ -577,63 +577,63 @@
       "text_pt_BR": "Barra de gráfico",
       "text_en_US": "Chart Bar",
       "class": "adjust-icon mdi mdi-chart-bar",
-      "templateURL": "src/main/webapp/components/templates/chart-bar.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/chart-bar.template.html"
     },
     {
       "name": "crn-chart-doughnut",
       "text_pt_BR": "Gráfico Donut",
       "text_en_US": "Chart Doughnut",
       "class": "adjust-icon mdi mdi-chart-arc",
-      "templateURL": "src/main/webapp/components/templates/chart-doughnut.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/chart-doughnut.template.html"
     },
     {
       "name": "crn-chart-line",
       "text_pt_BR": "Gráfico em linhas",
       "text_en_US": "Chart Line",
       "class": "adjust-icon mdi mdi-chart-line",
-      "templateURL": "src/main/webapp/components/templates/chart-line.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/chart-line.template.html"
     },
     {
       "name": "crn-chart-pie",
       "text_pt_BR": "Gráfico de torta",
       "text_en_US": "Chart Pie",
       "class": "adjust-icon mdi mdi-chart-pie",
-      "templateURL": "src/main/webapp/components/templates/chart-pie.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/chart-pie.template.html"
     },
     {
       "name": "crn-chart-polar-area",
       "text_pt_BR": "Gráfico de area polar",
       "text_en_US": "Chart Polar Area",
       "class": "adjust-icon mdi mdi-chart-scatterplot-hexbin",
-      "templateURL": "src/main/webapp/components/templates/chart-polar-area.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/chart-polar-area.template.html"
     },
     {
       "name": "crn-chart-radar",
       "text_pt_BR": "Gráfico em radar",
       "text_en_US": "Chart Radar",
       "class": "adjust-icon mdi mdi-speedometer",
-      "templateURL": "src/main/webapp/components/templates/chart-radar.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/chart-radar.template.html"
     },
     {
       "name": "crn-chart-gauge",
       "text_pt_BR": "Gráfico de indicador",
       "text_en_US": "Chart Gauge",
       "class": "adjust-icon mdi mdi-gauge",
-      "templateURL": "src/main/webapp/components/templates/chart-gauge.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/chart-gauge.template.html"
     },
     {
       "name": "crn-title",
       "text_pt_BR": "Título",
       "text_en_US": "Title",
       "class": "adjust-icon mdi mdi-format-header-pound",
-      "templateURL": "src/main/webapp/components/templates/title.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/title.template.html"
     },
     {
       "name": "crn-text",
       "text_pt_BR": "Texto",
       "text_en_US": "Text",
       "class": "adjust-icon mdi mdi-format-annotation-plus",
-      "templateURL": "src/main/webapp/components/templates/text.template.html"
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/text.template.html"
     },
     {
       "name": "crn-tags",
@@ -645,7 +645,7 @@
         ]
       },
       "class": "adjust-icon mdi mdi-format-list-bulleted",
-      "templateURL": "src/main/webapp/components/templates/multiselect.template.html",
+      "templateURL": "src/main/webapp/plugins/cronapp-framework-js/components/templates/multiselect.template.html",
       "childrenProperties": [
         {
           "name": "crn-datasource",

@@ -3,22 +3,17 @@ package auth.permission;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Component;
 
-/**
- * Classe que configura as permissões de acesso
- * 
- * @author Techne
- *
- */
-@Component
-public class SecurityPermission {
+import cronapp.framework.authentication.security.Permission;
 
-  <#if (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" >
-  public static final String ROLE_ADMIN_NAME = "Administrators";
-  </#if>
+@Component
+public class SecurityPermission implements Permission {
+
+  <#if (authentication?lower_case) == "normal" || (authentication?lower_case) == "token">
+  public static final String ROLE_ADMIN_NAME = "Administrators";</#if>
   
+  @Override
   public void loadSecurityPermission(HttpSecurity http) throws Exception {
-    
-    <#if (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" >
+    <#if (authentication?lower_case) == "normal" || (authentication?lower_case) == "token">
     // public
     http.authorizeRequests().antMatchers("/auth/**").permitAll();	
     http.authorizeRequests().antMatchers("/index.html").permitAll();
@@ -48,7 +43,7 @@ public class SecurityPermission {
     // deny all
     http.authorizeRequests().antMatchers("/**").denyAll();
     </#if>
-    <#if (authentication?lower_case) == "nenhuma" >
+    <#if (authentication?lower_case) == "nenhuma">
     // public
     http.authorizeRequests().antMatchers("/**").permitAll();
     </#if>

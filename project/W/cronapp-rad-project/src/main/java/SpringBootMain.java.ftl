@@ -6,16 +6,21 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
 
-/**
- * Classe responsável iniciar a aplicação, por padrão ela executará as seguintes etapas:
- *
- *  - Criar uma instância do ApplicationContext;
- *  - Registrar um CommandLinePropertySource para expor argumentos como propriedades do Spring;
- *  - Atualizar o contexto de aplicação para carregar os singletons;
- *  - Executar qualquer bean do tipo CommandLineRunner;
- */
 @SpringBootApplication
-@ComponentScan(basePackages = { "auth.permission", "api.rest.events", "api.rest.webservices", "reports", "app", "cronapi", "cronapp.framework.authentication", "blockly" })
+@ComponentScan(basePackages = {
+	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
+	"cronapp.framework.authentication.security",
+	"cronapp.framework.rest",
+	"cronapp.framework.tenant",
+	<#if multitenant?? && multitenant?lower_case == "sim">"tenant",</#if>
+	"auth.permission",
+	"api.rest.events",
+	"api.rest.webservices",
+	"reports",
+	"cronapi",
+	"blockly",
+	"app"
+})
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {
 

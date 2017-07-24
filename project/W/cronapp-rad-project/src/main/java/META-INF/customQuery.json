@@ -1,0 +1,40 @@
+{
+  "auth": {
+    "customId": "auth",
+    "queryName": "Get User by login",
+    "sourceType": "entityFullName",
+    "entitySimpleName": "User",
+    "entityFullName": "app.entity.User",
+    "query": "SELECT u FROM User u WHERE u.login = :login",
+    "queryParamsValues": [
+      {
+        "fieldName": "login"
+      }
+    ],
+    "verbs": {
+      "GET": true,
+      "POST": false,
+      "PUT": true,
+      "DELETE": false
+    }
+  },
+  "roles": {
+    "customId": "roles",
+    "queryName": "Get Roles from a User login",
+    "sourceType": "entityFullName",
+    "entitySimpleName": "UserRole",
+    "entityFullName": "app.entity.UserRole",
+    "query": "SELECT u FROM UserRole u WHERE u.user.login = :login",
+    "queryParamsValues": [
+      {
+        "fieldName": "login"
+      }
+    ],
+    "verbs": {
+      "GET": true,
+      "POST": false,
+      "PUT": false,
+      "DELETE": false
+    }
+  }
+}
