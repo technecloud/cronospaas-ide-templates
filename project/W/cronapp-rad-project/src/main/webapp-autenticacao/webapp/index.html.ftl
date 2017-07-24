@@ -78,7 +78,6 @@
 
   <!-- Customs -->
   <script src="plugins/cronapp-framework-js/js/app.js"></script>
-  <script src="plugins/cronapp-framework-js/components/js/datasource.js"></script>
   <script src="plugins/cronapp-framework-js/js/controllers.js"></script>
   <script src="plugins/cronapp-framework-js/js/services.js"></script>
   <script src="plugins/cronapp-framework-js/js/events.js"></script>
@@ -86,5 +85,6 @@
   <script src="plugins/cronapp-framework-js/js/LanguageSelectDirective.js"></script>
   <script src="plugins/cronapp-framework-js/js/directives.js"></script>
   <script src="plugins/cronapp-framework-js/js/filters.js"></script>
+  <script src="plugins/cronapp-framework-js/components/js/datasource.js"></script>
 </body>
 </html>
