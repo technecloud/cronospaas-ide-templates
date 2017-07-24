@@ -79,7 +79,7 @@
         <#if (authentication)>
         <script src="plugins/cronapp-framework-js/js/app.authentication.js"></script>
         <script src="plugins/cronapp-framework-js/js/controllers.authentication.js"></script>
-        </#else>
+        <#else>
         <script src="plugins/cronapp-framework-js/js/app.js"></script>
         <script src="plugins/cronapp-framework-js/js/controllers.js"></script>
         </#if>
