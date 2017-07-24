@@ -9,14 +9,14 @@
   <link rel="stylesheet" href="plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
   <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="plugins/angular-ui-select/dist/select.min.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/css/cronos.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/css/cronos-bootstrap.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/css/app.css" />
+  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/cronos.css" />
+  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/cronos-bootstrap.css" />
+  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/app.css" />
   <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
   <#if !(theme??) || theme=="">
   <link id="themeSytleSheet" rel="stylesheet" href="">
   <#else>
-  <link id="themeSytleSheet" rel="stylesheet" href="plugins/cronapp-framework-js/css/themes/${theme?lower_case}.min.css">
+  <link id="themeSytleSheet" rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/themes/${theme?lower_case}.min.css">
   </#if>
 </head>
 <body>
@@ -73,13 +73,13 @@
   <!-- Custom -->
   <script src="js/events.js"></script>
   <!-- CronApp Framework -->
-  <script src="plugins/cronapp-framework-js/js/app.authentication.js"></script>
-  <script src="plugins/cronapp-framework-js/js/controllers.authentication.js"></script>
-  <script src="plugins/cronapp-framework-js/js/services.js"></script>
-  <script src="plugins/cronapp-framework-js/js/LocaleService.js"></script>
-  <script src="plugins/cronapp-framework-js/js/LanguageSelectDirective.js"></script>
-  <script src="plugins/cronapp-framework-js/js/directives.js"></script>
-  <script src="plugins/cronapp-framework-js/js/filters.js"></script>
-  <script src="plugins/cronapp-framework-js/components/js/datasource.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/app.authentication.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/controllers.authentication.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/services.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/LocaleService.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/LanguageSelectDirective.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/directives.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/filters.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/components/js/datasource.js"></script>
 </body>
 </html>
