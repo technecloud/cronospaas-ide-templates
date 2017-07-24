@@ -11,9 +11,9 @@
   <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="plugins/angular-ui-select/dist/select.min.css" />
   <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/cronos.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/cronos-bootstrap.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/app.css" />
+  <link rel="stylesheet" href="plugins/cronapp-framework-js/css/cronos.css" />
+  <link rel="stylesheet" href="plugins/cronapp-framework-js/css/cronos-bootstrap.css" />
+  <link rel="stylesheet" href="plugins/cronapp-framework-js/css/app.css" />
   <#if !(theme??) || theme=="">
   <link id="themeSytleSheet" rel="stylesheet" href="">
   <#else>
@@ -77,14 +77,14 @@
   <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
 
   <!-- Customs -->
-  <script src="plugins/cronapp-framework-js/dist/js/app.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/components/js/datasource.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/js/controllers.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/js/services.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/js/events.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/js/LocaleService.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/js/LanguageSelectDirective.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/js/directives.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/js/filters.js"></script>
+  <script src="plugins/cronapp-framework-js/js/app.js"></script>
+  <script src="plugins/cronapp-framework-js/components/js/datasource.js"></script>
+  <script src="plugins/cronapp-framework-js/js/controllers.js"></script>
+  <script src="plugins/cronapp-framework-js/js/services.js"></script>
+  <script src="plugins/cronapp-framework-js/js/events.js"></script>
+  <script src="plugins/cronapp-framework-js/js/LocaleService.js"></script>
+  <script src="plugins/cronapp-framework-js/js/LanguageSelectDirective.js"></script>
+  <script src="plugins/cronapp-framework-js/js/directives.js"></script>
+  <script src="plugins/cronapp-framework-js/js/filters.js"></script>
 </body>
 </html>
