@@ -76,7 +76,7 @@
         <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
 
         <!-- CronApp Framework -->
-        <#if (authentication)>
+        <#if (authentication??)>
         <script src="plugins/cronapp-framework-js/js/app.authentication.js"></script>
         <script src="plugins/cronapp-framework-js/js/controllers.authentication.js"></script>
         <#else>
