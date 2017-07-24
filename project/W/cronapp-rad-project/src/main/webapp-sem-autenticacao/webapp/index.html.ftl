@@ -10,14 +10,13 @@
         <link rel="stylesheet" href="plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
         <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" href="plugins/angular-ui-select/dist/select.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/cronos.css" />
-        <link rel="stylesheet" type="text/css" href="css/cronos-bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="css/app.css"/>
+        <link rel="stylesheet" href="plugins/cronapp-framework-js/css/cronos.css" />
+        <link rel="stylesheet" href="plugins/cronapp-framework-js/css/css/cronos-bootstrap.css" />
+        <link rel="stylesheet" href="plugins/cronapp-framework-js/css/css/app.css"/>
         <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
-        <link rel="stylesheet" href="plugins/pace/pace.css">
-        <#if !(theme??) ||  theme == "" >
+        <#if !(theme??) || theme == "">
         <link id="themeSytleSheet" rel="stylesheet" href="">
-        <#else >
+        <#else>
         <link id="themeSytleSheet" rel="stylesheet" href="css/themes/${theme?lower_case}.min.css">
         </#if>
     </head>
@@ -40,7 +39,7 @@
             </div>
           </div>
         </div>  
-
+        
         <!-- Plugins -->
         <script src="plugins/jquery/dist/jquery.min.js"></script>
         <script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -70,22 +69,26 @@
         <script src="plugins/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
         <script src="plugins/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
         <script src="plugins/ng-file-upload/ng-file-upload.min.js"></script>
-        <script type="text/javascript" src="plugins/moment/min/moment-with-locales.min.js"></script>
-        <script type="text/javascript" src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="plugins/moment/min/moment-with-locales.min.js"></script>
+        <script src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         <script src="plugins/cpf_cnpj/build/cpf.js"></script>
         <script src="plugins/cpf_cnpj/build/cnpj.js"></script>
         <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
 
-        <!-- Customs -->
-        <script src="js/app.js"></script>
-        <script src="components/js/datasource.js"></script>
-        <script src="js/controllers.js"></script>
-        <script src="js/services.js"></script>
-        <script src="js/events.js"></script>
-        <script src="js/LocaleService.js"></script>
-        <script src="js/LanguageSelectDirective.js"></script>
-        <script src="js/directives.js"></script>
-        <script src="js/filters.js"></script>
-
+        <!-- CronApp Framework -->
+        <#if (authentication)>
+        <script src="plugins/cronapp-framework-js/js/app.authentication.js"></script>
+        <script src="plugins/cronapp-framework-js/js/controllers.authentication.js"></script>
+        </#else>
+        <script src="plugins/cronapp-framework-js/js/app.js"></script>
+        <script src="plugins/cronapp-framework-js/js/controllers.js"></script>
+        </#if>
+        <script src="plugins/cronapp-framework-js/js/services.js"></script>
+        <script src="plugins/cronapp-framework-js/js/events.js"></script>
+        <script src="plugins/cronapp-framework-js/js/LocaleService.js"></script>
+        <script src="plugins/cronapp-framework-js/js/LanguageSelectDirective.js"></script>
+        <script src="plugins/cronapp-framework-js/js/directives.js"></script>
+        <script src="plugins/cronapp-framework-js/js/filters.js"></script>
+        <script src="plugins/cronapp-framework-js/components/js/datasource.js"></script>
     </body>
 </html>
