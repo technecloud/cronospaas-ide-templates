@@ -19,6 +19,3 @@ file=SpringBootMain.java.ftl
 <#if (authentication??)>
 path=/auth/permission
 </#if>
-<#if multitenant?? && multitenant?lower_case == "sim">
-path=/tenant
-</#if>

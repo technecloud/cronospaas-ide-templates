@@ -36,5 +36,52 @@
       "PUT": false,
       "DELETE": false
     }
+  },
+  "tenant": {
+    "customId": "tenant",
+    "queryName": "Get Tetant Id",
+    "screen": "",
+    "sourceType": "entityFullName",
+    "blockly": null,
+    "entitySimpleName": "User",
+    "entityFullName": "app.entity.User",
+    "query": "select u.company.id from User u where u.login = :login",
+    "queryParamsValues": [
+      {
+        "fieldName": "login",
+        "fieldValue": ""
+      }
+    ],
+    "verbs": {
+      "GET": true,
+      "POST": true,
+      "PUT": true,
+      "DELETE": true
+    },
+    "events": {
+      "beforeInsert": null,
+      "beforeUpdate": null,
+      "beforeDelete": null,
+      "afterInsert": null,
+      "afterUpdate": null,
+      "afterDelete": null,
+      "onNavigate": null,
+      "onGetData": null
+    },
+    "defaultValues": {
+      "email": null,
+      "name": null,
+      "id": null,
+      "login": null,
+      "picture": null,
+      "password": null,
+      "theme": null,
+      "company": null
+    },
+    "errorHandles": {
+      "primaryKey": null,
+      "foreignKey": null
+    },
+    "serviceUrl": "api/cronapi/query/u82exy2l7qyc/"
   }
 }
