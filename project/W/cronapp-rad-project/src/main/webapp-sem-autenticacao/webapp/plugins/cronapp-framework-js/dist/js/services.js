@@ -1,1 +1,0 @@
-!function(u){angular.module("custom.services",[])}(app);
