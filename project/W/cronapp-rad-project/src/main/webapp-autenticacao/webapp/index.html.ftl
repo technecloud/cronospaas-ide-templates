@@ -4,31 +4,29 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=5,9,10,11;Edge">
-
   <!-- CSS -->
   <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
   <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="plugins/angular-ui-select/dist/select.min.css" />
+  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/cronos.css" />
+  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/cronos-bootstrap.css" />
+  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/app.css" />
   <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/css/cronos.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/css/cronos-bootstrap.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/css/app.css" />
   <#if !(theme??) || theme=="">
   <link id="themeSytleSheet" rel="stylesheet" href="">
   <#else>
-  <link id="themeSytleSheet" rel="stylesheet" href="plugins/cronapp-framework-js/css/themes/${theme?lower_case}.min.css">
+  <link id="themeSytleSheet" rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/themes/${theme?lower_case}.min.css">
   </#if>
 </head>
 <body>
   <div ui-view class="fill"></div>
-
-  <div class="modal fade" id="modalTemplate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+  <div class="modal fade" id="modalTemplate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="modalTemplateTitle">Title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalTemplateClose"><span>×</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalTemplateClose"><span aria-hidden="true">×</span></button>
         </div>
         <div class="modal-body" id="modalTemplateBody">
         </div>
@@ -39,13 +37,10 @@
       </div>
     </div>
   </div>
-
   <!-- Plugins -->
   <script src="plugins/jquery/dist/jquery.min.js"></script>
   <script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script data-pace-options='{"document": true, "eventLag": true, "restartOnPushState": true, "restartOnRequestAfter": true, "ajax": {"trackMethods": [ "PUT","POST","GET"] }}'
-    src='plugins/pace/pace.min.js'></script>
-
+  <script data-pace-options='{"document": true, "eventLag": true, "restartOnPushState": true, "restartOnRequestAfter": true, "ajax": {"trackMethods": [ "PUT","POST","GET"] }}' src='plugins/pace/pace.min.js'></script>
   <!-- Angular JS -->
   <script src="plugins/angular/angular.min.js"></script>
   <script src="plugins/chart.js/dist/Chart.min.js"></script>
@@ -75,16 +70,16 @@
   <script src="plugins/cpf_cnpj/build/cpf.js"></script>
   <script src="plugins/cpf_cnpj/build/cnpj.js"></script>
   <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
-
-  <!-- Customs -->
-  <script src="plugins/cronapp-framework-js/js/app.js"></script>
-  <script src="plugins/cronapp-framework-js/components/js/datasource.js"></script>
-  <script src="plugins/cronapp-framework-js/js/controllers.js"></script>
-  <script src="plugins/cronapp-framework-js/js/services.js"></script>
-  <script src="plugins/cronapp-framework-js/js/events.js"></script>
-  <script src="plugins/cronapp-framework-js/js/LocaleService.js"></script>
-  <script src="plugins/cronapp-framework-js/js/LanguageSelectDirective.js"></script>
-  <script src="plugins/cronapp-framework-js/js/directives.js"></script>
-  <script src="plugins/cronapp-framework-js/js/filters.js"></script>
+  <!-- Custom -->
+  <script src="js/events.js"></script>
+  <!-- CronApp Framework -->
+  <script src="plugins/cronapp-framework-js/js/app.authentication.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/controllers.authentication.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/services.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/LocaleService.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/LanguageSelectDirective.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/directives.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/filters.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/components/js/datasource.js"></script>
 </body>
 </html>

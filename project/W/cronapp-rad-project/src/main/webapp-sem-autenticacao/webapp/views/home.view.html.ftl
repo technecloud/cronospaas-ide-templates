@@ -5,7 +5,7 @@
       <div class="navbar-header"> 
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> 
         <a class="navbar-brand" href="javascript:void(0);">
-            <div class="component-holder ng-binding ng-scope" data-component="crn-image" id="crn-image-535259"><img src="img/logo.png" style="max-height:30px; margin-top:-5px"></div>
+            <div class="component-holder ng-binding ng-scope" data-component="crn-image" id="crn-image-535259"><img src="plugins/cronapp-framework-js/dist/img/logo.png" style="max-height:30px; margin-top:-5px"></div>
         </a> 
       </div> 
       <div id="navbar" class="navbar-collapse collapse"> 
@@ -20,7 +20,7 @@
 <div class="component-holder ng-binding ng-scope" data-component="crn-sidebar" id="crn-sidebar-986427"> 
   <div class="nav-side-menu navbar-default"> 
     <div class="brand"> 
-      <img src="img/logo.png" class="" width="" height="30"> 
+      <img src="plugins/cronapp-framework-js/dist/img/logo.png" class="" width="" height="30"> 
     </div> 
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content1"></i> 
     <div class="menu-list"> 

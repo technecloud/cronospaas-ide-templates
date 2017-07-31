@@ -161,7 +161,7 @@
         <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>cronapi-java</artifactId>
-            <version>0.0.29</version>
+            <version>0.0.30</version>
             <exclusions>
                 <exclusion>
                     <artifactId>commons-lang3</artifactId>

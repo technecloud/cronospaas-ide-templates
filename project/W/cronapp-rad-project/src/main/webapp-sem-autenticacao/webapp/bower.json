@@ -1,10 +1,10 @@
 {
-  "name": "cronapp-rad-project",
+  "name": "spring-boot-data-security-angularjs",
   "homepage": "http://www.techne.com.br",
   "authors": [
-    "CronApp"
+    "CronosPaas"
   ],
-  "description": "Projeto Web adaptado para a utilização de módulos RAD no CronApp IDE",
+  "description": "spring-boot-data-security-angularjs",
   "main": "",
   "keywords": [
     "spring-boot",
@@ -23,14 +23,5 @@
   ],
   "dependencies": {
     "cronapp-framework-js": "latest"
-  },
-  "resolutions": {
-    "angular": "1.4.0-rc.2",
-    "c3": "0.4.11",
-    "d3": "3.5.17",
-    "justgage-toorshia": "b0fc8e427c",
-    "raphael": "2.1.4",
-    "angular-translate": "2.11.1",
-    "jquery": "2.1.4"
   }
 }
