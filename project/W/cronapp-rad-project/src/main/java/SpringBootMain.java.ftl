@@ -11,8 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
 	"cronapp.framework.authentication.security",
 	"cronapp.framework.rest",
-	"cronapp.framework.tenant",
-	<#if multitenant?? && multitenant?lower_case == "sim">"tenant",</#if>
+	<#if multitenant?? && multitenant?lower_case == "sim">"cronapp.framework.tenant",</#if>
 	"auth.permission",
 	"api.rest.events",
 	"api.rest.webservices",
