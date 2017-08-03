@@ -4,6 +4,7 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
+import cronapi.rest.security.CronappSecurity;
 <#list clazz.imports as import>
 import ${import};
 </#list>
@@ -27,6 +28,7 @@ import org.eclipse.persistence.annotations.*;
 @Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\""<#if (clazz.fieldsUniqueKey?size > 0) > ,uniqueConstraints=@UniqueConstraint(columnNames={
 <#list clazz.fieldsUniqueKey as field>"${field.name}" <#if field?has_next>,</#if></#list>})</#if>)
 @XmlRootElement
+@CronappSecurity<#if restSecurityDescription??>(${restSecurityDescription})</#if>
 <#if (clazz.multitenantClass)>
 @Multitenant(MultitenantType.SINGLE_TABLE)
 <#if (clazz.multitententFields?size > 1)>
@@ -42,14 +44,14 @@ import org.eclipse.persistence.annotations.*;
 public class ${clazz.name} implements Serializable {
 
   /**
-   * UID da classe, necessário na serialização 
+   * UID da classe, necessário na serialização
    * @generated
    */
   private static final long serialVersionUID = 1L;
   <#list clazz.fields as field>
   <#if field.primaryKey>
   <#assign name = "${field.name}">
-  
+
   /**
    * @generated
    */
@@ -89,11 +91,11 @@ public class ${clazz.name} implements Serializable {
   @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
   </#if>
   ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
-  </#if>  
+  </#if>
   </#list>
   <#list clazz.fields as field>
   <#if !field.primaryKey>
-  
+
   /**
   * @generated
   */
@@ -139,9 +141,9 @@ public class ${clazz.name} implements Serializable {
   @JsonIgnore
   </#if>
   ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
-  </#if>  
+  </#if>
   </#list>
-  
+
   /**
    * Construtor
    * @generated
@@ -151,7 +153,7 @@ public class ${clazz.name} implements Serializable {
 
   <#list clazz.fields as field>
   <#assign name = "${field.name}">
-  
+
   /**
    * Obtém ${name}
    * return ${name}
@@ -160,7 +162,7 @@ public class ${clazz.name} implements Serializable {
   public ${field.type} get${name?cap_first}(){
     return this.${name};
   }
-  
+
   /**
    * Define ${name}
    * @param ${name} ${name}
@@ -171,10 +173,10 @@ public class ${clazz.name} implements Serializable {
     return this;
   }
   </#list>
-  
+
   /**
    * @generated
-   */ 
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -188,7 +190,7 @@ public class ${clazz.name} implements Serializable {
     </#list>
     return true;
   }
-  
+
   /**
    * @generated
    */
@@ -203,5 +205,5 @@ public class ${clazz.name} implements Serializable {
     </#list>
     return result;
   }
-  
+
 }
