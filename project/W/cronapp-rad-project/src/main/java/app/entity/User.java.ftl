@@ -224,6 +224,7 @@ public class User implements Serializable {
     this.theme = theme;
     return this;
   }
+
 <#if multitenant?? && multitenant?lower_case == "sim">
   /**
    * Obtém company
