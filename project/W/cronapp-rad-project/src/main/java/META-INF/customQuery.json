@@ -2,44 +2,115 @@
   "auth": {
     "customId": "auth",
     "queryName": "Get User by login",
+    "screen": "",
     "sourceType": "entityFullName",
+    "blockly": null,
     "entitySimpleName": "User",
     "entityFullName": "app.entity.User",
-    "query": "SELECT u FROM User u WHERE u.login = :login",
-    "queryParamsValues": [
-      {
-        "fieldName": "login"
-      }
-    ],
+    "query": "select o from User o",
+    "queryParamsValues": [],
     "verbs": {
       "GET": true,
+      "GETAuthorities": [
+        "Administrators"
+      ],
       "POST": false,
-      "PUT": true,
-      "DELETE": false
-    }
+      "POSTAuthorities": null,
+      "PUT": false,
+      "PUTAuthorities": null,
+      "DELETE": false,
+      "DELETEAuthorities": null
+    },
+    "events": {
+      "beforeInsert": null,
+      "beforeUpdate": null,
+      "beforeDelete": null,
+      "afterInsert": null,
+      "afterUpdate": null,
+      "afterDelete": null,
+      "onNavigate": null,
+      "onGetData": null
+    },
+    "defaultValues": {
+      "id": null,
+      "email": null,
+      "name": null,
+      "login": null,
+      "picture": null,
+      "password": null,
+      "theme": null
+    },
+    "security": {
+      "id": null,
+      "email": null,
+      "name": null,
+      "login": null,
+      "picture": null,
+      "password": null,
+      "theme": null
+    },
+    "errorHandles": {
+      "primaryKey": null,
+      "foreignKey": null
+    },
+    "serviceUrl": "api/cronapi/query/auth/"
   },
   "roles": {
     "customId": "roles",
     "queryName": "Get Roles from a User login",
+    "screen": "",
     "sourceType": "entityFullName",
+    "blockly": null,
     "entitySimpleName": "UserRole",
     "entityFullName": "app.entity.UserRole",
     "query": "SELECT u FROM UserRole u WHERE u.user.login = :login",
     "queryParamsValues": [
       {
-        "fieldName": "login"
+        "fieldName": "login",
+        "fieldValue": ""
       }
     ],
     "verbs": {
       "GET": true,
+      "GETAuthorities": [
+        "Administrators"
+      ],
       "POST": false,
+      "POSTAuthorities": null,
       "PUT": false,
-      "DELETE": false
-    }
+      "PUTAuthorities": null,
+      "DELETE": false,
+      "DELETEAuthorities": null
+    },
+    "events": {
+      "beforeInsert": null,
+      "beforeUpdate": null,
+      "beforeDelete": null,
+      "afterInsert": null,
+      "afterUpdate": null,
+      "afterDelete": null,
+      "onNavigate": null,
+      "onGetData": null
+    },
+    "defaultValues": {
+      "id": null,
+      "user": null,
+      "role": null
+    },
+    "security": {
+      "id": null,
+      "user": null,
+      "role": null
+    },
+    "errorHandles": {
+      "primaryKey": null,
+      "foreignKey": null
+    },
+    "serviceUrl": "api/cronapi/query/roles/"
   },
   "tenant": {
     "customId": "tenant",
-    "queryName": "Get Tetant Id",
+    "queryName": "Get Tenat Id",
     "screen": "",
     "sourceType": "entityFullName",
     "blockly": null,
@@ -54,9 +125,15 @@
     ],
     "verbs": {
       "GET": true,
-      "POST": true,
-      "PUT": true,
-      "DELETE": true
+      "GETAuthorities": [
+        "Administrators"
+      ],
+      "POST": false,
+      "POSTAuthorities": null,
+      "PUT": false,
+      "PUTAuthorities": null,
+      "DELETE": false,
+      "DELETEAuthorities": null
     },
     "events": {
       "beforeInsert": null,
@@ -69,19 +146,27 @@
       "onGetData": null
     },
     "defaultValues": {
+      "id": null,
       "email": null,
       "name": null,
-      "id": null,
       "login": null,
       "picture": null,
       "password": null,
-      "theme": null,
-      "company": null
+      "theme": null
+    },
+    "security": {
+      "id": null,
+      "email": null,
+      "name": null,
+      "login": null,
+      "picture": null,
+      "password": null,
+      "theme": null
     },
     "errorHandles": {
       "primaryKey": null,
       "foreignKey": null
     },
-    "serviceUrl": "api/cronapi/query/u82exy2l7qyc/"
+    "serviceUrl": "api/cronapi/query/tenant/"
   }
 }
