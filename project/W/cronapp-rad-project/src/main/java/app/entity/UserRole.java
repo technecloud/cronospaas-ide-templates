@@ -5,6 +5,8 @@ import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import cronapi.rest.security.CronappSecurity;
+
 
 /**
  * Classe que representa a tabela USERROLE
@@ -13,34 +15,36 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "\"USERROLE\"")
 @XmlRootElement
+@CronappSecurity(get = "Administrators", post = "Administrators", put = "Administrators", delete = "Administrators")
 public class UserRole implements Serializable {
 
   /**
-   * UID da classe, necessário na serialização 
+   * UID da classe, necessário na serialização
    * @generated
    */
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * @generated
    */
   @Id
+  @Column(name = "id", nullable = false, insertable=true, updatable=true)
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-  
+
   /**
   * @generated
   */
   @ManyToOne
-  @JoinColumn(name="fk_user", referencedColumnName = "id", insertable=true, updatable=true)
+  @JoinColumn(name="fk_user", nullable = true, referencedColumnName = "id", insertable=true, updatable=true)
   private User user;
-  
+
   /**
   * @generated
   */
   @ManyToOne
-  @JoinColumn(name="fk_role", referencedColumnName = "id", insertable=true, updatable=true)
+  @JoinColumn(name="fk_role", nullable = true, referencedColumnName = "id", insertable=true, updatable=true)
   private Role role;
-  
+
   /**
    * Construtor
    * @generated
@@ -48,16 +52,16 @@ public class UserRole implements Serializable {
   public UserRole(){
   }
 
+
   /**
    * Obtém id
-   * 
    * return id
    * @generated
    */
   public java.lang.String getId(){
     return this.id;
   }
-  
+
   /**
    * Define id
    * @param id id
@@ -67,16 +71,16 @@ public class UserRole implements Serializable {
     this.id = id;
     return this;
   }
+
   /**
    * Obtém user
-   * 
    * return user
    * @generated
    */
   public User getUser(){
     return this.user;
   }
-  
+
   /**
    * Define user
    * @param user user
@@ -86,16 +90,16 @@ public class UserRole implements Serializable {
     this.user = user;
     return this;
   }
+
   /**
    * Obtém role
-   * 
    * return role
    * @generated
    */
   public Role getRole(){
     return this.role;
   }
-  
+
   /**
    * Define role
    * @param role role
@@ -105,10 +109,10 @@ public class UserRole implements Serializable {
     this.role = role;
     return this;
   }
-  
+
   /**
    * @generated
-   */ 
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -117,7 +121,7 @@ public class UserRole implements Serializable {
     if (id != null ? !id.equals(object.id) : object.id != null) return false;
     return true;
   }
-  
+
   /**
    * @generated
    */
@@ -127,5 +131,5 @@ public class UserRole implements Serializable {
     result = 31 * result + ((id == null) ? 0 : id.hashCode());
     return result;
   }
-  
+
 }

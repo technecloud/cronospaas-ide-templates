@@ -5,6 +5,9 @@ import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import cronapi.rest.security.CronappSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 /**
  * Classe que representa a tabela USER
@@ -14,56 +17,64 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "\"USER\"" ,uniqueConstraints=@UniqueConstraint(columnNames={
 "login" }))
 @XmlRootElement
+@CronappSecurity(get = "authenticated;Administrators", post = "Administrators", delete = "Administrators")
 public class User implements Serializable {
+  /**
+  * Variável privada para verificação da criptofrafia
+  *
+  * @generated
+  */
+  private static final String ENCRYPT = "$2a$10$";
 
   /**
-   * UID da classe, necessário na serialização 
+   * UID da classe, necessário na serialização
    * @generated
    */
   private static final long serialVersionUID = 1L;
-  
+
+  /**
+   * @generated
+   */
+  @Id
+  @Column(name = "id", nullable = false, insertable=true, updatable=true)
+  private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
+
   /**
   * @generated
   */
   @Column(name = "email", nullable = true, unique = false, insertable=true, updatable=true)
   private java.lang.String email;
-  
+
   /**
   * @generated
   */
   @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
   private java.lang.String name;
-  
-  /**
-   * @generated
-   */
-  @Id
-  private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-  
+
   /**
   * @generated
   */
   @Column(name = "login", nullable = false, unique = true, insertable=true, updatable=true)
   private java.lang.String login;
-  
+
   /**
   * @generated
   */
   @Column(name = "picture", nullable = true, unique = false, insertable=true, updatable=true)
   private java.lang.String picture;
-  
+
   /**
   * @generated
   */
   @Column(name = "password", nullable = false, unique = false, insertable=true, updatable=true)
   private java.lang.String password;
-  
+
   /**
   * @generated
   */
   @Column(name = "theme", nullable = true, unique = false, insertable=true, updatable=true)
   private java.lang.String theme;
-  
+
   <#if multitenant?? && multitenant?lower_case == "sim">
   /**
   * @generated
@@ -79,16 +90,16 @@ public class User implements Serializable {
   public User(){
   }
 
+
   /**
    * Obtém email
-   * 
    * return email
    * @generated
    */
   public java.lang.String getEmail(){
     return this.email;
   }
-  
+
   /**
    * Define email
    * @param email email
@@ -98,16 +109,16 @@ public class User implements Serializable {
     this.email = email;
     return this;
   }
+
   /**
    * Obtém name
-   * 
    * return name
    * @generated
    */
   public java.lang.String getName(){
     return this.name;
   }
-  
+
   /**
    * Define name
    * @param name name
@@ -117,16 +128,16 @@ public class User implements Serializable {
     this.name = name;
     return this;
   }
+
   /**
    * Obtém id
-   * 
    * return id
    * @generated
    */
   public java.lang.String getId(){
     return this.id;
   }
-  
+
   /**
    * Define id
    * @param id id
@@ -136,16 +147,16 @@ public class User implements Serializable {
     this.id = id;
     return this;
   }
+
   /**
    * Obtém login
-   * 
    * return login
    * @generated
    */
   public java.lang.String getLogin(){
     return this.login;
   }
-  
+
   /**
    * Define login
    * @param login login
@@ -155,16 +166,16 @@ public class User implements Serializable {
     this.login = login;
     return this;
   }
+
   /**
    * Obtém picture
-   * 
    * return picture
    * @generated
    */
   public java.lang.String getPicture(){
     return this.picture;
   }
-  
+
   /**
    * Define picture
    * @param picture picture
@@ -174,35 +185,36 @@ public class User implements Serializable {
     this.picture = picture;
     return this;
   }
+
   /**
    * Obtém password
-   * 
    * return password
    * @generated
    */
   public java.lang.String getPassword(){
     return this.password;
   }
-  
+
   /**
    * Define password
    * @param password password
    * @generated
    */
   public User setPassword(java.lang.String password){
+    password = password.startsWith(ENCRYPT) ? password : new BCryptPasswordEncoder().encode(password);
     this.password = password;
     return this;
   }
+
   /**
    * Obtém theme
-   * 
    * return theme
    * @generated
    */
   public java.lang.String getTheme(){
     return this.theme;
   }
-  
+
   /**
    * Define theme
    * @param theme theme
@@ -215,14 +227,14 @@ public class User implements Serializable {
 <#if multitenant?? && multitenant?lower_case == "sim">
   /**
    * Obtém company
-   * 
+   *
    * return company
    * @generated
    */
   public Company getCompany(){
     return this.company;
   }
-  
+
   /**
    * Define company
    * @param company company
@@ -232,12 +244,11 @@ public class User implements Serializable {
     this.company = company;
     return this;
   }
-	
+
 </#if>
-  
   /**
    * @generated
-   */ 
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -246,7 +257,7 @@ public class User implements Serializable {
     if (id != null ? !id.equals(object.id) : object.id != null) return false;
     return true;
   }
-  
+
   /**
    * @generated
    */
@@ -256,5 +267,5 @@ public class User implements Serializable {
     result = 31 * result + ((id == null) ? 0 : id.hashCode());
     return result;
   }
-  
+
 }
