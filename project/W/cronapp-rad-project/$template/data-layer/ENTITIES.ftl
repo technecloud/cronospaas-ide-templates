@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
 <#assign isExistsEncrypt = false>
 <#list clazz.fields as field>
@@ -54,6 +55,7 @@ import org.eclipse.persistence.annotations.*;
 })
 </#if>
 </#if>
+@JsonFilter("${entityPackage}<#if subPackage??>.${subPackage}</#if>.${clazz.name}")
 public class ${clazz.name} implements Serializable {
 <#if isExistsEncrypt>
   /**
@@ -161,6 +163,7 @@ public class ${clazz.name} implements Serializable {
   <#if (field.ignore)>
   @JsonIgnore
   </#if>
+  ${field.securityAnnotation}
   ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
   </#if>
   </#list>
@@ -180,6 +183,7 @@ public class ${clazz.name} implements Serializable {
    * return ${name}
    * @generated
    */
+  ${field.securityAnnotation}
   public ${field.type} get${name?cap_first}(){
     return this.${name};
   }
