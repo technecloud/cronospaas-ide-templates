@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -17,7 +18,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Table(name = "\"USER\"" ,uniqueConstraints=@UniqueConstraint(columnNames={
 "login" }))
 @XmlRootElement
-@CronappSecurity(get = "authenticated;Administrators", post = "Administrators", delete = "Administrators")
+@CronappSecurity(get = "Administrators", post = "Administrators", put = "Administrators", delete = "Administrators")
+@JsonFilter("app.entity.User")
 public class User implements Serializable {
   /**
   * Variável privada para verificação da criptofrafia

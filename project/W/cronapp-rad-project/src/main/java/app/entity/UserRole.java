@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
 
 
@@ -16,6 +17,7 @@ import cronapi.rest.security.CronappSecurity;
 @Table(name = "\"USERROLE\"")
 @XmlRootElement
 @CronappSecurity(get = "Administrators", post = "Administrators", put = "Administrators", delete = "Administrators")
+@JsonFilter("app.entity.UserRole")
 public class UserRole implements Serializable {
 
   /**
