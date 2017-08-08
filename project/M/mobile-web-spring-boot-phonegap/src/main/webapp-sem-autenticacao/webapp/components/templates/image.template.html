@@ -10,5 +10,7 @@
        ng-if="!datasource.active.image"
        ngf-select class="btn btn-default btn-block"
        ngf-change="datasource.setImage($file, datasource.active, 'image')" accept="image/*">
-  <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.image" ng-click="datasource.active.image=null"></span>
+  <div class="remove btn btn-default btn-xs btn-danger" ng-if="datasource.active.image" ng-click="datasource.active.image=null">
+    <span class="glyphicon glyphicon-remove"></span>
+  </div>
 </div>
