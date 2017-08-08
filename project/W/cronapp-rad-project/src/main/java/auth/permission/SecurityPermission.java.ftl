@@ -36,7 +36,7 @@ public class SecurityPermission implements Permission {
     // role logged permission
     http.authorizeRequests().antMatchers("/views/logged/**").authenticated();
     http.authorizeRequests().antMatchers("/api/rest/**").authenticated();
-    http.authorizeRequests().antMatchers("/api/cronapi/**").authenticated();
+    http.authorizeRequests().antMatchers("/api/cronapi/**").permitAll();
     http.authorizeRequests().antMatchers("POST", "/changePassword").authenticated();
     http.authorizeRequests().antMatchers("POST", "/changeTheme").authenticated();
     
