@@ -165,8 +165,8 @@
         "+ findByRole(roleid:String): List<UserRole>"
       ],
       "position": {
-        "x": 143,
-        "y": 287
+        "x": 144,
+        "y": 286
       },
       "size": {
         "width": 266.453125,
@@ -356,7 +356,7 @@
       "methods": [],
       "position": {
         "x": 281,
-        "y": 39
+        "y": 38
       },
       "size": {
         "width": 175.875,
@@ -535,9 +535,9 @@
       "role": "Class",
       "restPath": "",
       "restSecurity": {
-        "get": "authenticated;Administrators",
+        "get": "Administrators",
         "post": "Administrators",
-        "put": "authenticated",
+        "put": "Administrators",
         "delete": "Administrators"
       },
       "attrs": {
