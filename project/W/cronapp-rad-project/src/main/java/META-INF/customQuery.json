@@ -7,13 +7,16 @@
     "blockly": null,
     "entitySimpleName": "User",
     "entityFullName": "app.entity.User",
-    "query": "select o from User o",
-    "queryParamsValues": [],
+    "query": "select o from User o where o.login = :login",
+    "queryParamsValues": [
+      {
+        "fieldName": "login",
+        "fieldValue": ""
+      }
+    ],
     "verbs": {
-      "GET": true,
-      "GETAuthorities": [
-        "Administrators"
-      ],
+      "GET": false,
+      "GETAuthorities": null,
       "POST": false,
       "POSTAuthorities": null,
       "PUT": false,
@@ -71,10 +74,8 @@
       }
     ],
     "verbs": {
-      "GET": true,
-      "GETAuthorities": [
-        "Administrators"
-      ],
+      "GET": false,
+      "GETAuthorities": null,
       "POST": false,
       "POSTAuthorities": null,
       "PUT": false,
@@ -124,10 +125,8 @@
       }
     ],
     "verbs": {
-      "GET": true,
-      "GETAuthorities": [
-        "Administrators"
-      ],
+      "GET": false,
+      "GETAuthorities": null,
       "POST": false,
       "POSTAuthorities": null,
       "PUT": false,
