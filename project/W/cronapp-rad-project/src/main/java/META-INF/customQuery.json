@@ -1,7 +1,7 @@
 {
   "auth": {
     "customId": "auth",
-    "queryName": "Get User by login",
+    "queryName": "{{AUTHENTICATE}}",
     "screen": "",
     "sourceType": "entityFullName",
     "blockly": null,
@@ -60,7 +60,7 @@
   },
   "roles": {
     "customId": "roles",
-    "queryName": "Get Roles from a User login",
+    "queryName": "{{GET_ROLES}}",
     "screen": "",
     "sourceType": "entityFullName",
     "blockly": null,
@@ -111,7 +111,7 @@
   },
   "tenant": {
     "customId": "tenant",
-    "queryName": "Get Tenat Id",
+    "queryName": "{{GET_TENANT_ID}}",
     "screen": "",
     "sourceType": "entityFullName",
     "blockly": null,
