@@ -29,7 +29,7 @@ public class ReportResource {
     if(reportFront == null)
       return ResponseEntity.badRequest().header("Error", "Report is null").body(new ReportFront());
     log.debug("Get report [" + reportFront + "].");
-    ReportFront reportResult = reportService.getReport(reportFront);
+    ReportFront reportResult = reportService.getReport(reportFront.getReportName());
     return ResponseEntity.ok().body(reportResult);
   }
   

@@ -3,55 +3,69 @@ package reports.service;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.sql.DataSource;
 
+import org.eclipse.persistence.config.PersistenceUnitProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import cronapp.reports.PrintDesign;
+import cronapp.reports.ReportExport;
+import cronapp.reports.ReportManager;
+import cronapp.reports.commons.Functions;
+import cronapp.reports.commons.Parameter;
+import cronapp.reports.commons.ParameterType;
+import cronapp.reports.j4c.commons.J4CConstants;
+import cronapp.reports.j4c.dataset.J4CDataset;
+import cronapp.reports.j4c.dataset.J4CEntity;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import reports.commons.Parameter;
-import reports.commons.ParameterType;
 import reports.commons.ReportFront;
 
 @Service
 public class ReportService {
   
   private static final Logger log = LoggerFactory.getLogger(ReportService.class);
-  
+
   private final ClassLoader loader;
-  
+
   public ReportService() {
     this.loader = Thread.currentThread().getContextClassLoader();
   }
-  
-  public ReportFront getReport(ReportFront reportFront) {
-    ReportFront reportResult = new ReportFront(reportFront);
+
+  private InputStream getInputStream(String reportName) {
+    InputStream inputStream = loader.getResourceAsStream(reportName);
+    if(inputStream == null)
+      throw new RuntimeException("File [" + reportName + "] not found.");
+    return inputStream;
+  }
+
+  public ReportFront getReport(String reportName) {
+    ReportFront reportResult = new ReportFront(reportName);
     try {
-      if(reportResult.getReportName().contains("jrxml")) {
+      if(reportName.contains("jrxml")) {
         log.info("Report in design mode, build the parameters...");
-        InputStream inputStream = this.getReportInputStream(reportResult);
+        InputStream inputStream = this.getInputStream(reportName);
         JasperDesign jasperDesign = JRXmlLoader.load(inputStream);
         Stream.of(jasperDesign.getParameters())
           .filter(jrParameter -> !jrParameter.isSystemDefined())
@@ -76,6 +90,21 @@ public class ReportService {
   }
   
   public byte[] getPDF(ReportFront reportFront) {
+    ReportExport result = this.getReportExport(reportFront);
+    if(result == null)
+      return new byte[0];
+    return result.toPDF();
+  }
+
+  public byte[] getXLS(ReportFront reportFront) {
+    ReportExport result = this.getReportExport(reportFront);
+    if(result == null)
+      return new byte[0];
+    return result.toXLS();
+  }
+
+  private ReportExport getReportExport(ReportFront reportFront) {
+    ReportExport result = null;
     File pdf = null;
     try {
       try {
@@ -85,102 +114,84 @@ public class ReportService {
         log.error("Problems to make the temporary report file.");
         throw new RuntimeException(e);
       }
-      
-      InputStream reportInputStream = this.getReportInputStream(reportFront);
-      
-      JasperDesign jasperDesign;
-      try {
-        jasperDesign = JRXmlLoader.load(reportInputStream);
-      }
-      catch(JRException e) {
-        log.error("Problems to make the design file from report.");
-        throw new RuntimeException(e);
-      }
-      
-      Map<String, JRParameter> parametersMap = jasperDesign.getParametersMap();
-      
-      HashMap<String, Object> parameters = new HashMap<>();
-      
-      reportFront.getParameters().forEach(parameter -> {
-        parameters.put(parameter.getName(), parameter.getValue());
-      });
-      
-      parametersMap.entrySet().stream().filter(p -> !parameters.containsKey(p.getKey())).forEach(parameter -> {
-        String key = parameter.getKey();
-        JRParameter value = parameter.getValue();
-        if(value == null)
-          parameters.put(key, null);
+
+      InputStream inputStream = this.getInputStream(reportFront.getReportName());
+
+      ReportManager reportManager = ReportManager.newPrint(inputStream, pdf.getAbsolutePath());
+
+      String reportName = reportFront.getReportName();
+      if(reportName.contains("jrxml")) {
+        PrintDesign printDesign = reportManager
+          .byDesign(reportFront.getParameters())
+          .updateParameters()
+          .updateImages()
+          .updateSubreports();
+
+        J4CDataset dataset = printDesign.getCollectionDataset();
+        if(dataset == null) {
+          String datasource = printDesign.getDatasource();
+          try (Connection connection = this.getConnection(datasource)) {
+            result = printDesign.print(connection);
+          }
+          catch(SQLException e) {
+            throw new RuntimeException(e);
+          }
+        }
         else {
-          JRExpression valueExpression = value.getDefaultValueExpression();
-          if(valueExpression != null)
-            parameters.put(key, valueExpression.getText());
+          J4CEntity entity = dataset.getEntity();
+          String jpql = entity.getJpql();
+          if(Functions.isExists(jpql)) {
+            String persistenceUnit = dataset.getPersistenceUnitName();
+            EntityManager entityManager = this.getEntityManager(persistenceUnit);
+
+            Map<String, Object> printParameters = printDesign.getPrintParameters();
+
+            Query queryObject = entityManager.createQuery(jpql);
+            Object dataLimit = printParameters.get(J4CConstants.DATA_LIMIT);
+            if(dataLimit != null && (Integer)dataLimit > 0)
+              queryObject.setMaxResults((Integer)dataLimit);
+
+            Set<javax.persistence.Parameter<?>> objectParameters = queryObject.getParameters();
+            Set<String> parameterNames = objectParameters.stream()
+              .map(javax.persistence.Parameter::getName)
+              .collect(Collectors.toSet());
+
+            Set<Map.Entry<String, Object>> entrySet = printParameters.entrySet();
+            for(Map.Entry<String, Object> item : entrySet) {
+              String name = item.getKey();
+              if(parameterNames.contains(name)) {
+                Object value = item.getValue();
+                queryObject.setParameter(name, value);
+              }
+            }
+
+            List resultList = Collections.emptyList();
+            try {
+              resultList = queryObject.getResultList();
+            }
+            catch(IllegalArgumentException e) {
+              log.error(e.getMessage());
+            }
+            result = printDesign.print(resultList);
+          }
         }
-      });
-      
-      parameters.entrySet().stream().filter(parameter -> parameter.getKey().contains("image_")).forEach(parameter -> {
-        JRParameter jrParameter = parametersMap.get(parameter.getKey());
-        JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
-        if(defaultValueExpression != null) {
-          URL resource = loader.getResource(defaultValueExpression.getText().replaceAll("\"", ""));
-          if(resource != null)
-            parameters.put(parameter.getKey(), resource.getPath());
-        }
-      });
-      
-      parameters.entrySet().stream().filter(parameter -> parameter.getKey().contains("sub_")).forEach(parameter -> {
-        JRParameter jrParameter = parametersMap.get(parameter.getKey());
-        JRExpression defaultValueExpression = jrParameter.getDefaultValueExpression();
-        if(defaultValueExpression != null) {
-          URL resource = loader
-                  .getResource(defaultValueExpression.getText().replaceAll("\"", "").replaceAll(".jrxml", ".jasper"));
-          if(resource != null)
-            parameters.put(parameter.getKey(), resource.getPath());
-        }
-      });
-      
-      JasperPrint jasperPrint;
-      try (Connection connection = this.getConnection(jasperDesign)) {
-        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-        jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, connection);
-      }
-      catch(JRException | SQLException e) {
-        log.error("Problems during the compile.");
-        throw new RuntimeException(e);
-      }
-      
-      try {
-        JasperExportManager.exportReportToPdfFile(jasperPrint, pdf.getAbsolutePath());
-      }
-      catch(JRException e) {
-        log.error("Problems to export report to PDF file.");
-        throw new RuntimeException(e);
-      }
-      
-      java.nio.file.Path path = Paths.get(pdf.getAbsolutePath());
-      try {
-        return Files.readAllBytes(path);
-      }
-      catch(IOException e) {
-        log.error("Problems to export report file to byte array.");
-        throw new RuntimeException(e);
       }
     }
     finally {
       if(pdf != null && pdf.exists())
         pdf.delete();
     }
+    return result;
   }
-  
-  private InputStream getReportInputStream(ReportFront reportFront) {
-    String reportName = reportFront.getReportName();
-    InputStream inputStream = loader.getResourceAsStream(reportName);
-    if(inputStream == null)
-      throw new RuntimeException("File [" + reportName + "] not found.");
-    return inputStream;
+
+  private EntityManager getEntityManager(String persistenceUnit) {
+    HashMap<String, Object> properties = new HashMap<>();
+    properties.put(PersistenceUnitProperties.JTA_DATASOURCE, persistenceUnit);
+    EntityManagerFactory managerFactory = Persistence.createEntityManagerFactory(persistenceUnit, properties);
+    return managerFactory.createEntityManager();
   }
-  
-  private Connection getConnection(JasperDesign jasperDesign) {
-    String datasource = jasperDesign.getProperty("DATASOURCE");
+
+  private Connection getConnection(String datasource) {
     if(datasource != null && !datasource.isEmpty() && !"null".equals(datasource)) {
       javax.naming.Context context = null;
       DataSource dataSource = null;
@@ -202,8 +213,7 @@ public class ReportService {
           return dataSource.getConnection();
       }
       catch(SQLException e) {
-        throw new RuntimeException(
-                new Exception("Trouble getting a connection from the context.\nError: " + e.getMessage()));
+        throw new RuntimeException(new Exception("Trouble getting a connection from the context.\nError: " + e.getMessage()));
       }
     }
     return null;
