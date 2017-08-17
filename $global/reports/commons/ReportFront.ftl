@@ -14,12 +14,12 @@ public class ReportFront implements Serializable {
   
   public ReportFront() {
     this.reportName = "";
-    this.parameters = new ArrayList<>(1024);
+    this.parameters = new ArrayList<>();
   }
   
   public ReportFront(String reportName) {
     this.reportName = reportName;
-    this.parameters = new ArrayList<>(1024);
+    this.parameters = new ArrayList<>();
   }
   
   public ReportFront(ReportFront reportFront) {
