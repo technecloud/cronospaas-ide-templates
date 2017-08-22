@@ -4,7 +4,10 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;z
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import cronapi.rest.security.CronappSecurity;
+
 
 import org.eclipse.persistence.annotations.*;
 /**
@@ -14,35 +17,40 @@ import org.eclipse.persistence.annotations.*;
 @Entity
 @Table(name = "\"DEPARTMENT\"")
 @XmlRootElement
+@CronappSecurity
 @Multitenant(MultitenantType.SINGLE_TABLE)
 @TenantDiscriminatorColumn(name = "fk_company", contextProperty = "tenant")
+@JsonFilter("app.entity.Department")
 public class Department implements Serializable {
 
   /**
-   * UID da classe, necessário na serialização 
+   * UID da classe, necessário na serialização
    * @generated
    */
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * @generated
    */
   @Id
+  @Column(name = "id", nullable = false, insertable=true, updatable=true)
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-  
+
   /**
-  * @generated
-  */
+   * @generated
+   */
   @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
+
   private java.lang.String name;
-  
+
   /**
-  * @generated
-  */
+   * @generated
+   */
   @ManyToOne
-  @JoinColumn(name="fk_company", referencedColumnName = "id", insertable=false, updatable=false)
+  @JoinColumn(name="fk_company", nullable = true, referencedColumnName = "id", insertable=false, updatable=false)
+
   private Company company;
-  
+
   /**
    * Construtor
    * @generated
@@ -50,16 +58,17 @@ public class Department implements Serializable {
   public Department(){
   }
 
+
   /**
    * Obtém id
-   * 
    * return id
    * @generated
    */
+
   public java.lang.String getId(){
     return this.id;
   }
-  
+
   /**
    * Define id
    * @param id id
@@ -69,16 +78,17 @@ public class Department implements Serializable {
     this.id = id;
     return this;
   }
+
   /**
    * Obtém name
-   * 
    * return name
    * @generated
    */
+
   public java.lang.String getName(){
     return this.name;
   }
-  
+
   /**
    * Define name
    * @param name name
@@ -88,16 +98,17 @@ public class Department implements Serializable {
     this.name = name;
     return this;
   }
+
   /**
    * Obtém company
-   * 
    * return company
    * @generated
    */
+
   public Company getCompany(){
     return this.company;
   }
-  
+
   /**
    * Define company
    * @param company company
@@ -107,10 +118,10 @@ public class Department implements Serializable {
     this.company = company;
     return this;
   }
-  
+
   /**
    * @generated
-   */ 
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -119,7 +130,7 @@ public class Department implements Serializable {
     if (id != null ? !id.equals(object.id) : object.id != null) return false;
     return true;
   }
-  
+
   /**
    * @generated
    */
@@ -129,5 +140,5 @@ public class Department implements Serializable {
     result = 31 * result + ((id == null) ? 0 : id.hashCode());
     return result;
   }
-  
+
 }

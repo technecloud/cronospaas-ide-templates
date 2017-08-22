@@ -9,19 +9,16 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
 
 
-import org.eclipse.persistence.annotations.*;
 /**
- * Classe que representa a tabela DEPARTMENT
+ * Classe que representa a tabela COMPANY
  * @generated
  */
 @Entity
-@Table(name = "\"DEPARTMENT\"")
+@Table(name = "\"COMPANY\"")
 @XmlRootElement
 @CronappSecurity
-@Multitenant(MultitenantType.SINGLE_TABLE)
-@TenantDiscriminatorColumn(name = "fk_company", contextProperty = "tenant")
-@JsonFilter("app.entity.Department")
-public class Department implements Serializable {
+@JsonFilter("app.entity.Company")
+public class Company implements Serializable {
 
   /**
    * UID da classe, necessário na serialização
@@ -37,25 +34,17 @@ public class Department implements Serializable {
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
   /**
-  * @generated
-  */
+   * @generated
+   */
   @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
 
   private java.lang.String name;
 
   /**
-  * @generated
-  */
-  @ManyToOne
-  @JoinColumn(name="fk_company", nullable = true, referencedColumnName = "id", insertable=false, updatable=false)
-
-  private Company company;
-
-  /**
    * Construtor
    * @generated
    */
-  public Department(){
+  public Company(){
   }
 
 
@@ -74,7 +63,7 @@ public class Department implements Serializable {
    * @param id id
    * @generated
    */
-  public Department setId(java.lang.String id){
+  public Company setId(java.lang.String id){
     this.id = id;
     return this;
   }
@@ -94,28 +83,8 @@ public class Department implements Serializable {
    * @param name name
    * @generated
    */
-  public Department setName(java.lang.String name){
+  public Company setName(java.lang.String name){
     this.name = name;
-    return this;
-  }
-
-  /**
-   * Obtém company
-   * return company
-   * @generated
-   */
-
-  public Company getCompany(){
-    return this.company;
-  }
-
-  /**
-   * Define company
-   * @param company company
-   * @generated
-   */
-  public Department setCompany(Company company){
-    this.company = company;
     return this;
   }
 
@@ -126,7 +95,7 @@ public class Department implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj) return true;
     if (obj == null || getClass() != obj.getClass()) return false;
-    Department object = (Department)obj;
+    Company object = (Company)obj;
     if (id != null ? !id.equals(object.id) : object.id != null) return false;
     return true;
   }
