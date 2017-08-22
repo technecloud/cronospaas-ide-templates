@@ -11,7 +11,7 @@
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav" style="float:none">
           <li class="dropdown component-holder" data-component=""> <a href="#/home" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-home"></i> <span>{{"Home.view.Home" | translate}}</span> </a> </li>
-          <li class="dropdown component-holder" data-component="crn-menu-item" ng-if="session.root"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span>{{"Home.view.Admin" | translate}}</span> <span class="caret"></span> </a>
+          <li class="dropdown component-holder" data-component="crn-menu-item" cronapp-security="visible : Administrators"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span>{{"Home.view.Admin" | translate}}</span> <span class="caret"></span> </a>
             <ul class="dropdown-menu">
               <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor" >{{"Home.view.Users" | translate}}</a></li>
             <#if multitenant?? && multitenant?lower_case == "sim">
@@ -66,7 +66,7 @@
                 <span class="">{{"Home.view.Home" | translate}}</span>
             </a>
         </li>
-        <li ng-if="session.root" data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-5099" class="collapsed component-holder">
+        <li cronapp-security="visible : Administrators" data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-5099" class="collapsed component-holder">
             <a href="javascript:void(0);" class="">
                 <i class="fa fa-users fa-lg"></i> <span class="">{{"Home.view.Admin" | translate}}</span> <span class="arrow"></span>
             </a>
