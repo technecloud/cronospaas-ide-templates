@@ -30,6 +30,11 @@
     "password": "$2a$10$LjzpM1Q3VoAtG2dTCCabNuW0/amVPjL3Iyvyi2Dj7NP.HngtzSewu",
     "company": { "id": "002BF43E-0E62-4F4A-8A63-3F22D7AD4611"}
   },
+  {
+  "_class": "app.entity.Role",
+  "id": "Administrators",
+  "user": { "id" : "001BF43E-0E62-4F4A-8A63-3F22D7AD4611" }
+  },
   </#if>
   {
     "_class": "app.entity.Role",
