@@ -33,7 +33,7 @@
   </#if>
   {
     "_class": "app.entity.Role",
-    "id": "404BF43E-0000-4F4A-8A63-3F22D7AD6556",
+    "id": "Administrators",
     "user": { "id" : "304BF43E-0E62-4F4A-8A63-3F22D7AD4611" }
   }
 ]
