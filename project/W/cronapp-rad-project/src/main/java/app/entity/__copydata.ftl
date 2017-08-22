@@ -5,3 +5,4 @@ file=Department.java
 file=User.java.ftl
 file=UserRole.java
 file=Role.java
+file=RolePK.java
