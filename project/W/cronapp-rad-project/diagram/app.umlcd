@@ -32,49 +32,26 @@
       "type": "uml.Class",
       "name": "Role",
       "attributes": [
-        "name:java.lang.String",
-        "id:java.lang.String"
+        "id:java.lang.String",
+        "user:User"
       ],
       "methods": [],
       "position": {
-        "x": 70,
-        "y": 78
+        "x": 351,
+        "y": 86
       },
       "size": {
-        "width": 155.328125,
+        "width": 150.546875,
         "height": 107.85416793823242
       },
       "angle": 0,
-      "isRest": "true",
+      "isRest": true,
       "tableName": null,
       "runtimeClass": "cronos.widgets.joint.uml.Class",
-      "id": "2a7043c2-79ad-4be1-86e2-e5e7338d7df3",
-      "z": 3,
+      "id": "1df87f56-c5ba-47f5-8e68-82931f49b989",
+      "z": 4,
       "queries": [],
       "fields": [
-        {
-          "name": "name",
-          "type": "java.lang.String",
-          "dbName": "name",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Nome",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false
-        },
         {
           "name": "id",
           "type": "java.lang.String",
@@ -89,6 +66,29 @@
           "isUniqueKey": false,
           "isNullable": false,
           "pkType": "UUID",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false
+        },
+        {
+          "name": "user",
+          "type": "User",
+          "dbName": "fk_user",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
+          "label": "Usu?rio",
+          "mask": "",
+          "isPrimaryKey": true,
+          "isUniqueKey": false,
+          "isNullable": false,
+          "pkType": "None",
           "multitenantContext": "",
           "jsonIgnore": false,
           "isTransient": false,
@@ -132,209 +132,17 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "name\nid\n"
+          "text": "id\nuser\n"
         },
         ".uml-class-attrs-value": {
-          "ref-x": 61.515625,
+          "ref-x": 56.734375,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\n"
+          "text": "java.lang.String\nUser\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
           "font-size": 11,
           "text": ""
-        },
-        ".": {
-          "display": "normal"
-        }
-      }
-    },
-    {
-      "type": "uml.Class",
-      "name": "UserRole",
-      "attributes": [
-        "id:java.lang.String",
-        "user:User",
-        "role:Role"
-      ],
-      "methods": [
-        "+ list(): List<UserRole>",
-        "+ findByUser(user:User): List<UserRole>",
-        "+ findByEmail(email:String): List<UserRole>",
-        "+ findByLogin(login:String): List<UserRole>",
-        "+ findByRole(roleid:String): List<UserRole>"
-      ],
-      "position": {
-        "x": 144,
-        "y": 286
-      },
-      "size": {
-        "width": 266.453125,
-        "height": 188.43113708496094
-      },
-      "angle": 0,
-      "isRest": true,
-      "tableName": null,
-      "runtimeClass": "cronos.widgets.joint.uml.Class",
-      "id": "1df87f56-c5ba-47f5-8e68-82931f49b989",
-      "z": 4,
-      "queries": [
-        {
-          "isRest": "true",
-          "name": "list",
-          "query": "select u from $entity u",
-          "void": false,
-          "type": "select"
-        },
-        {
-          "isRest": "true",
-          "name": "findByUser",
-          "query": "select u from UserRole u where u.user = :user ",
-          "void": false,
-          "type": "select",
-          "params": "user:User "
-        },
-        {
-          "isRest": "true",
-          "name": "findByEmail",
-          "query": "select u from UserRole u where u.user.email = :email",
-          "void": false,
-          "type": "select",
-          "params": "email:java.lang.String "
-        },
-        {
-          "isRest": "true",
-          "name": "findByLogin",
-          "query": "select u from UserRole u where u.user.login = :login",
-          "void": false,
-          "type": "select",
-          "params": "login:java.lang.String "
-        },
-        {
-          "isRest": "true",
-          "name": "findByRole",
-          "query": "select u from UserRole u where u.role.id = :roleid",
-          "void": false,
-          "type": "select",
-          "params": "roleid:java.lang.String "
-        }
-      ],
-      "fields": [
-        {
-          "name": "id",
-          "type": "java.lang.String",
-          "dbName": "id",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
-          "label": "",
-          "mask": "",
-          "isPrimaryKey": true,
-          "isUniqueKey": false,
-          "isNullable": false,
-          "pkType": "UUID",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": ""
-        },
-        {
-          "name": "user",
-          "type": "User",
-          "dbName": "fk_user",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": ""
-        },
-        {
-          "name": "role",
-          "type": "Role",
-          "dbName": "fk_role",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": ""
-        }
-      ],
-      "role": "AssociationClass",
-      "restPath": "",
-      "restSecurity": {
-        "get": "Administrators",
-        "post": "Administrators",
-        "put": "Administrators",
-        "delete": "Administrators"
-      },
-      "attrs": {
-        "rect": {
-          "stroke": "yellow",
-          "stroke-width": 2
-        },
-        ".uml-class-name-rect": {
-          "fill": "#fffec0",
-          "height": 50,
-          "transform": "translate(0,0)"
-        },
-        ".uml-class-attrs-rect": {
-          "fill": "#fffec0",
-          "height": 90,
-          "transform": "translate(0,50)"
-        },
-        ".uml-class-methods-rect": {
-          "fill": "#fffec0",
-          "height": 130,
-          "transform": "translate(0,140)"
-        },
-        ".uml-class-name-text": {
-          "fill": "#000",
-          "font-size": 12,
-          "text": "UserRole",
-          "font-weight": "bold"
-        },
-        ".uml-class-attrs-text": {
-          "fill": "#000",
-          "font-size": 11,
-          "text": "id\nuser\nrole\n"
-        },
-        ".uml-class-attrs-value": {
-          "ref-x": 172.640625,
-          "font-size": 11,
-          "text": "java.lang.String\nUser\nRole\n"
-        },
-        ".uml-class-methods-text": {
-          "fill": "#0066FF",
-          "font-size": 11,
-          "text": "+ list(): List<UserRole>\n+ findByUser(user:User): List<UserRole>\n+ findByEmail(email:String): List<UserRole>\n+ findByLogin(login:String): List<UserRole>\n+ findByRole(roleid:String): List<UserRole>"
         },
         ".": {
           "display": "normal"
@@ -355,8 +163,8 @@
       ],
       "methods": [],
       "position": {
-        "x": 281,
-        "y": 38
+        "x": 86,
+        "y": 62
       },
       "size": {
         "width": 175.875,
@@ -625,50 +433,6 @@
           "display": "normal"
         }
       }
-    },
-    {
-      "type": "uml.Composition",
-      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
-      "target": {
-        "id": "1df87f56-c5ba-47f5-8e68-82931f49b989"
-      },
-      "source": {
-        "id": "2a7043c2-79ad-4be1-86e2-e5e7338d7df3"
-      },
-      "relationFields": [
-        "role:target"
-      ],
-      "id": "c14bcef0-2645-4c59-85fa-2dd4273b3a0e",
-      "labels": [
-        {
-          "position": 0.9,
-          "attrs": {
-            "text": {
-              "text": "*",
-              "font-family": "Arial",
-              "font-size": "12px",
-              "fill": "#cecece"
-            },
-            "rect": {
-              "fill": "transparent"
-            }
-          }
-        }
-      ],
-      "z": 12,
-      "attrs": {
-        ".marker-target": {
-          "d": "",
-          "fill": ""
-        },
-        ".marker-source": {
-          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
-          "fill": "#cecece"
-        },
-        ".": {
-          "display": "normal"
-        }
-      }
     }
   ],
   "selectedGroup": "1d7f906f-a526-482d-aaf4-08d227ae8c18",
@@ -677,7 +441,6 @@
       "name": "Security",
       "id": "841bf2db-1dee-49fa-b19d-991b2ed50e4f",
       "cells": [
-        "2a7043c2-79ad-4be1-86e2-e5e7338d7df3",
         "d2e50f97-0b9e-4037-94ba-af64568af247",
         "1df87f56-c5ba-47f5-8e68-82931f49b989"
       ]
@@ -686,7 +449,6 @@
       "name": "",
       "id": "1d7f906f-a526-482d-aaf4-08d227ae8c18",
       "cells": [
-        "2a7043c2-79ad-4be1-86e2-e5e7338d7df3",
         "d2e50f97-0b9e-4037-94ba-af64568af247",
         "1df87f56-c5ba-47f5-8e68-82931f49b989"
       ]
