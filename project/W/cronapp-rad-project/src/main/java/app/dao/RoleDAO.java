@@ -18,52 +18,42 @@ import org.springframework.transaction.annotation.*;
  */
 @Repository("RoleDAO")
 @Transactional(transactionManager="app-TransactionManager")
-public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
+public interface RoleDAO extends JpaRepository<Role, RolePK> {
 
   /**
    * Obtém a instância de Role utilizando os identificadores
-   * 
+   *
    * @param id
-   *          Identificador 
+   *          Identificador
+   * @param user_id
+   *          Identificador
    * @return Instância relacionada com o filtro indicado
    * @generated
-   */    
-  @Query("SELECT entity FROM Role entity WHERE entity.id = :id")
-  public Role findOne(@Param(value="id") java.lang.String id);
+   */
+  @Query("SELECT entity FROM Role entity WHERE entity.id = :id AND entity.user.id = :user_id")
+  public Role findOne(@Param(value="id") java.lang.String id, @Param(value="user_id") java.lang.String user_id);
 
   /**
    * Remove a instância de Role utilizando os identificadores
-   * 
+   *
    * @param id
-   *          Identificador 
+   *          Identificador
+   * @param user_id
+   *          Identificador
    * @return Quantidade de modificações efetuadas
    * @generated
-   */    
-  @Modifying
-  @Query("DELETE FROM Role entity WHERE entity.id = :id")
-  public void delete(@Param(value="id") java.lang.String id);
-
-
-
-  /**
-   * OneToMany Relation
-   * @generated
-   */
-  @Query("SELECT entity FROM UserRole entity WHERE entity.role.id = :id")
-  public Page<UserRole> findUserRole(@Param(value="id") java.lang.String id, Pageable pageable);
-  /**
-   * ManyToOne Relation
-   * @generated
-   */
-  @Query("SELECT entity.user FROM UserRole entity WHERE entity.role.id = :id")
-  public Page<User> listUser(@Param(value="id") java.lang.String id, Pageable pageable);
-
-  /**
-   * ManyToOne Relation Delete
-   * @generated
    */
   @Modifying
-  @Query("DELETE FROM UserRole entity WHERE entity.role.id = :instanceId AND entity.user.id = :relationId")
-  public int deleteUser(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
+  @Query("DELETE FROM Role entity WHERE entity.id = :id AND entity.user.id = :user_id")
+  public void delete(@Param(value="id") java.lang.String id, @Param(value="user_id") java.lang.String user_id);
+
+
+
+  /**
+   * Foreign Key user
+   * @generated
+   */
+  @Query("SELECT entity FROM Role entity WHERE entity.user.id = :id")
+  public Page<Role> findRolesByUser(@Param(value="id") java.lang.String id, Pageable pageable);
 
 }
