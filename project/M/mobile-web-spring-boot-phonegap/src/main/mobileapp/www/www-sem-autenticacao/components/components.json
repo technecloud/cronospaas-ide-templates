@@ -79,7 +79,7 @@
       "text": "Link",
       "class": "adjust-icon mdi mdi-link",
       "wrapper": false,
-      "templateURL": "src/main/webapp/components/templates/anchor.template.html",
+      "templateURL": "src/main/mobileapp/www/components/templates/anchor.template.html",
       "properties": {
         "onclick": {
           "type": "event"
