@@ -16,11 +16,9 @@ import org.eclipse.persistence.annotations.*;
  * @generated
  */
 @Entity
-@Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\"")
+@Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\""<#if schemeName??>, schema="\"<#if persistenceProvider == "oracle">${schemeName?upper_case}<#else>${schemeName}</#if>\"" </#if>)
 @NamedQueries({
-	<#list clazz.namedQueries as namedQuery>
-        @NamedQuery(name = "${clazz.name?uncap_first}${namedQuery.name?cap_first}", query = "${namedQuery.query?replace('(\n)+', ' ','r')}")<#if namedQuery_has_next>,</#if>
-	</#list>
+  <#list clazz.namedQueries as namedQuery>@NamedQuery(name = "${clazz.name?uncap_first}${namedQuery.name?cap_first}", query = "${namedQuery.query?replace('(\n)+', ' ','r')}")<#if namedQuery_has_next>,</#if></#list>
 })
 @XmlRootElement
 <#if (clazz.multitenantClass)>
