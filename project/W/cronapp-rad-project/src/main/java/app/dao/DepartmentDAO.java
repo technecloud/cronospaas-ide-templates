@@ -6,50 +6,50 @@ import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.repository.query.*;
-import org.springframework.transaction.annotation.*;
+import org.springframework.transaction.annotation.*; 
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
  * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
- *
+ * 
  * @see org.springframework.data.jpa.repository.JpaRepository
- *
+ * 
  * @generated
  */
-@Repository("UserDAO")
+@Repository("DepartmentDAO")
 @Transactional(transactionManager="app-TransactionManager")
-public interface UserDAO extends JpaRepository<User, java.lang.String> {
+public interface DepartmentDAO extends JpaRepository<Department, java.lang.String> {
 
   /**
-   * Obtém a instância de User utilizando os identificadores
-   *
+   * Obtém a instância de Department utilizando os identificadores
+   * 
    * @param id
-   *          Identificador
+   *          Identificador 
    * @return Instância relacionada com o filtro indicado
    * @generated
-   */
-  @Query("SELECT entity FROM User entity WHERE entity.id = :id")
-  public User findOne(@Param(value="id") java.lang.String id);
+   */    
+  @Query("SELECT entity FROM Department entity WHERE entity.id = :id")
+  public Department findOne(@Param(value="id") java.lang.String id);
 
   /**
-   * Remove a instância de User utilizando os identificadores
-   *
+   * Remove a instância de Department utilizando os identificadores
+   * 
    * @param id
-   *          Identificador
+   *          Identificador 
    * @return Quantidade de modificações efetuadas
    * @generated
-   */
+   */    
   @Modifying
-  @Query("DELETE FROM User entity WHERE entity.id = :id")
+  @Query("DELETE FROM Department entity WHERE entity.id = :id")
   public void delete(@Param(value="id") java.lang.String id);
 
 
 
   /**
-   * OneToMany Relation
+   * Foreign Key company
    * @generated
    */
-  @Query("SELECT entity FROM Role entity WHERE entity.user.id = :id")
-  public Page<Role> findRole(@Param(value="id") java.lang.String id, Pageable pageable);
+  @Query("SELECT entity FROM Department entity WHERE entity.company.id = :id")
+  public Page<Department> findDepartmentsByCompany(@Param(value="id") java.lang.String id, Pageable pageable);
 
 }

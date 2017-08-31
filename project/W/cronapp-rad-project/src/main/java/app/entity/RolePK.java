@@ -4,91 +4,76 @@ import java.io.*;
 import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonFilter;
-import cronapi.rest.security.CronappSecurity;
 
 
 /**
- * Classe que representa a tabela ROLE
- * @generated
- */
-@Entity
-@IdClass(RolePK.class)
-@Table(name = "\"ROLE\"")
-@XmlRootElement
-@CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
-@JsonFilter("app.entity.Role")
-public class Role implements Serializable {
+* @generated
+*/
+@Embeddable
+public class RolePK implements Serializable {
 
   /**
-   * UID da classe, necessário na serialização
-   * @generated
-   */
+  * UID da classe, necessário na serialização
+  * @generated
+  */
   private static final long serialVersionUID = 1L;
-
+  
   /**
    * @generated
    */
-  @Id
-  @Column(name = "id", nullable = false, insertable=true, updatable=true)
-  private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-
+  @Column(name = "id", insertable=true, updatable=true)
+  private java.lang.String id;
+  
   /**
    * @generated
    */
-  @Id
-  @JoinColumn(name="fk_user", nullable = false, referencedColumnName = "id", insertable=true, updatable=true)
-  private User user;
-
+  @Column(name = "fk_user", insertable=true, updatable=true)
+  private java.lang.String user;
+  
   /**
    * Construtor
    * @generated
    */
-  public Role(){
+  public RolePK(){
   }
-
-
+  
   /**
    * Obtém id
    * return id
    * @generated
    */
-
   public java.lang.String getId(){
     return this.id;
   }
-
+  
   /**
    * Define id
    * @param id id
    * @generated
    */
-  public Role setId(java.lang.String id){
+  public RolePK setId(java.lang.String id){
     this.id = id;
     return this;
   }
-
   /**
    * Obtém user
    * return user
    * @generated
    */
-
-  public User getUser(){
+  public java.lang.String getUser(){
     return this.user;
   }
-
+  
   /**
    * Define user
    * @param user user
    * @generated
    */
-  public Role setUser(User user){
+  public RolePK setUser(java.lang.String user){
     this.user = user;
     return this;
   }
-
+  
   /**
    * @generated
    */
@@ -96,12 +81,12 @@ public class Role implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj) return true;
     if (obj == null || getClass() != obj.getClass()) return false;
-    Role object = (Role)obj;
+    RolePK object = (RolePK)obj;
     if (id != null ? !id.equals(object.id) : object.id != null) return false;
     if (user != null ? !user.equals(object.user) : object.user != null) return false;
     return true;
   }
-
+  
   /**
    * @generated
    */

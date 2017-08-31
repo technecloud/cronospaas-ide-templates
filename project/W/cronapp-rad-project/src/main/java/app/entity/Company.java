@@ -5,6 +5,9 @@ import javax.persistence.*;
 import java.util.*;
 import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFilter;
+import cronapi.rest.security.CronappSecurity;
+
 
 /**
  * Classe que representa a tabela COMPANY
@@ -13,26 +16,30 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "\"COMPANY\"")
 @XmlRootElement
+@CronappSecurity
+@JsonFilter("app.entity.Company")
 public class Company implements Serializable {
 
   /**
-   * UID da classe, necessário na serialização 
+   * UID da classe, necessário na serialização
    * @generated
    */
   private static final long serialVersionUID = 1L;
-  
+
   /**
    * @generated
    */
   @Id
+  @Column(name = "id", nullable = false, insertable=true, updatable=true)
   private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
-  
+
   /**
-  * @generated
-  */
+   * @generated
+   */
   @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
+
   private java.lang.String name;
-  
+
   /**
    * Construtor
    * @generated
@@ -40,16 +47,17 @@ public class Company implements Serializable {
   public Company(){
   }
 
+
   /**
    * Obtém id
-   * 
    * return id
    * @generated
    */
+
   public java.lang.String getId(){
     return this.id;
   }
-  
+
   /**
    * Define id
    * @param id id
@@ -59,16 +67,17 @@ public class Company implements Serializable {
     this.id = id;
     return this;
   }
+
   /**
    * Obtém name
-   * 
    * return name
    * @generated
    */
+
   public java.lang.String getName(){
     return this.name;
   }
-  
+
   /**
    * Define name
    * @param name name
@@ -78,10 +87,10 @@ public class Company implements Serializable {
     this.name = name;
     return this;
   }
-  
+
   /**
    * @generated
-   */ 
+   */
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
@@ -90,7 +99,7 @@ public class Company implements Serializable {
     if (id != null ? !id.equals(object.id) : object.id != null) return false;
     return true;
   }
-  
+
   /**
    * @generated
    */
@@ -100,5 +109,5 @@ public class Company implements Serializable {
     result = 31 * result + ((id == null) ? 0 : id.hashCode());
     return result;
   }
-  
+
 }

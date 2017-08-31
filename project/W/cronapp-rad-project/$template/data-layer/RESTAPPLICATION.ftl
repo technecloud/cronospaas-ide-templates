@@ -12,7 +12,7 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 <#if multitenant?? && multitenant?lower_case == "sim">
-import auth.permission.MultitenantJpaTransactionManager;
+import cronapp.framework.tenant.MultitenantJpaTransactionManager;
 </#if>
 
 <#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
