@@ -34,11 +34,11 @@
       </div>
     </div>
   </div>
-  <#elseif field.isNumber() >
+  <#elseif (field.isNumber() || field.isDecimal()) >
   <div class="col-md-2">
     <div>
       <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-      <input type="number" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+      <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
     </div>
   </div>
   <#elseif field.isBoolean() >
@@ -55,7 +55,7 @@
       <input type="text" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
     </div>
   </div>
-  </#if> 
+  </#if>
   </#if>
   </#list>
 </div>
@@ -201,8 +201,8 @@
               </#if>
               ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             </div>
-            <#elseif field.isNumber() >
-            <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+            <#elseif (field.isNumber() || field.isDecimal())  >
+            <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             <#elseif field.getProperty("ngOptions")?? >
             <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>required="required"</#if>>
               <ui-select-match class="">
@@ -266,7 +266,7 @@
         <!-- NtoN  -->
         <#list model.formFieldsNToN as field>
         <div data-component="crn-datasource" class="component-holder">
-          <datasource append="false" name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}" ></datasource>
+          <datasource append="false" name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getRelationName()}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}" ></datasource>
         </div>
         <div data-component="crn-datasource" class="component-holder">
           <datasource name="All${field.getName()}" entity="${model.getDataSourceOfEntity(field.getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"></datasource>
@@ -306,7 +306,7 @@
               </div>
             </div>
             <div class="col-md-6">
-              <button class="btn btn-default btn-sm" type="submit" ng-click="${field.getName()}.insert(All${field.getName()}.active); ${field.getName()}.data.push(All${field.getName()}.active);"><i class="fa fa-plus"></i></button>
+              <button class="btn btn-default btn-sm" type="submit" ng-click="${field.getName()}.insert(All${field.getName()}.active) ${field.getName()}.data.push(All${field.getName()}.active);"><i class="fa fa-plus"></i></button>
             </div>
           </div>
         </div>
@@ -376,7 +376,7 @@
         </#if>
         <!-- query filter 1toN end-->
         <div data-component="crn-datasource" class="component-holder">
-          <datasource filter="${filterSearch}" name="${field.getName()}Grid" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getName()?cap_first}${entitySearch}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource>
+          <datasource filter="${filterSearch}" name="${field.getName()}Grid" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getRelationName()}${entitySearch}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource>
         </div>
         <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> <span class="">{{"Add" | translate}} ${field.getName()}</span> </button>
         <!--search 1toN-->
@@ -411,11 +411,11 @@
               </div>
             </div>
           </div>
-          <#elseif scfield.isNumber() >
+          <#elseif (scfield.isNumber() || scfield.isDecimal()) >
           <div class="col-md-2">
             <div>
               <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
-              <input type="number" ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>">
+              <input type="number" <#if scfield.isDecimal()>step="0.01"</#if> ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>">
             </div>
           </div>
           <#elseif scfield.isBoolean() >
@@ -551,8 +551,8 @@
                         </#if>
                         ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                       </div>
-                      <#elseif gField.isNumber() >
-                      <input type="number" ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                      <#elseif (gField.isNumber() || gField.isDecimal()) >
+                      <input type="number" <#if gField.isDecimal()>step="0.01"</#if> ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                       <#else>
                       <input type="<#if gField.isEncryption()>password<#else>text</#if>" ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
                       </#if>
@@ -571,7 +571,7 @@
         </div>
         </#list>
         <!-- OneToOne  end -->
-        
+
         </fieldset>
     </form>
   </div>

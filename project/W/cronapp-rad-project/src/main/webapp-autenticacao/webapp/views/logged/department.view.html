@@ -1,0 +1,77 @@
+<h3>Department</h3>
+<div data-component="crn-datasource" id="crn-datasource-763276" class="component-holder">
+  <datasource filter="" name="Department" entity="api/cronapi/crud/app.entity.Department" keys="id" rows-per-page="100" delete-message="Deseja remover?"></datasource>
+</div>
+<div data-component="crn-button" id="crn-button-564202"> 
+  <button class="btn btn-primary" type="submit" onclick="" ng-click="Department.startInserting()" ng-hide="Department.inserting || Department.editing"><i class="fa fa-user"></i> <span>{{"template.crud.new" | translate}}</span></button> 
+</div>
+<div class="component-holder" data-component="crn-grid" id="crn-grid-Department">
+  <div crn-datasource="Department" ng-hide="Department.editing || Department.inserting">
+    <table class="table  table-bordered table-hover table-striped">
+      <thead>
+        <tr class="table-header">
+          
+          <th class="active">
+            <div>Name</div>
+          </th>
+          
+          <th>
+            <div >{{"template.crud.actions" | translate}}</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="table-content" ng-repeat="rowData in datasource.data">
+          
+          <td class="active">
+            <div >
+              {{rowData.name}}
+            </div>
+          </td>
+          
+          <td>
+            <div> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i></button> 
+              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button> 
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="table-footer-controls"> 
+      <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()" >{{"template.crud.load_more" | translate}}...</button> 
+    </div>
+  </div>
+</div>
+<div data-component="crn-form" id="crn-form-form-Department">
+  <div class="form" ng-show="Department.editing || Department.inserting">
+    <form crn-datasource="Department">
+      <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
+        <button class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button> 
+        <button class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button> 
+        <button class="btn btn-primary" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button> 
+        <button class="btn btn-primary" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button> 
+        <button class="btn btn-primary" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button> 
+      </div>
+      <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting"> 
+        <button class="btn btn-success" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button> 
+        <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button> 
+      </div>
+      <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
+        <div data-component="crn-textinput" id="crn-textinput-name">
+          <div class="form-group">
+            <label for="textinput-name">Name</label> 
+            <input type="text" ng-model="Department.active.name" class="form-control" id="textinput-name" placeholder="Name" required="required"> 
+          </div>
+        </div>
+        <div data-component="crn-textinput" id="crn-textinput-company">
+          
+        </div>
+        <!-- OneToN -->
+        <!-- OneToOne  end -->
+        <!-- NtoN  -->
+        <!-- NtoN  end-->
+      </fieldset>
+    </form>
+  </div>
+</div>

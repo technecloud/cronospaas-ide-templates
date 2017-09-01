@@ -48,6 +48,10 @@ public class AuthenticationController {
 	@Autowired
 	private UserDAO userRepository;
 
+	<#if multitenant?? && multitenant?lower_case == "sim">
+  	@Autowired
+  	private TenantComponent tenantComponent;
+  	</#if>
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> authenticationRequest(@RequestParam String username, String password, Device device)
 			throws AuthenticationException {
@@ -75,10 +79,9 @@ public class AuthenticationController {
 			String roles = userDetails.getAuthorities().toString().replaceFirst("\\[", "").replaceFirst("\\]", "");
 			boolean root = roles.contains(SecurityPermission.ROLE_ADMIN_NAME);
 			user.setPassword(null);
-      
-    <#if multitenant?? && multitenant?lower_case == "sim">
-      TenantComponent.setId(user.getCompany().getId());
-    </#if>
+      		<#if multitenant?? && multitenant?lower_case == "sim">
+			tenantComponent.setId("tenant", user.getCompany().getId());
+			</#if>
 			// Return the token
 			return ResponseEntity.ok(new AuthenticationResponse(user, token, expires.getTime(), roles, root));
 		} else {
