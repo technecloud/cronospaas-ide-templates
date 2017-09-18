@@ -1,0 +1,11 @@
+<#-- Verificar se existem parametros -->
+<#if (authentication?? && backend?? && frontend??) >
+	<#if (authentication?lower_case) != "nenhuma" && (frontend?lower_case) == "true" && (backend?lower_case) == "true" >
+../../project/W/cronapp-rad-project/src/main/webapp-autenticacao/webapp
+	</#if>
+	<#if ((authentication?lower_case) == "nenhuma" && (frontend?lower_case) == "true") || ((backend?lower_case) == "false" && (frontend?lower_case) == "true")>
+../../project/W/cronapp-rad-project/src/main/webapp-sem-autenticacao/webapp
+	</#if>
+<#-- Caso contrario copiar tudo -->
+<#else> 
+</#if>
