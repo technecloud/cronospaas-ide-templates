@@ -22,6 +22,6 @@
     "src"
   ],
   "dependencies": {
-    "cronapp-framework-js": "latest"
+    "cronapp-framework-mobile-js": "latest"
   }
 }
