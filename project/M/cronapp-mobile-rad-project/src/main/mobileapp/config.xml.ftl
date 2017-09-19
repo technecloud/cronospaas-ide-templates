@@ -3,6 +3,7 @@
   <name>${projectName}</name>
   <description>Developed by IDE CronApp</description>
   <author email="you@example.com" href="http://example.com.com/">CronApp</author>
+  <engine name="android" spec="~6.2.3"/>
   <content src="index.html" />
   <access origin="*" />
   <preference name="webviewbounce" value="false" />
