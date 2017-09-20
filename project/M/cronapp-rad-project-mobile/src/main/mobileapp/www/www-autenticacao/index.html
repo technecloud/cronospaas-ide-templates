@@ -49,6 +49,13 @@
   <script src="plugins/cronapp-framework-mobile-js/dist/js/directives.js"></script>
   <script src="plugins/cronapp-framework-mobile-js/dist/js/filters.js"></script>
   <script src="plugins/cronapp-framework-mobile-js/dist/components/js/datasource.js"></script>
- 
+  <script>
+      $(document).ready(function(){
+          var b = "js/blockly.js";
+          var s = $('<script/>');
+          s.attr('src', window.hostApp + b);
+          $("body").append(s);
+       });
+  </script>
 </body>
 </html>
