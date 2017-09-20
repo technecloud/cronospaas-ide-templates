@@ -35,9 +35,9 @@
   <script src="plugins/moment/min/moment-with-locales.min.js"></script>
   <script src="plugins/angular-input-date/src/angular-input-date.js"></script>
   <script src="plugins/ng-file-upload/ng-file-upload.min.js"></script>
-  <script src="js/blockly.js"></script>
   <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
   <!-- Customs -->
+  <script src="js/blockly.js"></script>
   <script src="js/events.js"></script>
   <script src="js/hostApp.js"></script>
   <!-- CronApp Framework -->
@@ -49,13 +49,6 @@
   <script src="plugins/cronapp-framework-mobile-js/dist/js/directives.js"></script>
   <script src="plugins/cronapp-framework-mobile-js/dist/js/filters.js"></script>
   <script src="plugins/cronapp-framework-mobile-js/dist/components/js/datasource.js"></script>
-  <script>
-      $(document).ready(function(){
-          var b = "js/blockly.js";
-          var s = $('<script/>');
-          s.attr('src', window.hostApp + b);
-          $("body").append(s);
-       });
-  </script>
+
 </body>
 </html>
