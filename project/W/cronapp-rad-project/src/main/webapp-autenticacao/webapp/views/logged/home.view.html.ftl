@@ -1,4 +1,4 @@
-  <#if (menuPosition??) || menuPosition == "Horizontal" >
+  <#if !(menuPosition??) || menuPosition == "Horizontal" >
 <div class="component-holder ng-binding ng-scope" data-component="crn-navbar" id="crn-navbar-986427">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
