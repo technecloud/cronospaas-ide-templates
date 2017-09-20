@@ -83,7 +83,7 @@
   </div>
 </div>
   </#if>
-<div ui-view="" class="container-fluid <#if menuPosition == "Horizontal">main-view<#else>main-view-sidebar</#if>" data-container="true">
+<div ui-view="" class="container-fluid <#if !(menuPosition??) || menuPosition == "Horizontal">main-view<#else>main-view-sidebar</#if>" data-container="true">
 </div>
 
 <div class="modal fade" id="modalPassword">
