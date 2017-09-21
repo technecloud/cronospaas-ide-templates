@@ -1,4 +1,4 @@
-  <#if menuPosition == "Horizontal">
+  <#if !(menuPosition??) || menuPosition == "Horizontal" >
 <div class="component-holder ng-binding ng-scope" data-component="crn-navbar" id="crn-navbar-986427">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -83,7 +83,7 @@
   </div>
 </div>
   </#if>
-<div ui-view="" class="container-fluid <#if menuPosition == "Horizontal">main-view<#else>main-view-sidebar</#if>" data-container="true">
+<div ui-view="" class="container-fluid <#if !(menuPosition??) || menuPosition == "Horizontal">main-view<#else>main-view-sidebar</#if>" data-container="true">
 </div>
 
 <div class="modal fade" id="modalPassword">

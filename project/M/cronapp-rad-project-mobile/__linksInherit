@@ -1,0 +1,5 @@
+<#if (backend??) && (backend?lower_case) == "true" >
+../../project/W/cronapp-rad-project/config
+../../project/W/cronapp-rad-project/diagram
+</#if>
+../../project/W/cronapp-rad-project/pom.xml

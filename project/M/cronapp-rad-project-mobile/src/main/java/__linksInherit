@@ -1,0 +1,7 @@
+<#if (backend??) && (backend?lower_case) == "true" >
+../../project/W/cronapp-rad-project/src/main/java/app
+../../project/W/cronapp-rad-project/src/main/java/auth
+../../project/W/cronapp-rad-project/src/main/java/i18n
+../../project/W/cronapp-rad-project/src/main/java/META-INF
+../../project/W/cronapp-rad-project/src/main/java/SpringBootMain.java.ftl
+</#if>
