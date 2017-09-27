@@ -212,6 +212,35 @@ app.userEvents = {};
 //Configuration
 app.config = {};
 app.config.datasourceApiVersion = 2;
+app.config.defaultRoute = "/app";
+
+app.registerEventsCronapi = function($scope, $translate) {
+  for (var x in app.userEvents)
+    $scope[x] = app.userEvents[x].bind($scope);
+
+  $scope.vars = {};
+
+  try {
+    if (cronapi) {
+      $scope['cronapi'] = cronapi;
+      $scope['cronapi'].$scope = $scope;
+      $scope.safeApply = safeApply;
+      if ($translate) {
+        $scope['cronapi'].$translate = $translate;
+      }
+    }
+  } catch (e) {
+    console.info('Not loaded cronapi functions');
+    console.info(e);
+  }
+  try {
+    if (blockly)
+      $scope['blockly'] = blockly;
+  } catch (e) {
+    console.info('Not loaded blockly functions');
+    console.info(e);
+  }
+};
 
 //Components personalization jquery
 var registerComponentScripts = function() {
