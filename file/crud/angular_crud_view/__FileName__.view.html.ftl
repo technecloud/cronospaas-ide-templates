@@ -216,7 +216,7 @@
             </ui-select>
             <#elseif field.isImage()>
               <#if model.hasCronappFramework()>
-            <dynamic-image ng-model="datasource.active.${field.name}" width="" height="" style="" class=""> 
+            <dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" width="" height="" style="" class=""> 
               <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
             </dynamic-image>
               <#else>
