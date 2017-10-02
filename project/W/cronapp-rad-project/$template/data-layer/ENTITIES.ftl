@@ -16,6 +16,7 @@ import cronapi.rest.security.CronappSecurity;
 <#if hasCronappFramework && isExistsEncrypt>
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 </#if>
+<#assign hasCloudStorage = clazz.hasCloudStorage()>
 <#if hasCloudStorage>
 import cronapi.CronapiCloud;
 </#if>
