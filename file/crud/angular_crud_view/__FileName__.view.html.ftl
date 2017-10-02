@@ -184,7 +184,7 @@
           <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
         </div>
         </#if>
-        <div data-component="crn-${currentType}" id="crn-${currentType}-${field.name}">
+        <div data-component="<#if field.isImage() && model.hasCronappFramework()>crn-dynamic-image<#else>crn-${currentType}</#if>" id="crn-${currentType}-${field.name}">
           <div class="form-group">
             <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!?cap_first}</label>
             <#if field.isBoolean() >
@@ -215,6 +215,11 @@
               </ui-select-choices>
             </ui-select>
             <#elseif field.isImage()>
+              <#if model.hasCronappFramework()>
+            <dynamic-image ng-model="datasource.active.${field.name}" width="" height="" style="" class=""> 
+              <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
+            </dynamic-image>
+              <#else>
             <div class="form-group upload-image-component" ngf-drop ngf-drag-over-class="dragover">
               <img style="max-height: 128px; max-width: 128px;"
                 ng-if="datasource.active.${field.name}"
@@ -227,7 +232,8 @@
               <div class="remove btn btn-danger btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
                 <span class="glyphicon glyphicon-remove"></span>
               </div>
-            </div>
+            </div>  
+              </#if>
             <#elseif field.isFile()>
             <div class="form-group">
               <img ng-if="!datasource.active.${field.name}" data-ng-src="{{datasource.noFileUpload}}" class="drop-box" style="width:100px;height:50px" ngf-drop ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" ngf-drag-over-class="dragover">
