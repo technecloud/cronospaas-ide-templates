@@ -133,7 +133,7 @@
               {{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
               <#elseif field.isImage()>
               <a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
-              <img data-ng-src="{{'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
+              <img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
               </a>
               <#elseif field.isFile()>
               <button class="btn btn-sm" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
