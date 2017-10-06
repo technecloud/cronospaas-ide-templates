@@ -2,7 +2,7 @@
 <widget id="io.cronapp.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>CronApp App</name>
     <description>A sample CronApp App application.</description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">CronApp App Team</author>
+    <author email="dev@cronapp.io" href="http://cronapp.io">CronApp App Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
