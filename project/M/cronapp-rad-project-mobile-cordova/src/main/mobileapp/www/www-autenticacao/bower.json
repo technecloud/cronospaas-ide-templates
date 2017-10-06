@@ -1,13 +1,14 @@
 {
-  "name": "spring-boot-data-security-angularjs",
+  "name": "cronapp-rad-project-mobile-cordova",
   "homepage": "http://www.techne.com.br",
   "authors": [
     "CronosPaas"
   ],
-  "description": "spring-boot-data-security-angularjs",
+  "description": "cronapp-rad-project-mobile-cordova",
   "main": "",
   "keywords": [
-    "spring-boot",
+    "cordova",
+    "mobile",
     "angularjs"
   ],
   "license": "MIT",
