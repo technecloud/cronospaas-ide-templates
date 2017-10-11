@@ -15,22 +15,24 @@
       <datasource filter="{{query == '' || query == null ? null : ('/findByLogin/' + query)}}" name="User"  entity="api/cronapi/crud/app.entity.User" keys="id" rows-per-page="100" delete-message="{{ 'General.RemoveData' | translate }}" class=""></datasource> 
     </div> 
     <div crn-datasource="User" class="" ng-hide="User.editing || User.inserting"> 
-      <ion-list can-swipe="listCanSwipe"> 
-        <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)"> 
-          <div class="row"> 
-            <div class="col">
-               {{rowData.login}} 
+      <div class="component-holder ng-binding ng-scope" data-component="crn-list-swipe" data-forcedgroup="" id="crn-list-swipe-533868"> 
+        <ion-list can-swipe="listCanSwipe" class="listCanSwipe"> 
+          <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)"> 
+            <div class="row"> 
+              <div class="col">
+                 {{rowData.login}} 
+              </div> 
+              <div id="crn-item-options-531" class="component-holder" data-component="crn-item-options"> 
+                <div class="crn-item-options" data-item="true"> 
+                  <ion-option-button class="button-positive button" ng-click="datasource.startEditing(rowData)"><i class="icon ion-edit">{{'User.view.Edit' | translate}}</i>
+                  </ion-option-button><ion-option-button class="button-assertive button" ng-click="datasource.remove(rowData)">
+                  <i class="icon ion-trash-a">{{'User.view.Remove' | translate}}</i></ion-option-button> 
+                </div> 
+              </div> 
             </div> 
-          </div> 
-          <ion-option-button class="button-positive" ng-click="datasource.startEditing(rowData)"> 
-            <i class="icon ion-edit"></i> 
-          </ion-option-button> 
-          <ion-option-button class="button-assertive" ng-click="datasource.remove(rowData)">
-             &nbsp; 
-            <i class="icon ion-trash-a"></i> 
-          </ion-option-button> 
-        </ion-item> 
-      </ion-list> 
+          </ion-item> 
+        </ion-list> 
+      </div> 
     </div> 
     <div ng-show="User.editing || User.inserting"> 
       <form crn-datasource="User"> 
