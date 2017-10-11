@@ -20,6 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 <#if hasCloudStorage>
 import cronapi.CronapiCloud;
 </#if>
+<#if clazz.hasFileDataBase()>
+import cronapi.CronapiByteHeaderSignature;
+</#if>
 <#list clazz.imports as import>
 import ${import};
 </#list>
@@ -169,6 +172,9 @@ public class ${clazz.name} implements Serializable {
   </#if>
   <#if field.isDropbox()>
   @CronapiCloud(type = "dropbox", value="${clazz.getCloudStorage().getAccessToken()}")
+  </#if>
+  <#if field.isFileDataBase()>
+  @CronapiByteHeaderSignature
   </#if>
   ${field.securityAnnotation}
   ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;

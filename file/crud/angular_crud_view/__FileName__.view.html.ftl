@@ -136,9 +136,15 @@
               <img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
               </a>
               <#elseif field.isFile()>
+                <#if model.hasCronappFramework()>
+              <button ng-if="rowData.${field.name}" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
+                <span class="glyphicon glyphicon-download-alt"></span>
+              </button>
+                <#else>
               <button class="btn btn-sm" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
                 <span class="glyphicon glyphicon-download-alt"></span>
               </button>
+                </#if>
               <#else>
               {{rowData.${field.name}}}
               </#if>
@@ -184,7 +190,14 @@
           <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
         </div>
         </#if>
-        <div data-component="<#if field.isImage() && model.hasCronappFramework()>crn-dynamic-image<#else>crn-${currentType}</#if>" id="crn-${currentType}-${field.name}">
+        <#assign dataComponentType = "crn-${currentType}">
+        <#if field.isImage() && model.hasCronappFramework()>
+          <#assign dataComponentType = "crn-dynamic-image">
+        <#elseif field.isFile() && model.hasCronappFramework()>
+          <#assign dataComponentType = "crn-dynamic-file">
+        </#if>
+        
+        <div data-component="${dataComponentType}" id="crn-${currentType}-${field.name}">
           <div class="form-group">
             <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!?cap_first}</label>
             <#if field.isBoolean() >
@@ -235,6 +248,11 @@
             </div>  
               </#if>
             <#elseif field.isFile()>
+            <#if model.hasCronappFramework()>
+            <dynamic-file ng-model="${model.dataSourceName}.active.${field.name}"> 
+              <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
+            </dynamic-file>
+              <#else>
             <div class="form-group">
               <img ng-if="!datasource.active.${field.name}" data-ng-src="{{datasource.noFileUpload}}" class="drop-box" style="width:100px;height:50px" ngf-drop ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" ngf-drag-over-class="dragover">
               <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
@@ -242,6 +260,7 @@
                 <span class="glyphicon glyphicon-remove"></span>
               </div>
             </div>
+              </#if>
             <#else>
             <input
               type="<#if field.isEncryption()>password<#else>text</#if>"
