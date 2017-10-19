@@ -5,18 +5,74 @@
   <input type="text" ng-model="query" class="form-control" value="%" placeholder="{{'template.crud.search' | translate}}">
 </div>
 <br/>
+<#elseif model.hasCronappFramework()>
+  <#if model.getGridFilterSearchable()=="generalSearch">
+<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-general">
+  <div class="form-group">
+    <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
+    <input type="text" cronapp-filter="" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+  </div>
+</div>
+<br/>
+  <#elseif model.getGridFilterSearchable()=="specificSearch">
+    <#list model.formFields as field>
+      <#if (field.isDate() || field.isTime() || field.isTimestamp()) >
+<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}">
+  <div class="form-group">
+    <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
+    <div style="position:relative">
+      <input type="text" as-date="" ng-model="${field.name}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}"
+          <#if field.isDate() >
+            format="DD/MM/YYYY"
+          <#elseif field.isTime()>
+            format="HH:mm:ss"
+          <#elseif field.isTimestamp()>
+            format="DD/MM/YYYY HH:mm:ss"
+          </#if>
+        class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+    </div>
+  </div>
+</div>
+<br/>    
+      <#elseif (field.isNumber() || field.isDecimal()) >
+<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}">
+  <div class="form-group">
+    <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
+    <input type="number" <#if field.isDecimal()>step="0.01"</#if> cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+  </div>
+</div>
+<br/>  
+      <#elseif field.isBoolean() >
+<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}">
+  <div class="form-group">
+    <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
+    <input type="checkbox" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+  </div>
+</div>
+<br/>
+      <#else>
+<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}">
+  <div class="form-group">
+    <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
+    <input type="text" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+  </div>
+</div>
+<br/>
+      </#if>
+    </#list>
+  </#if>
 <#elseif model.hasSearchableFilter()>
-<#if model.getGridFilterSearchable()=="generalSearch">
+  <#if model.getGridFilterSearchable()=="generalSearch">
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
   <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
   <input type="text" ng-model="search" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
 </div>
 <br/>
-<#else>
+  <#else>
 <div class="row" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
-  <#list model.formFields as field>
-  <#if field.isSearchable()>
-  <#if (field.isDate() || field.isTime() || field.isTimestamp()) >
+    <#list model.formFields as field>
+      <#if field.isSearchable()>
+        <#if (field.isDate() || field.isTime() || field.isTimestamp()) >
   <div class="col-md-2">
     <div class="component-holder ng-binding ng-scope" data-component="crn-datepicker" id="crn-datepicker-32329">
       <div class="form-group">
@@ -34,33 +90,33 @@
       </div>
     </div>
   </div>
-  <#elseif (field.isNumber() || field.isDecimal()) >
+        <#elseif (field.isNumber() || field.isDecimal()) >
   <div class="col-md-2">
     <div>
       <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
       <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
     </div>
   </div>
-  <#elseif field.isBoolean() >
+        <#elseif field.isBoolean() >
   <div class="col-md-2">
     <div>
       <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
       <input type="checkbox" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
     </div>
   </div>
-  <#else>
+        <#else>
   <div class="col-md-2">
     <div>
       <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
       <input type="text" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
     </div>
   </div>
-  </#if>
-  </#if>
-  </#list>
+        </#if>
+      </#if>
+    </#list>
 </div>
 <br/>
-</#if>
+  </#if>
 </#if>
 <#assign filterSearch = "">
 <#if model.initialFilter??>
@@ -68,33 +124,36 @@
 </#if>
 <#assign entitySearch = "">
 <#if model.hasColumnFilter()>
-<#assign filterSearch = "{{query == '' || query == null ? '${filterSearch}' : ('/${model.gridFilter}/' + query)}}">
+  <#assign filterSearch = "{{query == '' || query == null ? '${filterSearch}' : ('/${model.gridFilter}/' + query)}}">
+<#elseif model.hasCronappFramework()>
+  <#assign filterSearch = "">
+  <#assign entitySearch = "">
 <#elseif model.hasSearchableFilter()>
-<#if model.getGridFilterSearchable()=="generalSearch">
-<#assign filterSearch = "?search={{search}}">
-<#assign entitySearch = "/generalSearch">
-<#else>
-<#assign filter_index = 0>
-<#assign entitySearch = "/specificSearch">
-<#list model.formFields as field>
-<#if field.isSearchable()>
-<#assign parameter_angular_date = "">
-<#if field.isDate() >
-<#assign parameter_angular_date = "| date:'dd/MM/yyyy'">
-<#elseif field.isTime()>
-<#assign parameter_angular_date = "| date:'HH:mm:ss'">
-<#elseif field.isTimestamp() >
-<#assign parameter_angular_date = "| date:'dd/MM/yyyy HH:mm:ss'">
-</#if>
-<#if filter_index == 0>
-<#assign filterSearch += "?${field.name}={{${field.name}${parameter_angular_date}}}">
-<#assign filter_index++>
-<#else>
-<#assign filterSearch += "&${field.name}={{${field.name}${parameter_angular_date}}}">
-</#if>
-</#if>
-</#list>
-</#if>
+  <#if model.getGridFilterSearchable()=="generalSearch">
+    <#assign filterSearch = "?search={{search}}">
+    <#assign entitySearch = "/generalSearch">
+  <#else>
+    <#assign filter_index = 0>
+    <#assign entitySearch = "/specificSearch">
+    <#list model.formFields as field>
+      <#if field.isSearchable()>
+        <#assign parameter_angular_date = "">
+        <#if field.isDate() >
+          <#assign parameter_angular_date = "| date:'dd/MM/yyyy'">
+        <#elseif field.isTime()>
+          <#assign parameter_angular_date = "| date:'HH:mm:ss'">
+        <#elseif field.isTimestamp() >
+          <#assign parameter_angular_date = "| date:'dd/MM/yyyy HH:mm:ss'">
+        </#if>
+        <#if filter_index == 0>
+          <#assign filterSearch += "?${field.name}={{${field.name}${parameter_angular_date}}}">
+          <#assign filter_index++>
+        <#else>
+          <#assign filterSearch += "&${field.name}={{${field.name}${parameter_angular_date}}}">
+        </#if>
+      </#if>
+    </#list>
+  </#if>
 </#if>
 <div data-component="crn-datasource" id="crn-datasource-763276" class="component-holder">
   <datasource filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.dataSourceFullName}${entitySearch}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
