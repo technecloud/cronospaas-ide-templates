@@ -10,7 +10,13 @@
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-general">
   <div class="form-group">
     <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
-    <input type="text" cronapp-filter="" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+    <#assign fieldsString = "">
+    <#list model.formFields as field>
+      <#if (field.isString()) >
+        <#assign fieldsString = fieldsString + "${field.name};">
+      </#if>
+    </#list>
+    <input type="text" cronapp-filter="${fieldsString}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
   </div>
 </div>
 <br/>
