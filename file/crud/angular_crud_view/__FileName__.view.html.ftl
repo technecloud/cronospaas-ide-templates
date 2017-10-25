@@ -432,12 +432,12 @@
     </form>
     <form>
         <fieldset>
-            <!-- OneToN -->
+        <!-- OneToN -->
         <#list model.formFieldsOneToN as field>
         <!--query filter 1toN -->
         <#assign filterSearch = "">
         <#assign entitySearch = "">
-        <#if model.hasSearchableFilter()>
+        <#if model.hasSearchableFilter() && !model.hasCronappFramework()>
         <#if model.getGridFilterSearchable()=="generalSearch">
         <#assign filterSearch = "?search={{search${field.getName()}}}">
         <#assign entitySearch = "/generalSearch">
@@ -470,7 +470,7 @@
         </div>
         <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> <span class="">{{"Add" | translate}} ${field.getName()}</span> </button>
         <!--search 1toN-->
-        <#if model.hasSearchableFilter()>
+        <#if model.hasSearchableFilter() && !model.hasCronappFramework()>
         <#if model.getGridFilterSearchable()=="generalSearch">
         <br/><br/><br/>
         <div ng-show="${model.dataSourceName}.editing && !${field.getName()}Grid.hasDataBuffered()">
@@ -567,6 +567,20 @@
                           {{rowData.${gField.getName()} | date:'HH:mm:ss'}}
                           <#elseif gField.isTimestamp() >
                           {{rowData.${gField.getName()} | date:'dd/MM/yyyy HH:mm:ss'}}
+                          <#elseif gField.isImage()>
+                          <a ng-if="rowData.${gField.name}" ng-click="datasource.openImage(rowData.${gField.name})">
+                            <img data-ng-src="{{rowData.${gField.name}.startsWith('http') || (rowData.${gField.name}.startsWith('/') && rowData.${gField.name}.length < 1000)? rowData.${gField.name} : 'data:image/png;base64,' + rowData.${gField.name}}}" style="max-height: 30px;">
+                          </a>
+                          <#elseif gField.isFile()>
+                            <#if model.hasCronappFramework()>
+                          <button ng-if="rowData.${gField.name}" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, '${gField.name}', $index)">
+                            <span class="glyphicon glyphicon-download-alt"></span>
+                          </button>
+                            <#else>
+                          <button class="btn btn-sm" ng-click="datasource.downloadFile('${gField.name}', [<#list gField.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
+                            <span class="glyphicon glyphicon-download-alt"></span>
+                          </button>
+                            </#if>
                           <#else>
                           {{rowData.${gField.getName()}}}
                           </#if>
@@ -624,7 +638,14 @@
                   </div>
                     </#if>
                   <#elseif (!gField.isPrimaryKey())>
-                  <div data-component="crn-textinput" id="crn-textinput-${gField.getDbFieldName()}">
+                  
+                  <#assign dataComponentType = "crn-textinput">
+                  <#if gField.isImage() && model.hasCronappFramework()>
+                    <#assign dataComponentType = "crn-dynamic-image">
+                  <#elseif gField.isFile() && model.hasCronappFramework()>
+                    <#assign dataComponentType = "crn-dynamic-file">
+                  </#if>
+                  <div data-component="${dataComponentType}"  id="crn-textinput-${gField.getDbFieldName()}">
                     <div class="form-group">
                       <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                       <#if gField.isBoolean() >
@@ -643,6 +664,40 @@
                       </div>
                       <#elseif (gField.isNumber() || gField.isDecimal()) >
                       <input type="number" <#if gField.isDecimal()>step="0.01"</#if> ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                      <#elseif gField.isImage()>
+                        <#if model.hasCronappFramework()>
+                      <dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" width="" height="" style="" class=""> 
+                        <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
+                      </dynamic-image>
+                        <#else>
+                      <div class="form-group upload-image-component" ngf-drop ngf-drag-over-class="dragover">
+                        <img style="max-height: 128px; max-width: 128px;"
+                          ng-if="${field.getName()}Grid.active.${gField.getName()}"
+                          data-ng-src="{{'data:image/png;base64,' + ${field.getName()}Grid.active.${gField.getName()}}}">
+                        <img data-ng-src="{{${field.getName()}Grid.noImageUpload}}"
+                          style="max-height: 128px; max-width: 128px;"
+                          class="btn"
+                          ng-if="!${field.getName()}Grid.active.${gField.getName()}"
+                          ngf-drop ngf-select ngf-change="${field.getName()}Grid.setFile($file, ${field.getName()}Grid.active, '${gField.getName()}')" accept="image/*">
+                        <div class="remove btn btn-danger btn-xs" ng-if="${field.getName()}Grid.active.${gField.getName()}" ng-click="${field.getName()}Grid.active.${gField.getName()}=null">
+                          <span class="glyphicon glyphicon-remove"></span>
+                        </div>
+                      </div>  
+                        </#if>
+                      <#elseif gField.isFile()>
+                        <#if model.hasCronappFramework()>
+                      <dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}"> 
+                        <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
+                      </dynamic-file>
+                        <#else>
+                      <div class="form-group">
+                        <img ng-if="!${field.getName()}Grid.active.${gField.getName()}" data-ng-src="{{${field.getName()}Grid.noFileUpload}}" class="drop-box" style="width:100px;height:50px" ngf-drop ngf-select ngf-change="${field.getName()}Grid.setFile($file, ${field.getName()}Grid.active, '${gField.getName()}')" ngf-drag-over-class="dragover">
+                        <em ng-if="${field.getName()}Grid.active.${gField.getName()}">{{${field.getName()}Grid.byteSize(${field.getName()}Grid.active.${gField.getName()})}}</em>
+                        <div class="btn btn-danger btn-xs" ng-if="${field.getName()}Grid.active.${gField.getName()}" ng-click="${field.getName()}Grid.active.${gField.getName()}=null">
+                          <span class="glyphicon glyphicon-remove"></span>
+                        </div>
+                      </div>
+                        </#if>
                       <#else>
                       <input type="<#if gField.isEncryption()>password<#else>text</#if>" ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
                       </#if>
