@@ -5,14 +5,14 @@
   <input type="text" ng-model="query" class="form-control" value="%" placeholder="{{'template.crud.search' | translate}}">
 </div>
 <br/>
-<#elseif model.hasCronappFramework()>
+<#elseif model.hasCronappFramework() && model.hasSearchableFilter()> 
   <#if model.getGridFilterSearchable()=="generalSearch">
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-general">
   <div class="form-group">
     <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
     <#assign fieldsString = "">
     <#list model.formFields as field>
-      <#if (field.isString()) >
+      <#if (field.isSearchable() && field.isString()) >
         <#assign fieldsString = fieldsString + "${field.name};">
       </#if>
     </#list>
@@ -22,6 +22,7 @@
 <br/>
   <#elseif model.getGridFilterSearchable()=="specificSearch">
     <#list model.formFields as field>
+     <#if field.isSearchable()>  
       <#if (field.isDate() || field.isTime() || field.isTimestamp()) >
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}">
   <div class="form-group">
@@ -65,6 +66,7 @@
 </div>
 <br/>
       </#if>
+     </#if>
     </#list>
   </#if>
 <#elseif model.hasSearchableFilter()>
