@@ -144,6 +144,8 @@
           link: function (scope, element, attrs, ngModel) {
             var validator = {'cpf': CPF, 'cnpj': CNPJ};
             
+            setTimeout(function() { element[0].setCustomValidity(element[0].dataset['errorMessage']); }, 100);
+            
             ngModel.$validators[attrs.valid] = function(modelValue, viewValue) {
               var value = modelValue || viewValue;
               var fieldValid =  validator[attrs.valid].isValid(value);
