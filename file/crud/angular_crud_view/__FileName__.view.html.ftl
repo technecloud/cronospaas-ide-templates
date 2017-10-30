@@ -554,7 +554,7 @@
                   <thead>
                     <tr class="table-header">
                       <#list field.getClazz().getFields() as gField>
-                      <#if !gField.isPrimaryKey() && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case)) >
+                      <#if (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey()) && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case)) >
                       <th class="">
                         <div class="">
                           <#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>
@@ -572,7 +572,7 @@
                   <tbody>
                     <tr class="table-content" ng-repeat="rowData in datasource.data">
                       <#list field.getClazz().getFields() as gField>
-                      <#if !gField.isPrimaryKey() && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case))>
+                      <#if (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey()) && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case))>
                       <td>
                         <div>
                           <#if gField.isReverseRelation() >
@@ -653,7 +653,7 @@
                     </div>
                   </div>
                     </#if>
-                  <#elseif (!gField.isPrimaryKey())>
+                  <#elseif (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey())>
                   
                   <#assign dataComponentType = "crn-textinput">
                   <#if gField.isImage() && model.hasCronappFramework()>
