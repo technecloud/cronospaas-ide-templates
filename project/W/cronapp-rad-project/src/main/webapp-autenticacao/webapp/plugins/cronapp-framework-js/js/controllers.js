@@ -5,7 +5,9 @@
 
     $rootScope.http = $http;
     $rootScope.Notification = Notification;
-
+    
+    app.registerEventsCronapi($scope, $translate);
+    
     for (var x in app.userEvents)
       $scope[x] = app.userEvents[x].bind($scope);
 
