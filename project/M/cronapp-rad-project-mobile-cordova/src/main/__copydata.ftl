@@ -1,17 +1,16 @@
 <#-- Verificar se existem parametros -->
 <#if (authentication?? && backend?? && frontend??) >
-	<#if (authentication?lower_case) != "nenhuma" && (frontend?lower_case) == "true" && (backend?lower_case) == "true" >
+  <#if (authentication?lower_case) != "nenhuma" && (frontend?lower_case) == "true" && (backend?lower_case) == "true" >
 path.content=/webapp-autenticacao
-	</#if>
-	<#if ((authentication?lower_case) == "nenhuma" && (frontend?lower_case) == "true") || ((backend?lower_case) == "false" && (frontend?lower_case) == "true")>
+  </#if>
+  <#if ((authentication?lower_case) == "nenhuma" && (frontend?lower_case) == "true") || ((backend?lower_case) == "false" && (frontend?lower_case) == "true")>
 path.content=/webapp-sem-autenticacao
-	</#if>
+  </#if>
 <#if (backend?lower_case) == "true">
 path=/java
-path=/mobileapp
 </#if>
 <#-- Caso contrario copiar tudo -->
 <#else> 
-path=/mobileapp
 path=/java
 </#if>
+path=/mobileapp

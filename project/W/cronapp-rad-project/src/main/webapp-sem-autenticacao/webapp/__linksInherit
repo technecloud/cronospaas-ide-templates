@@ -1,7 +1,7 @@
-cronapp-rad-project/src/main/webapp-autenticacao/webapp/bowerscripts
-cronapp-rad-project/src/main/webapp-autenticacao/webapp/i18n
-cronapp-rad-project/src/main/webapp-autenticacao/webapp/js
-cronapp-rad-project/src/main/webapp-autenticacao/webapp/css
-cronapp-rad-project/src/main/webapp-autenticacao/webapp/plugins
-cronapp-rad-project/src/main/webapp-autenticacao/webapp/.bowerrc
-cronapp-rad-project/src/main/webapp-autenticacao/webapp/bower.json
+../../project/W/cronapp-rad-project/src/main/webapp-autenticacao/webapp/bowerscripts
+../../project/W/cronapp-rad-project/src/main/webapp-autenticacao/webapp/i18n
+../../project/W/cronapp-rad-project/src/main/webapp-autenticacao/webapp/js
+../../project/W/cronapp-rad-project/src/main/webapp-autenticacao/webapp/css
+../../project/W/cronapp-rad-project/src/main/webapp-autenticacao/webapp/plugins
+../../project/W/cronapp-rad-project/src/main/webapp-autenticacao/webapp/.bowerrc
+../../project/W/cronapp-rad-project/src/main/webapp-autenticacao/webapp/bower.json
