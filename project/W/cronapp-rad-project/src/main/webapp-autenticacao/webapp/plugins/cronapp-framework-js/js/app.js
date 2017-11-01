@@ -215,42 +215,41 @@ app.userEvents = {};
 //Configuration
 app.config = {};
 app.config.datasourceApiVersion = 2;
-
 app.registerEventsCronapi = function($scope, $translate) {
-for (var x in app.userEvents)
-  $scope[x] = app.userEvents[x].bind($scope);
+  for (var x in app.userEvents)
+    $scope[x] = app.userEvents[x].bind($scope);
 
-$scope.vars = {};
+  $scope.vars = {};
 
-try {
-  if (cronapi) {
-    $scope['cronapi'] = cronapi;
-    $scope['cronapi'].$scope = $scope;
-    $scope.safeApply = safeApply;
-    if ($translate) {
-      $scope['cronapi'].$translate = $translate;
+  try {
+    if (cronapi) {
+      $scope['cronapi'] = cronapi;
+      $scope['cronapi'].$scope = $scope;
+      $scope.safeApply = safeApply;
+      if ($translate) {
+        $scope['cronapi'].$translate = $translate;
+      }
     }
+  } catch (e) {
+    console.info('Not loaded cronapi functions');
+    console.info(e);
   }
-} catch (e) {
-  console.info('Not loaded cronapi functions');
-  console.info(e);
-}
-try {
-  if (blockly)
-    $scope['blockly'] = blockly;
-} catch (e) {
-  console.info('Not loaded blockly functions');
-  console.info(e);
-}
+  try {
+    if (blockly)
+      $scope['blockly'] = blockly;
+  } catch (e) {
+    console.info('Not loaded blockly functions');
+    console.info(e);
+  }
 };
 
 window.safeApply = function(fn) {
-var phase = this.$root.$$phase;
-if (phase == '$apply' || phase == '$digest') {
-  if (fn && (typeof(fn) === 'function')) {
-    fn();
+  var phase = this.$root.$$phase;
+  if (phase == '$apply' || phase == '$digest') {
+    if (fn && (typeof(fn) === 'function')) {
+      fn();
+    }
+  } else {
+    this.$apply(fn);
   }
-} else {
-  this.$apply(fn);
-}
 };
