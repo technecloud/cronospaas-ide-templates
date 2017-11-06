@@ -70,12 +70,12 @@
   <script src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
   <script src="plugins/cpf_cnpj/build/cpf.js"></script>
   <script src="plugins/cpf_cnpj/build/cnpj.js"></script>
-  <script src="js/blockly.js"></script>
+  <script src="/js/blockly.js"></script>
   <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
   <!-- Custom -->
   <script src="js/events.js"></script>
   <!-- CronApp Framework -->
-  <script src="plugins/cronapp-framework-js/js/app.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/app.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/controllers.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/services.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/LocaleService.js"></script>
