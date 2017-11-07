@@ -66,7 +66,7 @@
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}">
   <div class="form-group">
     <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-    <input type="text" max-width="${field.getLength()}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+    <input type="text" maxlength="${field.getLength()}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
   </div>
 </div>
 <br/>
@@ -130,7 +130,7 @@
   <div class="col-md-2">
     <div>
       <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-      <input type="text" max-width="${field.getLength()}" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
+      <input type="text" maxlength="${field.getLength()}" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
     </div>
   </div>
         </#if>
@@ -345,7 +345,7 @@
             <#else>
             <input
             	<#if field.getLength()??>
-              		max-width="${field.getLength()}"
+              		maxlength="${field.getLength()}"
               	</#if>
               type="<#if field.isEncryption()>password<#else>text</#if>"
               ng-model="${model.dataSourceName}.active.${field.name}"
@@ -494,7 +494,7 @@
         <br/><br/><br/>
         <div ng-show="${model.dataSourceName}.editing && !${field.getName()}Grid.hasDataBuffered()">
           <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
-          <input type="text" max-width="${field.getLength()}" ng-model="search${field.getName()}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+          <input type="text" maxlength="${field.getLength()}" ng-model="search${field.getName()}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
         </div>
         <#else>
         <br/><br/><br/>
@@ -538,7 +538,7 @@
           <div class="col-md-2">
             <div>
               <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
-              <input type="text" max-width="${scfield.getLength()}" ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>" <#if model.formMapRelationFieldMasks[scfield.name]?has_content>mask="${model.formMapRelationFieldMasks[scfield.name]}"</#if>>
+              <input type="text" maxlength="${scfield.getLength()}" ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>" <#if model.formMapRelationFieldMasks[scfield.name]?has_content>mask="${model.formMapRelationFieldMasks[scfield.name]}"</#if>>
             </div>
           </div>
           </#if>
@@ -720,7 +720,7 @@
                       <#else>
                       <input type="<#if gField.isEncryption()>password<#else>text</#if>"
                       	 <#if gField.getLength()??>
-                        max-width="${gField.getLength()}"
+                        maxlength="${gField.getLength()}"
                         </#if>
                        ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
                       </#if>
