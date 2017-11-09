@@ -1,4 +1,5 @@
 sh.exe.stackdump
 .idea/
+/.settings/**
 *.iml
 /.project
