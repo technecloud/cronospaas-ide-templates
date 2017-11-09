@@ -23,7 +23,7 @@ import cronapi.ParamMetaData;
 public class ${ClassName} {
 
 	@CronapiMetaData(type = "function", name = "${FunctionName}", description = "${Description}", returnType = ObjectType.STRING)
-	public static Var ${ReducedFunctionName}(@ParamMetaData(type = ObjectType.STRING, description = "${InputDescription}") Var input) {
+	public static Var ${ReducedFunctionName}(@ParamMetaData(type = ObjectType.STRING, description = "${InputDescription}") Var input) throws Exception {
 		return Var.valueOf("Input " + input.toString());
 	}
 
