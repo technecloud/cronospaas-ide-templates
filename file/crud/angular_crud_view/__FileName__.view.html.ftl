@@ -268,7 +268,7 @@
         <#if field.getProperty("ngOptions")??>
           <#assign currentType = "combobox-dynamic">
         <div data-component="crn-datasource" class="component-holder">
-          <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
+          <datasource name="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
         </div>
         </#if>
         <#assign dataComponentType = "crn-${currentType}">
@@ -298,7 +298,7 @@
             <#elseif (field.isNumber() || field.isDecimal())  >
             <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             <#elseif field.getProperty("ngOptions")?? >
-            <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>required="required"</#if> theme="bootstrap">
+            <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>required="required"</#if> theme="bootstrap">
               <ui-select-match class="" placeholder="Select...">
                 {{$select.selected.${field.getProperty("ngOptionsFkName")}}}
               </ui-select-match>
@@ -648,12 +648,12 @@
           <#if gField.isReverseRelation() >
             <#if (field.getDbFieldName() != gField.getDbFieldName())>
           <div data-component="crn-datasource" class="component-holder">
-            <datasource name="${gField.getName()}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
+            <datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
           </div>
           <div data-component="crn-combobox-dynamic" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}">
             <div class="form-group">
               <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
-              <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" required="required" ng-disabled="disabled" theme="bootstrap" >
+              <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()?capitalize}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" required="required" ng-disabled="disabled" theme="bootstrap" >
                 <ui-select-match placeholder="Select..." class="">
                   {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
                 </ui-select-match>
