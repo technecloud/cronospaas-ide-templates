@@ -66,7 +66,7 @@
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}">
   <div class="form-group">
     <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-    <input type="text" maxlength="${field.getLength()}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+    <input type="text" <#if field.getLength()??>maxlength="${field.getLength()}"</#if> cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
   </div>
 </div>
 <br/>
@@ -130,7 +130,7 @@
   <div class="col-md-2">
     <div>
       <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-      <input type="text" maxlength="${field.getLength()}" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
+      <input type="text" <#if field.getLength()??>maxlength="${field.getLength()}"</#if> ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
     </div>
   </div>
         </#if>
@@ -266,7 +266,7 @@
         <#list model.formFields as field>
         <#assign currentType = "textinput">
         <#if field.getProperty("ngOptions")??>
-          <#assign currentType = "combobox">
+          <#assign currentType = "combobox-dynamic">
         <div data-component="crn-datasource" class="component-holder">
           <datasource name="${model.formMapLabels[field.name]!}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
         </div>
@@ -298,11 +298,11 @@
             <#elseif (field.isNumber() || field.isDecimal())  >
             <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             <#elseif field.getProperty("ngOptions")?? >
-            <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>required="required"</#if>>
-              <ui-select-match class="">
+            <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${model.formMapLabels[field.name]!}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>required="required"</#if> theme="bootstrap">
+              <ui-select-match class="" placeholder="Select...">
                 {{$select.selected.${field.getProperty("ngOptionsFkName")}}}
               </ui-select-match>
-              <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="">
+              <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
                 <div class="" data-container="true">
                   {{rowData.${field.getProperty("ngOptionsFkName")}}}
                 </div>
@@ -494,7 +494,7 @@
         <br/><br/><br/>
         <div ng-show="${model.dataSourceName}.editing && !${field.getName()}Grid.hasDataBuffered()">
           <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
-          <input type="text" maxlength="${field.getLength()}" ng-model="search${field.getName()}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+          <input type="text" <#if field.getLength()??>maxlength="${field.getLength()}"</#if> ng-model="search${field.getName()}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
         </div>
         <#else>
         <br/><br/><br/>
@@ -538,7 +538,7 @@
           <div class="col-md-2">
             <div>
               <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
-              <input type="text" maxlength="${scfield.getLength()}" ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>" <#if model.formMapRelationFieldMasks[scfield.name]?has_content>mask="${model.formMapRelationFieldMasks[scfield.name]}"</#if>>
+              <input type="text" <#if scfield.getLength()??>maxlength="${scfield.getLength()}" </#if>ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>" <#if model.formMapRelationFieldMasks[scfield.name]?has_content>mask="${model.formMapRelationFieldMasks[scfield.name]}"</#if>>
             </div>
           </div>
           </#if>
@@ -650,15 +650,15 @@
           <div data-component="crn-datasource" class="component-holder">
             <datasource name="${gField.getName()}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
           </div>
-          <div data-component="crn-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}">
+          <div data-component="crn-combobox-dynamic" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}">
             <div class="form-group">
               <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
-              <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" required="required" >
-                <ui-select-match class="">
+              <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" required="required" ng-disabled="disabled" theme="bootstrap" >
+                <ui-select-match placeholder="Select..." class="">
                   {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
                 </ui-select-match>
-                <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="">
-                  <div class="" data-container="true">
+                <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                  <div class="">
                     {{rowData.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
                   </div>
                 </ui-select-choices>
