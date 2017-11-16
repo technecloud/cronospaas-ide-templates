@@ -784,10 +784,3 @@ body {
 .input-validation-error {
     border-bottom: 2px solid red !important;
 }
-#username { 
-  text-transform: lowercase;
-}
-
-#password { 
-  text-transform: lowercase;
-}
