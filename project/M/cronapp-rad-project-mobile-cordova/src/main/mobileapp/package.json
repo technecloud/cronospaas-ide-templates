@@ -17,7 +17,8 @@
         "cordova-plugin-geolocation": "^2.4.3",
         "cordova-plugin-splashscreen": "^4.0.3",
         "cordova-plugin-vibration": "^2.1.5",
-        "cordova-plugin-whitelist": "^1.3.2"
+        "cordova-plugin-whitelist": "^1.3.2",
+        "phonegap-plugin-barcodescanner": "^7.0.0"
     },
     "cordova": {
         "plugins": {
@@ -26,7 +27,8 @@
             "cordova-plugin-vibration": {},
             "cordova-plugin-whitelist": {},
             "cordova-plugin-splashscreen": {},
-            "cordova-plugin-file": {}
+            "cordova-plugin-file": {},
+            "phonegap-plugin-barcodescanner": {}
         },
         "platforms": [
             "browser"
