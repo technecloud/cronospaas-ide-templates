@@ -28,4 +28,5 @@
     <plugin name="cordova-plugin-file" spec="^4.3.3" />
     <icon src="res/icon.png" />
     <splash src="res/screen.png" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="^7.0.0" />
 </widget>
