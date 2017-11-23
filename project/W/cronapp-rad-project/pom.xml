@@ -178,6 +178,11 @@
             <artifactId>cronapp-framework-java</artifactId>
             <version>0.0.17</version>
         </dependency>
+         <dependency>
+    		<groupId>io.cronapp</groupId>
+    		<artifactId>cronapp-reports-exec</artifactId>
+    		<version>0.0.13-develop</version>
+        </dependency> 		
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
