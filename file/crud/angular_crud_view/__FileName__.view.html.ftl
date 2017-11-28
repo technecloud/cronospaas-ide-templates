@@ -25,52 +25,19 @@
     <#else>
       <#assign fieldsString = "${model.getFirstFieldStringNotPk().getName()};">
     </#if>
-    <input type="text" cronapp-filter="${fieldsString}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+    <input type="text" ng-model="vars.search" cronapp-filter="${fieldsString}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
   </div>
 </div>
   <#elseif model.getGridFilterSearchable()=="specificSearch">
    <#if model.hasSearchableFilter()>
     <#list model.formFields as field>
      <#if field.isSearchable()>  
-      <#if (field.isDate() || field.isTime() || field.isTimestamp()) >
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}" class="">
   <div class="form-group">
     <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-    <div style="position:relative">
-      <input type="text" as-date="" ng-model="${field.name}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}"
-          <#if field.isDate() >
-            format="DD/MM/YYYY"
-          <#elseif field.isTime()>
-            format="HH:mm:ss"
-          <#elseif field.isTimestamp()>
-            format="DD/MM/YYYY HH:mm:ss"
-          </#if>
-        class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
-    </div>
+      <input type="${field.getHtmlType()}" ng-model="vars.${field.name}" mask="" mask-placeholder="" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
   </div>
 </div>
-      <#elseif (field.isNumber() || field.isDecimal()) >
-<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}" class="">
-  <div class="form-group">
-    <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-    <input type="number" <#if field.isDecimal()>step="0.01"</#if> cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
-  </div>
-</div>
-      <#elseif field.isBoolean() >
-<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}" class="">
-  <div class="form-group">
-    <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-    <input type="checkbox" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
-  </div>
-</div>
-      <#else>
-<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}" class="">
-  <div class="form-group">
-    <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-    <input type="text" <#if field.getLength()??>maxlength="${field.getLength()}"</#if> cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
-  </div>
-</div>
-      </#if>
      </#if>
     </#list>
    <#else>
@@ -87,7 +54,7 @@
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
   <div class="form-group">
     <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
-    <input type="text" ng-model="search" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+    <input type="text" ng-model="vars.search" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
   </div>
 </div>
   <#else>
@@ -280,94 +247,119 @@
         <div data-component="${dataComponentType}" id="crn-${currentType}-${field.name}" class="">
           <div class="form-group">
             <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!?cap_first}</label>
-            <#if field.isBoolean() >
-            <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
-            <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
-            <div style="position:relative">
-              <input type="text" as-date
-              <#if field.isDate() >
-              format="DD/MM/YYYY"
-              <#elseif field.isTime()>
-              format="HH:mm:ss"
-              <#elseif field.isTimestamp()>
-              format="DD/MM/YYYY HH:mm:ss"
-              </#if>
-              ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
-            </div>
-            <#elseif (field.isNumber() || field.isDecimal())  >
-            <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
-            <#elseif field.getProperty("ngOptions")?? >
-            <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>required="required"</#if> theme="bootstrap">
-              <ui-select-match class="" placeholder="Select...">
-                {{$select.selected.${field.getProperty("ngOptionsFkName")}}}
-              </ui-select-match>
-              <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
-                <div class="" data-container="true">
-                  {{rowData.${field.getProperty("ngOptionsFkName")}}}
+            <#if !model.hasCronappFramework()>
+            
+              <#if field.isBoolean() >
+              <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+              <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
+              <div style="position:relative">
+                <input type="text" as-date
+                <#if field.isDate() >
+                format="DD/MM/YYYY"
+                <#elseif field.isTime()>
+                format="HH:mm:ss"
+                <#elseif field.isTimestamp()>
+                format="DD/MM/YYYY HH:mm:ss"
+                </#if>
+                ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+              </div>
+              <#elseif (field.isNumber() || field.isDecimal())  >
+              <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+              <#elseif field.getProperty("ngOptions")?? >
+              <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>required="required"</#if> theme="bootstrap">
+                <ui-select-match class="" placeholder="Select...">
+                  {{$select.selected.${field.getProperty("ngOptionsFkName")}}}
+                </ui-select-match>
+                <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                  <div class="" data-container="true">
+                    {{rowData.${field.getProperty("ngOptionsFkName")}}}
+                  </div>
+                </ui-select-choices>
+              </ui-select>
+              <#elseif field.isImage()>
+              <div class="form-group upload-image-component" ngf-drop ngf-drag-over-class="dragover">
+                <img style="max-height: 128px; max-width: 128px;"
+                  ng-if="datasource.active.${field.name}"
+                  data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}">
+                <img data-ng-src="{{datasource.noImageUpload}}"
+                  style="max-height: 128px; max-width: 128px;"
+                  class="btn"
+                  ng-if="!datasource.active.${field.name}"
+                  ngf-drop ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="image/*">
+                <div class="remove btn btn-danger btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
+                  <span class="glyphicon glyphicon-remove"></span>
                 </div>
-              </ui-select-choices>
-            </ui-select>
-            <#elseif field.isImage()>
-              <#if model.hasCronappFramework()>
-            <dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" width="" height="" style="" class=""> 
-              <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
-            </dynamic-image>
-              <#else>
-            <div class="form-group upload-image-component" ngf-drop ngf-drag-over-class="dragover">
-              <img style="max-height: 128px; max-width: 128px;"
-                ng-if="datasource.active.${field.name}"
-                data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}">
-              <img data-ng-src="{{datasource.noImageUpload}}"
-                style="max-height: 128px; max-width: 128px;"
-                class="btn"
-                ng-if="!datasource.active.${field.name}"
-                ngf-drop ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="image/*">
-              <div class="remove btn btn-danger btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
-                <span class="glyphicon glyphicon-remove"></span>
+              </div>  
+              <#elseif field.isFile()>
+              <div class="form-group">
+                <img ng-if="!datasource.active.${field.name}" data-ng-src="{{datasource.noFileUpload}}" class="drop-box" style="width:100px;height:50px" ngf-drop ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" ngf-drag-over-class="dragover">
+                <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
+                <div class="btn btn-danger btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </div>
               </div>
-            </div>  
-              </#if>
-            <#elseif field.isFile()>
-            <#if model.hasCronappFramework()>
-            <dynamic-file ng-model="${model.dataSourceName}.active.${field.name}"> 
-              <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
-            </dynamic-file>
               <#else>
-            <div class="form-group">
-              <img ng-if="!datasource.active.${field.name}" data-ng-src="{{datasource.noFileUpload}}" class="drop-box" style="width:100px;height:50px" ngf-drop ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" ngf-drag-over-class="dragover">
-              <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
-              <div class="btn btn-danger btn-xs" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null">
-                <span class="glyphicon glyphicon-remove"></span>
-              </div>
-            </div>
-              </#if>
-            <#else>
-            <input
-              <#if field.getLength()??>
-                  maxlength="${field.getLength()}"
-                </#if>
-              type="<#if field.isEncryption()>password<#else>text</#if>"
-              ng-model="${model.dataSourceName}.active.${field.name}"
-              class="form-control"
-              id="${currentType}-${field.name}"
-              placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
-              <#if model.formMapMasks[field.name]?has_content>
-                mask="${model.formMapMasks[field.name]}"
-                <#assign valid = "" >
-                <#if model.formMapMasks[field.name] == "999.999.999-99" >
-                  <#assign valid = "cpf" >
-                <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
-                  <#assign valid = "cnpj" >
-                <#elseif model.formMapMasks[field.name] == "(99)9999-9999">
+              <input
+                <#if field.getLength()??>
+                    maxlength="${field.getLength()}"
+                  </#if>
+                type="<#if field.isEncryption()>password<#else>text</#if>"
+                ng-model="${model.dataSourceName}.active.${field.name}"
+                class="form-control"
+                id="${currentType}-${field.name}"
+                placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
+                <#if model.formMapMasks[field.name]?has_content>
+                  mask="${model.formMapMasks[field.name]}"
                   <#assign valid = "" >
+                  <#if model.formMapMasks[field.name] == "999.999.999-99" >
+                    <#assign valid = "cpf" >
+                  <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
+                    <#assign valid = "cnpj" >
+                  <#elseif model.formMapMasks[field.name] == "(99)9999-9999">
+                    <#assign valid = "" >
+                  </#if>
+                  <#if valid?has_content>
+                    valid="${valid}"
+                    data-error-message="{{'invalid.${valid}' | translate}}"
+                  </#if>
                 </#if>
-                <#if valid?has_content>
-                  valid="${valid}"
-                  data-error-message="{{'invalid.${valid}' | translate}}"
-                </#if>
+                <#if !field.isNullable()>required="required"</#if>>
               </#if>
-              <#if !field.isNullable()>required="required"</#if>>
-            </#if>
+            <#else> <!-- else for if !model.hasCronappFramework() -->
+              <#if field.getProperty("ngOptions")?? >
+              <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if> theme="bootstrap">
+                <ui-select-match class="" placeholder="Select...">
+                  {{$select.selected.${field.getProperty("ngOptionsFkName")}}}
+                </ui-select-match>
+                <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                  <div class="" data-container="true">
+                    {{rowData.${field.getProperty("ngOptionsFkName")}}}
+                  </div>
+                </ui-select-choices>
+              </ui-select>
+              <#elseif field.isImage()>
+              <dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" width="" height="" style="" class="" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>> 
+                <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
+              </dynamic-image>
+              <#elseif field.isFile()>
+              <dynamic-file ng-model="${model.dataSourceName}.active.${field.name}" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>> 
+                <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
+              </dynamic-file>
+              <#else>
+              <input
+                <#if field.getLength()??>
+                    maxlength="${field.getLength()}"
+                  </#if>
+                type="<#if field.isEncryption()>password<#else>${field.getHtmlType()}</#if>"
+                ng-model="${model.dataSourceName}.active.${field.name}"
+                class="form-control"
+                id="${currentType}-${field.name}"
+                placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
+                mask="${model.formMapMasks[field.name]}"
+                mask-placeholder=""
+                <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+              </#if>
+            </#if> <!-- end if !model.hasCronappFramework() -->
           </div>
         </div>
         </#list>
@@ -398,7 +390,7 @@
           <div class="form-group" >
             <label for="select-ui">${field.getName()?cap_first}</label>
             <div id="select-ui" data-component="crn-tags">
-              <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>required="required"</#if>>
+              <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                 <ui-select-match placeholder="${field.getName()}...">
                   {{$select.selected.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }}
                 </ui-select-match>
@@ -485,64 +477,64 @@
         </div>
         <!--search 1toN-->
         <#if model.hasSearchableFilter() && !model.hasCronappFramework()>
-        <#if model.getGridFilterSearchable()=="generalSearch">
-        <br/><br/><br/>
-        <div ng-show="${model.dataSourceName}.editing && !${field.getName()}Grid.hasDataBuffered()" class="">
-          <div class="form-group">
-            <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
-            <input type="text" <#if field.getLength()??>maxlength="${field.getLength()}"</#if> ng-model="search${field.getName()}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
-          </div>
-        </div>
-        <#else>
-        <br/><br/><br/>
-        <div class="row" ng-show="${model.dataSourceName}.editing && !${field.getName()}Grid.hasDataBuffered()">
-          <#list field.getClazz().getFields() as scfield>
-          <#if scfield.isSearchable()>
-          <#if (scfield.isDate() || scfield.isTime() || scfield.isTimestamp()) >
-          <div class="">
-            <div class="component-holder ng-binding ng-scope" data-component="crn-datepicker" id="crn-datepicker-21329">
-              <div class="form-group">
-                <label for="exampleInputDate">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
-                <div style="position:relative">
-                  <input type="text" as-date="" class="form-control"
-                  <#if scfield.isDate() >
-                  format="DD/MM/YYYY"
-                  <#elseif scfield.isTime()>
-                  format="HH:mm:ss"
-                  <#elseif scfield.isTimestamp()>
-                  format="DD/MM/YYYY HH:mm:ss"
-                  </#if>
-                  ng-model="${scfield.name}${field.getName()}" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>">
-                </div>
-              </div>
-            </div>
-          </div>
-          <#elseif (scfield.isNumber() || scfield.isDecimal()) >
-          <div class="">
-            <div>
-              <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
-              <input type="number" <#if scfield.isDecimal()>step="0.01"</#if> ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>">
-            </div>
-          </div>
-          <#elseif scfield.isBoolean() >
-          <div class="">
-            <div>
-              <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
-              <input type="checkbox" ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>">
+          <#if model.getGridFilterSearchable()=="generalSearch">
+          <br/><br/><br/>
+          <div ng-show="${model.dataSourceName}.editing && !${field.getName()}Grid.hasDataBuffered()" class="">
+            <div class="form-group">
+              <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
+              <input type="text" <#if field.getLength()??>maxlength="${field.getLength()}"</#if> ng-model="search${field.getName()}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
             </div>
           </div>
           <#else>
-          <div class="">
-            <div>
-              <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
-              <input type="text" <#if scfield.getLength()??>maxlength="${scfield.getLength()}" </#if>ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>" <#if model.formMapRelationFieldMasks[scfield.name]?has_content>mask="${model.formMapRelationFieldMasks[scfield.name]}"</#if>>
+          <br/><br/><br/>
+          <div class="row" ng-show="${model.dataSourceName}.editing && !${field.getName()}Grid.hasDataBuffered()">
+            <#list field.getClazz().getFields() as scfield>
+            <#if scfield.isSearchable()>
+            <#if (scfield.isDate() || scfield.isTime() || scfield.isTimestamp()) >
+            <div class="">
+              <div class="component-holder ng-binding ng-scope" data-component="crn-datepicker" id="crn-datepicker-21329">
+                <div class="form-group">
+                  <label for="exampleInputDate">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
+                  <div style="position:relative">
+                    <input type="text" as-date="" class="form-control"
+                    <#if scfield.isDate() >
+                    format="DD/MM/YYYY"
+                    <#elseif scfield.isTime()>
+                    format="HH:mm:ss"
+                    <#elseif scfield.isTimestamp()>
+                    format="DD/MM/YYYY HH:mm:ss"
+                    </#if>
+                    ng-model="${scfield.name}${field.getName()}" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>">
+                  </div>
+                </div>
+              </div>
             </div>
+            <#elseif (scfield.isNumber() || scfield.isDecimal()) >
+            <div class="">
+              <div>
+                <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
+                <input type="number" <#if scfield.isDecimal()>step="0.01"</#if> ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>">
+              </div>
+            </div>
+            <#elseif scfield.isBoolean() >
+            <div class="">
+              <div>
+                <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
+                <input type="checkbox" ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>">
+              </div>
+            </div>
+            <#else>
+            <div class="">
+              <div>
+                <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapRelationFieldLabels[scfield.name]!}</label>
+                <input type="text" <#if scfield.getLength()??>maxlength="${scfield.getLength()}" </#if>ng-model="${scfield.name}${field.getName()}" class="form-control" value="" placeholder="<#if scfield.label?has_content>${scfield.label}<#else>${scfield.name}</#if>" <#if model.formMapRelationFieldMasks[scfield.name]?has_content>mask="${model.formMapRelationFieldMasks[scfield.name]}"</#if>>
+              </div>
+            </div>
+            </#if>
+            </#if>
+            </#list>
           </div>
           </#if>
-          </#if>
-          </#list>
-        </div>
-        </#if>
         </#if>
         <!-- seach 1toN end-->
         <div data-component="crn-textinput" id="crn-textinput-descricao">
@@ -639,98 +631,143 @@
       </div>
       <div class="modal-body">
         <div class="list-group list-group-sm row">
-          <#list field.getClazz().getFields() as gField>
-          <#if gField.isReverseRelation() >
-            <#if (field.getDbFieldName() != gField.getDbFieldName())>
-          <datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
-          <div data-component="crn-combobox-dynamic" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="form-group">
-              <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
-              <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()?capitalize}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" required="required" ng-disabled="disabled" theme="bootstrap" >
-                <ui-select-match placeholder="Select..." class="">
-                  {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
-                </ui-select-match>
-                <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
-                  <div class="">
-                    {{rowData.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
-                  </div>
-                </ui-select-choices>
-              </ui-select>
-            </div>
-          </div>
-            </#if>
-          <#elseif (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey())>
-          
-          <#assign dataComponentType = "crn-textinput">
-          <#if gField.isImage() && model.hasCronappFramework()>
-            <#assign dataComponentType = "crn-dynamic-image">
-          <#elseif gField.isFile() && model.hasCronappFramework()>
-            <#assign dataComponentType = "crn-dynamic-file">
-          </#if>
-          <div data-component="${dataComponentType}"  id="crn-textinput-${gField.getDbFieldName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="form-group">
-              <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
-              <#if gField.isBoolean() >
-              <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}"  id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
-              <#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
-              <div style="position:relative">
-                <input type="text" as-date
-                <#if gField.isDate() >
-                format="DD/MM/YYYY"
-                <#elseif gField.isTime()>
-                format="HH:mm:ss"
-                <#elseif gField.isTimestamp()>
-                format="DD/MM/YYYY HH:mm:ss"
-                </#if>
-                ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
-              </div>
-              <#elseif (gField.isNumber() || gField.isDecimal()) >
-              <input type="number" <#if gField.isDecimal()>step="0.01"</#if> ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
-              <#elseif gField.isImage()>
-                <#if model.hasCronappFramework()>
-              <dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" width="" height="" style="" class=""> 
-                <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
-              </dynamic-image>
-                <#else>
-              <div class="form-group upload-image-component" ngf-drop ngf-drag-over-class="dragover">
-                <img style="max-height: 128px; max-width: 128px;"
-                  ng-if="${field.getName()}Grid.active.${gField.getName()}"
-                  data-ng-src="{{'data:image/png;base64,' + ${field.getName()}Grid.active.${gField.getName()}}}">
-                <img data-ng-src="{{${field.getName()}Grid.noImageUpload}}"
-                  style="max-height: 128px; max-width: 128px;"
-                  class="btn"
-                  ng-if="!${field.getName()}Grid.active.${gField.getName()}"
-                  ngf-drop ngf-select ngf-change="${field.getName()}Grid.setFile($file, ${field.getName()}Grid.active, '${gField.getName()}')" accept="image/*">
-                <div class="remove btn btn-danger btn-xs" ng-if="${field.getName()}Grid.active.${gField.getName()}" ng-click="${field.getName()}Grid.active.${gField.getName()}=null">
-                  <span class="glyphicon glyphicon-remove"></span>
-                </div>
-              </div>  
-                </#if>
-              <#elseif gField.isFile()>
-                <#if model.hasCronappFramework()>
-              <dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}"> 
-                <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
-              </dynamic-file>
-                <#else>
+        <#list field.getClazz().getFields() as gField>
+          <#if !model.hasCronappFramework()>
+            <#if gField.isReverseRelation() >
+              <#if (field.getDbFieldName() != gField.getDbFieldName())>
+            <datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
+            <div data-component="crn-combobox-dynamic" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group">
-                <img ng-if="!${field.getName()}Grid.active.${gField.getName()}" data-ng-src="{{${field.getName()}Grid.noFileUpload}}" class="drop-box" style="width:100px;height:50px" ngf-drop ngf-select ngf-change="${field.getName()}Grid.setFile($file, ${field.getName()}Grid.active, '${gField.getName()}')" ngf-drag-over-class="dragover">
-                <em ng-if="${field.getName()}Grid.active.${gField.getName()}">{{${field.getName()}Grid.byteSize(${field.getName()}Grid.active.${gField.getName()})}}</em>
-                <div class="btn btn-danger btn-xs" ng-if="${field.getName()}Grid.active.${gField.getName()}" ng-click="${field.getName()}Grid.active.${gField.getName()}=null">
-                  <span class="glyphicon glyphicon-remove"></span>
-                </div>
+                <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
+                <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()?capitalize}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" required="required" ng-disabled="disabled" theme="bootstrap" >
+                  <ui-select-match placeholder="Select..." class="">
+                    {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
+                  </ui-select-match>
+                  <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                    <div class="">
+                      {{rowData.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
+                    </div>
+                  </ui-select-choices>
+                </ui-select>
               </div>
-                </#if>
-              <#else>
-              <input type="<#if gField.isEncryption()>password<#else>text</#if>"
-                 <#if gField.getLength()??>
-                maxlength="${gField.getLength()}"
-                </#if>
-               ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
-              </#if>
             </div>
-          </div>
-          </#if>
-          </#list>
+              </#if>
+            <#elseif (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey())>
+            
+            <#assign dataComponentType = "crn-textinput">
+            <#if gField.isImage() && model.hasCronappFramework()>
+              <#assign dataComponentType = "crn-dynamic-image">
+            <#elseif gField.isFile() && model.hasCronappFramework()>
+              <#assign dataComponentType = "crn-dynamic-file">
+            </#if>
+            <div data-component="${dataComponentType}"  id="crn-textinput-${gField.getDbFieldName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
+                <#if gField.isBoolean() >
+                <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}"  id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                <#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
+                <div style="position:relative">
+                  <input type="text" as-date
+                  <#if gField.isDate() >
+                  format="DD/MM/YYYY"
+                  <#elseif gField.isTime()>
+                  format="HH:mm:ss"
+                  <#elseif gField.isTimestamp()>
+                  format="DD/MM/YYYY HH:mm:ss"
+                  </#if>
+                  ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                </div>
+                <#elseif (gField.isNumber() || gField.isDecimal()) >
+                <input type="number" <#if gField.isDecimal()>step="0.01"</#if> ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                <#elseif gField.isImage()>
+                <div class="form-group upload-image-component" ngf-drop ngf-drag-over-class="dragover">
+                  <img style="max-height: 128px; max-width: 128px;"
+                    ng-if="${field.getName()}Grid.active.${gField.getName()}"
+                    data-ng-src="{{'data:image/png;base64,' + ${field.getName()}Grid.active.${gField.getName()}}}">
+                  <img data-ng-src="{{${field.getName()}Grid.noImageUpload}}"
+                    style="max-height: 128px; max-width: 128px;"
+                    class="btn"
+                    ng-if="!${field.getName()}Grid.active.${gField.getName()}"
+                    ngf-drop ngf-select ngf-change="${field.getName()}Grid.setFile($file, ${field.getName()}Grid.active, '${gField.getName()}')" accept="image/*">
+                  <div class="remove btn btn-danger btn-xs" ng-if="${field.getName()}Grid.active.${gField.getName()}" ng-click="${field.getName()}Grid.active.${gField.getName()}=null">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </div>
+                </div>  
+                <#elseif gField.isFile()>
+                <div class="form-group">
+                  <img ng-if="!${field.getName()}Grid.active.${gField.getName()}" data-ng-src="{{${field.getName()}Grid.noFileUpload}}" class="drop-box" style="width:100px;height:50px" ngf-drop ngf-select ngf-change="${field.getName()}Grid.setFile($file, ${field.getName()}Grid.active, '${gField.getName()}')" ngf-drag-over-class="dragover">
+                  <em ng-if="${field.getName()}Grid.active.${gField.getName()}">{{${field.getName()}Grid.byteSize(${field.getName()}Grid.active.${gField.getName()})}}</em>
+                  <div class="btn btn-danger btn-xs" ng-if="${field.getName()}Grid.active.${gField.getName()}" ng-click="${field.getName()}Grid.active.${gField.getName()}=null">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </div>
+                </div>
+                <#else>
+                <input type="<#if gField.isEncryption()>password<#else>text</#if>"
+                   <#if gField.getLength()??>
+                  maxlength="${gField.getLength()}"
+                  </#if>
+                 ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
+                </#if>
+              </div>
+            </div>
+            </#if>
+          <#else><!-- else of !model.hasCronappFramework() -->
+            <#if gField.isReverseRelation() >
+              <#if (field.getDbFieldName() != gField.getDbFieldName())>
+            <datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
+            <div data-component="crn-combobox-dynamic" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
+                <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()?capitalize}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if> ng-disabled="disabled" theme="bootstrap" >
+                  <ui-select-match placeholder="Select..." class="">
+                    {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
+                  </ui-select-match>
+                  <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
+                    <div class="">
+                      {{rowData.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
+                    </div>
+                  </ui-select-choices>
+                </ui-select>
+              </div>
+            </div>
+              </#if>
+            <#elseif (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey())>
+            
+            <#assign dataComponentType = "crn-textinput">
+            <#if gField.isImage() && model.hasCronappFramework()>
+              <#assign dataComponentType = "crn-dynamic-image">
+            <#elseif gField.isFile() && model.hasCronappFramework()>
+              <#assign dataComponentType = "crn-dynamic-file">
+            </#if>
+            <div data-component="${dataComponentType}"  id="crn-textinput-${gField.getDbFieldName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group">
+                <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
+                <#if gField.isImage()>
+                <dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" width="" height="" style="" class="" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>> 
+                  <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
+                </dynamic-image>
+                <#elseif gField.isFile()>
+                <dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>> 
+                  <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;"> 
+                </dynamic-file>
+                <#else>
+                <input type="<#if gField.isEncryption()>password<#else>${gField.getHtmlType()}</#if>"
+                  <#if gField.getLength()??>
+                  maxlength="${gField.getLength()}"
+                  </#if>
+                 ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" 
+                 id="textinput-${gField.getDbFieldName()}" 
+                 placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" 
+                 mask="${model.formMapRelationFieldMasks[gField.name]}"
+                 mask-placeholder=""
+                 <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                </#if>
+              </div>
+            </div>
+            </#if>
+          </#if> <!-- end if !model.hasCronappFramework() -->
+          
+        </#list>
         </div>
       </div>
       <div class="modal-footer">
