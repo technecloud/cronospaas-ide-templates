@@ -73,7 +73,6 @@
   <script src="plugins/cronapp-framework-js/dist/js/filters.js"></script>
   <script src="plugins/cronapp-framework-js/dist/components/js/datasource.js"></script>
   <!-- CronApp Reports --> 
-  <script src="plugins/cronapp-framework-js/dist/js/reports/reports.controller.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/reports/parameters.controller.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/reports/reports.service.js"></script>
 </body>

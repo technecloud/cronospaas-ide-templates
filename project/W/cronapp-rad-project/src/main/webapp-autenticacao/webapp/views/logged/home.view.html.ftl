@@ -99,13 +99,13 @@
           </div>
           <div class="list-group list-group-sm">
             <div class="list-group-item">
-              <input type="password" class="form-control no-border" id="oldPassword" placeholder="{{'Home.view.Old Password' | translate}}">
+              <input type="password" class="form-control no-border" id="oldPassword" placeholder="{{'Home.view.Old Password' | translate}}" ng-required="true">
             </div>
             <div class="list-group-item">
-              <input type="password" class="form-control no-border" id="newPassword" placeholder="{{'Home.view.New Password' | translate}}">
+              <input type="password" class="form-control no-border" id="newPassword" placeholder="{{'Home.view.New Password' | translate}}" ng-required="true">
             </div>
             <div class="list-group-item">
-              <input type="password" class="form-control no-border" id="newPasswordConfirmation" placeholder="{{'Home.view.Confirmation' | translate}}">
+              <input type="password" class="form-control no-border" id="newPasswordConfirmation" placeholder="{{'Home.view.Confirmation' | translate}}" ng-required="true">
             </div>
           </div>
         </form>
