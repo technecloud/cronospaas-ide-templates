@@ -91,5 +91,8 @@
   "Save": "Save",
   "invalid.cpf": "CPF invalid",
   "invalid.cnpj": "CNPJ invalid",
-  "Home.view.Department": "Department"
+  "Home.view.Department": "Department",
+  "Home.view.PreviousPasswordCanNotBeEmpty": "Previous password can not be empty.",
+  "Home.view.NewPasswordCanNotBeEmpty": "New password can not be empty.",
+  "Home.view.ConfirmationPasswordCanNotBeEmpty": "Confirmation can not be empty."
 }
