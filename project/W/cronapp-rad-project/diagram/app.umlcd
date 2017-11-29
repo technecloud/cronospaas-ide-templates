@@ -83,7 +83,7 @@
           "dbPrecision": "",
           "dbScale": "",
           "dbDefaultValue": "",
-          "label": "Usu?rio",
+          "label": "Usuário",
           "mask": "",
           "isPrimaryKey": true,
           "isUniqueKey": false,
