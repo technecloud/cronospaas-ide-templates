@@ -203,15 +203,15 @@
             </#list>
                 <td class="">
                     <div class="">
-                        <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i></button>
-                        <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
+                        <button class="btn btn-default btn-sm" data-component="crn-button" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i></button>
+                        <button class="btn btn-default btn-sm" data-component="crn-button" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
                     </div>
                 </td>
             </tr>
             </tbody>
         </table>
         <div class="table-footer-controls">
-            <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
+            <button class="btn btn-default btn-block btn-clicked" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
         </div>
     </div>
 </div>
@@ -219,15 +219,15 @@
     <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
         <form crn-datasource="${model.dataSourceName}" class="">
             <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
-                <button class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
-                <button class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
-                <button class="btn btn-primary" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
-                <button class="btn btn-primary" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
-                <button class="btn btn-primary" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
+                <button class="btn btn-success" data-component="crn-button" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                <button class="btn btn-primary" data-component="crn-button" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
             </div>
             <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting">
-                <button class="btn btn-success" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button>
-                <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
+                <button class="btn btn-success" data-component="crn-button" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button>
+                <button class="btn btn-danger" data-component="crn-button" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
             </div>
             <br/>
             <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
@@ -404,7 +404,7 @@
                         </div>
                     </div>
                     <div data-component="crn-button"  class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
-                        <button class="btn btn-default btn-sm" type="submit" ng-click="${field.getName()}.insert(All${field.getName()}.active); ${field.getName()}.data.push(All${field.getName()}.active)"><i class="fa fa-plus"></i></button>
+                        <button class="btn btn-default btn-sm" data-component="crn-button" type="submit" ng-click="${field.getName()}.insert(All${field.getName()}.active); ${field.getName()}.data.push(All${field.getName()}.active)"><i class="fa fa-plus"></i></button>
                     </div>
                     <div class="component-holder " data-component="crn-grid" id="crn-grid-All${field.getName()}" ng-show="datasource.editing || datasource.inserting">
                         <div crn-datasource="${field.getName()}">
@@ -581,11 +581,11 @@
                                                             </a>
                                                         <#elseif gField.isFile()>
                                                             <#if model.hasCronappFramework()>
-                                                                <button ng-if="rowData.${gField.name}" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, '${gField.name}', $index)">
+                                                                <button ng-if="rowData.${gField.name}" data-component="crn-button" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, '${gField.name}', $index)">
                                                                     <span class="glyphicon glyphicon-download-alt"></span>
                                                                 </button>
                                                             <#else>
-                                                                <button class="btn btn-sm" ng-click="datasource.downloadFile('${gField.name}', [<#list gField.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
+                                                                <button class="btn btn-sm" data-component="crn-button" ng-click="datasource.downloadFile('${gField.name}', [<#list gField.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
                                                                     <span class="glyphicon glyphicon-download-alt"></span>
                                                                 </button>
                                                             </#if>
@@ -598,15 +598,15 @@
                                         </#list>
                                         <td>
                                             <div>
-                                                <button class="btn btn-default btn-sm" ng-click="datasource.startEditing(rowData)" onclick="$('#modal${field.getName()}Grid').modal('show');" ><i class="fa fa-edit"></i></button>
-                                                <button class="btn btn-default btn-sm" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
+                                                <button class="btn btn-default btn-sm" data-component="crn-button" ng-click="datasource.startEditing(rowData)" onclick="$('#modal${field.getName()}Grid').modal('show');" ><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-default btn-sm" data-component="crn-button" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
                                             </div>
                                         </td>
                                     </tr>
                                     </tbody>
                                 </table>
                                 <div class="table-footer-controls">
-                                    <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()" content="{{&quot;template.crud.load_more&quot; | translate}}...">{{"template.crud.load_more" | translate}}...</button>
+                                    <button class="btn btn-default btn-block btn-clicked" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()" content="{{&quot;template.crud.load_more&quot; | translate}}...">{{"template.crud.load_more" | translate}}...</button>
                                 </div>
                             </div>
                         </div>
@@ -772,8 +772,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" ng-click="${field.getName()}Grid.post();" onclick="(!${field.getName()}Grid.missingRequiredField()?$('#modal${field.getName()}Grid').modal('hide'):void(0))">{{'Save' | translate}}</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{'Home.view.Close' | translate}}</button>
+                    <button class="btn btn-primary" data-component="crn-button" ng-click="${field.getName()}Grid.post();" onclick="(!${field.getName()}Grid.missingRequiredField()?$('#modal${field.getName()}Grid').modal('hide'):void(0))">{{'Save' | translate}}</button>
+                    <button type="button" class="btn btn-default" data-component="crn-button" data-dismiss="modal">{{'Home.view.Close' | translate}}</button>
                 </div>
             </form>
         </div>
