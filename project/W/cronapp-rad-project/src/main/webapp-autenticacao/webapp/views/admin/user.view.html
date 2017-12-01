@@ -175,11 +175,9 @@
           <h4 class="modal-title">Função</h4>
         </div>
         <div class="modal-body">
-          <div class="text-danger wrapper text-center" ng-show="authError">
-          </div>
-          <div class="list-group list-group-sm">
+          <div class="list-group list-group-sm row">
             
-            <div data-component="crn-textinput" id="crn-textinput-id">
+            <div data-component="crn-textinput" id="crn-textinput-id" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="form-group">
                 <label for="textinput-id">Nome</label>
                 <input type="text" ng-model="RoleGrid.active.id" class="form-control" id="textinput-id" placeholder="Nome" required="required">
@@ -188,9 +186,9 @@
           </div>
         </div>
         <div class="modal-footer">
-        <button class="btn btn-primary" data-component="crn-button" ng-click="RoleGrid.post();" onclick="(!RoleGrid.missingRequiredField()?$('#modalRoleGrid').modal('hide'):void(0))">{{'Save' | translate}}</button>
-        <button type="button" data-component="crn-button" class="btn btn-default" data-dismiss="modal">{{'Home.view.Close' | translate}}</button>
-      </div>
+          <button class="btn btn-primary" data-component="crn-button" ng-click="RoleGrid.post();" onclick="(!RoleGrid.missingRequiredField()?$('#modalRoleGrid').modal('hide'):void(0))">{{'Save' | translate}}</button>
+          <button type="button" data-component="crn-button" class="btn btn-default" data-dismiss="modal">{{'Home.view.Close' | translate}}</button>
+        </div>
       </form>
     </div>
   </div>
