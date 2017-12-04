@@ -35,7 +35,7 @@
                 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}" class="">
                     <div class="form-group">
                         <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-                        <input type="${field.getHtmlType()}" ng-model="vars.search_${field.name}" mask="" mask-placeholder="" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+                        <input type="${field.getHtmlType()}" ng-model="vars.search_${field.name}" mask="${model.formMapMasks[field.name]}" mask-placeholder="" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
                     </div>
                 </div>
                 </#if>
