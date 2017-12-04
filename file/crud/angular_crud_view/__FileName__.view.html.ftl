@@ -174,11 +174,11 @@
                         <#if field.getProperty("firstStringField")??>
                             {{rowData.${field.getProperty("firstStringField")}}}
                         <#else>
-                            <#if field.isDate()>
+                            <#if field.isDate() && !model.hasCronappFramework()>
                                 {{rowData.${field.name} | date:'dd/MM/yyyy'}}
-                            <#elseif field.isTime()>
+                            <#elseif field.isTime() && !model.hasCronappFramework()>
                                 {{rowData.${field.name} | date:'HH:mm:ss'}}
-                            <#elseif field.isTimestamp()>
+                            <#elseif field.isTimestamp() && !model.hasCronappFramework()>
                                 {{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
                             <#elseif field.isImage()>
                                 <a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
@@ -195,7 +195,7 @@
                                     </button>
                                 </#if>
                             <#else>
-                                {{rowData.${field.name}}}
+                                {{rowData.${field.name} <#if model.formMapMasks[field.name]?has_content && model.hasCronappFramework()>| mask:'${model.formMapMasks[field.name]}'</#if> }}
                             </#if>
                         </#if>
                     </div>
@@ -569,11 +569,11 @@
                                                     <div>
                                                         <#if gField.isReverseRelation() >
                                                             {{rowData.${gField.getName()}.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()} }}
-                                                        <#elseif gField.isDate() >
+                                                        <#elseif gField.isDate() && !model.hasCronappFramework()>
                                                             {{rowData.${gField.getName()} | date:'dd/MM/yyyy'}}
-                                                        <#elseif gField.isTime() >
+                                                        <#elseif gField.isTime() && !model.hasCronappFramework()>
                                                             {{rowData.${gField.getName()} | date:'HH:mm:ss'}}
-                                                        <#elseif gField.isTimestamp() >
+                                                        <#elseif gField.isTimestamp() && !model.hasCronappFramework()>
                                                             {{rowData.${gField.getName()} | date:'dd/MM/yyyy HH:mm:ss'}}
                                                         <#elseif gField.isImage()>
                                                             <a ng-if="rowData.${gField.name}" ng-click="datasource.openImage(rowData.${gField.name})">
@@ -590,7 +590,7 @@
                                                                 </button>
                                                             </#if>
                                                         <#else>
-                                                            {{rowData.${gField.getName()}}}
+                                                            {{rowData.${gField.getName()} <#if model.formMapRelationFieldMasks[gField.name]?has_content && model.hasCronappFramework()>| mask:'${model.formMapRelationFieldMasks[gField.name]}'</#if>}}
                                                         </#if>
                                                     </div>
                                                 </td>
