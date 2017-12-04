@@ -25,7 +25,7 @@
             <#else>
                 <#assign fieldsString = "${model.getFirstFieldStringNotPk().getName()};">
             </#if>
-            <input type="text" ng-model="vars.search" cronapp-filter="${fieldsString}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+            <input type="text" ng-model="vars.search" cronapp-filter="${fieldsString}" cronapp-filter-operator="" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
         </div>
     </div>
     <#elseif model.getGridFilterSearchable()=="specificSearch">
@@ -35,7 +35,7 @@
                 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}" class="">
                     <div class="form-group">
                         <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-                        <input type="${field.getHtmlType()}" ng-model="vars.search_${field.name}" mask="${model.formMapMasks[field.name]}" mask-placeholder="" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+                        <input type="${field.getHtmlType()}" ng-model="vars.search_${field.name}" mask="${model.formMapMasks[field.name]}" mask-placeholder="" cronapp-filter="${field.name}" cronapp-filter-operator="" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
                     </div>
                 </div>
                 </#if>
@@ -44,7 +44,7 @@
         <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${model.getFirstFieldStringNotPk().name}" class="">
             <div class="form-group">
                 <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[model.getFirstFieldStringNotPk().name]!}</label>
-                <input type="text" cronapp-filter="${model.getFirstFieldStringNotPk().name}" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if model.getFirstFieldStringNotPk().label?has_content>${model.getFirstFieldStringNotPk().label}<#else>${model.getFirstFieldStringNotPk().name}</#if>">
+                <input type="text" cronapp-filter="${model.getFirstFieldStringNotPk().name}" cronapp-filter-operator="" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if model.getFirstFieldStringNotPk().label?has_content>${model.getFirstFieldStringNotPk().label}<#else>${model.getFirstFieldStringNotPk().name}</#if>">
             </div>
         </div>
         </#if>
