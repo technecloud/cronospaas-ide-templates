@@ -19,6 +19,7 @@
   <link id="themeSytleSheet" rel="stylesheet" href="plugins/cronapp-framework-js/css/themes/${theme?lower_case}.min.css">
   </#if>
   <link rel="stylesheet" href="css/app.css" />
+  <script src="js/customModules.js"></script>
 </head>
 <body>
   <div ui-view class="fill"></div>
@@ -75,5 +76,7 @@
   <!-- CronApp Reports --> 
   <script src="plugins/cronapp-framework-js/dist/js/reports/parameters.controller.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/reports/reports.service.js"></script>
+  <!-- Custom Controllers -->
+  <script src="js/custom.controllers.js"></script>
 </body>
 </html>
