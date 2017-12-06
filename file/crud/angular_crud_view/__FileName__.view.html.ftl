@@ -348,9 +348,9 @@
                                     </ui-select-choices>
                                 </ui-select>
                             <#elseif field.isImage()>
-                                <dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" width="" height="" style="" class="" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
-                                    <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;">
-                                </dynamic-image>
+                                <div dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                  {{"template.crud.clickOrDragAnImage" | translate}} 
+                                </div>
                             <#elseif field.isFile()>
                                 <dynamic-file ng-model="${model.dataSourceName}.active.${field.name}" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                     <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;">
@@ -754,9 +754,9 @@
                                         <div class="form-group">
                                             <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                                             <#if gField.isImage()>
-                                                <dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" width="" height="" style="" class="" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
-                                                    <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;">
-                                                </dynamic-image>
+                                                <div dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                                  {{"template.crud.clickOrDragAnImage" | translate}} 
+                                                </div>
                                             <#elseif gField.isFile()>
                                                 <dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                                     <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;">
