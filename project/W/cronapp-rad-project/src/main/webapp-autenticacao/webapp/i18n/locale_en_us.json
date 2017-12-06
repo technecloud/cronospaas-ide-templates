@@ -82,6 +82,8 @@
   "template.crud.actions": "Actions",
   "template.crud.load_more": "Load more",
   "template.crud.new": "New",
+  "template.crud.clickOrDragAnImage":"Click or drag an image",
+  "template.crud.clickOrDragAnFile":"Click or drag an file",
   "ChooseTheme": "Choose Theme",
   "Theme": "Theme",
   "Home.view.themeChanged": "Changed theme!",
