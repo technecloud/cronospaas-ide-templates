@@ -348,7 +348,7 @@
                                     </ui-select-choices>
                                 </ui-select>
                             <#elseif field.isImage()>
-                                <div dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                <div dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                   {{"template.crud.clickOrDragAnImage" | translate}} 
                                 </div>
                             <#elseif field.isFile()>
@@ -764,7 +764,7 @@
                                         <div class="form-group">
                                             <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                                             <#if gField.isImage()>
-                                                <div dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                                <div dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                                   {{"template.crud.clickOrDragAnImage" | translate}} 
                                                 </div>
                                             <#elseif gField.isFile()>
