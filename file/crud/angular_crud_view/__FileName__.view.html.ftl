@@ -367,6 +367,16 @@
                                             placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
                                             mask="${model.formMapMasks[field.name]}"
                                             mask-placeholder=""
+                                    <#assign valid = "" >
+                                      <#if model.formMapMasks[field.name] == "999.999.999-99;0" >
+                                          <#assign valid = "cpf" >
+                                      <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99;0">
+                                          <#assign valid = "cnpj" >
+                                      </#if>
+                                      <#if valid?has_content>
+                                            valid="${valid}"
+                                            data-error-message="{{'invalid.${valid}' | translate}}"
+                                      </#if>
                                             <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                             </#if>
                         </#if> <!-- end if !model.hasCronappFramework() -->
@@ -771,7 +781,16 @@
                                                        placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>"
                                                        mask="${model.formMapRelationFieldMasks[gField.name]}"
                                                        mask-placeholder=""
-                                                       <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                                    <#if model.formMapRelationFieldMasks[gField.name] == "999.999.999-99;0" >
+                                                        <#assign valid = "cpf" >
+                                                    <#elseif model.formMapRelationFieldMasks[gField.name] == "99.999.999/9999-99;0">
+                                                        <#assign valid = "cnpj" >
+                                                    </#if>
+                                                    <#if valid?has_content>
+                                                        valid="${valid}"
+                                                        data-error-message="{{'invalid.${valid}' | translate}}"
+                                                    </#if>
+                                                    <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                             </#if>
                                         </div>
                                     </div>
