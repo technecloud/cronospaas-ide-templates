@@ -352,9 +352,9 @@
                                   {{"template.crud.clickOrDragAnImage" | translate}} 
                                 </div>
                             <#elseif field.isFile()>
-                                <dynamic-file ng-model="${model.dataSourceName}.active.${field.name}" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
-                                    <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;">
-                                </dynamic-file>
+                                <div dynamic-file ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                  {{"template.crud.clickOrDragAnFile" | translate}}
+                                </div>
                             <#else>
                                 <input
                                     <#if field.getLength()??>
@@ -768,9 +768,9 @@
                                                   {{"template.crud.clickOrDragAnImage" | translate}} 
                                                 </div>
                                             <#elseif gField.isFile()>
-                                                <dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
-                                                    <img src="http://placehold.it/50x50" style="display:block; width:100px; height: 100px;">
-                                                </dynamic-file>
+                                                <div dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                                  {{"template.crud.clickOrDragAnFile" | translate}}
+                                                </div>
                                             <#else>
                                                 <input type="<#if gField.isEncryption()>password<#else>${gField.getHtmlType()}</#if>"
                                                     <#if gField.getLength()??>
