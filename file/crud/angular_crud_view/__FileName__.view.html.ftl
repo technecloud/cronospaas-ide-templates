@@ -43,7 +43,7 @@
                 </#if>
             </#list>
               <div data-component="crn-button-filter" class="" crn-datasource="${model.dataSourceName}">
-                <button class="btn btn-default component-holder" cronapp-filter="" type="submit" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default"><i class="glyphicon glyphicon-search"></i> <span>{{"template.crud.search" | translate}}</span></button>
+                <button class="btn btn-default component-holder" cronapp-filter="" data-component="crn-button-filter" type="submit" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default"><i class="glyphicon glyphicon-search"></i> <span>{{"template.crud.search" | translate}}</span></button>
               </div>
               <br/>
               </fieldset>
@@ -153,7 +153,7 @@
     </#if>
 </#if>
 <div data-component="crn-button" id="crn-button-564202" class="">
-    <button class="btn btn-primary" type="submit" onclick="" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button>
+    <button class="btn btn-primary" type="submit" onclick="" data-component="crn-button" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button>
 </div>
 <!-- fim div row para pesquisa -->
 <!--</div>-->
@@ -438,7 +438,7 @@
                                     </td>
                                     <td class="">
                                         <div data-component="crn-button"  class="">
-                                            <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
+                                            <button class="btn btn-default btn-sm" type="submit" data-component="crn-button" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -446,7 +446,7 @@
                             </table>
                             <div class="table-footer-controls">
                                 <div data-component="crn-button"  class="">
-                                    <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
+                                    <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" data-component="crn-button" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
                                 </div>
                             </div>
                         </div>
@@ -493,7 +493,7 @@
                 <!-- query filter 1toN end-->
                 <datasource filter="${filterSearch}" name="${field.getName()}Grid" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getRelationName()}${entitySearch}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource>
                 <div data-component="crn-button" class="">
-                    <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> <span class="">{{"Add" | translate}} ${field.getName()}</span> </button>
+                    <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" data-component="crn-button" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> <span class="">{{"Add" | translate}} ${field.getName()}</span> </button>
                 </div>
                 <!--search 1toN-->
                 <#if model.hasSearchableFilter() && !model.hasCronappFramework()>
