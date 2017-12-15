@@ -58,7 +58,7 @@
     "phonegap-plugin-barcodescanner": {
         "source": {
             "type": "registry",
-            "id": "phonegap-plugin-barcodescanner@6.0.8"
+            "id": "phonegap-plugin-barcodescanner@7.0.0"
         },
         "is_top_level": true,
         "variables": {}
