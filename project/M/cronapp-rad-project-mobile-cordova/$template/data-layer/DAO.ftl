@@ -47,13 +47,13 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
    * @return Instância relacionada com o filtro indicado
    * @generated
    */    
-  @Query("SELECT entity FROM ${clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list>")
+  @Query("SELECT entity FROM ${clazz.name} entity WHERE <#list clazz.ajustedFullPrimaryKeys as field>entity.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list>")
   public ${clazz.name} findOne(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>);
 
   /**
    * Remove a instância de ${clazz.name} utilizando os identificadores
    * 
-   <#list clazz.primaryKeys as field>
+   <#list clazz.ajustedFullPrimaryKeys as field>
    * @param ${field.name}
    *          Identificador 
    </#list>
@@ -61,7 +61,7 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
    * @generated
    */    
   @Modifying
-  @Query("DELETE FROM ${clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list>")
+  @Query("DELETE FROM ${clazz.name} entity WHERE <#list clazz.ajustedFullPrimaryKeys as field>entity.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list>")
   public void delete(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>);
 
 <#list clazz.namedQueries as namedQuery><#assign keys = namedQuery.params?keys> 
@@ -131,8 +131,8 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
    * OneToMany Relation
    * @generated
    */
-  @Query("SELECT entity FROM ${relation.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.relationField.pathName}.${field.name} = :${field.name}<#if field_has_next> AND </#if></#list>")
-  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable);
+  @Query("SELECT entity FROM ${relation.clazz.name} entity WHERE <#list clazz.ajustedFullPrimaryKeys as field>entity.${relation.relationField.pathName}.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list>")
+  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}(<#list clazz.ajustedFullPrimaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if>Pageable pageable);
 </#list>
 <#list clazz.manyToManyRelation as relation>
   <#if relation.relationClass.hasSearchableField()>
@@ -254,8 +254,8 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
    * Foreign Key ${fkField.name}
    * @generated
    */
-  @Query("SELECT entity FROM ${clazz.name} entity WHERE <#list fkField.relationClazz.primaryKeys as field>entity.${fkField.name?uncap_first}.${field.name} = :${field.name}<#if field_has_next> and </#if></#list>")
-  public Page<${clazz.name}> find${clazz.name}sBy${fkField.name?cap_first}(<#list fkField.relationClazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>, Pageable pageable);
+  @Query("SELECT entity FROM ${clazz.name} entity WHERE <#list fkField.relationClazz.ajustedFullPrimaryKeys as field>entity.${fkField.name?uncap_first}.${field.pathName} = :${field.name}<#if field_has_next> and </#if></#list>")
+  public Page<${clazz.name}> find${clazz.name}sBy${fkField.name?cap_first}(<#list fkField.relationClazz.ajustedFullPrimaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list>, Pageable pageable);
 
 </#list>
 }

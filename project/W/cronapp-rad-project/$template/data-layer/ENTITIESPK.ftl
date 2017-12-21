@@ -20,16 +20,15 @@ import org.eclipse.persistence.annotations.*;
 
 /**
 * @generated
-*/
-@Embeddable
+*
+**/
 public class ${clazz.name + "PK"} implements Serializable {
 
   /**
-  * UID da classe, necessário na serialização
   * @generated
   */
   private static final long serialVersionUID = 1L;
-  <#list clazz.primaryKeys as field>
+  <#list clazz.ajustedPrimaryKeys as field>
   <#assign name = "${field.name}">
   <#if field.getProperty("FOREIGN")??>
     <#if name?contains('_')>
@@ -40,15 +39,7 @@ public class ${clazz.name + "PK"} implements Serializable {
   /**
    * @generated
    */
-  <#if field.isDate()>
-  @Temporal(TemporalType.DATE)
-  <#elseif field.isTime()>
-  @Temporal(TemporalType.TIME)
-  <#elseif field.isTimestamp()>
-  @Temporal(TemporalType.TIMESTAMP)
-  </#if>
-  @Column(name = "${field.dbFieldName}"<#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
-  ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
+  ${field.modifier} <#if field.arrayRelation>${field.type}<#elseif field.isTypeOfForeignClass()>${field.type + "PK"}<#else>${field.type}</#if> ${name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
   </#list>
   
   /**
@@ -58,7 +49,7 @@ public class ${clazz.name + "PK"} implements Serializable {
   public ${clazz.name + "PK"}(){
   }
   
-  <#list clazz.primaryKeys as field>
+  <#list clazz.ajustedPrimaryKeys as field>
   <#assign name = "${field.name}">
   <#if field.getProperty("FOREIGN")??>
     <#if name?contains('_')>
@@ -70,7 +61,7 @@ public class ${clazz.name + "PK"} implements Serializable {
    * return ${name}
    * @generated
    */
-  public ${field.type} get${name?cap_first}(){
+  public <#if field.isTypeOfForeignClass()>${field.type + "PK"}<#else>${field.type}</#if> get${name?cap_first}(){
     return this.${name};
   }
   
@@ -79,7 +70,7 @@ public class ${clazz.name + "PK"} implements Serializable {
    * @param ${name} ${name}
    * @generated
    */
-  public ${clazz.name + "PK"} set${name?cap_first}(${field.type} ${name}){
+  public ${clazz.name + "PK"} set${name?cap_first}(<#if field.isTypeOfForeignClass()>${field.type + "PK"}<#else>${field.type}</#if> ${name}){
     this.${name} = ${name};
     return this;
   }
@@ -93,7 +84,7 @@ public class ${clazz.name + "PK"} implements Serializable {
     if (this == obj) return true;
     if (obj == null || getClass() != obj.getClass()) return false;
     ${clazz.name + "PK"} object = (${clazz.name + "PK"})obj;
-    <#list clazz.primaryKeys as field>
+    <#list clazz.ajustedPrimaryKeys as field>
     <#assign name = "${field.name}">
     <#if field.getProperty("FOREIGN")??>
       <#if name?contains('_')>
@@ -111,7 +102,7 @@ public class ${clazz.name + "PK"} implements Serializable {
   @Override
   public int hashCode() {
     int result = 1;
-    <#list clazz.primaryKeys as field>
+    <#list clazz.ajustedPrimaryKeys as field>
     <#assign name = "${field.name}">
     <#if field.getProperty("FOREIGN")??>
       <#if name?contains('_')>
