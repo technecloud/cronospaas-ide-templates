@@ -587,7 +587,7 @@
                                             <#if (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey()) && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case))>
                                                 <td>
                                                     <div>
-                                                        <#if gField.isReverseRelation() >
+                                                        <#if gField.isReverseRelation() || gField.isRelation() >
                                                             {{rowData.${gField.getName()}.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()} }}
                                                         <#elseif gField.isDate() && !model.hasCronappFramework()>
                                                             {{rowData.${gField.getName()} | date:'dd/MM/yyyy'}}
@@ -733,7 +733,7 @@
                                     </div>
                                 </#if>
                                 <#else><!-- else of !model.hasCronappFramework() -->
-                                <#if gField.isReverseRelation() >
+                                <#if gField.isReverseRelation() || gField.isRelation() >
                                     <#if (field.getDbFieldName() != gField.getDbFieldName())>
                                         <datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
                                         <div data-component="crn-combobox-dynamic" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
