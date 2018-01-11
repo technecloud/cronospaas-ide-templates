@@ -9,10 +9,15 @@
   </ion-nav-buttons> 
   <ion-content> 
     <div class="list list-inset" ng-hide="User.editing || User.inserting"> 
-      <label class="item item-input"> <i class="icon ion-search placeholder-icon"></i> <input type="text" placeholder="{{'template.crud.search' | translate}}" ng-model="query" value="%"> </label> 
+      <label class="item item-input"> 
+        <i class="icon ion-search placeholder-icon"></i> 
+        <input type="text" placeholder="{{'template.crud.search' | translate}}" 
+            ng-model="vars.search" cronapp-filter="name;"
+            cronapp-filter-operator="" cronapp-filter-autopost="true" crn-datasource="User"> 
+    </label> 
     </div> 
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854"> 
-      <datasource filter="{{query == '' || query == null ? null : ('/findByLogin/' + query)}}" name="User"  entity="api/cronapi/crud/app.entity.User" keys="id" rows-per-page="100" delete-message="{{ 'General.RemoveData' | translate }}" class=""></datasource> 
+      <datasource filter="" name="User"  entity="api/cronapi/crud/app.entity.User" keys="id" rows-per-page="100" delete-message="{{ 'General.RemoveData' | translate }}" class=""></datasource> 
     </div> 
     <div crn-datasource="User" class="" ng-hide="User.editing || User.inserting"> 
       <div class="component-holder ng-binding ng-scope" data-component="crn-list-swipe" data-forcedgroup="" id="crn-list-swipe-533868"> 
@@ -20,7 +25,7 @@
           <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)"> 
             <div class="row"> 
               <div class="col">
-                 {{rowData.login}} 
+                 {{rowData.name}} 
               </div> 
               <div id="crn-item-options-531" class="component-holder" data-component="crn-item-options"> 
                 <div class="crn-item-options" data-item="true"> 
