@@ -14,9 +14,26 @@
       <i class="icon ion-search placeholder-icon"></i>
       <input type="text" placeholder="{{'template.crud.search' | translate}}" ng-model="query" value="%"> </label>
     </div>
+    <#else>
+    <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-general" class="">
+      <label class="item item-input" id="cloud-search1">
+        <i class="icon ion-search placeholder-icon"></i>
+      <#assign fieldsString = "">
+      <#if model.hasSearchableFilter()>
+          <#list model.formFields as field>
+              <#if (field.isSearchable() && field.isString()) >
+                  <#assign fieldsString = fieldsString + "${field.name};">
+              </#if>
+          </#list>
+      <#else>
+          <#assign fieldsString = "${model.getFirstFieldStringNotPk().getName()};">
+      </#if>
+        <input type="text"  ng-model="vars.search" cronapp-filter="${fieldsString}" cronapp-filter-operator="" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" value="" placeholder="{{'template.crud.search' | translate}}">
+      </label>
+    </div>   
     </#if>
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854">
-      <datasource <#if model.hasColumnFilter()>filter="{{query == '' || query == null ? null : ('/${model.gridFilter}/' + query)}}"</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+      <datasource <#if model.hasColumnFilter()>filter=""</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="10" delete-message="Deseja remover?" class=""></datasource>
     </div>
     <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
       <ion-list can-swipe="listCanSwipe">
@@ -74,18 +91,18 @@
             </div>
             <#elseif (field.isDate()) >
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
-            <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <input type="date" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
+              <span class="input-label">${model.formMapLabels[field.name]!}</span>
+              <input type="date" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
             <#elseif (field.isTime() || field.isTimestamp())>
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
-            <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
+              <span class="input-label">${model.formMapLabels[field.name]!}</span>
+              <input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
             <#elseif field.isNumber() >
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
-            <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+              <span class="input-label">${model.formMapLabels[field.name]!}</span>
+              <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             </label>
             <#elseif field.getProperty("ngOptions")??>
             <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class=""></datasource>
