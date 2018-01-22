@@ -25,7 +25,7 @@
             <#else>
                 <#assign fieldsString = "${model.getFirstFieldStringNotPk().getName()};">
             </#if>
-            <input type="text" ng-model="vars.search" cronapp-filter="${fieldsString}" cronapp-filter-operator="" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+            <input type="text" ng-model="vars.search" cronapp-filter="${fieldsString}" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
         </div>
     </div>
     <#elseif model.getGridFilterSearchable()=="specificSearch">
@@ -52,7 +52,7 @@
         <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${model.getFirstFieldStringNotPk().name}" class="">
             <div class="form-group">
                 <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[model.getFirstFieldStringNotPk().name]!}</label>
-                <input type="text" cronapp-filter="${model.getFirstFieldStringNotPk().name}" cronapp-filter-operator="" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if model.getFirstFieldStringNotPk().label?has_content>${model.getFirstFieldStringNotPk().label}<#else>${model.getFirstFieldStringNotPk().name}</#if>">
+                <input type="text" cronapp-filter="${model.getFirstFieldStringNotPk().name}" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if model.getFirstFieldStringNotPk().label?has_content>${model.getFirstFieldStringNotPk().label}<#else>${model.getFirstFieldStringNotPk().name}</#if>">
             </div>
         </div>
         </#if>
