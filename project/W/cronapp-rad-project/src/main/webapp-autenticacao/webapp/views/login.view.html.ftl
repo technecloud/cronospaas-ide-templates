@@ -51,11 +51,26 @@
             <div class="col-xs-12 col-sm-6 col-lg-4" data-container="true">
                 <div class="col-xs-10 col-md-8 col-md-push-2 col-xs-push-1" data-container="true">
                     <ul class="list-inline center-block text-center">
-                    	<li><a href="http://facebook.com"><i class='fa fa-2x fa-facebook'></i></a></li>
-                    	<li><a href="http://github.com"><i class='fa fa-2x fa-github-alt'></i></a></li>
-                    	<li><a href="http://google.com"><i class='fa fa-2x fa-google-plus'></i></a></li>
-                    	<li><a href="https://www.linkedin.com"><i class='fa fa-2x fa-linkedin-square'></i></a></li>
-                    	<li><a href="https://login.cronapp.io/login"><i class='fa fa-2x fa-cloud'></i></a></li>
+						<#if social?? && social?lower_case == "sim">
+						<li>
+                    	    <form action="/signin/facebook" method="POST" id="facebook">
+                    	        <input type="hidden" name="scope" value="email,public_profile">
+                    	        <a title="Facebook" role="button" onclick="document.getElementById('facebook').submit();"><i class="fa fa-2x fa-facebook"></i></a>
+                    	    </form>
+                    	</li>
+                        <li>
+                    	    <form action="/signin/github" method="POST" id="github">
+                    	        <input type="hidden" name="scope" value="email,public_profile">
+                    	        <a title="GitHub" role="button" onclick="document.getElementById('github').submit();"><i class="fa fa-2x fa-github-alt"></i></a>
+                    	    </form>
+                    	</li>
+                    	<li>
+                    	    <form action="/signin/linkedin" method="POST" id="linkedin">
+                    	        <input type="hidden" name="scope" value="email,public_profile">
+                    	        <a title="LinkeIn" role="button" onclick="document.getElementById('linkedin').submit();"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                    	    </form>
+                    	</li>
+						</#if>
                     </ul>
                 </div>
             </div>
