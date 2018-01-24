@@ -5,6 +5,9 @@ path=/app
 path=/i18n
 path=/META-INF
 file=SpringBootMain.java.ftl
+<#if social?? && social?lower_case == "sim">
+file=application.properties
+</#if>
 </#if>
 <#if (backend?lower_case) == "false" && (frontend?lower_case) == "true">
 path=/META-INF
@@ -15,6 +18,9 @@ path=/app
 path=/i18n
 path=/META-INF
 file=SpringBootMain.java.ftl
+<#if social?? && social?lower_case == "sim">
+file=application.properties
+</#if>
 </#if>
 <#if (authentication??)>
 path=/auth/permission

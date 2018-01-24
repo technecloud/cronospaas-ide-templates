@@ -10,6 +10,7 @@ import java.util.TimeZone;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
+	<#if social?? && social?lower_case == "sim">"cronapp.framework.authentication.social",</#if>
 	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
 	"cronapp.framework.authentication.security",
 	"cronapp.framework.rest",
