@@ -52,24 +52,36 @@
                 <div class="col-xs-10 col-md-8 col-md-push-2 col-xs-push-1" data-container="true">
                     <ul class="list-inline center-block text-center">
 						<#if social?? && social?lower_case == "sim">
-						<li>
-                    	    <form action="/signin/facebook" method="POST" id="facebook">
-                    	        <input type="hidden" name="scope" value="email,public_profile">
-                    	        <a title="Facebook" role="button" onclick="document.getElementById('facebook').submit();"><i class="fa fa-2x fa-facebook"></i></a>
-                    	    </form>
-                    	</li>
-                        <li>
-                    	    <form action="/signin/github" method="POST" id="github">
-                    	        <input type="hidden" name="scope" value="email,public_profile">
-                    	        <a title="GitHub" role="button" onclick="document.getElementById('github').submit();"><i class="fa fa-2x fa-github-alt"></i></a>
-                    	    </form>
-                    	</li>
-                    	<li>
-                    	    <form action="/signin/linkedin" method="POST" id="linkedin">
-                    	        <input type="hidden" name="scope" value="email,public_profile">
-                    	        <a title="LinkeIn" role="button" onclick="document.getElementById('linkedin').submit();"><i class="fa fa-2x fa-linkedin-square"></i></a>
-                    	    </form>
-                    	</li>
+                            <li>
+                                <form action="/signin/facebook" method="POST" id="facebook">
+                                    <input type="hidden" name="scope" value="email,public_profile">
+                                    <a title="Facebook" role="button" onclick="document.getElementById('facebook').submit();"><i class="fa fa-2x fa-facebook"></i></a>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="/signin/github" method="POST" id="github">
+                                    <input type="hidden" name="scope" value="email,public_profile">
+                                    <a title="GitHub" role="button" onclick="document.getElementById('github').submit();"><i class="fa fa-2x fa-github-alt"></i></a>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="/signin/linkedin" method="POST" id="linkedin">
+                                    <input type="hidden" name="scope" value="r_emailaddress">
+                                    <a title="LinkedIn" role="button" onclick="document.getElementById('linkedin').submit();"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="/signin/google" method="POST" id="google">
+                                    <input type="hidden" name="scope" value="email">
+                                    <a title="Google" role="button" onclick="document.getElementById('google').submit();"><i class="fa fa-2x fa-google"></i></a>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="/signin/cronapp" method="POST" id="cronapp">
+                                    <input type="hidden" name="scope" value="email">
+                                    <a title="CronApp" role="button" onclick="document.getElementById('cronapp').submit();"><i class="fa fa-2x fa-cloud"></i></a>
+                                </form>
+                            </li>
 						</#if>
                     </ul>
                 </div>
