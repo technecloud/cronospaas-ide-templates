@@ -17,6 +17,7 @@ import java.util.TimeZone;
 	<#if multitenant?? && multitenant?lower_case == "sim">
 	"cronapp.framework.tenant",
 	</#if>
+    "cronapp.framework.scheduler",
 	"auth.permission",
 	"api.rest.events",
 	"api.rest.webservices",
