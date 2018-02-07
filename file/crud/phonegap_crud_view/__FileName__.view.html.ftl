@@ -1,5 +1,5 @@
 <ion-view cache-view="false" view-title="${model.dataSourceName}" hide-back-button="true">
-  <ion-nav-buttons side="right">
+  <ion-nav-buttons side="right"> 
     <button class="button button-stable" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.startInserting()"> <i class="icon ion-plus-round"></i> </button>
     <button class="button button-stable" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.post()"> <i class="icon ion-checkmark"></i> </button>
   </ion-nav-buttons>
@@ -51,10 +51,12 @@
               <#elseif field.isTimestamp() >
               {{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
               <#elseif field.isImage()>
-              <img ng-if="rowData.${field.name}" data-ng-src="{{'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
+              <a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
+                  <img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
+              </a>
               <#elseif field.isFile()>
-              <button class="button" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
-              <i class="icon ion-android-download"></i>
+              <button ng-if="rowData.${field.name}" class="button" ng-click="cronapi.internal.downloadFileEntityMobile(datasource, '${field.name}', $index)">
+                  <span class="icon ion-android-download"></span>
               </button>
               <#else>
               {{rowData.${field.name}}}
@@ -75,7 +77,7 @@
     </div>
     <div ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
       <form crn-datasource="${model.dataSourceName}">
-        <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
+        <fieldset ng-disabled="!${model.dataSourceName}.editing &amp;&amp; !${model.dataSourceName}.inserting">
           <div class="list">
             <#list model.formFields as field>
             <!-- ${field.name} begin -->
@@ -113,33 +115,27 @@
               </select>
             </label>
             <#elseif field.isImage()>
-            <div class="item item-input item-stacked-label">
-              <span class="input-label">${model.formMapLabels[field.name]!}</span>
-              <div class="form-group upload-image-component" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
-                <img style="max-height: 128px; max-width: 128px;"
-                  ng-if="datasource.active.${field.name}"
-                  data-ng-src="{{'data:image/png;base64,' + datasource.active.${field.name}}}"
-                  ngf-change="datasource.setFile($file, datasource.active, '${field.name}')"
-                  accept="image/*">
-                <img data-ng-src="{{datasource.noImageUpload}}"
-                  style="max-height: 128px; max-width: 128px;"
-                  ng-if="!datasource.active.${field.name}"
-                  ngf-select class="btn btn-default btn-block"
-                  ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="image/*">
-                <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null"></span>
+            <div class="component-holder ng-binding ng-scope" data-component="crn-dynamic-image">
+              <div class="item item-input item-stacked-label">
+                <label class="input-label">${model.formMapLabels[field.name]!}</label>
+                <div class="form-group">
+                  <div dynamic-image="" ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" ng-required="false">
+                    {{"template.crud.clickToAddImage" | translate}}
+                  </div>
+                </div>
               </div>
             </div>
             <#elseif field.isFile()>
-            <div class="item item-input item-stacked-label">
-              <span class="input-label">${model.formMapLabels[field.name]!}</span>
-              <div class="form-group" ngf-drop ngf-change="datasource.setFile($file, datasource.active.${field.name})" ngf-pattern="'image/*'">
-                <em ng-if="datasource.active.${field.name}">{{datasource.byteSize(datasource.active.${field.name})}}</em>
-                <span class="remove button button-small icon ion-close-round button-assertive" ng-if="datasource.active.${field.name}" ng-click="datasource.active.${field.name}=null"></span>
-                <button class="button button-positive" ng-if="!datasource.active.${field.name}" ngf-select ngf-change="datasource.setFile($file, datasource.active, '${field.name}')" accept="*/*">
-                <i class="icon ion-android-upload"></i>
-                </button>
+            <div class="component-holder ng-binding ng-scope" data-component="crn-dynamic-file" >
+              <div class="item item-input item-stacked-label">
+                <label class="input-label">${model.formMapLabels[field.name]!}</label>
+                <div class="form-group">
+                  <div dynamic-file="" ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" ng-required="false">
+                    {{"template.crud.clickToAddFile" | translate}}
+                  </div>
+                </div>
               </div>
-            </div>
+            </div> 
             <#else>
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
             <span class="input-label">${model.formMapLabels[field.name]!}</span>
