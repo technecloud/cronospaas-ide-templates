@@ -97,5 +97,7 @@
   "Roles.view.Salvar": "Salvar",
   "Roles.view.Voltar": "Voltar",
   "Permission.view.Salvar": "Salvar",
-  "Permission.view.Voltar": "Voltar"
+  "Permission.view.Voltar": "Voltar",
+  "template.crud.clickToAddImage": "Clique para adicionar imagem",
+  "template.crud.clickToAddFile": "Clique para adicionar arquivo"
 }
