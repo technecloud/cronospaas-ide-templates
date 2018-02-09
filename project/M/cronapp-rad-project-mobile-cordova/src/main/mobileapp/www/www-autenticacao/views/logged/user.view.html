@@ -11,7 +11,7 @@
     <div class="list list-inset" ng-hide="User.editing || User.inserting"> 
       <label class="item item-input"> 
         <i class="icon ion-search placeholder-icon"></i> 
-        <input type="text" placeholder="{{'template.crud.search' | translate}}" 
+        <input mask type="text" placeholder="{{'template.crud.search' | translate}}" 
             ng-model="vars.search" cronapp-filter="name;"
             cronapp-filter-operator="" cronapp-filter-autopost="true" crn-datasource="User"> 
     </label> 
@@ -44,13 +44,13 @@
         <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
           <div class="list"> 
             <!-- email begin --> 
-            <label for="textinput-email" class="item item-input item-stacked-label"> <span class="input-label">Email</span> <input type="text" placeholder="Email" ng-model="User.active.email" id="textinput-email" name="textinput-email"> </label> 
+            <label for="textinput-email" class="item item-input item-stacked-label"> <span class="input-label">Email</span> <input mask type="text" placeholder="Email" ng-model="User.active.email" id="textinput-email" name="textinput-email"> </label> 
             <!-- name begin --> 
-            <label for="textinput-name" class="item item-input item-stacked-label"> <span class="input-label">Name</span> <input type="text" placeholder="Name" ng-model="User.active.name" id="textinput-name" name="textinput-name" required> </label> 
+            <label for="textinput-name" class="item item-input item-stacked-label"> <span class="input-label">Name</span> <input mask type="text" placeholder="Name" ng-model="User.active.name" id="textinput-name" name="textinput-name" required> </label> 
             <!-- login begin --> 
-            <label for="textinput-login" class="item item-input item-stacked-label"> <span class="input-label">Login</span> <input type="text" placeholder="Login" ng-model="User.active.login" id="textinput-login" name="textinput-login" required> </label> 
+            <label for="textinput-login" class="item item-input item-stacked-label"> <span class="input-label">Login</span> <input mask type="text" placeholder="Login" ng-model="User.active.login" id="textinput-login" name="textinput-login" required> </label> 
             <!-- password begin --> 
-            <label for="textinput-password" class="item item-input item-stacked-label"> <span class="input-label">Password</span> <input type="password" placeholder="Password" ng-model="User.active.password" id="textinput-password" name="textinput-password" required> </label> 
+            <label for="textinput-password" class="item item-input item-stacked-label"> <span class="input-label">Password</span> <input mask type="password" placeholder="Password" ng-model="User.active.password" id="textinput-password" name="textinput-password" required> </label> 
           </div> 
         </fieldset> 
       </form> 
