@@ -23,7 +23,13 @@ import org.springframework.transaction.annotation.*;
     <#assign field_pk_type = "${field.type}">
   </#if>
 </#list>
-<#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
+
+<#assign persistence_unit_name = "String">
+<#if cronapWizardNamespace?? >
+	<#assign persistence_unit_name = "${cronapWizardNamespace}">
+<#else>
+	<#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
+</#if>
 
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.

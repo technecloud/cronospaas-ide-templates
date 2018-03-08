@@ -16,6 +16,20 @@
               <li><a href="#/home/logged/department" class="component-holder" data-component="crn-anchor">{{"Home.view.Department" | translate}}</a></li>
             </#if>
             </ul> </li>
+        <#if (customMenu??) >
+		  <#list customMenu?keys as key>
+		  <#assign items = customMenu[key]>
+		  <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span>${key}</span> <span class="caret"></span> </a>
+			<#if (items??) >
+            <ul class="dropdown-menu">
+			  <#list items as item> 
+              <li><a href="#/home/logged/${item?lower_case}" class="component-holder" data-component="crn-anchor" >${item}</a></li>
+			  </#list>
+            </ul> 
+			</#if>
+		  </li>
+		  </#list>
+		</#if>	
           <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-gear"></i> <span>{{"ChooseTheme" | translate}}</span> <span class="caret"></span> </a>
             <ul class="dropdown-menu">
               <li ng-repeat="theme in themes" ng-click="changeTheme(theme)"> <a href="javascript:void(0);" ng-class="{'bg-primary': myTheme==theme}">{{theme}} <i class="fa fa-lg fa-check pull-right" ng-if="myTheme==theme"></i></a></li>
@@ -75,6 +89,24 @@
             </#if>
             </ul>
         </li>
+	<#if (customMenu??) >
+	   <#list customMenu?keys as key>
+		<#assign items = customMenu[key]>
+        <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-${key}" class="collapsed component-holder">
+			<a href="javascript:void(0);" class="">
+				<i class="fa fa-users fa-lg"></i> <span class="">${key}</span> <span class="arrow"></span>
+			</a>
+			<ul class="sub-menu collapse" id="#menu-sub-${key}">
+			<#if (items??) >
+			  <#list items as item> 
+			  <li><a href="#/home/logged/${item?lower_case}" class="component-holder" data-component="crn-anchor">${item}</a></li>
+			  </#list>
+			</#if>
+			</ul>
+		</li>
+	  </#list>
+	</#if>	
+
         <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-9831" class="collapsed component-holder"> </li>
       </ul>
     </div>

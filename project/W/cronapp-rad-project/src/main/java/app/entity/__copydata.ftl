@@ -5,4 +5,6 @@ file=Department.java
 file=User.java.ftl
 file=UserRole.java
 file=Role.java
+<#if !(customMenu??) >
 file=RolePK.java
+</#if>
