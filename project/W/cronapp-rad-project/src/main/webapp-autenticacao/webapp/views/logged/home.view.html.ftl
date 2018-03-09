@@ -12,11 +12,13 @@
           <li class="dropdown component-holder" data-component="crn-menu-item" cronapp-security="visible : Administrators"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span>{{"Home.view.Admin" | translate}}</span> <span class="caret"></span> </a>
             <ul class="dropdown-menu">
               <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor" >{{"Home.view.Users" | translate}}</a></li>
-            <#if multitenant?? && multitenant?lower_case == "sim">
+            <#if !(customMenu??) >
+			<#if multitenant?? && multitenant?lower_case == "sim">
               <li><a href="#/home/logged/department" class="component-holder" data-component="crn-anchor">{{"Home.view.Department" | translate}}</a></li>
             </#if>
+            </#if>			
             </ul> </li>
-        <#if (customMenu??) >
+    <#if (customMenu??) >
       <#list customMenu?keys as key>
       <#assign items = customMenu[key]>
       <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span>${key}</span> <span class="caret"></span> </a>
@@ -84,8 +86,10 @@
             </a>
             <ul class="sub-menu collapse" id="menu-sub-5099">
                 <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor">{{"Home.view.Users" | translate}}</a></li>
+            <#if !(customMenu??) >
             <#if multitenant?? && multitenant?lower_case == "sim">
                 <li><a href="#/home/logged/department" class="component-holder" data-component="crn-anchor">{{"Home.view.Department" | translate}}</a></li>
+            </#if>
             </#if>
             </ul>
         </li>
