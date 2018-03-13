@@ -21,7 +21,7 @@
     <#if (customMenu??) >
       <#list customMenu?keys as key>
       <#assign items = customMenu[key]>
-      <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span>${key}</span> <span class="caret"></span> </a>
+      <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class=""></i> <span>${key}</span> <span class="caret"></span> </a>
       <#if (items??) >
             <ul class="dropdown-menu">
         <#list items as item> 
@@ -98,7 +98,7 @@
     <#assign items = customMenu[key]>
         <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-${key?replace(" ", "")}" class="collapsed component-holder">
       <a href="javascript:void(0);" class="">
-        <i class="fa fa-users fa-lg"></i> <span class="">${key}</span> <span class="arrow"></span>
+        <i class=""></i> <span class="">${key}</span> <span class="arrow"></span>
       </a>
       <ul class="sub-menu collapse" id="menu-sub-${key?replace(" ", "")}">
       <#if (items??) >

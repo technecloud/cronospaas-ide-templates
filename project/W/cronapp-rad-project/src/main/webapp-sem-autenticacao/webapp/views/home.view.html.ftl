@@ -12,7 +12,7 @@
         <#if (customMenu??) >
       <#list customMenu?keys as key>
       <#assign items = customMenu[key]>
-      <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span>${key}</span> <span class="caret"></span> </a>
+      <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class=""></i> <span>${key}</span> <span class="caret"></span> </a>
       <#if (items??) >
             <ul class="dropdown-menu">
         <#list items as item> 
@@ -46,7 +46,7 @@
     <#if (customMenu??) >
     <#list customMenu?keys as key>
     <#assign items = customMenu[key]>
-    <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-users fa-lg"></i> <span>${key}</span> <span class="caret"></span> </a>
+    <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class=""></i> <span>${key}</span> <span class="caret"></span> </a>
       <#if (items??) >
       <ul class="dropdown-menu">
       <#list items as item> 
