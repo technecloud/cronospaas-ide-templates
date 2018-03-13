@@ -390,7 +390,6 @@
         "id:java.lang.String",
         "fiscalDocument:java.lang.String",
         "addedDate:java.sql.Timestamp",
-        "status:java.lang.Integer",
         "image:Image Upload (to Database)",
         "attachment:File Upload (to Database)",
         "purchaseOrderStatus:PurchaseOrderStatus",
@@ -404,7 +403,7 @@
       },
       "size": {
         "width": 296.5625,
-        "height": 184.065185546875
+        "height": 173.1290512084961
       },
       "angle": 0,
       "multitenantContextJsonIgnore": "false",
@@ -475,29 +474,6 @@
           "dbDefaultValue": "",
           "label": "Data de Criação",
           "mask": "DD/MM/YYYY HH:mm:ss",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false
-        },
-        {
-          "name": "status",
-          "type": "java.lang.Integer",
-          "dbName": "status",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Status",
-          "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
@@ -607,15 +583,19 @@
           "name": "salesOrder",
           "type": "SalesOrder",
           "dbName": "fk_salesOrder",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -635,12 +615,12 @@
           "transform": "translate(0,0)"
         },
         ".uml-class-attrs-rect": {
-          "height": 210,
+          "height": 190,
           "transform": "translate(0,50)"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,260)"
+          "transform": "translate(0,240)"
         },
         ".uml-class-name-text": {
           "fill": "#000",
@@ -650,12 +630,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nfiscalDocument\naddedDate\nstatus\nimage\nattachment\npurchaseOrderStatus\nsupplier\nsalesOrder\n"
+          "text": "id\nfiscalDocument\naddedDate\nimage\nattachment\npurchaseOrderStatus\nsupplier\nsalesOrder\n"
         },
         ".uml-class-attrs-value": {
           "ref-x": 140.046875,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\njava.sql.Timestamp\njava.lang.Integer\nImage Upload (to Database)\nFile Upload (to Database)\nPurchaseOrderStatus\nSupplier\nSalesOrder\n"
+          "text": "java.lang.String\njava.lang.String\njava.sql.Timestamp\nImage Upload (to Database)\nFile Upload (to Database)\nPurchaseOrderStatus\nSupplier\nSalesOrder\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -731,7 +711,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -816,9 +796,9 @@
       "name": "BillToPay",
       "attributes": [
         "id:java.lang.String",
-        "note:java.lang.String",
-        "description:java.lang.String",
-        "addedDate:java.sql.Timestamp",
+        "payNote:java.lang.String",
+        "payDescription:java.lang.String",
+        "addedDate:java.util.Date",
         "amount:java.lang.Double",
         "dueDate:java.sql.Timestamp",
         "billStatus:BillStatus",
@@ -872,7 +852,7 @@
           "isSearchable": false
         },
         {
-          "name": "note",
+          "name": "payNote",
           "type": "java.lang.String",
           "dbName": "note",
           "dbLength": "",
@@ -895,7 +875,7 @@
           "isSearchable": false
         },
         {
-          "name": "description",
+          "name": "payDescription",
           "type": "java.lang.String",
           "dbName": "description",
           "dbLength": "",
@@ -919,7 +899,7 @@
         },
         {
           "name": "addedDate",
-          "type": "java.sql.Timestamp",
+          "type": "java.util.Date",
           "dbName": "addedDate",
           "dbLength": "",
           "dbPrecision": "",
@@ -990,15 +970,19 @@
           "name": "billStatus",
           "type": "BillStatus",
           "dbName": "fk_billStatus",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -1009,15 +993,19 @@
           "name": "managementBill",
           "type": "ManagementBill",
           "dbName": "fk_managementBill",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -1028,15 +1016,19 @@
           "name": "purchaseOrder",
           "type": "PurchaseOrder",
           "dbName": "fk_purchaseOrder",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -1047,15 +1039,19 @@
           "name": "financialMovement",
           "type": "FinancialMovement",
           "dbName": "fk_financialMovement",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -1091,12 +1087,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nnote\ndescription\naddedDate\namount\ndueDate\nbillStatus\nmanagementBill\npurchaseOrder\nfinancialMovement\n"
+          "text": "id\npayNote\npayDescription\naddedDate\namount\ndueDate\nbillStatus\nmanagementBill\npurchaseOrder\nfinancialMovement\n"
         },
         ".uml-class-attrs-value": {
           "ref-x": 127.640625,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.sql.Timestamp\njava.lang.Double\njava.sql.Timestamp\nBillStatus\nManagementBill\nPurchaseOrder\nFinancialMovement\n"
+          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.util.Date\njava.lang.Double\njava.sql.Timestamp\nBillStatus\nManagementBill\nPurchaseOrder\nFinancialMovement\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -1113,9 +1109,9 @@
       "name": "BillToReceive",
       "attributes": [
         "id:java.lang.String",
-        "note:java.lang.String",
-        "description:java.lang.String",
-        "addedDate:java.sql.Timestamp",
+        "receiveNote:java.lang.String",
+        "descriptionReceive:java.lang.String",
+        "addedDate:java.util.Date",
         "amount:java.lang.Double",
         "billStatus:BillStatus",
         "managementBill:ManagementBill",
@@ -1129,7 +1125,7 @@
         "y": 1560
       },
       "size": {
-        "width": 241.953125,
+        "width": 242.234375,
         "height": 195.0095672607422
       },
       "angle": 0,
@@ -1169,7 +1165,7 @@
           "isSearchable": false
         },
         {
-          "name": "note",
+          "name": "receiveNote",
           "type": "java.lang.String",
           "dbName": "note",
           "dbLength": "",
@@ -1192,7 +1188,7 @@
           "isSearchable": false
         },
         {
-          "name": "description",
+          "name": "descriptionReceive",
           "type": "java.lang.String",
           "dbName": "description",
           "dbLength": "",
@@ -1216,7 +1212,7 @@
         },
         {
           "name": "addedDate",
-          "type": "java.sql.Timestamp",
+          "type": "java.util.Date",
           "dbName": "addedDate",
           "dbLength": "",
           "dbPrecision": "",
@@ -1333,15 +1329,19 @@
           "name": "order",
           "type": "SalesOrder",
           "dbName": "fk_order",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -1352,15 +1352,19 @@
           "name": "financialMovement",
           "type": "FinancialMovement",
           "dbName": "fk_financialMovement",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -1396,12 +1400,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nnote\ndescription\naddedDate\namount\nbillStatus\nmanagementBill\nreceiptDate\norder\nfinancialMovement\n"
+          "text": "id\nreceiveNote\ndescriptionReceive\naddedDate\namount\nbillStatus\nmanagementBill\nreceiptDate\norder\nfinancialMovement\n"
         },
         ".uml-class-attrs-value": {
-          "ref-x": 127.640625,
+          "ref-x": 127.921875,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.sql.Timestamp\njava.lang.Double\nBillStatus\nManagementBill\njava.sql.Timestamp\nSalesOrder\nFinancialMovement\n"
+          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.util.Date\njava.lang.Double\nBillStatus\nManagementBill\njava.sql.Timestamp\nSalesOrder\nFinancialMovement\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -1420,7 +1424,6 @@
         "id:java.lang.String",
         "movementDate:java.sql.Timestamp",
         "note:java.lang.String",
-        "movementType:java.lang.Character",
         "bill:Bill",
         "formOfPayment:FormOfPayment"
       ],
@@ -1430,8 +1433,8 @@
         "y": 1217
       },
       "size": {
-        "width": 227.671875,
-        "height": 151.29007720947266
+        "width": 226.171875,
+        "height": 140.3936004638672
       },
       "angle": 0,
       "multitenantContextJsonIgnore": "false",
@@ -1516,29 +1519,6 @@
           "isSearchable": false
         },
         {
-          "name": "movementType",
-          "type": "java.lang.Character",
-          "dbName": "movementType",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Tipo de Movimento",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": false,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false
-        },
-        {
           "name": "bill",
           "type": "Bill",
           "dbName": "fk_bill",
@@ -1589,12 +1569,12 @@
           "transform": "translate(0,0)"
         },
         ".uml-class-attrs-rect": {
-          "height": 150,
+          "height": 130,
           "transform": "translate(0,50)"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,200)"
+          "transform": "translate(0,180)"
         },
         ".uml-class-name-text": {
           "fill": "#000",
@@ -1604,12 +1584,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nmovementDate\nnote\nmovementType\nbill\nformOfPayment\n"
+          "text": "id\nmovementDate\nnote\nbill\nformOfPayment\n"
         },
         ".uml-class-attrs-value": {
           "ref-x": 112.953125,
           "font-size": 11,
-          "text": "java.lang.String\njava.sql.Timestamp\njava.lang.String\njava.lang.Character\nBill\nFormOfPayment\n"
+          "text": "java.lang.String\njava.sql.Timestamp\njava.lang.String\nBill\nFormOfPayment\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -1819,8 +1799,7 @@
       "attributes": [
         "id:java.lang.String",
         "name:java.lang.String",
-        "active:java.lang.String",
-        "type:java.lang.Character"
+        "active:java.lang.Boolean"
       ],
       "methods": [],
       "position": {
@@ -1828,8 +1807,8 @@
         "y": 1899
       },
       "size": {
-        "width": 178.453125,
-        "height": 129.51891326904297
+        "width": 168.1875,
+        "height": 118.67371368408203
       },
       "angle": 0,
       "multitenantContextJsonIgnore": "false",
@@ -1892,7 +1871,7 @@
         },
         {
           "name": "active",
-          "type": "java.lang.String",
+          "type": "java.lang.Boolean",
           "dbName": "active",
           "dbLength": "",
           "dbPrecision": "",
@@ -1903,29 +1882,6 @@
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false
-        },
-        {
-          "name": "type",
-          "type": "java.lang.Character",
-          "dbName": "type",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Tipo",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -1949,12 +1905,12 @@
           "transform": "translate(0,0)"
         },
         ".uml-class-attrs-rect": {
-          "height": 110,
+          "height": 90,
           "transform": "translate(0,50)"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,160)"
+          "transform": "translate(0,140)"
         },
         ".uml-class-name-text": {
           "fill": "#000",
@@ -1964,12 +1920,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nname\nactive\ntype\n"
+          "text": "id\nname\nactive\n"
         },
         ".uml-class-attrs-value": {
-          "ref-x": 63.734375,
+          "ref-x": 62.734375,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.lang.Character\n"
+          "text": "java.lang.String\njava.lang.String\njava.lang.Boolean\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -1986,8 +1942,7 @@
       "name": "Client",
       "attributes": [
         "id:java.lang.String",
-        "addedDate:java.sql.Timestamp",
-        "clientType:java.lang.Character",
+        "addedDate:java.util.Date",
         "active:java.lang.Boolean",
         "name:java.lang.String",
         "email:java.lang.String",
@@ -1999,8 +1954,8 @@
         "y": 1290
       },
       "size": {
-        "width": 202.53125,
-        "height": 162.203125
+        "width": 193.265625,
+        "height": 151.29007720947266
       },
       "angle": 0,
       "multitenantContextJsonIgnore": "false",
@@ -2040,7 +1995,7 @@
         },
         {
           "name": "addedDate",
-          "type": "java.sql.Timestamp",
+          "type": "java.util.Date",
           "dbName": "addedDate",
           "dbLength": "",
           "dbPrecision": "",
@@ -2048,29 +2003,6 @@
           "dbDefaultValue": "",
           "label": "Data de Criação",
           "mask": "DD/MM/YYYY HH:mm:ss",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false
-        },
-        {
-          "name": "clientType",
-          "type": "java.lang.Character",
-          "dbName": "clientType",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Tipo de Cliente",
-          "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
@@ -2118,7 +2050,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -2190,12 +2122,12 @@
           "transform": "translate(0,0)"
         },
         ".uml-class-attrs-rect": {
-          "height": 170,
+          "height": 150,
           "transform": "translate(0,50)"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,220)"
+          "transform": "translate(0,200)"
         },
         ".uml-class-name-text": {
           "fill": "#000",
@@ -2205,12 +2137,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\naddedDate\nclientType\nactive\nname\nemail\nphone\n"
+          "text": "id\naddedDate\nactive\nname\nemail\nphone\n"
         },
         ".uml-class-attrs-value": {
           "ref-x": 87.8125,
           "font-size": 11,
-          "text": "java.lang.String\njava.sql.Timestamp\njava.lang.Character\njava.lang.Boolean\njava.lang.String\njava.lang.String\njava.lang.String\n"
+          "text": "java.lang.String\njava.util.Date\njava.lang.Boolean\njava.lang.String\njava.lang.String\njava.lang.String\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -2287,7 +2219,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -2598,7 +2530,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -2742,8 +2674,8 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
+          "isUniqueKey": true,
+          "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -2831,8 +2763,7 @@
         "phone:java.lang.String",
         "email:java.lang.String",
         "active:java.lang.Boolean",
-        "supplierType:SupplierType",
-        "personType:java.lang.String"
+        "supplierType:SupplierType"
       ],
       "methods": [],
       "position": {
@@ -2841,7 +2772,7 @@
       },
       "size": {
         "width": 201.8125,
-        "height": 162.203125
+        "height": 151.29007720947266
       },
       "angle": 0,
       "multitenantContextJsonIgnore": "false",
@@ -2890,7 +2821,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -2993,29 +2924,6 @@
           "isEncryption": false,
           "referencedColumnName": "",
           "isSearchable": false
-        },
-        {
-          "name": "personType",
-          "type": "java.lang.String",
-          "dbName": "personType",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Tipo de Pessoa",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false
         }
       ],
       "runtimeClass": "cronos.widgets.joint.uml.Class",
@@ -3031,12 +2939,12 @@
           "transform": "translate(0,0)"
         },
         ".uml-class-attrs-rect": {
-          "height": 170,
+          "height": 150,
           "transform": "translate(0,50)"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,220)"
+          "transform": "translate(0,200)"
         },
         ".uml-class-name-text": {
           "fill": "#000",
@@ -3046,12 +2954,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nname\nphone\nemail\nactive\nsupplierType\npersonType\n"
+          "text": "id\nname\nphone\nemail\nactive\nsupplierType\n"
         },
         ".uml-class-attrs-value": {
           "ref-x": 96.359375,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.lang.String\njava.lang.Boolean\nSupplierType\njava.lang.String\n"
+          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.lang.String\njava.lang.Boolean\nSupplierType\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -3257,7 +3165,6 @@
       "name": "SupplierPhysicalPerson",
       "attributes": [
         "id:java.lang.String",
-        "name:java.lang.String",
         "rg:java.lang.String",
         "cpf:java.lang.String",
         "supplier:Supplier"
@@ -3269,7 +3176,7 @@
       },
       "size": {
         "width": 188.375,
-        "height": 140.3936004638672
+        "height": 129.51891326904297
       },
       "angle": 0,
       "multitenantContextJsonIgnore": "false",
@@ -3298,29 +3205,6 @@
           "isUniqueKey": false,
           "isNullable": false,
           "pkType": "UUID",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false
-        },
-        {
-          "name": "name",
-          "type": "java.lang.String",
-          "dbName": "name",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Nome",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
           "isTransient": false,
@@ -3362,7 +3246,7 @@
           "dbScale": "",
           "dbDefaultValue": "",
           "label": "Cpf",
-          "mask": "999.999.999-99;0",
+          "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
@@ -3380,15 +3264,19 @@
           "name": "supplier",
           "type": "Supplier",
           "dbName": "fk_supplier",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -3409,12 +3297,12 @@
           "transform": "translate(0,0)"
         },
         ".uml-class-attrs-rect": {
-          "height": 130,
+          "height": 110,
           "transform": "translate(0,50)"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,180)"
+          "transform": "translate(0,160)"
         },
         ".uml-class-name-text": {
           "fill": "#000",
@@ -3424,12 +3312,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nname\nrg\ncpf\nsupplier\n"
+          "text": "id\nrg\ncpf\nsupplier\n"
         },
         ".uml-class-attrs-value": {
           "ref-x": 94.5625,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.lang.String\nSupplier\n"
+          "text": "java.lang.String\njava.lang.String\njava.lang.String\nSupplier\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -3617,15 +3505,19 @@
           "name": "supplier",
           "type": "Supplier",
           "dbName": "fk_supplier",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -3689,8 +3581,8 @@
       ],
       "methods": [],
       "position": {
-        "x": 1691,
-        "y": 238
+        "x": 1690,
+        "y": 222
       },
       "size": {
         "width": 193.609375,
@@ -3741,7 +3633,7 @@
           "dbScale": "",
           "dbDefaultValue": "",
           "label": "CNPJ",
-          "mask": "99.999.999/9999-99;0",
+          "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
@@ -3782,15 +3674,19 @@
           "name": "supplier",
           "type": "Supplier",
           "dbName": "fk_supplier",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -3907,8 +3803,8 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
+          "isUniqueKey": true,
+          "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -3992,7 +3888,6 @@
       "name": "StockMovement",
       "attributes": [
         "id:java.lang.String",
-        "movementType:java.lang.Character",
         "quantity:java.lang.Integer",
         "stockItem:StockItem",
         "stockMovementType:StockMovementType",
@@ -4006,7 +3901,7 @@
       },
       "size": {
         "width": 255.5625,
-        "height": 162.203125
+        "height": 151.29007720947266
       },
       "angle": 0,
       "multitenantContextJsonIgnore": "false",
@@ -4035,29 +3930,6 @@
           "isUniqueKey": false,
           "isNullable": false,
           "pkType": "UUID",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false
-        },
-        {
-          "name": "movementType",
-          "type": "java.lang.Character",
-          "dbName": "movementType",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Tipo de Movimento",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": false,
-          "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
           "isTransient": false,
@@ -4196,12 +4068,12 @@
           "transform": "translate(0,0)"
         },
         ".uml-class-attrs-rect": {
-          "height": 170,
+          "height": 150,
           "transform": "translate(0,50)"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,220)"
+          "transform": "translate(0,200)"
         },
         ".uml-class-name-text": {
           "fill": "#000",
@@ -4211,12 +4083,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nmovementType\nquantity\nstockItem\nstockMovementType\naddedDate\nnote\n"
+          "text": "id\nquantity\nstockItem\nstockMovementType\naddedDate\nnote\n"
         },
         ".uml-class-attrs-value": {
           "ref-x": 134.859375,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.Character\njava.lang.Integer\nStockItem\nStockMovementType\njava.sql.Timestamp\njava.lang.String\n"
+          "text": "java.lang.String\njava.lang.Integer\nStockItem\nStockMovementType\njava.sql.Timestamp\njava.lang.String\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -4482,7 +4354,7 @@
           "label": "Id",
           "mask": "",
           "isPrimaryKey": true,
-          "isUniqueKey": true,
+          "isUniqueKey": false,
           "isNullable": false,
           "pkType": "UUID",
           "multitenantContext": "",
@@ -4529,7 +4401,7 @@
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
-          "isNullable": false,
+          "isNullable": true,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -4649,7 +4521,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -4771,7 +4643,7 @@
           "label": "Id",
           "mask": "",
           "isPrimaryKey": true,
-          "isUniqueKey": true,
+          "isUniqueKey": false,
           "isNullable": false,
           "pkType": "UUID",
           "multitenantContext": "",
@@ -4818,7 +4690,7 @@
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
-          "isNullable": false,
+          "isNullable": true,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -4885,7 +4757,7 @@
         "image:Image Upload (to Dropbox)",
         "attachment:File Upload (to Dropbox)",
         "barcode:java.lang.String",
-        "addedDate:java.sql.Timestamp",
+        "addedDate:java.util.Date",
         "supplier:Supplier",
         "productStatus:ProductStatus",
         "price:java.lang.Double",
@@ -4949,7 +4821,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -4973,7 +4845,7 @@
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
-          "isNullable": false,
+          "isNullable": true,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -4996,7 +4868,7 @@
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
-          "isNullable": true,
+          "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -5064,8 +4936,8 @@
           "label": "Código de Barras",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": true,
-          "isNullable": false,
+          "isUniqueKey": false,
+          "isNullable": true,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -5078,7 +4950,7 @@
         },
         {
           "name": "addedDate",
-          "type": "java.sql.Timestamp",
+          "type": "java.util.Date",
           "dbName": "addeddate",
           "dbLength": "",
           "dbPrecision": "",
@@ -5088,7 +4960,7 @@
           "mask": "DD/MM/YYYY HH:mm:ss",
           "isPrimaryKey": false,
           "isUniqueKey": false,
-          "isNullable": false,
+          "isNullable": true,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -5157,7 +5029,7 @@
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
-          "isNullable": true,
+          "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -5275,7 +5147,7 @@
         ".uml-class-attrs-value": {
           "ref-x": 115.8125,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\njava.lang.Boolean\njava.lang.String\nImage Upload (to Dropbox)\nFile Upload (to Dropbox)\njava.lang.String\njava.sql.Timestamp\nSupplier\nProductStatus\njava.lang.Double\njava.lang.Double\nBrand\nProductCategory\n"
+          "text": "java.lang.String\njava.lang.String\njava.lang.Boolean\njava.lang.String\nImage Upload (to Dropbox)\nFile Upload (to Dropbox)\njava.lang.String\njava.util.Date\nSupplier\nProductStatus\njava.lang.Double\njava.lang.Double\nBrand\nProductCategory\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -5351,7 +5223,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -6065,8 +5937,8 @@
         "number:java.lang.String",
         "neighborhood:java.lang.String",
         "complement:java.lang.String",
-        "client:Client",
-        "postalCode:java.lang.String"
+        "postalCode:java.lang.String",
+        "client:Client"
       ],
       "methods": [],
       "position": {
@@ -6206,14 +6078,14 @@
           "isSearchable": false
         },
         {
-          "name": "client",
-          "type": "Client",
-          "dbName": "fk_client",
+          "name": "postalCode",
+          "type": "java.lang.String",
+          "dbName": "postalCode",
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
           "dbDefaultValue": "",
-          "label": "",
+          "label": "Código Postal",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
@@ -6229,14 +6101,14 @@
           "isSearchable": false
         },
         {
-          "name": "postalCode",
-          "type": "java.lang.String",
-          "dbName": "postalCode",
+          "name": "client",
+          "type": "Client",
+          "dbName": "fk_client",
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
           "dbDefaultValue": "",
-          "label": "Código Postal",
+          "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
@@ -6280,12 +6152,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\naddress\nnumber\nneighborhood\ncomplement\nclient\npostalCode\n"
+          "text": "id\naddress\nnumber\nneighborhood\ncomplement\npostalCode\nclient\n"
         },
         ".uml-class-attrs-value": {
           "ref-x": 101.28125,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.lang.String\njava.lang.String\nClient\njava.lang.String\n"
+          "text": "java.lang.String\njava.lang.String\njava.lang.String\njava.lang.String\njava.lang.String\njava.lang.String\nClient\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -6303,7 +6175,7 @@
       "attributes": [
         "id:java.lang.String",
         "dateOfBirth:java.util.Date",
-        "genre:java.lang.Character",
+        "genre:java.lang.String",
         "rg:java.lang.Integer",
         "cpf:java.lang.String",
         "client:Client"
@@ -6314,7 +6186,7 @@
         "y": 1608
       },
       "size": {
-        "width": 204.34375,
+        "width": 190.28125,
         "height": 151.29007720947266
       },
       "angle": 0,
@@ -6378,7 +6250,7 @@
         },
         {
           "name": "genre",
-          "type": "java.lang.Character",
+          "type": "java.lang.String",
           "dbName": "genre",
           "dbLength": "",
           "dbPrecision": "",
@@ -6388,7 +6260,7 @@
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
-          "isNullable": false,
+          "isNullable": true,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -6449,15 +6321,19 @@
           "name": "client",
           "type": "Client",
           "dbName": "fk_client",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -6498,7 +6374,7 @@
         ".uml-class-attrs-value": {
           "ref-x": 89.625,
           "font-size": 11,
-          "text": "java.lang.String\njava.util.Date\njava.lang.Character\njava.lang.Integer\njava.lang.String\nClient\n"
+          "text": "java.lang.String\njava.util.Date\njava.lang.String\njava.lang.Integer\njava.lang.String\nClient\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -6598,7 +6474,7 @@
           "dbScale": "",
           "dbDefaultValue": "",
           "label": "Cnpj",
-          "mask": "99.999.999/9999-99;0",
+          "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": false,
@@ -6662,15 +6538,19 @@
           "name": "client",
           "type": "Client",
           "dbName": "fk_client",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -6873,17 +6753,16 @@
       "attributes": [
         "id:java.lang.String",
         "name:java.lang.String",
-        "active:java.lang.Boolean",
-        "productCategory:ProductCategory"
+        "active:java.lang.Boolean"
       ],
       "methods": [],
       "position": {
-        "x": 669,
-        "y": 247
+        "x": 681,
+        "y": 252
       },
       "size": {
-        "width": 221.265625,
-        "height": 129.51891326904297
+        "width": 168.1875,
+        "height": 118.67371368408203
       },
       "angle": 0,
       "multitenantContextJsonIgnore": "false",
@@ -6909,7 +6788,7 @@
           "label": "Id",
           "mask": "",
           "isPrimaryKey": true,
-          "isUniqueKey": true,
+          "isUniqueKey": false,
           "isNullable": false,
           "pkType": "UUID",
           "multitenantContext": "",
@@ -6966,29 +6845,6 @@
           "isEncryption": false,
           "referencedColumnName": "",
           "isSearchable": false
-        },
-        {
-          "name": "productCategory",
-          "type": "ProductCategory",
-          "dbName": "fk_productCategory",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false
         }
       ],
       "runtimeClass": "cronos.widgets.joint.uml.Class",
@@ -7003,12 +6859,12 @@
           "transform": "translate(0,0)"
         },
         ".uml-class-attrs-rect": {
-          "height": 110,
+          "height": 90,
           "transform": "translate(0,50)"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,160)"
+          "transform": "translate(0,140)"
         },
         ".uml-class-name-text": {
           "fill": "#000",
@@ -7018,12 +6874,12 @@
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\nname\nactive\nproductCategory\n"
+          "text": "id\nname\nactive\n"
         },
         ".uml-class-attrs-value": {
-          "ref-x": 115.8125,
+          "ref-x": 62.734375,
           "font-size": 11,
-          "text": "java.lang.String\njava.lang.String\njava.lang.Boolean\nProductCategory\n"
+          "text": "java.lang.String\njava.lang.String\njava.lang.Boolean\n"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -7099,7 +6955,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -7220,7 +7076,7 @@
           "label": "Id",
           "mask": "",
           "isPrimaryKey": true,
-          "isUniqueKey": true,
+          "isUniqueKey": false,
           "isNullable": false,
           "pkType": "UUID",
           "multitenantContext": "",
@@ -7243,7 +7099,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -7383,7 +7239,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -7399,15 +7255,19 @@
           "name": "company",
           "type": "Company",
           "dbName": "fk_company",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
           "label": "",
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
           "isNullable": true,
-          "multitenantContext": "",
           "pkType": "",
-          "isIgnore": false,
-          "isTransien": false,
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
           "isEncryption": false,
@@ -7520,7 +7380,7 @@
           "label": "Nome",
           "mask": "",
           "isPrimaryKey": false,
-          "isUniqueKey": false,
+          "isUniqueKey": true,
           "isNullable": false,
           "pkType": "",
           "multitenantContext": "",
@@ -7841,8 +7701,8 @@
         "+ list(): List<Device>"
       ],
       "position": {
-        "x": 62,
-        "y": 963
+        "x": 54,
+        "y": 944
       },
       "size": {
         "width": 205.234375,
@@ -8723,68 +8583,6 @@
         "client:target"
       ],
       "name": null,
-      "id": "1dfc99a4-86dd-412f-bc1f-5ee132ad1b06",
-      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
-      "target": {
-        "id": "ab8386db-127b-42ce-93c6-cbafd0085c31"
-      },
-      "source": {
-        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
-      },
-      "labels": [
-        {
-          "position": 0.9,
-          "attrs": {
-            "rect": {
-              "fill": "transparent"
-            },
-            "text": {
-              "text": "*",
-              "font-family": "Arial",
-              "font-size": "12px",
-              "fill": "#cecece"
-            }
-          }
-        }
-      ],
-      "z": 71,
-      "previous_source": {
-        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
-      },
-      "previous_target": {
-        "id": "ab8386db-127b-42ce-93c6-cbafd0085c31"
-      },
-      "associationType": "Composition",
-      "vertices": [
-        {
-          "x": 373,
-          "y": 1382
-        }
-      ],
-      "attrs": {
-        ".marker-target": {
-          "d": "",
-          "fill": ""
-        },
-        ".marker-source": {
-          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
-          "fill": "#cecece"
-        },
-        ".": {
-          "display": "normal"
-        },
-        "rect": {
-          "stroke": "yellow",
-          "stroke-width": 2
-        }
-      }
-    },
-    {
-      "type": "uml.Composition",
-      "relationFields": [
-        "client:target"
-      ],
-      "name": null,
       "id": "151096e5-efc6-41e3-b6e9-4c605bdcd984",
       "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
       "target": {
@@ -9152,6 +8950,10 @@
           "y": 636
         },
         {
+          "x": 1381,
+          "y": 728
+        },
+        {
           "x": 1388,
           "y": 757
         },
@@ -9459,6 +9261,12 @@
       "previous_target": {
         "id": "adc3d11b-3be2-4530-a93a-90e91ceb1a09"
       },
+      "vertices": [
+        {
+          "x": 1716,
+          "y": 997
+        }
+      ],
       "attrs": {
         ".marker-target": {
           "d": "",
@@ -9676,61 +9484,6 @@
     {
       "type": "uml.Composition",
       "relationFields": [
-        "bill:target"
-      ],
-      "name": null,
-      "id": "61eb55e9-3655-4af6-975a-d6ffce245d73",
-      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
-      "target": {
-        "id": "d7323cd8-ff93-4788-acb9-214614453d8d"
-      },
-      "source": {
-        "id": "713978f5-c7ce-4d4e-b727-818ffae5db96"
-      },
-      "labels": [
-        {
-          "position": 0.9,
-          "attrs": {
-            "rect": {
-              "fill": "transparent"
-            },
-            "text": {
-              "text": "*",
-              "font-family": "Arial",
-              "font-size": "12px",
-              "fill": "#cecece"
-            }
-          }
-        }
-      ],
-      "z": 112,
-      "previous_source": {
-        "id": "713978f5-c7ce-4d4e-b727-818ffae5db96"
-      },
-      "previous_target": {
-        "id": "d7323cd8-ff93-4788-acb9-214614453d8d"
-      },
-      "attrs": {
-        ".marker-target": {
-          "d": "",
-          "fill": ""
-        },
-        ".marker-source": {
-          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
-          "fill": "#cecece"
-        },
-        ".": {
-          "display": "normal"
-        },
-        "rect": {
-          "stroke": "yellow",
-          "stroke-width": 2
-        }
-      }
-    },
-    {
-      "type": "uml.Composition",
-      "relationFields": [
         "order:target"
       ],
       "name": null,
@@ -9825,103 +9578,6 @@
         "rect": {
           "stroke": "yellow",
           "stroke-width": 2
-        }
-      }
-    },
-    {
-      "type": "uml.Composition",
-      "relationFields": [
-        "formOfPayment:target"
-      ],
-      "name": null,
-      "id": "8efb394c-f5b0-486d-949f-b61406a52852",
-      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
-      "target": {
-        "id": "d7323cd8-ff93-4788-acb9-214614453d8d"
-      },
-      "source": {
-        "id": "647776b7-2980-4bf2-bbf5-af73aac1668d"
-      },
-      "labels": [
-        {
-          "position": 0.9,
-          "attrs": {
-            "rect": {
-              "fill": "transparent"
-            },
-            "text": {
-              "text": "*",
-              "font-family": "Arial",
-              "font-size": "12px",
-              "fill": "#cecece"
-            }
-          }
-        }
-      ],
-      "z": 116,
-      "attrs": {
-        ".marker-target": {
-          "d": "",
-          "fill": ""
-        },
-        ".marker-source": {
-          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
-          "fill": "#cecece"
-        },
-        ".": {
-          "display": "normal"
-        }
-      }
-    },
-    {
-      "type": "uml.Composition",
-      "relationFields": [
-        "productCategory:target"
-      ],
-      "associationType": "Association",
-      "name": null,
-      "id": "eec0d3a8-b699-4e7b-b07d-350c83120ead",
-      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
-      "target": {
-        "id": "d6b71259-5945-42f6-8f09-f44c81bb3745"
-      },
-      "source": {
-        "id": "d6b71259-5945-42f6-8f09-f44c81bb3745"
-      },
-      "router": {
-        "name": "orthogonal"
-      },
-      "connector": {
-        "name": "rounded"
-      },
-      "labels": [
-        {
-          "position": 0.9,
-          "attrs": {
-            "rect": {
-              "fill": "transparent"
-            },
-            "text": {
-              "text": "*",
-              "font-family": "Arial",
-              "font-size": "12px",
-              "fill": "#cecece"
-            }
-          }
-        }
-      ],
-      "z": 117,
-      "attrs": {
-        ".marker-target": {
-          "d": "",
-          "fill": ""
-        },
-        ".marker-source": {
-          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
-          "fill": "#cecece"
-        },
-        ".": {
-          "display": "normal"
         }
       }
     },
@@ -10130,118 +9786,6 @@
     {
       "type": "uml.Composition",
       "relationFields": [
-        "client:target"
-      ],
-      "associationType": "Composition",
-      "name": null,
-      "id": "7a633921-9395-4613-9165-b8b66f499704",
-      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
-      "target": {
-        "id": "bda170b7-3956-4627-a55a-3ea5b5dd8988"
-      },
-      "source": {
-        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
-      },
-      "labels": [
-        {
-          "position": 0.9,
-          "attrs": {
-            "rect": {
-              "fill": "transparent"
-            },
-            "text": {
-              "text": "*",
-              "font-family": "Arial",
-              "font-size": "12px",
-              "fill": "#cecece"
-            }
-          }
-        }
-      ],
-      "z": 122,
-      "previous_source": {
-        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
-      },
-      "previous_target": {
-        "id": "bda170b7-3956-4627-a55a-3ea5b5dd8988"
-      },
-      "attrs": {
-        ".marker-target": {
-          "d": "",
-          "fill": ""
-        },
-        ".marker-source": {
-          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
-          "fill": "#cecece"
-        },
-        ".": {
-          "display": "normal"
-        },
-        "rect": {
-          "stroke": "yellow",
-          "stroke-width": 2
-        }
-      }
-    },
-    {
-      "type": "uml.Composition",
-      "relationFields": [
-        "client:target"
-      ],
-      "associationType": "Composition",
-      "name": null,
-      "id": "1e5a203f-c695-4a27-87ff-ca263bb75111",
-      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
-      "target": {
-        "id": "56516354-0eb3-42fa-87a3-1df185dd307b"
-      },
-      "source": {
-        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
-      },
-      "labels": [
-        {
-          "position": 0.9,
-          "attrs": {
-            "rect": {
-              "fill": "transparent"
-            },
-            "text": {
-              "text": "*",
-              "font-family": "Arial",
-              "font-size": "12px",
-              "fill": "#cecece"
-            }
-          }
-        }
-      ],
-      "z": 123,
-      "previous_source": {
-        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
-      },
-      "previous_target": {
-        "id": "56516354-0eb3-42fa-87a3-1df185dd307b"
-      },
-      "attrs": {
-        ".marker-target": {
-          "d": "",
-          "fill": ""
-        },
-        ".marker-source": {
-          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
-          "fill": "#cecece"
-        },
-        ".": {
-          "display": "normal"
-        },
-        "rect": {
-          "stroke": "yellow",
-          "stroke-width": 2
-        }
-      }
-    },
-    {
-      "type": "uml.Composition",
-      "relationFields": [
         "supplier:target"
       ],
       "associationType": "Composition",
@@ -10399,6 +9943,10 @@
         {
           "x": 1581,
           "y": 486
+        },
+        {
+          "x": 1582,
+          "y": 418
         }
       ],
       "attrs": {
@@ -10592,17 +10140,309 @@
           "display": "normal"
         }
       }
+    },
+    {
+      "type": "uml.Composition",
+      "relationFields": [
+        "client:target"
+      ],
+      "associationType": "Composition",
+      "name": null,
+      "id": "473a2bfc-4d06-40a8-8786-797a9e6e7e1a",
+      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
+      "target": {
+        "id": "bda170b7-3956-4627-a55a-3ea5b5dd8988"
+      },
+      "source": {
+        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
+      },
+      "labels": [
+        {
+          "position": 0.9,
+          "attrs": {
+            "rect": {
+              "fill": "transparent"
+            },
+            "text": {
+              "text": "*",
+              "font-family": "Arial",
+              "font-size": "12px",
+              "fill": "#cecece"
+            }
+          }
+        }
+      ],
+      "z": 130,
+      "previous_source": {
+        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
+      },
+      "previous_target": {
+        "id": "bda170b7-3956-4627-a55a-3ea5b5dd8988"
+      },
+      "attrs": {
+        ".marker-target": {
+          "d": "",
+          "fill": ""
+        },
+        ".marker-source": {
+          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
+          "fill": "#cecece"
+        },
+        "rect": {
+          "stroke": "yellow",
+          "stroke-width": 2
+        }
+      }
+    },
+    {
+      "type": "uml.Composition",
+      "relationFields": [
+        "client:target"
+      ],
+      "associationType": "Composition",
+      "name": null,
+      "id": "5baf133e-7b7c-4299-acdf-ecf0e006518a",
+      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
+      "target": {
+        "id": "56516354-0eb3-42fa-87a3-1df185dd307b"
+      },
+      "source": {
+        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
+      },
+      "labels": [
+        {
+          "position": 0.9,
+          "attrs": {
+            "rect": {
+              "fill": "transparent"
+            },
+            "text": {
+              "text": "*",
+              "font-family": "Arial",
+              "font-size": "12px",
+              "fill": "#cecece"
+            }
+          }
+        }
+      ],
+      "z": 131,
+      "previous_source": {
+        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
+      },
+      "previous_target": {
+        "id": "56516354-0eb3-42fa-87a3-1df185dd307b"
+      },
+      "attrs": {
+        ".marker-target": {
+          "d": "",
+          "fill": ""
+        },
+        ".marker-source": {
+          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
+          "fill": "#cecece"
+        },
+        "rect": {
+          "stroke": "yellow",
+          "stroke-width": 2
+        }
+      }
+    },
+    {
+      "type": "uml.Composition",
+      "relationFields": [
+        "client:target"
+      ],
+      "associationType": "Composition",
+      "name": null,
+      "id": "22343516-c72e-46d8-9a8f-c1b0555d4c67",
+      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
+      "target": {
+        "id": "ab8386db-127b-42ce-93c6-cbafd0085c31"
+      },
+      "source": {
+        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
+      },
+      "labels": [
+        {
+          "position": 0.9,
+          "attrs": {
+            "rect": {
+              "fill": "transparent"
+            },
+            "text": {
+              "text": "*",
+              "font-family": "Arial",
+              "font-size": "12px",
+              "fill": "#cecece"
+            }
+          }
+        }
+      ],
+      "z": 132,
+      "previous_source": {
+        "id": "143aa5c8-d789-4c13-80e8-88b99a1fd42f"
+      },
+      "previous_target": {
+        "id": "ab8386db-127b-42ce-93c6-cbafd0085c31"
+      },
+      "vertices": [
+        {
+          "x": 372,
+          "y": 1383
+        }
+      ],
+      "attrs": {
+        ".marker-target": {
+          "d": "",
+          "fill": ""
+        },
+        ".marker-source": {
+          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
+          "fill": "#cecece"
+        },
+        "rect": {
+          "stroke": "yellow",
+          "stroke-width": 2
+        }
+      }
+    },
+    {
+      "type": "uml.Composition",
+      "relationFields": [
+        "bill:target"
+      ],
+      "associationType": "Association",
+      "name": null,
+      "id": "cba5a415-7980-4398-9a59-535421b2f8ed",
+      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
+      "target": {
+        "id": "d7323cd8-ff93-4788-acb9-214614453d8d"
+      },
+      "source": {
+        "id": "713978f5-c7ce-4d4e-b727-818ffae5db96"
+      },
+      "labels": [
+        {
+          "position": 0.9,
+          "attrs": {
+            "rect": {
+              "fill": "transparent"
+            },
+            "text": {
+              "text": "*",
+              "font-family": "Arial",
+              "font-size": "12px",
+              "fill": "#cecece"
+            }
+          }
+        }
+      ],
+      "z": 133,
+      "previous_source": {
+        "id": "713978f5-c7ce-4d4e-b727-818ffae5db96"
+      },
+      "previous_target": {
+        "id": "d7323cd8-ff93-4788-acb9-214614453d8d"
+      },
+      "attrs": {
+        ".marker-target": {
+          "d": "",
+          "fill": ""
+        },
+        ".marker-source": {
+          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
+          "fill": "#cecece"
+        },
+        "rect": {
+          "stroke": "yellow",
+          "stroke-width": 2
+        }
+      }
+    },
+    {
+      "type": "uml.Composition",
+      "relationFields": [
+        "formOfPayment:target"
+      ],
+      "associationType": "Association",
+      "name": null,
+      "id": "103ebfdf-3aa0-4f1f-947a-2c01171713d2",
+      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
+      "target": {
+        "id": "d7323cd8-ff93-4788-acb9-214614453d8d"
+      },
+      "source": {
+        "id": "647776b7-2980-4bf2-bbf5-af73aac1668d"
+      },
+      "labels": [
+        {
+          "position": 0.9,
+          "attrs": {
+            "rect": {
+              "fill": "transparent"
+            },
+            "text": {
+              "text": "*",
+              "font-family": "Arial",
+              "font-size": "12px",
+              "fill": "#cecece"
+            }
+          }
+        }
+      ],
+      "z": 134,
+      "previous_source": {
+        "id": "647776b7-2980-4bf2-bbf5-af73aac1668d"
+      },
+      "previous_target": {
+        "id": "d7323cd8-ff93-4788-acb9-214614453d8d"
+      },
+      "attrs": {
+        ".marker-target": {
+          "d": "",
+          "fill": ""
+        },
+        ".marker-source": {
+          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
+          "fill": "#cecece"
+        },
+        "rect": {
+          "stroke": "yellow",
+          "stroke-width": 2
+        }
+      }
     }
   ],
-  "selectedGroup": "4354723d-c093-4745-923e-eb5bb8a98f22",
+  "selectedGroup": "4354723d-c093-4745-923e-eb5bb8a98f23",
   "groups": [
+    {
+      "name": "Security",
+      "id": "841bf2db-1dee-49fa-b19d-991b2ed50e4f",
+      "cells": [
+        "d2e50f97-0b9e-4037-94ba-af64568af247",
+        "1df87f56-c5ba-47f5-8e68-82931f49b989"
+      ]
+    },
+    {
+      "name": "Company",
+      "id": "5c1ff39e-e77a-4bf8-9681-8ed39e5c48a9",
+      "cells": [
+        "d58b7847-8ffb-4a14-aaf1-bec4bc7a677f",
+        "2f6c9627-9fe4-4b4b-bb03-f5e3815db9e6"
+      ]
+    },
+    {
+      "name": "Mobile",
+      "id": "5324da7d-17db-405a-a17d-0b95fee64237",
+      "cells": [
+        "d92238a3-a37d-4cc6-a543-d0687dc207cd"
+      ]
+    },
     {
       "name": "Financeiro",
       "id": "d0f5a3ef-78e4-4bb4-ac65-e42e1d1f28b2",
       "cells": [
-        "1a4bc72e-07f1-4a9e-9387-5a1ea5a95fab",
         "647776b7-2980-4bf2-bbf5-af73aac1668d",
-        "e925416d-5ac4-4ac7-aa7c-23521eb7a21c",
         "8007f961-6ebf-468f-9a0d-ef7bc1301e8a",
         "342ba471-dd1b-4e33-85a3-72cb957a9a77",
         "da3418ad-2f66-4010-bffe-54e30b0d9317",
@@ -10628,29 +10468,11 @@
       ]
     },
     {
-      "name": "Security",
-      "id": "841bf2db-1dee-49fa-b19d-991b2ed50e4f",
-      "cells": [
-        "d2e50f97-0b9e-4037-94ba-af64568af247",
-        "1df87f56-c5ba-47f5-8e68-82931f49b989"
-      ]
-    },
-    {
-      "name": "Company",
-      "id": "5c1ff39e-e77a-4bf8-9681-8ed39e5c48a9",
-      "cells": [
-        "d58b7847-8ffb-4a14-aaf1-bec4bc7a677f",
-        "2f6c9627-9fe4-4b4b-bb03-f5e3815db9e6"
-      ]
-    },
-    {
       "name": "Orçamento",
       "id": "84b4e665-5e67-40f0-8986-ffee77a577b9",
       "cells": [
-        "07da68af-714e-448c-9a32-98dfe8174233",
         "d49160ff-17ae-454a-8965-7b9f19ea786a",
         "72177084-32c6-48d5-8cd4-ee8b05f32287",
-        "143aa5c8-d789-4c13-80e8-88b99a1fd42f",
         "9abd286c-71ee-4c68-8cce-a9d7f387d144"
       ]
     },
@@ -10658,7 +10480,6 @@
       "name": "Pedido de Venda",
       "id": "38061d77-fa94-4d95-906c-c23a3184d338",
       "cells": [
-        "07da68af-714e-448c-9a32-98dfe8174233",
         "e925416d-5ac4-4ac7-aa7c-23521eb7a21c",
         "b4a0922d-a587-41f4-9270-da3209aed79f",
         "37736f99-765d-48f8-91c7-b4d83b5e8752"
@@ -10682,15 +10503,8 @@
       ]
     },
     {
-      "name": "Mobile",
-      "id": "5324da7d-17db-405a-a17d-0b95fee64237",
-      "cells": [
-        "d92238a3-a37d-4cc6-a543-d0687dc207cd"
-      ]
-    },
-    {
       "name": "",
-      "id": "4354723d-c093-4745-923e-eb5bb8a98f22",
+      "id": "4354723d-c093-4745-923e-eb5bb8a98f23",
       "cells": [
         "d03fd0c5-a97d-41ad-821c-315b62e12b5c",
         "d2e50f97-0b9e-4037-94ba-af64568af247",
