@@ -25,7 +25,7 @@
       <#if (items??) >
             <ul class="dropdown-menu">
         <#list items as item> 
-              <li><a href="#/home/logged/${item?lower_case}" class="component-holder" data-component="crn-anchor" >${item}</a></li>
+              <li><a href="#/home/logged/${item.name?lower_case}" class="component-holder" data-component="crn-anchor" >${item.realName}</a></li>
         </#list>
             </ul> 
       </#if>
@@ -103,7 +103,7 @@
       <ul class="sub-menu collapse" id="menu-sub-${key?replace(" ", "")}">
       <#if (items??) >
         <#list items as item> 
-        <li><a href="#/home/logged/${item?lower_case}" class="component-holder" data-component="crn-anchor">${item}</a></li>
+        <li><a href="#/home/logged/${item.name?lower_case}" class="component-holder" data-component="crn-anchor">${item.realName}</a></li>
         </#list>
       </#if>
       </ul>

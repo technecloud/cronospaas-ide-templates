@@ -16,7 +16,7 @@
       <#if (items??) >
             <ul class="dropdown-menu">
         <#list items as item> 
-              <li><a href="#/home/logged/${item?lower_case}" class="component-holder" data-component="crn-anchor" >${item}</a></li>
+              <li><a href="#/home/logged/${item.name?lower_case}" class="component-holder" data-component="crn-anchor" >${item.realName}</a></li>
         </#list>
             </ul> 
       </#if>
@@ -50,7 +50,7 @@
       <#if (items??) >
       <ul class="dropdown-menu">
       <#list items as item> 
-      <li><a href="#/home/logged/${item?lower_case}" class="component-holder" data-component="crn-anchor" >${item}</a></li>
+      <li><a href="#/home/logged/${item.name?lower_case}" class="component-holder" data-component="crn-anchor" >${item.realName}</a></li>
       </#list>
       </ul> 
       </#if>
