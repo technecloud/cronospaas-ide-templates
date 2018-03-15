@@ -1,4 +1,4 @@
-<h3>${model.dataSourceName}</h3>
+<h3><#if model.realName??>${model.realName}<#else>${model.dataSourceName}</#if></h3>
 
 <!-- div row para pesquisa -->
 <!--<div class="row">-->
@@ -493,7 +493,9 @@
                 <!-- query filter 1toN end-->
                 <datasource filter="${filterSearch}" name="${field.getName()}Grid" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getRelationName()}${entitySearch}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource>
                 <div data-component="crn-button" class="">
-                    <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" data-component="crn-button" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> <span class="">{{"Add" | translate}} ${field.getName()}</span> </button>
+                    <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" data-component="crn-button" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> 
+						<span class="">{{"Add" | translate}} <#if field.getClazz()?? && field.getClazz().getRealName()??>${field.getClazz().getRealName()}<#else>${field.getName()}</#if></span> 
+					</button>
                 </div>
                 <!--search 1toN-->
                 <#if model.hasSearchableFilter() && !model.hasCronappFramework()>
@@ -559,7 +561,13 @@
                 <!-- seach 1toN end-->
                 <div data-component="crn-textinput" id="crn-textinput-descricao">
                     <div class="form-group">
-                        <label for="textinput-descricao" class="">${field.getName()}</label>
+                        <label for="textinput-descricao" class="">
+							<#if field.getClazz()?? && field.getClazz().getRealName()??>
+							${field.getClazz().getRealName()}
+							<#else>
+							${field.getName()}
+							</#if>
+						</label>
                         <div class="component-holder" data-component="crn-grid" id="crn-grid-${field.getName()}Grid">
                             <div crn-datasource="${field.getName()}Grid">
                                 <table class="table table-bordered table-hover table-striped">

@@ -9,6 +9,20 @@
       <div id="navbar" class="navbar-collapse collapse"> 
         <ul class="nav navbar-nav" style="float:none"> 
           <li class="dropdown component-holder" data-component=""> <a href="#/home" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-home"></i> <span >{{"Home.view.Home" | translate}}</span> </a> </li> 
+        <#if (customMenu??) >
+      <#list customMenu?keys as key>
+      <#assign items = customMenu[key]>
+      <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class=""></i> <span>${key}</span> <span class="caret"></span> </a>
+      <#if (items??) >
+            <ul class="dropdown-menu">
+        <#list items as item> 
+              <li><a href="#/home/logged/${item.name?lower_case}" class="component-holder" data-component="crn-anchor" >${item.realName}</a></li>
+        </#list>
+            </ul> 
+      </#if>
+      </li>
+      </#list>
+    </#if>      
         </ul> 
       </div> 
     </div> 
@@ -29,6 +43,20 @@
                 <span class="">{{"Home.view.Home" | translate}}</span> 
             </a> 
         </li> 
+    <#if (customMenu??) >
+    <#list customMenu?keys as key>
+    <#assign items = customMenu[key]>
+    <li class="dropdown component-holder" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class=""></i> <span>${key}</span> <span class="caret"></span> </a>
+      <#if (items??) >
+      <ul class="dropdown-menu">
+      <#list items as item> 
+      <li><a href="#/home/logged/${item.name?lower_case}" class="component-holder" data-component="crn-anchor" >${item.realName}</a></li>
+      </#list>
+      </ul> 
+      </#if>
+    </li>
+    </#list>
+     </#if>     
         <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-9831" class="collapsed component-holder"> </li> 
       </ul> 
     </div> 
