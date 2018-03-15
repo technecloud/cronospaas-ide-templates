@@ -10458,15 +10458,6 @@
   "selectedGroup": "4354723d-c093-4745-923e-eb5bb8a98f23",
   "groups": [
     {
-      "name": "Venda",
-      "id": "38061d77-fa94-4d95-906c-c23a3184d338",
-      "cells": [
-        "e925416d-5ac4-4ac7-aa7c-23521eb7a21c",
-        "b4a0922d-a587-41f4-9270-da3209aed79f",
-        "37736f99-765d-48f8-91c7-b4d83b5e8752"
-      ]
-    },
-    {
       "name": "Security",
       "id": "841bf2db-1dee-49fa-b19d-991b2ed50e4f",
       "cells": [
@@ -10480,6 +10471,22 @@
       "cells": [
         "d58b7847-8ffb-4a14-aaf1-bec4bc7a677f",
         "2f6c9627-9fe4-4b4b-bb03-f5e3815db9e6"
+      ]
+    },
+    {
+      "name": "Mobile",
+      "id": "5324da7d-17db-405a-a17d-0b95fee64237",
+      "cells": [
+        "d92238a3-a37d-4cc6-a543-d0687dc207cd"
+      ]
+    },
+    {
+      "name": "Venda",
+      "id": "38061d77-fa94-4d95-906c-c23a3184d338",
+      "cells": [
+        "e925416d-5ac4-4ac7-aa7c-23521eb7a21c",
+        "b4a0922d-a587-41f4-9270-da3209aed79f",
+        "37736f99-765d-48f8-91c7-b4d83b5e8752"
       ]
     },
     {
@@ -10518,13 +10525,6 @@
         "d49160ff-17ae-454a-8965-7b9f19ea786a",
         "72177084-32c6-48d5-8cd4-ee8b05f32287",
         "9abd286c-71ee-4c68-8cce-a9d7f387d144"
-      ]
-    },
-    {
-      "name": "Mobile",
-      "id": "5324da7d-17db-405a-a17d-0b95fee64237",
-      "cells": [
-        "d92238a3-a37d-4cc6-a543-d0687dc207cd"
       ]
     },
     {
