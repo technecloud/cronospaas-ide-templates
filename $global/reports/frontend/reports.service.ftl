@@ -11,10 +11,12 @@
 
         function getReport(reportName) {
             var req = {
-                url: 'api/rest/report/',
-                method: 'GET'
+                url: 'api/rest/report',
+                method: 'POST',
+                data: angular.toJson({
+                    'reportName': reportName
+                })
             };
-            req.url += reportName;
             return $http(req);
         }
 

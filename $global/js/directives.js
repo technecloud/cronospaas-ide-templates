@@ -70,12 +70,18 @@
               
               ngModel.$render = function(){
                 if(ngModel.$viewValue){
-                  var dateInMilliseconds = parseInt(ngModel.$viewValue, 10);
-                  var momentDate = moment(dateInMilliseconds);
+                  var momentDate = moment(ngModel.$viewValue);
+                  
                   if(momentDate.isValid()){
                     element.val( momentDate.format(patternFormat(element)));
                   }else{
-                    element.val('');
+                    var dateInMilliseconds = parseInt(ngModel.$viewValue, 10);
+                    momentDate = moment(dateInMilliseconds);
+                    if(momentDate.isValid()){
+                      element.val( momentDate.format(patternFormat(element)));
+                    }else{
+                      element.val('');
+                    }
                   }
                 }else{
                   element.data("DateTimePicker").clear();
@@ -93,6 +99,21 @@
               }
           }
       };
+  })
+  
+  .directive('ngDestroy', function () {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs, ctrl) {
+        element.on('$destroy', function() {
+          if (attrs.ngDestroy && attrs.ngDestroy.length > 0)
+            if (attrs.ngDestroy.indexOf('app.') > -1 || attrs.ngDestroy.indexOf('blockly.') > -1) 
+              scope.$eval(attrs.ngDestroy);
+            else
+              eval(attrs.ngDestroy);
+        });
+      }
+    }
   })
   
   .directive('pwCheck', [function () { 'use strict';
@@ -122,6 +143,8 @@
           restrict: 'A',
           link: function (scope, element, attrs, ngModel) {
             var validator = {'cpf': CPF, 'cnpj': CNPJ};
+            
+            setTimeout(function() { element[0].setCustomValidity(element[0].dataset['errorMessage']); }, 100);
             
             ngModel.$validators[attrs.valid] = function(modelValue, viewValue) {
               var value = modelValue || viewValue;

@@ -119,12 +119,12 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
         </#if>
       </#if>
     </#list>
-  /**
+  /** 
    * OneToMany Relation - Searchable fields - Specific search
    * @generated
    */
   @Query("SELECT entity FROM ${relation.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.relationField.pathName}.${field.name} = :${field.name}<#if field_has_next> AND </#if></#list> AND ${filter_query}")
-  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable()>@Param(value="${field.name}") ${field.type} ${field.name}, </#if></#list>Pageable pageable);
+  public Page<${relation.clazz.name}> find${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.clazz.fields as field><#if field.isSearchable() && !field.primaryKey>@Param(value="${field.name}") ${field.type} ${field.name}, </#if></#list>Pageable pageable);
   </#if>
 
   /**
@@ -181,7 +181,7 @@ public interface ${clazz.name}DAO extends JpaRepository<${clazz.name}, ${field_p
    * @generated
    */
   @Query("SELECT entity.${relation.relationClassField.name} FROM ${relation.associativeClassField.clazz.name} entity WHERE <#list clazz.primaryKeys as field>entity.${relation.associativeClassField.name}.${field.pathName} = :${field.name}<#if field_has_next> AND </#if></#list> AND ${filter_query}")
-  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable()>@Param(value="${field.name}") ${field.type} ${field.name}, </#if></#list>Pageable pageable);
+  public Page<${relation.relationClassField.type}> list${relation.relationName?cap_first}SpecificSearch(<#list clazz.primaryKeys as field>@Param(value="${field.name}") ${field.type} ${field.name}<#if field_has_next>, </#if></#list><#if clazz.primaryKeys?size gt 0>, </#if><#list relation.relationClass.fields as field><#if field.isSearchable() && !field.primaryKey>@Param(value="${field.name}") ${field.type} ${field.name}, </#if></#list>Pageable pageable);
 
   </#if>
   /**

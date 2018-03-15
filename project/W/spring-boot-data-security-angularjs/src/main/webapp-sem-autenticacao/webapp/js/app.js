@@ -35,7 +35,10 @@ var app = (function() {
             var service = {
               'request': function(config) {
                 var _u = JSON.parse(sessionStorage.getItem('_u'));
-                if (_u && _u.token) config.headers['X-AUTH-TOKEN'] = _u.token;
+                if (_u && _u.token) {
+                  config.headers['X-AUTH-TOKEN'] = _u.token;
+                  window.uToken = _u.token;
+                }
                 return config;
               }
             };
@@ -156,6 +159,23 @@ var app = (function() {
 
       for (var x in app.userEvents)
         $scope[x] = app.userEvents[x].bind($scope);
+      
+      try {
+        if (cronapi)
+          $scope['cronapi'] = cronapi;
+      }
+      catch (e)  {
+        console.info('Not loaded cronapi functions');
+        console.info(e);
+      }
+      try {
+        if (blockly)
+          $scope['blockly'] = blockly;  
+      }
+      catch (e)  {
+        console.info('Not loaded blockly functions');
+        console.info(e);
+      }
 
       // save state params into scope
       $scope.params = $stateParams;

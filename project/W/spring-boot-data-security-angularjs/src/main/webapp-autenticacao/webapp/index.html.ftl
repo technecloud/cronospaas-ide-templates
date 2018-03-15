@@ -14,16 +14,28 @@
         <link rel="stylesheet" type="text/css" href="css/cronos-bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="css/app.css"/>
         <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
-        <link rel="stylesheet" href="plugins/pace/pace.css">
-        <#if !(theme??) ||  theme == "" >
-        <link id="themeSytleSheet" rel="stylesheet" href="">
-        <#else >
-        <link id="themeSytleSheet" rel="stylesheet" href="css/themes/${theme?lower_case}.min.css">
-        </#if>
+        <#if !(theme??) ||  theme == "" ><link id="themeSytleSheet" rel="stylesheet" href=""><#else ><link id="themeSytleSheet" rel="stylesheet" href="css/themes/${theme?lower_case}.min.css"></#if>
     </head>
     <body >
         <div ui-view class="fill"></div>
-
+        
+        <div class="modal fade" id="modalTemplate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalTemplateTitle">Title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="modalTemplateClose"><span aria-hidden="true">×</span></button>
+              </div>
+              <div class="modal-body" id="modalTemplateBody">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalTemplateCancel">Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="modalTemplateSave">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>  
+        
         <!-- Plugins -->
         <script src="plugins/jquery/dist/jquery.min.js"></script>
         <script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -31,7 +43,7 @@
 
         <!-- Angular JS -->
         <script src="plugins/angular/angular.min.js"></script>
-        <script src="plugins/Chart.js/dist/Chart.min.js"></script>
+        <script src="plugins/chart.js/dist/Chart.min.js"></script>
         <script src="plugins/angular-chart.js/dist/angular-chart.min.js"></script>
         <script src="plugins/angular-ui-router/release/angular-ui-router.min.js"></script>
         <script src="plugins/angular-cookies/angular-cookies.min.js"></script>
@@ -57,6 +69,8 @@
         <script type="text/javascript" src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
         <script src="plugins/cpf_cnpj/build/cpf.js"></script>
         <script src="plugins/cpf_cnpj/build/cnpj.js"></script>
+        <script src="js/blockly.js"></script>
+        <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
 
         <!-- Customs -->
         <script src="js/app.js"></script>
