@@ -358,7 +358,7 @@
                             <#else>
                                 <input
                                     <#if field.getLength()??>
-                                            maxlength="${field.getLength()}"
+                                            maxlength="${field.getLength()?string["0"]}"
                                     </#if>
                                             type="<#if field.isEncryption()>password<#else>${field.getHtmlType()}</#if>"
                                             ng-model="${model.dataSourceName}.active.${field.name}"
@@ -782,7 +782,7 @@
                                             <#else>
                                                 <input type="<#if gField.isEncryption()>password<#else>${gField.getHtmlType()}</#if>"
                                                     <#if gField.getLength()??>
-                                                       maxlength="${gField.getLength()}"
+                                                       maxlength="${gField.getLength()?string["0"]}"
                                                     </#if>
                                                        ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control"
                                                        id="textinput-${gField.getDbFieldName()}"
