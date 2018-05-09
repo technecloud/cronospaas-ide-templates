@@ -161,6 +161,26 @@
             </label>
             </#if>
             </#list>
+            
+            <!-- NtoN  -->
+            <#list model.formFieldsNToN as field>
+            <datasource name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getRelationName()}" append="false" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource>
+            <datasource name="All${field.getName()}" entity="${model.getDataSourceOfEntity(field.getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"></datasource>
+            <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
+            <label for="multiselect-${field.name}" class="item item-input item-select"> 
+              <span>${field.getName()?cap_first}</span> 
+              <select 
+                ng-model="${field.getName()}.data" 
+                multiple
+                id="multiselect-${field.name}" 
+                name="multiselect-${field.name}" 
+                ng-options="opt as opt.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} for opt in All${field.getName()}.data track by opt.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}">
+              </select> 
+            </label> 
+            </#if>
+            </#list>
+            <!-- NtoN  end-->
+
           </div>
         </fieldset>
       </form>
