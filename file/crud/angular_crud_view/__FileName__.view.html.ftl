@@ -1,4 +1,4 @@
-<h3><#if model.realName??>${model.realName}<#else>${model.dataSourceName}</#if></h3>
+<h3><#if model.realName ?has_content >${model.realName}<#else>${model.dataSourceName}</#if></h3>
 
 <!-- div row para pesquisa -->
 <!--<div class="row">-->
