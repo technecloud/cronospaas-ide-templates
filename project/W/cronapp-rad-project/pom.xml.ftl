@@ -7,10 +7,10 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.mycompany.app</groupId>
-    <artifactId>cronapp.rad.project</artifactId>
+    <groupId>${appid}</groupId>
+    <artifactId>${appid}</artifactId>
     <packaging>war</packaging>
-    <name>CronApp RAD Project Template</name>
+    <name>${appname}</name>
     <version>1.0-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
     <build>
@@ -127,11 +127,11 @@
             <artifactId>cronapp-framework-java</artifactId>
             <version>1.23.0-SNAPSHOT</version>
         </dependency>
-         <dependency>
-    		<groupId>io.cronapp</groupId>
-    		<artifactId>cronapp-reports-exec</artifactId>
-    		<version>1.23.0-SNAPSHOT</version>
-        </dependency> 		
+        <dependency>
+            <groupId>io.cronapp</groupId>
+            <artifactId>cronapp-reports-exec</artifactId>
+            <version>1.23.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
