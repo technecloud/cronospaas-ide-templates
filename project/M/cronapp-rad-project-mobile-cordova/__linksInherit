@@ -1,4 +1,4 @@
 <#if (backend??) && (backend?lower_case) == "true" >
 ../../project/W/cronapp-rad-project/config
 </#if>
-../../project/W/cronapp-rad-project/pom.xml
+../../project/W/cronapp-rad-project/pom.xml.ftl
