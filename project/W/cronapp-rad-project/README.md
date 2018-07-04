@@ -8,7 +8,7 @@ Esta é uma aplicação criada com o CronApp IDE.
 
 ## Como rodar com o CronApp
 
-1. Crie um projeto do tipo Web na categoria JAVA no CronApp IDE (www.cronapp.io)
+1. Crie um projeto do tipo Web na categoria Low-Code no CronApp IDE (www.cronapp.io)
 2. Digite o nome desejado para o projeto e escolha que o projeto está em um controle de versão
 3. Clique em Finalizar
 4. Aguarde a preparação do ambiente
