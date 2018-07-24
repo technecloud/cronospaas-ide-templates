@@ -180,35 +180,31 @@
             <#list model.gridFields as field>
                 <td class="">
                     <div class="">
-                        <#if field.getProperty("firstStringField")??>
-                            {{rowData.${field.getProperty("firstStringField")}}}
-                        <#else>
-                            <#if field.isDate() && !model.hasCronappFramework()>
-                                {{rowData.${field.name} | date:'dd/MM/yyyy'}}
-                            <#elseif field.isTime() && !model.hasCronappFramework()>
-                                {{rowData.${field.name} | date:'HH:mm:ss'}}
-                            <#elseif field.isTimestamp() && !model.hasCronappFramework()>
-                                {{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
-                            <#elseif (field.isTimestamp() || field.isDate() || field.isTime()) && model.hasCronappFramework()>
-                                {{rowData.${field.name} | mask:'${field.getHtmlType()}'}}
-                            <#elseif field.isImage()>
-                                <a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
-                                    <img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
-                                </a>
-                            <#elseif field.isFile()>
-                                <#if model.hasCronappFramework()>
-                                    <button ng-if="rowData.${field.name}" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
-                                        <span class="glyphicon glyphicon-download-alt"></span>
-                                    </button>
-                                <#else>
-                                    <button class="btn btn-sm" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
-                                        <span class="glyphicon glyphicon-download-alt"></span>
-                                    </button>
-                                </#if>
-                            <#else>
-                                {{rowData.${field.name} <#if model.formMapMasks[field.name]?has_content && model.hasCronappFramework()>| mask:'${model.formMapMasks[field.name]}'</#if> }}
-                            </#if>
-                        </#if>
+						<#if field.isDate() && !model.hasCronappFramework()>
+							{{rowData.${field.name} | date:'dd/MM/yyyy'}}
+						<#elseif field.isTime() && !model.hasCronappFramework()>
+							{{rowData.${field.name} | date:'HH:mm:ss'}}
+						<#elseif field.isTimestamp() && !model.hasCronappFramework()>
+							{{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
+						<#elseif (field.isTimestamp() || field.isDate() || field.isTime()) && model.hasCronappFramework()>
+							{{rowData.${field.name} | mask:'${field.getHtmlType()}'}}
+						<#elseif field.isImage()>
+							<a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
+								<img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
+							</a>
+						<#elseif field.isFile()>
+							<#if model.hasCronappFramework()>
+								<button ng-if="rowData.${field.name}" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
+									<span class="glyphicon glyphicon-download-alt"></span>
+								</button>
+							<#else>
+								<button class="btn btn-sm" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
+									<span class="glyphicon glyphicon-download-alt"></span>
+								</button>
+							</#if>
+						<#else>
+							{{rowData.${field.name} <#if model.formMapMasks[field.name]?has_content && model.hasCronappFramework()>| mask:'${model.formMapMasks[field.name]}'</#if> }}
+						</#if>
                     </div>
                 </td>
             </#list>
