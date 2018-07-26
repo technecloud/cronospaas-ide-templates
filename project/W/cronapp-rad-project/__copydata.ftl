@@ -3,7 +3,7 @@ path=/config
 path=/diagram
 path=/src
 file=.gitignore
-file=pom.xml
+file=pom.xml.ftl
 file=project.png
 file=README.md
 file=spring-boot.png
@@ -11,7 +11,7 @@ file=spring-boot.png
 <#if (backend?lower_case) == "false" && (frontend?lower_case) == "true" >
 path=/src
 file=.gitignore
-file=pom.xml
+file=pom.xml.ftl
 file=project.png
 file=README.md
 file=spring-boot.png

@@ -3,6 +3,45 @@
 <!-- div row para pesquisa -->
 <!--<div class="row">-->
 
+<#assign filterSearch = "">
+<#if model.initialFilter??>
+    <#assign filterSearch = "/${model.initialFilter}">
+</#if>
+<#assign entitySearch = "">
+<#if model.hasColumnFilter()>
+    <#assign filterSearch = "{{query == '' || query == null ? '${filterSearch}' : ('/${model.gridFilter}/' + query)}}">
+<#elseif model.hasCronappFramework()>
+    <#assign filterSearch = "">
+    <#assign entitySearch = "">
+<#elseif model.hasSearchableFilter()>
+    <#if model.getGridFilterSearchable()=="generalSearch">
+        <#assign filterSearch = "?search={{search}}">
+        <#assign entitySearch = "/generalSearch">
+    <#else>
+        <#assign filter_index = 0>
+        <#assign entitySearch = "/specificSearch">
+        <#list model.formFields as field>
+            <#if field.isSearchable()>
+                <#assign parameter_angular_date = "">
+                <#if field.isDate() >
+                    <#assign parameter_angular_date = "| date:'dd/MM/yyyy'">
+                <#elseif field.isTime()>
+                    <#assign parameter_angular_date = "| date:'HH:mm:ss'">
+                <#elseif field.isTimestamp() >
+                    <#assign parameter_angular_date = "| date:'dd/MM/yyyy HH:mm:ss'">
+                </#if>
+                <#if filter_index == 0>
+                    <#assign filterSearch += "?${field.name}={{${field.name}${parameter_angular_date}}}">
+                    <#assign filter_index++>
+                <#else>
+                    <#assign filterSearch += "&${field.name}={{${field.name}${parameter_angular_date}}}">
+                </#if>
+            </#if>
+        </#list>
+    </#if>
+</#if>
+<datasource filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.namespace}.${model.dataSourceName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+
 <#if model.hasColumnFilter()>
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
     <div class="form-group">
@@ -115,50 +154,12 @@
     </#if>
 </#if>
 
-<#assign filterSearch = "">
-<#if model.initialFilter??>
-    <#assign filterSearch = "/${model.initialFilter}">
-</#if>
-<#assign entitySearch = "">
-<#if model.hasColumnFilter()>
-    <#assign filterSearch = "{{query == '' || query == null ? '${filterSearch}' : ('/${model.gridFilter}/' + query)}}">
-<#elseif model.hasCronappFramework()>
-    <#assign filterSearch = "">
-    <#assign entitySearch = "">
-<#elseif model.hasSearchableFilter()>
-    <#if model.getGridFilterSearchable()=="generalSearch">
-        <#assign filterSearch = "?search={{search}}">
-        <#assign entitySearch = "/generalSearch">
-    <#else>
-        <#assign filter_index = 0>
-        <#assign entitySearch = "/specificSearch">
-        <#list model.formFields as field>
-            <#if field.isSearchable()>
-                <#assign parameter_angular_date = "">
-                <#if field.isDate() >
-                    <#assign parameter_angular_date = "| date:'dd/MM/yyyy'">
-                <#elseif field.isTime()>
-                    <#assign parameter_angular_date = "| date:'HH:mm:ss'">
-                <#elseif field.isTimestamp() >
-                    <#assign parameter_angular_date = "| date:'dd/MM/yyyy HH:mm:ss'">
-                </#if>
-                <#if filter_index == 0>
-                    <#assign filterSearch += "?${field.name}={{${field.name}${parameter_angular_date}}}">
-                    <#assign filter_index++>
-                <#else>
-                    <#assign filterSearch += "&${field.name}={{${field.name}${parameter_angular_date}}}">
-                </#if>
-            </#if>
-        </#list>
-    </#if>
-</#if>
 <div data-component="crn-button" id="crn-button-564202" class="">
     <button class="btn btn-primary" type="submit" onclick="" data-component="crn-button" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button>
 </div>
 <!-- fim div row para pesquisa -->
 <!--</div>-->
 
-<datasource filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.dataSourceFullName}${entitySearch}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
 <div class="component-holder" data-component="crn-grid" id="crn-grid-${model.dataSourceName}">
     <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
         <table class="table  table-bordered table-hover table-striped">
@@ -179,35 +180,31 @@
             <#list model.gridFields as field>
                 <td class="">
                     <div class="">
-                        <#if field.getProperty("firstStringField")??>
-                            {{rowData.${field.getProperty("firstStringField")}}}
-                        <#else>
-                            <#if field.isDate() && !model.hasCronappFramework()>
-                                {{rowData.${field.name} | date:'dd/MM/yyyy'}}
-                            <#elseif field.isTime() && !model.hasCronappFramework()>
-                                {{rowData.${field.name} | date:'HH:mm:ss'}}
-                            <#elseif field.isTimestamp() && !model.hasCronappFramework()>
-                                {{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
-                            <#elseif (field.isTimestamp() || field.isDate() || field.isTime()) && model.hasCronappFramework()>
-                                {{rowData.${field.name} | mask:'${field.getHtmlType()}'}}
-                            <#elseif field.isImage()>
-                                <a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
-                                    <img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
-                                </a>
-                            <#elseif field.isFile()>
-                                <#if model.hasCronappFramework()>
-                                    <button ng-if="rowData.${field.name}" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
-                                        <span class="glyphicon glyphicon-download-alt"></span>
-                                    </button>
-                                <#else>
-                                    <button class="btn btn-sm" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
-                                        <span class="glyphicon glyphicon-download-alt"></span>
-                                    </button>
-                                </#if>
-                            <#else>
-                                {{rowData.${field.name} <#if model.formMapMasks[field.name]?has_content && model.hasCronappFramework()>| mask:'${model.formMapMasks[field.name]}'</#if> }}
-                            </#if>
-                        </#if>
+						<#if field.isDate() && !model.hasCronappFramework()>
+							{{rowData.${field.name} | date:'dd/MM/yyyy'}}
+						<#elseif field.isTime() && !model.hasCronappFramework()>
+							{{rowData.${field.name} | date:'HH:mm:ss'}}
+						<#elseif field.isTimestamp() && !model.hasCronappFramework()>
+							{{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
+						<#elseif (field.isTimestamp() || field.isDate() || field.isTime()) && model.hasCronappFramework()>
+							{{rowData.${field.name} | mask:'${field.getHtmlType()}'}}
+						<#elseif field.isImage()>
+							<a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
+								<img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
+							</a>
+						<#elseif field.isFile()>
+							<#if model.hasCronappFramework()>
+								<button ng-if="rowData.${field.name}" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
+									<span class="glyphicon glyphicon-download-alt"></span>
+								</button>
+							<#else>
+								<button class="btn btn-sm" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
+									<span class="glyphicon glyphicon-download-alt"></span>
+								</button>
+							</#if>
+						<#else>
+							{{rowData.${field.name} <#if model.formMapMasks[field.name]?has_content && model.hasCronappFramework()>| mask:'${model.formMapMasks[field.name]}'</#if> }}
+						</#if>
                     </div>
                 </td>
             </#list>
@@ -244,8 +241,8 @@
             <#list model.formFields as field>
                 <#assign currentType = "textinput">
                 <#if field.getProperty("ngOptions")??>
-                    <#assign currentType = "combobox-dynamic">
-                    <datasource name="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
+                    <#assign currentType = "enterprise-dynamic-combobox">
+                    <datasource name="${field.type}" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
                 </#if>
                 <#assign dataComponentType = "crn-${currentType}">
                 <#if field.isImage() && model.hasCronappFramework()>
@@ -337,16 +334,13 @@
                             </#if>
                         <#else> <!-- else for if !model.hasCronappFramework() -->
                             <#if field.getProperty("ngOptions")?? >
-                                <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if> theme="bootstrap">
-                                    <ui-select-match class="" placeholder="Select...">
-                                        {{$select.selected.${field.getProperty("ngOptionsFkName")}}}
-                                    </ui-select-match>
-                                    <ui-select-choices  repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
-                                        <div class="" data-container="true">
-                                            {{rowData.${field.getProperty("ngOptionsFkName")}}}
-                                        </div>
-                                    </ui-select-choices>
-                                </ui-select>
+								<cron-dynamic-select 
+									<#if !field.isNullable()>required="required"</#if>
+									id="${currentType}-${field.name}"
+									options="${model.getOptionsCombo(field.type, field.getProperty("ngOptionsFkName"), field.getProperty("ngOptions").keys, '')}" 
+									ng-model="${model.dataSourceName}.active.${field.name}" 
+									class="crn-select form-control">
+								</cron-dynamic-select>                                
                             <#elseif field.isImage()>
                                 <div dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                   {{"template.crud.clickOrDragAnImage" | translate}} 
@@ -490,9 +484,17 @@
                         </#list>
                     </#if>
                 </#if>
-                <!-- query filter 1toN end-->
-                <datasource filter="${filterSearch}" name="${field.getName()}Grid" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getRelationName()}${entitySearch}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource>
-                <div data-component="crn-button" class="">
+                
+				<!-- query filter 1toN end-->
+				<datasource filter="${filterSearch}" name="${field.getName()}Grid" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" 
+					entity="${model.namespace}.${field.getName()}" 
+					keys="${model.dataSourcePrimaryKeys}" 
+					dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"
+					rows-per-page="100" lazy="true" 
+					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
+					delete-message="Deseja remover?" class=""></datasource>
+	               
+				<div data-component="crn-button" class="">
                     <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" data-component="crn-button" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> 
 						<span class="">{{"Add" | translate}} <#if field.getClazz()?? && field.getClazz().getRealName()??>${field.getClazz().getRealName()}<#else>${field.getName()}</#if></span> 
 					</button>
@@ -595,9 +597,7 @@
                                             <#if (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey()) && ((gField.getName()?lower_case) != (model.dataSourceName?lower_case))>
                                                 <td>
                                                     <div>
-                                                        <#if gField.isReverseRelation() || gField.isRelation() >
-                                                            {{rowData.${gField.getName()}.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()} }}
-                                                        <#elseif gField.isDate() && !model.hasCronappFramework()>
+                                                        <#if gField.isDate() && !model.hasCronappFramework()>
                                                             {{rowData.${gField.getName()} | date:'dd/MM/yyyy'}}
                                                         <#elseif gField.isTime() && !model.hasCronappFramework()>
                                                             {{rowData.${gField.getName()} | date:'HH:mm:ss'}}
@@ -664,20 +664,17 @@
                             <#if !model.hasCronappFramework()>
                                 <#if gField.isReverseRelation() >
                                     <#if (field.getDbFieldName() != gField.getDbFieldName())>
-                                        <datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
-                                        <div data-component="crn-combobox-dynamic" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+                                        <div data-component="crn-enterprise-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
                                                 <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
-                                                <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()?capitalize}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" required="required" ng-disabled="disabled" theme="bootstrap" >
-                                                    <ui-select-match placeholder="Select..." class="">
-                                                        {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
-                                                    </ui-select-match>
-                                                    <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
-                                                        <div class="">
-                                                            {{rowData.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
-                                                        </div>
-                                                    </ui-select-choices>
-                                                </ui-select>
+												<cron-dynamic-select 
+													<#if !field.isNullable()>required="required"</#if>
+													id="combobox-${gField.getName()}"
+													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), id, '')}" 
+													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
+													class="crn-select form-control">
+												</cron-dynamic-select>                                
                                             </div>
                                         </div>
                                     </#if>
@@ -743,20 +740,18 @@
                                 <#else><!-- else of !model.hasCronappFramework() -->
                                 <#if gField.isReverseRelation() || gField.isRelation() >
                                     <#if (field.getDbFieldName() != gField.getDbFieldName())>
-                                        <datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.getDataSourceOfEntity(gField.getRelationClazz().getName())}" keys="id" rows-per-page="100" lazy="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" ></datasource>
-                                        <div data-component="crn-combobox-dynamic" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+										<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridForCombo">
+										<datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+										<div data-component="crn-enterprise-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
-                                                <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
-                                                <ui-select ng-model="${field.getName()}Grid.active.${gField.getName()}" crn-datasource="${gField.getName()?capitalize}GridForUiSelect" class="crn-select" id="combobox-${gField.getName()}" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if> ng-disabled="disabled" theme="bootstrap" >
-                                                    <ui-select-match placeholder="Select..." class="">
-                                                        {{$select.selected.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
-                                                    </ui-select-match>
-                                                    <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="" refresh="" refresh-deplay="">
-                                                        <div class="">
-                                                            {{rowData.${gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName()}}}
-                                                        </div>
-                                                    </ui-select-choices>
-                                                </ui-select>
+                                                <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>        
+												<cron-dynamic-select 
+													<#if !field.isNullable()>required="required"</#if>
+													id="combobox-${gField.getName()}"
+													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), 'id', dataSourceCombo)}" 
+													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
+													class="crn-select form-control">
+												</cron-dynamic-select>
                                             </div>
                                         </div>
                                     </#if>
