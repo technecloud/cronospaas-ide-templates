@@ -400,9 +400,9 @@
                         </div>
                     </div>
                 <#else>
+					<h3 class="lead component-holder" data-component="crn-subtitle">${field.getName()?cap_first}</h3>
                     <div class="component-holder ng-binding ng-scope col-md-6 col-xs-6 col-sm-6 col-lg-6" data-component="crn-combobox" ng-show="datasource.editing || datasource.inserting" >
                         <div class="form-group" >
-                            <label for="select-ui">${field.getName()?cap_first}</label>
                             <div id="select-ui" data-component="crn-tags">
                                 <ui-select crn-datasource="All${field.getName()}" ng-model="All${field.getName()}.active" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                     <ui-select-match placeholder="${field.getName()}...">
@@ -486,20 +486,20 @@
                 </#if>
                 
 				<!-- query filter 1toN end-->
-				<datasource filter="${filterSearch}"
-					name="${field.getName()}Grid"
-					entity="${model.namespace}.${field.getName()}"
-					keys="${model.dataSourcePrimaryKeys}"
-					dependent-lazy-post="${model.dataSourceName}"
+				<datasource filter="${filterSearch}" 
+					name="${field.getName()}Grid" 
+					entity="${model.namespace}.${field.getName()}" 
+					keys="${model.dataSourcePrimaryKeys}" 
+					dependent-lazy-post="${model.dataSourceName}" 
 					dependent-lazy-post-field="${model.dataSourceName?uncap_first}"
-					rows-per-page="100" lazy="true"
+					rows-per-page="100" lazy="true" 
 					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
 					delete-message="Deseja remover?" class=""></datasource>
-
+	            
 				<!--
 				<div data-component="crn-button" class="">
-                    <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" data-component="crn-button" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i>
-						<span class="">{{"Add" | translate}} <#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if></span>
+                    <button class="btn btn-primary" onclick="$('#modal${field.getName()}Grid').modal('show');" data-component="crn-button" ng-click="${field.getName()}Grid.startInserting();"><i class="fa fa-plus"></i> 
+						<span class="">{{"Add" | translate}} <#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if></span> 
 					</button>
                 </div>
 				-->
@@ -565,7 +565,7 @@
                     </#if>
                 </#if>
                 -->
-
+				
 				<!-- seach 1toN end-->
 				<#list model.formFieldsOneToN as field>
 					<#list field.getClazz().getFields() as gField>
@@ -579,12 +579,12 @@
 						</#if>
 					</#list>
 				</#list>
-				<h3><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h3>
+				<h3 class="lead component-holder" data-component="crn-subtitle"><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h3>				
 				<div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}Grid">
 					<#assign classname = "${field.clazz.name}">
 					<#assign dataSourceName = "${field.clazz.name}Grid">
 					<cron-grid options="${model.getOptionsGrid(classname, dataSourceName, field)}" ng-model="${field.name}Grid.data" class="" style=""></cron-grid>
-				</div>
+				</div> 
 				<!--
 				<div data-component="crn-textinput" id="crn-textinput-descricao">
                     <div class="form-group">
@@ -694,13 +694,13 @@
                                         <div data-component="crn-enterprise-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
                                                 <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
-												<cron-dynamic-select
+												<cron-dynamic-select 
 													<#if !field.isNullable()>required="required"</#if>
 													id="combobox-${gField.getName()}"
-													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), id, '')}"
-													ng-model="${field.getName()}Grid.active.${gField.getName()}"
+													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), id, '')}" 
+													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
 													class="crn-select form-control">
-												</cron-dynamic-select>
+												</cron-dynamic-select>                                
                                             </div>
                                         </div>
                                     </#if>
@@ -770,12 +770,12 @@
 										<datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
 										<div data-component="crn-enterprise-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
-                                                <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
-												<cron-dynamic-select
+                                                <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>        
+												<cron-dynamic-select 
 													<#if !field.isNullable()>required="required"</#if>
 													id="combobox-${gField.getName()}"
-													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), 'id', dataSourceCombo)}"
-													ng-model="${field.getName()}Grid.active.${gField.getName()}"
+													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), 'id', dataSourceCombo)}" 
+													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
 													class="crn-select form-control">
 												</cron-dynamic-select>
                                             </div>
@@ -794,7 +794,7 @@
                                             <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                                             <#if gField.isImage()>
                                                 <div dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
-                                                  {{"template.crud.clickOrDragAnImage" | translate}}
+                                                  {{"template.crud.clickOrDragAnImage" | translate}} 
                                                 </div>
                                             <#elseif gField.isFile()>
                                                 <div dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
