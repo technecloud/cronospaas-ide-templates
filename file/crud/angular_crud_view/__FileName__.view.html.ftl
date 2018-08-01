@@ -406,20 +406,6 @@
 							<cron-multi-select options="${model.getMultiSelectOptions(field)}" 
 								ng-required="false" id="combobox${field.getName()}" ng-model="${relationClassName}.data" class="crn-select form-control" style="">
 							</cron-multi-select> 
-							<!--
-							<div id="select-ui" data-component="crn-tags">  
-								<ui-select multiple crn-datasource="All${field.getName()}" ng-model="${field.getName()}.data" class="crn-select" style="min-width: 200px" theme="bootstrap" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting }}" <#if !field.isNullable()>required="required"</#if>>
-                                    <ui-select-match placeholder="${field.getName()}...">
-                                        {{$item.${model.getFirstTextFieldOfManyToManyRelation(field.getName())} }}
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="rowData in datasource.data | filter : $select.search" class="">
-                                        <div class="" data-container="true" draggable="true">
-                                            {{rowData.${model.getFirstTextFieldOfManyToManyRelation(field.getName())}}}
-                                        </div>
-                                    </ui-select-choices>
-                                </ui-select>
-                            </div>
-							-->
                         </div>
                     </div>
                 <#else>
