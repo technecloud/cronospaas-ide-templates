@@ -40,7 +40,7 @@
         </#list>
     </#if>
 </#if>
-<datasource filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.namespace}.${model.dataSourceName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+<datasource data-component="crn-datasource" filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.namespace}.${model.dataSourceName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
 
 <#if model.hasColumnFilter()>
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
@@ -242,7 +242,7 @@
                 <#assign currentType = "textinput">
                 <#if field.getProperty("ngOptions")??>
                     <#assign currentType = "enterprise-dynamic-combobox">
-                    <datasource name="${field.type}" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
+                    <datasource data-component="crn-datasource" name="${field.type}" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
                 </#if>
                 <#assign dataComponentType = "crn-${currentType}">
                 <#if field.isImage() && model.hasCronappFramework()>
@@ -390,6 +390,7 @@
 				</#if>
 				
 				<datasource 
+					data-component="crn-datasource" 
 					name="${relationClassName}" 
 					entity="${model.namespace}.${relationClassName}" 
 					keys="${keysDs}" 
@@ -397,7 +398,7 @@
 					rows-per-page="100" lazy="true" 
 					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
 					delete-message="Deseja remover?" class=""></datasource>
-                <datasource name="${field.getName()}Combo" entity="${model.namespace}.${field.getName()}" keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}"></datasource>
+                <datasource data-component="crn-datasource" name="${field.getName()}Combo" entity="${model.namespace}.${field.getName()}" keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}"></datasource>
 				
 				<#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
                     <div class="component-holder ng-binding ng-scope " data-component="crn-enterprise-combobox-multiple" ng-show="datasource.editing || datasource.inserting" >
@@ -455,7 +456,9 @@
                 </#if>
                 
 				<!-- query filter 1toN end-->
-				<datasource filter="${filterSearch}" 
+				<datasource 
+					data-component="crn-datasource" 
+					filter="${filterSearch}" 
 					name="${field.getName()}Grid" 
 					entity="${model.namespace}.${field.getName()}" 
 					keys="${model.dataSourcePrimaryKeys}" 
@@ -472,7 +475,7 @@
 							<#if gField.isReverseRelation() || gField.isRelation() >
 								<#if (field.getDbFieldName() != gField.getDbFieldName())>
 									<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}Combo">
-									<datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+									<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
 								</#if>
 							</#if>
 						</#if>
