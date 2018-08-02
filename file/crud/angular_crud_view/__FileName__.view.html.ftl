@@ -242,7 +242,7 @@
                 <#assign currentType = "textinput">
                 <#if field.getProperty("ngOptions")??>
                     <#assign currentType = "enterprise-dynamic-combobox">
-                    <datasource data-component="crn-datasource" name="${field.type}" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
+                    <datasource data-component="crn-datasource" name="${field.type}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
                 </#if>
                 <#assign dataComponentType = "crn-${currentType}">
                 <#if field.isImage() && model.hasCronappFramework()>
@@ -329,10 +329,11 @@
                             </#if>
                         <#else> <!-- else for if !model.hasCronappFramework() -->
                             <#if field.getProperty("ngOptions")?? >
+								<#assign dataSourceName = "${field.type}Combo">
 								<cron-dynamic-select 
 									<#if !field.isNullable()>required="required"</#if>
 									id="${currentType}-${field.name}"
-									options="${model.getComboOptions(field.type, field.getProperty("ngOptionsFkName"), field.getProperty("ngOptions").keys, '')}" 
+									options="${model.getComboOptions(field.type, field.getProperty("ngOptionsFkName"), field.getProperty("ngOptions").keys, dataSourceName)}" 
 									ng-model="${model.dataSourceName}.active.${field.name}" 
 									class="crn-select form-control">
 								</cron-dynamic-select>    
@@ -398,7 +399,7 @@
 					rows-per-page="100" lazy="true" 
 					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
 					delete-message="Deseja remover?" class=""></datasource>
-                <datasource data-component="crn-datasource" name="${field.getName()}Combo" entity="${model.namespace}.${field.getName()}" keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}"></datasource>
+                <datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getName()}" keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}"></datasource>
 				
 				<#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
                     <div class="component-holder ng-binding ng-scope " data-component="crn-enterprise-combobox-multiple" ng-show="datasource.editing || datasource.inserting" >
@@ -467,15 +468,14 @@
 					rows-per-page="100" lazy="true" 
 					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
 					delete-message="Deseja remover?" class=""></datasource>
-				
-				<!-- seach 1toN end-->
+				<!-- teste -->
 				<#list model.formFieldsOneToN as field>
 					<#list field.getClazz().getFields() as gField>
 						<#if model.hasCronappFramework()>
 							<#if gField.isReverseRelation() || gField.isRelation() >
-								<#if (field.getDbFieldName() != gField.getDbFieldName())>
-									<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}Combo">
-									<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+								<#if ((field.getDbFieldName() != gField.getDbFieldName()) || (field.getFullType() == field.getClazz().getName()))>
+									<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridCombo">
+				<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
 								</#if>
 							</#if>
 						</#if>
