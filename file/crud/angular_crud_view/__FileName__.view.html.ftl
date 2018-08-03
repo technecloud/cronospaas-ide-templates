@@ -245,10 +245,13 @@
                     <datasource data-component="crn-datasource" name="${field.type}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
                 </#if>
                 <#assign dataComponentType = "crn-${currentType}">
+				
                 <#if field.isImage() && model.hasCronappFramework()>
                     <#assign dataComponentType = "crn-dynamic-image">
                 <#elseif field.isFile() && model.hasCronappFramework()>
                     <#assign dataComponentType = "crn-dynamic-file">
+				<#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
+					<#assign dataComponentType = "crn-enterprise-date">
                 </#if>
 
                 <div data-component="${dataComponentType}" id="crn-${currentType}-${field.name}" class="">
@@ -473,7 +476,7 @@
 					<#list field.getClazz().getFields() as gField>
 						<#if model.hasCronappFramework()>
 							<#if gField.isReverseRelation() || gField.isRelation() >
-								<#if ((field.getDbFieldName() != gField.getDbFieldName()) || (field.getFullType() == field.getClazz().getName()))>
+								<#if (field.getDbFieldName() != gField.getDbFieldName())>
 									<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridCombo">
 				<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
 								</#if>
