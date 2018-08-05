@@ -469,20 +469,18 @@
 					dependent-lazy-post="${model.dataSourceName}" 
 					dependent-lazy-post-field="${model.dataSourceName?uncap_first}"
 					rows-per-page="100" lazy="true" 
-					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
+					parameters="${model.getParametersDataSource(field)}"
 					delete-message="Deseja remover?" class=""></datasource>
 				<!-- teste -->
-				<#list model.formFieldsOneToN as field>
-					<#list field.getClazz().getFields() as gField>
-						<#if model.hasCronappFramework()>
-							<#if gField.isReverseRelation() || gField.isRelation() >
-								<#if (field.getDbFieldName() != gField.getDbFieldName())>
-									<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridCombo">
+				<#list field.getClazz().getFields() as gField>
+					<#if model.hasCronappFramework()>
+						<#if gField.isReverseRelation() || gField.isRelation() >
+							<#if (field.getDbFieldName() != gField.getDbFieldName())>
+								<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridCombo">
 				<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
-								</#if>
 							</#if>
 						</#if>
-					</#list>
+					</#if>
 				</#list>
 				<h3 class="lead component-holder" data-component="crn-subtitle"><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h3>				
 				<div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}Grid">
