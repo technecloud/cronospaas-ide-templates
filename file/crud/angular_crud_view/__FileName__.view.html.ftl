@@ -252,15 +252,20 @@
                     <#assign dataComponentType = "crn-dynamic-file">
 				<#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
 					<#assign dataComponentType = "crn-enterprise-date">
+				<#elseif (field.isBoolean()) >
+					<#assign dataComponentType = "crn-enterprise-checkbox">
                 </#if>
 
                 <div data-component="${dataComponentType}" id="crn-${currentType}-${field.name}" class="">
                     <div class="form-group">
+						<#if !field.isBoolean()>
                         <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!?cap_first}</label>
+						</#if>
                         <#if !model.hasCronappFramework()>
 
                             <#if field.isBoolean() >
-                                <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"  id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+                                <input type="checkbox" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+								<label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
                             <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
                                 <div style="position:relative">
 									<cron-date 
@@ -340,6 +345,9 @@
 									ng-model="${model.dataSourceName}.active.${field.name}" 
 									class="crn-select form-control">
 								</cron-dynamic-select>    
+                            <#elseif field.isBoolean() >
+                                <input type="checkbox" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+								<label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
 							<#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
 								<cron-date 
 									options="${model.getOptionsDate(field)}" 
