@@ -267,12 +267,10 @@
                                 <input type="checkbox" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
 								<label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
                             <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
-                                <div style="position:relative">
-									<cron-date 
-										options="${model.getOptionsDate(field)}" 
-										ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
-									</cron-date> 								   
-                                </div>
+								<cron-date 
+									options="${model.getOptionsDate(field)}" 
+									ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+								</cron-date> 								   
                             <#elseif (field.isNumber() || field.isDecimal())  >
                                 <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
                             <#elseif field.getProperty("ngOptions")?? >
@@ -502,3 +500,182 @@
         </form>
     </div>
 </div>
+
+<!-- OneToOne modal -->
+<#list model.formFieldsOneToN as field>
+<div class="modal fade" id="modal${field.getName()}Grid">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title">${field.getName()}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group list-group-sm row">
+                        <#list field.getClazz().getFields() as gField>
+                            <#if !model.hasCronappFramework()>
+                                <#if gField.isReverseRelation() >
+                                    <#if (field.getDbFieldName() != gField.getDbFieldName())>
+										<datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+                                        <div data-component="crn-enterprise-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
+												<cron-dynamic-select 
+													<#if !field.isNullable()>required="required"</#if>
+													id="combobox-${gField.getName()}"
+													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), id, '')}" 
+													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
+													class="crn-select form-control">
+												</cron-dynamic-select>                                
+                                            </div>
+                                        </div>
+                                    </#if>
+                                <#elseif (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey())>
+
+                                    <#assign dataComponentType = "crn-textinput">
+                                    <#if gField.isImage() && model.hasCronappFramework()>
+                                        <#assign dataComponentType = "crn-dynamic-image">
+                                    <#elseif gField.isFile() && model.hasCronappFramework()>
+                                        <#assign dataComponentType = "crn-dynamic-file">
+                                    </#if>
+                                    <div data-component="${dataComponentType}"  id="crn-textinput-${gField.getDbFieldName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+                                            <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
+                                            <#if gField.isBoolean() >
+                                                <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}"  id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                                            <#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
+                                                <div style="position:relative">
+                                                    <input type="text" as-date
+                                                        <#if gField.isDate() >
+                                                           format="DD/MM/YYYY"
+                                                        <#elseif gField.isTime()>
+                                                           format="HH:mm:ss"
+                                                        <#elseif gField.isTimestamp()>
+                                                           format="DD/MM/YYYY HH:mm:ss"
+                                                        </#if>
+                                                           ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                                                </div>
+                                            <#elseif (gField.isNumber() || gField.isDecimal()) >
+                                                <input type="number" <#if gField.isDecimal()>step="0.01"</#if> ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                                            <#elseif gField.isImage()>
+                                                <div class="form-group upload-image-component" ngf-drop ngf-drag-over-class="dragover">
+                                                    <img style="max-height: 128px; max-width: 128px;"
+                                                         ng-if="${field.getName()}Grid.active.${gField.getName()}"
+                                                         data-ng-src="{{'data:image/png;base64,' + ${field.getName()}Grid.active.${gField.getName()}}}">
+                                                    <img data-ng-src="{{${field.getName()}Grid.noImageUpload}}"
+                                                         style="max-height: 128px; max-width: 128px;"
+                                                         class="btn"
+                                                         ng-if="!${field.getName()}Grid.active.${gField.getName()}"
+                                                         ngf-drop ngf-select ngf-change="${field.getName()}Grid.setFile($file, ${field.getName()}Grid.active, '${gField.getName()}')" accept="image/*">
+                                                    <div class="remove btn btn-danger btn-xs" ng-if="${field.getName()}Grid.active.${gField.getName()}" ng-click="${field.getName()}Grid.active.${gField.getName()}=null">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </div>
+                                                </div>
+                                            <#elseif gField.isFile()>
+                                                <div class="form-group">
+                                                    <img ng-if="!${field.getName()}Grid.active.${gField.getName()}" data-ng-src="{{${field.getName()}Grid.noFileUpload}}" class="drop-box" style="width:100px;height:50px" ngf-drop ngf-select ngf-change="${field.getName()}Grid.setFile($file, ${field.getName()}Grid.active, '${gField.getName()}')" ngf-drag-over-class="dragover">
+                                                    <em ng-if="${field.getName()}Grid.active.${gField.getName()}">{{${field.getName()}Grid.byteSize(${field.getName()}Grid.active.${gField.getName()})}}</em>
+                                                    <div class="btn btn-danger btn-xs" ng-if="${field.getName()}Grid.active.${gField.getName()}" ng-click="${field.getName()}Grid.active.${gField.getName()}=null">
+                                                        <span class="glyphicon glyphicon-remove"></span>
+                                                    </div>
+                                                </div>
+                                            <#else>
+                                                <input type="<#if gField.isEncryption()>password<#else>text</#if>"
+                                                    <#if gField.getLength()??>
+                                                       maxlength="${gField.getLength()}"
+                                                    </#if>
+                                                       ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
+                                            </#if>
+                                        </div>
+                                    </div>
+                                </#if>
+                                <#else><!-- else of !model.hasCronappFramework() -->
+                                <#if gField.isReverseRelation() || gField.isRelation() >
+                                    <#if (field.getDbFieldName() != gField.getDbFieldName())>
+										<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridForCombo">
+										<datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+										<div data-component="crn-enterprise-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label for="combobox-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>        
+												<cron-dynamic-select 
+													<#if !field.isNullable()>required="required"</#if>
+													id="combobox-${gField.getName()}"
+													options="${model.getComboOptions(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), 'id', dataSourceCombo)}" 
+													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
+													class="crn-select form-control">
+												</cron-dynamic-select>
+                                            </div>
+                                        </div>
+                                    </#if>
+                                <#elseif (!gField.isPrimaryKey() || field.getClazz().hasCompositeKey())>
+
+                                    <#assign dataComponentType = "crn-textinput">
+                                    <#if gField.isImage() && model.hasCronappFramework()>
+                                        <#assign dataComponentType = "crn-dynamic-image">
+                                    <#elseif gField.isFile() && model.hasCronappFramework()>
+                                        <#assign dataComponentType = "crn-dynamic-file">
+									<#elseif gField.isBoolean()>
+										<#assign dataComponentType = "crn-enterprise-checkbox">
+									<#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp())>
+										<#assign dataComponentType = "crn-enterprise-date">
+                                    </#if>
+									
+                                    <div data-component="${dataComponentType}"  id="crn-textinput-${gField.getDbFieldName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="form-group">
+											<#if !gField.isBoolean() >
+                                            <label for="textinput-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
+                                            </#if>
+											<#if gField.isImage()>
+                                                <div dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                                  {{"template.crud.clickOrDragAnImage" | translate}} 
+                                                </div>
+											<#elseif gField.isBoolean() >
+												<input type="checkbox" class="k-checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="cron-checkbox-${gField.name}" <#if !gField.isNullable()>required="required"</#if>>
+												<label for="cron-checkbox-${gField.name}" class="k-checkbox-label"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>												
+											<#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
+												<cron-date 
+													options="${model.getOptionsDate(gField)}" 
+													ng-model="${model.dataSourceName}.active.${gField.name}" class="form-control" id="cron-date-${gField.name}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+												</cron-date> 								                                               
+											<#elseif gField.isFile()>
+                                                <div dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                                  {{"template.crud.clickOrDragAnFile" | translate}}
+                                                </div>
+                                            <#else>
+                                                <input type="<#if gField.isEncryption()>password<#else>${gField.getHtmlType()}</#if>"
+                                                    <#if gField.getLength()??>
+                                                       maxlength="${gField.getLength()?string["0"]}"
+                                                    </#if>
+                                                       ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control"
+                                                       id="textinput-${gField.getDbFieldName()}"
+                                                       placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>"
+                                                       mask="${model.formMapRelationFieldMasks[gField.name]}"
+                                                       mask-placeholder=""
+                                                    <#if model.formMapRelationFieldMasks[gField.name] == "999.999.999-99;0" >
+                                                        <#assign valid = "cpf" >
+                                                    <#elseif model.formMapRelationFieldMasks[gField.name] == "99.999.999/9999-99;0">
+                                                        <#assign valid = "cnpj" >
+                                                    </#if>
+                                                    <#if valid?has_content>
+                                                        valid="${valid}"
+                                                        data-error-message="{{'invalid.${valid}' | translate}}"
+                                                    </#if>
+                                                    <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                            </#if>
+                                        </div>
+                                    </div>
+                                </#if>
+                            </#if> <!-- end if !model.hasCronappFramework() -->
+
+                        </#list>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</#list>
+<!-- OneToOne modal end-->
