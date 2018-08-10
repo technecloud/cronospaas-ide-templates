@@ -82,15 +82,17 @@
             <#list model.formFields as field>
             <!-- ${field.name} begin -->
             <#if field.isBoolean() >
-            <div class="item item-toggle">
-              <#if field.label?has_content>${field.label}<#else>${field.name}</#if>
-              <label for="textinput-${field.name}" class="toggle toggle-assertive">
-                <input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if !field.isNullable()>required="required"</#if>>
-                <div class="track">
-                  <div class="handle"></div>
-                </div>
-              </label>
-            </div>
+			<div class="component-holder ng-binding ng-scope" data-component="crn-toggle" id="crn-toggle-${field.name}">
+				<label class="item item-toggle">
+				  <span><#if field.label?has_content>${field.label}<#else>${field.name}</#if></span>
+				  <div for="textinput-${field.name}" class="toggle toggle-assertive">
+					<input type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if !field.isNullable()>required="required"</#if>>
+					<div class="track">
+					  <div class="handle"></div>
+					</div>
+				  </div>
+				</label>
+			</div>
             <#elseif (field.isDate()) >
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
@@ -108,10 +110,11 @@
             </label>
             <#elseif field.getProperty("ngOptions")??>
             <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class=""></datasource>
-            <label for="textinput-${field.name}" class="item item-input item-select">
+            <label for="textinput-${field.name}" class="item item-input item-select component-holder" data-component="crn-dynamic-select" id="crn-dynamic-select-${field.name}">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
-              <select ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="textinput-${field.name}" name="textinput-${field.name}" ng-options="${field.getProperty("ngOptions").options}" <#if !field.isNullable()>required="required"</#if>>
-              <option value=''>None</option>
+              <select crn-datasource="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="dynamic-${field.name}" name="dynamic-${field.name}" 
+				ng-options="${field.getProperty("ngOptions").options}" <#if !field.isNullable()>required="required"</#if>>
+                <option value=''>None</option>
               </select>
             </label>
             <#elseif field.isImage()>
@@ -139,25 +142,25 @@
             <#else>
             <label for="textinput-${field.name}" class="item item-input item-stacked-label">
             <span class="input-label">${model.formMapLabels[field.name]!}</span>
-            <input
-            type="text"
-            placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
-            ng-model="${model.dataSourceName}.active.${field.name}"
-            id="textinput-${field.name}"
-            name="textinput-${field.name}"
-            <#if model.formMapMasks[field.name]?has_content>
-            mask="${model.formMapMasks[field.name]}"
-            <#if model.formMapMasks[field.name] == "999.999.999-99" >
-            <#assign valid = "cpf" >
-            <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
-            <#assign valid = "cnpj" >
-            </#if>
-            <#if valid??>
-            valid="${valid}"
-            data-error-message="{{'invalid.${valid}' | translate}}"
-            </#if>
-            </#if>
-            <#if !field.isNullable()>required="required"</#if>>
+				<input
+				type="text"
+				placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
+				ng-model="${model.dataSourceName}.active.${field.name}"
+				id="textinput-${field.name}"
+				name="textinput-${field.name}"
+				<#if model.formMapMasks[field.name]?has_content>
+				mask="${model.formMapMasks[field.name]}"
+				<#if model.formMapMasks[field.name] == "999.999.999-99" >
+				<#assign valid = "cpf" >
+				<#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
+				<#assign valid = "cnpj" >
+				</#if>
+				<#if valid??>
+				valid="${valid}"
+				data-error-message="{{'invalid.${valid}' | translate}}"
+				</#if>
+				</#if>
+				<#if !field.isNullable()>required="required"</#if>>
             </label>
             </#if>
             </#list>
@@ -167,7 +170,7 @@
             <datasource name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getRelationName()}" append="false" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource>
             <datasource name="All${field.getName()}" entity="${model.getDataSourceOfEntity(field.getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"></datasource>
             <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
-            <label for="multiselect-${field.name}" class="item item-input item-select"> 
+            <label class="item item-input item-select component-holder" data-component="crn-multiselect" > 
               <span>${field.getName()?cap_first}</span> 
               <select 
                 ng-model="${field.getName()}.data" 
