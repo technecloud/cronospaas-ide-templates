@@ -174,6 +174,7 @@
               <span>${field.getName()?cap_first}</span> 
               <select 
                 ng-model="${field.getName()}.data" 
+				crn-datasource="All${field.getName()}"
                 multiple
                 id="multiselect-${field.name}" 
                 name="multiselect-${field.name}" 
