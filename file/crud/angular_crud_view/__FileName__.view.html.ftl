@@ -250,8 +250,6 @@
                     <#assign dataComponentType = "crn-dynamic-image">
                 <#elseif field.isFile() && model.hasCronappFramework()>
                     <#assign dataComponentType = "crn-dynamic-file">
-				<#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
-					<#assign dataComponentType = "crn-enterprise-date">
 				<#elseif (field.isBoolean()) >
 					<#assign dataComponentType = "crn-enterprise-checkbox">
                 </#if>
@@ -267,10 +265,15 @@
                                 <input type="checkbox" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
 								<label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
                             <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
-								<cron-date 
-									options="${model.getOptionsDate(field)}" 
-									ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
-								</cron-date> 								   
+								<input type="text" as-date
+									<#if field.isDate()>
+									   format="DD/MM/YYYY"
+									<#elseif field.isTime()>
+									   format="HH:mm:ss"
+									<#elseif field.isTimestamp()>
+									   format="DD/MM/YYYY HH:mm:ss"
+									</#if>
+									   ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
                             <#elseif (field.isNumber() || field.isDecimal())  >
                                 <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
                             <#elseif field.getProperty("ngOptions")?? >
@@ -346,11 +349,6 @@
                             <#elseif field.isBoolean() >
                                 <input type="checkbox" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
 								<label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
-							<#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
-								<cron-date 
-									options="${model.getOptionsDate(field)}" 
-									ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
-								</cron-date> 								   
                             <#elseif field.isImage()>
                                 <div dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                   {{"template.crud.clickOrDragAnImage" | translate}} 
@@ -617,8 +615,6 @@
                                         <#assign dataComponentType = "crn-dynamic-file">
 									<#elseif gField.isBoolean()>
 										<#assign dataComponentType = "crn-enterprise-checkbox">
-									<#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp())>
-										<#assign dataComponentType = "crn-enterprise-date">
                                     </#if>
 									
                                     <div data-component="${dataComponentType}"  id="crn-textinput-${gField.getDbFieldName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -633,11 +629,6 @@
 											<#elseif gField.isBoolean() >
 												<input type="checkbox" class="k-checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="cron-checkbox-${gField.name}" <#if !gField.isNullable()>required="required"</#if>>
 												<label for="cron-checkbox-${gField.name}" class="k-checkbox-label"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>												
-											<#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
-												<cron-date 
-													options="${model.getOptionsDate(gField)}" 
-													ng-model="${model.dataSourceName}.active.${gField.name}" class="form-control" id="cron-date-${gField.name}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name}</#if>" <#if !gField.isNullable()>required="required"</#if>>
-												</cron-date> 								                                               
 											<#elseif gField.isFile()>
                                                 <div dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                                   {{"template.crud.clickOrDragAnFile" | translate}}
