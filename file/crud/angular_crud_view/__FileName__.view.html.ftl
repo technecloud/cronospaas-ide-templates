@@ -40,7 +40,7 @@
         </#list>
     </#if>
 </#if>
-<datasource data-component="crn-datasource" filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.namespace}.${model.dataSourceName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+<datasource data-component="crn-datasource" filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.namespace}.${model.dataSourceName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" class=""></datasource>
 
 <#if model.hasColumnFilter()>
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
@@ -242,7 +242,7 @@
                 <#assign currentType = "textinput">
                 <#if field.getProperty("ngOptions")??>
                     <#assign currentType = "enterprise-dynamic-combobox">
-                    <datasource data-component="crn-datasource" name="${field.type}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" class="" dependent-by="{{${model.dataSourceName}}}"></datasource>
+                    <datasource data-component="crn-datasource" name="${field.type}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" dependent-by="{{${model.dataSourceName}}}"></datasource>
                 </#if>
                 <#assign dataComponentType = "crn-${currentType}">
 				
@@ -403,9 +403,9 @@
 					entity="${model.namespace}.${relationClassName}" 
 					keys="${keysDs}" 
 					dependent-lazy-post="${model.dataSourceName}" 
-					rows-per-page="100" lazy="true" 
-					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
-					delete-message="Deseja remover?" class=""></datasource>
+					rows-per-page="100" 
+					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}">
+				</datasource>
                 <datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getName()}" keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}"></datasource>
 				
 				<#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
@@ -471,17 +471,16 @@
 					entity="${model.namespace}.${field.getName()}" 
 					keys="${model.dataSourcePrimaryKeys}" 
 					dependent-lazy-post="${model.dataSourceName}" 
-					dependent-lazy-post-field="${model.dataSourceName?uncap_first}"
-					rows-per-page="100" lazy="true" 
-					parameters="${model.getParametersDataSource(field)}"
-					delete-message="Deseja remover?" class=""></datasource>
+					rows-per-page="100" 
+					parameters="${model.getParametersDataSource(field)}">
+				</datasource>
 				<!-- teste -->
 				<#list field.getClazz().getFields() as gField>
 					<#if model.hasCronappFramework()>
 						<#if gField.isReverseRelation() || gField.isRelation() >
 							<#if (field.getDbFieldName() != gField.getDbFieldName())>
 								<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridCombo">
-				<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+				<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100"></datasource>
 							</#if>
 						</#if>
 					</#if>
@@ -515,14 +514,14 @@
                             <#if !model.hasCronappFramework()>
                                 <#if gField.isReverseRelation() >
                                     <#if (field.getDbFieldName() != gField.getDbFieldName())>
-										<datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+										<datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100"></datasource>
                                         <div data-component="crn-modal-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
                                                 <label for="combobox-modal-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
 												<cron-dynamic-select 
 													<#if !field.isNullable()>required="required"</#if>
 													id="combobox-modal-${gField.getName()}"
-													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), id, '')}" 
+													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), gField.getRelationClazz().getNameKeys(), '')}" 
 													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
 													class="crn-select form-control">
 												</cron-dynamic-select>                                
@@ -592,14 +591,14 @@
                                 <#if gField.isReverseRelation() || gField.isRelation() >
                                     <#if (field.getDbFieldName() != gField.getDbFieldName())>
 										<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridForCombo">
-										<datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource>
+										<datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100"></datasource>
 										<div data-component="crn-enterprise-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
                                                 <label for="combobox-modal-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>        
 												<cron-dynamic-select 
 													<#if !field.isNullable()>required="required"</#if>
 													id="combobox-modal-${gField.getName()}"
-													options="${model.getComboOptions(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), 'id', dataSourceCombo)}" 
+													options="${model.getComboOptions(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), gField.getRelationClazz().getNameKeys(), dataSourceCombo)}" 
 													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
 													class="crn-select form-control">
 												</cron-dynamic-select>
