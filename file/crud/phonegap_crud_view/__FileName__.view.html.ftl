@@ -8,72 +8,15 @@
     <button class="button button-stable" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.cancel()"> <i class="icon ion-android-arrow-back"></i> </button>
   </ion-nav-buttons>
   <ion-content>
-    <#if model.hasColumnFilter()>
-    <div class="list list-inset" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
-      <label class="item item-input">
-      <i class="icon ion-search placeholder-icon"></i>
-      <input type="text" placeholder="{{'template.crud.search' | translate}}" ng-model="query" value="%"> </label>
-    </div>
-    <#else>
-    <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-general" class="">
-      <label class="item item-input" id="cloud-search1">
-        <i class="icon ion-search placeholder-icon"></i>
-      <#assign fieldsString = "">
-      <#if model.hasSearchableFilter()>
-          <#list model.formFields as field>
-              <#if (field.isSearchable() && field.isString()) >
-                  <#assign fieldsString = fieldsString + "${field.name};">
-              </#if>
-          </#list>
-      <#else>
-          <#assign fieldsString = "${model.getFirstFieldStringNotPk().getName()};">
-      </#if>
-        <input type="text"  ng-model="vars.search" cronapp-filter="${fieldsString}" cronapp-filter-operator="" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" value="" placeholder="{{'template.crud.search' | translate}}">
-      </label>
-    </div>   
-    </#if>
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854">
       <datasource <#if model.hasColumnFilter()>filter=""</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="10" delete-message="Deseja remover?" class=""></datasource>
     </div>
     <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
-      <ion-list can-swipe="listCanSwipe">
-        <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)">
-          <div class="row">
-            <#list model.gridFields as field>
-            <div class="col">
-              <#if field.getProperty("firstStringField")??>
-              {{rowData.${field.getProperty("firstStringField")}}}
-              <#else>
-              <#if field.isDate() >
-              {{rowData.${field.name} | date:'dd/MM/yyyy'}}
-              <#elseif field.isTime() >
-              {{rowData.${field.name} | date:'HH:mm:ss'}}
-              <#elseif field.isTimestamp() >
-              {{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
-              <#elseif field.isImage()>
-              <a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
-                  <img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
-              </a>
-              <#elseif field.isFile()>
-              <button ng-if="rowData.${field.name}" class="button" ng-click="cronapi.internal.downloadFileEntityMobile(datasource, '${field.name}', $index)">
-                  <span class="icon ion-android-download"></span>
-              </button>
-              <#else>
-              {{rowData.${field.name}}}
-              </#if>
-              </#if>
-            </div>
-            </#list>
-          </div>
-          <ion-option-button class="button-positive" ng-click="datasource.startEditing(rowData)">
-            <i class="icon ion-edit"></i>
-          </ion-option-button>
-          <ion-option-button class="button-assertive" ng-click="datasource.remove(rowData)">
-            &nbsp;
-            <i class="icon ion-trash-a"></i>
-          </ion-option-button>
-        </ion-item>
-      </ion-list>
+	  <div class="component-holder ng-binding ng-scope" data-component="crn-ion-list" id="crn-ion-list-main">
+		<cron-list id="ion-list-main" options="${model.getMobileAdvancedList(model.dataSourceName, model.dataSourceName, field)}" 
+			class="" style=""> 
+		</cron-list> 
+	  </div>
     </div>
     <div ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
       <form crn-datasource="${model.dataSourceName}">
