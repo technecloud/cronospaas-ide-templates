@@ -9,7 +9,7 @@
     </ion-nav-title>
     <ion-nav-buttons side="right" class="buttons buttons-right header-item">
       <button class="button button-clear" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.startInserting()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-plus-round"></i> </button>
-      <button class="button button-stable" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.post()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-checkmark"></i> </button>
+      <button class="button button-clear" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.post()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-checkmark"></i> </button>
     </ion-nav-buttons>
   </ion-nav-bar>
   <ion-content>
