@@ -1,4 +1,5 @@
 <ion-view cache-view="false" hide-back-button="true">
+  <ion-header-bar>
   <ion-nav-bar class="nav-bar-container bar bar-header" data-component="crn-navbar" xattr-theme="">
     <ion-nav-buttons side="left" class="buttons buttons-left header-item">
       <button class="button button-clear" ng-hide="User.inserting || User.editing" menu-toggle="left" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-navicon"></i> </button>
@@ -12,6 +13,7 @@
       <button class="button button-clear" ng-show="User.inserting || User.editing" ng-click="User.post()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-checkmark"></i> </button>
     </ion-nav-buttons>
   </ion-nav-bar>
+  </ion-header-bar>
   <ion-content>
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854">
       <datasource  name="User" entity="api/cronapi/crud/app.entity.User" keys="id" rows-per-page="10" delete-message="Deseja remover?" class=""></datasource>
