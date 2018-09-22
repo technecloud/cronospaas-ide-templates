@@ -19,12 +19,8 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {
 
-    static {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-    }
-
-	public static void main(String[] args) throws Exception {
-		CronappApplication.run(args);
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootMain.class, args);
 	}
 
 }
