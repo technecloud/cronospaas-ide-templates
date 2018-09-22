@@ -11,34 +11,41 @@
           <div class="col-xs-12 col-sm-3 col-lg-4"></div>
           <div class="col-xs-12 col-sm-6 col-lg-4" data-container="true">
             <form class="form-validation" autocomplete="off" name="form" ng-submit="login()" role="form">
-                <div class="text-danger wrapper text-center" ng-show="authError"></div>
-                <div class="col-xs-12 col-md-9 col-md-push-1" data-container="true">
-                    <div class="form-group" data-container="true">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" ng-model="username.value" id="username" placeholder="{{'Login.view.Username' | translate}}">
-                        </div>
+              <div class="text-danger wrapper text-center" ng-show="authError"></div>
+              <div class="col-xs-12 col-md-9 col-md-push-1" data-container="true">
+                <div class="form-group" data-container="true">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                    <div style="padding: 0;" class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-446450">
+                      <div class="form-group">
+                        <input type="text" class="form-control" ng-model="username.value" id="username" mask="" mask-placeholder="" ng-required="false" placeholder="{{'Login.view.Username' | translate}}">
+                      </div>
                     </div>
+                  </div>
                 </div>
-                <div class="col-xs-12 col-md-9 col-md-push-1" data-container="true">
-                    <div class="form-group" data-container="true">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
-                            <input type="password" class="form-control" ng-model="password.value" id="password" placeholder="{{'Login.view.Password' | translate}}"> 
-                        </div>
+              </div>
+              <div class="col-xs-12 col-md-9 col-md-push-1" data-container="true">
+                <div class="form-group" data-container="true">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-unlock-alt" aria-hidden="true"></i></span>
+                    <div style="padding: 0;" class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-446450">
+                      <div class="form-group">
+                        <input type="password" class="form-control" ng-model="password.value" id="password" mask="" mask-placeholder="" ng-required="false" placeholder="{{'Login.view.Password' | translate}}">
+                      </div>
                     </div>
+                  </div>
                 </div>
-                <div class="col-xs-12 col-md-9 col-md-push-1" data-container="true">
-                    <div class="form-group" data-container="true">
-                        <div class="messages">
-                          <div ng-show="message.error" class="help-block">{{message.error}}</div> 
-                        </div>
-                    </div>
+              </div>
+              <div class="col-xs-12 col-md-9 col-md-push-1" data-container="true">
+                <div class="form-group" data-container="true">
+                  <div class="messages">
+                    <div ng-show="message.error" class="help-block">{{message.error}}</div>
+                  </div>
                 </div>
+              </div>
                 <div class="col-xs-12 col-md-9 col-md-push-1" data-container="true">
                     <div class="form-group" data-container="true">
                         <button type="submit" class="btn btn-primary btn-block" ng-disabled="form.$invalid || vm.dataLoading">{{"Login.view.Login" | translate}}</button>
-                        <!--<button class="btn btn-lg btn-primary btn-block" type="submit" ng-disabled="form.$invalid || vm.dataLoading">{{"Login.view.Login" | translate}}</button>-->
                     </div>
                 </div>
                 
