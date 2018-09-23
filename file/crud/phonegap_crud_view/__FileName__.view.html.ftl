@@ -121,14 +121,36 @@
             </#list>
             
             <!-- NtoN  -->
-            <#list model.formFieldsNToN as field>
-            <datasource name="${field.getName()}" entity="${model.dataSourceFullName}/{{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}}}/${field.getRelationName()}" append="false" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" lazy="true" auto-post="true" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}" dependent-lazy-post="${model.dataSourceName}" dependent-lazy-post-field="${model.dataSourceName?uncap_first}"></datasource>
-            <datasource name="All${field.getName()}" entity="${model.getDataSourceOfEntity(field.getName())}" keys="id" rows-per-page="100" enabled="{{${model.dataSourceName}.editing || ${model.dataSourceName}.inserting}}"></datasource>
-            <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
+            <#list model.formFieldsNToN as field>			
+			<#assign relationClassName = "">
+			<#assign dataSourceName = "">
+			<#assign keysDs = "">
+			<#if model.getManyToManyRelationship(field.getName())?? && model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz()??>
+				<#assign relationClassName = "${model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz()}">
+				<#if model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAjustedFullPrimaryKeys()??>
+					<#assign keysDs = "${model.getJoinKeys(model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAjustedFullPrimaryKeys())}">
+				</#if>
+			</#if>
+			<datasource 
+				data-component="crn-datasource" 
+				name="${relationClassName}" 
+				entity="${model.namespace}.${relationClassName}" 
+				keys="${keysDs}" 
+				dependent-lazy-post="${model.dataSourceName}" 
+				rows-per-page="100" 
+				parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}">
+			</datasource>
+			<datasource 
+				data-component="crn-datasource" 
+				name="All${field.getName()}" 
+				entity="${model.namespace}.${field.getName()}" 
+				keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}">
+			</datasource>			
+			<#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
             <label class="item item-input item-select component-holder" data-component="crn-multiselect" > 
               <span>${field.getName()?cap_first}</span> 
               <select 
-                ng-model="${field.getName()}.data" 
+                ng-model="${relationClassName}.data" 
 				crn-datasource="All${field.getName()}"
                 multiple
                 id="multiselect-${field.name}" 
