@@ -75,10 +75,10 @@
             </ul>
         </li>
         <li data-toggle="collapse" data-target="#menu-sub-1" class="collapsed component-holder" data-component="crn-sidebar-item">
-            <a href="#/home" class="">
-                <i class="fa fa-lg fa-home"></i>
-                <span class="">{{"Home.view.Home" | translate}}</span>
-            </a>
+          <a href="#/home" class="dropdown-toggle" data-component = "crn-anchor" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-lg fa-home"></i>
+            <span>{{"Home.view.Home" | translate}}</span>
+          </a>
         </li>
         <li cronapp-security="visible : Administrators" data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-sub-5099" class="collapsed component-holder">
             <a href="javascript:void(0);" class="">
