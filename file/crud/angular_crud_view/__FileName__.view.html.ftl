@@ -418,7 +418,7 @@
                         </div>
                     </div>
                 <#else>
-					<h3 class="lead component-holder" data-component="crn-subtitle">${field.getName()?cap_first}</h3>
+					<h3 class="lead component-holder" data-component="crn-subtitle" xattr-position="text-left" class="text-left" id="crud-title-${model.random}" >${field.getName()?cap_first}</h3>
 					<div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}-${model.random}">
 						<#assign dataSourceName = "${relationClassName}">
 						<cron-grid options="${model.getGridOptions(relationClassName, dataSourceName, field)}" ng-model="${relationClassName}.data" class="" style=""></cron-grid>
