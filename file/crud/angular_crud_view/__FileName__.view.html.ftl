@@ -188,6 +188,10 @@
 							{{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
 						<#elseif (field.isTimestamp() || field.isDate() || field.isTime()) && model.hasCronappFramework()>
 							{{rowData.${field.name} | mask:'${field.getHtmlType()}'}}
+						<#elseif field.isNumber() >
+							{{rowData.${field.name} | mask:'number'}}
+						<#elseif field.isDecimal() >
+							{{rowData.${field.name} | mask:'money'}}
 						<#elseif field.isImage()>
 							<a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
 								<img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
