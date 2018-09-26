@@ -1,7 +1,7 @@
 from flask import Flask
 import os
 
-port = int(os.getenv('PORT', 10000))
+port = int(os.getenv('VCAP_APP_PORT', 10000))
 
 app = Flask(__name__)
 
