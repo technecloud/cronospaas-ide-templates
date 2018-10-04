@@ -14,7 +14,6 @@
     <version>1.0-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
     <build>
-        <resources/>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
