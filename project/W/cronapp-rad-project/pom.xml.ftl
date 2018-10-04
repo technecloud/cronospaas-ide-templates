@@ -14,20 +14,7 @@
     <version>1.0-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
     <build>
-        <resources>
-            <resource>
-                <directory>src/test/java</directory>
-                <includes>
-                    <include>**</include>
-                </includes>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-            </resource>
-        </resources>
+        <resources/>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
