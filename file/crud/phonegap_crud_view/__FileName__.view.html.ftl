@@ -18,6 +18,32 @@
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854">
       <datasource <#if model.hasColumnFilter()>filter=""</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="10" delete-message="Deseja remover?" class=""></datasource>
     </div>
+	
+  <#-- Para o filtro model.getGridFilterSearchable()="generalSearch" a regra está no componente "cron-list" -->
+  <#if model.hasCronappFramework() || model.hasSearchableFilter()>
+  <#if model.getGridFilterSearchable()=="specificSearch">
+	<#if model.hasSearchableFilter()>
+	<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="component-holder ng-binding ng-scope" data-component="crn-complex-search" >
+	  <fieldset class="list">
+	  <#list model.formFields as field>
+		<#if field.isSearchable()>
+		<div  data-component="crn-search" id="crn-search-${field.name}${model.random}">
+          <label class="item item-input" id="search-${field.name}${model.random}"><i class="icon ion-search placeholder-icon"></i>
+            <input type="text" ng-model="vars.search${field.name}" mask="${model.formMapMasks[field.name]}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" cronapp-filter-caseinsensitive="true" cronapp-filter-autopost="false" cronapp-filter-operator="=" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+          </label>
+		</div>
+		</#if>
+	  </#list>
+	    <button class="button button-dark component-holder" data-component="crn-filter-button" type="submit" cronapp-filter="" cronapp-filter-caseinsensitive="true" 
+	       xattr-size="" xattr-fullsize="" xattr-theme="btn-default" crn-datasource="${model.dataSourceName}" ng-click="" id="crn-button-search">
+		   <i class="ion ion-home"></i><span>{{"template.crud.search" | translate}}</span>
+	    </button> 
+	  </fieldset>
+	</div>
+	</#if>
+   </#if>
+   </#if>
+	
     <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
       <div class="component-holder ng-binding ng-scope" data-component="crn-ion-list" id="crn-ion-list-main">
         <cron-list id="ion-list-main" options="${model.getMobileAdvancedList(model.dataSourceName, model.dataSourceName, field)}"
