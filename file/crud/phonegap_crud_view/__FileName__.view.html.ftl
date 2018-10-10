@@ -123,7 +123,6 @@
               </#if>
             </#list>
 
-            <!-- NtoN  -->
             <#list model.formFieldsNToN as field>
               <#assign relationClassName = "">
               <#assign dataSourceName = "">
@@ -164,7 +163,6 @@
             </label>
               </#if>
             </#list>
-            <!-- NtoN  end-->
 
           </div>
         </fieldset>
