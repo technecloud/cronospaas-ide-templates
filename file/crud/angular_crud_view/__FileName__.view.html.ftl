@@ -188,8 +188,6 @@
 							{{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
 						<#elseif (field.isTimestamp() || field.isDate() || field.isTime()) && model.hasCronappFramework()>
 							{{rowData.${field.name} | mask:'${field.getHtmlType()}'}}
-						<#elseif field.isNumber() >
-							{{rowData.${field.name} | mask:'number'}}
 						<#elseif field.isDecimal() >
 							{{rowData.${field.name} | mask:'money'}}
 						<#elseif field.isImage()>
