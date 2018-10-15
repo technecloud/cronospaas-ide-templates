@@ -40,7 +40,7 @@
         </#list>
     </#if>
 </#if>
-<datasource data-component="crn-datasource" filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.namespace}.${model.dataSourceName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" class=""></datasource>
+<datasource data-component="crn-datasource" filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.namespace}.${model.dataSourceName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" class="" schema="${model.getDSSchema(model.dataSourceName)}"></datasource>
 
 <#if model.hasColumnFilter()>
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
@@ -244,7 +244,7 @@
                 <#assign currentType = "textinput">
                 <#if field.getProperty("ngOptions")??>
                     <#assign currentType = "enterprise-dynamic-combobox">
-                    <datasource data-component="crn-datasource" name="${field.type}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" dependent-by="{{${model.dataSourceName}}}"></datasource>
+                    <datasource data-component="crn-datasource" name="${field.type}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" dependent-by="{{${model.dataSourceName}}}" schema="${model.getDSSchema(field.type)}"></datasource>
                 </#if>
                 <#assign dataComponentType = "crn-${currentType}">
 				
@@ -406,11 +406,12 @@
 					keys="${keysDs}" 
 					dependent-lazy-post="${model.dataSourceName}" 
 					rows-per-page="100" 
-					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}">
+					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
+					schema="${model.getDSSchema(relationClassName)}">
 				</datasource>
 				
 				<#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
-					<datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getName()}" keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}"></datasource>
+					<datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getName()}" keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}" schema="${model.getDSSchema(field.getName())}"></datasource>
                     <div class="component-holder ng-binding ng-scope " data-component="crn-enterprise-combobox-multiple" ng-show="datasource.editing || datasource.inserting" >
                         <div class="form-group">
                             <label for="select-ui">${field.getName()?cap_first}</label>
@@ -474,7 +475,8 @@
 					keys="${model.dataSourcePrimaryKeys}" 
 					dependent-lazy-post="${model.dataSourceName}" 
 					rows-per-page="100" 
-					parameters="${model.getParametersDataSource(field)}">
+					parameters="${model.getParametersDataSource(field)}"
+					schema="${model.getDSSchema(field.getName())}">
 				</datasource>
 				<!-- teste -->
 				<#list field.getClazz().getFields() as gField>
@@ -482,7 +484,7 @@
 						<#if gField.isReverseRelation() || gField.isRelation() >
 							<#if (field.getDbFieldName() != gField.getDbFieldName())>
 								<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridCombo">
-				<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100"></datasource>
+				<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100" schema="${model.getDSSchema(gField.getRelationClazz().getName())}"></datasource>
 							</#if>
 						</#if>
 					</#if>
@@ -523,7 +525,7 @@
 								<#assign textField = "${model.getManyToManyRelationship(field.getFullType()).getRelationClass().getFirstStringFieldNonPrimaryKey().getName()}">
 							</#if>
 							
-							<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${relationClassName}" keys="${keyField}"></datasource>
+							<datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${relationClassName}" keys="${keyField}" schema="${model.getDSSchema(field.fullType)}"></datasource>
 							<div data-component="crn-enterprise-dynamic-combobox" id="modal-combo${field.getName()}-${model.random}" class="component-holder ng-binding ng-scope">
 								<div class="form-group">
 									<label for="combobox-modal-${field.getName()}${model.random}" class=""><#if field.label?has_content>${field.label}<#else>${field.name?capitalize}</#if></label>
@@ -562,7 +564,7 @@
                             <#if !model.hasCronappFramework()>
                                 <#if gField.isReverseRelation() >
                                     <#if (field.getDbFieldName() != gField.getDbFieldName())>
-										<datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100"></datasource>
+										<datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" schema="${model.getDSSchema(gField.getName()?capitalize)}"></datasource>
                                         <div data-component="crn-modal-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}-${model.random}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
                                                 <label for="combobox-modal-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
@@ -639,7 +641,7 @@
                                 <#if gField.isReverseRelation() || gField.isRelation() >
                                     <#if (field.getDbFieldName() != gField.getDbFieldName())>
 										<#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridForCombo">
-										<datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100"></datasource>
+										<datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" schema="${model.getDSSchema(gField.getRelationClazz().getName())}"></datasource>
 										<div data-component="crn-enterprise-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}-${model.random}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
                                                 <label for="combobox-modal-${gField.getName()}-${model.random}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
