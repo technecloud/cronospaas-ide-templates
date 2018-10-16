@@ -12,7 +12,6 @@
             "console": "none",
             "args": [
                 "runserver",
-                "0.0.0.0:10000"
                 "--noreload",
                 "--nothreading"
             ],
