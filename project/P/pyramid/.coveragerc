@@ -1,0 +1,3 @@
+[run]
+source = cronapp
+omit = cronapp/test*
