@@ -16,7 +16,7 @@
   </ion-header-bar>
   <ion-content>
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854">
-      <datasource <#if model.hasColumnFilter()>filter=""</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="10" delete-message="Deseja remover?" class=""></datasource>
+      <datasource <#if model.hasColumnFilter()>filter=""</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="10" delete-message="Deseja remover?" class="" schema="${model.getDSSchema(model.dataSourceName)}"></datasource>
     </div>
 	
   <#-- Para o filtro model.getGridFilterSearchable()="generalSearch" a regra está no componente "cron-list" -->
@@ -90,7 +90,7 @@
               <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             </label>
               <#elseif field.getProperty("ngOptions")??>
-            <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class=""></datasource>
+            <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" schema="${model.getDSSchema(field.getProperty("ngOptions").dataSourceName)}"></datasource>
             <label for="textinput-${field.name}" class="item item-input item-select component-holder" data-component="crn-dynamic-select" id="crn-dynamic-select-${field.name}">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
               <select crn-datasource="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}"
@@ -160,20 +160,22 @@
                   <#assign keysDs = "${model.getJoinKeys(model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAjustedFullPrimaryKeys())}">
                 </#if>
               </#if>
-			<datasource
+	   <datasource
           data-component="crn-datasource"
           name="${relationClassName}"
           entity="${model.namespace}.${relationClassName}"
           keys="${keysDs}"
           dependent-lazy-post="${model.dataSourceName}"
           rows-per-page="100"
-          parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}">
+          parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
+		  schema="${model.getDSSchema(relationClassName)}">
       </datasource>
-			<datasource
+	  <datasource
           data-component="crn-datasource"
           name="All${field.getName()}"
           entity="${model.namespace}.${field.getName()}"
-          keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}">
+          keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}"
+		  schema="${model.getDSSchema(field.getName())}">
       </datasource>
               <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
             <label class="item item-input item-select component-holder" data-component="crn-multiselect" >
