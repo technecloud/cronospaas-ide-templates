@@ -5,11 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "chrome",
+            "type": "node",
             "request": "launch",
-            "name": "Launch Chrome",
-            "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}"
+            "name": "Launch via NPM",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "debug"
+            ],
+            "port": 9229
         }
     ]
 }
