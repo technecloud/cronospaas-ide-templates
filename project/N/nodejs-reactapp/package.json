@@ -9,6 +9,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "debug": "node --inspect",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
