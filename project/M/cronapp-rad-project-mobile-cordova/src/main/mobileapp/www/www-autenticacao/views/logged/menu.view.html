@@ -1,35 +1,41 @@
 <ion-view>
-  <ion-header-bar align-title="center" class="bar bar-stable" xattr-theme="bar-stable" data-component="crn-ion-header-bar">
-    <h1 class="title">Menu</h1>
-  </ion-header-bar>
-  <ion-content data-container="true" data-component="crn-ion-content" class="has-footer has-header">
-    <ion-list class=" disable-user-behavior list">
-      <!-- Menu -->
-      <div class="component-holder" data-component="crn-navbar" id="crn-navbar-986427">
-        <div class="nav navbar-nav">
-          <a class="item item-avatar-left component-holder" xattr-position="item-avatar-left" href="" data-component="crn-list-item-avatar" id="crn-list-item-avatar-119775"><img src="img/nophoto.png" class="component-holder" data-component="crn-image" id="crn-image-1002213">
-            <div class="item-content text-left" xattr-text-position="text-left">
-              <h2 class="dark" xattr-theme="dark">{{session.user.name}}</h2>
-              <h3 class="dark" xattr-theme="dark">{{session.user.username}}</h3>
-            </div></a>
-          <a class="item item-icon-left component-holder" xattr-position="item-icon-left" href="#/app/logged/home" data-component="crn-list-item-icon" id="crn-list-item-icon29401"><i class="icon dark ion ion-home" xattr-theme="dark" style="font-size: 150%;" xattr-icon-size="font-size:150%;"></i>
-            <div class="item-content text-left" xattr-text-position="text-left">
-              <h2 class="dark" xattr-theme="dark">{{ "Home.view.Home" | translate }}</h2>
-            </div></a><a class="item item-icon-left component-holder" xattr-position="item-icon-left" href="#/app/logged/user" data-component="crn-list-item-icon" id="crn-list-item-icon30011"><i class="icon dark ion ion-person" xattr-theme="dark" style="font-size: 150%;" xattr-icon-size="font-size:150%;"></i>
-          <div class="item-content text-left" xattr-text-position="text-left">
-            <h2 class="dark" xattr-theme="dark">{{ "Users.view.Users" | translate }}</h2>
-          </div></a>
-          <a class="item item-icon-left component-holder" xattr-position="item-icon-left" href="#/app/home" data-component="crn-list-item-icon" id="crn-list-item-icon45041" ng-click="openChangePassword()"><i class="icon dark ion ion-lock-combination" xattr-theme="dark" style="font-size: 150%;" xattr-icon-size="font-size:150%;"></i>
-            <div class="item-content text-left" xattr-text-position="text-left">
-              <h2 class="dark" xattr-theme="dark">{{"Home.view.ChangePassword" | translate}}</h2>
-            </div></a>
-          <a class="item item-icon-left component-holder" xattr-position="item-icon-left" href="#" data-component="crn-list-item-icon" id="crn-list-item-icon46721" ng-click="logout()"><i class="icon dark ion ion-arrow-left-a" xattr-theme="dark" style="font-size: 150%;" xattr-icon-size="font-size:150%;"></i>
-            <div class="item-content text-left" xattr-text-position="text-left">
-              <h2 class="dark" xattr-theme="dark">{{"Home.view.Sair" | translate}}</h2>
-            </div></a>
-        </div>
-      </div>
-      <!-- Menu -->
-    </ion-list>
-  </ion-content>
+    <ion-header-bar align-title="center" class="bar bar-stable" xattr-theme="bar-stable" data-component="crn-ion-header-bar">
+        <h1 class="title">Menu</h1>
+    </ion-header-bar>
+    <ion-content data-container="true" data-component="crn-ion-content" class="has-footer has-header">
+        <ion-list class=" disable-user-behavior list">
+            <!-- Menu -->
+            <div class="component-holder" data-component="crn-navbar" id="crn-navbar-986427">
+                <div class="nav navbar-nav">
+                    <a menu-close class="item item-avatar-left component-holder" xattr-position="item-avatar-left" href="" data-component="crn-list-item-avatar" id="crn-list-item-avatar-119775"><img src="img/nophoto.png" class="component-holder" data-component="crn-image" id="crn-image-1002213">
+                        <div class="item-content text-left" xattr-text-position="text-left">
+                            <h2 class="dark" xattr-theme="dark">{{session.user.name}}</h2>
+                            <h3 class="dark" xattr-theme="dark">{{session.user.username}}</h3>
+                        </div>
+                    </a>
+                    <a menu-close class="item item-icon-left component-holder" xattr-position="item-icon-left" href="#/app/logged/home" data-component="crn-list-item-icon" id="crn-list-item-icon29401"><i class="icon dark ion ion-home" xattr-theme="dark" style="font-size: 150%;" xattr-icon-size="font-size:150%;"></i>
+                        <div class="item-content text-left" xattr-text-position="text-left">
+                            <h2 class="dark" xattr-theme="dark">{{ "Home.view.Home" | translate }}</h2>
+                        </div>
+                    </a>
+                    <a menu-close class="item item-icon-left component-holder" xattr-position="item-icon-left" href="#/app/logged/user" data-component="crn-list-item-icon" id="crn-list-item-icon30011"><i class="icon dark ion ion-person" xattr-theme="dark" style="font-size: 150%;" xattr-icon-size="font-size:150%;"></i>
+                        <div class="item-content text-left" xattr-text-position="text-left">
+                            <h2 class="dark" xattr-theme="dark">{{ "Users.view.Users" | translate }}</h2>
+                        </div>
+                    </a>
+                    <a menu-close class="item item-icon-left component-holder" xattr-position="item-icon-left" href="#/app/home" data-component="crn-list-item-icon" id="crn-list-item-icon45041" ng-click="openChangePassword()"><i class="icon dark ion ion-lock-combination" xattr-theme="dark" style="font-size: 150%;" xattr-icon-size="font-size:150%;"></i>
+                        <div class="item-content text-left" xattr-text-position="text-left">
+                            <h2 class="dark" xattr-theme="dark">{{"Home.view.ChangePassword" | translate}}</h2>
+                        </div>
+                    </a>
+                    <a menu-close class="item item-icon-left component-holder" xattr-position="item-icon-left" href="#" data-component="crn-list-item-icon" id="crn-list-item-icon46721" ng-click="logout()"><i class="icon dark ion ion-arrow-left-a" xattr-theme="dark" style="font-size: 150%;" xattr-icon-size="font-size:150%;"></i>
+                        <div class="item-content text-left" xattr-text-position="text-left">
+                            <h2 class="dark" xattr-theme="dark">{{"Home.view.Sair" | translate}}</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- Menu -->
+        </ion-list>
+    </ion-content>
 </ion-view>
