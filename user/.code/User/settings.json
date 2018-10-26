@@ -1,6 +1,4 @@
 {
   "editor.fontLigatures": true,
-  "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
-  "editor.fontSize": 12,
-  "workbench.colorTheme": "Darcula Theme from IntelliJ"
+  "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace"
 }
