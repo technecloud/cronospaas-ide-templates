@@ -1,5 +1,6 @@
 {
   "editor.fontLigatures": true,
   "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
-  "workbench.colorTheme": "Winter is Coming (Dark)"
+  "editor.fontSize": 12,
+  "workbench.colorTheme": "Darcula Theme from IntelliJ"
 }
