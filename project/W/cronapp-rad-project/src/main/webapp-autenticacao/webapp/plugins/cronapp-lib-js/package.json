@@ -1,0 +1,24 @@
+{
+    "name": "cronapp-lib-js",
+    "version": "0.0.1-d",
+    "description": "Javascript library for CronApp's projects",
+    "main": "cronapp.lib.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CronApp/cronapp-lib-js.git"
+    },
+    "author": "Tiago Romano",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/CronApp/cronapp-lib-js/issues"
+    },
+    "homepage": "https://github.com/CronApp/cronapp-lib-js#readme",
+    "keywords": [
+        "cronapp",
+        "cronapp-lib",
+        "javascript"
+    ]
+}
