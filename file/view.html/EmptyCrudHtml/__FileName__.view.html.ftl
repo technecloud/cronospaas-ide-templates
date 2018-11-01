@@ -7,7 +7,7 @@
     <button data-component="crn-button" id="crn-button-564202" class="btn btn-primary form-group" type="submit" onclick="" ng-click="Data.startInserting()" ng-hide="Data.inserting || Data.editing"><i class="fa fa-user"></i> <span>{{"template.crud.new" | translate}}</span></button>
   </div>
 </div>
-<div class="component-holder ng-binding ng-scope" data-component="crn-textinput" id="crn-textinput-979039" ng-hide="Data.inserting || Data.editing">
+<div class="component-holder ng-binding ng-scope" data-component="crn-textinput" id="crn-textinput-${model.random}" ng-hide="Data.inserting || Data.editing">
   <div class="form-group">
     <input type="text" ng-model="vars.search" class="form-control" id="search-id" placeholder="Buscar..." ng-change="Data.searchAll(vars.search)">
   </div>

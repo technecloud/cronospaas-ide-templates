@@ -27,8 +27,8 @@
 	  <fieldset class="list">
 	  <#list model.formFields as field>
 		<#if field.isSearchable()>
-		<div  data-component="crn-search" id="crn-search-${field.name}${model.random}">
-          <label class="item item-input" id="search-${field.name}${model.random}"><i class="icon ion-search placeholder-icon"></i>
+		<div  data-component="crn-search" id="crn-search-${field.name}-${model.random}">
+          <label class="item item-input" id="search-${field.name}-${model.random}"><i class="icon ion-search placeholder-icon"></i>
             <input type="text" ng-model="vars.search${field.name}" mask="${model.formMapMasks[field.name]}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" cronapp-filter-caseinsensitive="true" cronapp-filter-autopost="false" cronapp-filter-operator="=" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
           </label>
 		</div>
@@ -75,17 +75,17 @@
               <input type="date" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
               <#elseif (field.isTimestamp())>
-            <label id="crn-input-${field.name}" class="item item-input item-floating-label component-holder" data-component="crn-input-floating">
+            <label id="crn-input-${field.name}-${model.random}" class="item item-input item-floating-label component-holder" data-component="crn-input-floating">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
               <input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
               <#elseif (field.isTimestamp())>
-            <label id="crn-input-${field.name}" class="item item-input item-floating-label component-holder" data-component="crn-input-floating">
+            <label id="crn-input-${field.name}-${model.random}" class="item item-input item-floating-label component-holder" data-component="crn-input-floating">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
               <input type="datetime-local" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
               <#elseif field.isNumber() >
-            <label id="crn-input-inline-${field.name}" class="item item-input component-holder" data-component="crn-input-inline">
+            <label id="crn-input-inline-${field.name}-${model.random}" class="item item-input component-holder" data-component="crn-input-inline">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
               <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             </label>
