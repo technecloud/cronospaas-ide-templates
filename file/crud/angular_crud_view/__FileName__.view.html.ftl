@@ -1,7 +1,4 @@
-<h3><#if model.realName ?has_content >${model.realName}<#else>${model.dataSourceName}</#if></h3>
-
-<!-- div row para pesquisa -->
-<!--<div class="row">-->
+<h3 class="lead component-holder text-left"><#if model.realName ?has_content >${model.realName}<#else>${model.dataSourceName}</#if></h3>
 
 <#assign filterSearch = "">
 <#if model.initialFilter??>
@@ -46,7 +43,7 @@
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
     <div class="form-group">
         <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
-        <input type="text" ng-model="query" class="form-control" value="%" placeholder="{{'template.crud.search' | translate}}">
+        <input type="text" id="textinput-filter" class="form-control k-textbox" ng-model="query" value="%" placeholder="{{'template.crud.search' | translate}}">
     </div>
 </div>
 <#elseif model.hasCronappFramework() || model.hasSearchableFilter()>
@@ -64,7 +61,7 @@
             <#else>
                 <#assign fieldsString = "${model.getFirstFieldStringNotPk().getName()};">
             </#if>
-            <input type="text" ng-model="vars.search" cronapp-filter="${fieldsString}" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+            <input type="text" ng-model="vars.search" id="textinput-filter" class="form-control k-textbox" cronapp-filter="${fieldsString}" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" value="" placeholder="{{'template.crud.search' | translate}}">
         </div>
     </div>
     <#elseif model.getGridFilterSearchable()=="specificSearch">
@@ -75,14 +72,19 @@
                 <#if field.isSearchable()>
                 <div  data-component="crn-datasource-filter" id="crn-datasource-filter-${field.name}-${model.random}" class="">
                     <div class="form-group">
-                        <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-                        <input type="${field.getHtmlType()}" ng-model="vars.search_${field.name}" mask="${model.formMapMasks[field.name]}" mask-placeholder="" cronapp-filter="${field.name}" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="false" cronapp-filter-operator="" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+					  <#if field.isBoolean() >
+                        <input type="checkbox" id="checkbox-filter-${field.name}" ng-model="${field.name}" class="k-checkbox" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+                        <label for="checkbox-filter-${field.name}" class="k-checkbox-label">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
+					  <#else>			
+                        <label for="textinput-filter-${field.name}" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
+                        <input type="${field.getHtmlType()}" id="textinput-filter-${field.name}" class="form-control k-textbox" ng-model="vars.search_${field.name}" mask="${model.formMapMasks[field.name]}" mask-placeholder="" cronapp-filter="${field.name}" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="false" cronapp-filter-operator="" crn-datasource="${model.dataSourceName}" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+					  </#if>
                     </div>
                 </div>
                 </#if>
             </#list>
               <div data-component="crn-button-filter" class="" crn-datasource="${model.dataSourceName}">
-                <button class="btn btn-default component-holder" cronapp-filter="" data-component="crn-button-filter" type="submit" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default"><i class="glyphicon glyphicon-search"></i> <span>{{"template.crud.search" | translate}}</span></button>
+                <button class="btn btn-default component-holder k-button" cronapp-filter="" data-component="crn-button-filter" type="submit" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default"><i class="glyphicon glyphicon-search"></i> <span>{{"template.crud.search" | translate}}</span></button>
               </div>
               <br/>
               </fieldset>
@@ -91,7 +93,7 @@
         <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${model.getFirstFieldStringNotPk().name}-${model.random}" class="">
             <div class="form-group">
                 <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[model.getFirstFieldStringNotPk().name]!}</label>
-                <input type="text" cronapp-filter="${model.getFirstFieldStringNotPk().name}" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" class="form-control" value="" placeholder="<#if model.getFirstFieldStringNotPk().label?has_content>${model.getFirstFieldStringNotPk().label}<#else>${model.getFirstFieldStringNotPk().name}</#if>">
+                <input id="textinput-filter" type="text" class="form-control k-textbox" cronapp-filter="${model.getFirstFieldStringNotPk().name}" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" value="" placeholder="<#if model.getFirstFieldStringNotPk().label?has_content>${model.getFirstFieldStringNotPk().label}<#else>${model.getFirstFieldStringNotPk().name}</#if>">
             </div>
         </div>
         </#if>
@@ -101,7 +103,7 @@
     <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
         <div class="form-group">
             <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
-            <input type="text" ng-model="vars.search" class="form-control" value="" placeholder="{{'template.crud.search' | translate}}">
+            <input type="text" ng-model="vars.search" id="textinput-filter" class="form-control k-textbox" value="" placeholder="{{'template.crud.search' | translate}}">
         </div>
     </div>
     <#else>
@@ -113,7 +115,7 @@
                         <div class="component-holder ng-binding ng-scope" data-component="crn-datepicker" id="crn-datepicker-${model.random}">
                             <div class="form-group">
                                 <div style="position:relative">
-                                    <input type="text" as-date="" class="form-control"
+                                    <input type="text" as-date="" class="form-control k-textbox" id="datepicker-filter-${field.name}"
                                         <#if field.isDate() >
                                            format="DD/MM/YYYY"
                                         <#elseif field.isTime()>
@@ -129,22 +131,22 @@
                 <#elseif (field.isNumber() || field.isDecimal()) >
                     <div class="">
                         <div class="form-group">
-                            <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-                            <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+                            <label for="textinput-filter-${field.name}" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
+                            <input type="number" id="textinput-filter-${field.name}" class="form-control k-textbox" <#if field.isDecimal()>step="0.01"</#if> ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
                         </div>
                     </div>
                 <#elseif field.isBoolean() >
                     <div class="">
                         <div class="form-group">
-                            <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-                            <input type="checkbox" ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+                            <input type="checkbox" id="checkbox-filter-${field.name}" ng-model="${field.name}" class="k-checkbox" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+                            <label for="checkbox-filter-${field.name}" class="k-checkbox-label">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
                         </div>
                     </div>
                 <#else>
                     <div class="">
                         <div class="form-group">
                             <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
-                            <input type="text" <#if field.getLength()??>maxlength="${field.getLength()}"</#if> ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
+                            <input type="text" id="textinput-filter-${field.name}" class="form-control k-textbox" <#if field.getLength()??>maxlength="${field.getLength()}"</#if> ng-model="${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
                         </div>
                     </div>
                 </#if>
@@ -155,16 +157,16 @@
 </#if>
 
 <div data-component="crn-button" id="crn-button-${model.random}" class="">
-    <button class="btn btn-primary" type="submit" onclick="" data-component="crn-button" id="btn-crud-new${model.random}" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button>
+    <button class="btn btn-primary k-button k-primary" type="submit" onclick="" data-component="crn-button" id="btn-crud-new${model.random}" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><i class="fa fa-user"></i> <span class="">{{"template.crud.new" | translate}}</span></button>
 </div>
 <!-- fim div row para pesquisa -->
 <!--</div>-->
 
-<div class="component-holder" data-component="crn-grid" id="crn-grid-${model.dataSourceName}-${model.random}">
+<div class="component-holder ng-binding ng-scope" data-component="crn-grid" id="crn-grid-${model.dataSourceName}-${model.random}">
     <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
-        <table class="table  table-bordered table-hover table-striped">
+        <table class="table table-hover">
             <thead>
-            <tr class="table-header">
+            <tr class="">
             <#list model.gridFields as field>
                 <th class="">
                     <div class="">${model.formMapLabels[field.name]!?cap_first}</div>
@@ -176,7 +178,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="table-content" ng-repeat="rowData in datasource.data">
+            <tr class="" ng-repeat="rowData in datasource.data">
             <#list model.gridFields as field>
                 <td class="">
                     <div class="">
@@ -196,11 +198,11 @@
 							</a>
 						<#elseif field.isFile()>
 							<#if model.hasCronappFramework()>
-								<button ng-if="rowData.${field.name}" class="btn btn-sm" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
+								<button ng-if="rowData.${field.name}" class="btn btn-sm k-button" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
 									<span class="glyphicon glyphicon-download-alt"></span>
 								</button>
 							<#else>
-								<button class="btn btn-sm" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
+								<button class="btn btn-sm k-button" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
 									<span class="glyphicon glyphicon-download-alt"></span>
 								</button>
 							</#if>
@@ -212,15 +214,15 @@
             </#list>
                 <td class="">
                     <div class="">
-                        <button class="btn btn-default btn-sm" data-component="crn-button" type="submit" id="btn_crud_edit${model.random}" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i><span></span></button>
-                        <button class="btn btn-default btn-sm" data-component="crn-button" type="submit" id="btn_remove_edit${model.random}" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i><span></span></button>
+                        <button class="btn btn-default btn-sm k-button" data-component="crn-button" type="submit" id="btn_crud_edit${model.random}" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i><span></span></button>
+                        <button class="btn btn-default btn-sm k-button" data-component="crn-button" type="submit" id="btn_remove_edit${model.random}" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i><span></span></button>
                     </div>
                 </td>
             </tr>
             </tbody>
         </table>
         <div class="table-footer-controls">
-            <button class="btn btn-default btn-block btn-clicked" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
+            <button class="btn btn-default btn-block btn-clicked k-button" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
         </div>
     </div>
 </div>
@@ -228,15 +230,15 @@
     <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
         <form crn-datasource="${model.dataSourceName}" class="">
             <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
-                <button class="btn btn-primary" data-component="crn-button" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
-                <button class="btn btn-success" data-component="crn-button" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
-                <button class="btn btn-primary" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
-                <button class="btn btn-primary" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
-                <button class="btn btn-primary" data-component="crn-button" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
+                <button class="btn btn-primary btn-button k-primary" data-component="crn-button" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
+                <button class="btn btn-button k-button" data-component="crn-button" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
+                <button class="btn btn-primary btn-button k-primary" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
+                <button class="btn btn-primary btn-button k-primary" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
+                <button class="btn btn-primary btn-button k-primary" data-component="crn-button" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
             </div>
             <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting">
-                <button class="btn btn-success" id="btn_crud_post${model.random}" data-component="crn-button" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i><span></span></button>
-                <button class="btn btn-danger" id="btn_crud_cancel${model.random}" data-component="crn-button" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i><span></span></button>
+                <button class="btn btn-success k-button k-primary" id="btn_crud_post${model.random}" data-component="crn-button" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i><span></span></button>
+                <button class="btn btn-danger k-button" id="btn_crud_cancel${model.random}" data-component="crn-button" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i><span></span></button>
             </div>
             <br/>
             <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
@@ -267,7 +269,7 @@
                                 <input type="checkbox" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
 								<label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
                             <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
-								<input type="text" as-date
+								<input type="text" as-date class="form-control k-textbox" 
 									<#if field.isDate()>
 									   format="DD/MM/YYYY"
 									<#elseif field.isTime()>
@@ -277,7 +279,7 @@
 									</#if>
 									   ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
                             <#elseif (field.isNumber() || field.isDecimal())  >
-                                <input type="number" <#if field.isDecimal()>step="0.01"</#if> ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+                                <input type="number" class="form-control k-textbox" <#if field.isDecimal()>step="0.01"</#if> ng-model="${model.dataSourceName}.active.${field.name}" class="form-control" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
                             <#elseif field.getProperty("ngOptions")?? >
                                 <ui-select ng-model="${model.dataSourceName}.active.${field.name}" crn-datasource="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" class="crn-select" id="${currentType}-${field.name}" <#if !field.isNullable()>required="required"</#if> theme="bootstrap">
                                     <ui-select-match class="" placeholder="Select...">
@@ -318,7 +320,7 @@
                                     </#if>
                                             type="<#if field.isEncryption()>password<#else>text</#if>"
                                             ng-model="${model.dataSourceName}.active.${field.name}"
-                                            class="form-control"
+                                            class="form-control k-textbox" 
                                             id="${currentType}-${field.name}"
                                             placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
                                     <#if model.formMapMasks[field.name]?has_content>
@@ -366,7 +368,7 @@
                                     </#if>
                                             type="<#if field.isEncryption()>password<#else>${field.getHtmlType()}</#if>"
                                             ng-model="${model.dataSourceName}.active.${field.name}"
-                                            class="form-control"
+                                            class="form-control k-textbox" 
                                             id="${currentType}-${field.name}"
                                             placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
                                             mask="${model.formMapMasks[field.name]}"
@@ -421,7 +423,7 @@
                         </div>
                     </div>
                 <#else>
-					<h3 class="lead component-holder text-left" data-component="crn-subtitle" xattr-position="text-left" id="crud-title-${model.random}" >${field.getName()?cap_first}</h3>
+					<h3 class="lead component-holder text-left col-md-12" data-component="crn-subtitle" xattr-position="text-left" id="crud-title-${model.random}" >${field.getName()?cap_first}</h3>
 					<div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}-${model.random}">
 						<#assign dataSourceName = "${relationClassName}">
 						<cron-grid options="${model.getGridOptions(relationClassName, dataSourceName, field)}" ng-model="${relationClassName}.data" class="" style=""></cron-grid>
@@ -489,7 +491,7 @@
 						</#if>
 					</#if>
 				</#list>
-				<h3 class="lead component-holder" data-component="crn-subtitle"><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h3>				
+				<h3 class="lead component-holder text-left col-md-12" data-component="crn-subtitle"><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h3>				
 				<div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}Grid-${model.random}">
 					<#assign classname = "${field.clazz.name}">
 					<#assign dataSourceName = "${classname}Grid">
@@ -593,7 +595,7 @@
                                                 <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}"  id="textinput-modal-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                                             <#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
                                                 <div style="position:relative">
-                                                    <input type="text" as-date
+                                                    <input type="text" as-date class="form-control k-textbox" 
                                                         <#if gField.isDate() >
                                                            format="DD/MM/YYYY"
                                                         <#elseif gField.isTime()>
@@ -604,7 +606,7 @@
                                                            ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-modal-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                                                 </div>
                                             <#elseif (gField.isNumber() || gField.isDecimal()) >
-                                                <input type="number" <#if gField.isDecimal()>step="0.01"</#if> ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-modal-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                                                <input type="number" <#if gField.isDecimal()>step="0.01"</#if> ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control k-textbox" id="textinput-modal-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                                             <#elseif gField.isImage()>
                                                 <div class="form-group upload-image-component" ngf-drop ngf-drag-over-class="dragover">
                                                     <img style="max-height: 128px; max-width: 128px;"
@@ -632,7 +634,7 @@
                                                     <#if gField.getLength()??>
                                                        maxlength="${gField.getLength()}"
                                                     </#if>
-                                                       ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control" id="textinput-modal-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
+                                                       ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control k-textbox" id="textinput-modal-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if model.formMapRelationFieldMasks[gField.name]?has_content>mask="${model.formMapRelationFieldMasks[gField.name]}"</#if> <#if !gField.isNullable()>required="required"</#if>>
                                             </#if>
                                         </div>
                                     </div>
@@ -687,7 +689,7 @@
                                                     <#if gField.getLength()??>
                                                        maxlength="${gField.getLength()?string["0"]}"
                                                     </#if>
-                                                       ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control"
+                                                       ng-model="${field.getName()}Grid.active.${gField.getName()}" class="form-control k-textbox" 
                                                        id="textinput-modal-${gField.getDbFieldName()}"
                                                        placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>"
                                                        mask="${model.formMapRelationFieldMasks[gField.name]}"
