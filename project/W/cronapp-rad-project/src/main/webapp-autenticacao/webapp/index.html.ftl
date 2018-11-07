@@ -16,7 +16,7 @@
   <#if !(theme??) || theme=="">
   <link id="themeSytleSheet" rel="stylesheet" href="">
   <#else>
-  <link id="themeSytleSheet" rel="stylesheet" href="plugins/cronapp-framework-js/css/themes/${theme?lower_case}.min.css">
+  <link id="themeSytleSheet" rel="stylesheet" href="plugins/cronapp-framework-js/css/themes/material.min.css">
   </#if>
   <script src="js/customModules.js"></script>
   <link rel="stylesheet" href="css/app.css" />
