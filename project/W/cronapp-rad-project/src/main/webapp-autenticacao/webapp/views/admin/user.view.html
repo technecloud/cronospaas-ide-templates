@@ -6,30 +6,30 @@
   <button class="btn btn-primary k-button" data-component="crn-button" type="submit" onclick="" ng-click="User.startInserting()" ng-hide="User.inserting || User.editing"><span class="k-icon k-i-plus"></span>{{"template.crud.new" | translate}}</button> 
 </div> 
 <div class="component-holder" data-component="crn-grid" id="crn-grid-User"> 
-  <div crn-datasource="User" class="" ng-hide="User.editing || User.inserting"> 
-    <table class="table  table-bordered table-hover table-striped"> 
+  <div crn-datasource="User" class="k-grid k-widget k-display-block k-grid-content" ng-hide="User.editing || User.inserting"> 
+    <table class=""> 
       <thead> 
-        <tr class="table-header"> 
-          <th class=""> 
+        <tr class="k-grid-header"> 
+          <th class="k-header"> 
             <div class="">
               Email
             </div> </th> 
-          <th class=""> 
+          <th class="k-header"> 
             <div class="">
               Nome
             </div> </th> 
-          <th class=""> 
+          <th class="k-header"> 
             <div class="">
               Login
             </div> </th> 
-          <th class=""> 
+          <th class="k-header"> 
             <div class="">
               {{"template.crud.actions" | translate}}
             </div> </th> 
         </tr> 
       </thead> 
       <tbody> 
-        <tr class="table-content" ng-repeat="rowData in datasource.data"> 
+        <tr class="" ng-repeat="rowData in datasource.data"> 
           <td class=""> 
             <div class="">
                {{rowData.email}} 
@@ -54,7 +54,9 @@
       <button class="btn btn-default btn-block btn-clicked k-button" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button> 
     </div> 
   </div> 
+   
 </div> 
+
 <div data-component="crn-form" id="crn-form-form-User"> 
   <div class="form" ng-show="User.editing || User.inserting"> 
     <form crn-datasource="User" class=""> 
@@ -80,19 +82,19 @@
         <div data-component="crn-textinput" id="crn-textinput-name"> 
           <div class="form-group"> 
             <label for="textinput-name" class="">Nome</label> 
-            <input type="text" ng-model="User.active.name" class="form-control k-textbox" id="textinput-name" placeholder="Nome" required> 
+            <input type="text" ng-model="User.active.name" class="form-control k-textbox" id="textinput-name" placeholder="Nome" required=""> 
           </div> 
         </div> 
         <div data-component="crn-textinput" id="crn-textinput-login"> 
           <div class="form-group"> 
             <label for="textinput-login" class="">Login</label> 
-            <input type="text" ng-model="User.active.login" class="form-control k-textbox" id="textinput-login" placeholder="Login" required> 
+            <input type="text" ng-model="User.active.login" class="form-control k-textbox" id="textinput-login" placeholder="Login" required=""> 
           </div> 
         </div> 
         <div data-component="crn-textinput" id="crn-textinput-password"> 
           <div class="form-group"> 
             <label for="textinput-password" class="">Senha</label> 
-            <input type="password" ng-model="User.active.password" class="form-control k-textbox" id="textinput-password" placeholder="Senha" required> 
+            <input type="password" ng-model="User.active.password" class="form-control k-textbox" id="textinput-password" placeholder="Senha" required=""> 
           </div> 
         </div> 
         <!-- NtoN  --> 
@@ -107,22 +109,23 @@
         <div data-component="crn-datasource" class="component-holder"> 
           <datasource filter="" name="RoleGrid" enabled="{{User.editing || User.inserting}}" entity="api/cronapi/crud/app.entity.User/{{User.active.id}}/relation:user:Role" keys="id,user.id" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="User" dependent-lazy-post-field="user"></datasource> 
         </div> 
-        <button class="btn btn-primary k-button" data-component="crn-button" onclick="$('#modalRoleGrid').modal('show');" ng-click="RoleGrid.startInserting();"><span class="k-icon k-i-plus"></span>{{"Add" | translate}} Função</button> 
+        <button class="btn btn-primary k-button" data-component="crn-button" onclick="$('#modalRoleGrid').modal('show');" ng-click="RoleGrid.startInserting();"><span class="k-icon k-i-plus"></span>{{"Add" | translate}} {{"Admin.view.Role" | translate}}</button>
+        <h2 class="lead component-holder text-left" xattr-position="text-left" data-component="crn-subtitle" id="crn-subtitle-931646">{{"Admin.view.Roles" | translate}}</h2> 
         <!--search 1toN--> 
         <!-- seach 1toN end--> 
+        
         <div data-component="crn-textinput" id="crn-textinput-descricao"> 
           <div class="form-group"> 
-            <label for="textinput-descricao" class="">Funções</label> 
             <div class="component-holder" data-component="crn-grid" id="crn-grid-RoleGrid"> 
-              <div crn-datasource="RoleGrid"> 
-                <table class="table table-bordered table-hover table-striped"> 
+              <div crn-datasource="RoleGrid" class="k-grid k-widget k-display-block k-grid-content"> 
+                <table class=""> 
                   <thead> 
-                    <tr class="table-header"> 
-                      <th class=""> 
+                    <tr class="k-grid-header"> 
+                      <th class="k-header"> 
                         <div class="">
-                          Função
+                          {{"Admin.view.Role" | translate}}
                         </div> </th> 
-                      <th class=""> 
+                      <th class="k-header"> 
                         <div class="">
                            {{"template.crud.actions" | translate}} 
                         </div> </th> 
@@ -151,6 +154,7 @@
         <!-- OneToOne  end --> 
       </fieldset> 
     </form> 
+     
   </div> 
 </div> 
 <div class="modal fade" id="modalRoleGrid"> 
