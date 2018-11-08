@@ -7,9 +7,9 @@
 </div> 
 <div class="component-holder" data-component="crn-grid" id="crn-grid-User"> 
   <div crn-datasource="User" class="" ng-hide="User.editing || User.inserting"> 
-    <table class="table  table-bordered table-hover table-striped"> 
+    <table class="table table-hover"> 
       <thead> 
-        <tr class="table-header"> 
+        <tr class=""> 
           <th class=""> 
             <div class="">
               Email
@@ -29,7 +29,7 @@
         </tr> 
       </thead> 
       <tbody> 
-        <tr class="table-content" ng-repeat="rowData in datasource.data"> 
+        <tr class="" ng-repeat="rowData in datasource.data"> 
           <td class=""> 
             <div class="">
                {{rowData.email}} 
@@ -60,7 +60,7 @@
     <form crn-datasource="User" class=""> 
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
         <button class="btn btn-primary k-button" data-component="crn-button" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
-        <button class="btn btn-success k-button" data-component="crn-button" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
+        <button class="btn btn-button k-button" data-component="crn-button" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
         <button class="btn btn-primary k-button" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
         <button class="btn btn-primary k-button" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
         <button class="btn btn-primary k-button" data-component="crn-button" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
@@ -115,9 +115,9 @@
             <label for="textinput-descricao" class="">Funções</label> 
             <div class="component-holder" data-component="crn-grid" id="crn-grid-RoleGrid"> 
               <div crn-datasource="RoleGrid"> 
-                <table class="table table-bordered table-hover table-striped"> 
+                <table class="table table-hover"> 
                   <thead> 
-                    <tr class="table-header"> 
+                    <tr class=""> 
                       <th class=""> 
                         <div class="">
                           Função
