@@ -163,16 +163,16 @@
 <!--</div>-->
 
 <div class="component-holder ng-binding ng-scope" data-component="crn-grid" id="crn-grid-${model.dataSourceName}-${model.random}">
-    <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
-        <table class="table table-hover">
+    <div crn-datasource="${model.dataSourceName}" class="k-grid k-widget k-display-block k-grid-content" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
+        <table class="">
             <thead>
-            <tr class="">
+            <tr  class="k-grid-header">
             <#list model.gridFields as field>
-                <th class="">
+                <th class="k-header">
                     <div class="">${model.formMapLabels[field.name]!?cap_first}</div>
                 </th>
             </#list>
-                <th class="">
+                <th class="k-header">
                     <div class="">{{"template.crud.actions" | translate}}</div>
                 </th>
             </tr>
@@ -225,6 +225,7 @@
             <button class="btn btn-default btn-block btn-clicked k-button" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
         </div>
     </div>
+	&ensp;
 </div>
 <div data-component="crn-form" id="crn-form-form-${model.dataSourceName}-${model.random}">
     <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
@@ -501,6 +502,7 @@
                 <!-- OneToOne  end -->
             </fieldset>
         </form>
+		&ensp;
     </div>
 </div>
 
