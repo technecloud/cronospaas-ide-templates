@@ -84,7 +84,7 @@
                 </#if>
             </#list>
               <div data-component="crn-button-filter" class="" crn-datasource="${model.dataSourceName}">
-                <button class="btn btn-default component-holder k-button" cronapp-filter="" data-component="crn-button-filter" type="submit" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default"><i class="glyphicon glyphicon-search"></i> <span>{{"template.crud.search" | translate}}</span></button>
+                <button class="btn btn-default component-holder btn-fab k-button" cronapp-filter="" data-component="crn-button-filter" type="submit" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default"><i class="glyphicon glyphicon-search"></i> <span></span></button>
               </div>
               <br/>
               </fieldset>
@@ -157,7 +157,7 @@
 </#if>
 
 <div data-component="crn-button" id="crn-button-${model.random}" class="">
-    <button class="btn btn-primary k-button" type="submit" onclick="" data-component="crn-button" id="btn-crud-new${model.random}" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><span class="k-icon k-i-plus"></span>{{"template.crud.new" | translate}}</button>
+    <button class="btn btn-primary btn-fab k-button" type="submit" onclick="" data-component="crn-button" id="btn-crud-new${model.random}" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><span class="k-icon k-i-plus"></span></button>
 </div>
 <!-- fim div row para pesquisa -->
 <!--</div>-->
@@ -198,11 +198,11 @@
 							</a>
 						<#elseif field.isFile()>
 							<#if model.hasCronappFramework()>
-								<button ng-if="rowData.${field.name}" class="btn btn-sm k-button" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
+								<button ng-if="rowData.${field.name}" class="btn btn-sm btn-fab k-button" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
 									<span class="glyphicon glyphicon-download-alt"></span>
 								</button>
 							<#else>
-								<button class="btn btn-sm k-button" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
+								<button class="btn btn-sm btn-fab k-button" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
 									<span class="glyphicon glyphicon-download-alt"></span>
 								</button>
 							</#if>
@@ -214,8 +214,8 @@
             </#list>
                 <td class="">
                     <div class="">
-                        <button class="btn btn-default btn-sm k-button" data-component="crn-button" type="submit" id="btn_crud_edit${model.random}" ng-click="datasource.startEditing(rowData)"><span class="k-icon k-i-edit"></span></button>
-                        <button class="btn btn-default btn-sm k-button" data-component="crn-button" type="submit" id="btn_remove_edit${model.random}" ng-click="datasource.remove(rowData)"><span class="k-icon k-i-close"></span></button>
+                        <button class="btn btn-primary btn-sm btn-fab k-button" data-component="crn-button" type="submit" id="btn_crud_edit${model.random}" ng-click="datasource.startEditing(rowData)"><span class="k-icon k-i-edit"></span></button>
+                        <button class="btn btn-danger btn-sm btn-fab k-button" data-component="crn-button" type="submit" id="btn_remove_edit${model.random}" ng-click="datasource.remove(rowData)"><span class="k-icon k-i-close"></span></button>
                     </div>
                 </td>
             </tr>
@@ -231,15 +231,15 @@
     <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
         <form crn-datasource="${model.dataSourceName}" class="">
             <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
-                <button class="btn btn-primary btn-button" data-component="crn-button" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
-                <button class="btn btn-button k-button" data-component="crn-button" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
-                <button class="btn btn-primary btn-button" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
-                <button class="btn btn-primary btn-button" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
-                <button class="btn btn-primary btn-button" data-component="crn-button" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
+                <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-click="datasource.startInserting()"><span class="k-icon k-i-plus"></span></button>
+                <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-click="datasource.startEditing()"><span class="k-icon k-i-edit"></span></button>
+                <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><span class="k-icon k-i-arrow-chevron-left"></span></button>
+                <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><span class="k-icon k-i-arrow-chevron-right"></span></button>
+                <button class="btn btn-danger btn-fab k-button" data-component="crn-button" ng-click="datasource.remove()"><span class="k-icon k-i-close"></span></button>
             </div>
             <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting">
-                <button class="btn btn-success k-button" id="btn_crud_post${model.random}" data-component="crn-button" ng-click="datasource.post()"><span class="k-icon k-i-check"></span></button>
-                <button class="btn btn-danger k-button" id="btn_crud_cancel${model.random}" data-component="crn-button" ng-click="datasource.cancel()"><span class="k-icon k-i-cancel"></span></button>
+                <button class="btn btn-success btn-fab k-button" id="btn_crud_post41107" data-component="crn-button" ng-click="datasource.post()"><span class="k-icon k-i-check"></span></button>
+                <button class="btn btn-danger btn-fab k-button" id="btn_crud_cancel41107" data-component="crn-button" ng-click="datasource.cancel()"><span class="k-icon k-i-cancel"></span></button>
             </div>
             <br/>
             <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">

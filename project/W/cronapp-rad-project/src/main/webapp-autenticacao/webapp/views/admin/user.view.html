@@ -3,7 +3,7 @@
   <datasource filter="" name="User" entity="api/cronapi/crud/app.entity.User" keys="id" rows-per-page="100" delete-message="Deseja remover?" class=""></datasource> 
 </div> 
 <div data-component="crn-button" id="crn-button-564202"> 
-  <button class="btn btn-primary k-button" data-component="crn-button" type="submit" onclick="" ng-click="User.startInserting()" ng-hide="User.inserting || User.editing"><span class="k-icon k-i-plus"></span>{{"template.crud.new" | translate}}</button> 
+    <button class="btn btn-primary btn-fab k-button" type="submit" onclick="" data-component="crn-button" id="btn-crud-new9315" ng-click="User.startInserting()" ng-hide="User.inserting || User.editing"><span class="k-icon k-i-plus"></span></button>
 </div> 
 <div class="component-holder" data-component="crn-grid" id="crn-grid-User"> 
   <div crn-datasource="User" class="k-grid k-widget k-display-block k-grid-content" ng-hide="User.editing || User.inserting"> 
@@ -44,8 +44,8 @@
             </div> </td> 
           <td class=""> 
             <div class=""> 
-                <button class="btn btn-default btn-sm k-button" data-component="crn-button" type="submit" id="btn_crud_edit97970" ng-click="datasource.startEditing(rowData)"><span class="k-icon k-i-edit"></span></button>
-                <button class="btn btn-default btn-sm k-button" data-component="crn-button" type="submit" id="btn_remove_edit97970" ng-click="datasource.remove(rowData)"><span class="k-icon k-i-close"></span></button>
+                <button class="btn btn-default btn-sm btn-fab k-button" data-component="crn-button" type="submit" id="btn_crud_edit9315" ng-click="datasource.startEditing(rowData)"><span class="k-icon k-i-edit"></span></button>
+                <button class="btn btn-default btn-sm btn-fab k-button" data-component="crn-button" type="submit" id="btn_remove_edit9315" ng-click="datasource.remove(rowData)"><span class="k-icon k-i-close"></span></button>
             </div> </td> 
         </tr> 
       </tbody> 
@@ -61,16 +61,16 @@
   <div class="form" ng-show="User.editing || User.inserting"> 
     <form crn-datasource="User" class=""> 
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
-        <button class="btn btn-primary k-button" data-component="crn-button" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
-        <button class="btn btn-success k-button" data-component="crn-button" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
-        <button class="btn btn-primary k-button" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
-        <button class="btn btn-primary k-button" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
-        <button class="btn btn-primary k-button" data-component="crn-button" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
+        <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-click="datasource.startInserting()"><span class="k-icon k-i-plus"></span></button>
+        <button class="btn btn-success btn-fab k-button" data-component="crn-button" ng-click="datasource.startEditing()"><span class="k-icon k-i-edit"></span></button>
+        <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><span class="k-icon k-i-arrow-chevron-left"></span></button>
+        <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><span class="k-icon k-i-arrow-chevron-right"></span></button>
+        <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-click="datasource.remove()"><span class="k-icon k-i-close"></span></button>
       </div>
       <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting">
-        <button class="btn btn-success k-button" id="btn_crud_post97970" data-component="crn-button" ng-click="datasource.post()"><span class="k-icon k-i-check"></span></button>
-        <button class="btn btn-danger k-button" id="btn_crud_cancel97970" data-component="crn-button" ng-click="datasource.cancel()"><span class="k-icon k-i-cancel"></span></button>
-      </div> 
+        <button class="btn btn-success btn-fab k-button" id="btn_crud_post41107" data-component="crn-button" ng-click="datasource.post()"><span class="k-icon k-i-check"></span></button>
+        <button class="btn btn-danger btn-fab k-button" id="btn_crud_cancel41107" data-component="crn-button" ng-click="datasource.cancel()"><span class="k-icon k-i-cancel"></span></button>
+      </div>
       <br> 
       <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
         <div data-component="crn-textinput" id="crn-textinput-email"> 
@@ -109,7 +109,7 @@
         <div data-component="crn-datasource" class="component-holder"> 
           <datasource filter="" name="RoleGrid" enabled="{{User.editing || User.inserting}}" entity="api/cronapi/crud/app.entity.User/{{User.active.id}}/relation:user:Role" keys="id,user.id" rows-per-page="100" lazy="true" auto-post="true" dependent-lazy-post="User" dependent-lazy-post-field="user"></datasource> 
         </div> 
-        <button class="btn btn-primary k-button" data-component="crn-button" onclick="$('#modalRoleGrid').modal('show');" ng-click="RoleGrid.startInserting();"><span class="k-icon k-i-plus"></span>{{"Add" | translate}} {{"Admin.view.Role" | translate}}</button>
+        <button class="btn btn-primary btn-fab k-button" data-component="crn-button" onclick="$('#modalRoleGrid').modal('show');" ng-click="RoleGrid.startInserting();"><span class="k-icon k-i-plus"></span></button>
         <h2 class="lead component-holder text-left" xattr-position="text-left" data-component="crn-subtitle" id="crn-subtitle-931646">{{"Admin.view.Roles" | translate}}</h2> 
         <!--search 1toN--> 
         <!-- seach 1toN end--> 
@@ -186,8 +186,8 @@
           </div> 
         </div> 
         <div class="modal-footer"> 
-            <button class="btn btn-primary k-button" data-component="crn-button" ng-click="RoleGrid.post();" onclick="(!RoleGrid.missingRequiredField()?$('#modalRoleGrid').modal('hide'):void(0))">{{'Save' | translate}}</button>
-            <button type="button" data-component="crn-button" class="btn btn-default k-button" data-dismiss="modal">{{'Home.view.Close' | translate}}</button>
+            <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-click="RoleGrid.post();" onclick="(!RoleGrid.missingRequiredField()?$('#modalRoleGrid').modal('hide'):void(0))"><span class="k-icon k-i-check"></span></button>
+            <button type="button" data-component="crn-button" class="btn btn-default btn-fab k-button" data-dismiss="modal"><span class="k-icon k-i-close"></span></button>
         </div> 
       </form> 
     </div> 
