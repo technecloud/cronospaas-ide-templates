@@ -166,22 +166,22 @@
     <div crn-datasource="${model.dataSourceName}" class="k-grid k-widget k-display-block k-grid-content" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
         <table class="">
             <thead>
-            <tr  class="k-grid-header">
+            <tr  class="table-header k-grid-header">
             <#list model.gridFields as field>
                 <th class="k-header">
-                    <div class="">${model.formMapLabels[field.name]!?cap_first}</div>
+                    <div class="" data-container="true">${model.formMapLabels[field.name]!?cap_first}</div>
                 </th>
             </#list>
                 <th class="k-header">
-                    <div class="">{{"template.crud.actions" | translate}}</div>
+                    <div class="" data-container="true">{{"template.crud.actions" | translate}}</div>
                 </th>
             </tr>
             </thead>
             <tbody>
-            <tr class="" ng-repeat="rowData in datasource.data">
+            <tr class="table-content" ng-repeat="rowData in datasource.data">
             <#list model.gridFields as field>
                 <td class="">
-                    <div class="">
+                    <div class="" data-container="true">
 						<#if field.isDate() && !model.hasCronappFramework()>
 							{{rowData.${field.name} | date:'dd/MM/yyyy'}}
 						<#elseif field.isTime() && !model.hasCronappFramework()>
