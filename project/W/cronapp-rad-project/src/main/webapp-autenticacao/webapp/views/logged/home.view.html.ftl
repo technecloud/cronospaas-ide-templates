@@ -1,5 +1,5 @@
 <#if !(menuPosition??) || menuPosition == "Horizontal" >
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid main-title">
     <h2 class="component-holder text-left" xattr-position="text-left" data-component="crn-subtitle" id="crn-subtitle-814474">${appname}</h2>
 </div>
 <div class="component-holder ng-binding ng-scope" data-component="crn-navbar" id="crn-navbar-986427">
