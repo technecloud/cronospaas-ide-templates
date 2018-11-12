@@ -128,7 +128,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" >{{"Home.view.ChangePassword" | translate}}</h4>
+        <h4 class="modal-title">{{"Home.view.ChangePassword" | translate}}</h4>
       </div>
       <div class="modal-body">
         <form class="form-validation" autocomplete="off" name="form" role="form">
@@ -136,20 +136,20 @@
           </div>
           <div class="list-group list-group-sm">
             <div class="list-group-item">
-              <input type="password" class="form-control no-border" id="oldPassword" placeholder="{{'Home.view.Old Password' | translate}}" ng-required="true">
+              <input type="password" class="form-control k-textbox" id="oldPassword" placeholder="{{'Home.view.Old Password' | translate}}" ng-required="true">
             </div>
             <div class="list-group-item">
-              <input type="password" class="form-control no-border" id="newPassword" placeholder="{{'Home.view.New Password' | translate}}" ng-required="true">
+              <input type="password" class="form-control k-textbox" id="newPassword" placeholder="{{'Home.view.New Password' | translate}}" ng-required="true">
             </div>
             <div class="list-group-item">
-              <input type="password" class="form-control no-border" id="newPasswordConfirmation" placeholder="{{'Home.view.Confirmation' | translate}}" ng-required="true">
+              <input type="password" class="form-control k-textbox" id="newPasswordConfirmation" placeholder="{{'Home.view.Confirmation' | translate}}" ng-required="true">
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="submit" ng-click="changePassword()" ng-disabled="form.$invalid || vm.dataLoading" >{{"Home.view.ChangePassword" | translate}}</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" >{{'Home.view.Close' | translate}}</button>
+        <button class="btn btn-primary btn-fab k-button" type="submit" ng-click="changePassword()" ng-disabled="form.$invalid || vm.dataLoading"><span class="k-icon k-i-check"></span></button>
+        <button class="btn btn-default btn-fab k-button" type="button" data-dismiss="modal"><span class="k-icon k-i-close"></span></button>
       </div>
     </div>
   </div>
