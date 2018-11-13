@@ -28,7 +28,7 @@
 		<#if field.isSearchable()>
 		<div  data-component="crn-search" id="crn-search-${field.name}-${model.random}">
           <label class="item item-input" id="search-${field.name}-${model.random}"><i class="icon ion-search placeholder-icon"></i>
-            <input type="<#if field.isDate() >date<#elseif (field.isTimestamp())>time<#elseif (field.isNumber()) >number<#elseif (field.isDouble()) >number<#else>text</#if>" ng-model="vars.search${field.name}" mask="${model.formMapMasks[field.name]}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" cronapp-filter-caseinsensitive="true" cronapp-filter-autopost="false" cronapp-filter-operator="=" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+            <input type="text" ng-model="vars.search${field.name}" mask="${model.formMapMasks[field.name]}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" cronapp-filter-caseinsensitive="true" cronapp-filter-autopost="false" cronapp-filter-operator="=" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
           </label>
 		</div>
 		</#if>
