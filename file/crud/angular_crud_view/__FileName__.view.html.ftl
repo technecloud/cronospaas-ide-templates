@@ -214,8 +214,8 @@
             </#list>
                 <td class="">
                     <div class="">
-                        <button class="btn btn-primary btn-sm btn-fab k-button" data-component="crn-button" type="submit" id="btn_crud_edit${model.random}" ng-click="datasource.startEditing(rowData)"><span class="k-icon k-i-edit"></span></button>
-                        <button class="btn btn-danger btn-sm btn-fab k-button" data-component="crn-button" type="submit" id="btn_remove_edit${model.random}" ng-click="datasource.remove(rowData)"><span class="k-icon k-i-close"></span></button>
+                        <button class="k-button k-button-icontext k-grid-edit" data-component="crn-button" type="submit" id="btn_crud_edit${model.random}" ng-click="datasource.startEditing(rowData)"><span class="k-icon k-i-edit"></span></button>
+                        <button class="k-button k-button-icontext k-grid-delete" data-component="crn-button" type="submit" id="btn_remove_edit${model.random}" ng-click="datasource.remove(rowData)"><span class="k-icon k-i-close"></span></button>
                     </div>
                 </td>
             </tr>
