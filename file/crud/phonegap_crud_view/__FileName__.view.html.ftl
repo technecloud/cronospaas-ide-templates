@@ -18,7 +18,6 @@
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854">
       <datasource <#if model.hasColumnFilter()>filter=""</#if> name="${model.dataSourceName}" entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="10" delete-message="Deseja remover?" class="" schema="${model.getDSSchema(model.dataSourceName)}"></datasource>
     </div>
-	
   <#-- Para o filtro model.getGridFilterSearchable()="generalSearch" a regra está no componente "cron-list" -->
   <#if model.hasCronappFramework() || model.hasSearchableFilter()>
   <#if model.getGridFilterSearchable()=="specificSearch">
@@ -29,7 +28,7 @@
 		<#if field.isSearchable()>
 		<div  data-component="crn-search" id="crn-search-${field.name}-${model.random}">
           <label class="item item-input" id="search-${field.name}-${model.random}"><i class="icon ion-search placeholder-icon"></i>
-            <input type="<#if (field.isDate()) >date<#elseif (field.isTimestamp())>time<#elseif (field.isNumber() || field.isDouble()) >number<#else>text</#if>" ng-model="vars.search${field.name}" mask="${model.formMapMasks[field.name]}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" cronapp-filter-caseinsensitive="true" cronapp-filter-autopost="false" cronapp-filter-operator="=" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+            <input type="<#if field.isDate() >date<#elseif field.isTimestamp()>time<#elseif field.isNumber() || field.isDouble() >number<#else>text</#if>" ng-model="vars.search${field.name}" mask="${model.formMapMasks[field.name]}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" cronapp-filter-caseinsensitive="true" cronapp-filter-autopost="false" cronapp-filter-operator="=" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
           </label>
 		</div>
 		</#if>
