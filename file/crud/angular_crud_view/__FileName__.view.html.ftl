@@ -169,7 +169,7 @@
             <tr  class="table-header k-grid-header">
             <#list model.gridFields as field>
                 <th class="k-header">
-                  <div class="" data-container="true">
+                  <div class="crn-table-head" data-container="true">
                     <a class="k-link" href="#">
                       ${model.formMapLabels[field.name]!?cap_first}
                     </a>
@@ -177,7 +177,7 @@
                 </th>
             </#list>
                 <th class="k-header">
-                  <div class="" data-container="true">
+                  <div class="crn-table-head" data-container="true">
                     <a class="k-link" href="#">
                       {{"template.crud.actions" | translate}}
                     </a>
@@ -188,7 +188,7 @@
             <tbody>
             <tr class="table-content" ng-repeat="rowData in datasource.data">
             <#list model.gridFields as field>
-                <td class="">
+                <td class="crn-table-head">
                     <div class="" data-container="true">
 						<#if field.isDate() && !model.hasCronappFramework()>
 							{{rowData.${field.name} | date:'dd/MM/yyyy'}}
