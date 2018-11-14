@@ -169,11 +169,19 @@
             <tr  class="table-header k-grid-header">
             <#list model.gridFields as field>
                 <th class="k-header">
-                    <div class="" data-container="true">${model.formMapLabels[field.name]!?cap_first}</div>
+                  <div class="" data-container="true">
+                    <a class="k-link" href="#">
+                      ${model.formMapLabels[field.name]!?cap_first}
+                    </a>
+                  </div>
                 </th>
             </#list>
                 <th class="k-header">
-                    <div class="" data-container="true">{{"template.crud.actions" | translate}}</div>
+                  <div class="" data-container="true">
+                    <a class="k-link" href="#">
+                      {{"template.crud.actions" | translate}}
+                    </a>
+                  </div>
                 </th>
             </tr>
             </thead>
