@@ -432,7 +432,7 @@
                         </div>
                     </div>
                 <#else>
-					<h3 class="lead component-holder text-left col-md-12" data-component="crn-subtitle" xattr-position="text-left" id="crud-title-${model.random}" >${field.getName()?cap_first}</h3>
+					<h3 class="lead component-holder text-left" data-component="crn-subtitle" xattr-position="text-left" id="crud-title-${model.random}" >${field.getName()?cap_first}</h3>
 					<div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}-${model.random}">
 						<#assign dataSourceName = "${relationClassName}">
 						<cron-grid options="${model.getGridOptions(relationClassName, dataSourceName, field)}" ng-model="${relationClassName}.data" class="" style=""></cron-grid>
@@ -500,7 +500,7 @@
 						</#if>
 					</#if>
 				</#list>
-				<h3 class="lead component-holder text-left col-md-12" data-component="crn-subtitle"><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h3>				
+				<h3 class="lead component-holder text-left" data-component="crn-subtitle"><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h3>
 				<div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}Grid-${model.random}">
 					<#assign classname = "${field.clazz.name}">
 					<#assign dataSourceName = "${classname}Grid">
