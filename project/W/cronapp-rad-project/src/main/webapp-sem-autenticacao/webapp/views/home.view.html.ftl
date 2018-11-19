@@ -8,7 +8,7 @@
       </div> 
       <div id="navbar" class="navbar-collapse collapse"> 
         <ul class="nav navbar-nav" style="float:none"> 
-          <li class="dropdown component-holder" data-component=""> <a href="#/home" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-home"></i> <span >{{"Home.view.Home" | translate}}</span> </a> </li> 
+          <li class="dropdown component-holder" data-component="crn-menu-item"> <a href="#/home" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-home"></i> <span >{{"Home.view.Home" | translate}}</span> </a> </li>
         <#if (customMenu??) >
       <#list customMenu?keys as key>
       <#assign items = customMenu[key]>
