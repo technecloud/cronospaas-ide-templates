@@ -170,7 +170,7 @@
             <#list model.gridFields as field>
                 <th class="k-header">
                   <div class="crn-table-head" data-container="true">
-                    <a class="k-link" href="#">
+                    <a class="k-link">
                       ${model.formMapLabels[field.name]!?cap_first}
                     </a>
                   </div>
@@ -178,7 +178,7 @@
             </#list>
                 <th class="k-header">
                   <div class="crn-table-head" data-container="true">
-                    <a class="k-link" href="#">
+                    <a class="k-link">
                       {{"template.crud.actions" | translate}}
                     </a>
                   </div>
