@@ -517,7 +517,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="list-group list-group-sm row">
-						<#if field.isNToN() && field.getProperty("NToNOption") == "Grade">
+						<#if field.isNToN() && field.getProperty("NToNOption")?has_content && field.getProperty("NToNOption") == "Grade">
 							<#assign relationClassName = "">
 							<#assign dataSourceName = "${field.getClazz().getName()}">
 							<#assign dataSourceCombo = "${field.fullType}NCombo">
