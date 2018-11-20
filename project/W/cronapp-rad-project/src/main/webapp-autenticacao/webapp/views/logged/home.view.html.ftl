@@ -7,7 +7,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <a class="component-holder ng-binding ng-scope navbar-brand" data-component="crn-image" href="#/home"> <img src="plugins/cronapp-framework-js/img/logo.png" style="max-height:30px; margin-top:-5px" id="crn-navbar-logo"> </a> 
+        <a class="component-holder ng-binding ng-scope navbar-brand" data-component="crn-image" href="#/home"> <img src="plugins/cronapp-framework-js/dist/img/logo.svg" style="width:101px; margin-top:-4px" id="crn-navbar-logo" data-component="crn-image"> </a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav" style="float:none">
@@ -39,7 +39,7 @@
             <ul class="dropdown-menu">
               <li ng-repeat="theme in themes" ng-click="changeTheme(theme)"> <a href="javascript:void(0);" ng-class="{'bg-primary': myTheme==theme}">{{theme}} <i class="fa fa-lg fa-check pull-right" ng-if="myTheme==theme"></i></a></li>
             </ul> </li>
-          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img class="user-avatar" alt="{{session.user.name}}" ng-src="{{session.user.picture || 'plugins/cronapp-framework-js/dist/img/nophoto.png'}}" style="max-height:18px;max-width:18px"> <span>{{session.user.name}}</span> <span class="caret"></span> </a>
+          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle"  style="color: #fff;min-width: 123px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img class="user-avatar" alt="{{session.user.name}}" ng-src="{{session.user.picture || 'plugins/cronapp-framework-js/dist/img/img-user.svg'}}" style="max-height:22px;max-width:22px" data-component="crn-image"> <span>{{session.user.name}}</span> <span class="caret"></span> </a>
             <ul class="dropdown-menu">
               <li><a class="component-holder" data-toggle="modal" data-target="#modalPassword" data-component="crn-anchor" >{{"Home.view.ChangePassword" | translate}}</a></li>
               <li ng-click="logout()"><a href="javascript:void(0);"><span >{{"Home.view.Logout" | translate}}</span></a></li>
@@ -53,14 +53,14 @@
 <div class="component-holder ng-binding ng-scope" data-component="crn-sidebar" id="crn-sidebar-986427">
   <div class="nav-side-menu navbar-default">
     <div class="brand">
-      <img src="plugins/cronapp-framework-js/dist/img/logo.png" class="" width="" height="30">
+      <img src="plugins/cronapp-framework-js/dist/img/logo.png" class="" width="" height="30" data-component="crn-image">
     </div>
     <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content1"></i>
     <div class="menu-list">
       <ul id="menu-content1" class="menu-content collapse out navbar-nav">
         <li data-toggle="collapse" data-component="crn-sidebar-item" data-target="#menu-user" class="collapsed component-holder">
           <a href="javascript:void(0);" class="">
-            <img class="user-avatar" alt="{{session.user.name}}" ng-src="{{session.picture || 'plugins/cronapp-framework-js/dist/img/nophoto.png'}}">
+            <img class="user-avatar" alt="{{session.user.name}}" ng-src="{{session.picture || 'plugins/cronapp-framework-js/dist/img/nophoto.png'}}" data-component="crn-image">
             <span class="">{{session.user.name}}</span>
             <span class="arrow"></span>
           </a>
@@ -128,7 +128,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" >{{"Home.view.ChangePassword" | translate}}</h4>
+        <h4 class="modal-title">{{"Home.view.ChangePassword" | translate}}</h4>
       </div>
       <div class="modal-body">
         <form class="form-validation" autocomplete="off" name="form" role="form">
@@ -136,20 +136,20 @@
           </div>
           <div class="list-group list-group-sm">
             <div class="list-group-item">
-              <input type="password" class="form-control no-border" id="oldPassword" placeholder="{{'Home.view.Old Password' | translate}}" ng-required="true">
+              <input type="password" class="form-control k-textbox" id="oldPassword" placeholder="{{'Home.view.Old Password' | translate}}" ng-required="true">
             </div>
             <div class="list-group-item">
-              <input type="password" class="form-control no-border" id="newPassword" placeholder="{{'Home.view.New Password' | translate}}" ng-required="true">
+              <input type="password" class="form-control k-textbox" id="newPassword" placeholder="{{'Home.view.New Password' | translate}}" ng-required="true">
             </div>
             <div class="list-group-item">
-              <input type="password" class="form-control no-border" id="newPasswordConfirmation" placeholder="{{'Home.view.Confirmation' | translate}}" ng-required="true">
+              <input type="password" class="form-control k-textbox" id="newPasswordConfirmation" placeholder="{{'Home.view.Confirmation' | translate}}" ng-required="true">
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" type="submit" ng-click="changePassword()" ng-disabled="form.$invalid || vm.dataLoading" >{{"Home.view.ChangePassword" | translate}}</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" >{{'Home.view.Close' | translate}}</button>
+        <button class="btn btn-primary btn-fab k-button" type="submit" ng-click="changePassword()" ng-disabled="form.$invalid || vm.dataLoading"><span class="k-icon k-i-check"></span></button>
+        <button class="btn btn-default btn-fab k-button" type="button" data-dismiss="modal"><span class="k-icon k-i-close"></span></button>
       </div>
     </div>
   </div>

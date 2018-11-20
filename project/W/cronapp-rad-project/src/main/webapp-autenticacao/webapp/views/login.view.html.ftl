@@ -1,3 +1,4 @@
+<div class="bg">
 <div class="container-full" data-container="true">
     <div class="container-fluid" data-container="true">
         <div class="row component-holder">
@@ -71,4 +72,5 @@
             <div class="col-xs-12 col-sm-3 col-lg-4" data-container="true"></div>
         </div>
     </div>
+</div>
 </div>
