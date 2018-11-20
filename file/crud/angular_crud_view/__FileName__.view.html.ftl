@@ -38,7 +38,7 @@
     </#if>
 </#if>
 <datasource data-component="crn-datasource" filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.namespace}.${model.dataSourceName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" class="" schema="${model.getDSSchema(model.dataSourceName)}"></datasource>
-
+	
 <#if model.hasColumnFilter()>
 <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
     <div class="form-group">
@@ -156,85 +156,15 @@
     </#if>
 </#if>
 
-<div data-component="crn-button" id="crn-button-${model.random}" class="">
-    <button class="btn btn-primary btn-fab k-button" type="submit" onclick="" data-component="crn-button" id="btn-crud-new${model.random}" ng-click="${model.dataSourceName}.startInserting()" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing"><span class="k-icon k-i-plus"></span></button>
+<div ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting" class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="cron-crn-grid-search">
+	<cron-grid 
+		options="${model.getGridOptionsSearch(model.dataSourceName, model.dataSourceName, field)}" 
+		ng-model="${model.dataSourceName}.data" 
+		class="" 
+		style="">
+	</cron-grid>
 </div>
-<!-- fim div row para pesquisa -->
-<!--</div>-->
 
-<div class="component-holder ng-binding ng-scope" data-component="crn-grid" id="crn-grid-${model.dataSourceName}-${model.random}">
-    <div crn-datasource="${model.dataSourceName}" class="k-grid k-widget k-display-block k-grid-content" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
-        <table class="">
-            <thead>
-            <tr  class="table-header k-grid-header">
-            <#list model.gridFields as field>
-                <th class="k-header">
-                  <div class="crn-table-head" data-container="true">
-                    <a class="k-link">
-                      ${model.formMapLabels[field.name]!?cap_first}
-                    </a>
-                  </div>
-                </th>
-            </#list>
-                <th class="k-header">
-                  <div class="crn-table-head" data-container="true">
-                    <a class="k-link">
-                      {{"template.crud.actions" | translate}}
-                    </a>
-                  </div>
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr class="table-content" ng-repeat="rowData in datasource.data">
-            <#list model.gridFields as field>
-                <td class="crn-table-head">
-                    <div class="" data-container="true">
-						<#if field.isDate() && !model.hasCronappFramework()>
-							{{rowData.${field.name} | date:'dd/MM/yyyy'}}
-						<#elseif field.isTime() && !model.hasCronappFramework()>
-							{{rowData.${field.name} | date:'HH:mm:ss'}}
-						<#elseif field.isTimestamp() && !model.hasCronappFramework()>
-							{{rowData.${field.name} | date:'dd/MM/yyyy HH:mm:ss'}}
-						<#elseif (field.isTimestamp() || field.isDate() || field.isTime()) && model.hasCronappFramework()>
-							{{rowData.${field.name} | mask:'${field.getHtmlType()}'}}
-						<#elseif field.isDecimal() >
-							{{rowData.${field.name} | mask:'money'}}
-						<#elseif field.isImage()>
-							<a ng-if="rowData.${field.name}" ng-click="datasource.openImage(rowData.${field.name})">
-								<img data-ng-src="{{rowData.${field.name}.startsWith('http') || (rowData.${field.name}.startsWith('/') && rowData.${field.name}.length < 1000)? rowData.${field.name} : 'data:image/png;base64,' + rowData.${field.name}}}" style="max-height: 30px;">
-							</a>
-						<#elseif field.isFile()>
-							<#if model.hasCronappFramework()>
-								<button ng-if="rowData.${field.name}" class="btn btn-sm btn-fab k-button" ng-click="cronapi.internal.downloadFileEntity(datasource, '${field.name}', $index)">
-									<span class="glyphicon glyphicon-download-alt"></span>
-								</button>
-							<#else>
-								<button class="btn btn-sm btn-fab k-button" ng-click="datasource.downloadFile('${field.name}', [<#list field.getClazz().primaryKeys as pk>rowData.${pk.name}<#if pk_has_next>, </#if></#list>])">
-									<span class="glyphicon glyphicon-download-alt"></span>
-								</button>
-							</#if>
-						<#else>
-							{{rowData.${field.name} <#if model.formMapMasks[field.name]?has_content && model.hasCronappFramework()>| mask:'${model.formMapMasks[field.name]}'</#if> }}
-						</#if>
-                    </div>
-                </td>
-            </#list>
-                <td class="">
-                    <div class="">
-                        <button class="k-button k-button-icontext k-grid-edit" data-component="crn-button" type="submit" id="btn_crud_edit${model.random}" ng-click="datasource.startEditing(rowData)"><span class="k-icon k-i-edit"></span></button>
-                        <button class="k-button k-button-icontext k-grid-delete" data-component="crn-button" type="submit" id="btn_remove_edit${model.random}" ng-click="datasource.remove(rowData)"><span class="k-icon k-i-close"></span></button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div class="table-footer-controls">
-            <button class="btn btn-default btn-block btn-clicked k-button" data-component="crn-button" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}...</button>
-        </div>
-    </div>
-	&ensp;
-</div>
 <div data-component="crn-form" id="crn-form-form-${model.dataSourceName}-${model.random}">
     <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
         <form crn-datasource="${model.dataSourceName}" class="">
