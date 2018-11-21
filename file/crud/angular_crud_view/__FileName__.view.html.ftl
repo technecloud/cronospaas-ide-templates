@@ -159,7 +159,7 @@
 <div ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting" class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="cron-crn-grid-search">
 	<cron-grid 
 		options="${model.getGridOptionsSearch(model.dataSourceName, model.dataSourceName, field)}" 
-		ng-model="${model.dataSourceName}.data" 
+		ng-model="vars.grid${model.random}" 
 		class="" 
 		style="">
 	</cron-grid>
