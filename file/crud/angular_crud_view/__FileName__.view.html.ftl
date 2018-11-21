@@ -285,6 +285,7 @@
 								<cron-dynamic-select 
 									<#if !field.isNullable()>required="required"</#if>
 									id="${currentType}-${field.name}"
+									name="${currentType}-${field.name}"
 									options="${model.getComboOptions(field.type, field.getProperty("ngOptionsFkName"), field.getProperty("ngOptions").keys, dataSourceName)}" 
 									ng-model="${model.dataSourceName}.active.${field.name}" 
 									class="crn-select form-control">
@@ -356,8 +357,13 @@
                     <div class="component-holder ng-binding ng-scope " data-component="crn-enterprise-combobox-multiple" ng-show="datasource.editing || datasource.inserting" >
                         <div class="form-group">
                             <label for="select-ui">${field.getName()?cap_first}</label>
-							<cron-multi-select options="${model.getMultiSelectOptions(field)}" 
-								ng-required="false" id="combobox${field.getName()}" ng-model="${relationClassName}.data" class="crn-select form-control" style="">
+							<cron-multi-select 
+								options="${model.getMultiSelectOptions(field)}" 
+								ng-required="false" 
+								id="combobox${field.getName()}" 
+								name="combobox${field.getName()}"
+								ng-model="${relationClassName}.data" 
+								class="crn-select form-control" style="">
 							</cron-multi-select> 
                         </div>
                     </div>
@@ -473,6 +479,7 @@
 									<label for="combobox-modal-${field.getName()}${model.random}" class=""><#if field.label?has_content>${field.label}<#else>${field.name?capitalize}</#if></label>
 									<cron-dynamic-select 
 										id="combobox-modal-${field.getName()}${model.random}"
+										name="combobox-modal-${field.getName()}${model.random}"
 										options="${model.getComboOptions(field.fullType, textField, keyField, dataSourceCombo)}" 
 										ng-model="${dataSourceName}.active.${field.getName()?uncap_first}" 
 										class="crn-select form-control" <#if !field.isNullable()>required="required"</#if>>
@@ -513,6 +520,7 @@
 												<cron-dynamic-select 
 													<#if !field.isNullable()>required="required"</#if>
 													id="combobox-modal-${gField.getName()}"
+													name="combobox-modal-${gField.getName()}"
 													options="${model.getOptionsCombo(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), gField.getRelationClazz().getNameKeys(), '')}" 
 													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
 													class="crn-select form-control">
@@ -590,6 +598,7 @@
 												<cron-dynamic-select 
 													<#if !field.isNullable()>required="required"</#if>
 													id="combobox-modal-${gField.getName()}-${model.random}"
+													name="combobox-modal-${gField.getName()}-${model.random}"
 													options="${model.getComboOptions(gField.type, gField.getRelationClazz().getFirstStringFieldNonPrimaryKey().getName(), gField.getRelationClazz().getNameKeys(), dataSourceCombo)}" 
 													ng-model="${field.getName()}Grid.active.${gField.getName()}" 
 													class="crn-select form-control">
