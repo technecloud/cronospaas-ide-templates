@@ -365,7 +365,7 @@
 					<h3 class="lead component-holder text-left" data-component="crn-subtitle" xattr-position="text-left" id="crud-title-${model.random}" >${field.getName()?cap_first}</h3>
 					<div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}-${model.random}">
 						<#assign dataSourceName = "${relationClassName}">
-						<cron-grid options="${model.getGridOptions(relationClassName, dataSourceName, field)}" ng-model="${relationClassName}.data" class="" style=""></cron-grid>
+						<cron-grid options="${model.getGridOptions(relationClassName, dataSourceName, field)}" ng-model="vars.grid${field.getName()}${model.random}" class="" style=""></cron-grid>
 					</div>
                 </#if>
             </#list>
@@ -434,7 +434,7 @@
 				<div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}Grid-${model.random}">
 					<#assign classname = "${field.clazz.name}">
 					<#assign dataSourceName = "${classname}Grid">
-					<cron-grid options="${model.getGridOptions(classname, dataSourceName, field)}" ng-model="${field.name}Grid.data" class="" style=""></cron-grid>
+					<cron-grid options="${model.getGridOptions(classname, dataSourceName, field)}" ng-model="vars.${dataSourceName}${model.random}" class="" style=""></cron-grid>
 				</div> 
             </#list>
                 <!-- OneToOne  end -->
