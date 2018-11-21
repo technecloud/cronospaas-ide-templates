@@ -347,7 +347,7 @@
 					keys="${keysDs}" 
 					dependent-lazy-post="${model.dataSourceName}" 
 					rows-per-page="100" 
-					parameters="${model.dataSourceName?uncap_first}={{${model.dataSourceName}.active.${model.dataSourcePrimaryKeys}|raw}}"
+					parameters="${model.getParametersDataSource(field)}"
 					schema="${model.getDSSchema(relationClassName)}">
 				</datasource>
 				
