@@ -89,7 +89,7 @@
               <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
             </label>
               <#elseif field.getProperty("ngOptions")??>
-            <datasource name="${field.getProperty("ngOptions").dataSourceName}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" schema="${model.getDSSchema(field.getProperty("ngOptions").dataSourceName)}"></datasource>
+            <datasource name="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" schema="${model.getDSSchema(field.getProperty("ngOptions").dataSourceName)}"></datasource>
             <label for="textinput-${field.name}" class="item item-input item-select component-holder" data-component="crn-dynamic-select" id="crn-dynamic-select-${field.name}">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
               <select crn-datasource="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}"
