@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  this.cronapi = {};
+  this.cronapi = this.cronapi || {};
 
    /**
    * @categoryName ${CategoryName}
