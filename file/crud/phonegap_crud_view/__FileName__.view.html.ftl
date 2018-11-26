@@ -101,8 +101,7 @@
               </select>
             </label>
               <#elseif field.isImage()>
-            <div class="component-holder ng-binding ng-scope" data-component="crn-dynamic-image">
-              <div class="item item-input item-stacked-label">
+              <div class="item item-input item-stacked-label component-holder" data-component="crn-dynamic-image" id="crn-dynamic-image-${field.name}">
                 <label class="input-label">${model.formMapLabels[field.name]!}</label>
                 <div class="form-group">
                   <div dynamic-image="" ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" ng-required="false">
@@ -110,7 +109,6 @@
                   </div>
                 </div>
               </div>
-            </div>
               <#elseif field.isFile()>
             <div class="component-holder ng-binding ng-scope" data-component="crn-dynamic-file" >
               <div class="item item-input item-stacked-label">
