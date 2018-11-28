@@ -1,18 +1,14 @@
 <ion-view cache-view="false" hide-back-button="true">
-  <ion-header-bar>
-    <ion-nav-bar class="nav-bar-container bar bar-header" data-component="crn-navbar" xattr-theme="">
-      <ion-nav-buttons side="left" class="buttons buttons-left header-item">
+  <ion-header-bar class="bar bar-header bar-positive" xattr-theme="bar-positive" data-component="crn-ion-header-bar">
+      <div side="left" class="buttons buttons-left header-item">
         <button class="button button-clear" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" menu-toggle="left" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-navicon"></i> </button>
         <button class="button button-clear" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.cancel()" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-android-arrow-back"></i> </button>
-      </ion-nav-buttons>
-      <ion-nav-title class="title title-center header-item">
+      </div>
         <h1 class="title">${model.dataSourceName}</h1>
-      </ion-nav-title>
-      <ion-nav-buttons side="right" class="buttons buttons-right header-item">
+      <div side="right" class="buttons buttons-right header-item">
         <button class="button button-clear" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.startInserting()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-plus-round"></i> </button>
         <button class="button button-clear" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.post()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-checkmark"></i> </button>
-      </ion-nav-buttons>
-    </ion-nav-bar>
+      </div>
   </ion-header-bar>
   <ion-content>
     <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle" data-component="crn-datasource" id="crn-datasource-906854">
