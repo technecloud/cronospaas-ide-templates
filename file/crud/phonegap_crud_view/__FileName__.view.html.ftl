@@ -2,12 +2,12 @@
   <ion-header-bar class="bar bar-header bar-positive" xattr-theme="bar-positive" data-component="crn-ion-header-bar">
       <div side="left" class="buttons buttons-left header-item">
         <button class="button button-clear" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" menu-toggle="left" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-navicon"></i> </button>
-        <button class="button button-clear" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.cancel()" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-android-arrow-back"></i> </button>
+        <button class="button button-clear" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.cancel()" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-ios-arrow-back"></i> </button>
       </div>
         <h1 class="title">${model.dataSourceName}</h1>
       <div side="right" class="buttons buttons-right header-item">
-        <button class="button button-clear" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.startInserting()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-plus-round"></i> </button>
-        <button class="button button-clear" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.post()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-checkmark"></i> </button>
+        <button class="button button-clear" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.startInserting()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-ios-plus-empty"></i> </button>
+        <button class="button button-clear" ng-show="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.post()" data-component="crn-button" xattr-type="button-clear" > <i class="icon ion-ios-checkmark"></i> </button>
       </div>
   </ion-header-bar>
   <ion-content>
