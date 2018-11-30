@@ -59,7 +59,7 @@
                 </#if>
               </#list>
             <#else>
-              <#assign fieldsString = "${model.getFirstFieldStringNotPk().getName()};">
+              <#assign fieldsString = "${model.getClazz().getSearchField().name}">
             </#if>
         <input type="text" ng-model="vars.search" id="textinput-filter" class="form-control k-textbox" cronapp-filter="${fieldsString}" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" value="" placeholder="{{'template.crud.search' | translate}}">
       </div>
@@ -92,8 +92,8 @@
     <#else>
         <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-datasource-filter" id="crn-datasource-filter-${model.getFirstFieldStringNotPk().name}-${model.random}" class="">
           <div class="form-group">
-            <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[model.getFirstFieldStringNotPk().name]!}</label>
-            <input id="textinput-filter" type="text" class="form-control k-textbox" cronapp-filter="${model.getFirstFieldStringNotPk().name}" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" value="" placeholder="<#if model.getFirstFieldStringNotPk().label?has_content>${model.getFirstFieldStringNotPk().label}<#else>${model.getFirstFieldStringNotPk().name}</#if>">
+            <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[model.getClazz().getSearchField().name]!}</label>
+            <input id="textinput-filter" type="text" class="form-control k-textbox" cronapp-filter="${model.getClazz().getSearchField().name}" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="${model.dataSourceName}" value="" placeholder="<#if model.getFirstFieldStringNotPk().label?has_content>${model.getFirstFieldStringNotPk().label}<#else>${model.getFirstFieldStringNotPk().name}</#if>">
           </div>
         </div>
     </#if>
