@@ -49,7 +49,7 @@
     <div ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
       <form crn-datasource="${model.dataSourceName}">
         <fieldset ng-disabled="!${model.dataSourceName}.editing &amp;&amp; !${model.dataSourceName}.inserting">
-          <div class="list">
+          <#--<div class="list">-->
             <#list model.formFields as field>
             <!-- ${field.name} begin -->
               <#if field.isBoolean() >
@@ -72,17 +72,32 @@
               <#elseif (field.isTimestamp())>
             <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
-              <input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
+              <input type="datetime" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
-              <#elseif (field.isTimestamp())>
+              <#elseif (field.isTime())>
             <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
-              <input type="datetime-local" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
+              <input type="time" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
               <#elseif field.isNumber() >
-            <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-inline">
-              <span class="input-label">${model.formMapLabels[field.name]!}</span>
-              <input type="number" ng-model="${model.dataSourceName}.active.${field.name}" class="" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+            <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
+                <span class="input-label">${model.formMapLabels[field.name]!}</span>
+                <input type="integer" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
+            </label>
+              <#elseif field.isLong() >
+            <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
+                <span class="input-label">${model.formMapLabels[field.name]!}</span>
+                <input type="number" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
+            </label>
+              <#elseif field.isDecimal() >
+            <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
+                <span class="input-label">${model.formMapLabels[field.name]!}</span>
+                <input type="number" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
+            </label>
+              <#elseif field.isChar() >
+            <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
+                <span class="input-label">${model.formMapLabels[field.name]!}</span>
+                <input type="text"  maxlength="1" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
               <#elseif field.getProperty("ngOptions")??>
             <datasource name="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}" entity="${field.getProperty("ngOptions").dataSourceUrl}" keys="${field.getProperty("ngOptions").keys}" class="" schema="${model.getDSSchema(field.getProperty("ngOptions").dataSourceName)}"></datasource>
@@ -187,7 +202,7 @@
             </#list>
             <!-- NtoN  end-->
 
-          </div>
+          <#--</div>-->
         </fieldset>
       </form>
     </div>
