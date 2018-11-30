@@ -132,13 +132,13 @@
               </div>
             </div>
               <#else>
-            <label for="textinput-${field.name}" class="item item-input item-stacked-label">
+            <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
               <span class="input-label">${model.formMapLabels[field.name]!}</span>
               <input
                   type="text"
                   placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
                   ng-model="${model.dataSourceName}.active.${field.name}"
-                  id="textinput-${field.name}"
+                  id="textinput-${field.name}-${model.random}"
                   name="textinput-${field.name}"
 				<#if model.formMapMasks[field.name]?has_content>
 				mask="${model.formMapMasks[field.name]}"
