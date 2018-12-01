@@ -168,7 +168,9 @@
                   <#assign keysDs = "${model.getJoinKeys(model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAjustedFullPrimaryKeys())}">
                 </#if>
               </#if>
-	   <datasource
+              
+			  <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
+	  <datasource
           data-component="crn-datasource"
           name="${relationClassName}"
           entity="${model.namespace}.${relationClassName}"
@@ -185,7 +187,6 @@
           keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}"
 		  schema="${model.getDSSchema(field.getName())}">
       </datasource>
-              <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
             <label class="item item-input item-select component-holder" data-component="crn-multiselect" >
               <span>${field.getName()?cap_first}</span>
               <select
