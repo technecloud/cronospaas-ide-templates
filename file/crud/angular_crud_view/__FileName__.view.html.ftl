@@ -185,7 +185,7 @@
               <#assign currentType = "textinput">
               <#if field.getProperty("ngOptions")??>
                 <#assign currentType = "enterprise-dynamic-combobox">
-                    <datasource data-component="crn-datasource" name="${field.type}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" dependent-by="{{${model.dataSourceName}}}" schema="${model.getDSSchema(field.type)}" lazy=true></datasource>
+                    <datasource data-component="crn-datasource" name="${field.type}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" schema="${model.getDSSchema(field.type)}" lazy=true></datasource>
               </#if>
               <#assign dataComponentType = "crn-${currentType}">
 
