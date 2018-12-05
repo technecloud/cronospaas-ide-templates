@@ -416,7 +416,7 @@
               </#if>
 
 				<!-- query filter 1toN end-->
-				<datasource
+		<datasource
             data-component="crn-datasource"
             filter="${filterSearch}"
             name="${field.getName()}Grid"
@@ -426,10 +426,9 @@
             rows-per-page="100"
             parameters="${model.getParametersDataSource(field)}"
             schema="${model.getDSSchema(field.getName())}"
-            lazy=true
-        >
+            lazy=true>
         </datasource>
-				<!-- teste -->
+			  <!-- teste -->
               <#list field.getClazz().getFields() as gField>
                 <#if model.hasCronappFramework()>
                   <#if gField.isReverseRelation() || gField.isRelation() >
@@ -454,7 +453,9 @@
   </div>
 </div>
 
+<#if model.hasFieldGridNtoN()?? && model.hasFieldGridNtoN()>
 <#list model.formFieldsNToN as field>
+<#if field.isNToN() && field.getProperty("NToNOption")?has_content && field.getProperty("NToNOption") == "Grade">
 <div class="modal fade" id="modal${field.getName()}Grid">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -464,34 +465,31 @@
           <h4 class="modal-title">${field.getName()}</h4>
         </div>
         <div class="modal-body">
-          <div class="list-group list-group-sm row">
-						<#if field.isNToN() && field.getProperty("NToNOption")?has_content && field.getProperty("NToNOption") == "Grade">
-							<#assign relationClassName = "">
-							<#assign dataSourceName = "${field.getClazz().getName()}">
-							<#assign dataSourceCombo = "${field.fullType}NCombo">
-							<#assign keyField = "">
-							<#assign textField = "">
-							<#if field.getFullType()?? && model.getManyToManyRelationship(field.getFullType())??>
+          <div class="list-group list-group-sm row">				
+			<#assign relationClassName = "">
+			<#assign dataSourceName = "${field.getClazz().getName()}">
+			<#assign dataSourceCombo = "${field.fullType}NCombo">
+			<#assign keyField = "">
+			<#assign textField = "">
+			<#if field.getFullType()?? && model.getManyToManyRelationship(field.getFullType())??>
                 <#assign relationClassName = "${model.getManyToManyRelationship(field.getFullType()).getRelationClass().getName()}">
                 <#assign keyField = "${model.getJoinKeys(model.getManyToManyRelationship(field.getFullType()).getRelationClass().getPrimaryKeys())}">
                 <#assign textField = "${model.getManyToManyRelationship(field.getFullType()).getRelationClass().getFirstStringFieldNonPrimaryKey().getName()}">
-              </#if>
+			</#if>
 
-              <datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${relationClassName}" keys="${keyField}" schema="${model.getDSSchema(field.fullType)}" lazy=true></datasource>
-              <div data-component="crn-enterprise-dynamic-combobox" id="modal-combo${field.getName()}-${model.random}" class="component-holder ng-binding ng-scope">
-                <div class="form-group">
-                  <label for="combobox-modal-${field.getName()}${model.random}" class=""><#if field.label?has_content>${field.label}<#else>${field.name?capitalize}</#if></label>
-                  <cron-dynamic-select
+            <datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${relationClassName}" keys="${keyField}" schema="${model.getDSSchema(field.fullType)}" lazy=true></datasource>
+            <div data-component="crn-enterprise-dynamic-combobox" id="modal-combo${field.getName()}-${model.random}" class="component-holder ng-binding ng-scope">
+              <div class="form-group">
+                <label for="combobox-modal-${field.getName()}${model.random}" class=""><#if field.label?has_content>${field.label}<#else>${field.name?capitalize}</#if></label>
+                <cron-dynamic-select
                       id="combobox-modal-${field.getName()}${model.random}"
                       name="combobox-modal-${field.getName()}${model.random}"
                       options="${model.getComboOptions(field.fullType, textField, keyField, dataSourceCombo)}"
                       ng-model="${dataSourceName}.active.${field.getName()?uncap_first}"
                       class="crn-select form-control" <#if !field.isNullable()>required="required"</#if>>
-                  </cron-dynamic-select>
-                </div>
+                </cron-dynamic-select>
               </div>
-
-            </#if>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -500,7 +498,9 @@
     </div>
   </div>
 </div>
+</#if>
 </#list>
+</#if>
 
 <#list model.formFieldsOneToN as field>
 <div class="modal fade" id="modal${field.getName()}Grid">
