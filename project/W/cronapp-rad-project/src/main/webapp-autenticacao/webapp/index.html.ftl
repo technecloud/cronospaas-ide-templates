@@ -19,7 +19,7 @@
   <script src="js/customModules.js"></script>
   <link rel="stylesheet" href="css/app.css" />
 </head>
-<body <#if !(menuPosition??) || menuPosition == "Horizontal">class ="crn-navigator-horizontal"<#else>class ="crn-navigator-vertical"</#if>>
+<body>
   <div ui-view class="fill"></div>
   
   <!-- Modal Template -->

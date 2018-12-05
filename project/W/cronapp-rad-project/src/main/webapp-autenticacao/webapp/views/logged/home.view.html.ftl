@@ -3,7 +3,7 @@
     <h2 class="component-holder text-left" xattr-position="text-left" data-component="crn-subtitle" id="crn-subtitle-814474">${appname}</h2>
 </div>
 </#if>
-<div class="component-holder ng-binding ng-scope" data-component="crn-navbar" id="crn-navbar-986427">
+<div class="component-holder ng-binding ng-scope <#if !(menuPosition??) || menuPosition == "Vertical">crn-navigator-vertical</#if>" data-component="crn-navbar" id="crn-navbar-986427">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -50,7 +50,7 @@
     </div>
   </nav>
 </div>
-<div ui-view="" class="container-fluid main-view" data-container="true">
+<div ui-view="" class="container-fluid main-view <#if !(menuPosition??) || menuPosition == "Vertical">main-view-vertical</#if>" data-container="true">
 </div> 
 <div class="modal fade" id="modalPassword">
   <div class="modal-dialog">
