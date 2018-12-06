@@ -20,6 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 <#if hasCloudStorage>
 import cronapi.CronapiCloud;
 </#if>
+<#if clazz.hasSearchable()>
+import cronapi.CronapiSearchable;
+</#if> 
 <#if clazz.hasFileDataBase()>
 import cronapi.CronapiByteHeaderSignature;
 </#if>
@@ -176,6 +179,9 @@ public class ${clazz.name} implements Serializable {
   <#if field.isFileDataBase()>
   @CronapiByteHeaderSignature
   </#if>
+  <#if field.isSearchable()>
+  @CronapiSearchable
+  </#if>  
   ${field.securityAnnotation}
   ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
   </#if>

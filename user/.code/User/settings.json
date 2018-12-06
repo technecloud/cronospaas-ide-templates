@@ -1,0 +1,6 @@
+{
+  "editor.fontLigatures": true,
+  "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+  "editor.scrollBeyondLastLine": false,
+  "workbench.settings.openDefaultSettings": false
+}

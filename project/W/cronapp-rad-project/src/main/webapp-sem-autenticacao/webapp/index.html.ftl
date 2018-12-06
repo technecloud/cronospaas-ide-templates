@@ -9,17 +9,15 @@
   <link rel="stylesheet" href="plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
   <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" href="plugins/angular-ui-select/dist/select.min.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/cronos.css" />
-  <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/cronos-bootstrap.css" />
   <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/app.css" />
   <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
   <#if !(theme??) || theme=="">
-  <link id="themeSytleSheet" rel="stylesheet" href="">
+  <link id="themeSytleSheet" rel="stylesheet" href="plugins/cronapp-framework-js/css/themes/material.min.css">
   <#else>
   <link id="themeSytleSheet" rel="stylesheet" href="plugins/cronapp-framework-js/css/themes/${theme?lower_case}.min.css">
   </#if>
-  <link rel="stylesheet" href="css/app.css" />
   <script src="js/customModules.js"></script>
+  <link rel="stylesheet" href="css/app.css" />
 </head>
 <body>
   <div ui-view class="fill"></div>

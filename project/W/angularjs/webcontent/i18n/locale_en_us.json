@@ -64,7 +64,7 @@
   "Perfil.view.Idioma": "Language",
   "Permission.view.Priority": "Priority",
   "Permission.view.Exclude": "Exception",
-  "General.RemoveData": "Do you whant to remove?",
+  "General.RemoveData": "Do you want to remove?",
   "General.ErrorNotSpecified": "Error not specified",
   "Login.view.invalidPassword": "Username or password invalid!",
   "Home.view.passwordChanged": "Password successfully changed!",

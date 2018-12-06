@@ -1,88 +1,42 @@
-<h3>Title</h3>
-<div data-component="crn-datasource" id="crn-datasource-763276" class="component-holder">
-  <datasource filter="" name="Data" entity="" keys="id" rows-per-page="100" delete-message="{{'WhatsRemove' | translate}}"></datasource>
-</div>
-<div class="row component-holder" data-component="crn-horizontal-container" id="crn-horizontal-container-156199">
-  <div class="column active col-xs-12 form-group" data-container="true" data-replace="true">
-    <button data-component="crn-button" id="crn-button-564202" class="btn btn-primary form-group" type="submit" onclick="" ng-click="Data.startInserting()" ng-hide="Data.inserting || Data.editing"><i class="fa fa-user"></i> <span>{{"template.crud.new" | translate}}</span></button>
-  </div>
-</div>
-<div class="component-holder ng-binding ng-scope" data-component="crn-textinput" id="crn-textinput-979039" ng-hide="Data.inserting || Data.editing">
-  <div class="form-group">
-    <input type="text" ng-model="vars.search" class="form-control" id="search-id" placeholder="Buscar..." ng-change="Data.searchAll(vars.search)">
-  </div>
-</div>
-<div class="component-holder" data-component="crn-grid" id="crn-grid-data">
-  <div crn-datasource="Data" ng-hide="Data.editing || Data.inserting">
-    <table class="table  table-bordered table-hover table-striped">
-      <thead>
-        <tr class="table-header">
-          <th class="active">
-            <div data-container="true">
-               Id
-            </div> </th>
-          <th>
-            <div data-container="true">
-               Column 1
-            </div> </th>
-          <th>
-            <div data-container="true">
-               {{"template.crud.actions" | translate}}
-            </div> </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="table-content" ng-repeat="rowData in datasource.data">
-          <td class="active">
-            <div data-container="true">
-               {{rowData.id}}
-            </div> </td>
-          <td>
-            <div data-container="true">
-               {{rowData.field1}}
-            </div> </td>
-          <td>
-            <div>
-              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.startEditing(rowData)"><i class="fa fa-edit"></i></button>
-              <button class="btn btn-default btn-sm" type="submit" ng-click="datasource.remove(rowData)"><i class="fa fa-times"></i></button>
-            </div> </td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="table-footer-controls">
-      <button class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()">{{"template.crud.load_more" | translate}}</button>
-    </div>
-  </div>
-</div>
-<div data-component="crn-form" id="crn-form-form-data">
-  <div class="form" ng-show="Data.editing || Data.inserting">
-    <form crn-datasource="Data">
-      <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting" crn-datasource="Data">
-        <button class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
-        <button class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
-        <button class="btn btn-primary" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><i class="glyphicon glyphicon-chevron-left"></i></button>
-        <button class="btn btn-primary" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><i class="glyphicon glyphicon-chevron-right"></i></button>
-        <button class="btn btn-primary" ng-click="datasource.remove()"><i class="glyphicon glyphicon-trash"></i></button>
-      </div>
-      <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting">
-        <button class="btn btn-success" ng-click="datasource.post()"><i class="glyphicon glyphicon-ok"></i></button>
-        <button class="btn btn-danger" ng-click="datasource.cancel()"><i class="glyphicon glyphicon-remove"></i></button>
-      </div>
-      <br>
-      <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
-        <div data-component="crn-textinput" id="crn-textinput-email">
+<h3>Title</h3> 
+
+<datasource data-component="crn-datasource" filter="" name="MainDatasource" entity="" keys="" rows-per-page="100" class="" schema="" lazy=""></datasource> 
+
+<div ng-hide="MainDatasource.inserting || MainDatasource.editing" data-component="crn-datasource-filter" id="crn-datasource-filter" class=""> 
+  <div class="form-group"> 
+    <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label> 
+    <input type="text" ng-model="vars.search" id="textinput-filter" class="form-control k-textbox" cronapp-filter="" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="MainDatasource" value="" placeholder="{{'template.crud.search' | translate}}"> 
+  </div> 
+</div> 
+
+<div ng-hide="MainDatasource.editing || MainDatasource.inserting" class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="cron-crn-grid-search"> 
+  <cron-grid options="{&quot;dataSourceScreen&quot;:{},&quot;allowPaging&quot;:true,&quot;allowSorting&quot;:true,&quot;allowGrouping&quot;:false,&quot;allowSelectionTotalPageToShow&quot;:true,&quot;allowRefreshGrid&quot;:true,&quot;allowSelectionRow&quot;:true,&quot;editable&quot;:&quot;datasource&quot;,&quot;columns&quot;:[],&quot;toolBarButtons&quot;:[{&quot;type&quot;:&quot;Native&quot;,&quot;title&quot;:&quot;create&quot;}],&quot;details&quot;:[]}" ng-model="vars.gridmain" class="" style=""> 
+  </cron-grid> 
+</div> 
+<div data-component="crn-form" id="crn-form-form"> 
+  <div class="form" ng-show="MainDatasource.editing || MainDatasource.inserting"> 
+    <form crn-datasource="MainDatasource" class=""> 
+      <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
+        <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-click="datasource.startInserting()"><span class="k-icon k-i-plus"></span></button> 
+        <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-click="datasource.startEditing()"><span class="k-icon k-i-edit"></span></button> 
+        <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-disabled="!datasource.hasPrevious()" ng-click="datasource.previous()"><span class="k-icon k-i-arrow-chevron-left"></span></button> 
+        <button class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-disabled="!datasource.hasNext()" ng-click="datasource.next()"><span class="k-icon k-i-arrow-chevron-right"></span></button> 
+        <button class="btn btn-danger btn-fab k-button" data-component="crn-button" ng-click="datasource.remove()"><span class="k-icon k-i-close"></span></button> 
+      </div> 
+      <div class="active-bar" ng-hide="!datasource.editing &amp;&amp; !datasource.inserting"> 
+        <button class="btn btn-success btn-fab k-button" id="btn_crud_post41107" data-component="crn-button" ng-click="datasource.post()"><span class="k-icon k-i-check"></span></button> 
+        <button class="btn btn-danger btn-fab k-button" id="btn_crud_cancel41107" data-component="crn-button" ng-click="datasource.cancel()"><span class="k-icon k-i-cancel"></span></button> 
+      </div> 
+      <br> 
+      <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting"> 
+        <div class="component-holder ng-binding ng-scope" data-component="crn-textinput" id="crn-textinput-98075">
           <div class="form-group">
-            <label for="textinput-email">Id</label>
-            <input type="text" ng-model="Data.active.id" class="form-control" id="textinput-email" placeholder="Id">
+            <label for="input5045">Label</label>
+            <input type="text" mask="" mask-placeholder="" ng-required="false" ng-model="vars.input5045" class="form-control k-textbox" id="input5045" placeholder="Placeholder text">
           </div>
-        </div>
-        <div class="component-holder ng-binding ng-scope" data-component="crn-textinput" id="crn-textinput-891962">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Label</label>
-            <input type="text" data-component="crn-input" ng-model="" class="component-holder form-control" id="textinput-id" placeholder="Placeholder text">
-          </div>
-        </div>
-      </fieldset>
+        </div> 
+      </fieldset> 
     </form>
-  </div>
+	  
+  </div> 
 </div>
