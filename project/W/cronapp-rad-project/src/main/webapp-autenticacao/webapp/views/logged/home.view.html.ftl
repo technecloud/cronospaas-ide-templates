@@ -3,7 +3,7 @@
     <h2 class="component-holder text-left" xattr-position="text-left" data-component="crn-subtitle" id="crn-subtitle-814474">${appname}</h2>
 </div>
 </#if>
-<div class="component-holder ng-binding ng-scope <#if !(menuPosition??) || menuPosition == "Vertical">crn-navigator-vertical</#if>" data-component="crn-navbar" id="crn-navbar-986427">
+<div class="component-holder ng-binding ng-scope <#if !(menuPosition??) || menuPosition == "Horizontal">crn-navigator-horizontal<#else>crn-navigator-vertical</#if>" data-component="crn-navbar" id="crn-navbar-986427">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -17,10 +17,10 @@
             <ul class="dropdown-menu">
               <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor" >{{"Home.view.Users" | translate}}</a></li>
             <#if !(customMenu??) >
-			<#if multitenant?? && multitenant?lower_case == "sim">
+      <#if multitenant?? && multitenant?lower_case == "sim">
               <li><a href="#/home/logged/department" class="component-holder" data-component="crn-anchor">{{"Home.view.Department" | translate}}</a></li>
             </#if>
-            </#if>			
+            </#if>      
             </ul> </li>
     <#if (customMenu??) >
       <#list customMenu?keys as key>
@@ -50,7 +50,7 @@
     </div>
   </nav>
 </div>
-<div ui-view="" class="container-fluid main-view <#if !(menuPosition??) || menuPosition == "Vertical">main-view-vertical</#if>" data-container="true">
+<div ui-view="" class="container-fluid main-view <#if !(menuPosition??) || menuPosition == "Horizontal">main-view-horizontal<#else>main-view-vertical</#if>" data-container="true">
 </div> 
 <div class="modal fade" id="modalPassword">
   <div class="modal-dialog">
