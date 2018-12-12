@@ -139,9 +139,7 @@
                   ng-model="${model.dataSourceName}.active.${field.name}"
                   id="textinput-${field.name}-${model.random}"
                   name="textinput-${field.name}"
-				<#if model.formMapMasks[field.name]?has_content>
-                     mask="${model.formMapMasks[field.name]}"
-                <#else>  mask=""
+				<#if model.formMapMasks[field.name]?has_content> mask="${model.formMapMasks[field.name]}" <#else> mask=""
           <#if model.formMapMasks[field.name] == "999.999.999-99" >
             <#assign valid = "cpf" >
           <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
