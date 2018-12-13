@@ -24,7 +24,7 @@
 		<#if field.isSearchable()>
 		<div  data-component="crn-search" id="crn-search-${field.name}-${model.random}">
           <label class="item item-input" id="search-${field.name}-${model.random}"><i class="icon ion-search placeholder-icon"></i>
-            <input type="<#if field.isDate() >date<#elseif (field.isTimestamp() || field.isTime())>time<#elseif (field.isBoolean())>checkbox<#elseif (field.isNumber() || field.isDecimal() || field.isLong)>number<#else>text</#if>" ng-model="vars.search${field.name}" mask="${model.formMapMasks[field.name]}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" cronapp-filter-caseinsensitive="true" cronapp-filter-autopost="false" cronapp-filter-operator="=" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+            <input type="<#if field.isDate() >date<#elseif (field.isTimestamp() || field.isTime())>time<#elseif (field.isBoolean())>checkbox<#elseif (field.isNumber() || field.isDecimal() || field.isLong())>number<#else>text</#if>" ng-model="vars.search${field.name}" mask="${model.formMapMasks[field.name]}" cronapp-filter="${field.name}" crn-datasource="${model.dataSourceName}" cronapp-filter-caseinsensitive="true" cronapp-filter-autopost="false" cronapp-filter-operator="=" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
           </label>
 		</div>
 		</#if>
@@ -139,9 +139,7 @@
                   ng-model="${model.dataSourceName}.active.${field.name}"
                   id="textinput-${field.name}-${model.random}"
                   name="textinput-${field.name}"
-				<#if model.formMapMasks[field.name]?has_content>
-                     mask="${model.formMapMasks[field.name]}"
-                <#else>  mask=""
+				<#if model.formMapMasks[field.name]?has_content> mask="${model.formMapMasks[field.name]}" <#else> mask=""
           <#if model.formMapMasks[field.name] == "999.999.999-99" >
             <#assign valid = "cpf" >
           <#elseif model.formMapMasks[field.name] == "99.999.999/9999-99">
