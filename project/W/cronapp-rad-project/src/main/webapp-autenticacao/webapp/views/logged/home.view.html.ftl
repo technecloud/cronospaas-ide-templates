@@ -45,6 +45,7 @@
               <li><a class="component-holder" data-toggle="modal" data-target="#modalPassword" data-component="crn-anchor" >{{"Home.view.ChangePassword" | translate}}</a></li>
               <li><a ng-click="logout()" href="" data-component="crn-anchor"><span>{{"Home.view.Logout" | translate}}</span></a></li>
             </ul> </li>
+            <cron-dynamic-menu class="component-holder" data-component="crn-dynamic-menu" options="">Dynamic Menu</cron-dynamic-menu>
         </ul>
       </div>
     </div>
