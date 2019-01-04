@@ -468,7 +468,7 @@
           <div class="list-group list-group-sm row">				
 			<#assign relationClassName = "">
 			<#assign dataSourceName = "${field.getClazz().getName()}">
-			<#assign dataSourceCombo = "${field.fullType}NCombo">
+			<#assign dataSourceCombo = "${field.label}NCombo">
 			<#assign keyField = "">
 			<#assign textField = "">
 			<#if field.getFullType()?? && model.getManyToManyRelationship(field.getFullType())??>
