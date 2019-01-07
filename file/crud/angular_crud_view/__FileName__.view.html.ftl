@@ -185,7 +185,7 @@
               <#assign currentType = "textinput">
               <#if field.getProperty("ngOptions")??>
                 <#assign currentType = "enterprise-dynamic-combobox">
-                    <datasource data-component="crn-datasource" name="${field.type}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" schema="${model.getDSSchema(field.type)}" lazy=true></datasource>
+                    <datasource data-component="crn-datasource" name="${model.formMapLabels[field.name]!?cap_first}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" schema="${model.getDSSchema(field.type)}" lazy=true></datasource>
               </#if>
               <#assign dataComponentType = "crn-${currentType}">
 
@@ -468,7 +468,7 @@
           <div class="list-group list-group-sm row">				
 			<#assign relationClassName = "">
 			<#assign dataSourceName = "${field.getClazz().getName()}">
-			<#assign dataSourceCombo = "${field.label}NCombo">
+			<#assign dataSourceCombo = "${field.fullType}NCombo">
 			<#assign keyField = "">
 			<#assign textField = "">
 			<#if field.getFullType()?? && model.getManyToManyRelationship(field.getFullType())??>
