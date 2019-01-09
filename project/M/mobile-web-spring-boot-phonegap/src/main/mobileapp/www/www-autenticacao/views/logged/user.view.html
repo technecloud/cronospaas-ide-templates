@@ -15,7 +15,7 @@
       <datasource filter="{{query == '' || query == null ? null : ('/findByLogin/' + query)}}" name="User"  entity="api/security/User" keys="id" rows-per-page="100" delete-message="{{ 'General.RemoveData' | translate }}" class=""></datasource> 
     </div> 
     <div crn-datasource="User" class="" ng-hide="User.editing || User.inserting"> 
-      <ion-list can-swipe="listCanSwipe"> 
+      <ion-list>
         <ion-item ng-repeat="rowData in datasource.data" class="item" ng-click="datasource.startEditing(rowData)"> 
           <div class="row"> 
             <div class="col">
