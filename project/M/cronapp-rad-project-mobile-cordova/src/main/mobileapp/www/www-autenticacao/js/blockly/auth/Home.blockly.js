@@ -9,5 +9,5 @@ window.blockly.js.blockly.auth.Home = window.blockly.js.blockly.auth.Home || {};
  */
 window.blockly.js.blockly.auth.Home.change = function() {
 
-  this.cronapi.screen.changeView("#/app/public/home",[  ]);
+  this.cronapi.screen.changeView("#/app/login",[  ]);
 }
