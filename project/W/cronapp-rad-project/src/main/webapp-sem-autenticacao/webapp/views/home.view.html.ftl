@@ -22,7 +22,8 @@
       </#if>
       </li>
       </#list>
-    </#if>      
+    </#if>  
+		<cron-dynamic-menu class="component-holder" data-component="crn-dynamic-menu" options="">Dynamic Menu</cron-dynamic-menu>    
         </ul> 
       </div> 
     </div> 
