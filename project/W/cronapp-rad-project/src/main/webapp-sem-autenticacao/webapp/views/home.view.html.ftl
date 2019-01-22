@@ -8,7 +8,6 @@
       </div> 
       <div id="navbar" class="navbar-collapse collapse"> 
         <ul class="nav navbar-nav" style="float:none"> 
-          <li class="dropdown component-holder" data-component="crn-menu-item"> <a href="#/home" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-home"></i> <span >{{"Home.view.Home" | translate}}</span> </a> </li>
         <#if (customMenu??) >
       <#list customMenu?keys as key>
       <#assign items = customMenu[key]>
@@ -22,8 +21,8 @@
       </#if>
       </li>
       </#list>
-    </#if>  
-		<cron-dynamic-menu class="component-holder" data-component="crn-dynamic-menu" options="">Dynamic Menu</cron-dynamic-menu>    
+    </#if>
+        <cron-dynamic-menu class="component-holder" data-component="crn-dynamic-menu" options="{&quot;subMenuOptions&quot;:[{&quot;id&quot;:&quot;1h85bvnhg7511&quot;,&quot;name&quot;:&quot;Home&quot;,&quot;title&quot;:&quot;{{'Home.view.Home' | translate}}&quot;,&quot;iconClass&quot;:&quot;fa fa-home&quot;,&quot;action&quot;:&quot;cronapi.screen.changeView('#/home', [])&quot;,&quot;level&quot;:1,&quot;menuItems&quot;:[]}]}">Dynamic Menu</cron-dynamic-menu>
         </ul> 
       </div> 
     </div> 
