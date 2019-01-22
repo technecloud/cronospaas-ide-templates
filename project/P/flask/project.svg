@@ -6,7 +6,7 @@
 	.st0{fill:#FFFFFF;}
 	.st1{fill:#B3B3B3;}
 	.st2{font-family:'ArialMT';}
-	.st3{font-size:8px;}
+	.st3{font-size:18px;}
 	.st4{fill:#808080;}
 	.st5{fill:#659C35;}
 	.st6{fill:#D13834;}
@@ -14,7 +14,7 @@
 	.st8{fill:#F75B57;}
 </style>
 <path class="st0" d="M136,84H4c-2.2,0-4-1.8-4-4V4c0-2.2,1.8-4,4-4h132c2.2,0,4,1.8,4,4v76C140,82.2,138.2,84,136,84z"/>
-<text transform="matrix(1 0 0 1 60.5 74.833)" class="st1 st2 st3">flask</text>
+<text transform="matrix(1 0 0 1 52.5 78.833)" class="st1 st2 st3">flask</text>
 <g>
 	<path class="st4" d="M51.5,53.5c2,0,2.9,1.9,3,4c0,1.9-1,3.7-3,3.8c-0.8,0-1.5-0.3-2.2-0.7V65L48,64.6v-9.8
 		C48,54.8,49,53.5,51.5,53.5L51.5,53.5z M51.2,60.4c1.6-0.1,1.8-1.7,1.8-3c0-1.2-0.2-3.1-1.8-3.1c-1.1-0.1-1.9,0.4-2.1,0.6v4.9
