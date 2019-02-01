@@ -84,6 +84,7 @@
   "template.crud.new": "New",
   "template.crud.clickOrDragAnImage":"Click or drag an image",
   "template.crud.clickOrDragAnFile":"Click or drag an file",
+  "template.view.search": "Consulta",
   "ChooseTheme": "Choose Theme",
   "Theme": "Theme",
   "Home.view.themeChanged": "Changed theme!",
