@@ -63,7 +63,7 @@
   </div> 
 </div> 
   </#if>
-<div ui-view="" class="container-fluid main-view" data-container="true"> 
+<div ui-view="" class="container-fluid main-view" data-container="true" data-replace="true"> 
 </div>
  
 <div class="modal fade" id="modalPassword"> 
