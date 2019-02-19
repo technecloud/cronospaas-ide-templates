@@ -441,6 +441,7 @@
 
 <#if model.hasFieldGridNtoN()?? && model.hasFieldGridNtoN()>
 <#list model.formFieldsNToN as field>
+<#assign nomeModal = "modal${field.getName()}Grid">
 <#if field.isNToN() && field.getProperty("NToNOption")?has_content && field.getProperty("NToNOption") == "Grade">
 <div class="modal fade" id="modal${field.getName()}Grid">
   <div class="modal-dialog">
@@ -479,11 +480,14 @@
           </div>
         </div>
         <div class="modal-footer">
+            <button class="btn btn-primary btn-fab ng-binding grid-save-button-modal k-button" data-component="crn-button" ng-click="${dataSourceName}.active.${model.getTextRelationField(field)}=${dataSourceCombo}.active.${textField}; ${dataSourceName}.post();" onclick="(!${dataSourceName}.missingRequiredField()?$('#${nomeModal}').modal('hide'):void(0))"><span class="k-icon k-i-check"></span></button>
+            <button type="button" class="btn btn-default btn-fab ng-binding k-button" data-component="crn-button" data-dismiss="modal"><span class="k-icon k-i-cancel"></span></button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
 </#if>
 </#list>
 </#if>
