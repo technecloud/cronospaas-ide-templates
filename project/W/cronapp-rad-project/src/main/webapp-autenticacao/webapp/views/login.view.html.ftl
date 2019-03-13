@@ -36,37 +36,37 @@
                         <button class="btn btn-default col-md-12 col-xs-12 k-button btn-primary" type="submit" ng-disabled="form.$invalid || vm.dataLoading" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default" xattr-disabled="" data-component="crn-button"> <span>{{"Login.view.Login" | translate}} </span></button>
                     </div>
                 </form>
-                <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-button" id="crn-button-671331">
-                    <ul class="list-inline center-block text-center">
-                    <#if social?? && social?lower_case == "sim">
-                        <li>
-                  <form action="/signin/facebook" method="POST" id="facebook">
-                      <input type="hidden" name="scope" value="email,public_profile">
-                      <a title="Facebook" role="button" onclick="document.getElementById('facebook').submit();"><i class="fa fa-2x fa-facebook"></i></a>
-                  </form> </li>
-                         <li>
-                  <form action="/signin/github" method="POST" id="github">
-                      <input type="hidden" name="scope" value="email,public_profile">
-                      <a title="GitHub" role="button" onclick="document.getElementById('github').submit();"><i class="fa fa-2x fa-github-alt"></i></a>
-                  </form> </li>
-                        <li>
-                  <form action="/signin/linkedin" method="POST" id="linkedin">
-                      <input type="hidden" name="scope" value="r_emailaddress">
-                      <a title="LinkedIn" role="button" onclick="document.getElementById('linkedin').submit();"><i class="fa fa-2x fa-linkedin-square"></i></a>
-                  </form> </li>
-                        <li>
-                  <form action="/signin/google" method="POST" id="google">
-                      <input type="hidden" name="scope" value="email">
-                      <a title="Google" role="button" onclick="document.getElementById('google').submit();"><i class="fa fa-2x fa-google"></i></a>
-                  </form> </li>
-                         <li>
-                  <form action="/signin/cronapp" method="POST" id="cronapp">
-                      <input type="hidden" name="scope" value="email">
-                      <a title="CronApp" role="button" onclick="document.getElementById('cronapp').submit();"><i class="fa fa-2x fa-cloud"></i></a>
-                  </form> </li>
-                    </#if>
-                    </ul>
-                </div>
+                 <#if social?? && social?lower_case == "sim">
+                   <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-social-login" id="crn-social-login-01">
+                       <ul class="list-inline center-block text-center">
+                           <li data-container="true">
+                               <form action="/signin/facebook" method="POST" id="facebook">
+                                   <input type="hidden" name="scope" value="email,public_profile">
+                                   <a title="Facebook" role="button" onclick="document.getElementById('facebook').submit()"><i class="fa fa-2x fa-facebook"></i></a>
+                               </form></li>
+                           <li data-container="true">
+                               <form action="/signin/github" method="POST" id="github">
+                                   <input type="hidden" name="scope" value="email,public_profile">
+                                   <a title="GitHub" role="button" onclick="document.getElementById('github').submit()"><i class="fa fa-2x fa-github-alt"></i></a>
+                               </form></li>
+                           <li data-container="true">
+                               <form action="/signin/linkedin" method="POST" id="linkedin">
+                                   <input type="hidden" name="scope" value="r_emailaddress">
+                                   <a title="LinkedIn" role="button" onclick="document.getElementById('linkedin').submit()"><i class="fa fa-2x fa-linkedin-square"></i></a>
+                               </form></li>
+                           <li data-container="true">
+                               <form action="/signin/google" method="POST" id="google">
+                                   <input type="hidden" name="scope" value="email">
+                                   <a title="Google" role="button" onclick="document.getElementById('google').submit()"><i class="fa fa-2x fa-google"></i></a>
+                               </form></li>
+                           <li data-container="true">
+                               <form action="/signin/cronapp" method="POST" id="cronapp">
+                                   <input type="hidden" name="scope" value="email">
+                                   <a title="CronApp" role="button" onclick="document.getElementById('cronapp').submit()"><i class="fa fa-2x fa-cloud"></i></a>
+                               </form></li>
+                       </ul>
+                   </div>
+                 </#if>
             </div>
             <div class="component-holder ng-binding ng-scope col-xs-12 col-sm-12 col-lg-12" data-component="crn-button" id="crn-button-846239"></div>
             <div class="col-xs-12 col-sm-3 col-lg-4" data-container="true"></div>
