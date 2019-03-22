@@ -18,3 +18,12 @@ file=project.png
 file=README.md
 file=spring-boot.png
 </#if>
+<#if (backend?lower_case) == "false" && (frontend?lower_case) == "false" >
+path=/src/main/mobileapp
+path=/docs
+file=.gitignore
+file=pom.xml.ftl
+file=project.png
+file=README.md
+file=spring-boot.png
+</#if>
