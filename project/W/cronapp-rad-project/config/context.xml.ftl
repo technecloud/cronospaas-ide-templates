@@ -22,6 +22,6 @@
         removeAbandoned="false" 
         removeAbandonedTimeout="60" 
         logAbandoned="true" 
-        url="jdbc:h2:file:~/${workCopyInfo.rootPath[workCopyInfo.rootPath?replace("/", "\\")?last_index_of("\\")+1..]};DATABASE_TO_UPPER=false;ALIAS_COLUMN_NAME=true;AUTO_SERVER=TRUE" />
+        url="jdbc:h2:file:~/${workCopyInfo.rootPath[workCopyInfo.rootPath?replace("/", "\\")?last_index_of("\\")+1..]};DATABASE_TO_UPPER=false;ALIAS_COLUMN_NAME=true;FILE_LOCK=NO" />
   </#if>
 </Context>
