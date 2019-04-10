@@ -267,7 +267,7 @@
                           </#if>
                         <#else> <!-- else for if !model.hasCronappFramework() -->
                           <#if field.getProperty("ngOptions")?? >
-                            <#assign dataSourceName = "${field.type}Combo">
+                            <#assign dataSourceName = "${model.formMapLabels[field.name]!?cap_first}Combo">
 								<cron-dynamic-select
 									<#if !field.isNullable()>required="required"</#if>
                   id="${currentType}-${field.name}"
