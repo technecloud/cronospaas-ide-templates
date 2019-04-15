@@ -30,7 +30,11 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class SpringBootMain extends SpringBootServletInitializer {
 
     static {
+       	<#if timezone?? && timezone?lower_case != "utc">
+        TimeZone.setDefault(TimeZone.getTimeZone("${timezone}"));
+        <#else>
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        </#if>
     }
 
 	public static void main(String[] args) throws Exception {
