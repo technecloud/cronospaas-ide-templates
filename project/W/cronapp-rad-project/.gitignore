@@ -19,3 +19,7 @@ buildNumber.properties
 .classpath
 .project
 *.iml
+
+build.properties
+ports.pid
+.replacement/**
