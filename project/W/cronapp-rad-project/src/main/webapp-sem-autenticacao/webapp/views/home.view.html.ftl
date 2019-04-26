@@ -4,7 +4,7 @@
     <div class="container-fluid"> 
       <div class="navbar-header"> 
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <a class="component-holder ng-binding ng-scope navbar-brand" data-component="crn-image" href="#/home"> <img src="plugins/cronapp-framework-js/img/logo-cronapp-negativa.svg" style="max-height:30px; margin-top:-5px" id="crn-navbar-logo" width="152px" data-component="crn-image"> </a>
+        <a class="component-holder ng-binding ng-scope navbar-brand" data-component="crn-image" href="#/home"> <img src="plugins/cronapp-framework-js/dist/img/logo.png" style="max-height:30px; margin-top:-5px" id="crn-navbar-logo" data-component="crn-image"> </a>
       </div> 
       <div id="navbar" class="navbar-collapse collapse"> 
         <ul class="nav navbar-nav" style="float:none"> 
