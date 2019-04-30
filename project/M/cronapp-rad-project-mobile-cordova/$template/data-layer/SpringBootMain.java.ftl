@@ -10,13 +10,13 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-	<#if social?? && social?lower_case == "sim">"cronapp.framework.authentication.social",</#if>
-	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
+<#if social?? && social?lower_case == "sim">"cronapp.framework.authentication.social",</#if>
+<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
 	"cronapp.framework.authentication.security",
 	"cronapp.framework.rest",
-	<#if multitenant?? && multitenant?lower_case == "sim">
+<#if multitenant?? && multitenant?lower_case == "sim">
 	"cronapp.framework.tenant",
-	</#if>
+</#if>
 	"cronapp.framework.scheduler",
 	"auth.permission",
 	"api.rest.events",
@@ -24,13 +24,17 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	"reports",
 	"cronapi",
 	"blockly",
-	<#list workspaceView.allDiagrams as diagram>${diagram.getGlobalAttribute("namespace")}<#if diagram?has_next>, </#if></#list><#list packages as package>${package}<#if package?has_next>, </#if></#list>
+<#list workspaceView.allDiagrams as diagram>${diagram.getGlobalAttribute("namespace")}<#if diagram?has_next>, </#if></#list><#list packages as package>${package}<#if package?has_next>, </#if></#list>
 })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {
 
     static {
+<#if timezone?? && timezone?lower_case != "utc">
+        TimeZone.setDefault(TimeZone.getTimeZone("${timezone}"));
+<#else>
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+</#if>
     }
 
 	public static void main(String[] args) throws Exception {
