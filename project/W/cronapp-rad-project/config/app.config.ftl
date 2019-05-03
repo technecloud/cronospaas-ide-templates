@@ -8,6 +8,7 @@
     "metadataSecurity": "Administrators"
   },
   "security": {
-    "token": "${tokenb64}"
+    "token": "${tokenb64}",
+    "tokenExpiration": 3600
   }
 }
