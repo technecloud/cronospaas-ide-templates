@@ -97,5 +97,6 @@
   "Home.view.Department": "Department",
   "Home.view.PreviousPasswordCanNotBeEmpty": "Previous password can not be empty.",
   "Home.view.NewPasswordCanNotBeEmpty": "New password can not be empty.",
-  "Home.view.ConfirmationPasswordCanNotBeEmpty": "Confirmation can not be empty."
+  "Home.view.ConfirmationPasswordCanNotBeEmpty": "Confirmation can not be empty.",
+  "InvalidDate": "Invalid Date"
 }
