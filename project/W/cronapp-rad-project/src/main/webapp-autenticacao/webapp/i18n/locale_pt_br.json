@@ -97,5 +97,6 @@
   "Home.view.Department": "Departamento",
   "Home.view.PreviousPasswordCanNotBeEmpty": "Senha anterior não pode estar vazio.",
   "Home.view.NewPasswordCanNotBeEmpty": "Nova senha não pode estar vazio.",
-  "Home.view.ConfirmationPasswordCanNotBeEmpty": "Confirmação não pode estar vazio."
+  "Home.view.ConfirmationPasswordCanNotBeEmpty": "Confirmação não pode estar vazio.",
+  "InvalidDate": "Data Inválida"
 }
