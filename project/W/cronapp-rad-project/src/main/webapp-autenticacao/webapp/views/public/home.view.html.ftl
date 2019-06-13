@@ -32,5 +32,5 @@
     </div>
   </nav>
 </div>
-<div ui-view="" class="container-fluid main-view <#if !(menuPosition??) || menuPosition == "Horizontal">main-view-horizontal<#else>main-view-vertical</#if>" data-container="true" data-replace="true">
+<div ui-view="" class="container-fluid main-view <#if !(menuPosition??) || menuPosition == "Horizontal">main-view-horizontal<#else>main-view-vertical</#if>">
 </div> 
