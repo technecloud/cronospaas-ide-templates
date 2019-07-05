@@ -6,7 +6,7 @@
    /**
    * @categoryName ${CategoryName}
    */
-  this.cronapi.myfunctions = {};
+  this.cronapi.myfunctions = this.cronapi.myfunctions || {};
   
   /**
    * @type function
