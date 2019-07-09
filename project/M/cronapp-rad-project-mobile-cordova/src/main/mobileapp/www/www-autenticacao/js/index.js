@@ -11,6 +11,21 @@ var device = {
     
     // get token firebase
     if (firebase && hostapp && device) {
+
+      firebase.hasPermission((data) => {
+        if (data.isEnabled) {
+          console.log("Firebase Permission Already Granted");
+        } else {
+          firebase.grantPermission(() => {
+            console.log("Firebase Permission Granted", data.isEnabled);
+          }, (error) => {
+            console.error("Unable to Grant Firebase Permission", error);
+          });
+        }
+      }, error => {
+        console.log("Firebase hasPermission Failed", error);
+      });
+
       var appURL = hostapp + 'device';
       firebase.getToken(function(code) {
         var data  = { id : device.uuid, 
