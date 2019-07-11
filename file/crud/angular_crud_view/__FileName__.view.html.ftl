@@ -63,7 +63,7 @@
                 <div  data-component="crn-textinput" id="crn-datasource-filter-${field.name}-${model.random}" class="">
                   <div class="form-group">
 					  <#if field.isBoolean() >
-              <input type="checkbox" id="checkbox-filter-${field.name}" ng-model="vars.search${field.name}" class="k-checkbox" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+              <input type="checkbox" crn-allow-null-values="true" id="checkbox-filter-${field.name}" ng-model="vars.search${field.name}" class="k-checkbox" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
               <label for="checkbox-filter-${field.name}" class="k-checkbox-label">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
             <#else>
                         <label for="textinput-filter-${field.name}" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
@@ -124,7 +124,7 @@
               <#elseif field.isBoolean() >
                     <div class="">
                       <div class="form-group">
-                        <input type="checkbox" id="checkbox-filter-${field.name}" ng-model="vars.search${field.name}" class="k-checkbox" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
+                        <input type="checkbox" crn-allow-null-values="true" id="checkbox-filter-${field.name}" ng-model="vars.search${field.name}" class="k-checkbox" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>">
                         <label for="checkbox-filter-${field.name}" class="k-checkbox-label">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
                       </div>
                     </div>
@@ -191,7 +191,7 @@
                         <#if !model.hasCronappFramework()>
 
                           <#if field.isBoolean() >
-                                <input type="checkbox" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+                                <input type="checkbox" crn-allow-null-values="true" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
 								<label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
                           <#elseif (field.isDate() || field.isTime() || field.isTimestamp()) >
 								<input type="text" as-date class="form-control k-textbox"
@@ -277,7 +277,7 @@
                   class="crn-select form-control">
                 </cron-dynamic-select>
                           <#elseif field.isBoolean() >
-                                <input type="checkbox" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
+                                <input type="checkbox" crn-allow-null-values="true" class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
 								<label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
                           <#elseif field.isImage()>
                                 <div dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
@@ -534,7 +534,7 @@
                                       <div class="form-group">
                                         <label for="textinput-modal-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                                             <#if gField.isBoolean() >
-                                                <input type="checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}"  id="textinput-modal-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
+                                                <input type="checkbox" crn-allow-null-values="true" ng-model="${field.getName()}Grid.active.${gField.getName()}"  id="textinput-modal-${gField.getDbFieldName()}" placeholder="<#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if>" <#if !gField.isNullable()>required="required"</#if>>
                                             <#elseif (gField.isDate() || gField.isTime() || gField.isTimestamp()) >
                                                 <div style="position:relative">
                                                   <input type="text" as-date class="form-control k-textbox"
@@ -621,7 +621,7 @@
                                                   {{"template.crud.clickOrDragAnImage" | translate}}
                                                 </div>
                       <#elseif gField.isBoolean() >
-												<input type="checkbox" class="k-checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="cron-modal-checkbox-${gField.name}" <#if !gField.isNullable()>required="required"</#if>>
+												<input type="checkbox" crn-allow-null-values="true" class="k-checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="cron-modal-checkbox-${gField.name}" <#if !gField.isNullable()>required="required"</#if>>
 												<label for="cron-modal-checkbox-${gField.name}" class="k-checkbox-label"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                       <#elseif gField.isFile()>
                                                 <div dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
