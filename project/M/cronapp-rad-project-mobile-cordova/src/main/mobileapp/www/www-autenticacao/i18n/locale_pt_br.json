@@ -100,5 +100,8 @@
   "Permission.view.Voltar": "Voltar",
   "template.crud.clickToAddImage": "Clique para adicionar imagem",
   "template.crud.clickToAddFile": "Clique para adicionar arquivo",
-  "InvalidDate": "Data Inválida"
+  "InvalidDate": "Data Inválida", 
+  "Modal.view.Title": "Título",
+  "Modal.view.Save": "Salvar",
+  "Modal.view.Cancel" : "Cancelar"
 }
