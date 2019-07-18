@@ -100,5 +100,8 @@
   "Permission.view.Voltar": "Cancel",
   "template.crud.clickToAddImage": "Click to add image",
   "template.crud.clickToAddFile": "Click to add file",
-  "InvalidDate": "Invalid Date"
+  "InvalidDate": "Invalid Date", 
+  "Modal.view.Title": "Title",
+  "Modal.view.Save": "Save",
+  "Modal.view.Cancel" : "Cancel"
 }
