@@ -103,5 +103,7 @@
   "InvalidDate": "Data Inválida", 
   "Modal.view.Title": "Título",
   "Modal.view.Save": "Salvar",
-  "Modal.view.Cancel" : "Cancelar"
+  "Modal.view.Cancel" : "Cancelar",
+  "Login.view.ServerOff": "Servidor offline. Por favor, inicie-o novamente.",
+  "Login.view.HostAppOff": "Página não encontrada! Verifique se a URL do servidor está correta."
 }
