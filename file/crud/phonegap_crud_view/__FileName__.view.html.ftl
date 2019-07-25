@@ -83,11 +83,16 @@
                 <span class="input-label">${model.formMapLabels[field.name]!}</span>
                 <input type="integer" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"<#else> mask=""</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
+              <#elseif (field.isByte() || field.isInteger()) >
+                  <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
+                      <span class="input-label">${model.formMapLabels[field.name]!}</span>
+                      <input type="integer" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"<#else> mask=""</#if> <#if !field.isNullable()>required="required"</#if>>
+                  </label>
               <#elseif field.isLong() >
-            <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
-                <span class="input-label">${model.formMapLabels[field.name]!}</span>
-                <input type="number" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"<#else> mask=""</#if> <#if !field.isNullable()>required="required"</#if>>
-            </label>
+                  <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
+                      <span class="input-label">${model.formMapLabels[field.name]!}</span>
+                      <input type="number" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" ng-model="${model.dataSourceName}.active.${field.name}" id="textinput-${field.name}-${model.random}" name="textinput-${field.name}" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"<#else> mask=""</#if> <#if !field.isNullable()>required="required"</#if>>
+                  </label>
               <#elseif field.isDecimal() >
             <label for="textinput-${field.name}-${model.random}" class="item item-input item-stacked-label" data-component="crn-input-floating">
                 <span class="input-label">${model.formMapLabels[field.name]!}</span>
