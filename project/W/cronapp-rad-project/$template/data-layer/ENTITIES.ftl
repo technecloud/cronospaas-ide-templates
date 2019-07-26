@@ -90,11 +90,15 @@ public class ${clazz.name} implements Serializable {
    */
   @Id
   <#if field.generationType?? && field.generationType == "Identity">
-  <#if persistenceProvider == "mysql">
+    <#if field.sequence??>
+  @GeneratedValue(strategy=GenerationType.IDENTITY, generator="${field.sequence?json_string}") 
+    <#else>    
+      <#if persistenceProvider == "mysql">
   @GeneratedValue(strategy = GenerationType.AUTO)
-  <#else>
+      <#else>
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  </#if>
+      </#if>
+    </#if>
   </#if>
   <#if field.isDate()>
   @Temporal(TemporalType.DATE)
