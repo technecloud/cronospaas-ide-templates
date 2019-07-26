@@ -22,8 +22,7 @@
     </div>
     <div ng-show="User.editing || User.inserting">
       <form crn-datasource="User">
-        <fieldset ng-disabled="!User.editing &amp;&amp; !User.inserting">
-          <div class="list">
+          <div class="list" ng-disabled="!User.editing &amp;&amp; !User.inserting">
             <!-- email begin -->
             <label for="textinput-email" class="item item-input item-stacked-label" data-component="crn-input-floating">
               <span class="input-label">Email</span>
@@ -54,7 +53,6 @@
             <!-- NtoN  end-->
 
           </div>
-        </fieldset>
       </form>
     </div>
   </ion-content>
