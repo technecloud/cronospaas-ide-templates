@@ -621,7 +621,7 @@
                                                         {{"template.crud.clickOrDragAnImage" | translate}}
                                                     </div>
                                                 <#elseif gField.isBoolean() >
-                                                    <input type="checkbox" <#if field.isNullable()>crn-allow-null-values="true"<#else>crn-allow-null-values="false"</#if> class="k-checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="cron-modal-checkbox-${gField.name}" <#if !gField.isNullable()>required="required"</#if>>
+                                                    <input type="checkbox" <#if gField.isNullable()>crn-allow-null-values="true"<#else>crn-allow-null-values="false"</#if> class="k-checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="cron-modal-checkbox-${gField.name}" <#if !gField.isNullable()>required="required"</#if>>
                                                     <label for="cron-modal-checkbox-${gField.name}" class="k-checkbox-label"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                                                 <#elseif gField.isFile()>
                                                     <div dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
