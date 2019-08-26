@@ -140,7 +140,7 @@ public class ${clazz.name} implements Serializable {
   <#if (field.relationNames?size == 1)>
   <#list field.relationNames?keys as key>
   <#if key??>
-    @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c}<#if field.cascade>, foreignKey = @ForeignKey(name = "<#if tableName??>${tableName}<#else>${clazz.name?upper_case}</#if>_${key?upper_case}_${field.dbTableRelationClazz}_${field.relationNames[key]?upper_case}", foreignKeyDefinition = "FOREIGN KEY (${key}) REFERENCES ${field.dbTableRelationClazz} (${field.relationNames[key]}) ON DELETE CASCADE")</#if>)
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c}<#if field.cascade>, foreignKey = @ForeignKey(name = "<#if tableName??>${tableName}<#else>${clazz.name?upper_case}</#if>_${key?upper_case}_${field.dbTableRelationClazz}_${field.relationNames[key]?upper_case}", foreignKeyDefinition = "FOREIGN KEY (${key}) REFERENCES ${field.dbTableRelationClazz} (${field.relationNames[key]}) ON DELETE CASCADE")</#if>)
   </#if>
   </#list>
   <#elseif (field.relationNames?size > 1)>
