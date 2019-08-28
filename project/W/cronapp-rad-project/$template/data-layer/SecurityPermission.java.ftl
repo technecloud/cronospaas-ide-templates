@@ -25,10 +25,10 @@ public class SecurityPermission implements Permission {
   	${role}
   	</#list>
 
-		// role hasAnyAuthority permission
-		<#list listHasAnyAuthority as role>
-		${role}
-		</#list>
+	// role hasAnyAuthority permission
+	<#list listHasAnyAuthority as role>
+	${role}
+	</#list>
   
   	// autenticated
   	<#list listAutenticated as role>
