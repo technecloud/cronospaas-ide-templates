@@ -167,7 +167,7 @@ public class ${clazz.name} implements Serializable {
   <#elseif field.isTimestamp()>
   @Temporal(TemporalType.TIMESTAMP)
   </#if>
-  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c}<#if field.isTimestamp()>, columnDefinition = "TIMESTAMP"</#if>)
   </#if>
   </#if>
   <#if (field.ignore)>
