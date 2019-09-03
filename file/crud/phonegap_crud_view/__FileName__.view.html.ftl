@@ -19,7 +19,6 @@
   <#if model.getGridFilterSearchable()=="specificSearch">
 	<#if model.hasSearchableFilter()>
 	<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="component-holder ng-binding ng-scope" data-component="crn-complex-search" >
-	  <fieldset class="list">
 	  <#list model.formFields as field>
 		<#if field.isSearchable()>
 		<div  data-component="crn-search" id="crn-search-${field.name}-${model.random}">
@@ -33,7 +32,6 @@
 	       xattr-size="" xattr-fullsize="" xattr-theme="btn-default" crn-datasource="${model.dataSourceName}" ng-click="" id="crn-button-search">
 		   <i class="ion ion-home"></i><span>{{"template.crud.search" | translate}}</span>
 	    </button> 
-	  </fieldset>
 	</div>
 	</#if>
    </#if>
@@ -48,7 +46,7 @@
     </div>
     <div ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
       <form crn-datasource="${model.dataSourceName}">
-        <fieldset ng-disabled="!${model.dataSourceName}.editing &amp;&amp; !${model.dataSourceName}.inserting">
+        <div class="list" ng-disabled="!${model.dataSourceName}.editing &amp;&amp; !${model.dataSourceName}.inserting">
             <#list model.formFields as field>
             <!-- ${field.name} begin -->
               <#if field.isBoolean() >
@@ -205,8 +203,6 @@
               </#if>
             </#list>
             <!-- NtoN  end-->
-
-        </fieldset>
       </form>
     </div>
   </ion-content>

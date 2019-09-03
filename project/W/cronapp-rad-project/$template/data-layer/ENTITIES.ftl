@@ -90,11 +90,15 @@ public class ${clazz.name} implements Serializable {
    */
   @Id
   <#if field.generationType?? && field.generationType == "Identity">
-  <#if persistenceProvider == "mysql">
+    <#if field.sequence??>
+  @GeneratedValue(strategy=GenerationType.IDENTITY, generator="${field.sequence?json_string}") 
+    <#else>    
+      <#if persistenceProvider == "mysql">
   @GeneratedValue(strategy = GenerationType.AUTO)
-  <#else>
+      <#else>
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  </#if>
+      </#if>
+    </#if>
   </#if>
   <#if field.isDate()>
   @Temporal(TemporalType.DATE)
@@ -140,7 +144,7 @@ public class ${clazz.name} implements Serializable {
   <#if (field.relationNames?size == 1)>
   <#list field.relationNames?keys as key>
   <#if key??>
-  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c}<#if field.cascade>, foreignKey = @ForeignKey(name = "<#if tableName??>${tableName}<#else>${clazz.name?upper_case}</#if>_${key?upper_case}_${field.dbTableRelationClazz}_${field.relationNames[key]?upper_case}", foreignKeyDefinition = "FOREIGN KEY (${key}) REFERENCES ${field.dbTableRelationClazz} (${field.relationNames[key]}) ON DELETE CASCADE")</#if>)
   </#if>
   </#list>
   <#elseif (field.relationNames?size > 1)>
@@ -167,7 +171,7 @@ public class ${clazz.name} implements Serializable {
   <#elseif field.isTimestamp()>
   @Temporal(TemporalType.TIMESTAMP)
   </#if>
-  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c})
+  @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c}<#if field.isTimestamp()>, columnDefinition = "TIMESTAMP"</#if>)
   </#if>
   </#if>
   <#if (field.ignore)>
