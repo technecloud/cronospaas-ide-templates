@@ -39,7 +39,7 @@
 	
     <div crn-datasource="${model.dataSourceName}" class="" ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
       <div class="component-holder ng-binding ng-scope" data-component="crn-ion-list" id="crn-ion-list-main">
-        <cron-list id="ion-list-main" options="${model.getMobileList(model.dataSourceName, model.dataSourceName, field)}"
+        <cron-list ng-model="vars.cronlist${model.dataSourceName}" id="ion-list-main" options="${model.getMobileList(model.dataSourceName, model.dataSourceName, field)}"
                    class="" style="">
         </cron-list>
       </div>
