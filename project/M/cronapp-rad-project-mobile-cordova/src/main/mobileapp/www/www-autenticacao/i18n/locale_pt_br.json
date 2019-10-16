@@ -105,5 +105,6 @@
   "Modal.view.Save": "Salvar",
   "Modal.view.Cancel" : "Cancelar",
   "Login.view.ServerOff": "Servidor offline. Por favor, inicie-o novamente.",
-  "Login.view.HostAppOff": "Página não encontrada! Verifique se a URL do servidor está correta."
+  "Login.view.HostAppOff": "Página não encontrada! Verifique se a URL do servidor está correta.",
+  "Accessibility.Login.Logo.Alt": "Logotipo da Aplicação (Cronapp)"
 }
