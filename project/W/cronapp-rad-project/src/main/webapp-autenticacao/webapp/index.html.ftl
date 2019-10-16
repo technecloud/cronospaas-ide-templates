@@ -18,6 +18,7 @@
   </#if>
   <script src="js/customModules.js"></script>
   <link rel="stylesheet" href="css/app.css" />
+  <title>${appname}</title>
 </head>
 <body>
   <div ui-view class="fill"></div>
