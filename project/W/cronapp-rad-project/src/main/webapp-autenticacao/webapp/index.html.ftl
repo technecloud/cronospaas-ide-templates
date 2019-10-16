@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="MyApp">
+<html ng-app="MyApp" update-language>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,7 +18,7 @@
   </#if>
   <script src="js/customModules.js"></script>
   <link rel="stylesheet" href="css/app.css" />
-  <title>${appname}</title>
+  <title ng-bind="$root.viewTitle">${appname}</title>
 </head>
 <body>
   <div ui-view class="fill"></div>

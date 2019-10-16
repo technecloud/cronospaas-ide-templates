@@ -8,7 +8,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-        <a class="component-holder ng-binding ng-scope navbar-brand" data-component="crn-image" href="{{ $state.current.name == 'home'? 'javascript:void(0)' : '#/home'}}"> <img alt="cronapp-logo" src="plugins/cronapp-framework-js/dist/img/logo.svg" style="width:101px; margin-top:-4px" id="crn-navbar-logo" data-component="crn-image"> </a>
+          <a class="component-holder ng-binding ng-scope navbar-brand" data-component="crn-image" ng-click="cronapi.screen.changeView('#/home', [])"> <img alt="cronapp-logo" src="plugins/cronapp-framework-js/dist/img/logo.svg" style="width:101px; margin-top:-4px" id="crn-navbar-logo" data-component="crn-image"> </a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav" style="float:none">
@@ -26,11 +26,11 @@
       </li>
       </#list>
     </#if>  
-          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-gear"></i> <span>{{"ChooseTheme" | translate}}</span> <span class="caret"></span> </a>
+          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-lg fa-gear"></i> <span>{{"ChooseTheme" | translate}}</span> <span class="caret"></span> </a>
             <ul class="dropdown-menu">
               <li ng-repeat="theme in themes" ng-click="changeTheme(theme)"> <a href="javascript:void(0);" ng-class="{'bg-primary': myTheme==theme}">{{theme}} <i class="fa fa-lg fa-check pull-right" ng-if="myTheme==theme"></i></a></li>
             </ul> </li>
-          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href="javascript:void(0);" class="dropdown-toggle"  style="color: #fff;min-width: 123px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img class="user-avatar" alt="" ng-src="{{session.user.picture || 'plugins/cronapp-framework-js/dist/img/img-user.svg'}}" style="max-height:22px;max-width:22px" data-component="crn-image"> <span>{{session.user.name}}</span> <span class="caret"></span> </a>
+          <li class="dropdown component-holder navbar-right" data-component="crn-menu-item"> <a href class="dropdown-toggle"  style="color: #fff;min-width: 123px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img class="user-avatar" alt="" ng-src="{{session.user.picture || 'plugins/cronapp-framework-js/dist/img/img-user.svg'}}" style="max-height:22px;max-width:22px" data-component="crn-image"> <span>{{session.user.name}}</span> <span class="caret"></span> </a>
             <ul class="dropdown-menu">
               <li><a class="component-holder" data-toggle="modal" data-target="#modalPassword" data-component="crn-anchor" >{{"Home.view.ChangePassword" | translate}}</a></li>
               <li><a ng-click="logout()" href="" data-component="crn-anchor"><span>{{"Home.view.Logout" | translate}}</span></a></li>
@@ -48,7 +48,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title">{{"Home.view.ChangePassword" | translate}}</h4>
+        <h2 class="modal-title">{{"Home.view.ChangePassword" | translate}}</h2>
       </div>
       <div class="modal-body">
         <form class="form-validation" autocomplete="off" name="form" role="form">
