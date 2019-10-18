@@ -2,7 +2,7 @@
 
 <datasource data-component="crn-datasource" filter="" name="MainDatasource" entity="" keys="" rows-per-page="100" class="" schema="" lazy=""></datasource> 
 
-<div ng-hide="MainDatasource.inserting || MainDatasource.editing" data-component="crn-datasource-filter" id="crn-datasource-filter" class=""> 
+<div role="search" ng-hide="MainDatasource.inserting || MainDatasource.editing" data-component="crn-datasource-filter" id="crn-datasource-filter" class="">
   <div class="form-group"> 
     <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label> 
     <input type="text" ng-model="vars.search" id="textinput-filter" class="form-control k-textbox" cronapp-filter="" cronapp-filter-operator="" cronapp-filter-caseinsensitive="false" cronapp-filter-autopost="true" crn-datasource="MainDatasource" value="" placeholder="{{'template.crud.search' | translate}}"> 

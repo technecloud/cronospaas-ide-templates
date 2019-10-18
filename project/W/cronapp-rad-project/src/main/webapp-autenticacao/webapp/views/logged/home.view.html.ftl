@@ -1,7 +1,7 @@
 <#if !(menuPosition??) || menuPosition == "Horizontal">
-<div class="jumbotron-fluid main-title">
+<header class="jumbotron-fluid main-title">
     <h1 class="component-holder text-left" xattr-position="text-left" data-component="crn-subtitle" id="crn-subtitle-814474">${appname}</h1>
-</div>
+</header>
 </#if>
 <div class="component-holder ng-binding ng-scope <#if !(menuPosition??) || menuPosition == "Horizontal">crn-navigator-horizontal<#else>crn-navigator-vertical</#if>" data-component="crn-navbar" id="crn-navbar-986427">
   <nav class="navbar navbar-default">
@@ -41,7 +41,7 @@
     </div>
   </nav>
 </div>
-<div ui-view="" class="container-fluid main-view <#if !(menuPosition??) || menuPosition == "Horizontal">main-view-horizontal<#else>main-view-vertical</#if>">
+<div ui-view="" role="main" class="container-fluid main-view <#if !(menuPosition??) || menuPosition == "Horizontal">main-view-horizontal<#else>main-view-vertical</#if>">
 </div> 
 <div class="modal fade" id="modalPassword">
   <div class="modal-dialog">
