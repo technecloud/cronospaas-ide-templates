@@ -1,8 +1,8 @@
 <ion-view cache-view="false" hide-back-button="true">
   <ion-header-bar class="bar bar-header bar-positive" xattr-theme="bar-positive" data-component="crn-ion-header-bar">
       <div side="left" class="buttons buttons-left header-item">
-        <button class="button button-clear" ng-if="!${model.dataSourceName}.inserting && !${model.dataSourceName}.editing" menu-toggle="left" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-navicon"></i> </button>
-        <button class="button button-clear" ng-if="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.cancel()" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-ios-arrow-back"></i> </button>
+        <button aria-label="{{'Accessibility.Button.Aria.Label.NavIcon' | translate}}" class="button button-clear" ng-if="!${model.dataSourceName}.inserting && !${model.dataSourceName}.editing" menu-toggle="left" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-navicon"></i> </button>
+        <button aria-label="{{'Accessibility.Button.Aria.Label.Back' | translate}}" class="button button-clear" ng-if="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" ng-click="${model.dataSourceName}.cancel()" data-component="crn-button" xattr-type="button-clear"> <i class="icon ion-ios-arrow-back"></i> </button>
       </div>
         <h1 class="title">${model.dataSourceName}</h1>
       <div side="right" class="buttons buttons-right header-item">
@@ -27,7 +27,7 @@
 		</div>
 		</#if>
 	  </#list>
-	    <button class="button button-dark component-holder" data-component="crn-filter-button" type="submit" cronapp-filter="" cronapp-filter-caseinsensitive="true" 
+	    <button aria-label="{{"template.crud.search" | translate}}" class="button button-dark component-holder" data-component="crn-filter-button" type="submit" cronapp-filter="" cronapp-filter-caseinsensitive="true"
 	       xattr-size="" xattr-fullsize="" xattr-theme="btn-default" crn-datasource="${model.dataSourceName}" ng-click="" id="crn-button-search">
 		   <i class="ion ion-home"></i><span>{{"template.crud.search" | translate}}</span>
 	    </button> 
