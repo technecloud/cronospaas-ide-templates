@@ -9,12 +9,12 @@
   </div> 
 </div> 
 
-<div ng-hide="MainDatasource.editing || MainDatasource.inserting" class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="cron-crn-grid-search"> 
+<section ng-hide="MainDatasource.editing || MainDatasource.inserting" class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="cron-crn-grid-search">
   <cron-grid options="{&quot;dataSourceScreen&quot;:{},&quot;allowPaging&quot;:true,&quot;allowSorting&quot;:true,&quot;allowGrouping&quot;:false,&quot;allowSelectionTotalPageToShow&quot;:true,&quot;allowRefreshGrid&quot;:true,&quot;allowSelectionRow&quot;:true,&quot;editable&quot;:&quot;datasource&quot;,&quot;columns&quot;:[],&quot;toolBarButtons&quot;:[{&quot;type&quot;:&quot;Native&quot;,&quot;title&quot;:&quot;create&quot;}],&quot;details&quot;:[]}" ng-model="vars.gridmain" class="" style=""> 
   </cron-grid> 
-</div> 
+</section>
 <div data-component="crn-form" id="crn-form-form"> 
-  <div class="form" ng-show="MainDatasource.editing || MainDatasource.inserting"> 
+  <section class="form" ng-show="MainDatasource.editing || MainDatasource.inserting">
     <form crn-datasource="MainDatasource" class=""> 
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
         <button aria-label="{{'StartInserting' | translate}}" class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-click="datasource.startInserting()"><span class="k-icon k-i-plus"></span></button>
@@ -38,5 +38,5 @@
       </fieldset> 
     </form>
 	  
-  </div> 
+  </section>
 </div>

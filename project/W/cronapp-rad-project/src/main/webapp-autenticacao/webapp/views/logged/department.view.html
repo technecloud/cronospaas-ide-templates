@@ -5,7 +5,7 @@
 <div data-component="crn-button" id="crn-button-564202"> 
   <button data-component="crn-button" class="btn btn-primary" type="submit" onclick="" ng-click="Department.startInserting()" ng-hide="Department.inserting || Department.editing"><i class="fa fa-user"></i> <span>{{"template.crud.new" | translate}}</span></button> 
 </div>
-<div class="component-holder" data-component="crn-grid" id="crn-grid-Department">
+<section class="component-holder" data-component="crn-grid" id="crn-grid-Department">
   <div crn-datasource="Department" ng-hide="Department.editing || Department.inserting">
     <table class="table  table-bordered table-hover table-striped">
       <thead>
@@ -42,9 +42,9 @@
       <button data-component="crn-button" class="btn btn-default btn-block btn-clicked" ng-show="datasource.hasNextPage()" ng-click="datasource.nextPage()" >{{"template.crud.load_more" | translate}}...</button> 
     </div>
   </div>
-</div>
+</section>
 <div data-component="crn-form" id="crn-form-form-Department">
-  <div class="form" ng-show="Department.editing || Department.inserting">
+  <section class="form" ng-show="Department.editing || Department.inserting">
     <form crn-datasource="Department">
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
         <button aria-label="{{'StartInserting' | translate}}" data-component="crn-button" class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
@@ -73,5 +73,5 @@
         <!-- NtoN  end-->
       </fieldset>
     </form>
-  </div>
+  </section>
 </div>

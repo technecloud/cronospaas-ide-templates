@@ -142,17 +142,17 @@
     </#if>
 </#if>
 
-<div ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting" class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="cron-crn-grid-search">
+<section ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting" class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="cron-crn-grid-search">
     <cron-grid
             options="${model.getGridOptionsSearch(model.dataSourceName, model.dataSourceName, field)}"
             ng-model="vars.grid${model.random}"
             class=""
             style="">
     </cron-grid>
-</div>
+</section>
 
 <div data-component="crn-form" id="crn-form-form-${model.dataSourceName}-${model.random}">
-    <div class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
+    <section class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
         <form crn-datasource="${model.dataSourceName}" class="">
             <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting">
                 <button aria-label="{{'StartInserting' | translate}}" class="btn btn-primary btn-fab k-button" data-component="crn-button" ng-click="datasource.startInserting()"><span class="k-icon k-i-plus"></span></button>
@@ -436,7 +436,7 @@
             </fieldset>
         </form>
         &ensp;
-    </div>
+    </section>
 </div>
 
 <#if model.hasFieldGridNtoN()?? && model.hasFieldGridNtoN()>
