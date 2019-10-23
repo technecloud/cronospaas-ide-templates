@@ -352,7 +352,7 @@
         "height": 194.9236297607422,
         "width": 230.140625
       },
-      "tableName": "CRONAPP_AUDIT_LOG",
+      "tableName": "AUDIT_LOG",
       "type": "uml.Class",
       "z": 14
     },

@@ -10,11 +10,11 @@ import cronapi.rest.security.CronappSecurity;
 
 
 /**
-* Classe que representa a tabela CRONAPP_AUDIT_LOG
+* Classe que representa a tabela AUDIT_LOG
 * @generated
 */
 @Entity
-@Table(name = "\"CRONAPP_AUDIT_LOG\"")
+@Table(name = "\"AUDIT_LOG\"")
 @XmlRootElement
     @CronappSecurity
 @JsonFilter("app.entity.AuditLog")
