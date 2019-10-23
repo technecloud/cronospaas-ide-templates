@@ -66,6 +66,9 @@ import cronapi.rest.security.CronappSecurity;
     </#if>
 </#if>
 @JsonFilter("${entityPackage}<#if subPackage??>.${subPackage}</#if>.${clazz.name}")
+<#if (clazz.audit)!false>
+@EntityListeners(cronapi.database.HistoryListener.class)
+</#if>
 public class ${clazz.name} implements Serializable {
 <#if isExistsEncrypt>
     /**
