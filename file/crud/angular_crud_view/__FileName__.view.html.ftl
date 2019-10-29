@@ -171,7 +171,7 @@
                     <#assign currentType = "textinput">
                     <#if field.getProperty("ngOptions")??>
                         <#assign currentType = "enterprise-dynamic-combobox">
-                        <datasource data-component="crn-datasource" name="${field.name!?cap_first}Combo" entity="${model.namespace}.${field.type}" keys="${field.getProperty("ngOptions").keys}" schema="${model.getDSSchema(field.type)}" lazy=true></datasource>
+                        <datasource data-component="crn-datasource" name="${field.name!?cap_first}Combo" entity="${model.namespace}.${field.type}" keys="${model.getDataSourcePrimaryKeys(field)}" schema="${model.getDSSchema(field.type)}" lazy=true></datasource>
                     </#if>
                     <#assign dataComponentType = "crn-${currentType}">
 
@@ -341,7 +341,7 @@
                     </datasource>
 
                     <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
-                        <datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getName()}" keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}" schema="${model.getDSSchema(field.getName())}"></datasource>
+                        <datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getRelationClazz().getName()}" keys="${model.getJoinKeys(field.getRelationClazz().getAjustedFullPrimaryKeys())}" schema="${model.getDSSchema(field.getName())}"></datasource>
                         <div class="component-holder ng-binding ng-scope " data-component="crn-enterprise-combobox-multiple" ng-show="datasource.editing || datasource.inserting" >
                             <div class="form-group">
                                 <label for="select-ui">${field.getName()?cap_first}</label>
@@ -407,7 +407,7 @@
                             filter="${filterSearch}"
                             name="${field.getName()}Grid"
                             entity="${model.namespace}.${field.getName()}"
-                            keys="${model.dataSourcePrimaryKeys}"
+                            keys="${model.getDataSourcePrimaryKeys(field)}"
                             dependent-lazy-post="${model.dataSourceName}"
                             rows-per-page="100"
                             parameters="${model.getParametersDataSource(field)}"
@@ -472,7 +472,7 @@
                                                     id="combobox-modal-${field.getName()}${model.random}"
                                                     name="combobox-modal-${field.getName()}${model.random}"
                                                     options="${model.getComboOptions(field.fullType, textField, keyField, dataSourceCombo)}"
-                                                    ng-model="${dataSourceName}.active.${field.getName()?uncap_first}"
+                                                    ng-model="${dataSourceName}.active.${field.relationField}"
                                                     class="crn-select form-control" <#if !field.isNullable()>required="required"</#if>>
                                             </cron-dynamic-select>
                                         </div>
@@ -507,7 +507,7 @@
                                 <#if !model.hasCronappFramework()>
                                     <#if gField.isReverseRelation() >
                                         <#if (field.getDbFieldName() != gField.getDbFieldName())>
-                                            <datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" schema="${model.getDSSchema(gField.getName()?capitalize)}" lazy=true></datasource>
+                                            <datasource name="${gField.getName()?capitalize}GridForUiSelect" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getDataSourcePrimaryKeys(gField)}" rows-per-page="100" schema="${model.getDSSchema(gField.getName()?capitalize)}" lazy=true></datasource>
                                             <div data-component="crn-modal-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}-${model.random}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                 <div class="form-group">
                                                     <label for="combobox-modal-${gField.getName()}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>
@@ -585,7 +585,7 @@
                                     <#if gField.isReverseRelation() || gField.isRelation() >
                                         <#if (field.getDbFieldName() != gField.getDbFieldName())>
                                             <#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridForCombo">
-                                            <datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="id" rows-per-page="100" schema="${model.getDSSchema(gField.getRelationClazz().getName())}" lazy=true></datasource>
+                                            <datasource name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getDataSourcePrimaryKeys(gField)}" rows-per-page="100" schema="${model.getDSSchema(gField.getRelationClazz().getName())}" lazy=true></datasource>
                                             <div data-component="crn-enterprise-dynamic-combobox" id="crn-combobox-${field.getName()}Grid.active.${gField.getName()}-${model.random}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                                 <div class="form-group">
                                                     <label for="combobox-modal-${gField.getName()}-${model.random}" class=""><#if gField.label?has_content>${gField.label}<#else>${gField.name?capitalize}</#if></label>

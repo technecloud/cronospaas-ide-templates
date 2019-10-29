@@ -89,6 +89,11 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>cronapi-java</artifactId>
             <version>1.23.0-SNAPSHOT</version>
