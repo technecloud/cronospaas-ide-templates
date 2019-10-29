@@ -99,6 +99,6 @@
   "Home.view.NewPasswordCanNotBeEmpty": "New password can not be empty.",
   "Home.view.ConfirmationPasswordCanNotBeEmpty": "Confirmation can not be empty.",
   "InvalidDate": "Invalid Date",
-  "Login.view.InvalidCaptcha": "Invalid Captcha"
+  "Login.view.InvalidCaptcha": "Invalid Captcha",
   "Home.view.Administration": "Administration"
 }
