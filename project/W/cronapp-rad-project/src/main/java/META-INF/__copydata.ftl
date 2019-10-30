@@ -3,5 +3,5 @@ file=components.json
 <#else>
 file=components.json
 file=persistence.xml.ftl
-file=customQuery.json
+file=customQuery.json.ftl
 </#if>

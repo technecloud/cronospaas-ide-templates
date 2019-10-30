@@ -100,5 +100,10 @@
   "Home.view.ConfirmationPasswordCanNotBeEmpty": "Confirmação não pode estar vazio.",
   "InvalidDate": "Data Inválida",
   "Home.view.Administration": "Administração",
-  "Login.view.InvalidCaptcha": "Captcha Inválido"
+  "Login.view.InvalidCaptcha": "Captcha Inválido",
+  "AuditLog": "Log de Auditoria",
+  "Type": "Tipo",
+  "Command": "Comando",
+  "Date": "Data",
+  "Category": "Categoria"
 }

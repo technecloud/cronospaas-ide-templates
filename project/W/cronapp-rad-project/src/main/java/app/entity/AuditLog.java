@@ -10,322 +10,349 @@ import cronapi.rest.security.CronappSecurity;
 
 
 /**
-* Classe que representa a tabela AUDIT_LOG
-* @generated
-*/
+ * Classe que representa a tabela CRONAPP_AUDIT_LOG
+ * @generated
+ */
 @Entity
-@Table(name = "\"AUDIT_LOG\"")
+@Table(name = "\"CRONAPP_AUDIT_LOG\"")
 @XmlRootElement
-    @CronappSecurity
+@CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
 @JsonFilter("app.entity.AuditLog")
 public class AuditLog implements Serializable {
 
-/**
-* UID da classe, necessário na serialização
-* @generated
-*/
-private static final long serialVersionUID = 1L;
+  /**
+   * UID da classe, necessário na serialização
+   * @generated
+   */
+  private static final long serialVersionUID = 1L;
 
-        /**
-        * @generated
-        */
-        @Id
-                @GeneratedValue(strategy = GenerationType.IDENTITY)
-            @Column(name = "id", nullable = false, insertable=true, updatable=true)
-        private java.lang.Integer id;
+  /**
+   * @generated
+   */
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id", nullable = false, insertable=true, updatable=true)
+  private java.lang.Integer id;
 
-        /**
-        * @generated
-        */
-                @Column(name = "type", nullable = false, unique = false, insertable=true, updatable=true)
-        
-        private java.lang.String type;
+  /**
+   * @generated
+   */
+  @Column(name = "type", nullable = false, unique = false, insertable=true, updatable=true)
 
-        /**
-        * @generated
-        */
-                @Column(name = "command", nullable = false, unique = false, insertable=true, updatable=true)
-        
-        private java.lang.String command;
+  private java.lang.String type;
 
-        /**
-        * @generated
-        */
-                    @Temporal(TemporalType.TIMESTAMP)
-                @Column(name = "date", nullable = false, unique = false, insertable=true, updatable=true, columnDefinition = "TIMESTAMP")
-        
-        private java.util.Date date;
+  /**
+   * @generated
+   */
+  @Column(name = "command", nullable = false, unique = false, insertable=true, updatable=true)
 
-        /**
-        * @generated
-        */
-                @Column(name = "objectData", nullable = true, unique = false, insertable=true, updatable=true, columnDefinition = "TEXT")
-        
-        private java.lang.String objectData;
+  private java.lang.String command;
 
-        /**
-        * @generated
-        */
-                @Column(name = "user", nullable = true, unique = false, insertable=true, updatable=true)
-        
-        private java.lang.String user;
+  /**
+   * @generated
+   */
+  @Temporal(TemporalType.TIMESTAMP)
+  @Column(name = "date", nullable = false, unique = false, insertable=true, updatable=true, columnDefinition = "TIMESTAMP")
 
-        /**
-        * @generated
-        */
-                @Column(name = "host", nullable = true, unique = false, insertable=true, updatable=true)
-        
-        private java.lang.String host;
+  private java.util.Date date;
 
-        /**
-        * @generated
-        */
-                @Column(name = "agent", nullable = true, unique = false, insertable=true, updatable=true)
-        
-        private java.lang.String agent;
+  /**
+   * @generated
+   */
+  @Column(name = "objectData", nullable = true, unique = false, insertable=true, updatable=true, columnDefinition = "TEXT")
 
-        /**
-        * @generated
-        */
-                @Column(name = "server", nullable = true, unique = false, insertable=true, updatable=true)
-        
-        private java.lang.String server;
+  private java.lang.String objectData;
 
-        /**
-        * @generated
-        */
-                @Column(name = "affectedFields", nullable = true, unique = false, insertable=true, updatable=true)
-        
-        private java.lang.String affectedFields;
+  /**
+   * @generated
+   */
+  @Column(name = "user", nullable = true, unique = false, insertable=true, updatable=true)
 
-/**
-* Construtor
-* @generated
-*/
-public AuditLog(){
-}
+  private java.lang.String user;
+
+  /**
+   * @generated
+   */
+  @Column(name = "host", nullable = true, unique = false, insertable=true, updatable=true)
+
+  private java.lang.String host;
+
+  /**
+   * @generated
+   */
+  @Column(name = "agent", nullable = true, unique = false, insertable=true, updatable=true)
+
+  private java.lang.String agent;
+
+  /**
+   * @generated
+   */
+  @Column(name = "server", nullable = true, unique = false, insertable=true, updatable=true)
+
+  private java.lang.String server;
+
+  /**
+   * @generated
+   */
+  @Column(name = "affectedFields", nullable = true, unique = false, insertable=true, updatable=true)
+
+  private java.lang.String affectedFields;
+
+  /**
+   * @generated
+   */
+  @Column(name = "category", nullable = true, unique = false, insertable=true, updatable=true)
+
+  private java.lang.String category;
+
+  /**
+   * Construtor
+   * @generated
+   */
+  public AuditLog(){
+  }
 
 
-    /**
-    * Obtém id
-    * return id
-    * @generated
-    */
-    
-    public java.lang.Integer getId(){
+  /**
+   * Obtém id
+   * return id
+   * @generated
+   */
+
+  public java.lang.Integer getId(){
     return this.id;
-    }
+  }
 
-    /**
-    * Define id
-    * @param id id
-    * @generated
-    */
-    public AuditLog setId(java.lang.Integer id){
+  /**
+   * Define id
+   * @param id id
+   * @generated
+   */
+  public AuditLog setId(java.lang.Integer id){
     this.id = id;
     return this;
-    }
+  }
 
-    /**
-    * Obtém type
-    * return type
-    * @generated
-    */
-    
-    public java.lang.String getType(){
+  /**
+   * Obtém type
+   * return type
+   * @generated
+   */
+
+  public java.lang.String getType(){
     return this.type;
-    }
+  }
 
-    /**
-    * Define type
-    * @param type type
-    * @generated
-    */
-    public AuditLog setType(java.lang.String type){
+  /**
+   * Define type
+   * @param type type
+   * @generated
+   */
+  public AuditLog setType(java.lang.String type){
     this.type = type;
     return this;
-    }
+  }
 
-    /**
-    * Obtém command
-    * return command
-    * @generated
-    */
-    
-    public java.lang.String getCommand(){
+  /**
+   * Obtém command
+   * return command
+   * @generated
+   */
+
+  public java.lang.String getCommand(){
     return this.command;
-    }
+  }
 
-    /**
-    * Define command
-    * @param command command
-    * @generated
-    */
-    public AuditLog setCommand(java.lang.String command){
+  /**
+   * Define command
+   * @param command command
+   * @generated
+   */
+  public AuditLog setCommand(java.lang.String command){
     this.command = command;
     return this;
-    }
+  }
 
-    /**
-    * Obtém date
-    * return date
-    * @generated
-    */
-    
-    public java.util.Date getDate(){
+  /**
+   * Obtém date
+   * return date
+   * @generated
+   */
+
+  public java.util.Date getDate(){
     return this.date;
-    }
+  }
 
-    /**
-    * Define date
-    * @param date date
-    * @generated
-    */
-    public AuditLog setDate(java.util.Date date){
+  /**
+   * Define date
+   * @param date date
+   * @generated
+   */
+  public AuditLog setDate(java.util.Date date){
     this.date = date;
     return this;
-    }
+  }
 
-    /**
-    * Obtém objectData
-    * return objectData
-    * @generated
-    */
-    
-    public java.lang.String getObjectData(){
+  /**
+   * Obtém objectData
+   * return objectData
+   * @generated
+   */
+
+  public java.lang.String getObjectData(){
     return this.objectData;
-    }
+  }
 
-    /**
-    * Define objectData
-    * @param objectData objectData
-    * @generated
-    */
-    public AuditLog setObjectData(java.lang.String objectData){
+  /**
+   * Define objectData
+   * @param objectData objectData
+   * @generated
+   */
+  public AuditLog setObjectData(java.lang.String objectData){
     this.objectData = objectData;
     return this;
-    }
+  }
 
-    /**
-    * Obtém user
-    * return user
-    * @generated
-    */
-    
-    public java.lang.String getUser(){
+  /**
+   * Obtém user
+   * return user
+   * @generated
+   */
+
+  public java.lang.String getUser(){
     return this.user;
-    }
+  }
 
-    /**
-    * Define user
-    * @param user user
-    * @generated
-    */
-    public AuditLog setUser(java.lang.String user){
+  /**
+   * Define user
+   * @param user user
+   * @generated
+   */
+  public AuditLog setUser(java.lang.String user){
     this.user = user;
     return this;
-    }
+  }
 
-    /**
-    * Obtém host
-    * return host
-    * @generated
-    */
-    
-    public java.lang.String getHost(){
+  /**
+   * Obtém host
+   * return host
+   * @generated
+   */
+
+  public java.lang.String getHost(){
     return this.host;
-    }
+  }
 
-    /**
-    * Define host
-    * @param host host
-    * @generated
-    */
-    public AuditLog setHost(java.lang.String host){
+  /**
+   * Define host
+   * @param host host
+   * @generated
+   */
+  public AuditLog setHost(java.lang.String host){
     this.host = host;
     return this;
-    }
+  }
 
-    /**
-    * Obtém agent
-    * return agent
-    * @generated
-    */
-    
-    public java.lang.String getAgent(){
+  /**
+   * Obtém agent
+   * return agent
+   * @generated
+   */
+
+  public java.lang.String getAgent(){
     return this.agent;
-    }
+  }
 
-    /**
-    * Define agent
-    * @param agent agent
-    * @generated
-    */
-    public AuditLog setAgent(java.lang.String agent){
+  /**
+   * Define agent
+   * @param agent agent
+   * @generated
+   */
+  public AuditLog setAgent(java.lang.String agent){
     this.agent = agent;
     return this;
-    }
+  }
 
-    /**
-    * Obtém server
-    * return server
-    * @generated
-    */
-    
-    public java.lang.String getServer(){
+  /**
+   * Obtém server
+   * return server
+   * @generated
+   */
+
+  public java.lang.String getServer(){
     return this.server;
-    }
+  }
 
-    /**
-    * Define server
-    * @param server server
-    * @generated
-    */
-    public AuditLog setServer(java.lang.String server){
+  /**
+   * Define server
+   * @param server server
+   * @generated
+   */
+  public AuditLog setServer(java.lang.String server){
     this.server = server;
     return this;
-    }
+  }
 
-    /**
-    * Obtém affectedFields
-    * return affectedFields
-    * @generated
-    */
-    
-    public java.lang.String getAffectedFields(){
+  /**
+   * Obtém affectedFields
+   * return affectedFields
+   * @generated
+   */
+
+  public java.lang.String getAffectedFields(){
     return this.affectedFields;
-    }
+  }
 
-    /**
-    * Define affectedFields
-    * @param affectedFields affectedFields
-    * @generated
-    */
-    public AuditLog setAffectedFields(java.lang.String affectedFields){
+  /**
+   * Define affectedFields
+   * @param affectedFields affectedFields
+   * @generated
+   */
+  public AuditLog setAffectedFields(java.lang.String affectedFields){
     this.affectedFields = affectedFields;
     return this;
-    }
+  }
 
-/**
-* @generated
-*/
-@Override
-public boolean equals(Object obj) {
-if (this == obj) return true;
-if (obj == null || getClass() != obj.getClass()) return false;
-AuditLog object = (AuditLog)obj;
-        if (id != null ? !id.equals(object.id) : object.id != null) return false;
-return true;
-}
+  /**
+   * Obtém category
+   * return category
+   * @generated
+   */
 
-/**
-* @generated
-*/
-@Override
-public int hashCode() {
-int result = 1;
-        result = 31 * result + ((id == null) ? 0 : id.hashCode());
-return result;
-}
+  public java.lang.String getCategory(){
+    return this.category;
+  }
+
+  /**
+   * Define category
+   * @param category category
+   * @generated
+   */
+  public AuditLog setCategory(java.lang.String category){
+    this.category = category;
+    return this;
+  }
+
+  /**
+   * @generated
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    AuditLog object = (AuditLog)obj;
+    if (id != null ? !id.equals(object.id) : object.id != null) return false;
+    return true;
+  }
+
+  /**
+   * @generated
+   */
+  @Override
+  public int hashCode() {
+    int result = 1;
+    result = 31 * result + ((id == null) ? 0 : id.hashCode());
+    return result;
+  }
 
 }

@@ -42,25 +42,26 @@
         "host:java.lang.String",
         "agent:java.lang.String",
         "server:java.lang.String",
-        "affectedFields:java.lang.String"
+        "affectedFields:java.lang.String",
+        "category:java.lang.String"
       ],
       "attrs": {
         ".uml-class-attrs-rect": {
-          "height": 230,
+          "height": 250,
           "transform": "translate(0,50)"
         },
         ".uml-class-attrs-text": {
           "font-size": 11,
-          "text": "id\ntype\ncommand\ndate\nobjectData\nuser\nhost\nagent\nserver\naffectedFields\n"
+          "text": "id\ntype\ncommand\ndate\nobjectData\nuser\nhost\nagent\nserver\naffectedFields\ncategory\n"
         },
         ".uml-class-attrs-value": {
           "font-size": 11,
           "ref-x": 102.484375,
-          "text": "Inteiro\nTexto\nTexto\nData e Hora com Fuso\nTexto Longo\nTexto\nTexto\nTexto\nTexto\nTexto\n"
+          "text": "Inteiro\nTexto\nTexto\nData e Hora com Fuso\nTexto Longo\nTexto\nTexto\nTexto\nTexto\nTexto\nTexto\n"
         },
         ".uml-class-methods-rect": {
           "height": 30,
-          "transform": "translate(0,280)"
+          "transform": "translate(0,300)"
         },
         ".uml-class-methods-text": {
           "fill": "#0066FF",
@@ -82,6 +83,7 @@
           "stroke-width": 2
         }
       },
+      "audit": false,
       "embeds": "",
       "fields": [
         {
@@ -333,6 +335,31 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false
+        },
+        {
+          "name": "category",
+          "type": "java.lang.String",
+          "dbName": "category",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
+          "label": "Category",
+          "mask": "",
+          "isPrimaryKey": false,
+          "isUniqueKey": false,
+          "isNullable": true,
+          "pkType": "",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false,
+          "sequence": "",
+          "isCascade": false
         }
       ],
       "generateView": "Auto",
@@ -347,10 +374,16 @@
       },
       "queries": [],
       "realName": "",
+      "restSecurity": {
+        "delete": "Administrators",
+        "get": "Administrators",
+        "post": "Administrators",
+        "put": "Administrators"
+      },
       "role": "Auto",
       "runtimeClass": "cronos.widgets.joint.uml.Class",
       "size": {
-        "height": 194.9236297607422,
+        "height": 205.87477111816406,
         "width": 230.140625
       },
       "tableName": "AUDIT_LOG",
