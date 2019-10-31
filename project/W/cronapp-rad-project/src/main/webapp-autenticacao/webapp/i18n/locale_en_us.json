@@ -105,5 +105,11 @@
   "Type": "Type",
   "Command": "Command",
   "Date": "Date",
-  "Category": "Category"
+  "Category": "Category",
+  "User": "User",
+  "Agent": "Agent",
+  "Server": "Server",
+  "AffectedFields": "Affected Fields",
+  "Data": "Data",
+  "Details": "Details"
 }

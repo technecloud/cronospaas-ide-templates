@@ -105,5 +105,11 @@
   "Type": "Tipo",
   "Command": "Comando",
   "Date": "Data",
-  "Category": "Categoria"
+  "Category": "Categoria",
+  "User": "Usuário",
+  "Agent": "Agente",
+  "Server": "Servidor",
+  "AffectedFields": "Campos Afetados",
+  "Data": "Dados",
+  "Details": "Detalhes"
 }
