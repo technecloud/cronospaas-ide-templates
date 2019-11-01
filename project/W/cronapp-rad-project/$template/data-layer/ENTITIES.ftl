@@ -103,7 +103,9 @@ public class ${clazz.name} implements Serializable {
       </#if>
     </#if>
   </#if>
-  <#if field.isDate()>
+  <#if field.isVersion()>
+  @Version
+  <#elseif field.isDate()>
   @Temporal(TemporalType.DATE)
   <#elseif field.isTime()>
   @Temporal(TemporalType.TIME)
@@ -167,7 +169,9 @@ public class ${clazz.name} implements Serializable {
   <#if field.transient>
   @Transient
   <#else>
-  <#if field.isDate()>
+  <#if field.isVersion()>
+  @Version
+  <#elseif field.isDate()>
   @Temporal(TemporalType.DATE)
   <#elseif field.isTime()>
   @Temporal(TemporalType.TIME)

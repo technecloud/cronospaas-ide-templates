@@ -99,7 +99,9 @@ private static final long serialVersionUID = 1L;
                 @GeneratedValue(strategy = GenerationType.IDENTITY)
             </#if>
         </#if>
-        <#if field.isDate()>
+        <#if field.isVersion()>
+            @Version
+        <#elseif field.isDate()>
             @Temporal(TemporalType.DATE)
         <#elseif field.isTime()>
             @Temporal(TemporalType.TIME)
@@ -163,6 +165,9 @@ private static final long serialVersionUID = 1L;
             <#if field.transient>
                 @Transient
             <#else>
+                 <#if field.isVersion()>
+                    @Version
+                <#elseif field.isDate()>
                 <#if field.isDate()>
                     @Temporal(TemporalType.DATE)
                 <#elseif field.isTime()>
