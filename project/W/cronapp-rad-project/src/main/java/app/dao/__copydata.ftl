@@ -4,4 +4,6 @@ file=DepartmentDAO.java
 </#if>
 file=RoleDAO.java
 file=UserDAO.java
+<#if (enterprise)!false >
 file=AuditLogDAO.java
+</#if>

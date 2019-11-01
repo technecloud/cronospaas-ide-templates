@@ -5,7 +5,9 @@ file=Department.java
 file=User.java.ftl
 file=UserRole.java
 file=Role.java
+<#if (enterprise)!false >
 file=AuditLog.java
+</#if>
 <#if !(customMenu??) >
 file=RolePK.java
 </#if>
