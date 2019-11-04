@@ -6,6 +6,7 @@
         <class>app.entity.User</class>
         <class>app.entity.Role</class>        
 		<class>app.entity.Device</class>
+        <class>app.entity.AuditLog</class>
     <#if multitenant?? && multitenant?lower_case == "sim">
         <class>app.entity.Company</class>
         <class>app.entity.Department</class>

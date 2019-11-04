@@ -1,4 +1,4 @@
-<h1 class="component-holder text-left h3" xattr-position="text-left" xattr-type="h3" data-component="crn-text-component" id="crn-text-component-${model.random}"><#if model.realName ?has_content >${model.realName}<#else>${model.dataSourceName}</#if> - {{"template.view.search" | translate}}</h1>
+<h2 class="component-holder text-left h3 title" xattr-position="text-left" xattr-type="h3" data-component="crn-text-component" id="crn-text-component-${model.random}"><#if model.realName ?has_content >${model.realName}<#else>${model.dataSourceName}</#if> - {{"template.view.search" | translate}}</h2>
 
 <#assign filterSearch = "">
 <#if model.initialFilter??>
@@ -40,7 +40,7 @@
 <datasource data-component="crn-datasource" filter="${filterSearch}" name="${model.dataSourceName}" entity="${model.namespace}.${model.dataSourceName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="100" class="" schema="${model.getDSSchema(model.dataSourceName)}" condition="${model.getDSCondition(model.dataSourceName)}" lazy="true"></datasource>
 
 <#if model.hasColumnFilter()>
-<div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
+<div role="search" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
   <div class="form-group">
     <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
     <input type="text" id="textinput-filter" class="form-control k-textbox" ng-model="query" value="%" placeholder="{{'template.crud.search' | translate}}">
@@ -48,7 +48,7 @@
 </div>
 <#elseif model.hasCronappFramework() || model.hasSearchableFilter()>
   <#if model.getGridFilterSearchable()=="generalSearch">
-    <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-textinput" id="crn-datasource-filter-general${model.random}" class="">
+    <div role="search" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-textinput" id="crn-datasource-filter-general${model.random}" class="">
       <div class="form-group">
         <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
         <input type="text" ng-model="vars.search" id="textinput-filter" class="form-control k-textbox" value="" placeholder="{{'template.crud.search' | translate}}">
@@ -56,7 +56,7 @@
     </div>
   <#elseif model.getGridFilterSearchable()=="specificSearch">
     <#if model.hasSearchableFilter()>
-            <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
+            <div role="search" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
               <fieldset>
             <#list model.formFields as field>
               <#if field.isSearchable()>
@@ -76,7 +76,7 @@
               </fieldset>
             </div>
     <#else>
-        <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-textinput" id="crn-datasource-filter-${model.getFirstFieldStringNotPk().name}-${model.random}" class="">
+        <div role="search" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-textinput" id="crn-datasource-filter-${model.getFirstFieldStringNotPk().name}-${model.random}" class="">
           <div class="form-group">
             <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[model.getClazz().getSearchField().name]!}</label>
             <input id="textinput-filter" type="text" class="form-control k-textbox" ng-model="vars.search" value="" placeholder="<#if model.getFirstFieldStringNotPk().label?has_content>${model.getFirstFieldStringNotPk().label}<#else>${model.getFirstFieldStringNotPk().name}</#if>">
@@ -86,14 +86,14 @@
   </#if>
 <#elseif model.hasSearchableFilter()>
   <#if model.getGridFilterSearchable()=="generalSearch">
-    <div ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
+    <div role="search" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" class="">
       <div class="form-group">
         <label for="textinput-filter" class="">{{"template.crud.search" | translate}}</label>
         <input type="text" ng-model="vars.search" id="textinput-filter" class="form-control k-textbox" value="" placeholder="{{'template.crud.search' | translate}}">
       </div>
     </div>
   <#else>
-    <div class="row" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
+    <div role="search" class="row" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
         <#list model.formFields as field>
             <#if field.isSearchable()>
               <#if (field.isDate() || field.isTime() || field.isTimestamp()) >
@@ -142,12 +142,12 @@
   </#if>
 </#if>
 
-<div ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting" class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="cron-crn-grid-search">
+<section ng-hide="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting" class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="cron-crn-grid-search">
   <cron-grid
       options="${model.getGridOptionsView(model.dataSourceName, model.dataSourceName, field)}"
       ng-model="vars.grid${model.random}"
       class=""
       style="">
   </cron-grid>
-</div>
+</section>
 

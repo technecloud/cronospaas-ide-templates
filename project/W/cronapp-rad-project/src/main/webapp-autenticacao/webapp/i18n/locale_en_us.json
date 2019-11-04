@@ -98,5 +98,18 @@
   "Home.view.PreviousPasswordCanNotBeEmpty": "Previous password can not be empty.",
   "Home.view.NewPasswordCanNotBeEmpty": "New password can not be empty.",
   "Home.view.ConfirmationPasswordCanNotBeEmpty": "Confirmation can not be empty.",
-  "InvalidDate": "Invalid Date"
+  "InvalidDate": "Invalid Date",
+  "Login.view.InvalidCaptcha": "Invalid Captcha",
+  "Home.view.Administration": "Administration",
+  "AuditLog": "Audit Log",
+  "Type": "Type",
+  "Command": "Command",
+  "Date": "Date",
+  "Category": "Category",
+  "User": "User",
+  "Agent": "Agent",
+  "Server": "Server",
+  "AffectedFields": "Affected Fields",
+  "Data": "Data",
+  "Details": "Details"
 }

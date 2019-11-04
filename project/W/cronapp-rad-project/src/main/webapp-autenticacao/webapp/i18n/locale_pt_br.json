@@ -98,5 +98,18 @@
   "Home.view.PreviousPasswordCanNotBeEmpty": "Senha anterior não pode estar vazio.",
   "Home.view.NewPasswordCanNotBeEmpty": "Nova senha não pode estar vazio.",
   "Home.view.ConfirmationPasswordCanNotBeEmpty": "Confirmação não pode estar vazio.",
-  "InvalidDate": "Data Inválida"
+  "InvalidDate": "Data Inválida",
+  "Home.view.Administration": "Administração",
+  "Login.view.InvalidCaptcha": "Captcha Inválido",
+  "AuditLog": "Log de Auditoria",
+  "Type": "Tipo",
+  "Command": "Comando",
+  "Date": "Data",
+  "Category": "Categoria",
+  "User": "Usuário",
+  "Agent": "Agente",
+  "Server": "Servidor",
+  "AffectedFields": "Campos Afetados",
+  "Data": "Dados",
+  "Details": "Detalhes"
 }
