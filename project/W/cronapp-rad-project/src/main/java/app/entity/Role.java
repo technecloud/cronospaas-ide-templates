@@ -10,14 +10,13 @@ import cronapi.rest.security.CronappSecurity;
 
 
 /**
- * Classe que representa a tabela ROLE
+ * Classe que representa a tabela role
  * @generated
  */
 @Entity
-@IdClass(RolePK.class)
-@Table(name = "\"ROLE\"")
+@Table(name = "\"role\"")
 @XmlRootElement
-@CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
+@CronappSecurity
 @JsonFilter("app.entity.Role")
 public class Role implements Serializable {
 
@@ -31,15 +30,36 @@ public class Role implements Serializable {
    * @generated
    */
   @Id
-  @Column(name = "id", nullable = false, insertable=true, updatable=true)
-  private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
+  @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
+  private java.lang.String id;
 
   /**
-   * @generated
-   */
-  @Id
-  @JoinColumn(name="fk_user", nullable = false, referencedColumnName = "id", insertable=true, updatable=true)
-  private User user;
+  * @generated
+  */
+  @Column(name = "builtin", nullable = false, unique = false, insertable=true, updatable=true)
+  
+  private java.lang.Boolean builtin;
+
+  /**
+  * @generated
+  */
+  @Column(name = "membership_enabled", nullable = false, unique = false, insertable=true, updatable=true)
+  
+  private java.lang.Boolean membershipEnabled;
+
+  /**
+  * @generated
+  */
+  @Column(name = "name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
+  
+  private java.lang.String name;
+
+  /**
+  * @generated
+  */
+  @Column(name = "normalized_name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
+  
+  private java.lang.String normalizedName;
 
   /**
    * Construtor
@@ -54,7 +74,7 @@ public class Role implements Serializable {
    * return id
    * @generated
    */
-
+  
   public java.lang.String getId(){
     return this.id;
   }
@@ -70,22 +90,82 @@ public class Role implements Serializable {
   }
 
   /**
-   * Obtém user
-   * return user
+   * Obtém builtin
+   * return builtin
    * @generated
    */
-
-  public User getUser(){
-    return this.user;
+  
+  public java.lang.Boolean getBuiltin(){
+    return this.builtin;
   }
 
   /**
-   * Define user
-   * @param user user
+   * Define builtin
+   * @param builtin builtin
    * @generated
    */
-  public Role setUser(User user){
-    this.user = user;
+  public Role setBuiltin(java.lang.Boolean builtin){
+    this.builtin = builtin;
+    return this;
+  }
+
+  /**
+   * Obtém membershipEnabled
+   * return membershipEnabled
+   * @generated
+   */
+  
+  public java.lang.Boolean getMembershipEnabled(){
+    return this.membershipEnabled;
+  }
+
+  /**
+   * Define membershipEnabled
+   * @param membershipEnabled membershipEnabled
+   * @generated
+   */
+  public Role setMembershipEnabled(java.lang.Boolean membershipEnabled){
+    this.membershipEnabled = membershipEnabled;
+    return this;
+  }
+
+  /**
+   * Obtém name
+   * return name
+   * @generated
+   */
+  
+  public java.lang.String getName(){
+    return this.name;
+  }
+
+  /**
+   * Define name
+   * @param name name
+   * @generated
+   */
+  public Role setName(java.lang.String name){
+    this.name = name;
+    return this;
+  }
+
+  /**
+   * Obtém normalizedName
+   * return normalizedName
+   * @generated
+   */
+  
+  public java.lang.String getNormalizedName(){
+    return this.normalizedName;
+  }
+
+  /**
+   * Define normalizedName
+   * @param normalizedName normalizedName
+   * @generated
+   */
+  public Role setNormalizedName(java.lang.String normalizedName){
+    this.normalizedName = normalizedName;
     return this;
   }
 
@@ -98,7 +178,6 @@ public class Role implements Serializable {
     if (obj == null || getClass() != obj.getClass()) return false;
     Role object = (Role)obj;
     if (id != null ? !id.equals(object.id) : object.id != null) return false;
-    if (user != null ? !user.equals(object.user) : object.user != null) return false;
     return true;
   }
 
@@ -109,7 +188,6 @@ public class Role implements Serializable {
   public int hashCode() {
     int result = 1;
     result = 31 * result + ((id == null) ? 0 : id.hashCode());
-    result = 31 * result + ((user == null) ? 0 : user.hashCode());
     return result;
   }
 

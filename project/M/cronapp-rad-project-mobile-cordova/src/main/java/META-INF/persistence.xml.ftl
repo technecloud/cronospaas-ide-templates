@@ -4,12 +4,18 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>java:comp/env/jdbc/main</jta-data-source>
         <class>app.entity.User</class>
-        <class>app.entity.Role</class>        
-		<class>app.entity.Device</class>
+        <class>app.entity.Role</class>         
+		<class>app.entity.Device</class>        
+    <#if (enterprise)!false >    
         <class>app.entity.AuditLog</class>
+        <class>app.entity.Login</class>
+        <class>app.entity.Securable</class>
+        <class>app.entity.UserSecurable</class>
+        <class>app.entity.RoleSecurable</class>
+        <class>app.entity.UserRole</class>
+    </#if>   
     <#if multitenant?? && multitenant?lower_case == "sim">
         <class>app.entity.Company</class>
-        <class>app.entity.Department</class>
     </#if>
     <#if database??>
       <#assign databaseConfig = database?split("|")>

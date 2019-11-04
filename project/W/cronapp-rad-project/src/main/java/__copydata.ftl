@@ -22,6 +22,6 @@ file=SpringBootMain.java.ftl
 file=social.properties
 </#if>
 </#if>
-<#if (authentication??)>
+<#if (authentication??) && (enterprise)!true>
 path=/auth/permission
 </#if>
