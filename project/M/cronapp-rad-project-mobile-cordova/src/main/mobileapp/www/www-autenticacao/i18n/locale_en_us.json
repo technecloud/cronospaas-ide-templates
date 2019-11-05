@@ -105,5 +105,10 @@
   "Modal.view.Save": "Save",
   "Modal.view.Cancel" : "Cancel",
   "Login.view.ServerOff": "Server is offline. Please, start it again.",
-  "Login.view.HostAppOff": "Page not found. Check if your server URL is correct."
+  "Login.view.HostAppOff": "Page not found. Check if your server URL is correct.",
+  "Accessibility.Login.Logo.Alt": "Application Logo (Cronapp)",
+  "Accessibility.Button.Aria.Label.NavIcon": "Navigation Icon",
+  "Accessibility.Button.Aria.Label.Back": "Back Button",
+  "Accessibility.Button.Aria.Label.Add": "Add Button",
+  "Accessibility.Button.Aria.Label.Save": "Save Button"
 }
