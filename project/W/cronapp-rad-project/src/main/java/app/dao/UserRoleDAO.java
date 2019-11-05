@@ -8,6 +8,7 @@ import org.springframework.data.domain.*;
 import org.springframework.data.repository.query.*;
 import org.springframework.transaction.annotation.*; 
 
+
 /**
  * Realiza operação de Create, Read, Update e Delete no banco de dados.
  * Os métodos de create, edit, delete e outros estão abstraídos no JpaRepository
@@ -16,23 +17,23 @@ import org.springframework.transaction.annotation.*;
  * 
  * @generated
  */
-@Repository("DepartmentDAO")
+@Repository("UserRoleDAO")
 @Transactional(transactionManager="app-TransactionManager")
-public interface DepartmentDAO extends JpaRepository<Department, java.lang.String> {
+public interface UserRoleDAO extends JpaRepository<UserRole, java.lang.String> {
 
   /**
-   * Obtém a instância de Department utilizando os identificadores
+   * Obtém a instância de UserRole utilizando os identificadores
    * 
    * @param id
    *          Identificador 
    * @return Instância relacionada com o filtro indicado
    * @generated
    */    
-  @Query("SELECT entity FROM Department entity WHERE entity.id = :id")
-  public Department findOne(@Param(value="id") java.lang.String id);
+  @Query("SELECT entity FROM UserRole entity WHERE entity.id = :id")
+  public UserRole findOne(@Param(value="id") java.lang.String id);
 
   /**
-   * Remove a instância de Department utilizando os identificadores
+   * Remove a instância de UserRole utilizando os identificadores
    * 
    * @param id
    *          Identificador 
@@ -40,16 +41,23 @@ public interface DepartmentDAO extends JpaRepository<Department, java.lang.Strin
    * @generated
    */    
   @Modifying
-  @Query("DELETE FROM Department entity WHERE entity.id = :id")
+  @Query("DELETE FROM UserRole entity WHERE entity.id = :id")
   public void delete(@Param(value="id") java.lang.String id);
 
 
 
   /**
-   * Foreign Key company
+   * Foreign Key role
    * @generated
    */
-  @Query("SELECT entity FROM Department entity WHERE entity.company.id = :id")
-  public Page<Department> findDepartmentsByCompany(@Param(value="id") java.lang.String id, Pageable pageable);
+  @Query("SELECT entity FROM UserRole entity WHERE entity.role.id = :id")
+  public Page<UserRole> findUserRolesByRole(@Param(value="id") java.lang.String id, Pageable pageable);
+
+  /**
+   * Foreign Key user
+   * @generated
+   */
+  @Query("SELECT entity FROM UserRole entity WHERE entity.user.id = :id")
+  public Page<UserRole> findUserRolesByUser(@Param(value="id") java.lang.String id, Pageable pageable);
 
 }

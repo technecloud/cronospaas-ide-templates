@@ -7,7 +7,8 @@ file=UserRole.java
 file=Role.java
 <#if (enterprise)!false >
 file=AuditLog.java
-</#if>
-<#if !(customMenu??) >
-file=RolePK.java
+file=Login.java
+file=RoleSecurable.java
+file=Securable.java
+file=UserSecurable.java
 </#if>

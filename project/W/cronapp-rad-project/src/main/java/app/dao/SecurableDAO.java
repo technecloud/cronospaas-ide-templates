@@ -17,23 +17,23 @@ import org.springframework.transaction.annotation.*;
  * 
  * @generated
  */
-@Repository("RoleDAO")
+@Repository("SecurableDAO")
 @Transactional(transactionManager="app-TransactionManager")
-public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
+public interface SecurableDAO extends JpaRepository<Securable, java.lang.String> {
 
   /**
-   * Obtém a instância de Role utilizando os identificadores
+   * Obtém a instância de Securable utilizando os identificadores
    * 
    * @param id
    *          Identificador 
    * @return Instância relacionada com o filtro indicado
    * @generated
    */    
-  @Query("SELECT entity FROM Role entity WHERE entity.id = :id")
-  public Role findOne(@Param(value="id") java.lang.String id);
+  @Query("SELECT entity FROM Securable entity WHERE entity.id = :id")
+  public Securable findOne(@Param(value="id") java.lang.String id);
 
   /**
-   * Remove a instância de Role utilizando os identificadores
+   * Remove a instância de Securable utilizando os identificadores
    * 
    * @param id
    *          Identificador 
@@ -41,7 +41,7 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    * @generated
    */    
   @Modifying
-  @Query("DELETE FROM Role entity WHERE entity.id = :id")
+  @Query("DELETE FROM Securable entity WHERE entity.id = :id")
   public void delete(@Param(value="id") java.lang.String id);
 
 
@@ -50,34 +50,34 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    * OneToMany Relation
    * @generated
    */
-  @Query("SELECT entity FROM RoleSecurable entity WHERE entity.role.id = :id")
+  @Query("SELECT entity FROM RoleSecurable entity WHERE entity.securable.id = :id")
   public Page<RoleSecurable> findRoleSecurable(@Param(value="id") java.lang.String id, Pageable pageable);
 
   /**
    * OneToMany Relation
    * @generated
    */
-  @Query("SELECT entity FROM UserRole entity WHERE entity.role.id = :id")
-  public Page<UserRole> findUserRole(@Param(value="id") java.lang.String id, Pageable pageable);
+  @Query("SELECT entity FROM UserSecurable entity WHERE entity.securable.id = :id")
+  public Page<UserSecurable> findUserSecurable(@Param(value="id") java.lang.String id, Pageable pageable);
   /**
    * ManyToOne Relation
    * @generated
    */
-  @Query("SELECT entity.securable FROM RoleSecurable entity WHERE entity.role.id = :id")
-  public Page<Securable> listSecurable(@Param(value="id") java.lang.String id, Pageable pageable);
+  @Query("SELECT entity.role FROM RoleSecurable entity WHERE entity.securable.id = :id")
+  public Page<Role> listRole(@Param(value="id") java.lang.String id, Pageable pageable);
 
   /**
    * ManyToOne Relation Delete
    * @generated
    */
   @Modifying
-  @Query("DELETE FROM RoleSecurable entity WHERE entity.role.id = :instanceId AND entity.securable.id = :relationId")
-  public int deleteSecurable(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
+  @Query("DELETE FROM RoleSecurable entity WHERE entity.securable.id = :instanceId AND entity.role.id = :relationId")
+  public int deleteRole(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
   /**
    * ManyToOne Relation
    * @generated
    */
-  @Query("SELECT entity.user FROM UserRole entity WHERE entity.role.id = :id")
+  @Query("SELECT entity.user FROM UserSecurable entity WHERE entity.securable.id = :id")
   public Page<User> listUser(@Param(value="id") java.lang.String id, Pageable pageable);
 
   /**
@@ -85,7 +85,7 @@ public interface RoleDAO extends JpaRepository<Role, java.lang.String> {
    * @generated
    */
   @Modifying
-  @Query("DELETE FROM UserRole entity WHERE entity.role.id = :instanceId AND entity.user.id = :relationId")
+  @Query("DELETE FROM UserSecurable entity WHERE entity.securable.id = :instanceId AND entity.user.id = :relationId")
   public int deleteUser(@Param(value="instanceId") java.lang.String instanceId, @Param(value="relationId") java.lang.String relationId);
 
 }
