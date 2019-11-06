@@ -1,6 +1,8 @@
 sh.exe.stackdump
 .idea/
-/.settings/**
+.settings/
+.classpath
+target/
 *.iml
-/.project
+.project
 teste
