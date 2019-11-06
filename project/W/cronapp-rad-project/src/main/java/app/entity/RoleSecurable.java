@@ -16,7 +16,7 @@ import cronapi.rest.security.CronappSecurity;
 @Entity
 @Table(name = "\"role_securable\"")
 @XmlRootElement
-@CronappSecurity
+@CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
 @JsonFilter("app.entity.RoleSecurable")
 public class RoleSecurable implements Serializable {
 

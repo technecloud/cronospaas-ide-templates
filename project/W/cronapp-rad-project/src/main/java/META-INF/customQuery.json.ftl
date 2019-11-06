@@ -314,10 +314,132 @@
 		},
 		"serviceUrl": "api/cronapi/odata/v2/app/roleSecurables/"
 	},
+    "securables": {
+        "customId": "securables",
+        "queryName": "Obter Permissionáveis",
+        "sourceType": "entityFullName",
+        "baseEntity": null,
+        "blockly": null,
+        "entitySimpleName": "Securable",
+        "entityFullName": "app.entity.Securable",
+        "query": {
+            "isValid": true,
+            "isEmpty": false,
+            "operationType": "object",
+            "type": "select",
+            "rulesEntity": [
+                {
+                    "entity": "Securable",
+                    "namespace": "app.entity.Securable",
+                    "alias": "s"
+                }
+            ],
+            "rulesSelect": [
+                {
+                    "func": "get",
+                    "field": "s",
+                    "type": "string"
+                }
+            ],
+            "rulesGroupBy": [],
+            "rulesHaving": [],
+            "rulesOrderBy": [],
+            "rules": {
+                "condition": "AND",
+                "rules": [
+                    {
+                        "id": "s.name",
+                        "field": "s.name",
+                        "type": "string",
+                        "input": "text",
+                        "operator": "equal",
+                        "value": ":name",
+                        "valueIsField": false
+                    },
+                    {
+                        "id": "s.type",
+                        "field": "s.type",
+                        "type": "string",
+                        "input": "text",
+                        "operator": "equal",
+                        "value": ":type",
+                        "valueIsField": false
+                    }
+                ],
+                "not": false,
+                "valid": true
+            },
+            "isRawSql": false,
+            "multiTenant": false,
+            "paginatorAutomatic": false,
+            "pagination": false
+        },
+        "queryParamsValues": [
+            {
+                "fieldName": "name",
+                "fieldValue": ""
+            },
+            {
+                "fieldName": "type",
+                "fieldValue": ""
+            }
+        ],
+        "verbs": {
+            "GET": true,
+            "GETAuthorities": null,
+            "POST": true,
+            "POSTAuthorities": null,
+            "PUT": true,
+            "PUTAuthorities": null,
+            "DELETE": true,
+            "DELETEAuthorities": null,
+            "FILTER": true,
+            "FILTERAuthorities": null,
+            "COUNT": true,
+            "COUNTAuthorities": null
+        },
+        "events": {
+            "beforeInsert": null,
+            "beforeUpdate": null,
+            "beforeDelete": null,
+            "afterInsert": null,
+            "afterUpdate": null,
+            "afterDelete": null,
+            "onNavigate": null,
+            "onGetData": null
+        },
+        "defaultValues": {
+            "id": null,
+            "name": null,
+            "pattern": null,
+            "type": null
+        },
+        "defaultValuesProperties": {
+            "id": null,
+            "name": null,
+            "pattern": null,
+            "type": null
+        },
+        "security": {
+            "id": null,
+            "name": null,
+            "pattern": null,
+            "type": null
+        },
+        "calcFields": {},
+        "calcFieldsSecurity": {},
+        "calcFieldsProperties": {},
+        "errorHandles": {
+            "primaryKey": null,
+            "foreignKey": null
+        },
+        "serviceUrl": "api/cronapi/odata/v2/app/securables/",
+        "audit": false
+    },
 	</#if>
 	"auth": {
 		"customId": "auth",
-		"queryName": "Autenticar",
+		"queryName": "{{AUTHENTICATE}}",
 		"sourceType": "entityFullName",
 		"baseEntity": null,
 		"blockly": null,
@@ -458,7 +580,7 @@
 	},
 	"roles": {
 		"customId": "roles",
-		"queryName": "Obter Papéis",
+		"queryName": "{{GET_ROLES}}",
 		"sourceType": "entityFullName",
 		"baseEntity": null,
 		"blockly": null,
@@ -625,99 +747,5 @@
 			"foreignKey": null
 		},
 		"serviceUrl": "api/cronapi/query/tenant/"
-	},
-	"device": {
-		"customId": "device",
-		"queryName": "Atualizar Dispositivos",
-		"screen": "",
-		"sourceType": "entityFullName",
-		"blockly": null,
-		"entitySimpleName": "Device",
-		"entityFullName": "app.entity.Device",
-		"query": {
-			"isValid": true,
-			"isEmpty": false,
-			"operationType": "object",
-			"type": "select",
-			"rulesEntity": [
-				{
-					"entity": "Device",
-					"namespace": "app.entity.Device",
-					"alias": "d"
-				}
-			],
-			"rulesSelect": [
-				{
-					"func": "get",
-					"field": "d",
-					"type": "string"
-				}
-			],
-			"rulesGroupBy": [],
-			"rulesHaving": [],
-			"rulesOrderBy": [],
-			"rules": {
-				"condition": "AND",
-				"rules": [
-					{
-						"id": "d.id",
-						"field": "d.id",
-						"type": "string",
-						"input": "text",
-						"operator": "equal",
-						"value": ":id",
-						"valueIsField": false
-					}
-				],
-				"not": false,
-				"valid": true
-			},
-			"isRawSql": false,
-			"multiTenant": true,
-			"paginatorAutomatic": false
-		},
-		"queryParamsValues": [
-			{
-				"fieldName": "id",
-				"fieldValue": ""
-			}
-		],
-		"verbs": {
-			"GET": true,
-			"GETAuthorities": null,
-			"POST": true,
-			"POSTAuthorities": null,
-			"PUT": true,
-			"PUTAuthorities": null,
-			"DELETE": true,
-			"DELETEAuthorities": null,
-			"FILTER": true,
-			"FILTERAuthorities": null
-		},
-		"events": {
-			"beforeInsert": null,
-			"beforeUpdate": null,
-			"beforeDelete": null,
-			"afterInsert": null,
-			"afterUpdate": null,
-			"afterDelete": null,
-			"onNavigate": null,
-			"onGetData": null
-		},
-		"defaultValues": {
-			"id": null,
-			"token": null
-		},
-		"security": {
-			"id": null,
-			"token": null
-		},
-		"calcFields": {},
-		"calcFieldsSecurity": {},
-		"errorHandles": {
-			"primaryKey": null,
-			"foreignKey": null
-		},
-		"serviceUrl": "api/cronapi/query/1jy88nt41afza/"
 	}
 }
