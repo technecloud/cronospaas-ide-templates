@@ -42,6 +42,7 @@ public class SecurityPermission implements Permission {
     http.authorizeRequests().antMatchers("/api/cronapi/**").permitAll();
     http.authorizeRequests().antMatchers("POST", "/changePassword").authenticated();
     http.authorizeRequests().antMatchers("POST", "/changeTheme").authenticated();
+    http.authorizeRequests().antMatchers("/services/**").permitAll();
     
     // deny all
     http.authorizeRequests().antMatchers("/**").denyAll();
