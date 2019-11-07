@@ -168,7 +168,6 @@ private static final long serialVersionUID = 1L;
                  <#if field.isVersion()>
                     @Version
                 <#elseif field.isDate()>
-                <#if field.isDate()>
                     @Temporal(TemporalType.DATE)
                 <#elseif field.isTime()>
                     @Temporal(TemporalType.TIME)
