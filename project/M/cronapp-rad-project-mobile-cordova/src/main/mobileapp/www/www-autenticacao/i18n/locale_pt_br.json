@@ -4,7 +4,7 @@
   "Home.view.Admin": "Admin",
   "Home.view.Cidade": "Cidade",
   "Home.view.Logout": "Sair",
-  "Home.view.Home": "Pagina inicial",
+  "Home.view.Home": "Página inicial",
   "Admin.view.Picture": "Imagem",
   "Admin.view.Name": "Nome",
   "Admin.view.Access Denied": "Acesso Negado",
@@ -105,5 +105,10 @@
   "Modal.view.Save": "Salvar",
   "Modal.view.Cancel" : "Cancelar",
   "Login.view.ServerOff": "Servidor offline. Por favor, inicie-o novamente.",
-  "Login.view.HostAppOff": "Página não encontrada! Verifique se a URL do servidor está correta."
+  "Login.view.HostAppOff": "Página não encontrada! Verifique se a URL do servidor está correta.",
+  "Accessibility.Login.Logo.Alt": "Logotipo da Aplicação (Cronapp)",
+  "Accessibility.Button.Aria.Label.NavIcon": "Ícone de Navegação",
+  "Accessibility.Button.Aria.Label.Back": "Botão Voltar",
+  "Accessibility.Button.Aria.Label.Add": "Botão Adicionar",
+  "Accessibility.Button.Aria.Label.Save": "Botão Salvar"
 }

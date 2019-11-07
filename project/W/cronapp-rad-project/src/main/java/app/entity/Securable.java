@@ -9,19 +9,16 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
 
 
-import org.eclipse.persistence.annotations.*;
 /**
- * Classe que representa a tabela DEPARTMENT
+ * Classe que representa a tabela securable
  * @generated
  */
 @Entity
-@Table(name = "\"DEPARTMENT\"")
+@Table(name = "\"securable\"")
 @XmlRootElement
-@CronappSecurity
-@Multitenant(MultitenantType.SINGLE_TABLE)
-@TenantDiscriminatorColumn(name = "fk_company", contextProperty = "tenant")
-@JsonFilter("app.entity.Department")
-public class Department implements Serializable {
+@CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
+@JsonFilter("app.entity.Securable")
+public class Securable implements Serializable {
 
   /**
    * UID da classe, necessário na serialização
@@ -33,29 +30,35 @@ public class Department implements Serializable {
    * @generated
    */
   @Id
-  @Column(name = "id", nullable = false, insertable=true, updatable=true)
-  private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
+  @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
+  private java.lang.String id;
 
   /**
-   * @generated
-   */
-  @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
-
+  * @generated
+  */
+  @Column(name = "name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
+  
   private java.lang.String name;
 
   /**
-   * @generated
-   */
-  @ManyToOne
-  @JoinColumn(name="fk_company", nullable = true, referencedColumnName = "id", insertable=false, updatable=false)
+  * @generated
+  */
+  @Column(name = "pattern", nullable = false, unique = false, length=255, insertable=true, updatable=true)
+  
+  private java.lang.String pattern;
 
-  private Company company;
+  /**
+  * @generated
+  */
+  @Column(name = "type", nullable = false, unique = false, length=255, insertable=true, updatable=true)
+  
+  private java.lang.String type;
 
   /**
    * Construtor
    * @generated
    */
-  public Department(){
+  public Securable(){
   }
 
 
@@ -64,7 +67,7 @@ public class Department implements Serializable {
    * return id
    * @generated
    */
-
+  
   public java.lang.String getId(){
     return this.id;
   }
@@ -74,7 +77,7 @@ public class Department implements Serializable {
    * @param id id
    * @generated
    */
-  public Department setId(java.lang.String id){
+  public Securable setId(java.lang.String id){
     this.id = id;
     return this;
   }
@@ -84,7 +87,7 @@ public class Department implements Serializable {
    * return name
    * @generated
    */
-
+  
   public java.lang.String getName(){
     return this.name;
   }
@@ -94,28 +97,48 @@ public class Department implements Serializable {
    * @param name name
    * @generated
    */
-  public Department setName(java.lang.String name){
+  public Securable setName(java.lang.String name){
     this.name = name;
     return this;
   }
 
   /**
-   * Obtém company
-   * return company
+   * Obtém pattern
+   * return pattern
    * @generated
    */
-
-  public Company getCompany(){
-    return this.company;
+  
+  public java.lang.String getPattern(){
+    return this.pattern;
   }
 
   /**
-   * Define company
-   * @param company company
+   * Define pattern
+   * @param pattern pattern
    * @generated
    */
-  public Department setCompany(Company company){
-    this.company = company;
+  public Securable setPattern(java.lang.String pattern){
+    this.pattern = pattern;
+    return this;
+  }
+
+  /**
+   * Obtém type
+   * return type
+   * @generated
+   */
+  
+  public java.lang.String getType(){
+    return this.type;
+  }
+
+  /**
+   * Define type
+   * @param type type
+   * @generated
+   */
+  public Securable setType(java.lang.String type){
+    this.type = type;
     return this;
   }
 
@@ -126,7 +149,7 @@ public class Department implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj) return true;
     if (obj == null || getClass() != obj.getClass()) return false;
-    Department object = (Department)obj;
+    Securable object = (Securable)obj;
     if (id != null ? !id.equals(object.id) : object.id != null) return false;
     return true;
   }
