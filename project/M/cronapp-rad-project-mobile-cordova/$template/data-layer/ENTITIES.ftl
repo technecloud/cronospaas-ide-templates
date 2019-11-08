@@ -7,6 +7,11 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
+<#if clazz.hasRowVersion??>
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+import cronapi.database.VersionConverter;
+</#if>
 <#assign isExistsEncrypt = false>
 <#list clazz.fields as field>
     <#if field.isEncryption()>
@@ -37,7 +42,7 @@ import cronapi.rest.security.CronappSecurity;
 </#list>
 
 <#if (clazz.multitenantClass)>
-    import org.eclipse.persistence.annotations.*;
+import org.eclipse.persistence.annotations.*;
 </#if>
 /**
 * Classe que representa a tabela <#if tableName??>${tableName}<#else>${clazz.name?upper_case}</#if>
@@ -66,8 +71,14 @@ import cronapi.rest.security.CronappSecurity;
 </#if>
 </#if>
 @JsonFilter("${entityPackage}<#if subPackage??>.${subPackage}</#if>.${clazz.name}")
-<#if (clazz.audit)!false>
-@EntityListeners(cronapi.database.HistoryListener.class)
+<#if clazz.listeners??>
+@EntityListeners(${clazz.listeners})
+</#if>
+<#if clazz.hasRowVersion??>
+@Converter(
+  name="version",
+  converterClass=VersionConverter.class
+)
 </#if>
 public class ${clazz.name} implements Serializable {
 <#if isExistsEncrypt>
@@ -137,6 +148,9 @@ public class ${clazz.name} implements Serializable {
     /**
     * @generated
     */
+    <#if (field.rowVersion)!false>
+    @Convert("version")
+    </#if>
     <#if field.relation>
     @OneToOne
     <#elseif field.reverseRelation>
