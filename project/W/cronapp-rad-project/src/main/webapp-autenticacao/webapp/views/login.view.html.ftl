@@ -15,6 +15,7 @@
                         <ul class="list-inline center-block text-center">
                         </ul>
                     </div>
+                    <#if authentication?lower_case != "sso">
                     <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-283724">
                         <div class="form-group">
                             <label for="input7274">{{'Login.view.Username' | translate}}</label>
@@ -27,6 +28,7 @@
                             <input type="password" mask="" mask-placeholder="" ng-required="false" ng-model="password.value" class="form-control k-textbox" id="input9836" autocomplete="off" placeholder="">
                         </div>
                     </div>
+                    </#if>
                     <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-enterprise-checkbox" id="crn-enterprise-checkbox-889238">
                     </div>
                     <div class="component-holder ng-binding ng-scope col-md-12" data-component="crn-button">
@@ -35,7 +37,13 @@
                                 {{message.error}}
                             </div>
                         </div>
+                        <#if authentication?lower_case == "sso" && (enterprise)!false>
+                        <a href="/login" class="btn btn-default cron-link col-md-12 col-xs-12 k-button btn-primary"
+                           target="_self" data-replace="true" data-component="crn-anchor"
+                           id="crn-anchor-889667"><span>{{"Login.view.Login" | translate}} </span></a>
+                        <#else>
                         <button class="btn btn-default col-md-12 col-xs-12 k-button btn-primary" type="submit" ng-disabled="form.$invalid || vm.dataLoading" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default" xattr-disabled="" data-component="crn-button"> <span>{{"Login.view.Login" | translate}} </span></button>
+                        </#if>
                     </div>
                 </form>
                  <#if social?? && social?lower_case == "sim">
