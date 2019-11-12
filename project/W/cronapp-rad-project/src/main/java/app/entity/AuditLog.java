@@ -66,7 +66,7 @@ public class AuditLog implements Serializable {
   /**
    * @generated
    */
-  @Column(name = "user", nullable = true, unique = false, insertable=true, updatable=true)
+  @Column(name = "userName", nullable = true, unique = false, insertable=true, updatable=true)
 
   private java.lang.String user;
 
