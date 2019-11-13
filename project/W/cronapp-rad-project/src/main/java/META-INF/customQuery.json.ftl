@@ -127,7 +127,7 @@
 			"rulesSelect": [
 				{
 					"func": "get",
-					"field": "u.securable.pattern",
+					"field": "u.securable",
 					"type": "string"
 				}
 			],
@@ -207,7 +207,8 @@
 			"primaryKey": null,
 			"foreignKey": null
 		},
-		"serviceUrl": "api/cronapi/odata/v2/app/userSecurables/"
+		"serviceUrl": "api/cronapi/odata/v2/app/userSecurables/",
+		"audit": false
 	},
 	"roleSecurables": {
 		"customId": "roleSecurables",
@@ -314,130 +315,117 @@
 		},
 		"serviceUrl": "api/cronapi/odata/v2/app/roleSecurables/"
 	},
-    "securables": {
-        "customId": "securables",
-        "queryName": "Obter Permissionáveis",
-        "sourceType": "entityFullName",
-        "baseEntity": null,
-        "blockly": null,
-        "entitySimpleName": "Securable",
-        "entityFullName": "app.entity.Securable",
-        "query": {
-            "isValid": true,
-            "isEmpty": false,
-            "operationType": "object",
-            "type": "select",
-            "rulesEntity": [
-                {
-                    "entity": "Securable",
-                    "namespace": "app.entity.Securable",
-                    "alias": "s"
-                }
-            ],
-            "rulesSelect": [
-                {
-                    "func": "get",
-                    "field": "s",
-                    "type": "string"
-                }
-            ],
-            "rulesGroupBy": [],
-            "rulesHaving": [],
-            "rulesOrderBy": [],
-            "rules": {
-                "condition": "AND",
-                "rules": [
-                    {
-                        "id": "s.name",
-                        "field": "s.name",
-                        "type": "string",
-                        "input": "text",
-                        "operator": "equal",
-                        "value": ":name",
-                        "valueIsField": false
-                    },
-                    {
-                        "id": "s.type",
-                        "field": "s.type",
-                        "type": "string",
-                        "input": "text",
-                        "operator": "equal",
-                        "value": ":type",
-                        "valueIsField": false
-                    }
-                ],
-                "not": false,
-                "valid": true
-            },
-            "isRawSql": false,
-            "multiTenant": false,
-            "paginatorAutomatic": false,
-            "pagination": false
-        },
-        "queryParamsValues": [
-            {
-                "fieldName": "name",
-                "fieldValue": ""
-            },
-            {
-                "fieldName": "type",
-                "fieldValue": ""
-            }
-        ],
-        "verbs": {
-            "GET": true,
-            "GETAuthorities": null,
-            "POST": true,
-            "POSTAuthorities": null,
-            "PUT": true,
-            "PUTAuthorities": null,
-            "DELETE": true,
-            "DELETEAuthorities": null,
-            "FILTER": true,
-            "FILTERAuthorities": null,
-            "COUNT": true,
-            "COUNTAuthorities": null
-        },
-        "events": {
-            "beforeInsert": null,
-            "beforeUpdate": null,
-            "beforeDelete": null,
-            "afterInsert": null,
-            "afterUpdate": null,
-            "afterDelete": null,
-            "onNavigate": null,
-            "onGetData": null
-        },
-        "defaultValues": {
-            "id": null,
-            "name": null,
-            "pattern": null,
-            "type": null
-        },
-        "defaultValuesProperties": {
-            "id": null,
-            "name": null,
-            "pattern": null,
-            "type": null
-        },
-        "security": {
-            "id": null,
-            "name": null,
-            "pattern": null,
-            "type": null
-        },
-        "calcFields": {},
-        "calcFieldsSecurity": {},
-        "calcFieldsProperties": {},
-        "errorHandles": {
-            "primaryKey": null,
-            "foreignKey": null
-        },
-        "serviceUrl": "api/cronapi/odata/v2/app/securables/",
-        "audit": false
-    },
-	</#if>
-	"auth": {
+	"securables": {
+		"customId": "securables",
+		"queryName": "Obter Permissionáveis",
+		"sourceType": "entityFullName",
+		"baseEntity": null,
+		"blockly": null,
+		"entitySimpleName": "Securable",
+		"entityFullName": "app.entity.Securable",
+		"query": {
+			"isValid": true,
+			"isEmpty": false,
+			"operationType": "object",
+			"type": "select",
+			"rulesEntity": [
+				{
+					"entity": "Securable",
+					"namespace": "app.entity.Securable",
+					"alias": "s"
+				}
+			],
+			"rulesSelect": [
+				{
+					"func": "get",
+					"field": "s",
+					"type": "string"
+				}
+			],
+			"rulesGroupBy": [],
+			"rulesHaving": [],
+			"rulesOrderBy": [],
+			"rules": {
+				"condition": "AND",
+				"rules": [
+					{
+						"id": "s.name",
+						"field": "s.name",
+						"type": "string",
+						"input": "text",
+						"operator": "equal",
+						"value": ":name",
+						"valueIsField": false
+					}
+				],
+				"not": false,
+				"valid": true
+			},
+			"isRawSql": false,
+			"multiTenant": false,
+			"paginatorAutomatic": false,
+			"pagination": false
+		},
+		"queryParamsValues": [
+			{
+				"fieldName": "name",
+				"fieldValue": ""
+			}
+		],
+		"verbs": {
+			"GET": true,
+			"GETAuthorities": null,
+			"POST": true,
+			"POSTAuthorities": null,
+			"PUT": true,
+			"PUTAuthorities": null,
+			"DELETE": true,
+			"DELETEAuthorities": null,
+			"FILTER": true,
+			"FILTERAuthorities": null,
+			"COUNT": true,
+			"COUNTAuthorities": null
+		},
+		"events": {
+			"beforeInsert": null,
+			"beforeUpdate": null,
+			"beforeDelete": null,
+			"afterInsert": null,
+			"afterUpdate": null,
+			"afterDelete": null,
+			"onNavigate": null,
+			"onGetData": null
+		},
+		"defaultValues": {
+			"id": null,
+			"name": null,
+			"pattern": null,
+			"type": null
+		},
+		"defaultValuesProperties": {
+			"id": null,
+			"name": null,
+			"pattern": null,
+			"type": null
+		},
+		"security": {
+			"id": null,
+			"name": null,
+			"pattern": null,
+			"type": null
+		},
+		"calcFields": {},
+		"calcFieldsSecurity": {},
+		"calcFieldsProperties": {},
+		"errorHandles": {
+			"primaryKey": null,
+			"foreignKey": null
+		},
+		"serviceUrl": "api/cronapi/odata/v2/app/securables/",
+		"audit": false
+	},
+    </#if>
+    "auth": {
 		"customId": "auth",
 		"queryName": "{{AUTHENTICATE}}",
 		"sourceType": "entityFullName",
