@@ -63,8 +63,8 @@
   {
     "_class": "app.entity.Role",
     "id": "9e2affd5-b4c3-4464-8188-459f87ec2f33",
-    "name": "Guest",
-    "normalizedName": "guest",
+    "name": "Anonymous Users",
+    "normalizedName": "anonymous users",
     "membershipEnabled": false,
     "builtin": true
   },
@@ -79,21 +79,21 @@
   {
     "_class": "app.entity.Securable",
     "id": "67574137-a038-4783-9e2d-43ca3fb51635",
-    "name": "Public resources",
+    "name": "Public",
     "type": "view",
     "pattern": "/auth/**,/index.html,/favicon.ico,/public/**,/plugins/**,/components/**,/js/**,/lib/**,/css/**,/img/**,/i18n/**,/views/login.view.html,/views/error/**,/views/public/**,/signin/**,/device/**,/api/cronapi/**"
   },
   {
     "_class": "app.entity.Securable",
     "id": "cf2e4e05-c7ce-4333-b7bc-3fd20ee5a137",
-    "name": "Private resources",
+    "name": "Authenticated",
     "type": "view",
     "pattern": "/views/logged/**,/api/rest/**,/changePassword,/changeTheme"
   },
   {
     "_class": "app.entity.Securable",
     "id": "0ef7a690-5b5b-41f6-9abe-7fe0cadb5962",
-    "name": "Administrative resources",
+    "name": "Administrators",
     "type": "view",
     "pattern": "/views/admin/**,/api/security/**"
   },
