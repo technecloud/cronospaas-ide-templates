@@ -59,6 +59,13 @@ public interface SecurableDAO extends JpaRepository<Securable, java.lang.String>
    */
   @Query("SELECT entity FROM UserSecurable entity WHERE entity.securable.id = :id")
   public Page<UserSecurable> findUserSecurable(@Param(value="id") java.lang.String id, Pageable pageable);
+
+  /**
+   * OneToMany Relation
+   * @generated
+   */
+  @Query("SELECT entity FROM View entity WHERE entity.securable.id = :id")
+  public Page<View> findView(@Param(value="id") java.lang.String id, Pageable pageable);
   /**
    * ManyToOne Relation
    * @generated
