@@ -74,7 +74,7 @@ import org.eclipse.persistence.annotations.*;
 <#if clazz.listeners??>
 @EntityListeners(${clazz.listeners})
 </#if>
-<#if clazz.hasRowVersion??>
+<#if clazz.hasRowVersion()>
 @Converter(
   name="version",
   converterClass=VersionConverter.class
