@@ -11,4 +11,5 @@ file=Login.java
 file=RoleSecurable.java
 file=Securable.java
 file=UserSecurable.java
+file=View.java
 </#if>

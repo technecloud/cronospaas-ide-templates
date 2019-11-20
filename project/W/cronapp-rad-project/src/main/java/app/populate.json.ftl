@@ -37,7 +37,7 @@
     "name": "Administrators",
     "normalizedName": "administrators",
     "membershipEnabled": true,
-    "builtin": true
+    "builtIn": true
   },
   <#if multitenant?? && multitenant?lower_case == "sim">
   {

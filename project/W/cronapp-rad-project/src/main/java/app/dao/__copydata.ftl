@@ -11,4 +11,5 @@ file=RoleSecurableDAO.java
 file=SecurableDAO.java
 file=UserRoleDAO.java
 file=UserSecurableDAO.java
+file=ViewDAO.java
 </#if>
