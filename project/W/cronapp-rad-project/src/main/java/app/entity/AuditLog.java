@@ -7,14 +7,17 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+import cronapi.database.VersionConverter;
 
 
 /**
- * Classe que representa a tabela CRONAPP_AUDIT_LOG
+ * Classe que representa a tabela AUDITLOG
  * @generated
  */
 @Entity
-@Table(name = "\"CRONAPP_AUDIT_LOG\"")
+@Table(name = "\"AUDITLOG\"")
 @XmlRootElement
 @CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
 @JsonFilter("app.entity.AuditLog")
@@ -52,7 +55,7 @@ public class AuditLog implements Serializable {
    * @generated
    */
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "date", nullable = false, unique = false, insertable=true, updatable=true, columnDefinition = "TIMESTAMP")
+  @Column(name = "dateCreated", nullable = false, unique = false, insertable=true, updatable=true)
 
   private java.util.Date date;
 
@@ -66,7 +69,7 @@ public class AuditLog implements Serializable {
   /**
    * @generated
    */
-  @Column(name = "userName", nullable = true, unique = false, insertable=true, updatable=true)
+  @Column(name = "user", nullable = true, unique = false, insertable=true, updatable=true)
 
   private java.lang.String user;
 
@@ -112,7 +115,6 @@ public class AuditLog implements Serializable {
   public AuditLog(){
   }
 
-
   /**
    * Obtém id
    * return id
@@ -132,7 +134,6 @@ public class AuditLog implements Serializable {
     this.id = id;
     return this;
   }
-
   /**
    * Obtém type
    * return type
@@ -152,7 +153,6 @@ public class AuditLog implements Serializable {
     this.type = type;
     return this;
   }
-
   /**
    * Obtém command
    * return command
@@ -172,7 +172,6 @@ public class AuditLog implements Serializable {
     this.command = command;
     return this;
   }
-
   /**
    * Obtém date
    * return date
@@ -192,7 +191,6 @@ public class AuditLog implements Serializable {
     this.date = date;
     return this;
   }
-
   /**
    * Obtém objectData
    * return objectData
@@ -212,7 +210,6 @@ public class AuditLog implements Serializable {
     this.objectData = objectData;
     return this;
   }
-
   /**
    * Obtém user
    * return user
@@ -232,7 +229,6 @@ public class AuditLog implements Serializable {
     this.user = user;
     return this;
   }
-
   /**
    * Obtém host
    * return host
@@ -252,7 +248,6 @@ public class AuditLog implements Serializable {
     this.host = host;
     return this;
   }
-
   /**
    * Obtém agent
    * return agent
@@ -272,7 +267,6 @@ public class AuditLog implements Serializable {
     this.agent = agent;
     return this;
   }
-
   /**
    * Obtém server
    * return server
@@ -292,7 +286,6 @@ public class AuditLog implements Serializable {
     this.server = server;
     return this;
   }
-
   /**
    * Obtém affectedFields
    * return affectedFields
@@ -312,7 +305,6 @@ public class AuditLog implements Serializable {
     this.affectedFields = affectedFields;
     return this;
   }
-
   /**
    * Obtém category
    * return category
