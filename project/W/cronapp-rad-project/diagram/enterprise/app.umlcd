@@ -219,7 +219,7 @@
         {
           "name": "user",
           "type": "java.lang.String",
-          "dbName": "user",
+          "dbName": "userName",
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
