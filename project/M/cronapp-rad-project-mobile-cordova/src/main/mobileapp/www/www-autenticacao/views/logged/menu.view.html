@@ -10,8 +10,8 @@
                             <i class="icon ion-person"></i>
                         </div>
                         <div class="item item-content text-left" xattr-text-position="text-left">
-                            <h2 ng-show="session.user.name" class="light" xattr-theme="light">{{session.user.name}}</h2>
-                            <h3 ng-show="session.user.username" class="light" xattr-theme="light">{{session.user.username}}</h3>
+                            <h2 ng-if="session.user.name" class="light" xattr-theme="light">{{session.user.name}}</h2>
+                            <h3 ng-if="session.user.username" class="light" xattr-theme="light">{{session.user.username}}</h3>
                         </div>
                     </div>
                 </div>
