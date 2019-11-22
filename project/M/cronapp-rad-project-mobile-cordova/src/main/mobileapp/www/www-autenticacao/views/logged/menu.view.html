@@ -10,8 +10,8 @@
                             <i class="icon ion-person"></i>
                         </div>
                         <div class="item item-content text-left" xattr-text-position="text-left">
-                            <h2 class="light" xattr-theme="light">{{session.user.name}}</h2>
-                            <h3 class="light" xattr-theme="light">{{session.user.username}}</h3>
+                            <h2 ng-show="session.user.name" class="light" xattr-theme="light">{{session.user.name}}</h2>
+                            <h3 ng-show="session.user.username" class="light" xattr-theme="light">{{session.user.username}}</h3>
                         </div>
                     </div>
                 </div>
@@ -36,17 +36,20 @@
     <ion-content role="region" class="scroll-content has-header" data-component="crn-ion-content">
         <form class="form-validation input-default" autocomplete="off" name="form" role="form">
             <div class="list list-inset">
-                <label class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon-124772">
+                <label aria-labelledby="input-old-password" class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon-124772">
                     <i class="icon placeholder-icon ion ion-asterisk"></i>
                     <input type="password" placeholder="{{'Home.view.Old Password' | translate}}" ng-model="vars.oldPassword">
+                    <span id="input-old-password" class="sr-only">{{'Home.view.Old Password' | translate}}</span>
                 </label>
-                <label class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon98771">
+                <label aria-labelledby="input-new-password" class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon98771">
                     <i class="icon placeholder-icon ion ion-asterisk"></i>
                     <input type="password" placeholder="{{'Home.view.New Password' | translate}}" ng-model="vars.newPassword">
+                    <span id="input-new-password" class="sr-only">{{'Home.view.New Password' | translate}}</span>
                 </label>
-                <label class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon25041">
+                <label aria-labelledby="input-password-confirmation" class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon25041">
                     <i class="icon placeholder-icon ion ion-asterisk"></i>
                     <input type="password" placeholder="{{'Home.view.Confirmation' | translate}}" ng-model="vars.confirmationPassword">
+                    <span id="input-password-confirmation" class="sr-only">{{'Home.view.Confirmation' | translate}}</span>
                 </label>
                 <button class="button button-block button-positive" data-component="crn-button" ng-click="cronapi.client('js.blockly.auth.ChangePassword.changePassword').run()" ng-disabled="form.$invalid || vm.dataLoading" xattr-size="">
                     {{"Home.view.ChangePassword" | translate}}
