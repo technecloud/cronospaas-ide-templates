@@ -36,18 +36,18 @@
     <ion-content role="region" class="scroll-content has-header" data-component="crn-ion-content">
         <form class="form-validation input-default" autocomplete="off" name="form" role="form">
             <div class="list list-inset">
-                <label class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon-124772">
+                <div class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon-124772">
                     <i class="icon placeholder-icon ion ion-asterisk"></i>
                     <input type="password" placeholder="{{'Home.view.Old Password' | translate}}" ng-model="vars.oldPassword">
-                </label>
-                <label class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon98771">
+                </div>
+                <div class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon98771">
                     <i class="icon placeholder-icon ion ion-asterisk"></i>
                     <input type="password" placeholder="{{'Home.view.New Password' | translate}}" ng-model="vars.newPassword">
-                </label>
-                <label class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon25041">
+                </div>
+                <div class="item item-input component-holder" data-component="crn-input-icon" id="crn-input-icon25041">
                     <i class="icon placeholder-icon ion ion-asterisk"></i>
                     <input type="password" placeholder="{{'Home.view.Confirmation' | translate}}" ng-model="vars.confirmationPassword">
-                </label>
+                </div>
                 <button class="button button-block button-positive" data-component="crn-button" ng-click="cronapi.client('js.blockly.auth.ChangePassword.changePassword').run()" ng-disabled="form.$invalid || vm.dataLoading" xattr-size="">
                     {{"Home.view.ChangePassword" | translate}}
                 </button>
