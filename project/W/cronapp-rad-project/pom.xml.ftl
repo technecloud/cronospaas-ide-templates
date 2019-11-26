@@ -94,6 +94,11 @@
             <version>1.1.2</version>
         </dependency>
         <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+        <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>cronapi-java</artifactId>
             <version>1.23.0-SNAPSHOT</version>
