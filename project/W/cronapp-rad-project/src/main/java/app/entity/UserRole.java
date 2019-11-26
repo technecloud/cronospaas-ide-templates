@@ -38,7 +38,7 @@ public class UserRole implements Serializable {
     */
     @Id
     @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-    private java.lang.String id;
+    private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
     /**
     * @generated

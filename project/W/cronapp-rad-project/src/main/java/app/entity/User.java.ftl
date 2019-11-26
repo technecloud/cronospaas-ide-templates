@@ -7,8 +7,9 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+import cronapi.database.VersionConverter;
 
 /**
  * Classe que representa a tabela USER
@@ -32,14 +33,14 @@ public class User implements Serializable {
    */
   @Id
   @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-  private java.lang.String id;
+  private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
   /**
   * @generated
   */
   @Column(name = "access_failed_count", nullable = false, unique = false, insertable=true, updatable=true)
   
-  private java.lang.Integer accessFailedCount;
+  private java.lang.Integer accessFailedCount = 0;
 
   /**
   * @generated
@@ -53,14 +54,14 @@ public class User implements Serializable {
   */
   @Column(name = "email_confirmed", nullable = false, unique = false, insertable=true, updatable=true)
   
-  private java.lang.Boolean emailConfirmed;
+  private java.lang.Boolean emailConfirmed = true;
 
   /**
   * @generated
   */
   @Column(name = "lockout_enabled", nullable = false, unique = false, insertable=true, updatable=true)
   
-  private java.lang.Boolean lockoutEnabled;
+  private java.lang.Boolean lockoutEnabled = false;
 
   /**
   * @generated
@@ -82,14 +83,14 @@ public class User implements Serializable {
   */
   @Column(name = "normalized_email", nullable = false, unique = false, length=255, insertable=true, updatable=true)
   
-  private java.lang.String normalizedEmail;
+  private java.lang.String normalizedEmail = "";
 
   /**
   * @generated
   */
   @Column(name = "normalized_user_name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
   
-  private java.lang.String normalizedUserName;
+  private java.lang.String normalizedUserName = "";
 
   /**
   * @generated
@@ -110,21 +111,21 @@ public class User implements Serializable {
   */
   @Column(name = "phone_number_confirmed", nullable = false, unique = false, insertable=true, updatable=true)
   
-  private java.lang.Boolean phoneNumberConfirmed;
+  private java.lang.Boolean phoneNumberConfirmed = true;
 
   /**
   * @generated
   */
   @Column(name = "security_stamp", nullable = false, unique = false, length=255, insertable=true, updatable=true)
   
-  private java.lang.String securityStamp;
+  private java.lang.String securityStamp = UUID.randomUUID().toString().toUpperCase();
 
   /**
   * @generated
   */
   @Column(name = "two_factor_enabled", nullable = false, unique = false, insertable=true, updatable=true)
   
-  private java.lang.Boolean twoFactorEnabled;
+  private java.lang.Boolean twoFactorEnabled = false;
 
   /**
   * @generated

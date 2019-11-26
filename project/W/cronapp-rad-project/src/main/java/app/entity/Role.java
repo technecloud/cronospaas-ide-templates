@@ -38,21 +38,21 @@ public class Role implements Serializable {
     */
     @Id
     @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-    private java.lang.String id;
+    private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
     /**
     * @generated
     */
     @Column(name = "builtin", nullable = false, unique = false, insertable=true, updatable=true)
     
-    private java.lang.Boolean builtIn;
+    private java.lang.Boolean builtIn = false;
 
     /**
     * @generated
     */
     @Column(name = "membership_enabled", nullable = false, unique = false, insertable=true, updatable=true)
     
-    private java.lang.Boolean membershipEnabled;
+    private java.lang.Boolean membershipEnabled = true;
 
     /**
     * @generated
@@ -66,7 +66,7 @@ public class Role implements Serializable {
     */
     @Column(name = "normalized_name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
     
-    private java.lang.String normalizedName;
+    private java.lang.String normalizedName = "";
 
     /**
     * Construtor
