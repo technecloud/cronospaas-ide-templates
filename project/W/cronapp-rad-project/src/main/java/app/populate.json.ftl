@@ -22,7 +22,7 @@
     "emailConfirmed": true,
     "password": "$2a$10$LjzpM1Q3VoAtG2dTCCabNuW0/amVPjL3Iyvyi2Dj7NP.HngtzSewu",
     "securityStamp": "972d8d0d-66b7-4638-8fdc-74845fba68a5",
-    "phoneNumber": "+55 11 00000-0000",
+    "phoneNumber": "11000000000",
     "phoneNumberConfirmed": true,
     "twoFactorEnabled": true,
     "lockoutEnabled": false,
