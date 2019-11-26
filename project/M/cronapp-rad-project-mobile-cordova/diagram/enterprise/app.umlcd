@@ -7,6 +7,7 @@
       "chkApi": false,
       "dataSource": "jdbc/main",
       "disableCache": false,
+      "generationType": "drop-and-create-tables",
       "id": "paperCell",
       "namespace": "app",
       "position": {
@@ -1302,7 +1303,7 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false,
+          "isCascade": true,
           "isVersion": false
         },
         {
@@ -1328,7 +1329,7 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false,
+          "isCascade": true,
           "isVersion": false
         }
       ],
@@ -2351,7 +2352,7 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false,
+          "isCascade": true,
           "isVersion": false
         },
         {
@@ -2377,7 +2378,7 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false,
+          "isCascade": true,
           "isVersion": false
         }
       ],
@@ -2552,7 +2553,7 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false,
+          "isCascade": true,
           "isVersion": false
         },
         {
@@ -2578,7 +2579,7 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false,
+          "isCascade": true,
           "isVersion": false
         }
       ],

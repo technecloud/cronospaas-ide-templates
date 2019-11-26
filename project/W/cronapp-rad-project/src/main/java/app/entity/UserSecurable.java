@@ -44,7 +44,7 @@ public class UserSecurable implements Serializable {
     * @generated
     */
     @ManyToOne
-    @JoinColumn(name="securable_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true)
+    @JoinColumn(name="securable_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "user_securable_SECURABLE_ID_SECURABLE_ID", foreignKeyDefinition = "FOREIGN KEY (securable_id) REFERENCES SECURABLE (id) ON DELETE CASCADE"))
     
     private Securable securable;
 
@@ -52,7 +52,7 @@ public class UserSecurable implements Serializable {
     * @generated
     */
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true)
+    @JoinColumn(name="user_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "user_securable_USER_ID_USER_ID", foreignKeyDefinition = "FOREIGN KEY (user_id) REFERENCES USER (id) ON DELETE CASCADE"))
     
     private User user;
 
