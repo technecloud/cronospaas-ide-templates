@@ -999,7 +999,7 @@
           "dbLength": 255,
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
           "label": "{{\u0027Id\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": true,
@@ -1025,7 +1025,7 @@
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "false",
           "label": "{{\u0027Builtin\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -1051,7 +1051,7 @@
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "true",
           "label": "{{\u0027MembershipEnabled\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -1103,7 +1103,7 @@
           "dbLength": 255,
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "\"\"",
           "label": "{{\u0027NormalizedName\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -1260,7 +1260,7 @@
           "dbLength": 255,
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
           "label": "Id",
           "mask": "",
           "isPrimaryKey": true,
@@ -1276,7 +1276,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "role",
@@ -1301,7 +1302,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "securable",
@@ -1326,7 +1328,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         }
       ],
       "id": "53b97115-f8a3-4221-9ce6-bad2672b8bd5",
@@ -1351,7 +1354,7 @@
       ],
       "position": {
         "x": 302.87890625,
-        "y": 365.42560958862305
+        "y": 365.42559814453125
       },
       "primaryKeys": [
         "id"
@@ -1473,7 +1476,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "name",
@@ -1498,7 +1502,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         }
       ],
       "id": "4cbe47fe-4f4b-43e9-960b-4b5cc2633aef",
@@ -1526,7 +1531,7 @@
       ],
       "position": {
         "x": 711.28515625,
-        "y": 81.94444465637207
+        "y": 81.94444274902344
       },
       "primaryKeys": [
         "id"
@@ -1692,7 +1697,7 @@
           "dbLength": 255,
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
           "label": "{{\u0027Id\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": true,
@@ -1708,7 +1713,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "accessFailedCount",
@@ -1717,7 +1723,7 @@
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "0",
           "label": "{{\u0027AccessFailedCount\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -1733,7 +1739,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "email",
@@ -1758,7 +1765,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "emailConfirmed",
@@ -1767,7 +1775,7 @@
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "true",
           "label": "{{\u0027EmailConfirmed\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -1783,7 +1791,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "lockoutEnabled",
@@ -1792,7 +1801,7 @@
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "false",
           "label": "{{\u0027LockoutEnabled\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -1808,7 +1817,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "lockoutEnd",
@@ -1833,7 +1843,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "name",
@@ -1858,7 +1869,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "normalizedEmail",
@@ -1867,7 +1879,7 @@
           "dbLength": 255,
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "\"\"",
           "label": "{{\u0027NormalizedEmail\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -1883,7 +1895,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "normalizedUserName",
@@ -1892,7 +1905,7 @@
           "dbLength": 255,
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "\"\"",
           "label": "{{\u0027NormalizedUserName\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -1908,7 +1921,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "password",
@@ -1933,7 +1947,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "phoneNumber",
@@ -1958,7 +1973,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "phoneNumberConfirmed",
@@ -1967,7 +1983,7 @@
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "true",
           "label": "{{\u0027PhoneNumberConfirmed\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -1983,7 +1999,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "securityStamp",
@@ -1992,7 +2009,7 @@
           "dbLength": 255,
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
           "label": "{{\u0027SecurityStamp\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -2008,7 +2025,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "twoFactorEnabled",
@@ -2017,7 +2035,7 @@
           "dbLength": "",
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "false",
           "label": "{{\u0027TwoFactorEnabled\u0027 | translate}}",
           "mask": "",
           "isPrimaryKey": false,
@@ -2033,7 +2051,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "userName",
@@ -2058,7 +2077,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "theme",
@@ -2083,7 +2103,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "picture",
@@ -2108,7 +2129,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         }
       ],
       "id": "fbe4a477-8332-4235-a9a2-5db4a56fa3d0",
@@ -2287,7 +2309,7 @@
           "dbLength": 255,
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
           "label": "Id",
           "mask": "",
           "isPrimaryKey": true,
@@ -2303,7 +2325,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "role",
@@ -2328,7 +2351,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "user",
@@ -2353,7 +2377,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         }
       ],
       "id": "36b875ac-204a-4346-82e4-aabbd2c6b202",
@@ -2378,7 +2403,7 @@
       ],
       "position": {
         "x": 58.22265625,
-        "y": 365.42560958862305
+        "y": 365.42559814453125
       },
       "primaryKeys": [
         "id"
@@ -2485,7 +2510,7 @@
           "dbLength": 255,
           "dbPrecision": "",
           "dbScale": "",
-          "dbDefaultValue": "",
+          "dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
           "label": "Id",
           "mask": "",
           "isPrimaryKey": true,
@@ -2501,7 +2526,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "securable",
@@ -2526,7 +2552,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         },
         {
           "name": "user",
@@ -2551,7 +2578,8 @@
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
-          "isCascade": false
+          "isCascade": false,
+          "isVersion": false
         }
       ],
       "id": "e35a650f-29ee-4683-8c1c-5cc61a955ddf",
@@ -2576,7 +2604,7 @@
       ],
       "position": {
         "x": 741.11328125,
-        "y": 365.42560958862305
+        "y": 365.42559814453125
       },
       "primaryKeys": [
         "id"
