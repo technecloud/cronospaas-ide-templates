@@ -38,13 +38,13 @@ public class UserRole implements Serializable {
     */
     @Id
     @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-    private java.lang.String id;
+    private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
     /**
     * @generated
     */
     @ManyToOne
-    @JoinColumn(name="role_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true)
+    @JoinColumn(name="role_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "user_role_ROLE_ID_ROLE_ID", foreignKeyDefinition = "FOREIGN KEY (role_id) REFERENCES ROLE (id) ON DELETE CASCADE"))
     
     private Role role;
 
@@ -52,7 +52,7 @@ public class UserRole implements Serializable {
     * @generated
     */
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true)
+    @JoinColumn(name="user_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "user_role_USER_ID_USER_ID", foreignKeyDefinition = "FOREIGN KEY (user_id) REFERENCES USER (id) ON DELETE CASCADE"))
     
     private User user;
 
