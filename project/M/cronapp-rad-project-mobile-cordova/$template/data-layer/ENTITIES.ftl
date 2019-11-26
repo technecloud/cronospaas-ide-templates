@@ -7,10 +7,15 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
-<#if clazz.hasRowVersion??>
+<#if clazz.hasRowVersion() || clazz.hasXML()>
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
+</#if>
+<#if clazz.hasRowVersion()>
 import cronapi.database.VersionConverter;
+</#if>
+<#if clazz.hasXML()>
+import cronapi.database.ByteConverter;
 </#if>
 <#assign isExistsEncrypt = false>
 <#list clazz.fields as field>
@@ -19,17 +24,17 @@ import cronapi.database.VersionConverter;
     </#if>
 </#list>
 <#if hasCronappFramework && isExistsEncrypt>
-    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 </#if>
 <#assign hasCloudStorage = clazz.hasCloudStorage()>
 <#if hasCloudStorage>
-    import cronapi.CronapiCloud;
+import cronapi.CronapiCloud;
 </#if>
 <#if clazz.hasSearchable()>
-    import cronapi.CronapiSearchable;
+import cronapi.CronapiSearchable;
 </#if>
 <#if clazz.hasFileDataBase()>
-    import cronapi.CronapiByteHeaderSignature;
+import cronapi.CronapiByteHeaderSignature;
 </#if>
 <#list clazz.imports as import>
     import ${import};
@@ -78,6 +83,12 @@ import org.eclipse.persistence.annotations.*;
 @Converter(
   name="version",
   converterClass=VersionConverter.class
+)
+</#if>
+<#if clazz.hasXML()>
+@Converter(
+  name="bytes",
+  converterClass=ByteConverter.class
 )
 </#if>
 public class ${clazz.name} implements Serializable {
@@ -150,6 +161,9 @@ public class ${clazz.name} implements Serializable {
     */
     <#if (field.rowVersion)!false>
     @Convert("version")
+    </#if>
+    <#if (field.XML)!false>
+    @Convert("bytes")
     </#if>
     <#if field.relation>
     @OneToOne
