@@ -38,11 +38,13 @@
                             </div>
                         </div>
                         <#if authentication?lower_case == "sso" && (enterprise)!false>
-                        <a href="/login" class="btn btn-default cron-link col-md-12 col-xs-12 k-button btn-primary"
-                           target="_self" data-replace="true" data-component="crn-anchor"
-                           id="crn-anchor-889667"><span>{{"Login.view.Login" | translate}} </span></a>
+                        <a role="button" aria-label="{{'Login.view.Login' | translate}}" href="/login" class="btn btn-default cron-link col-md-12 col-xs-12 k-button btn-primary" target="_self" data-replace="true" data-component="crn-anchor">
+                            <span>{{"Login.view.Login" | translate}} </span>
+                        </a>
                         <#else>
-                        <button class="btn btn-default col-md-12 col-xs-12 k-button btn-primary" type="submit" ng-disabled="form.$invalid || vm.dataLoading" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default" xattr-disabled="" data-component="crn-button"> <span>{{"Login.view.Login" | translate}} </span></button>
+                        <button role="button" aria-label="{{'Login.view.Login' | translate}}" class="btn btn-default col-md-12 col-xs-12 k-button btn-primary" type="submit" ng-disabled="form.$invalid || vm.dataLoading" ng-click="" xattr-size="" xattr-fullsize="" xattr-theme="btn-default" xattr-disabled="" data-component="crn-button">
+                            <span>{{"Login.view.Login" | translate}} </span>
+                        </button>
                         </#if>
                     </div>
                 </form>
