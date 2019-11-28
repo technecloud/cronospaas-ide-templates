@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         <#if authentication?lower_case == "sso" && (enterprise)!false>
-                        <a role="button" aria-label="{{'Login.view.Login' | translate}}" href="/login" class="btn btn-default cron-link col-md-12 col-xs-12 k-button btn-primary" target="_self" data-replace="true" data-component="crn-anchor">
+                        <a role="button" aria-label="{{'Login.view.Login' | translate}}" href="#" class="btn btn-default cron-link col-md-12 col-xs-12 k-button btn-primary" target="_self" data-replace="true" data-component="crn-anchor" ng-click="redirectToLogin()">
                             <span>{{"Login.view.Login" | translate}} </span>
                         </a>
                         <#else>
