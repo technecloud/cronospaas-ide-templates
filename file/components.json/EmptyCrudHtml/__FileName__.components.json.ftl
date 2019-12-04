@@ -40,7 +40,9 @@
 					"type": "projectResource",
 					"resourceType": "text/html"
 				}
-			}
+			},
+			"childrenProperties": [${ChildrenProperties}]
 		}
+
 	]
 }
