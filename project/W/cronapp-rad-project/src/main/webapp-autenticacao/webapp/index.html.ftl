@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="plugins/bootstrap/dist/css/bootstrap.min.css" />
   <link rel="stylesheet" href="plugins/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
   <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
-  <link rel="stylesheet" href="plugins/angular-ui-select/dist/select.min.css" />
   <link rel="stylesheet" href="plugins/cronapp-framework-js/dist/css/app.css" />
   <link rel="stylesheet" href="plugins/angular-ui-notification/dist/angular-ui-notification.min.css" />
   <#if !(theme??) || theme=="">
@@ -41,7 +40,6 @@
   <script src="plugins/angular-sanitize/angular-sanitize.min.js"></script>
   <script src="plugins/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="plugins/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="plugins/angular-ui-select/dist/select.min.js"></script>
   <script src="plugins/ui-select-infinity/lib/index.js"></script>
   <script src='plugins/ngMask/dist/ngMask.min.js'></script>
   <script src="plugins/raphael/raphael-min.js"></script>
