@@ -263,7 +263,7 @@
         "height": 162.2265625,
         "width": 157.5
       },
-      "tableName": null,
+      "tableName": "DEVICE",
       "tableScheme": null,
       "type": "uml.Class",
       "z": 13
@@ -523,7 +523,7 @@
         "height": 140.4170379638672,
         "width": 188.078125
       },
-      "tableName": "role",
+      "tableName": "ROLE",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -1175,7 +1175,7 @@
         "height": 271.78211975097656,
         "width": 264.5
       },
-      "tableName": "user",
+      "tableName": "USER",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2

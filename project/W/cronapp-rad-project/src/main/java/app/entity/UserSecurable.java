@@ -17,7 +17,7 @@ import cronapi.database.VersionConverter;
 * @generated
 */
 @Entity
-@Table(name = "\"user_securable\"")
+@Table(name = "\"USER_SECURABLE\"")
 @XmlRootElement
 @CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
 @JsonFilter("app.entity.UserSecurable")

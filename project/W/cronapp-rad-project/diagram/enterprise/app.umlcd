@@ -397,261 +397,9 @@
         "height": 205.87477111816406,
         "width": 230.140625
       },
-      "tableName": "",
+      "tableName": "AUDIT_LOG",
       "type": "uml.Class",
       "z": 14
-    },
-    {
-      "angle": 0,
-      "attributes": [
-        "id:java.lang.String",
-        "token:java.lang.String",
-        "platform:java.lang.String",
-        "model:java.lang.String",
-        "platformVersion:java.lang.String",
-        "appName:java.lang.String",
-        "appVersion:java.lang.String"
-      ],
-      "attrs": {
-        ".uml-class-attrs-rect": {
-          "height": 170,
-          "transform": "translate(0,50)"
-        },
-        ".uml-class-attrs-text": {
-          "font-size": 11,
-          "text": "id\ntoken\nplatform\nmodel\nplatformVersion\nappName\nappVersion\n"
-        },
-        ".uml-class-attrs-value": {
-          "font-size": 11,
-          "ref-x": 112.3125,
-          "text": "Texto\nTexto\nTexto\nTexto\nTexto\nTexto\nTexto\n"
-        },
-        ".uml-class-methods-rect": {
-          "height": 30,
-          "transform": "translate(0,220)"
-        },
-        ".uml-class-methods-text": {
-          "fill": "#0066FF",
-          "font-size": 11,
-          "text": ""
-        },
-        ".uml-class-name-rect": {
-          "height": 50,
-          "transform": "translate(0,0)"
-        },
-        ".uml-class-name-text": {
-          "fill": "#000",
-          "font-size": 12,
-          "font-weight": "bold",
-          "text": "Device"
-        },
-        "rect": {
-          "stroke": "yellow",
-          "stroke-width": 2
-        }
-      },
-      "audit": false,
-      "fields": [
-        {
-          "name": "id",
-          "type": "java.lang.String",
-          "dbName": "id",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
-          "label": "Id",
-          "mask": "",
-          "isPrimaryKey": true,
-          "isUniqueKey": false,
-          "isNullable": false,
-          "pkType": "UUID",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false,
-          "sequence": "",
-          "isCascade": false
-        },
-        {
-          "name": "token",
-          "type": "java.lang.String",
-          "dbName": "token",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Token",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false,
-          "sequence": "",
-          "isCascade": false
-        },
-        {
-          "name": "platform",
-          "type": "java.lang.String",
-          "dbName": "platform",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Platform",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false,
-          "sequence": "",
-          "isCascade": false
-        },
-        {
-          "name": "model",
-          "type": "java.lang.String",
-          "dbName": "model",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Model",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false,
-          "sequence": "",
-          "isCascade": false
-        },
-        {
-          "name": "platformVersion",
-          "type": "java.lang.String",
-          "dbName": "platformVersion",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "Platform Version",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false,
-          "sequence": "",
-          "isCascade": false
-        },
-        {
-          "name": "appName",
-          "type": "java.lang.String",
-          "dbName": "appName",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "App Name",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false,
-          "sequence": "",
-          "isCascade": false
-        },
-        {
-          "name": "appVersion",
-          "type": "java.lang.String",
-          "dbName": "appVersion",
-          "dbLength": "",
-          "dbPrecision": "",
-          "dbScale": "",
-          "dbDefaultValue": "",
-          "label": "App Version",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": true,
-          "pkType": "",
-          "multitenantContext": "",
-          "jsonIgnore": false,
-          "isTransient": false,
-          "isInsertable": true,
-          "isUpdatable": true,
-          "isEncryption": false,
-          "referencedColumnName": "",
-          "isSearchable": false,
-          "sequence": "",
-          "isCascade": false
-        }
-      ],
-      "id": "d92238a3-a37d-4cc6-a543-d0687dc207cd",
-      "isRest": "true",
-      "methods": [],
-      "multitenantContext": "",
-      "multitenantContextIgnoreEntities": "",
-      "multitenantContextJsonIgnore": "false",
-      "name": "Device",
-      "position": {
-        "x": 871.98828125,
-        "y": 54.77777862548828
-      },
-      "queries": [],
-      "restPath": "",
-      "restSecurity": null,
-      "role": "Class",
-      "runtimeClass": "cronos.widgets.joint.uml.Class",
-      "size": {
-        "height": 162.2265625,
-        "width": 157.5
-      },
-      "tableName": "",
-      "tableScheme": null,
-      "type": "uml.Class",
-      "z": 13
     },
     {
       "angle": 0,
@@ -910,7 +658,7 @@
         "height": 140.4170379638672,
         "width": 186.234375
       },
-      "tableName": "login",
+      "tableName": "LOGIN",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -1177,7 +925,7 @@
         "height": 140.4170379638672,
         "width": 188.078125
       },
-      "tableName": "role",
+      "tableName": "ROLE",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -1378,7 +1126,7 @@
         "height": 118.69715118408203,
         "width": 152
       },
-      "tableName": "role_securable",
+      "tableName": "ROLE_SECURABLE",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -1556,7 +1304,7 @@
         "height": 107.89323043823242,
         "width": 110.703125
       },
-      "tableName": "securable",
+      "tableName": "SECURABLE",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -1593,7 +1341,7 @@
         },
         ".uml-class-attrs-value": {
           "font-size": 11,
-          "ref-x": 156.34375,
+          "ref-x": 154.453125,
           "text": "Texto\nInteiro\nTexto\nLógico\nLógico\nData\nTexto\nTexto\nTexto\nTexto\nTexto\nLógico\nTexto\nLógico\nTexto\nTexto\nImagem no Banco\n"
         },
         ".uml-class-methods-rect": {
@@ -1962,7 +1710,7 @@
           "mask": "",
           "isPrimaryKey": false,
           "isUniqueKey": false,
-          "isNullable": false,
+          "isNullable": true,
           "pkType": "",
           "multitenantContext": "",
           "jsonIgnore": false,
@@ -2223,10 +1971,10 @@
         ""
       ],
       "size": {
-        "height": 271.78211975097656,
-        "width": 264.5
+        "height": 271.67274475097656,
+        "width": 260.734375
       },
-      "tableName": "user",
+      "tableName": "USER",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -2427,7 +2175,7 @@
         "height": 118.69715118408203,
         "width": 106.015625
       },
-      "tableName": "user_role",
+      "tableName": "USER_ROLE",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -2628,7 +2376,7 @@
         "height": 118.69715118408203,
         "width": 152
       },
-      "tableName": "user_securable",
+      "tableName": "USER_SECURABLE",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -2983,7 +2731,7 @@
         "height": 205.984130859375,
         "width": 215
       },
-      "tableName": "view",
+      "tableName": "VIEW",
       "tableScheme": null,
       "type": "uml.Class",
       "z": 15

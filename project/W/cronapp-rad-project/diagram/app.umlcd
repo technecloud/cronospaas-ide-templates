@@ -286,7 +286,7 @@
         "height": 140.4170379638672,
         "width": 188.078125
       },
-      "tableName": "role",
+      "tableName": "ROLE",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -938,7 +938,7 @@
         "height": 271.78211975097656,
         "width": 264.5
       },
-      "tableName": "user",
+      "tableName": "USER",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
@@ -1096,7 +1096,7 @@
         "height": 118.69715118408203,
         "width": 106.015625
       },
-      "tableName": "user_role",
+      "tableName": "USER_ROLE",
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
