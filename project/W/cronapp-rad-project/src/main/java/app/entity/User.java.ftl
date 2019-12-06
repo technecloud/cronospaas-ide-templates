@@ -16,8 +16,7 @@ import cronapi.database.VersionConverter;
  * @generated
  */
 @Entity
-@Table(name = "\"USER\"" ,uniqueConstraints=@UniqueConstraint(columnNames={
-"login" }))
+@Table(name = "\"USER\"")
 @XmlRootElement
 @CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
 @JsonFilter("app.entity.User")
@@ -102,7 +101,7 @@ public class User implements Serializable {
   /**
   * @generated
   */
-  @Column(name = "phone_number", nullable = false, unique = false, length=255, insertable=true, updatable=true)
+  @Column(name = "phone_number", nullable = true, unique = false, length=255, insertable=true, updatable=true)
   
   private java.lang.String phoneNumber;
 
