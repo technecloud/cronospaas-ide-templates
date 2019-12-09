@@ -7,6 +7,7 @@
       </div>
     </div>
     <form class="form-validation" autocomplete="off" name="form" role="form">
+      <input type="hidden" name="csrf_token" value="CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz" />
       <div class="list list-inset login-mobile" data-container="true">
         <#if authentication?lower_case != "sso">
         <div class="item item-input component-holder" data-component="crn-input-icon" for="crn-input-icon-228215" title="{{'Login.view.Username' | translate}}">

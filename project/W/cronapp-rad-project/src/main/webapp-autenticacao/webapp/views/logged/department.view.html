@@ -46,6 +46,7 @@
 <div data-component="crn-form" id="crn-form-form-Department">
   <section class="form" ng-show="Department.editing || Department.inserting">
     <form crn-datasource="Department">
+      <input type="hidden" name="csrf_token" value="CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz" />
       <div class="tool-bar" ng-hide="datasource.editing || datasource.inserting"> 
         <button aria-label="{{'StartInserting' | translate}}" data-component="crn-button" class="btn btn-primary" ng-click="datasource.startInserting()"><i class="glyphicon glyphicon-plus-sign"></i></button>
         <button aria-label="{{'StartEditing' | translate}}" data-component="crn-button" class="btn btn-success" ng-click="datasource.startEditing()"><i class="glyphicon glyphicon-edit"></i></button>
