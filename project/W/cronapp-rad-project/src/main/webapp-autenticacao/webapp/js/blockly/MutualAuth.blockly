@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><blockly audit="false" bpmnAble="false" formTarget="" resourceType="JS" ruleDescription="MutualAuth" ruleName="MutualAuth" ruleSynchronous="false" ruleTimeout="" ruleType="I" soap="false">
-  <metadata scale="1" scrollx="454.4000000000003" scrolly="-709.5000000000005" target="Anb:u5+^,0vLkL9QIqn5"/>
+  <metadata scale="1" scrollx="434.4" scrolly="-95.50000000000011" target="Anb:u5+^,0vLkL9QIqn5"/>
   <block colour="#995ba5" id="Anb:u5+^,0vLkL9QIqn5" origintype="procedures_defreturn" output="false" tooltip="Cria uma função que possui um valor de retorno." type="procedures_defreturn" x="-296" y="170">
     <field name="NAME">login</field>
     <comment h="80" pinned="false" w="160">MutualAuth</comment>
@@ -47,8 +47,9 @@
           <block colour="#5ba58c" dependencyby="Anb:u5+^,0vLkL9QIqn5" id="l%xE?vd2dxaVa(q)Q)HR" origintype="text_join" output="true" tooltip="Criar um pedaço de texto juntando qualquer número de itens." type="text_join">
             <mutation items="2"/>
             <value name="ADD0">
-              <block colour="#7E4703" dependencyby="Anb:u5+^,0vLkL9QIqn5" id="|w|jX@fZtifb6|o]lIjC" multilayer="false" namespace="cronapi.myfunctions.obterUrlBase" origintype="procedures_callreturn" output="true" returntype="ObjectType.STRING" tooltip="%3Cdiv%20class=%22name%22%3E%3Cstrong%3ENome:%3C/strong%3E%3Cdiv%3EobterUrlBase%3C/div%3E%3C/div%3E%3Cdiv%20class=%22description%22%3E%3Cstrong%3EDescri%C3%A7%C3%A3o:%3C/strong%3E%3Cdiv%3EObt%C3%A9m%20url%20base%3C/div%3E%3C/div%3E%3Cdiv%20class=%22return%22%3E%3Cstrong%3ERetorno:%3C/strong%3E%3Cdiv%3E%3Cspan%3E%20-%20Texto%3C/span%3E%3C/div%3E%3C/div%3E%3Cdiv%20class=%22link%22%3E%3Cstrong%3EAjuda:%3C/strong%3E%3Cdiv%20class=%22tooltip-link%22%3E%3Ca%20target=%22_blank%22%20href=%22https://docs.cronapp.io/display/CRON2/cronapi.myfunctions.obterUrlBase%22%3Ehttps://docs.cronapp.io/display/CRON2/cronapi.myfunctions.obterUrlBase%3C/a%3E%3C/div%3E%3C/div%3E" type="procedures_callreturn">
-                <mutation name="{{cronapi.myfunctions.obterUrlBase}}" return-raw-type="undefined"/>
+
+              <block colour="#487f7f" dependencyby="Anb:u5+^,0vLkL9QIqn5" id="h7x:Lsu^^L];BEU;+FsD" multilayer="false" namespace="cronapi.util.getBaseUrl" origintype="procedures_callreturn" output="true" returntype="ObjectType.STRING" tooltip="%3Cdiv%20class=%22name%22%3E%3Cstrong%3ENome:%3C/strong%3E%3Cdiv%3EObter%20Url%20Base%3C/div%3E%3C/div%3E%3Cdiv%20class=%22description%22%3E%3Cstrong%3EDescri%C3%A7%C3%A3o:%3C/strong%3E%3Cdiv%3EFun%C3%A7%C3%A3o%20para%20obter%20url%20base%20do%20servidor%3C/div%3E%3C/div%3E%3Cdiv%20class=%22return%22%3E%3Cstrong%3ERetorno:%3C/strong%3E%3Cdiv%3E%3Cspan%3E%20-%20Texto%3C/span%3E%3C/div%3E%3C/div%3E%3Cdiv%20class=%22link%22%3E%3Cstrong%3EAjuda:%3C/strong%3E%3Cdiv%20class=%22tooltip-link%22%3E%3Ca%20target=%22_blank%22%20href=%22https://docs.cronapp.io/display/CRON2/cronapi.util.getBaseUrl%22%3Ehttps://docs.cronapp.io/display/CRON2/cronapi.util.getBaseUrl%3C/a%3E%3C/div%3E%3C/div%3E" type="procedures_callreturn">
+                <mutation name="{{cronapi.util.getBaseUrl}}" return-raw-type="undefined"/>
               </block>
             </value>
             <value name="ADD1">
@@ -349,8 +350,8 @@
           <block colour="#5ba58c" dependencyby="Bi2SqOJ%yv0]I#HrBJN8" id="qo4Deq.+.#qWV+;y#Rzt" origintype="text_join" output="true" tooltip="Criar um pedaço de texto juntando qualquer número de itens." type="text_join">
             <mutation items="2"/>
             <value name="ADD0">
-              <block colour="#7E4703" dependencyby="Bi2SqOJ%yv0]I#HrBJN8" id="Z*ZxC=_^)}R=Q4[By#eb" multilayer="false" namespace="cronapi.myfunctions.obterUrlBase" origintype="procedures_callreturn" output="true" returntype="ObjectType.STRING" tooltip="%3Cdiv%20class=%22name%22%3E%3Cstrong%3ENome:%3C/strong%3E%3Cdiv%3EobterUrlBase%3C/div%3E%3C/div%3E%3Cdiv%20class=%22description%22%3E%3Cstrong%3EDescri%C3%A7%C3%A3o:%3C/strong%3E%3Cdiv%3EObt%C3%A9m%20url%20base%3C/div%3E%3C/div%3E%3Cdiv%20class=%22return%22%3E%3Cstrong%3ERetorno:%3C/strong%3E%3Cdiv%3E%3Cspan%3E%20-%20Texto%3C/span%3E%3C/div%3E%3C/div%3E%3Cdiv%20class=%22link%22%3E%3Cstrong%3EAjuda:%3C/strong%3E%3Cdiv%20class=%22tooltip-link%22%3E%3Ca%20target=%22_blank%22%20href=%22https://docs.cronapp.io/display/CRON2/cronapi.myfunctions.obterUrlBase%22%3Ehttps://docs.cronapp.io/display/CRON2/cronapi.myfunctions.obterUrlBase%3C/a%3E%3C/div%3E%3C/div%3E" type="procedures_callreturn">
-                <mutation name="{{cronapi.myfunctions.obterUrlBase}}" return-raw-type="undefined"/>
+              <block colour="#487f7f" dependencyby="Bi2SqOJ%yv0]I#HrBJN8" id="*/)cOIfKtV.a1bde,u!t" multilayer="false" namespace="cronapi.util.getBaseUrl" origintype="procedures_callreturn" output="true" returntype="ObjectType.STRING" tooltip="%3Cdiv%20class=%22name%22%3E%3Cstrong%3ENome:%3C/strong%3E%3Cdiv%3EObter%20Url%20Base%3C/div%3E%3C/div%3E%3Cdiv%20class=%22description%22%3E%3Cstrong%3EDescri%C3%A7%C3%A3o:%3C/strong%3E%3Cdiv%3EFun%C3%A7%C3%A3o%20para%20obter%20url%20base%20do%20servidor%3C/div%3E%3C/div%3E%3Cdiv%20class=%22return%22%3E%3Cstrong%3ERetorno:%3C/strong%3E%3Cdiv%3E%3Cspan%3E%20-%20Texto%3C/span%3E%3C/div%3E%3C/div%3E%3Cdiv%20class=%22link%22%3E%3Cstrong%3EAjuda:%3C/strong%3E%3Cdiv%20class=%22tooltip-link%22%3E%3Ca%20target=%22_blank%22%20href=%22https://docs.cronapp.io/display/CRON2/cronapi.util.getBaseUrl%22%3Ehttps://docs.cronapp.io/display/CRON2/cronapi.util.getBaseUrl%3C/a%3E%3C/div%3E%3C/div%3E" type="procedures_callreturn">
+                <mutation name="{{cronapi.util.getBaseUrl}}" return-raw-type="undefined"/>
               </block>
             </value>
             <value name="ADD1">
