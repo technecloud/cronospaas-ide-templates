@@ -48,7 +48,10 @@
                         </#if>
                     </div>
                 </form>
-                 <#if social?? && social?lower_case == "sim">
+                <#if (enterprise)!false>
+                <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" style="margin-top:5px" data-component="crn-button" id="crn-button-716293"><button class="btn btn-default k-button btn-block" ng-click="cronapi.client('js.blockly.MutualAuth.login').run()" xattr-fullsize="btn-block" xattr-theme="btn-default" xattr-disabled=""><i class="fa fa-key"></i> <span>{{'LoginComCertificado' | translate}}</span></button></div>
+                </#if>
+                  <#if social?? && social?lower_case == "sim">
                    <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-social-login" id="crn-social-login-01">
                        <ul class="list-inline center-block text-center">
                            <li data-container="true">
