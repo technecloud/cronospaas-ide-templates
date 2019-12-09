@@ -80,5 +80,7 @@
   "template.crud.search": "Search",
   "template.crud.actions": "Actions",
   "template.crud.load_more": "Load more",
-  "template.crud.new": "New"
+  "template.crud.new": "New",
+  "LoginComCertificado" : "Login with certificate",
+  "VincularCertificado" : "Link certificate"
 }
