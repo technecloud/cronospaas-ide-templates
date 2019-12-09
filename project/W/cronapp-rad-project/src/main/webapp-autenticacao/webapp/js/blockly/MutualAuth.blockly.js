@@ -9,6 +9,7 @@ window.blockly.js.blockly.MutualAuth = window.blockly.js.blockly.MutualAuth || {
 window.blockly.js.blockly.MutualAuth.login = function() {
  var item;
   this.cronapi.util.getURLFromOthers('POST', 'application/x-www-form-urlencoded', String(this.cronapi.util.getBaseUrl()) + String('/mutual/login'), null, null, function(sender_item) {
+
       item = sender_item;
     this.cronapi.util.setLocalStorage('_u', this.cronapi.object.serializeObject(item));
     this.cronapi.screen.changeView("#/home/logged/home",[  ]);
