@@ -74,7 +74,8 @@
         <h4 class="modal-title">{{"Home.view.ChangePassword" | translate}}</h4> 
       </div> 
       <div class="modal-body"> 
-        <form class="form-validation" autocomplete="off" name="form" role="form"> 
+        <form class="form-validation" autocomplete="off" name="form" role="form">
+          <input type="hidden" name="csrf_token" value="CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz" />
           <div class="text-danger wrapper text-center" ng-show="authError"> 
           </div> 
           <div class="list-group list-group-sm"> 
