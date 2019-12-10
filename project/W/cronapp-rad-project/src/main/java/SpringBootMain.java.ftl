@@ -14,7 +14,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
 	"cronapp.framework.authentication.security",
 	"cronapp.framework.rest",
+	<#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
 	"cronapp.framework.authentication.mutual",
+	</#if>
 	<#if multitenant?? && multitenant?lower_case == "sim">
 	"cronapp.framework.tenant",
 	</#if>
