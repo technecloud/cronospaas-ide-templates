@@ -6,4 +6,7 @@
 ../../project/W/cronapp-rad-project/src/main/java/blockly
 ../../project/W/cronapp-rad-project/src/main/java/i18n
 ../../project/W/cronapp-rad-project/src/main/java/SpringBootMain.java.ftl
+<#if social?? && social?lower_case == "sim">
+../../project/W/cronapp-rad-project/src/main/java/social.properties
+</#if>
 </#if>
