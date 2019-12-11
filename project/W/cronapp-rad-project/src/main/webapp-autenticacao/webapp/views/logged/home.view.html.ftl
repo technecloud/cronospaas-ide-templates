@@ -36,7 +36,7 @@
                     <ul class="dropdown-menu">
                         <li><a class="component-holder" data-toggle="modal" data-target="#modalPassword" data-component="crn-anchor" >{{"Home.view.ChangePassword" | translate}}</a></li>
                       <#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
-                      <li><a ng-click="cronapi.client('js.blockly.MutualAuth.signup').run()" href="" data-component="crn-anchor"><span>{{'VincularCertificado' | translate}}</span></a></li>
+                      <li><a ng-click="cronapi.client('js.blockly.MutualAuth.signup').run()" href="" data-component="crn-anchor"><span>{{'LinkCertificate' | translate}}</span></a></li>
                       </#if>
                       <li><a ng-click="logout()" href="" data-component="crn-anchor"><span>{{"Home.view.Logout" | translate}}</span></a></li>
                     </ul>

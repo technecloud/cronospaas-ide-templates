@@ -111,5 +111,8 @@
   "Server": "Servidor",
   "AffectedFields": "Campos Afetados",
   "Data": "Dados",
-  "Details": "Detalhes"
+  "Details": "Detalhes",
+  "LinkCertificate":"Vincular Certificado",
+  "CertificateLogin": "Login com Certificado"
+
 }
