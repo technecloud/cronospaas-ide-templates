@@ -111,5 +111,7 @@
   "Server": "Server",
   "AffectedFields": "Affected Fields",
   "Data": "Data",
-  "Details": "Details"
+  "Details": "Details",
+  "LinkCertificate":"Link Certificate",
+  "CertificateLogin": "Login with Certificate"
 }
