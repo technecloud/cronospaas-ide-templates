@@ -1,5 +1,133 @@
 {
     <#if (enterprise)!false >
+    <#if mutual?? && mutual?lower_case == "sim">
+    "keyManager" : {
+        "customId": "userProviderKey",
+        "queryName": "Obter Usuário por ProviderKey",
+        "sourceType": "entityFullName",
+        "baseEntity": null,
+        "blockly": null,
+        "entitySimpleName": "Login",
+        "entityFullName": "app.entity.Login",
+        "query": {
+          "isValid": true,
+          "isEmpty": false,
+          "operationType": "object",
+          "type": "select",
+          "rulesEntity": [
+            {
+              "entity": "Login",
+              "namespace": "app.entity.Login",
+              "alias": "l"
+            }
+          ],
+          "rulesSelect": [
+            {
+              "func": "get",
+              "field": "l",
+              "type": "string"
+            }
+          ],
+          "rulesGroupBy": [],
+          "rulesHaving": [],
+          "rulesOrderBy": [],
+          "rules": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "l.loginProvider",
+                "field": "l.loginProvider",
+                "type": "string",
+                "input": "text",
+                "operator": "equal",
+                "value": ":loginProvider",
+                "valueIsField": false
+              },
+              {
+                "id": "l.providerKey",
+                "field": "l.providerKey",
+                "type": "string",
+                "input": "text",
+                "operator": "equal",
+                "value": ":providerKey",
+                "valueIsField": false
+              }
+            ],
+            "not": false,
+            "valid": true
+          },
+          "isRawSql": false,
+          "multiTenant": false,
+          "paginatorAutomatic": false,
+          "pagination": false
+        },
+        "queryParamsValues": [
+          {
+            "fieldName": "loginProvider",
+            "fieldValue": ""
+          },
+          {
+            "fieldName": "providerKey",
+            "fieldValue": ""
+          }
+        ],
+        "verbs": {
+          "GET": false,
+          "GETAuthorities": null,
+          "POST": false,
+          "POSTAuthorities": null,
+          "PUT": false,
+          "PUTAuthorities": null,
+          "DELETE": false,
+          "DELETEAuthorities": null,
+          "FILTER": false,
+          "FILTERAuthorities": null,
+          "COUNT": false,
+          "COUNTAuthorities": null
+        },
+        "events": {
+          "beforeInsert": null,
+          "beforeUpdate": null,
+          "beforeDelete": null,
+          "afterInsert": null,
+          "afterUpdate": null,
+          "afterDelete": null,
+          "onNavigate": null,
+          "onGetData": null,
+          "onError": null
+        },
+        "defaultValues": {
+          "id": null,
+          "loginProvider": null,
+          "providerDisplayName": null,
+          "providerKey": null,
+          "user": null
+        },
+        "defaultValuesProperties": {
+          "id": null,
+          "loginProvider": null,
+          "providerDisplayName": null,
+          "providerKey": null,
+          "user": null
+        },
+        "security": {
+          "id": null,
+          "loginProvider": null,
+          "providerDisplayName": null,
+          "providerKey": null,
+          "user": null
+        },
+        "calcFields": {},
+        "calcFieldsSecurity": {},
+        "calcFieldsProperties": {},
+        "errorHandles": {
+          "primaryKey": null,
+          "foreignKey": null
+        },
+        "serviceUrl": "api/cronapi/odata/v2/app/keyManager/",
+        "audit": false
+    },
+    </#if>
     "auditlogquery": {
         "customId": "auditlogquery",
         "queryName": "{{AUDIT_LOG}}",

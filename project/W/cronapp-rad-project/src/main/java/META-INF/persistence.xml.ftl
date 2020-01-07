@@ -11,7 +11,8 @@
         <class>app.entity.Securable</class>
         <class>app.entity.UserSecurable</class>
         <class>app.entity.RoleSecurable</class>
-        <class>app.entity.UserRole</class>                
+        <class>app.entity.UserRole</class>
+        <class>app.entity.View</class>
     </#if>        
     <#if multitenant?? && multitenant?lower_case == "sim">
         <class>app.entity.Company</class>

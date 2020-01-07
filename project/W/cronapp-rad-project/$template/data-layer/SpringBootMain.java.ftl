@@ -14,10 +14,13 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
 	"cronapp.framework.authentication.security",
 	"cronapp.framework.rest",
+	<#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
+	"cronapp.framework.authentication.mutual",
+	</#if>
 	<#if multitenant?? && multitenant?lower_case == "sim">
 	"cronapp.framework.tenant",
 	</#if>
-	"cronapp.framework.scheduler",
+    "cronapp.framework.scheduler",
 	"auth.permission",
 	"api.rest.events",
 	"api.rest.webservices",
@@ -30,7 +33,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class SpringBootMain extends SpringBootServletInitializer {
 
     static {
-       	<#if timezone?? && timezone?lower_case != "utc">
+    	<#if timezone?? && timezone?lower_case != "utc">
         TimeZone.setDefault(TimeZone.getTimeZone("${timezone}"));
         <#else>
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));

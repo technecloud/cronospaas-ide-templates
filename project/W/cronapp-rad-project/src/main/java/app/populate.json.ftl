@@ -488,6 +488,38 @@
     "traceMethodAllowed": true,
     "_class": "app.entity.View"
   },
+  {
+    "id": "bb3dfe9d-2fd9-47ff-a196-076fec7bd90c",
+    "securable": {
+      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+    },
+    "pattern": "/services/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "54677d29-5864-4406-9ef9-220570147d9c",
+    "securable": {
+      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+    },
+    "pattern": "/mutual/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "_class": "app.entity.View"
+  },
   </#if>
   {
     "_class": "app.entity.UserRole",
