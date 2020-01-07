@@ -27,7 +27,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	"reports",
 	"cronapi",
 	"blockly",
-<#list workspaceView.allDiagrams as diagram>${diagram.getGlobalAttribute("namespace")}<#if diagram?has_next>, </#if></#list><#list packages as package>${package}<#if package?has_next>, </#if></#list>
+	<#list workspaceView.allDiagrams as diagram>${diagram.getGlobalAttribute("namespace")}<#if diagram?has_next>, </#if></#list><#list packages as package>${package}<#if package?has_next>, </#if></#list>
 })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {
