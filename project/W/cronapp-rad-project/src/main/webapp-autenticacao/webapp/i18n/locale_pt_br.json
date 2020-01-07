@@ -113,6 +113,9 @@
   "Data": "Dados",
   "Details": "Detalhes",
   "LinkCertificate":"Vincular Certificado",
-  "CertificateLogin": "Login com Certificado"
+  "CertificateLogin": "Login com Certificado",
+  "Home.view.tokenRegistered": "Token registrado com sucesso!",
+  "Login.view.ServerOff": "O servidor está offline. Por favor, inicie-o novamente.",
+  "Login.view.HostAppOff": "Página não encontrada. Verifique se a URL do servidor está correta."
 
 }
