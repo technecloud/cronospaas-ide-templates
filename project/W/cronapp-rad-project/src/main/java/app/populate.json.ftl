@@ -520,6 +520,22 @@
     "traceMethodAllowed": true,
     "_class": "app.entity.View"
   },
+  {
+    "id": "8a50ff18-47f3-42e1-abaf-805754673f5b",
+    "securable": {
+      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+    },
+    "pattern": "/actuator/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "_class": "app.entity.View"
+  },
   </#if>
   {
     "_class": "app.entity.UserRole",
