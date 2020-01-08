@@ -7,13 +7,10 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
-import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
-import cronapi.database.VersionConverter;
 
 
 /**
- * Classe que representa a tabela AUDITLOG
+ * Classe que representa a tabela AUDIT_LOG
  * @generated
  */
 @Entity
@@ -107,6 +104,20 @@ public class AuditLog implements Serializable {
   @Column(name = "category", nullable = true, unique = false, insertable=true, updatable=true)
 
   private java.lang.String category;
+
+  /**
+   * @generated
+   */
+  @Column(name = "application", nullable = true, unique = false, insertable=true, updatable=true)
+
+  private java.lang.String application;
+
+  /**
+   * @generated
+   */
+  @Column(name = "error", nullable = true, unique = false, insertable=true, updatable=true)
+
+  private java.lang.String error;
 
   /**
    * Construtor
@@ -322,6 +333,44 @@ public class AuditLog implements Serializable {
    */
   public AuditLog setCategory(java.lang.String category){
     this.category = category;
+    return this;
+  }
+  /**
+   * Obtém application
+   * return application
+   * @generated
+   */
+
+  public java.lang.String getApplication(){
+    return this.application;
+  }
+
+  /**
+   * Define application
+   * @param application application
+   * @generated
+   */
+  public AuditLog setApplication(java.lang.String application){
+    this.application = application;
+    return this;
+  }
+  /**
+   * Obtém error
+   * return error
+   * @generated
+   */
+
+  public java.lang.String getError(){
+    return this.error;
+  }
+
+  /**
+   * Define error
+   * @param error error
+   * @generated
+   */
+  public AuditLog setError(java.lang.String error){
+    this.error = error;
     return this;
   }
 
