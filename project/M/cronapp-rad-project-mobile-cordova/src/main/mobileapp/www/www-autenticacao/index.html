@@ -1,14 +1,17 @@
 <!doctype html>
 <html ng-app="MyApp" update-language>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-<title ng-bind="$root.ionViewTitle">MyApp</title>
-<!-- Customs -->
-<link href="plugins/cronapp-framework-mobile-js/lib/ionic/css/ionic.css" rel="stylesheet">
-<link href="plugins/cronapp-framework-mobile-js/dist/css/app.css" rel="stylesheet">
-<link href="plugins/cronapp-framework-mobile-js/dist/css/cronos.css" rel="stylesheet"> 
-<link href="css/app.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+  <title ng-bind="$root.ionViewTitle">MyApp</title>
+  <!-- Customs -->
+  <link href="plugins/cronapp-framework-mobile-js/lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="plugins/cronapp-framework-mobile-js/dist/css/app.css" rel="stylesheet">
+  <link href="plugins/cronapp-framework-mobile-js/dist/css/cronos.css" rel="stylesheet">
+  <link href="css/app.css" rel="stylesheet">
+  <script src="js/customModules.js"></script>
+  <script src="js/customStateProvider.js"></script>
+  <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
 </head>
 <body>
   <ion-nav-view role="main"></ion-nav-view>
@@ -45,8 +48,7 @@
   <script src="plugins/cronapp-framework-mobile-js/dist/js/LanguageSelectDirective.js"></script>
   <script src="plugins/cronapp-framework-mobile-js/dist/js/directives.js"></script>
   <script src="plugins/cronapp-framework-mobile-js/dist/js/filters.js"></script>
-  <script src="plugins/cronapp-framework-mobile-js/dist/components/js/datasource.js"></script>
-  <script src="plugins/cronapp-framework-mobile-js/dist/components/js/jquery.mask.min.js"></script> 
+  <script src="plugins/cronapp-framework-mobile-js/dist/components/js/jquery.mask.min.js"></script>
   <script src="plugins/cronapp-framework-mobile-js/dist/components/js/jquery.inputmask.bundle.js"></script> 
   <script src="plugins/cronapp-framework-mobile-js/dist/components/js/format.min.js"></script> 
   <!-- Customs --> 
@@ -55,6 +57,16 @@
   <script src="js/events.js"></script> 
   <script src="js/hostApp.js"></script> 
   <script src="js/index.js"></script>
-  <script src='plugins/pace/pace.min.js'></script>
+  <script src="plugins/pace/pace.min.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/parser.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/datasource/datasource.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/odata-filter-parser.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/pouchdb.min.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/pouchdb.find.min.js"></script>
+  <script src="plugins/chart.js/dist/Chart.min.js"></script>
+  <script src="plugins/cronapp-framework-mobile-js/dist/components/js/qrcode.js"></script>
+  <script src="plugins/angular-moment/angular-moment.js"></script>
+  <script src="js/custom.controllers.js"></script>
+  <script src="plugins/cronapp-framework-mobile-js/dist/js/upload.service.js"></script>
 </body>
 </html>
