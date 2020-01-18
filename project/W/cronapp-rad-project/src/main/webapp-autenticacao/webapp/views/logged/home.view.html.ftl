@@ -34,7 +34,7 @@
             <div class="nav navbar-nav navbar-right">
                 <li class="dropdown component-holder" data-component="crn-menu-item"> <a href class="dropdown-toggle"  style="min-width: 123px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <img class="user-avatar" alt="" ng-src="{{session.user.picture || 'plugins/cronapp-framework-js/dist/img/img-user.svg'}}" style="max-height:22px;max-width:22px" data-component="crn-image"> <span>{{"Home.view.Perfil" | translate}}</span> <span class="caret"></span> </a>
                     <ul class="dropdown-menu">
-                        <li><a class="component-holder" data-toggle="modal" data-target="#modalPassword" data-component="crn-anchor" >{{"Home.view.ChangePassword" | translate}}</a></li>
+                        <li><a class="component-holder" href="" data-toggle="modal" data-target="#modalPassword" data-component="crn-anchor" >{{"Home.view.ChangePassword" | translate}}</a></li>
                       <#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
                       <li><a ng-click="cronapi.client('js.blockly.MutualAuth.signup').run()" href="" data-component="crn-anchor"><span>{{'LinkCertificate' | translate}}</span></a></li>
                       </#if>
