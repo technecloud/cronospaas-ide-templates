@@ -48,10 +48,10 @@
                 <splash density="port-xxhdpi" src="res/screen/android/drawable-port-xxhdpi-screen.png"/>
                 <splash density="port-xxxhdpi" src="res/screen/android/drawable-port-xxxhdpi-screen.png"/>
         </#if>
-        <edit-config file="AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />
         </edit-config>
-        <resource-file src="network_security_config.xml" target="res/xml/network_security_config.xml" />
+        <resource-file src="network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
 
     </platform>
     <platform name="ios">
