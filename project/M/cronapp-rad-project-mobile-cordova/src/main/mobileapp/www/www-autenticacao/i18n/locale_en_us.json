@@ -100,7 +100,7 @@
   "Permission.view.Voltar": "Cancel",
   "template.crud.clickToAddImage": "Click to add image",
   "template.crud.clickToAddFile": "Click to add file",
-  "InvalidDate": "Invalid Date", 
+  "InvalidDate": "Invalid Date",
   "Modal.view.Title": "Title",
   "Modal.view.Save": "Save",
   "Modal.view.Cancel" : "Cancel",
@@ -110,5 +110,6 @@
   "Accessibility.Button.Aria.Label.NavIcon": "Navigation Icon",
   "Accessibility.Button.Aria.Label.Back": "Back Button",
   "Accessibility.Button.Aria.Label.Add": "Add Button",
-  "Accessibility.Button.Aria.Label.Save": "Save Button"
+  "Accessibility.Button.Aria.Label.Save": "Save Button",
+  "Admin.server.out": "Error contacting the server"
 }
