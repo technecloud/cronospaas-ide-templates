@@ -21,6 +21,7 @@
   <script src="js/customStateProvider.js"></script>
 </head>
 <body>
+  <input type="hidden" id="projectName" value="${appname}">
   <div ui-view class="fill"></div>
   
   <!-- Modal Template -->
