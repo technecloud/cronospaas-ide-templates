@@ -22,6 +22,8 @@ window.blockly.js.blockly.auth.Login.login = function(login, password, options) 
         this.cronapi.screen.notify('error',this.cronapi.i18n.translate("Login.view.ServerOff",[  ]));
       } else if (this.cronapi.object.getProperty(item, 'status') == '404') {
         this.cronapi.screen.notify('error',this.cronapi.i18n.translate("Login.view.HostAppOff",[  ]));
+      } else if (this.cronapi.object.getProperty(item, 'status') == '0') {
+        this.cronapi.screen.notify('error',this.cronapi.i18n.translate("Admin.server.out",[  ]));
       } else {
         this.cronapi.screen.notify('error',this.cronapi.object.getProperty(item, 'responseJSON.message'));
       }
