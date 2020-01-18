@@ -20,7 +20,7 @@
                     <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-283724">
                         <div class="form-group">
                             <label for="input7274">{{'Login.view.Username' | translate}}</label>
-                            <input type="text" mask="" mask-placeholder="" ng-required="false" ng-model="username.value" class="form-control k-textbox" id="input7274" placeholder="">
+                            <input type="text" mask="" mask-placeholder="" ng-required="false" ng-model="username.value" class="form-control k-textbox" id="input7274" placeholder="" autocomplete="username" autocorrect="off" autocapitalize="off">
                         </div>
                     </div>
                     <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-343947">
