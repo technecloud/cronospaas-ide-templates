@@ -18,6 +18,7 @@
   <script src="js/customModules.js"></script>
   <link rel="stylesheet" href="css/app.css" />
   <title ng-bind="$root.viewTitle">${appname}</title>
+  <script src="js/customStateProvider.js"></script>
 </head>
 <body>
   <div ui-view class="fill"></div>
@@ -41,7 +42,6 @@
   <script src="plugins/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="plugins/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="plugins/ui-select-infinity/lib/index.js"></script>
-  <script src='plugins/ngMask/dist/ngMask.min.js'></script>
   <script src="plugins/raphael/raphael-min.js"></script>
   <script src="plugins/justgage-toorshia/justgage.js"></script>
   <script src="plugins/angular-justgage/ng-justgage.js"></script>
@@ -69,11 +69,27 @@
   <script src="plugins/cronapp-framework-js/dist/js/LanguageSelectDirective.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/directives.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/filters.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/components/js/datasource.js"></script>
-  <!-- CronApp Reports --> 
+  <!-- CronApp Reports -->
   <script src="plugins/cronapp-framework-js/dist/js/reports/parameters.controller.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/reports/reports.service.js"></script>
   <!-- Custom Controllers -->
   <script src="js/custom.controllers.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/parser.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/datasource/datasource.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/odata-filter-parser.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/pouchdb.min.js"></script>
+  <script src="plugins/cronapp-common-js/dist/js/pouchdb.find.min.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/components/js/jquery.mask.min.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/components/js/jquery.inputmask.bundle.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/upload.service.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/components/js/format.min.js"></script>
+  <script src="js/system-events.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/components/js/qrcode.js"></script>
+  <script src="js/dataSourceMap.js"></script>
+  <script src="plugins/cronapp-lib-js/dist/js/tinymce/plugins/tinymce/tinymce.min.js"></script>
+  <script src="plugins/cronapp-lib-js/dist/js/tinymce/plugins/angular-ui-tinymce/dist/tinymce.min.js"></script>
+  <script src="plugins/cronapp-lib-js/dist/js/kendo-ui/js/kendo.all.fixed.js"></script>
+  <script src="plugins/cronapp-lib-js/dist/js/kendo-ui/js/cultures/kendo.culture.pt-BR.min.js"></script>
+  <script src="plugins/cronapp-lib-js/dist/js/kendo-ui/js/jszip.min.js"></script>
 </body>
 </html>

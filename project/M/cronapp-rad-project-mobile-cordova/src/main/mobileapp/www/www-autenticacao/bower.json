@@ -23,6 +23,8 @@
     "src"
   ],
   "dependencies": {
-    "cronapp-framework-mobile-js": "latest"
+    "cronapp-framework-mobile-js": "3ed025ee788da6337bac26ed7af6019d7d0a470b",
+    "cronapp-common-js": "b62115b1a7f134ecde300d8ebd510ccd5b054e55",
+    "cronapi-js": "63feeac32303ef2e883a18bdc5e6bcbd064e3ac1"
   }
 }

@@ -1,37 +1,122 @@
 (function($app) {
   angular.module('custom.controllers', []);
 
-  app.controller('LoginController', ['$scope', '$http', '$location', '$rootScope', '$window', '$state', '$translate', 'Notification', function($scope, $http, $location, $rootScope, $window, $state, $translate, Notification) {
+    // refresh token
+    var refreshToken = function ($http, success, error) {
+        $http({
+            method: 'GET',
+            url: 'auth/refresh'
+        }).success(function (data, status, headers, config) {
+            // Store data response on local storage
+            localStorage.setItem("_u", JSON.stringify(data));
+            // Recussive
+            setTimeout(function () {
+                refreshToken($http, success, error);
+                // refresh time
+            }, (1800 * 1000));
+            success();
+        }).error(function () {
+            error();
+        });
+    };
 
+  app.controller('LoginController', function($controller, $scope, $http, $rootScope, $window, $state, $translate, Notification, ReportService, UploadService, $location, $stateParams, $timeout, $cookies) {
+
+    $scope.$http = $http;
+    $scope.params = $stateParams;
+    $scope.$state = $state;
     app.registerEventsCronapi($scope, $translate);
 
-    $scope.message = {};
-    $scope.login = function() {
-      $scope.message.error = undefined;
+    $rootScope.http = $http;
+    $rootScope.Notification = Notification;
+    $rootScope.UploadService = UploadService;
 
+    $rootScope.getReport = function(reportName, params, config) {
+      ReportService.openReport(reportName, params, config);
+    };
+
+    var queryStringParams = $location.search();
+    for (var key in queryStringParams) {
+      if (queryStringParams.hasOwnProperty(key)) {
+        $scope.params[key] = queryStringParams[key];
+      }
+    }
+    $scope.redirectToLogin = function() {
+      $window.location.href = '/login';
+    };
+    $scope.autoLogin = function(){
+      if(localStorage.getItem('_u') && JSON.parse(localStorage.getItem('_u')).token ){
+        refreshToken($http, function(){
+          $state.go('home');
+        }, function(){
+          localStorage.removeItem('_u');
+        })
+      }
+    };
+    $scope.autoLogin();
+    if (localStorage.getItem('redir_mob')) {
+        localStorage.removeItem('redir_mob');
+        $window.location.href = '/mobileapp';
+    }
+    if ($cookies.get('_u')) {
+      if (!localStorage.getItem('_u')) {
+          var decodedUser = decodeURIComponent($cookies.get('_u'));
+          localStorage.setItem("_u", decodedUser);
+      }
+      $state.go('home');
+    }
+    $scope.message = {};
+    $scope.renderRecaptcha = function(){
+      window.grecaptcha.render('loginRecaptcha');
+      window.grecaptcha.reset();
+    };
+    $scope.login = function(username, password, token) {
+      $scope.message.error = undefined;
+      if($('form').find('*[class=g-recaptcha]').length){
+        if(!$scope.captcha_token && $('form').find('*[class=g-recaptcha]').attr("data-sitekey")=== ""){
+          Notification.error($translate.instant('Login.view.EmptySiteKeyCaptcha'));
+          return;
+        }
+        $scope.captcha_token = window.grecaptcha.getResponse();
+        if(!$scope.captcha_token && $('form').find('*[class=g-recaptcha]').attr("data-size") !== "invisible"){
+          Notification.error($translate.instant('Login.view.InvalidCaptcha'));
+          return;
+        }
+        else if($('form').find('*[class=g-recaptcha]').attr("data-size") === "invisible"){
+          window.grecaptcha.execute();
+        }
+      }
       var user = {
-        username: $scope.username.value,
-        password: $scope.password.value
+        username : username?username:$scope.username.value,
+        password : password?password:$scope.password.value,
+        recaptchaToken : $scope.captcha_token ? $scope.captcha_token : undefined
       };
 
+      var headerValues = {
+        'Content-Type' : 'application/x-www-form-urlencoded'
+      };
+
+      if (token) {
+        headerValues["X-AUTH-TOKEN"] = token;
+      }
+
       $http({
-        method: 'POST',
-        url: 'auth',
-        data: $.param(user),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        method : 'POST',
+        url : 'auth',
+        data : $.param(user),
+        headers : headerValues
       }).success(handleSuccess).error(handleError);
-    }
+    };
 
     function handleSuccess(data, status, headers, config) {
       // Store data response on session storage
-      // The session storage will be cleaned when the browser window is closed
-      if (typeof(Storage) !== "undefined") {
+      // The local storage will be cleaned when the browser window is closed
+      if(typeof (Storage) !== "undefined") {
         // save the user data on localStorage
-        sessionStorage.setItem("_u", JSON.stringify(data));
-        $rootScope.session = JSON.parse(sessionStorage._u);
-      } else {
+        localStorage.setItem("_u", JSON.stringify(data));
+        $rootScope.session = JSON.parse(localStorage._u);
+      }
+      else {
         // Sorry! No Web Storage support.
         // The home page may not work if it depends
         // on the logged user data
@@ -39,89 +124,134 @@
 
       // Redirect to home page
       $state.go("home");
+
+      // Verify if the 'onLogin' event is defined and it is a function (it can be a string pointing to a non project blockly) and run it.
+      if ($scope.blockly && $scope.blockly.events && $scope.blockly.events.onLogin && $scope.blockly.events.onLogin instanceof Function) {
+        $scope.blockly.events.onLogin();
+      }
     }
 
     function handleError(data, status, headers, config) {
-      var error = status == 401 ? $translate.instant('Login.view.invalidPassword') : data;
+      var error;
+      if (status === 401) {
+        error = $translate.instant('Login.view.invalidPassword');
+      } else if (status === 403) {
+        error = $translate.instant('Admin.view.Access Denied');
+      } else if (status === 423) {
+        error = $translate.instant('Admin.view.UserLocked')
+      } else {
+        error = data;
+      }
       Notification.error(error);
     }
-  }]);
 
-  app.controller('HomeController', ['$scope', '$http', '$rootScope', '$state', '$translate', 'Notification', function($scope, $http, $rootScope, $state, $translate, Notification) {
+    try {
+      var contextAfterLoginController = $controller('AfterLoginController', { $scope: $scope });
+      app.copyContext(contextAfterLoginController, this, 'AfterLoginController');
+    } catch(e) {}
 
+    $timeout(function () {
+      // Verify if the 'afterLoginRender' event is defined and it is a function (it can be a string pointing to a non project blockly) and run it.
+      if ($scope.blockly && $scope.blockly.events && $scope.blockly.events.afterLoginRender && $scope.blockly.events.afterLoginRender instanceof Function) {
+        $scope.blockly.events.afterLoginRender();
+      }
+    });
+
+  });
+
+  app.controller('HomeController', function($controller, $scope, $http, $rootScope, $state, $translate, Notification, ReportService, UploadService, $location, $stateParams, $timeout) {
+
+    $scope.$http = $http;
+    $scope.params = $stateParams;
+    $scope.$state = $state;
     app.registerEventsCronapi($scope, $translate);
 
     $rootScope.http = $http;
     $rootScope.Notification = Notification;
+    $rootScope.UploadService = UploadService;
+
+    $rootScope.getReport = function(reportName, params, config) {
+      ReportService.openReport(reportName, params, config);
+    };
+
+    var queryStringParams = $location.search();
+    for (var key in queryStringParams) {
+      if (queryStringParams.hasOwnProperty(key)) {
+        $scope.params[key] = queryStringParams[key];
+      }
+    }
 
     $scope.message = {};
 
     $scope.selecionado = {
-      valor: 1
-    }
-
-    // refresh token
-    $scope.refreshToken = function() {
-      $http({
-        method: 'GET',
-        url: 'auth/refresh'
-      }).success(function(data, status, headers, config) {
-        // Store data response on session storage
-        console.log('revive :', new Date(data.expires));
-        sessionStorage.setItem("_u", JSON.stringify(data));
-        // Recussive
-        setTimeout(function() {
-          $scope.refreshToken();
-          // refres time
-        }, (1800 * 1000));
-      }).error(function() {
-        // abafar TODO
-      });
+      valor : 1
     };
 
-    $rootScope.session = (sessionStorage._u) ? JSON.parse(sessionStorage._u) : null;
 
-    if ($rootScope.session) {
+
+    $rootScope.session = (localStorage.getItem('_u') !== undefined) ? JSON.parse(localStorage.getItem('_u')) : null;
+
+    if($rootScope.session) {
       // When access home page we have to check
       // if the user is authenticated and the userData
-      // was saved on the browser's sessionStorage
-      $rootScope.myTheme = $rootScope.session.user.theme;
+      // was saved on the browser's localStorage
+      $rootScope.myTheme = '';
+      if ($rootScope.session.user)
+        $rootScope.myTheme = $rootScope.session.user.theme;
       $scope.$watch('myTheme', function(value) {
-        if (value !== undefined && value !== "") {
-          $('#themeSytleSheet').attr('href', "css/themes/" + value + ".min.css");
+        if(value !== undefined && value !== "") {
+          $('#themeSytleSheet').attr('href', "plugins/cronapp-framework-js/css/themes/" + value + ".min.css");
         }
       });
-      if ($rootScope.session.token) $scope.refreshToken();
-    } else {
-      $state.go("login");
-      sessionStorage.removeItem("_u");
+      if(localStorage.getItem('_u') && JSON.parse(localStorage.getItem('_u')).token){
+        refreshToken($http,function(){},function(){
+          localStorage.removeItem('_u');
+          $state.go('login');
+        })
+      }
+    }
+    else {
+      if (!$scope.ignoreAuth) {
+        localStorage.removeItem("_u");
+        window.location.href = "";
+      }
     }
 
     $rootScope.logout = function logout() {
-      $rootScope.session = {};
-      if (typeof(Storage) !== "undefined") {
-        // save the user data on localStorage
-        sessionStorage.removeItem("_u");
+      $http({
+        method : 'GET',
+        url : 'logout',
+        headers : {
+          'Content-Type' : 'application/json'
+        }
+      }).success(clean).error(clean);
+
+      function clean() {
+        $rootScope.session = {};
+        if(typeof (Storage) !== "undefined") {
+          localStorage.removeItem("_u");
+        }
+        window.location.href = "";
       }
-      $state.go("login");
     };
 
     $scope.changePassword = function() {
+      if(verifyCredentials()) {
+        var user = {
+          oldPassword : oldPassword.value,
+          newPassword : newPassword.value,
+          newPasswordConfirmation : newPasswordConfirmation.value
+        };
 
-      var user = {
-        oldPassword: oldPassword.value,
-        newPassword: newPassword.value,
-        newPasswordConfirmation: newPasswordConfirmation.value
-      };
-
-      $http({
-        method: 'POST',
-        url: 'changePassword',
-        data: $.param(user),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }).success(changeSuccess).error(changeError);
+        $http({
+          method : 'POST',
+          url : 'changePassword',
+          data : $.param(user),
+          headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded'
+          }
+        }).success(changeSuccess).error(changeError);
+      }
 
       function changeSuccess(data, status, headers, config) {
         Notification.info($translate.instant('Home.view.passwordChanged'));
@@ -129,7 +259,16 @@
       }
 
       function changeError(data, status, headers, config) {
-        var error = status >= 401 ? $translate.instant('Home.view.InvalidPassword') : data;
+        var error;
+
+        if (status === 422) {
+          error = data;
+        } else if (status >= 401) {
+          error = $translate.instant('Home.view.InvalidPassword');
+        } else {
+          error = data;
+        }
+
         Notification.error(error);
       }
 
@@ -139,11 +278,27 @@
         newPasswordConfirmation.value = "";
         $("#modalPassword").modal("hide");
       }
+
+      function verifyCredentials() {
+        if(oldPassword.value === "" || newPassword.value === "" || newPasswordConfirmation.value === "") {
+          if(newPasswordConfirmation.value === "") {
+            Notification.error($translate.instant('Home.view.ConfirmationPasswordCanNotBeEmpty'));
+          }
+          if(newPassword.value === "") {
+            Notification.error($translate.instant('Home.view.NewPasswordCanNotBeEmpty'));
+          }
+          if(oldPassword.value === "") {
+            Notification.error($translate.instant('Home.view.PreviousPasswordCanNotBeEmpty'));
+          }
+          return false;
+        }
+        return true;
+      }
     };
 
     var closeMenuHandler = function() {
       var element = $(this);
-      if (element.closest('.sub-menu').length > 0) {
+      if(element.closest('.sub-menu').length > 0) {
         element.closest(".navbar-nav").collapse('hide');
       }
     };
@@ -151,29 +306,29 @@
     $scope.$on('$viewContentLoaded', function() {
       var navMain = $(".navbar-nav");
 
-      //Here your view content is fully loaded !!
+      // Here your view content is fully loaded !!
       navMain.off("click", "a", closeMenuHandler);
       navMain.on("click", "a", closeMenuHandler);
     });
 
-    $scope.themes = ["cerulean", "cosmo", "cyborg", "darkly", "flatly", "journal", "lumen", "paper", "readable", "sandstone", "simplex", "slate", "spacelab", "superhero", "united", "yeti"];
+    $scope.themes = [ "material","cerulean", "cosmo", "cyborg", "darkly", "flatly", "journal", "lumen", "paper", "readable", "sandstone", "simplex", "slate", "spacelab", "superhero", "united", "yeti"];
 
     $scope.changeTheme = function(theme) {
-      if (theme !== undefined) {
+      if(theme !== undefined) {
         $('body').append('<div id="transition" />');
         $('#transition').css({
-          'background-color': '#FFF',
-          'zIndex': 100000,
-          'position': 'fixed',
-          'top': '0px',
-          'right': '0px',
-          'bottom': '0px',
-          'left': '0px',
-          'overflow': 'hidden',
-          'display': 'block'
+          'background-color' : '#FFF',
+          'zIndex' : 100000,
+          'position' : 'fixed',
+          'top' : '0px',
+          'right' : '0px',
+          'bottom' : '0px',
+          'left' : '0px',
+          'overflow' : 'hidden',
+          'display' : 'block'
         });
         $('#transition').fadeIn(800, function() {
-          $('#themeSytleSheet').attr('href', "css/themes/" + theme + ".min.css");
+          $('#themeSytleSheet').attr('href', "plugins/cronapp-framework-js/css/themes/" + theme + ".min.css");
           $rootScope.myTheme = theme;
           $('#transition').fadeOut(1000, function() {
             $('#transition').remove();
@@ -181,21 +336,22 @@
         });
 
         var user = {
-          theme: theme
+          theme : theme
         };
 
         $http({
-          method: 'POST',
-          url: 'changeTheme',
-          data: $.param(user),
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+          method : 'POST',
+          url : 'changeTheme',
+          data : $.param(user),
+          headers : {
+            'Content-Type' : 'application/x-www-form-urlencoded'
           }
         }).success(changeSuccess).error(changeError);
 
         function changeSuccess(data, status, headers, config) {
           $rootScope.session.theme = theme;
-          sessionStorage.setItem("_u", JSON.stringify($rootScope.session));
+          $rootScope.session.user.theme = theme;
+          localStorage.setItem("_u", JSON.stringify($rootScope.session));
         }
 
         function changeError(data, status, headers, config) {
@@ -204,16 +360,55 @@
         }
       }
     };
-  }]);
+    try {
+      var contextAfterHomeController = $controller('AfterHomeController', { $scope: $scope });
+      app.copyContext(contextAfterHomeController, this, 'AfterHomeController');
+    } catch(e) {}
+
+    $timeout(function () {
+      // Verify if the 'afterHomeRender' event is defined and it is a function (it can be a string pointing to a non project blockly) and run it.
+      if ($scope.blockly && $scope.blockly.events && $scope.blockly.events.afterHomeRender && $scope.blockly.events.afterHomeRender instanceof Function) {
+        $scope.blockly.events.afterHomeRender();
+      }
+    });
+
+  });
+
+  app.controller('PublicController', function($controller, $scope) {
+    $scope.ignoreAuth = true;
+    angular.extend(this, $controller('HomeController', {
+      $scope: $scope
+    }));
+  });
+
+  app.controller('SocialController', function($controller, $scope, $location) {
+    $scope.checkSocial = true;
+    angular.extend(this, $controller('LoginController', {
+      $scope: $scope
+    }));
+
+    var queryStringParams = $location.search();
+    var params = {};
+    for (var key in queryStringParams) {
+      if (queryStringParams.hasOwnProperty(key)) {
+        params[key] = queryStringParams[key];
+      }
+    }
+
+    $scope.login("#OAUTH#", "#OAUTH#", params["_ctk"]);
+  });
+
 }(app));
 
 window.safeApply = function(fn) {
   var phase = this.$root.$$phase;
-  if (phase == '$apply' || phase == '$digest') {
-    if (fn && (typeof(fn) === 'function')) {
+  if(phase === '$apply' || phase === '$digest') {
+    if(fn && (typeof (fn) === 'function')) {
       fn();
     }
-  } else {
+  }
+  else {
     this.$apply(fn);
   }
 };
+
