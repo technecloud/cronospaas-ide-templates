@@ -48,6 +48,11 @@
                 <splash density="port-xxhdpi" src="res/screen/android/drawable-port-xxhdpi-screen.png"/>
                 <splash density="port-xxxhdpi" src="res/screen/android/drawable-port-xxxhdpi-screen.png"/>
         </#if>
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+            <application android:networkSecurityConfig="@xml/network_security_config" />
+        </edit-config>
+        <resource-file src="network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
+
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
@@ -97,6 +102,8 @@
                 <splash height="480" src="res/screen/ios/Default~iphone.png" width="320"/>
                 <splash height="2732" src="res/screen/ios/Default@2x~universal~anyany.png" width="2732"/>
         </#if>
+
+
     </platform>
     <plugin name="cordova-plugin-cronapp" spec="https://github.com/cronapp/cordova-plugin-cronapp.git#241329b2634dd1b2a1fdf57c873d75d21cf7e2d3"/>
 </widget>
