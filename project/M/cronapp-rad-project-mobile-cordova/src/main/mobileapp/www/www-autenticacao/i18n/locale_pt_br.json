@@ -100,7 +100,7 @@
   "Permission.view.Voltar": "Voltar",
   "template.crud.clickToAddImage": "Clique para adicionar imagem",
   "template.crud.clickToAddFile": "Clique para adicionar arquivo",
-  "InvalidDate": "Data Inválida", 
+  "InvalidDate": "Data Inválida",
   "Modal.view.Title": "Título",
   "Modal.view.Save": "Salvar",
   "Modal.view.Cancel" : "Cancelar",
@@ -110,5 +110,7 @@
   "Accessibility.Button.Aria.Label.NavIcon": "Ícone de Navegação",
   "Accessibility.Button.Aria.Label.Back": "Botão Voltar",
   "Accessibility.Button.Aria.Label.Add": "Botão Adicionar",
-  "Accessibility.Button.Aria.Label.Save": "Botão Salvar"
+  "Accessibility.Button.Aria.Label.Save": "Botão Salvar",
+  "Admin.server.out": "Erro ao contactar o servidor",
+
 }
