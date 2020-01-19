@@ -114,6 +114,7 @@
   "Upload.oneFile": "Selecione ou arraste um arquivo",
   "Upload.multipleFile": "Selecione ou arraste um ou mais arquivos",
   "Upload.errorValidation": "Seleção inválida: Tamanho máximo %s e Tipos permitidos: %s",
+  "Upload.camera": "Obter imagem a partir da câmera do dispositivo",
   "SaveChanges": "Salvar alterações",
   "CancelChanges": "Cancelar alterações",
   "Edit": "Editar",
@@ -131,5 +132,6 @@
   "Action": "Ação",
   "Admin.view.UserLocked": "Usuário bloqueado",
   "Login.view.EmptySiteKeyCaptcha": "Chave do site não informado",
-  "download": "Baixar"
+  "download": "Baixar",
+  "Admin.server.out": "Erro ao contactar o servidor"
 }
