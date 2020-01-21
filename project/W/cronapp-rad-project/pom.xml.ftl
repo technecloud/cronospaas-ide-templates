@@ -159,6 +159,11 @@
             <version>${r"${tomcat.version}"}</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>io.cronapp</groupId>
+            <artifactId>cronapi-apm</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
