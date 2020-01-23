@@ -8,9 +8,9 @@ window.blockly.js.blockly.auth.Login = window.blockly.js.blockly.auth.Login || {
  * Login
  */
 window.blockly.js.blockly.auth.Login.login = function(login, password, options) {
-  var item;
+ var item;
   if (!this.cronapi.logic.isNullOrEmpty(this.cronapi.screen.getHostapp())) {
-    this.cronapi.util.getURLFromOthers('POST', 'application/x-www-form-urlencoded', String(this.cronapi.screen.getHostapp()) + String('auth'), this.cronapi.object.createObjectFromString(['{ \"username\": \"',login,'\" , \"password\": \"',password,'\" } '].join('')), null, function(sender_item) {
+    this.cronapi.util.getURLFromOthers('POST', 'application/x-www-form-urlencoded', String(this.cronapi.screen.getHostapp()) + String('auth'), this.cronapi.object.createObjectLoginFromString(login, password), null, function(sender_item) {
         item = sender_item;
       this.cronapi.util.setLocalStorage('_u', this.cronapi.object.serializeObject(item));
       this.cronapi.screen.changeView("#/app/logged/home",[  ]);
