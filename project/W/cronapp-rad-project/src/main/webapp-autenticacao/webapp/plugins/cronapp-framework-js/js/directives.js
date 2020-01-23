@@ -71,6 +71,20 @@
     }
     return result;
   }
+
+  app.directive('crnAnchor', ['$rootScope', '$location', '$anchorScroll', function ($rootScope, $location, $anchorScroll) {
+    return {
+      restrict: 'A',
+      link: function (scope, instanceElement, instanceAttributes) {
+        instanceElement.bind('click', function() {
+          let target = instanceAttributes["crnAnchor"];
+          $anchorScroll(target);
+          $('#' + target).get(0).focus();
+        });
+      }
+    }
+  }]);
+
   app.directive('input', transformText);
 
   app.directive('textarea', transformText);
@@ -4342,6 +4356,11 @@
                   var listener = function( event, translationResp ) {
                       var defaultLang = "en",
                           currentlang = translationResp.language;
+
+                      if (currentlang  === 'pt_br')
+                        currentlang = "pt-br";
+                      else if (currentlang.startsWith('en'))
+                        currentlang = "en";
 
                       element.attr("lang", currentlang || defaultLang );
                   };
