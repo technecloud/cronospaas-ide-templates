@@ -1,5 +1,9 @@
 <#if !(menuPosition??) || menuPosition == "Horizontal">
 <header class="jumbotron-fluid main-title">
+    <ul aria-label="{{'DirectAccess' | translate}}" class="main-access" tabindex="-1">
+        <li><a crn-anchor="main-view" href="javascript:void(0);" class="main-nav-link" alt="{{'MainContent' | translate}}">{{'MainContent' | translate}}</a> </li>
+        <li><a crn-anchor="main-nav-bar" href="javascript:void(0);" class="main-nav-link" alt="{{'MainMenu' | translate}}">{{'MainMenu' | translate}}</a> </li>
+    </ul>
     <h1 class="component-holder text-left" xattr-position="text-left" data-component="crn-subtitle" id="crn-subtitle-814474">${appname}</h1>
 </header>
 </#if>

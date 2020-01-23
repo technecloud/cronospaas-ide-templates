@@ -119,5 +119,8 @@
   "Login.view.HostAppOff": "Página não encontrada. Verifique se a URL do servidor está correta.",
   "Application": "Aplicação",
   "Error": "Erro",
-  "ObjectData": "Dados"
+  "ObjectData": "Dados",
+  "MainContent": "Conteúdo Principal",
+  "MainMenu": "Menu Principal",
+  "DirectAccess": "Acesso Direto"
 }
