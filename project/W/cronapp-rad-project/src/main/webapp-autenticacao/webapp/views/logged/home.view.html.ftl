@@ -46,7 +46,7 @@
                         <span>{{"Home.view.Perfil" | translate}}</span> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="component-holder" href="" data-toggle="modal" data-target="#modalPassword" data-component="crn-anchor">{{"Home.view.ChangePassword" | translate}}</a></li>
+                        <li><a href="" class="component-holder" ng-click="cronapi.screen.showModal('modalPassword')" data-component="crn-anchor">{{"Home.view.ChangePassword" | translate}}</a></li>
                         <li><a ng-click="logout()" href="" data-component="crn-anchor"><span>{{"Home.view.Logout" | translate}}</span></a></li>
                     </ul>
                 </li>
