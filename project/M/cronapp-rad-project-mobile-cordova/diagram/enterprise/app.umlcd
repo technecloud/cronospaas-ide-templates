@@ -1631,7 +1631,7 @@
         "email:java.lang.String",
         "emailConfirmed:java.lang.Boolean",
         "lockoutEnabled:java.lang.Boolean",
-        "lockoutEnd:java.util.Date",
+        "lockoutEnd:java.sql.Date",
         "name:java.lang.String",
         "normalizedEmail:java.lang.String",
         "normalizedUserName:java.lang.String",
@@ -1655,8 +1655,8 @@
         },
         ".uml-class-attrs-value": {
           "font-size": 11,
-          "ref-x": 156.34375,
-          "text": "Texto\nInteiro\nTexto\nLógico\nLógico\nData\nTexto\nTexto\nTexto\nTexto\nTexto\nLógico\nTexto\nLógico\nTexto\nTexto\nImagem no Banco\n"
+          "ref-x": 154.40625,
+          "text": "Texto\nInteiro\nTexto\nLógico\nLógico\nData e Hora\nTexto\nTexto\nTexto\nTexto\nTexto\nLógico\nTexto\nLógico\nTexto\nTexto\nImagem no Banco\n"
         },
         ".uml-class-methods-rect": {
           "height": 30,
@@ -1884,7 +1884,7 @@
         },
         {
           "name": "lockoutEnd",
-          "type": "java.util.Date",
+          "type": "java.sql.Date",
           "dbName": "lockout_end",
           "dbLength": "",
           "dbPrecision": "",
@@ -2252,7 +2252,7 @@
       ],
       "position": {
         "x": 288.078125,
-        "y": 0
+        "y": 2.5579538487363607e-13
       },
       "primaryKeys": [
         "id"
@@ -2285,8 +2285,8 @@
         ""
       ],
       "size": {
-        "height": 271.78211975097656,
-        "width": 264.5
+        "height": 272.05555725097656,
+        "width": 260.640625
       },
       "tableName": "USER",
       "type": "uml.Class",

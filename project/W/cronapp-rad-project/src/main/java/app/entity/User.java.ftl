@@ -65,7 +65,7 @@ public class User implements Serializable {
   /**
   * @generated
   */
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "lockout_end", nullable = true, unique = false, insertable=true, updatable=true)
   
   private java.util.Date lockoutEnd;
