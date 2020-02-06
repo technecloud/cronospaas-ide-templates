@@ -122,5 +122,8 @@
   "ObjectData": "Dados",
   "MainContent": "Conteúdo Principal",
   "MainMenu": "Menu Principal",
-  "DirectAccess": "Acesso Direto"
+  "DirectAccess": "Acesso Direto",
+  "Securable": "Permissionável",
+  "Password": "Senha",
+  "PhoneNumber": "Telefone"
 }
