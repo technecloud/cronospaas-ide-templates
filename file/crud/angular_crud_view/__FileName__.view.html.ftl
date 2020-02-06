@@ -615,11 +615,15 @@
 
                                         <div data-component="${dataComponentType}"  id="crn-modal-textinput-${gField.getDbFieldName()}-${model.random}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
-                                                <#if !gField.isBoolean() >
+                                                <#if !gField.isBoolean()>
+                                                    <#if gField.isImage()>
+                                                    <label for="textinput-modal-${gField.getDbFieldName()}-input"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
+                                                    <#else>
                                                     <label for="textinput-modal-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
+                                                    </#if>
                                                 </#if>
                                                 <#if gField.isImage()>
-                                                    <div dynamic-image ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                                    <div dynamic-image id="textinput-modal-${gField.getDbFieldName()}" ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                                         {{"template.crud.clickOrDragAnImage" | translate}}
                                                     </div>
                                                 <#elseif gField.isBoolean() >
