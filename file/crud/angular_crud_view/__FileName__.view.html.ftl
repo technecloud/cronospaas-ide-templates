@@ -186,7 +186,11 @@
                     <div data-component="${dataComponentType}" id="crn-${currentType}-${field.name}-${model.random}" class="">
                         <div class="form-group">
                             <#if !field.isBoolean()>
+                                <#if field.isImage() || field.isFile()>
+                                <label for="${currentType}-${field.name}-input" class="">${model.formMapLabels[field.name]!?cap_first}</label>
+                                <#else>
                                 <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!?cap_first}</label>
+                                </#if>
                             </#if>
                             <#if !model.hasCronappFramework()>
 
@@ -280,11 +284,11 @@
                                     <input type="checkbox" <#if field.isNullable()>crn-allow-null-values="true"<#else>crn-allow-null-values="false"</#if> class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
                                     <label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
                                 <#elseif field.isImage()>
-                                    <div dynamic-image ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                    <div dynamic-image id="${currentType}-${field.name}" ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                         {{"template.crud.clickOrDragAnImage" | translate}}
                                     </div>
                                 <#elseif field.isFile()>
-                                    <div dynamic-file ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                    <div dynamic-file id="${currentType}-${field.name}" ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                         {{"template.crud.clickOrDragAnFile" | translate}}
                                     </div>
                                 <#else>
@@ -616,7 +620,7 @@
                                         <div data-component="${dataComponentType}"  id="crn-modal-textinput-${gField.getDbFieldName()}-${model.random}" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                             <div class="form-group">
                                                 <#if !gField.isBoolean()>
-                                                    <#if gField.isImage()>
+                                                    <#if gField.isImage() || gField.isFile()>
                                                     <label for="textinput-modal-${gField.getDbFieldName()}-input"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                                                     <#else>
                                                     <label for="textinput-modal-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
@@ -630,7 +634,7 @@
                                                     <input type="checkbox" <#if gField.isNullable()>crn-allow-null-values="true"<#else>crn-allow-null-values="false"</#if> class="k-checkbox" ng-model="${field.getName()}Grid.active.${gField.getName()}" id="cron-modal-checkbox-${gField.name}" <#if !gField.isNullable()>required="required"</#if>>
                                                     <label for="cron-modal-checkbox-${gField.name}" class="k-checkbox-label"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                                                 <#elseif gField.isFile()>
-                                                    <div dynamic-file ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                                    <div dynamic-file id="textinput-modal-${gField.getDbFieldName()}" ng-model="${field.getName()}Grid.active.${gField.getName()}" max-file-size="5MB" class="dynamic-image-container" <#if !gField.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                                         {{"template.crud.clickOrDragAnFile" | translate}}
                                                     </div>
                                                 <#else>
