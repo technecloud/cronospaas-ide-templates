@@ -122,5 +122,8 @@
   "ObjectData": "Data",
   "MainContent": "Main Content",
   "MainMenu": "Main Menu",
-  "DirectAccess": "Direct Access"
+  "DirectAccess": "Direct Access",
+  "Securable": "Securable",
+  "Password": "Password",
+  "PhoneNumber": "Phone number"
 }

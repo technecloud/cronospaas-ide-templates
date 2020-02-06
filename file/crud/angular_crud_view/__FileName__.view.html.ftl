@@ -1,4 +1,4 @@
-<h2 class="component-holder text-left h3 title" xattr-position="text-left" xattr-type="h3" data-component="crn-text-component" id="crn-text-component-${model.random}"><#if model.realName ?has_content >${model.realName}<#else>${model.dataSourceName}</#if></h2>
+<h1 class="component-holder text-left h3 title" xattr-position="text-left" xattr-type="h3" data-component="crn-text-component" id="crn-text-component-${model.random}"><#if model.realName ?has_content >${model.realName}<#else>${model.dataSourceName}</#if></h1>
 
 <#assign filterSearch = "">
 <#if model.initialFilter??>
@@ -57,7 +57,7 @@
     <#elseif model.getGridFilterSearchable()=="specificSearch">
         <#if model.hasSearchableFilter()>
             <div role="search" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing">
-                <fieldset>
+                <div class="crn-fieldset">
                     <#list model.formFields as field>
                         <#if field.isSearchable()>
                             <div  data-component="crn-textinput" id="crn-datasource-filter-${field.name}-${model.random}" class="">
@@ -73,7 +73,7 @@
                             </div>
                         </#if>
                     </#list>
-                </fieldset>
+                </div>
             </div>
         <#else>
             <div role="search" ng-hide="${model.dataSourceName}.inserting || ${model.dataSourceName}.editing" data-component="crn-textinput" id="crn-datasource-filter-${model.getFirstFieldStringNotPk().name}-${model.random}" class="">
@@ -131,7 +131,7 @@
                     <#else>
                         <div class="">
                             <div class="form-group">
-                                <label for="textinput-filter" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
+                                <label for="textinput-filter-${field.name}" class="">{{"template.crud.search" | translate}} ${model.formMapLabels[field.name]!}</label>
                                 <input type="text" id="textinput-filter-${field.name}" class="form-control k-textbox" <#if field.getLength()??>maxlength="${field.getLength()}"</#if> ng-model="vars.search${field.name}" class="form-control" value="" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if model.formMapMasks[field.name]?has_content>mask="${model.formMapMasks[field.name]}"</#if>>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                 <button aria-label="{{'CancelChanges' | translate}}" class="btn btn-danger btn-fab k-button" id="btn_crud_cancel41107" data-component="crn-button" ng-click="datasource.cancel()"><span class="k-icon k-i-cancel"></span></button>
             </div>
             <br/>
-            <fieldset ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
+            <div class="crn-fieldset" ng-disabled="!datasource.editing &amp;&amp; !datasource.inserting">
                 <#list model.formFields as field>
                     <#assign currentType = "textinput">
                     <#if field.getProperty("ngOptions")??>
@@ -344,7 +344,7 @@
                         <datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getRelationClazz().getName()}" keys="${model.getJoinKeys(field.getRelationClazz().getAjustedFullPrimaryKeys())}" schema="${model.getDSSchema(field.getName())}"></datasource>
                         <div class="component-holder ng-binding ng-scope " data-component="crn-enterprise-combobox-multiple" ng-show="datasource.editing || datasource.inserting" >
                             <div class="form-group">
-                                <label for="select-ui">${field.getName()?cap_first}</label>
+                                <label for="combobox${field.getName()}">${field.getName()?cap_first}</label>
                                 <cron-multi-select
                                         options="${model.getMultiSelectOptions(field)}"
                                         ng-required="false"
@@ -356,7 +356,7 @@
                             </div>
                         </div>
                     <#else>
-                        <h3 class="lead component-holder text-left" data-component="crn-subtitle" xattr-position="text-left" id="crud-title-${model.random}" >${field.getName()?cap_first}</h3>
+                        <h2 class="lead component-holder text-left" data-component="crn-subtitle" xattr-position="text-left" id="crud-title-${model.random}" >${field.getName()?cap_first}</h2>
                         <div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}-${model.random}">
                             <#assign dataSourceName = "${relationClassName}">
                             <cron-grid options="${model.getGridOptions(relationClassName, dataSourceName, field)}" ng-model="vars.grid${field.getName()}${model.random}" class="" style=""></cron-grid>
@@ -364,10 +364,12 @@
                     </#if>
                 </#list>
                 <!-- NtoN  end-->
-            </fieldset>
+            </div>
         </form>
+    </section>
+    <section class="form" ng-show="${model.dataSourceName}.editing || ${model.dataSourceName}.inserting">
         <form>
-            <fieldset>
+            <div>
                 <!-- OneToN -->
                 <#list model.formFieldsOneToN as field>
                     <!--query filter 1toN -->
@@ -425,7 +427,7 @@
                             </#if>
                         </#if>
                     </#list>
-                    <h3 class="lead component-holder text-left" data-component="crn-subtitle"><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h3>
+                    <h2 class="lead component-holder text-left" data-component="crn-subtitle"><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h2>
                     <div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}Grid-${model.random}">
                         <#assign classname = "${field.clazz.name}">
                         <#assign dataSourceName = "${classname}Grid">
@@ -433,7 +435,7 @@
                     </div>
                 </#list>
                 <!-- OneToOne  end -->
-            </fieldset>
+            </div>
         </form>
         &ensp;
     </section>
@@ -449,7 +451,7 @@
                         <form>
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
-                                <h4 class="modal-title">${field.getName()}</h4>
+                                <h3 class="modal-title">${field.getName()}</h3>
                             </div>
                             <div class="modal-body">
                                 <div class="list-group list-group-sm row">
@@ -499,7 +501,7 @@
                 <form>
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
-                        <h4 class="modal-title">${field.getName()}</h4>
+                        <h3 class="modal-title">${field.getName()}</h3>
                     </div>
                     <div class="modal-body">
                         <div class="list-group list-group-sm row">
