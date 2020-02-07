@@ -57,7 +57,7 @@
   </nav>
 </div>
 <div ui-view="" id="main-view" tabindex="-1" role="main" class="container-fluid main-view <#if !(menuPosition??) || menuPosition == "Horizontal">main-view-horizontal<#else>main-view-vertical</#if>">
-    <h1 class="component-holder text-left h3 title" title">{{'Home.view.Home' | translate}}</h1>
+    <h1 class="component-holder text-left h3 title">{{'Home.view.Home' | translate}}</h1>
 </div>
 <div class="modal fade" id="modalPassword">
   <div class="modal-dialog">
@@ -72,15 +72,18 @@
           <div class="text-danger wrapper text-center" ng-show="authError">
           </div>
           <div class="list-group list-group-sm">
-            <div class="list-group-item">
-              <input type="password" class="form-control k-textbox" id="oldPassword" placeholder="{{'Home.view.Old Password' | translate}}" aria-label="{{'Home.view.Old Password' | translate}}" ng-required="true">
-            </div>
-            <div class="list-group-item">
-              <input type="password" class="form-control k-textbox" id="newPassword" placeholder="{{'Home.view.New Password' | translate}}" aria-label="{{'Home.view.New Password' | translate}}" ng-required="true">
-            </div>
-            <div class="list-group-item">
-              <input type="password" class="form-control k-textbox" id="newPasswordConfirmation" placeholder="{{'Home.view.Confirmation' | translate}}" aria-label="{{'Home.view.Confirmation' | translate}}" ng-required="true">
-            </div>
+              <div class="list-group-item">
+                  <label for="oldPassword">{{"Home.view.Old Password" | translate}}</label>
+                  <input type="password" class="form-control k-textbox" id="oldPassword" placeholder="{{'Home.view.Old Password' | translate}}" aria-label="{{'Home.view.Old Password' | translate}}" ng-required="true">
+              </div>
+              <div class="list-group-item">
+                  <label for="newPassword">{{"Home.view.New Password" | translate}}</label>
+                  <input type="password" class="form-control k-textbox" id="newPassword" placeholder="{{'Home.view.New Password' | translate}}" aria-label="{{'Home.view.New Password' | translate}}" ng-required="true">
+              </div>
+              <div class="list-group-item">
+                  <label for="newPasswordConfirmation">{{"Home.view.Confirmation" | translate}}</label>
+                  <input type="password" class="form-control k-textbox" id="newPasswordConfirmation" placeholder="{{'Home.view.Confirmation' | translate}}" aria-label="{{'Home.view.Confirmation' | translate}}" ng-required="true">
+              </div>
           </div>
         </form>
       </div>

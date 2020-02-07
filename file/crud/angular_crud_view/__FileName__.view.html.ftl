@@ -284,7 +284,7 @@
                                     <input type="checkbox" <#if field.isNullable()>crn-allow-null-values="true"<#else>crn-allow-null-values="false"</#if> class="k-checkbox" ng-model="${model.dataSourceName}.active.${field.name}" id="${currentType}-${field.name}" placeholder="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>" <#if !field.isNullable()>required="required"</#if>>
                                     <label for="${currentType}-${field.name}" class="k-checkbox-label">${model.formMapLabels[field.name]!?cap_first}</label>
                                 <#elseif field.isImage()>
-                                    <div dynamic-image id="${currentType}-${field.name}" ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
+                                    <div dynamic-image img-alt-text="${model.formMapLabels[field.name]!?cap_first}" id="${currentType}-${field.name}" ng-model="${model.dataSourceName}.active.${field.name}" max-file-size="5MB" class="dynamic-image-container" <#if !field.isNullable()>ng-required="true"<#else>ng-required="false"</#if>>
                                         {{"template.crud.clickOrDragAnImage" | translate}}
                                     </div>
                                 <#elseif field.isFile()>

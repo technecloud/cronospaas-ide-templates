@@ -9,7 +9,7 @@
                     <div class="text-danger wrapper text-center" ng-show="authError"></div>
                     <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-image" id="crn-image-823921">
                         <h1>
-                            <img alt="login" src="plugins/cronapp-framework-js/img/cronapp-logo-login.png" class="" style="display:block; width:60%; height:auto; margin-left:auto; margin-right:auto;" xattr-position="margin-left:auto; margin-right:auto;" data-component="crn-image">
+                            <img alt="Login" src="plugins/cronapp-framework-js/img/cronapp-logo-login.png" class="" style="display:block; width:60%; height:auto; margin-left:auto; margin-right:auto;" xattr-position="margin-left:auto; margin-right:auto;" data-component="crn-image">
                         </h1>
                     </div>
                     <div class="col-xs-10 col-md-8 col-md-push-2 col-xs-push-1" data-container="true">
