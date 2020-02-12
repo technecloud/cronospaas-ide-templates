@@ -349,7 +349,7 @@
                         <datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getRelationClazz().getName()}" keys="${model.getJoinKeys(field.getRelationClazz().getAjustedFullPrimaryKeys())}" schema="${model.getDSSchema(field.getName())}"></datasource>
                         <div class="component-holder ng-binding ng-scope " data-component="crn-enterprise-combobox-multiple" ng-show="datasource.editing || datasource.inserting" >
                             <div class="form-group">
-                                <label for="combobox${field.getName()}">${field.getName()?cap_first}</label>
+                                <label for="combobox${field.getName()}-container">${field.getName()?cap_first}</label>
                                 <cron-multi-select
                                         options="${model.getMultiSelectOptions(field)}"
                                         ng-required="false"
