@@ -148,7 +148,8 @@
             options="${model.getGridOptionsSearch(model.dataSourceName, model.dataSourceName, field)}"
             ng-model="vars.grid${model.random}"
             class=""
-            style="">
+            style=""
+            scrollable="false">
     </cron-grid>
 </section>
 
