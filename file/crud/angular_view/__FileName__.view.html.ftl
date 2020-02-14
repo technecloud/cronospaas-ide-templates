@@ -1,4 +1,4 @@
-<h2 class="component-holder text-left h3 title" xattr-position="text-left" xattr-type="h3" data-component="crn-text-component" id="crn-text-component-${model.random}"><#if model.realName ?has_content >${model.realName}<#else>${model.dataSourceName}</#if> - {{"template.view.search" | translate}}</h2>
+<h1 class="component-holder text-left h3 title" xattr-position="text-left" xattr-type="h3" data-component="crn-text-component" id="crn-text-component-${model.random}"><#if model.realName ?has_content >${model.realName}<#else>${model.dataSourceName}</#if> - {{"template.view.search" | translate}}</h1>
 
 <#assign filterSearch = "">
 <#if model.initialFilter??>
