@@ -189,7 +189,7 @@
                         <div class="form-group">
                             <#if !field.isBoolean()>
                                 <#if field.isImage() || field.isFile()>
-                                <label for="${currentType}-${field.name}-input" class="">${model.formMapLabels[field.name]!?cap_first}</label>
+                                <label for="${currentType}-${field.name}-button" class="">${model.formMapLabels[field.name]!?cap_first}</label>
                                 <#else>
                                 <label for="${currentType}-${field.name}" class="">${model.formMapLabels[field.name]!?cap_first}</label>
                                 </#if>
