@@ -623,7 +623,7 @@
                                             <div class="form-group">
                                                 <#if !gField.isBoolean()>
                                                     <#if gField.isImage() || gField.isFile()>
-                                                    <label for="textinput-modal-${gField.getDbFieldName()}-input"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
+                                                    <label for="textinput-modal-${gField.getDbFieldName()}-button"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                                                     <#else>
                                                     <label for="textinput-modal-${gField.getDbFieldName()}"><#if gField.label?has_content>${gField.label?cap_first}<#else>${gField.name?capitalize}</#if></label>
                                                     </#if>
