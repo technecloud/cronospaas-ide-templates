@@ -197,7 +197,7 @@
                        mask=""</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
                 <#elseif field.getProperty("ngOptions")??>
-            <datasource name="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}"
+            <datasource data-component="crn-datasource" name="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}"
                         entity="${field.getProperty("ngOptions").dataSourceUrl}"
                         keys="${field.getProperty("ngOptions").keys}" class=""
                         schema="${model.getDSSchema(field.getProperty("ngOptions").dataSourceName)}"></datasource>
