@@ -91,10 +91,10 @@
             <#list model.formFields as field>
             <!-- ${field.name} begin -->
                 <#if field.isBoolean() >
-			<div class="component-holder ng-binding ng-scope" data-component="crn-toggle" id="crn-toggle-${field.name}">
-                <label class="item item-toggle">
+			<div class="component-holder ng-binding ng-scope" data-component="crn-checkbox" id="crn-checkbox-${field.name}">
+                <label class="item item-checkbox">
                     <span><#if field.label?has_content>${field.label}<#else>${field.name}</#if></span>
-                    <div for="textinput-${field.name}" class="toggle toggle-assertive">
+                    <div for="textinput-${field.name}" class="checkbox checkbox-assertive">
                         <input aria-label="<#if field.label?has_content>${field.label}<#else>${field.name}</#if>"
                                type="checkbox" ng-model="${model.dataSourceName}.active.${field.name}"
                                id="textinput-${field.name}" name="textinput-${field.name}"
