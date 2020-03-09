@@ -37,10 +37,10 @@
     <ion-content>
         <div class="component-holder ng-binding ng-scope ui-draggable ui-draggable-handle"
              data-component="crn-datasource" id="crn-datasource-906854">
-            <datasource <#if model.hasColumnFilter()>filter=""</#if> name="${model.dataSourceName}"
+            <datasource data-component="crn-datasource" <#if model.hasColumnFilter()>filter=""</#if> name="${model.dataSourceName}"
                         entity="${model.dataSourceFullName}" keys="${model.dataSourcePrimaryKeys}" rows-per-page="10"
                         delete-message="Deseja remover?" class=""
-                        schema="${model.getDSSchema(model.dataSourceName)}"></datasource>
+                        schema="${model.getDSSchema(model.dataSourceName)}" ></datasource>
         </div>
     <#-- Para o filtro model.getGridFilterSearchable()="generalSearch" a regra está no componente "cron-list" -->
   <#if model.hasCronappFramework() || model.hasSearchableFilter()>
@@ -197,7 +197,7 @@
                        mask=""</#if> <#if !field.isNullable()>required="required"</#if>>
             </label>
                 <#elseif field.getProperty("ngOptions")??>
-            <datasource name="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}"
+            <datasource data-component="crn-datasource" name="${field.name!?replace("_", " ")?capitalize?replace(" ", "")}"
                         entity="${field.getProperty("ngOptions").dataSourceUrl}"
                         keys="${field.getProperty("ngOptions").keys}" class=""
                         schema="${model.getDSSchema(field.getProperty("ngOptions").dataSourceName)}"></datasource>
