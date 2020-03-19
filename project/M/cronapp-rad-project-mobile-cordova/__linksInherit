@@ -2,6 +2,5 @@
 ../../project/W/cronapp-rad-project/config
 </#if>
 ../../project/W/cronapp-rad-project/docs
-../../project/W/cronapp-rad-project/diagram
 ../../project/W/cronapp-rad-project/Dockerfile
 ../../project/W/cronapp-rad-project/pom.xml.ftl

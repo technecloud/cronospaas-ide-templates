@@ -11,6 +11,9 @@ import java.net.URL;
 import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+<#if multitenant?? && multitenant?lower_case == "sim">
+import cronapp.framework.tenant.MultitenantJpaTransactionManager;
+</#if>
 
 <#assign persistence_unit_name = workspaceView.getActiveEditor().getDiagram().getGlobalAttribute("namespace")?replace('"','')>
 <#assign persistence_unit_name_formatted = persistence_unit_name?replace('.',' ')?capitalize?replace(' ','')>
@@ -44,7 +47,11 @@ class ${configurationName} {
 
     @Bean(name = "${transactionManagerRef}")
     public PlatformTransactionManager transactionManager() {
+    <#if multitenant?? && multitenant?lower_case == "sim">
+        return new MultitenantJpaTransactionManager();
+    <#else>
         return new JpaTransactionManager(entityManagerFactory().getObject());
+    </#if>
     }
 
     <#if persistence_unit_name == first_pu || first_pu == "">  

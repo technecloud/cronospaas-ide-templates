@@ -13,6 +13,9 @@ import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 </#if>
+<#if multitenant?? && multitenant?lower_case == "sim">
+import cronapp.framework.tenant.MultitenantJpaTransactionManager;
+</#if>
 
 @Configuration
 @EnableTransactionManagement
@@ -29,7 +32,11 @@ public class AppConfiguration {
 
   @Bean(name = "app-TransactionManager")
   public PlatformTransactionManager transactionManager() {
+  <#if multitenant?? && multitenant?lower_case == "sim">
+    return new MultitenantJpaTransactionManager();
+  <#else>
     return new JpaTransactionManager(entityManagerFactory().getObject());
+  </#if>
   }
 
 <#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" || (authentication?lower_case) == "sso" >
