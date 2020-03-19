@@ -17,6 +17,9 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	<#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
 	"cronapp.framework.authentication.mutual",
 	</#if>
+	<#if multitenant?? && multitenant?lower_case == "sim">
+	"cronapp.framework.tenant",
+	</#if>
     "cronapp.framework.scheduler",
 	"auth.permission",
 	"api.rest.events",
@@ -24,7 +27,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	"reports",
 	"cronapi",
 	"blockly",
-<#list workspaceView.allDiagrams as diagram>${diagram.getGlobalAttribute("namespace")}<#if diagram?has_next>, </#if></#list><#list packages as package>${package}<#if package?has_next>, </#if></#list>
+	<#list workspaceView.allDiagrams as diagram>${diagram.getGlobalAttribute("namespace")}<#if diagram?has_next>, </#if></#list><#list packages as package>${package}<#if package?has_next>, </#if></#list>
 })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {

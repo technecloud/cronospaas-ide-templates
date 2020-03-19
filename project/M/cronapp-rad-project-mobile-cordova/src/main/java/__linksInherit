@@ -1,9 +1,11 @@
 <#if (backend??) && (backend?lower_case) == "true" >
 ../../project/W/cronapp-rad-project/src/main/java/app
+<#if ((enterprise!false) == false)>
+../../project/W/cronapp-rad-project/src/main/java/auth
+</#if>
 ../../project/W/cronapp-rad-project/src/main/java/blockly
 ../../project/W/cronapp-rad-project/src/main/java/i18n
 ../../project/W/cronapp-rad-project/src/main/java/SpringBootMain.java.ftl
-../../project/W/cronapp-rad-project/src/main/java/META-INF
 <#if social?? && social?lower_case == "sim">
 ../../project/W/cronapp-rad-project/src/main/java/social.properties
 </#if>

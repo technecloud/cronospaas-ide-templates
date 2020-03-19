@@ -147,6 +147,15 @@ public class User implements Serializable {
   
   private byte[] picture;
 
+  <#if multitenant?? && multitenant?lower_case == "sim">
+  /**
+  * @generated
+  */
+  @ManyToOne
+  @JoinColumn(name="fk_company", referencedColumnName = "id", insertable=true, updatable=true)
+  private Company company;
+
+  </#if>
   /**
    * Construtor
    * @generated
@@ -495,6 +504,28 @@ public class User implements Serializable {
     return this;
   }
 
+<#if multitenant?? && multitenant?lower_case == "sim">
+  /**
+   * Obtém company
+   *
+   * return company
+   * @generated
+   */
+  public Company getCompany(){
+    return this.company;
+  }
+
+  /**
+   * Define company
+   * @param company company
+   * @generated
+   */
+  public User setCompany(Company company){
+    this.company = company;
+    return this;
+  }
+
+</#if>
   /**
    * @generated
    */

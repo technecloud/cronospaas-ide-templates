@@ -35,6 +35,243 @@
       "angle": 0,
       "attributes": [
         "id:java.lang.String",
+        "token:java.lang.String",
+        "platform:java.lang.String",
+        "model:java.lang.String",
+        "platformVersion:java.lang.String",
+        "appName:java.lang.String",
+        "appVersion:java.lang.String"
+      ],
+      "attrs": {
+        ".uml-class-attrs-rect": {
+          "height": 170,
+          "transform": "translate(0,50)"
+        },
+        ".uml-class-attrs-text": {
+          "font-size": 11,
+          "text": "id\ntoken\nplatform\nmodel\nplatformVersion\nappName\nappVersion\n"
+        },
+        ".uml-class-attrs-value": {
+          "font-size": 11,
+          "ref-x": 112.3125,
+          "text": "Texto\nTexto\nTexto\nTexto\nTexto\nTexto\nTexto\n"
+        },
+        ".uml-class-methods-rect": {
+          "height": 30,
+          "transform": "translate(0,220)"
+        },
+        ".uml-class-methods-text": {
+          "fill": "#0066FF",
+          "font-size": 11,
+          "text": ""
+        },
+        ".uml-class-name-rect": {
+          "height": 50,
+          "transform": "translate(0,0)"
+        },
+        ".uml-class-name-text": {
+          "fill": "#000",
+          "font-size": 12,
+          "font-weight": "bold",
+          "text": "Device"
+        },
+        "rect": {
+          "stroke": "yellow",
+          "stroke-width": 2
+        }
+      },
+      "fields": [
+        {
+          "name": "id",
+          "type": "java.lang.String",
+          "dbName": "id",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "UUID.randomUUID().toString().toUpperCase()",
+          "label": "Id",
+          "mask": "",
+          "isPrimaryKey": true,
+          "isUniqueKey": false,
+          "isNullable": false,
+          "pkType": "UUID",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false
+        },
+        {
+          "name": "token",
+          "type": "java.lang.String",
+          "dbName": "token",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
+          "label": "Token",
+          "mask": "",
+          "isPrimaryKey": false,
+          "isUniqueKey": false,
+          "isNullable": true,
+          "pkType": "",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false
+        },
+        {
+          "name": "platform",
+          "type": "java.lang.String",
+          "dbName": "platform",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
+          "label": "Platform",
+          "mask": "",
+          "isPrimaryKey": false,
+          "isUniqueKey": false,
+          "isNullable": true,
+          "pkType": "",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false
+        },
+        {
+          "name": "model",
+          "type": "java.lang.String",
+          "dbName": "model",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
+          "label": "Model",
+          "mask": "",
+          "isPrimaryKey": false,
+          "isUniqueKey": false,
+          "isNullable": true,
+          "pkType": "",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false
+        },
+        {
+          "name": "platformVersion",
+          "type": "java.lang.String",
+          "dbName": "platformVersion",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
+          "label": "Platform Version",
+          "mask": "",
+          "isPrimaryKey": false,
+          "isUniqueKey": false,
+          "isNullable": true,
+          "pkType": "",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false
+        },
+        {
+          "name": "appName",
+          "type": "java.lang.String",
+          "dbName": "appName",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
+          "label": "App Name",
+          "mask": "",
+          "isPrimaryKey": false,
+          "isUniqueKey": false,
+          "isNullable": true,
+          "pkType": "",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false
+        },
+        {
+          "name": "appVersion",
+          "type": "java.lang.String",
+          "dbName": "appVersion",
+          "dbLength": "",
+          "dbPrecision": "",
+          "dbScale": "",
+          "dbDefaultValue": "",
+          "label": "App Version",
+          "mask": "",
+          "isPrimaryKey": false,
+          "isUniqueKey": false,
+          "isNullable": true,
+          "pkType": "",
+          "multitenantContext": "",
+          "jsonIgnore": false,
+          "isTransient": false,
+          "isInsertable": true,
+          "isUpdatable": true,
+          "isEncryption": false,
+          "referencedColumnName": "",
+          "isSearchable": false
+        }
+      ],
+      "id": "d92238a3-a37d-4cc6-a543-d0687dc207cd",
+      "isRest": "true",
+      "methods": [],
+      "multitenantContext": "",
+      "multitenantContextIgnoreEntities": "",
+      "multitenantContextJsonIgnore": "false",
+      "name": "Device",
+      "position": {
+        "x": 602.578125,
+        "y": 54.77777862548828
+      },
+      "queries": [],
+      "restPath": "",
+      "restSecurity": null,
+      "role": "Auto",
+      "runtimeClass": "cronos.widgets.joint.uml.Class",
+      "size": {
+        "height": 162.2265625,
+        "width": 157.5
+      },
+      "tableName": "DEVICE",
+      "tableScheme": null,
+      "type": "uml.Class",
+      "z": 13
+    },
+    {
+      "angle": 0,
+      "attributes": [
+        "id:java.lang.String",
         "builtin:java.lang.Boolean",
         "membershipEnabled:java.lang.Boolean",
         "name:java.lang.String",
@@ -902,7 +1139,7 @@
         "userName"
       ],
       "position": {
-        "x": 472.5,
+        "x": 288.078125,
         "y": 0
       },
       "primaryKeys": [
@@ -942,250 +1179,6 @@
       "type": "uml.Class",
       "uniqueKeys": [],
       "z": 2
-    },
-    {
-      "angle": 0,
-      "attributes": [
-        "id:java.lang.String",
-        "role:Role",
-        "user:User"
-      ],
-      "attrs": {
-        ".uml-class-attrs-rect": {
-          "height": 90,
-          "transform": "translate(0,50)"
-        },
-        ".uml-class-attrs-text": {
-          "font-size": 11,
-          "text": "id\nrole\nuser\n"
-        },
-        ".uml-class-attrs-value": {
-          "font-size": 11,
-          "ref-x": 60.828125,
-          "text": "Texto\nRole\nUser\n"
-        },
-        ".uml-class-methods-rect": {
-          "height": 30,
-          "transform": "translate(0,140)"
-        },
-        ".uml-class-methods-text": {
-          "fill": "#0066FF",
-          "font-size": 11,
-          "text": ""
-        },
-        ".uml-class-name-rect": {
-          "height": 50,
-          "transform": "translate(0,0)"
-        },
-        ".uml-class-name-text": {
-          "fill": "#000",
-          "font-size": 12,
-          "font-weight": "bold",
-          "text": "UserRole"
-        },
-        "rect": {
-          "stroke": "yellow",
-          "stroke-width": 2
-        }
-      },
-      "dbFieldNames": [
-        "id",
-        "role_id",
-        "user_id"
-      ],
-      "dbLengths": [
-        255,
-        255,
-        255
-      ],
-      "dbPrecisions": [
-        "",
-        "",
-        ""
-      ],
-      "dbScales": [
-        "",
-        "",
-        ""
-      ],
-      "fields": [
-        {
-          "name": "id",
-          "type": "java.lang.String",
-          "dbName": "id",
-          "dbLength": 255,
-          "dbPrecision": "",
-          "dbScale": "",
-          "label": "Id",
-          "mask": "",
-          "isPrimaryKey": true,
-          "isUniqueKey": false,
-          "isNullable": false,
-          "pkType": "None",
-          "sequence": ""
-        },
-        {
-          "name": "role",
-          "type": "Role",
-          "dbName": "role_id",
-          "dbLength": 255,
-          "dbPrecision": "",
-          "dbScale": "",
-          "label": "Role",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": false
-        },
-        {
-          "name": "user",
-          "type": "User",
-          "dbName": "user_id",
-          "dbLength": 255,
-          "dbPrecision": "",
-          "dbScale": "",
-          "label": "User",
-          "mask": "",
-          "isPrimaryKey": false,
-          "isUniqueKey": false,
-          "isNullable": false
-        }
-      ],
-      "id": "36b875ac-204a-4346-82e4-aabbd2c6b202",
-      "isRest": "true",
-      "keyTypes": [
-        "None",
-        "None",
-        "None"
-      ],
-      "labels": [
-        "Id",
-        "Role",
-        "User"
-      ],
-      "methods": [],
-      "modelType": "Table",
-      "name": "UserRole",
-      "nullables": [
-        "id",
-        "role",
-        "user"
-      ],
-      "position": {
-        "x": 263.17578125,
-        "y": 332.64206314086914
-      },
-      "primaryKeys": [
-        "id"
-      ],
-      "queries": [],
-      "requireds": [],
-      "restSecurity": {
-        "delete": "Administrators",
-        "get": "Administrators",
-        "post": "Administrators",
-        "put": "Administrators"
-      },
-      "runtimeClass": "cronos.widgets.joint.uml.Class",
-      "sequences": [
-        "",
-        "",
-        ""
-      ],
-      "size": {
-        "height": 118.69715118408203,
-        "width": 106.015625
-      },
-      "tableName": "USER_ROLE",
-      "type": "uml.Class",
-      "uniqueKeys": [],
-      "z": 2
-    },
-    {
-      "attrs": {
-        ".marker-source": {
-          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
-          "fill": "#cecece"
-        },
-        ".marker-target": {
-          "d": "",
-          "fill": ""
-        }
-      },
-      "id": "359a1300-b12d-4b93-8f56-f647690695cd",
-      "labels": [
-        {
-          "position": 0.9,
-          "attrs": {
-            "rect": {
-              "fill": "transparent"
-            },
-            "text": {
-              "text": "*",
-              "font-family": "Arial",
-              "font-size": "12px",
-              "fill": "#cecece"
-            }
-          }
-        }
-      ],
-      "queries": [],
-      "relationFields": [
-        "role:target"
-      ],
-      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
-      "source": {
-        "id": "dcc00b32-aa33-47bd-bc4d-91da88f25cbc"
-      },
-      "target": {
-        "id": "36b875ac-204a-4346-82e4-aabbd2c6b202"
-      },
-      "type": "uml.Composition",
-      "vertices": [],
-      "z": "4"
-    },
-    {
-      "attrs": {
-        ".marker-source": {
-          "d": "M 40 10 L 20 20 L 0 10 L 20 0 z",
-          "fill": "#cecece"
-        },
-        ".marker-target": {
-          "d": "",
-          "fill": ""
-        }
-      },
-      "id": "64cb7f66-644c-42b3-b23b-133028df61e3",
-      "labels": [
-        {
-          "position": 0.9,
-          "attrs": {
-            "rect": {
-              "fill": "transparent"
-            },
-            "text": {
-              "text": "*",
-              "font-family": "Arial",
-              "font-size": "12px",
-              "fill": "#cecece"
-            }
-          }
-        }
-      ],
-      "queries": [],
-      "relationFields": [
-        "user:target"
-      ],
-      "runtimeClass": "cronos.widgets.joint.arrow.OneToMany",
-      "source": {
-        "id": "fbe4a477-8332-4235-a9a2-5db4a56fa3d0"
-      },
-      "target": {
-        "id": "36b875ac-204a-4346-82e4-aabbd2c6b202"
-      },
-      "type": "uml.Composition",
-      "vertices": [],
-      "z": "4"
     }
   ],
   "selectedGroup": "1d7f906f-a526-482d-aaf4-08d227ae8c18",
@@ -1199,7 +1192,6 @@
       "name": "",
       "id": "1d7f906f-a526-482d-aaf4-08d227ae8c18",
       "cells": [
-        "36b875ac-204a-4346-82e4-aabbd2c6b202",
         "dcc00b32-aa33-47bd-bc4d-91da88f25cbc",
         "fbe4a477-8332-4235-a9a2-5db4a56fa3d0"
       ]
