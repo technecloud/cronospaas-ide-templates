@@ -14,3 +14,6 @@ path=/java
 path=/java
 </#if>
 path=/mobileapp
+<#if (authentication??) >
+path=/auth/permission
+</#if>
