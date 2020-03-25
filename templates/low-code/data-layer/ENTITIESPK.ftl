@@ -10,9 +10,9 @@ import ${import};
 </#list>
 <#if subPackage??>import ${entityPackage}.*;</#if>
 <#list clazz.subPackageToImport as subPackageToImport>
-<#if subPackage?? && subPackageToImport != subPackage >
+  <#if subPackage?? && subPackageToImport != subPackage >
 import ${entityPackage}.${subPackageToImport}.*;
-</#if>
+  </#if>
 </#list>
 <#if (clazz.multitenantClass)>
 import org.eclipse.persistence.annotations.*;
@@ -28,28 +28,28 @@ public class ${clazz.name + "PK"} implements Serializable {
   * @generated
   */
   private static final long serialVersionUID = 1L;
-  <#list clazz.ajustedPrimaryKeys as field>
+<#list clazz.adjustedPrimaryKeys as field>
   <#assign name = "${field.name}">
   <#if field.getProperty("FOREIGN")??>
     <#if name?contains('_')>
       <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
     </#if>
   </#if>
-  
+
   /**
    * @generated
    */
   ${field.modifier} <#if field.arrayRelation>${field.type}<#elseif field.isTypeOfForeignClass()>${field.type + "PK"}<#else>${field.type}</#if> ${name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
-  </#list>
-  
+</#list>
+
   /**
    * Construtor
    * @generated
    */
   public ${clazz.name + "PK"}(){
   }
-  
-  <#list clazz.ajustedPrimaryKeys as field>
+
+<#list clazz.adjustedPrimaryKeys as field>
   <#assign name = "${field.name}">
   <#if field.getProperty("FOREIGN")??>
     <#if name?contains('_')>
@@ -64,7 +64,7 @@ public class ${clazz.name + "PK"} implements Serializable {
   public <#if field.isTypeOfForeignClass()>${field.type + "PK"}<#else>${field.type}</#if> get${name?cap_first}(){
     return this.${name};
   }
-  
+
   /**
    * Define ${name}
    * @param ${name} ${name}
@@ -74,8 +74,8 @@ public class ${clazz.name + "PK"} implements Serializable {
     this.${name} = ${name};
     return this;
   }
-  </#list>
-  
+</#list>
+
   /**
    * @generated
    */
@@ -83,36 +83,36 @@ public class ${clazz.name + "PK"} implements Serializable {
   public boolean equals(Object obj) {
     if (this == obj) return true;
     if (obj == null || getClass() != obj.getClass()) return false;
-    ${clazz.name + "PK"} object = (${clazz.name + "PK"})obj;
-    <#list clazz.ajustedPrimaryKeys as field>
-    <#assign name = "${field.name}">
-    <#if field.getProperty("FOREIGN")??>
-      <#if name?contains('_')>
-        <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
-      </#if>
+${clazz.name + "PK"} object = (${clazz.name + "PK"})obj;
+<#list clazz.adjustedPrimaryKeys as field>
+  <#assign name = "${field.name}">
+  <#if field.getProperty("FOREIGN")??>
+    <#if name?contains('_')>
+      <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
     </#if>
+  </#if>
     if (${name} != null ? !${name}.equals(object.${name}) : object.${name} != null) return false;
-    </#list>
+</#list>
     return true;
   }
-  
+
   /**
    * @generated
    */
   @Override
   public int hashCode() {
     int result = 1;
-    <#list clazz.ajustedPrimaryKeys as field>
-    <#assign name = "${field.name}">
-    <#if field.getProperty("FOREIGN")??>
-      <#if name?contains('_')>
-        <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
-      </#if>
+<#list clazz.adjustedPrimaryKeys as field>
+  <#assign name = "${field.name}">
+  <#if field.getProperty("FOREIGN")??>
+    <#if name?contains('_')>
+      <#assign name = "${field.name?string[0..field.name?index_of('_') - 1]}">
     </#if>
-    <#if !field.isTypePrimitive()>
+  </#if>
+  <#if !field.isTypePrimitive()>
     result = 31 * result + ((${name} == null) ? 0 : ${name}.hashCode());
-    </#if>
-    </#list>
+  </#if>
+</#list>
     return result;
   }
 

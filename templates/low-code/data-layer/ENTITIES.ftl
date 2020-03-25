@@ -24,17 +24,17 @@ import cronapi.database.ByteConverter;
     </#if>
 </#list>
 <#if hasCronappFramework && isExistsEncrypt>
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 </#if>
 <#assign hasCloudStorage = clazz.hasCloudStorage()>
 <#if hasCloudStorage>
-import cronapi.CronapiCloud;
+    import cronapi.CronapiCloud;
 </#if>
 <#if clazz.hasSearchable()>
-import cronapi.CronapiSearchable;
+    import cronapi.CronapiSearchable;
 </#if>
 <#if clazz.hasFileDataBase()>
-import cronapi.CronapiByteHeaderSignature;
+    import cronapi.CronapiByteHeaderSignature;
 </#if>
 <#list clazz.imports as import>
     import ${import};
@@ -58,22 +58,22 @@ import org.eclipse.persistence.annotations.*;
 @IdClass(${clazz.name + 'PK'}.class)
 </#if>
 @Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\""<#if schemeName??>, schema="\"<#if persistenceProvider == "oracle">${schemeName?upper_case}<#else>${schemeName}</#if>\"" </#if><#if (clazz.fieldsUniqueKey?size > 0) > ,uniqueConstraints=@UniqueConstraint(columnNames={
-<#list clazz.fieldsUniqueKey as field>"${field.dbFieldName}" <#if field?has_next>,</#if></#list>})</#if>)
+    <#list clazz.fieldsUniqueKey as field>"${field.dbFieldName}" <#if field?has_next>,</#if></#list>})</#if>)
 @XmlRootElement
 <#if clazz.rest>
 @CronappSecurity<#if restSecurityDescription??>(${restSecurityDescription})</#if>
 </#if>
 <#if (clazz.multitenantClass)>
 @Multitenant(MultitenantType.SINGLE_TABLE)
-<#if (clazz.multitententFields?size > 1)>
+    <#if (clazz.multitententFields?size > 1)>
 @TenantDiscriminatorColumns({
-</#if>
-<#list clazz.multitententFields as field>
+    </#if>
+    <#list clazz.multitententFields as field>
 @TenantDiscriminatorColumn(name = "${field.dbFieldName}", contextProperty = "${field.multitenantContext}")<#if field_has_next>,</#if>
-</#list>
-<#if (clazz.multitententFields?size > 1)>
+    </#list>
+    <#if (clazz.multitententFields?size > 1)>
 })
-</#if>
+    </#if>
 </#if>
 @JsonFilter("${entityPackage}<#if subPackage??>.${subPackage}</#if>.${clazz.name}")
 <#if clazz.listeners??>
@@ -99,128 +99,128 @@ public class ${clazz.name} implements Serializable {
     * @generated
     */
     private static final String ENCRYPT = "$2a$10$";
-    </#if>
+</#if>
 
     /**
     * UID da classe, necessário na serialização
     * @generated
     */
     private static final long serialVersionUID = 1L;
-    <#list clazz.fields as field>
+<#list clazz.fields as field>
     <#if field.primaryKey>
-    <#assign name = "${field.name}">
+        <#assign name = "${field.name}">
 
     /**
     * @generated
     */
     @Id
-    <#if field.generationType?? && field.generationType == "Identity">
-    <#if persistenceProvider == "mysql">
+        <#if field.generationType?? && field.generationType == "Identity">
+            <#if persistenceProvider == "mysql">
     @GeneratedValue(strategy = GenerationType.AUTO)
-    <#else>
+            <#else>
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    </#if>
-    </#if>
-    <#if field.isVersion()>
+            </#if>
+        </#if>
+        <#if field.isVersion()>
     @Version
-    <#elseif field.isDate()>
+        <#elseif field.isDate()>
     @Temporal(TemporalType.DATE)
-    <#elseif field.isTime()>
+        <#elseif field.isTime()>
     @Temporal(TemporalType.TIME)
-    <#elseif field.isTimestamp()>
+        <#elseif field.isTimestamp()>
     @Temporal(TemporalType.TIMESTAMP)
-    </#if>
-    <#if (field.relationNames?size == 1)>
-    <#list field.relationNames?keys as key>
-    <#if key??>
+        </#if>
+        <#if (field.relationNames?size == 1)>
+            <#list field.relationNames?keys as key>
+                <#if key??>
     @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
-    </#if>
-    </#list>
-    <#elseif (field.relationNames?size > 1)>
-    <#assign i= field.relationNames?size>
+                </#if>
+            </#list>
+        <#elseif (field.relationNames?size > 1)>
+            <#assign i= field.relationNames?size>
     @JoinColumns({
-    <#list field.relationNames?keys as key>
-    <#if key??>
+            <#list field.relationNames?keys as key>
+                <#if key??>
     @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
-    <#if (i>1)>,</#if>
-    </#if>
-    <#assign i = i-1>
-    </#list>
+                    <#if (i>1)>,</#if>
+                </#if>
+                <#assign i = i-1>
+            </#list>
     })
-    <#else>
+        <#else>
     @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c}<#if field.columnDefinition??>, columnDefinition = "${field.columnDefinition}"</#if>)
+        </#if>
+        ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
     </#if>
-    ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${name}<#if field.defaultValue?has_content> = ${field.defaultValue}<#elseif field.primaryKey && field.generationType?? && field.generationType == "UUID"> = UUID.randomUUID().toString().toUpperCase()</#if>;
-</#if>
 </#list>
 <#list clazz.fields as field>
-<#if !field.primaryKey>
+    <#if !field.primaryKey>
 
     /**
     * @generated
     */
-    <#if (field.rowVersion)!false>
+        <#if (field.rowVersion)!false>
     @Convert("version")
-    </#if>
-    <#if (field.XML)!false>
+        </#if>
+        <#if (field.XML)!false>
     @Convert("bytes")
-    </#if>
-    <#if field.relation>
+        </#if>
+        <#if field.relation>
     @OneToOne
-    <#elseif field.reverseRelation>
+        <#elseif field.reverseRelation>
     @ManyToOne
-    </#if>
-    <#if (field.relationNames?size == 1)>
-    <#list field.relationNames?keys as key>
-    <#if key??>
+        </#if>
+        <#if (field.relationNames?size == 1)>
+            <#list field.relationNames?keys as key>
+                <#if key??>
     @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c}<#if field.cascade>, foreignKey = @ForeignKey(name = "<#if tableName??>${tableName}<#else>${clazz.name?upper_case}</#if>_${key?upper_case}_${field.dbTableRelationClazz}_${field.relationNames[key]?upper_case}", foreignKeyDefinition = "FOREIGN KEY (${key}) REFERENCES ${field.dbTableRelationClazz} (${field.relationNames[key]}) ON DELETE CASCADE")</#if>)
-    </#if>
-    </#list>
-    <#elseif (field.relationNames?size > 1)>
-    <#assign i= field.relationNames?size>
+                </#if>
+            </#list>
+        <#elseif (field.relationNames?size > 1)>
+            <#assign i= field.relationNames?size>
     @JoinColumns({
-    <#list field.relationNames?keys as key>
-    <#if key??>
+            <#list field.relationNames?keys as key>
+                <#if key??>
     @JoinColumn(name="${key}", nullable = ${field.nullable?c}, referencedColumnName = "${field.relationNames[key]}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
-    <#if (i>1)>,</#if>
-    </#if>
-    <#assign i = i-1>
-    </#list>
+                    <#if (i>1)>,</#if>
+                </#if>
+                <#assign i = i-1>
+            </#list>
     })
-    <#elseif field.arrayRelation>
+        <#elseif field.arrayRelation>
     @OneToMany(fetch = FetchType.LAZY, mappedBy="${field.mappedBy}", insertable=${field.insertable?c}, updatable=${field.updatable?c})
-    <#else>
-    <#if field.transient>
+        <#else>
+            <#if field.transient>
     @Transient
-    <#else>
-    <#if field.isVersion()>
+            <#else>
+                <#if field.isVersion()>
     @Version
-    <#elseif field.isDate()>
+                <#elseif field.isDate()>
     @Temporal(TemporalType.DATE)
-    <#elseif field.isTime()>
+                <#elseif field.isTime()>
     @Temporal(TemporalType.TIME)
-    <#elseif field.isTimestamp()>
+                <#elseif field.isTimestamp()>
     @Temporal(TemporalType.TIMESTAMP)
-    </#if>
+                </#if>
     @Column(name = "${field.dbFieldName}", nullable = ${field.nullable?c}<#if !field.primaryKey>, unique = ${field.unique?c}</#if><#if field.length??>, length=${field.length?c}</#if><#if field.precision??>, precision=${field.precision?c}</#if><#if field.scale??>, scale=${field.scale?c}</#if>, insertable=${field.insertable?c}, updatable=${field.updatable?c}<#if field.columnDefinition??>, columnDefinition = "${field.columnDefinition}"</#if>)
-    </#if>
-    </#if>
-    <#if (field.ignore)>
+            </#if>
+        </#if>
+        <#if (field.ignore)>
     @JsonIgnore
-    </#if>
-    <#if field.isDropbox()>
+        </#if>
+        <#if field.isDropbox()>
     @CronapiCloud(type = "dropbox", value="${clazz.getCloudStorage().getAccessToken()}")
-    </#if>
-    <#if field.isFileDataBase()>
+        </#if>
+        <#if field.isFileDataBase()>
     @CronapiByteHeaderSignature
-    </#if>
-    <#if field.isSearchable()>
+        </#if>
+        <#if field.isSearchable()>
     @CronapiSearchable
+        </#if>
+        ${field.securityAnnotation}
+        ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
     </#if>
-    ${field.securityAnnotation}
-    ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
-    </#if>
-    </#list>
+</#list>
 
     /**
     * Construtor
@@ -229,7 +229,7 @@ public class ${clazz.name} implements Serializable {
     public ${clazz.name}(){
     }
 
-    <#list clazz.fields as field>
+<#list clazz.fields as field>
     <#assign name = "${field.name}">
     /**
     * Obtém ${name}
@@ -247,13 +247,13 @@ public class ${clazz.name} implements Serializable {
     * @generated
     */
     public ${clazz.name} set${name?cap_first}(${field.type} ${name}){
-        <#if field.isEncryption() && hasCronappFramework>
+    <#if field.isEncryption() && hasCronappFramework>
         ${name} = ${name}.startsWith(ENCRYPT) ? ${name} : new BCryptPasswordEncoder().encode(${name});
-        </#if>
+    </#if>
         this.${name} = ${name};
         return this;
     }
-    </#list>
+</#list>
 
     /**
     * @generated
@@ -262,13 +262,13 @@ public class ${clazz.name} implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        ${clazz.name} object = (${clazz.name})obj;
-        <#list clazz.fields as field>
-        <#if field.primaryKey>
+${clazz.name} object = (${clazz.name})obj;
+<#list clazz.fields as field>
+    <#if field.primaryKey>
         <#assign name = "${field.name}">
         if (${name} != null ? !${name}.equals(object.${name}) : object.${name} != null) return false;
-        </#if>
-        </#list>
+    </#if>
+</#list>
         return true;
     }
 
@@ -278,12 +278,12 @@ public class ${clazz.name} implements Serializable {
     @Override
     public int hashCode() {
         int result = 1;
-        <#list clazz.fields as field>
-        <#if field.primaryKey && !field.isTypePrimitive()>
+<#list clazz.fields as field>
+    <#if field.primaryKey && !field.isTypePrimitive()>
         <#assign name = "${field.name}">
         result = 31 * result + ((${name} == null) ? 0 : ${name}.hashCode());
-        </#if>
-        </#list>
+    </#if>
+</#list>
         return result;
     }
 
