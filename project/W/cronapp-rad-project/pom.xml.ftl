@@ -126,7 +126,7 @@
         <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>cronapi-java</artifactId>
-            <version>2.4.0-SNAPSHOT</version>
+            <version>2.5.0-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <artifactId>commons-lang3</artifactId>
@@ -141,7 +141,7 @@
         <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>cronapp-framework-java</artifactId>
-            <version>2.4.0-SNAPSHOT</version>
+            <version>2.5.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.cronapp</groupId>
@@ -151,7 +151,7 @@
         <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>olingo-odata2-jpa-processor-core</artifactId>
-            <version>2.4.0-SNAPSHOT</version>
+            <version>2.5.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
