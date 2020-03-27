@@ -57,6 +57,15 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+
+        <preference name="WKWebViewOnly" value="true" />
+
+        <feature name="CDVWKWebViewEngine">
+            <param name="ios-package" value="CDVWKWebViewEngine" />
+        </feature>
+
+        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+
         <#if iosIconList?has_content>
             <#list iosIconList as iosIcon>
                 <icon height="${iosIcon.height?string["0"]}" src="res/icon/ios/${iosIcon.file}" width="${iosIcon.width?string["0"]}" />
@@ -105,5 +114,5 @@
 
 
     </platform>
-    <plugin name="cordova-plugin-cronapp" spec="https://github.com/cronapp/cordova-plugin-cronapp.git#241329b2634dd1b2a1fdf57c873d75d21cf7e2d3"/>
+    <plugin name="cordova-plugin-cronapp" spec="https://github.com/cronapp/cordova-plugin-cronapp.git#develop"/>
 </widget>
