@@ -328,8 +328,8 @@
                     <#assign keysDs = "">
                     <#if model.getManyToManyRelationship(field.getName())?? && model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz()??>
                         <#assign relationClassName = "${model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz()}">
-                        <#if model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAjustedFullPrimaryKeys()??>
-                            <#assign keysDs = "${model.getJoinKeys(model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAjustedFullPrimaryKeys())}">
+                        <#if model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAdjustedFullPrimaryKeys()??>
+                            <#assign keysDs = "${model.getJoinKeys(model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAdjustedFullPrimaryKeys())}">
                         </#if>
                     </#if>
 
@@ -347,7 +347,7 @@
                     </datasource>
 
                     <#if !field.getProperty("NToNOption")?has_content || field.getProperty("NToNOption") == "Lista">
-                        <datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getRelationClazz().getName()}" keys="${model.getJoinKeys(field.getRelationClazz().getAjustedFullPrimaryKeys())}" schema="${model.getDSSchema(field.getName())}"></datasource>
+                        <datasource data-component="crn-datasource" name="${field.getName()}NCombo" entity="${model.namespace}.${field.getRelationClazz().getName()}" keys="${model.getJoinKeys(field.getRelationClazz().getAdjustedFullPrimaryKeys())}" schema="${model.getDSSchema(field.getName())}"></datasource>
                         <div class="component-holder ng-binding ng-scope " data-component="crn-enterprise-combobox-multiple" ng-show="datasource.editing || datasource.inserting" >
                             <div class="form-group">
                                 <label for="combobox${field.getName()}-container">${field.getName()?cap_first}</label>
@@ -428,7 +428,7 @@
                             <#if gField.isReverseRelation() || gField.isRelation() >
                                 <#if (field.getDbFieldName() != gField.getDbFieldName())>
                                     <#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridCombo">
-                                    <datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAjustedFullPrimaryKeys())}" rows-per-page="100" schema="${model.getDSSchema(gField.getRelationClazz().getName())}"></datasource>
+                                    <datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAdjustedFullPrimaryKeys())}" rows-per-page="100" schema="${model.getDSSchema(gField.getRelationClazz().getName())}"></datasource>
                                 </#if>
                             </#if>
                         </#if>

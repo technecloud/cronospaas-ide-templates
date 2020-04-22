@@ -271,8 +271,8 @@
                 <#assign keysDs = "">
                 <#if model.getManyToManyRelationship(field.getName())?? && model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz()??>
                     <#assign relationClassName = "${model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz()}">
-                    <#if model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAjustedFullPrimaryKeys()??>
-                        <#assign keysDs = "${model.getJoinKeys(model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAjustedFullPrimaryKeys())}">
+                    <#if model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAdjustedFullPrimaryKeys()??>
+                        <#assign keysDs = "${model.getJoinKeys(model.getManyToManyRelationship(field.getName()).getRelationClassField().getClazz().getAdjustedFullPrimaryKeys())}">
                     </#if>
                 </#if>
 
@@ -291,7 +291,7 @@
               data-component="crn-datasource"
               name="All${field.getName()}"
               entity="${model.namespace}.${field.getName()}"
-              keys="${model.getJoinKeys(field.getClazz().getAjustedFullPrimaryKeys())}"
+              keys="${model.getJoinKeys(field.getClazz().getAdjustedFullPrimaryKeys())}"
               schema="${model.getDSSchema(field.getName())}">
       </datasource>
             <label class="item item-input item-select component-holder" data-component="crn-multiselect">
