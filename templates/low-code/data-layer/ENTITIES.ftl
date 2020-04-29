@@ -57,7 +57,7 @@ import org.eclipse.persistence.annotations.*;
 <#if clazz.hasCompositeKey()>
 @IdClass(${clazz.name + 'PK'}.class)
 </#if>
-@Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\""<#if schemeName??>, schema="\"<#if persistenceProvider == "oracle">${schemeName?upper_case}<#else>${schemeName}</#if>\"" </#if><#if (clazz.fieldsUniqueKey?size > 0) > ,uniqueConstraints=@UniqueConstraint(columnNames={
+@Table(name = "\"<#if tableName??><#if persistenceProvider == "oracle">${tableName?upper_case}<#else>${tableName}</#if><#else>${clazz.name?upper_case}</#if>\""<#if schemeName??>, schema="\"<#if persistenceProvider == "oracle">${schemeName?upper_case}<#else>${schemeName}</#if>\"" </#if><#if (clazz.fieldsUniqueKey?size > 0) > ,uniqueConstraints=@UniqueConstraint(name="UNQ_<#if tableName??>${tableName}<#else>${clazz.name?upper_case}</#if>_0", columnNames={
     <#list clazz.fieldsUniqueKey as field>"${field.dbFieldName}" <#if field?has_next>,</#if></#list>})</#if>)
 @XmlRootElement
 <#if clazz.rest>
