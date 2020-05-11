@@ -8,7 +8,7 @@ path.content=/webapp-sem-autenticacao
 	</#if>
 	<#if (frontend?lower_case) == "true" || (backend?lower_case) == "true" >
 path=/java
-		<#if (authentication?lower_case) == "sso" && (enterprise)!false >
+		<#if (authentication?lower_case == "sso" || authentication?lower_case == "saml") && (enterprise)!false >
 path=/resources
 		</#if>
 	</#if>
@@ -16,7 +16,7 @@ path=/resources
 <#else> 
 path.content=/webapp-autenticacao
 path=/java
-	<#if authentication?? && authentication?lower_case == "sso" && (enterprise)!false >
+	<#if authentication?? && (authentication?lower_case == "sso" || authentication?lower_case == "saml") && (enterprise)!false >
 path=/resources
 	</#if>
 </#if>

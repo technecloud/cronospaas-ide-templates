@@ -16,7 +16,7 @@
                         <ul class="list-inline center-block text-center">
                         </ul>
                     </div>
-                    <#if authentication?lower_case != "sso">
+                    <#if authentication?lower_case != "sso" && authentication?lower_case != "saml">
                     <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-283724">
                         <div class="form-group">
                             <label for="input7274">{{'Login.view.Username' | translate}}</label>
@@ -38,7 +38,7 @@
                                 {{message.error}}
                             </div>
                         </div>
-                        <#if authentication?lower_case == "sso" && (enterprise)!false>
+                        <#if (authentication?lower_case == "sso" || authentication?lower_case == "saml") && (enterprise)!false>
                         <a role="button" aria-label="{{'Login.view.Login' | translate}}" href="#" class="btn btn-default cron-link col-md-12 col-xs-12 k-button btn-primary" target="_self" data-replace="true" data-component="crn-anchor" ng-click="redirectToLogin()">
                             <span>{{"Login.view.Login" | translate}} </span>
                         </a>
