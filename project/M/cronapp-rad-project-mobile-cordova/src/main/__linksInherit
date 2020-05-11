@@ -9,6 +9,6 @@
 <#-- Caso contrario copiar tudo -->
 <#else> 
 </#if>
-<#if authentication?? && authentication?lower_case == "sso" && (enterprise)!false >
+<#if authentication?? && (authentication?lower_case == "sso" || authentication?lower_case == "saml") && (enterprise)!false >
 ../../project/W/cronapp-rad-project/src/main/resources
 </#if>

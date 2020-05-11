@@ -5,7 +5,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.*;
 import org.springframework.transaction.*;
 import org.springframework.transaction.annotation.*;
-<#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" || (authentication?lower_case) == "sso">
+<#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" || (authentication?lower_case) == "sso" || authentication?lower_case == "saml">
 import org.springframework.core.io.*;
 import org.springframework.data.repository.init.*;
 import java.net.URL;
@@ -32,7 +32,7 @@ public class AppConfiguration {
     return new JpaTransactionManager(entityManagerFactory().getObject());
   }
 
-<#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" || (authentication?lower_case) == "sso" >
+<#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" || (authentication?lower_case) == "sso" || authentication?lower_case == "saml" >
   @Bean
   public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() {
     Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
