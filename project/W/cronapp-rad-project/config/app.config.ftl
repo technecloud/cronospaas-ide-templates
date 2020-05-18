@@ -10,5 +10,8 @@
   "security": {
     "token": "${tokenb64}",
     "tokenExpiration": 3600
+  },
+  "auth": {
+    "type": "${authentication}"
   }
 }
