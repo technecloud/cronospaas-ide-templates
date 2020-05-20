@@ -423,16 +423,6 @@
                             lazy=true>
                     </datasource>
                     <!-- teste -->
-                    <#list field.getClazz().getFields() as gField>
-                        <#if model.hasCronappFramework()>
-                            <#if gField.isReverseRelation() || gField.isRelation() >
-                                <#if (field.getDbFieldName() != gField.getDbFieldName())>
-                                    <#assign dataSourceCombo = "${gField.getRelationClazz().getName()}GridCombo">
-                                    <datasource data-component="crn-datasource" name="${dataSourceCombo}" entity="${model.namespace}.${gField.getRelationClazz().getName()}" keys="${model.getJoinKeys(gField.getRelationClazz().getAdjustedFullPrimaryKeys())}" rows-per-page="100" schema="${model.getDSSchema(gField.getRelationClazz().getName())}"></datasource>
-                                </#if>
-                            </#if>
-                        </#if>
-                    </#list>
                     <h2 class="lead component-holder text-left" data-component="crn-subtitle"><#if field.getClazz()?? && field.getClazz().getRealName()?? && field.getClazz().getRealName()?has_content>${field.getClazz().getRealName()}<#else>${field.getName()}</#if> </h2>
                     <div class="component-holder ng-binding ng-scope" data-component="crn-cron-grid" id="crn-grid-${field.getName()}Grid-${model.random}">
                         <#assign classname = "${field.clazz.name}">
@@ -443,7 +433,6 @@
                 <!-- OneToOne  end -->
             </div>
         </form>
-        &ensp;
     </section>
 </div>
 
