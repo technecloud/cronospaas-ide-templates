@@ -145,7 +145,7 @@ public class User implements Serializable {
   */
   @Column(name = "picture", nullable = true, unique = false, length=255, insertable=true, updatable=true)
   
-  private byte[] picture;
+        private java.lang.String picture;
 
   /**
    * Construtor
@@ -481,7 +481,7 @@ public class User implements Serializable {
    * @generated
    */
   
-  public byte[] getPicture(){
+  public java.lang.String getPicture(){
     return this.picture;
   }
 
@@ -490,7 +490,7 @@ public class User implements Serializable {
    * @param picture picture
    * @generated
    */
-  public User setPicture(byte[] picture){
+  public User setPicture(java.lang.String picture){
     this.picture = picture;
     return this;
   }

@@ -1642,7 +1642,7 @@
         "twoFactorEnabled:java.lang.Boolean",
         "userName:java.lang.String",
         "theme:java.lang.String",
-        "picture:Image Upload (to Database)"
+        "picture:java.lang.String"
       ],
       "attrs": {
         ".uml-class-attrs-rect": {
@@ -1655,8 +1655,8 @@
         },
         ".uml-class-attrs-value": {
           "font-size": 11,
-          "ref-x": 154.40625,
-          "text": "Texto\nInteiro\nTexto\nLógico\nLógico\nData e Hora\nTexto\nTexto\nTexto\nTexto\nTexto\nLógico\nTexto\nLógico\nTexto\nTexto\nImagem no Banco\n"
+          "ref-x": 154.453125,
+          "text": "Texto\nInteiro\nTexto\nLógico\nLógico\nData e Hora\nTexto\nTexto\nTexto\nTexto\nTexto\nLógico\nTexto\nLógico\nTexto\nTexto\nTexto\n"
         },
         ".uml-class-methods-rect": {
           "height": 30,
@@ -2170,7 +2170,7 @@
         },
         {
           "name": "picture",
-          "type": "Image Upload (to Database)",
+          "type": "java.lang.String",
           "dbName": "picture",
           "dbLength": 255,
           "dbPrecision": "",
@@ -2285,8 +2285,8 @@
         ""
       ],
       "size": {
-        "height": 272.05555725097656,
-        "width": 260.640625
+        "height": 271.67274475097656,
+        "width": 230.765625
       },
       "tableName": "USER",
       "type": "uml.Class",
