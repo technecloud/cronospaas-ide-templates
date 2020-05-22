@@ -14,8 +14,8 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
 	"cronapp.framework.authentication.security",
 	"cronapp.framework.rest",
-	<#if multitenant?? && multitenant?lower_case == "sim">
-	"cronapp.framework.tenant",
+	<#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
+	"cronapp.framework.authentication.mutual",
 	</#if>
     "cronapp.framework.scheduler",
 	"auth.permission",
@@ -30,7 +30,11 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class SpringBootMain extends SpringBootServletInitializer {
 
     static {
+    	<#if timezone?? && timezone?lower_case != "utc">
+        TimeZone.setDefault(TimeZone.getTimeZone("${timezone}"));
+        <#else>
         TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
+        </#if>
     }
 
 	public static void main(String[] args) throws Exception {

@@ -1,17 +1,9 @@
 <#-- Verificar se existem parametros -->
 <#if (authentication??) >
-	<#if (authentication?lower_case) != "nenhuma">
-		<#if multitenant?? && multitenant?lower_case == "sim">
-path.content=/multitenant
-		<#else>
+    <#if (authentication?lower_case) != "nenhuma">
 file=app.umlcd
-		</#if>
-	</#if>
+    </#if>
 <#-- Caso contrario copiar tudo -->
-<#else> 
-	<#if multitenant?? && multitenant?lower_case == "sim">
-path.content=/multitenant
-	<#else>
+<#else>
 file=app.umlcd
-	</#if>
 </#if>

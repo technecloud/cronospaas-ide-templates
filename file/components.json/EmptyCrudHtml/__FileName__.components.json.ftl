@@ -8,7 +8,7 @@
 			"text_en_US": "${ComponentName}",
 			"class": "adjust-icon mdi mdi-checkerboard",
 			"wrapper": false,
-			"templateURL": "__metainf__/${FileName}.template.html",
+			"templateURL": "${FullPath}/${FileName}.template.html",
 			"properties": {
 				"onclick": {
 					"type": "event"
@@ -40,7 +40,9 @@
 					"type": "projectResource",
 					"resourceType": "text/html"
 				}
-			}
+			},
+			"childrenProperties": [${ChildrenProperties}]
 		}
+
 	]
 }

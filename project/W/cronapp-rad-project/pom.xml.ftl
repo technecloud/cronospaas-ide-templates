@@ -14,6 +14,24 @@
     <version>1.0-SNAPSHOT</version>
     <url>http://maven.apache.org</url>
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**</include>
+                </includes>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <targetPath>META-INF</targetPath>
+                <directory>config</directory>
+                <includes>
+                    <include>app.config</include>
+                </includes>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -30,7 +48,14 @@
                 <version>2.6</version>
                 <configuration>
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <packagingExcludes>WEB-INF/**/*.java</packagingExcludes>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <directory>config</directory>
+                            <targetPath>META-INF</targetPath>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
         </plugins>
@@ -48,11 +73,6 @@
         </repository>
     </repositories>
     <dependencies>
-        <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <version>2.6.0</version>
-        </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -94,9 +114,19 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version>
+        </dependency>
+        <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>cronapi-java</artifactId>
-            <version>2.1.36</version>
+            <version>2.5.2</version>
             <exclusions>
                 <exclusion>
                     <artifactId>commons-lang3</artifactId>
@@ -111,7 +141,7 @@
         <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>cronapp-framework-java</artifactId>
-            <version>2.1.5</version>
+            <version>2.5.2</version>
         </dependency>
         <dependency>
             <groupId>io.cronapp</groupId>
@@ -119,23 +149,28 @@
             <version>1.23.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>javax.persistence</artifactId>
-            <version>2.1.0</version>
+            <groupId>io.cronapp</groupId>
+            <artifactId>olingo-odata2-jpa-processor-core</artifactId>
+            <version>2.5.2</version>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>eclipselink</artifactId>
-            <version>2.6.0</version>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+            <version>${r"${tomcat.version}"}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cronapp</groupId>
+            <artifactId>cronapi-apm</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <project.cronospass.resource mimetype="folder/src">src/test/java</project.cronospass.resource>
-        <project.cronospass.resource mimetype="folder/libs">lib</project.cronospass.resource>
-        <project.cronospass.resource mimetype="folder/web">src/main/webapp</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/servercontext">config</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/src">src/main/java</project.cronospass.resource>
+        <project.cronospass.resource mimetype="folder/web">src/main/mobileapp/www</project.cronospass.resource>
+        <project.cronospass.resource mimetype="folder/web">src/main/webapp</project.cronospass.resource>
     </properties>
 </project>

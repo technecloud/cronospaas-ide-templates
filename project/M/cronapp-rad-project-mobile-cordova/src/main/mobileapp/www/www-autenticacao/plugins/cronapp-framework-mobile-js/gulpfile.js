@@ -5,16 +5,23 @@ var gulp = require('gulp'),
   notify = require('gulp-notify'),
   uglifycss = require('gulp-uglifycss'),
   imagemin = require('gulp-imagemin'),
-  htmlmin = require('gulp-htmlmin')
+  htmlmin = require('gulp-htmlmin'),
+  ngAnnotate = require('gulp-ng-annotate'),
+  minify = require("gulp-babel-minify");
 
 gulp.task('minify-js', function() {
   return gulp.src('js/**')
-    .pipe(uglify())
+	.pipe(ngAnnotate())
+        .pipe(minify({
+	      mangle: {
+		keepClassName: true
+	      }
+	    }))
     .pipe(gulp.dest('dist/js/'));
 });
 
 gulp.task('minify-css', function() {
-  return gulp.src(['css/app.css', 'css/cronos-bootstrap.css', 'css/cronos-template.css', 'css/cronos.css'])
+  return gulp.src('css/**')
     .pipe(uglifycss())
     .pipe(gulp.dest('dist/css/'));
 });
@@ -42,7 +49,7 @@ gulp.task('minify-components-js', function() {
 });
 
 gulp.task('minify-components-templates', function() {
-  return gulp.src(['components/templates/**'])
+  return gulp.src(['components/templates/**', '!components/templates/blockly/**', '!components/templates/blockly'])
     .pipe(htmlmin({
       collapseWhitespace: true
     }))
