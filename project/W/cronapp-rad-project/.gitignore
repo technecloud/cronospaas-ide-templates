@@ -23,4 +23,3 @@ buildNumber.properties
 build.properties
 ports.pid
 .replacement/**
-node_modules/**
