@@ -44,14 +44,14 @@
   <script src="plugins/raphael/raphael-min.js"></script>
   <script src="plugins/justgage-toorshia/justgage.js"></script>
   <script src="plugins/angular-justgage/ng-justgage.js"></script>
-  <script src="plugins/angular-translate/angular-translate.min.js"></script>
+  <script src="plugins/angular-translate/dist/angular-translate.min.js"></script>
   <script src="plugins/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
   <script src="plugins/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>
   <script src="plugins/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>
   <script src="plugins/angular-translate-handler-log/angular-translate-handler-log.min.js"></script>
   <script src="plugins/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
   <script src="plugins/angular-ui-notification/dist/angular-ui-notification.min.js"></script>
-  <script src="plugins/ng-file-upload/ng-file-upload.min.js"></script>
+  <script src="plugins/ng-file-upload/dist/ng-file-upload.min.js"></script>
   <script src="plugins/moment/min/moment-with-locales.min.js"></script>
   <script src="plugins/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
   <script src="plugins/cpf_cnpj/build/cpf.js"></script>
