@@ -40,11 +40,11 @@
   <script src="plugins/angular-cookies/angular-cookies.min.js"></script>
   <script src="plugins/angular-resource/angular-resource.min.js"></script>
   <script src="plugins/angular-sanitize/angular-sanitize.min.js"></script>
-  <script src="plugins/angular-bootstrap/ui-bootstrap.min.js"></script>
-  <script src="plugins/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="plugins/angular-ui-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="plugins/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="plugins/ui-select-infinity/lib/index.js"></script>
   <script src="plugins/raphael/raphael-min.js"></script>
-  <script src="plugins/justgage-toorshia/justgage.js"></script>
+  <script src="plugins/justgage/justgage.js"></script>
   <script src="plugins/angular-justgage/ng-justgage.js"></script>
   <script src="plugins/angular-translate/dist/angular-translate.min.js"></script>
   <script src="plugins/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>
