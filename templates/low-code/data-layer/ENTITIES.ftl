@@ -208,8 +208,8 @@ public class ${clazz.name} implements Serializable {
         <#if (field.ignore)>
     @JsonIgnore
         </#if>
-        <#if field.isDropbox()>
-    @CronapiCloud(type = "dropbox", value="${clazz.getCloudStorage().getAccessToken()}")
+        <#if field.isCloudStorage()>
+    @CronapiCloud(type = "${field.getStorageType()}", value="${field.getStorageKey()}", id="${field.getStorageId()}", secret="${field.getStorageSecret()}")
         </#if>
         <#if field.isFileDataBase()>
     @CronapiByteHeaderSignature
