@@ -197,6 +197,22 @@
     "_class": "app.entity.View"
   },
   {
+    "id": "f3b8e19f-05dd-4a7d-96b5-d495677928e1",
+    "securable": {
+      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+    },
+    "pattern": "/node_modules/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "_class": "app.entity.View"
+  },
+  {
     "id": "633abb0f-11e2-4b02-be3f-b167e01f8868",
     "securable": {
       "id": "67574137-a038-4783-9e2d-43ca3fb51635"
