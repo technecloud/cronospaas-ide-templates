@@ -7,24 +7,17 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
-import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
-import cronapi.database.VersionConverter;
 
 
 /**
-* Classe que representa a tabela view
+* Classe que representa a tabela VIEW
 * @generated
 */
 @Entity
 @Table(name = "\"VIEW\"")
 @XmlRootElement
-@CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
+@CronappSecurity
 @JsonFilter("app.entity.View")
-@Converter(
-  name="version",
-  converterClass=VersionConverter.class
-)
 public class View implements Serializable {
 
     /**
@@ -38,78 +31,78 @@ public class View implements Serializable {
     */
     @Id
     @Column(name = "id", nullable = false, insertable=true, updatable=true)
-    private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
+        private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
     /**
     * @generated
     */
     @ManyToOne
     @JoinColumn(name="securable_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true)
-    
-    private Securable securable;
+        
+        private Securable securable;
 
     /**
     * @generated
     */
     @Column(name = "pattern", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.String pattern;
+        
+        private java.lang.String pattern;
 
     /**
     * @generated
     */
     @Column(name = "getMethodAllowed", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean getMethodAllowed;
+        
+        private java.lang.Boolean getMethodAllowed;
 
     /**
     * @generated
     */
     @Column(name = "headMethodAllowed", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean headMethodAllowed;
+        
+        private java.lang.Boolean headMethodAllowed;
 
     /**
     * @generated
     */
     @Column(name = "putMethodAllowed", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean putMethodAllowed;
+        
+        private java.lang.Boolean putMethodAllowed;
 
     /**
     * @generated
     */
     @Column(name = "postMethodAllowed", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean postMethodAllowed;
+        
+        private java.lang.Boolean postMethodAllowed;
 
     /**
     * @generated
     */
     @Column(name = "patchMethodAllowed", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean patchMethodAllowed;
+        
+        private java.lang.Boolean patchMethodAllowed;
 
     /**
     * @generated
     */
     @Column(name = "deleteMethodAllowed", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean deleteMethodAllowed;
+        
+        private java.lang.Boolean deleteMethodAllowed;
 
     /**
     * @generated
     */
     @Column(name = "optionsMethodAllowed", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean optionsMethodAllowed;
+        
+        private java.lang.Boolean optionsMethodAllowed;
 
     /**
     * @generated
     */
     @Column(name = "traceMethodAllowed", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean traceMethodAllowed;
+        
+        private java.lang.Boolean traceMethodAllowed;
 
     /**
     * Construtor
@@ -335,7 +328,7 @@ public class View implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        View object = (View)obj;
+View object = (View)obj;
         if (id != null ? !id.equals(object.id) : object.id != null) return false;
         return true;
     }

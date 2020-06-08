@@ -24,7 +24,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	"reports",
 	"cronapi",
 	"blockly",
-	"app"
+"app"
 })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class SpringBootMain extends SpringBootServletInitializer {

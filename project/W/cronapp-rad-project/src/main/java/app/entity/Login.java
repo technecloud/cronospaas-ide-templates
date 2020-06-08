@@ -7,13 +7,10 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
-import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
-import cronapi.database.VersionConverter;
 
 
 /**
-* Classe que representa a tabela login
+* Classe que representa a tabela LOGIN
 * @generated
 */
 @Entity
@@ -21,10 +18,6 @@ import cronapi.database.VersionConverter;
 @XmlRootElement
 @CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
 @JsonFilter("app.entity.Login")
-@Converter(
-  name="version",
-  converterClass=VersionConverter.class
-)
 public class Login implements Serializable {
 
     /**
@@ -38,36 +31,36 @@ public class Login implements Serializable {
     */
     @Id
     @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-    private java.lang.String id;
+        private java.lang.String id;
 
     /**
     * @generated
     */
     @Column(name = "login_provider", nullable = false, unique = false, length=255, insertable=true, updatable=true)
-    
-    private java.lang.String loginProvider;
+        
+        private java.lang.String loginProvider;
 
     /**
     * @generated
     */
     @Column(name = "provider_display_name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
-    
-    private java.lang.String providerDisplayName;
+        
+        private java.lang.String providerDisplayName;
 
     /**
     * @generated
     */
     @Column(name = "provider_key", nullable = false, unique = false, length=255, insertable=true, updatable=true)
-    
-    private java.lang.String providerKey;
+        
+        private java.lang.String providerKey;
 
     /**
     * @generated
     */
     @ManyToOne
     @JoinColumn(name="user_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true)
-    
-    private User user;
+        
+        private User user;
 
     /**
     * Construtor
@@ -179,7 +172,7 @@ public class Login implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Login object = (Login)obj;
+Login object = (Login)obj;
         if (id != null ? !id.equals(object.id) : object.id != null) return false;
         return true;
     }
