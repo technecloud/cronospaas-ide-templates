@@ -6,7 +6,7 @@ import org.springframework.stereotype.*;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.repository.query.*;
-import org.springframework.transaction.annotation.*; 
+import org.springframework.transaction.annotation.*;
 
 
 /**
@@ -20,37 +20,5 @@ import org.springframework.transaction.annotation.*;
 @Repository("LoginDAO")
 @Transactional(transactionManager="app-TransactionManager")
 public interface LoginDAO extends JpaRepository<Login, java.lang.String> {
-
-  /**
-   * Obtém a instância de Login utilizando os identificadores
-   * 
-   * @param id
-   *          Identificador 
-   * @return Instância relacionada com o filtro indicado
-   * @generated
-   */    
-  @Query("SELECT entity FROM Login entity WHERE entity.id = :id")
-  public Login findOne(@Param(value="id") java.lang.String id);
-
-  /**
-   * Remove a instância de Login utilizando os identificadores
-   * 
-   * @param id
-   *          Identificador 
-   * @return Quantidade de modificações efetuadas
-   * @generated
-   */    
-  @Modifying
-  @Query("DELETE FROM Login entity WHERE entity.id = :id")
-  public void delete(@Param(value="id") java.lang.String id);
-
-
-
-  /**
-   * Foreign Key user
-   * @generated
-   */
-  @Query("SELECT entity FROM Login entity WHERE entity.user.id = :id")
-  public Page<Login> findLoginsByUser(@Param(value="id") java.lang.String id, Pageable pageable);
 
 }

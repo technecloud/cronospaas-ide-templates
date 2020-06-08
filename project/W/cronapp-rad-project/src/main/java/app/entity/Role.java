@@ -7,13 +7,10 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
-import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
-import cronapi.database.VersionConverter;
 
 
 /**
-* Classe que representa a tabela role
+* Classe que representa a tabela ROLE
 * @generated
 */
 @Entity
@@ -21,10 +18,6 @@ import cronapi.database.VersionConverter;
 @XmlRootElement
 @CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
 @JsonFilter("app.entity.Role")
-@Converter(
-  name="version",
-  converterClass=VersionConverter.class
-)
 public class Role implements Serializable {
 
     /**
@@ -38,35 +31,35 @@ public class Role implements Serializable {
     */
     @Id
     @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-    private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
+        private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
     /**
     * @generated
     */
     @Column(name = "builtin", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean builtIn = false;
+        
+        private java.lang.Boolean builtIn = false;
 
     /**
     * @generated
     */
     @Column(name = "membership_enabled", nullable = false, unique = false, insertable=true, updatable=true)
-    
-    private java.lang.Boolean membershipEnabled = true;
+        
+        private java.lang.Boolean membershipEnabled = true;
 
     /**
     * @generated
     */
     @Column(name = "name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
-    
-    private java.lang.String name;
+        
+        private java.lang.String name;
 
     /**
     * @generated
     */
     @Column(name = "normalized_name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
-    
-    private java.lang.String normalizedName = "";
+        
+        private java.lang.String normalizedName = "";
 
     /**
     * Construtor
@@ -178,7 +171,7 @@ public class Role implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Role object = (Role)obj;
+Role object = (Role)obj;
         if (id != null ? !id.equals(object.id) : object.id != null) return false;
         return true;
     }

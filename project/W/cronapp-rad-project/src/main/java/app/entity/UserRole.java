@@ -7,13 +7,10 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
-import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
-import cronapi.database.VersionConverter;
 
 
 /**
-* Classe que representa a tabela user_role
+* Classe que representa a tabela USER_ROLE
 * @generated
 */
 @Entity
@@ -21,10 +18,6 @@ import cronapi.database.VersionConverter;
 @XmlRootElement
 @CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
 @JsonFilter("app.entity.UserRole")
-@Converter(
-  name="version",
-  converterClass=VersionConverter.class
-)
 public class UserRole implements Serializable {
 
     /**
@@ -38,23 +31,23 @@ public class UserRole implements Serializable {
     */
     @Id
     @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-    private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
+        private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
     /**
     * @generated
     */
     @ManyToOne
-    @JoinColumn(name="role_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "user_role_ROLE_ID_ROLE_ID", foreignKeyDefinition = "FOREIGN KEY (role_id) REFERENCES ROLE (id) ON DELETE CASCADE"))
-    
-    private Role role;
+    @JoinColumn(name="role_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "USER_ROLE_ROLE_ID_ROLE_ID", foreignKeyDefinition = "FOREIGN KEY (role_id) REFERENCES ROLE (id) ON DELETE CASCADE"))
+        
+        private Role role;
 
     /**
     * @generated
     */
     @ManyToOne
-    @JoinColumn(name="user_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "user_role_USER_ID_USER_ID", foreignKeyDefinition = "FOREIGN KEY (user_id) REFERENCES USER (id) ON DELETE CASCADE"))
-    
-    private User user;
+    @JoinColumn(name="user_id", nullable = false, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "USER_ROLE_USER_ID_USER_ID", foreignKeyDefinition = "FOREIGN KEY (user_id) REFERENCES USER (id) ON DELETE CASCADE"))
+        
+        private User user;
 
     /**
     * Construtor
@@ -128,7 +121,7 @@ public class UserRole implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        UserRole object = (UserRole)obj;
+UserRole object = (UserRole)obj;
         if (id != null ? !id.equals(object.id) : object.id != null) return false;
         return true;
     }

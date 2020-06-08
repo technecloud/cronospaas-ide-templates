@@ -7,7 +7,6 @@
       "chkApi": false,
       "dataSource": "jdbc/main",
       "disableCache": false,
-      "generationType": "drop-and-create-tables",
       "id": "paperCell",
       "namespace": "app",
       "position": {
@@ -1776,7 +1775,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "accessFailedCount",
@@ -1802,7 +1805,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "email",
@@ -1828,7 +1835,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "emailConfirmed",
@@ -1854,7 +1865,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "lockoutEnabled",
@@ -1880,7 +1895,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "lockoutEnd",
@@ -1906,7 +1925,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "name",
@@ -1932,7 +1955,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "normalizedEmail",
@@ -1958,7 +1985,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "normalizedUserName",
@@ -1984,7 +2015,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "password",
@@ -2005,12 +2040,16 @@
           "isTransient": false,
           "isInsertable": true,
           "isUpdatable": true,
-          "isEncryption": false,
+          "isEncryption": true,
           "referencedColumnName": "",
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "phoneNumber",
@@ -2036,7 +2075,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "phoneNumberConfirmed",
@@ -2062,7 +2105,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "securityStamp",
@@ -2088,7 +2135,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "twoFactorEnabled",
@@ -2114,7 +2165,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "userName",
@@ -2140,7 +2195,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "theme",
@@ -2166,7 +2225,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         },
         {
           "name": "picture",
@@ -2192,7 +2255,11 @@
           "isSearchable": false,
           "sequence": "",
           "isCascade": false,
-          "isVersion": false
+          "isVersion": false,
+          "storageId": "",
+          "storageKey": "",
+          "storageType": "",
+          "storageSecret": ""
         }
       ],
       "id": "fbe4a477-8332-4235-a9a2-5db4a56fa3d0",

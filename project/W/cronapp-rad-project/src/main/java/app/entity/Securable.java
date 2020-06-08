@@ -7,13 +7,10 @@ import javax.xml.bind.annotation.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonFilter;
 import cronapi.rest.security.CronappSecurity;
-import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
-import cronapi.database.VersionConverter;
 
 
 /**
-* Classe que representa a tabela securable
+* Classe que representa a tabela SECURABLE
 * @generated
 */
 @Entity
@@ -21,10 +18,6 @@ import cronapi.database.VersionConverter;
 @XmlRootElement
 @CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
 @JsonFilter("app.entity.Securable")
-@Converter(
-  name="version",
-  converterClass=VersionConverter.class
-)
 public class Securable implements Serializable {
 
     /**
@@ -38,14 +31,14 @@ public class Securable implements Serializable {
     */
     @Id
     @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-    private java.lang.String id;
+        private java.lang.String id;
 
     /**
     * @generated
     */
     @Column(name = "name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
-    
-    private java.lang.String name;
+        
+        private java.lang.String name;
 
     /**
     * Construtor
@@ -100,7 +93,7 @@ public class Securable implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        Securable object = (Securable)obj;
+Securable object = (Securable)obj;
         if (id != null ? !id.equals(object.id) : object.id != null) return false;
         return true;
     }

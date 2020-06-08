@@ -16,7 +16,10 @@ import java.util.regex.Pattern;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "app-EntityManagerFactory", transactionManagerRef = "app-TransactionManager")
+@EnableJpaRepositories(
+        entityManagerFactoryRef = "app-EntityManagerFactory",
+        transactionManagerRef = "app-TransactionManager"
+)
 public class AppConfiguration {
 
   @Primary
@@ -35,23 +38,29 @@ public class AppConfiguration {
 <#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" || (authentication?lower_case) == "sso" || authentication?lower_case == "saml" >
   @Bean
   public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() {
+
     Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
     URL url = this.getClass().getClassLoader().getResource("app//populate.json");
+
     String strJSON = "[]";
-    if(url != null) {
+    if (url != null) {
       File file = new File(url.getFile());
+
       try {
         Scanner scanner = new Scanner(file);
         strJSON = scanner.useDelimiter("\\A").next();
         scanner.close();
+
         strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), "Administrators");
-      }
-      catch(Exception ignored) {
+      } catch (Exception e) {
       }
     }
+
     Resource sourceData = new InputStreamResource(new java.io.ByteArrayInputStream(strJSON.getBytes()));
     factory.setResources(new Resource[] { sourceData });
+
     return factory;
+
   }
 </#if>
 }
