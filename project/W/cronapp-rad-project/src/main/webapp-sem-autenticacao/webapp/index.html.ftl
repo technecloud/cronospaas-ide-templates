@@ -22,9 +22,9 @@
   <div ui-view class="fill"></div>
   
   <!-- Modal Template -->
-  <div id="modalTemplateContext" ng-include="'plugins/cronapi-js/include/modal.view.html'"></div>
+  <div id="modalTemplateContext" ng-include="'node_modules/cronapi-js/include/modal.view.html'"></div>
   <!-- Report -->
-  <div id="reportViewContext" ng-include="'plugins/cronapp-framework-js/components/reports/reports.view.html'"></div>
+  <div id="reportViewContext" ng-include="'node_modules/cronapp-framework-js/components/reports/reports.view.html'"></div>
   <!-- Plugins -->
   <script src="plugins/jquery/dist/jquery.min.js"></script>
   <script src="plugins/bootstrap/dist/js/bootstrap.min.js"></script>
