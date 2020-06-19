@@ -1,5 +1,5 @@
 {
-    <#if mutual?? && mutual?lower_case == "sim">
+    <#if mutual?? && (mutual?lower_case == "sim" || mutual?lower_case == "yes")>
     "keyManager" : {
         "customId": "userProviderKey",
         "queryName": "Obter Usuário por ProviderKey",

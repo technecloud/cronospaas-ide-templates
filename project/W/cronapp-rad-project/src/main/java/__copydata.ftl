@@ -5,7 +5,7 @@ path=/app
 path=/i18n
 path=/META-INF
 file=SpringBootMain.java.ftl
-<#if social?? && social?lower_case == "sim">
+<#if social?? && (social?lower_case == "sim" || social?lower_case == "yes")>
 file=social.properties
 </#if>
 </#if>
@@ -18,7 +18,7 @@ path=/app
 path=/i18n
 path=/META-INF
 file=SpringBootMain.java.ftl
-<#if social?? && social?lower_case == "sim">
+<#if social?? && (social?lower_case == "sim" || social?lower_case == "yes")>
 file=social.properties
 </#if>
 </#if>

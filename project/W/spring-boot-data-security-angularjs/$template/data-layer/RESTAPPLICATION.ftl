@@ -11,7 +11,7 @@ import java.net.URL;
 import java.io.File;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-<#if multitenant?? && multitenant?lower_case == "sim">
+<#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
 import auth.permission.MultitenantJpaTransactionManager;
 </#if>
 
@@ -47,7 +47,7 @@ class ${configurationName} {
 
     @Bean(name = "${transactionManagerRef}")
     public PlatformTransactionManager transactionManager() {
-    <#if multitenant?? && multitenant?lower_case == "sim">
+    <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
         return new MultitenantJpaTransactionManager();
     <#else>
         return new JpaTransactionManager(entityManagerFactory().getObject());

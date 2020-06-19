@@ -1,4 +1,4 @@
-<#if multitenant?? && multitenant?lower_case == "sim">
+<#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
 file=CompanyTest.java
 file=DepartmentTest.java
 </#if>

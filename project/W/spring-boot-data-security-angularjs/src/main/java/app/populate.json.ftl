@@ -1,5 +1,5 @@
 [
-  <#if multitenant?? && multitenant?lower_case == "sim">
+  <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
   {
     "_class": "app.entity.Company",
     "id": "001BF43E-0E62-4F4A-8A63-3F22D7AD4611",
@@ -17,11 +17,11 @@
     "name": "admin",
     "login": "admin",
     "password": "$2a$10$LjzpM1Q3VoAtG2dTCCabNuW0/amVPjL3Iyvyi2Dj7NP.HngtzSewu"
-  <#if multitenant?? && multitenant?lower_case == "sim">
+  <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
     ,"company": { "id": "001BF43E-0E62-4F4A-8A63-3F22D7AD4611"}
   </#if>
   },
-  <#if multitenant?? && multitenant?lower_case == "sim">
+  <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
   {
     "_class": "app.entity.User",
     "id": "001BF43E-0E62-4F4A-8A63-3F22D7AD4611",
@@ -36,7 +36,7 @@
     "id": "404BF43E-0000-4F4A-8A63-3F22D7AD6556",
     "name": "{{ROLE_ADMIN_NAME}}"
   },
-  <#if multitenant?? && multitenant?lower_case == "sim">
+  <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
   {
     "_class": "app.entity.UserRole",
     "id": "001BF43E-0E62-4F4A-8A63-3F22D7AD6556",

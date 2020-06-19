@@ -64,7 +64,7 @@ public class User implements Serializable {
   @Column(name = "theme", nullable = true, unique = false, insertable=true, updatable=true)
   private java.lang.String theme;
   
-  <#if multitenant?? && multitenant?lower_case == "sim">
+  <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
   /**
   * @generated
   */
@@ -212,7 +212,7 @@ public class User implements Serializable {
     this.theme = theme;
     return this;
   }
-<#if multitenant?? && multitenant?lower_case == "sim">
+<#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
   /**
    * Obtém company
    * 

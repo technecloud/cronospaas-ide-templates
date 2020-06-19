@@ -28,7 +28,7 @@ import app.dao.UserDAO;
 import app.dao.UserRoleDAO;
 import app.entity.User;
 import app.entity.UserRole;
-<#if multitenant?? && multitenant?lower_case == "sim">
+<#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
 import auth.permission.TenantComponent;
 </#if>
 
@@ -46,7 +46,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 
 	@Autowired
 	private UserRoleDAO userRoleRepository;
-	<#if multitenant?? && multitenant?lower_case == "sim">
+	<#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
   
   @Autowired
   private TenantComponent tenantComponent;
@@ -72,7 +72,7 @@ public class AuthenticationConfigurer implements AuthenticationProvider {
 
 			HttpSession session = request.getSession();
 			session.setAttribute("theme", (user.getTheme() != null) ? user.getTheme() : "");
-    <#if multitenant?? && multitenant?lower_case == "sim">
+    <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
       tenantComponent.setId("tenant", user.getCompany().getId());
       //Add new tenant context here
     </#if>

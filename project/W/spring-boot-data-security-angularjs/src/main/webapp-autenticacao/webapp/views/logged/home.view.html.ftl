@@ -15,7 +15,7 @@
             <ul class="dropdown-menu"> 
               <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor" >{{"Home.view.Users" | translate}}</a></li> 
               <li><a href="#/home/admin/role" class="component-holder" data-component="crn-anchor" >{{"Home.view.Roles" | translate}}</a></li>
-            <#if multitenant?? && multitenant?lower_case == "sim">
+            <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
               <li><a href="#/home/logged/department" class="component-holder" data-component="crn-anchor">{{"Home.view.Department" | translate}}</a></li>
             </#if>
             </ul> </li> 
@@ -74,7 +74,7 @@
             <ul class="sub-menu collapse" id="menu-sub-5099"> 
                 <li><a href="#/home/admin/user" class="component-holder" data-component="crn-anchor">{{"Home.view.Users" | translate}}</a></li> 
                 <li><a href="#/home/admin/role" class="component-holder" data-component="crn-anchor">{{"Home.view.Roles" | translate}}</a></li> 
-            <#if multitenant?? && multitenant?lower_case == "sim">
+            <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
                 <li><a href="#/home/logged/department" class="component-holder" data-component="crn-anchor">{{"Home.view.Department" | translate}}</a></li>
             </#if>
             </ul> 

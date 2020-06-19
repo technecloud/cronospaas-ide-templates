@@ -10,11 +10,11 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
-	<#if social?? && social?lower_case == "sim">"cronapp.framework.authentication.social",</#if>
+	<#if social?? && (social?lower_case == "sim" || social?lower_case == "yes")>"cronapp.framework.authentication.social",</#if>
 	<#if (authentication??)>"cronapp.framework.authentication.${authentication?lower_case}",</#if>
 	"cronapp.framework.authentication.security",
 	"cronapp.framework.rest",
-	<#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
+	<#if mutual?? && (mutual?lower_case == "sim" || mutual?lower_case == "yes") && (enterprise)!false>
 	"cronapp.framework.authentication.mutual",
 	</#if>
     "cronapp.framework.scheduler",

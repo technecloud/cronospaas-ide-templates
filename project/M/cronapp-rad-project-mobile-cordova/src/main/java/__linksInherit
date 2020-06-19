@@ -4,7 +4,7 @@
 ../../project/W/cronapp-rad-project/src/main/java/i18n
 ../../project/W/cronapp-rad-project/src/main/java/SpringBootMain.java.ftl
 ../../project/W/cronapp-rad-project/src/main/java/META-INF
-<#if social?? && social?lower_case == "sim">
+<#if social?? && (social?lower_case == "sim" || social?lower_case == "yes")>
 ../../project/W/cronapp-rad-project/src/main/java/social.properties
 </#if>
 </#if>

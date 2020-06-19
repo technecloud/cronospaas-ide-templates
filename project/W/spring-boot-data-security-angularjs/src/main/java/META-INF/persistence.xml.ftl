@@ -6,7 +6,7 @@
         <class>app.entity.UserRole</class>
         <class>app.entity.User</class>
         <class>app.entity.Role</class>
-    <#if multitenant?? && multitenant?lower_case == "sim">
+    <#if multitenant?? && (multitenant?lower_case == "sim" || multitenant?lower_case == "yes")>
         <class>app.entity.Company</class>
         <class>app.entity.Department</class>
     </#if>
