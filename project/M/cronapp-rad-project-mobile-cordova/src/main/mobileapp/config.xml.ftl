@@ -15,6 +15,7 @@
     <icon src="res/icon.png" />
     <splash src="res/screen.png" />
     <platform name="android">
+        <preference name="android-minSdkVersion" value="21" />
         <allow-intent href="market:*" />
         <#-- VERIFY IF THE VARIABLES CONTAINING THE LIST OF ICONS AND SPLASH SCREEN ARE DEFINED (mobilesizes.json) -->
         <#if androidIconList?has_content>
@@ -57,14 +58,6 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
-
-        <preference name="WKWebViewOnly" value="true" />
-
-        <feature name="CDVWKWebViewEngine">
-            <param name="ios-package" value="CDVWKWebViewEngine" />
-        </feature>
-
-        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
 
         <#if iosIconList?has_content>
             <#list iosIconList as iosIcon>
