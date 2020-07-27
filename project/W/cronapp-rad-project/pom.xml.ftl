@@ -84,6 +84,19 @@
             <url>https://artifactory.cronapp.io/libs-snapshot</url>
         </repository>
     </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>plugins-libs-release</id>
+            <name>plugins-artifactory-cronapp-release</name>
+            <url>https://artifactory.cronapp.io/libs-release</url>
+            <layout>default</layout>
+        </pluginRepository>
+        <pluginRepository>
+            <id>plugins-libs-snapshot</id>
+            <name>plugins-artifactory-cronapp-snapshot</name>
+            <url>https://artifactory.cronapp.io/libs-snapshot</url>
+        </pluginRepository>
+    </pluginRepositories>
     <dependencies>
         <dependency>
             <groupId>com.h2database</groupId>
