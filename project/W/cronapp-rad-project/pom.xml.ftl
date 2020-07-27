@@ -58,6 +58,18 @@
                     </webResources>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>io.cronapp</groupId>
+                <artifactId>cronapp-compile-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <repositories>
