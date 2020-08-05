@@ -4,6 +4,7 @@
 path=/app
 path=/i18n
 path=/META-INF
+path=/blockly
 file=SpringBootMain.java.ftl
 <#if social?? && social?lower_case == "sim">
 file=social.properties
@@ -17,6 +18,7 @@ path=/META-INF
 path=/app
 path=/i18n
 path=/META-INF
+path=/blockly
 file=SpringBootMain.java.ftl
 <#if social?? && social?lower_case == "sim">
 file=social.properties
