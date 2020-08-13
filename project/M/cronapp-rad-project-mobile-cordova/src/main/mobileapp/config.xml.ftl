@@ -15,7 +15,7 @@
     <icon src="res/icon.png" />
     <splash src="res/screen.png" />
     <platform name="android">
-        <preference name="OverrideUserAgent" value="Mozilla/5.0 Google" />
+        <preference name="OverrideUserAgent" value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36" />
         <preference name="android-minSdkVersion" value="22" />
         <allow-intent href="market:*" />
         <#-- VERIFY IF THE VARIABLES CONTAINING THE LIST OF ICONS AND SPLASH SCREEN ARE DEFINED (mobilesizes.json) -->
