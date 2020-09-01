@@ -1,27 +1,40 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var cleanCss = require('gulp-clean-css');
-var rename = require('gulp-rename');
+const gulp = require('gulp');
+
+gulp.sass = require('gulp-sass');
+gulp.cleanCss = require('gulp-clean-css');
+gulp.rename = require('gulp-rename');
 
 var paths = {
   sass: ['./scss/**/*.scss']
 };
 
-gulp.task('default', ['sass']);
+function defaultTask(cb) {
+  // place code for your default task here
+  cb();
+}
 
-gulp.task('sass', function(done) {
+function clean(cb) {
+  cb();
+}
+
+function build(cb) {
+  sass(cb);
+}
+
+function sass(cb) {
   gulp.src(paths.sass)
-      .pipe(sass())
-      .on('error', sass.logError)
+      .pipe(gulp.sass())
+      .on('error', gulp.sass.logError)
       .pipe(gulp.dest('./www/css/'))
-      .pipe(cleanCss({
+      .pipe(gulp.cleanCss({
         keepSpecialComments: 0
       }))
-      .pipe(rename({ extname: '.min.css' }))
+      .pipe(gulp.rename({ extname: '.min.css' }))
       .pipe(gulp.dest('./www/css/'))
-      .on('end', done);
-});
+      .on('end', cb);
+}
 
-gulp.task('watch', ['sass'], function() {
-  gulp.watch(paths.sass, ['sass']);
-});
+exports.build = gulp.series(clean, build);
+exports.clean = clean;
+exports.sass = sass;
+exports.default = defaultTask;
