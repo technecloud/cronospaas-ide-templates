@@ -125,5 +125,6 @@
   "DirectAccess": "Direct Access",
   "Securable": "Securable",
   "Password": "Password",
-  "PhoneNumber": "Phone number"
+  "PhoneNumber": "Phone number",
+  "LockoutEnabled": "User can be locked out?"
 }
