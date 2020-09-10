@@ -126,5 +126,5 @@
   "Securable": "Securable",
   "Password": "Password",
   "PhoneNumber": "Phone number",
-  "LockoutEnabled": "User can be locked out?"
+  "LockoutEnabled": "The user can be locked out?"
 }
