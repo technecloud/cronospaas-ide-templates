@@ -1,14 +1,16 @@
-FROM maven:3.5-jdk-8 as maven_builder
+FROM maven:3.5-jdk-11 as maven_builder
 
 WORKDIR /app
 
-ADD ../pom.xml .
+ADD pom.xml .
 
-RUN mvn dependency:go-offline -B
+RUN mvn dependency:resolve
 
-ADD .. .
+ADD . .
 
-RUN mvn package
+ADD . .
+
+RUN mvn clean package
 
 FROM tomcat:9.0.17-jre11
 
