@@ -4,11 +4,13 @@ WORKDIR /app
 
 ADD pom.xml .
 
-RUN mvn dependency:go-offline -B
+RUN mvn dependency:resolve
 
 ADD . .
 
-RUN mvn package
+ADD . .
+
+RUN mvn clean package
 
 FROM tomcat:9.0.17-jre11
 
