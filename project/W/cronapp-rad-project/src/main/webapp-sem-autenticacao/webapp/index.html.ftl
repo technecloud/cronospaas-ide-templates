@@ -40,7 +40,6 @@
   <script src="plugins/angular-ui-bootstrap/ui-bootstrap.min.js"></script>
   <script src="plugins/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
   <script src="plugins/ui-select-infinity/lib/index.js"></script>
-  <script src='plugins/ngMask/dist/ngMask.min.js'></script>
   <script src="plugins/raphael/raphael-min.js"></script>
   <script src="plugins/justgage/justgage.js"></script>
   <script src="plugins/angular-justgage/ng-justgage.js"></script>
@@ -74,5 +73,6 @@
   <script src="plugins/cronapp-framework-js/dist/js/reports/reports.service.js"></script>
   <!-- Custom Controllers -->
   <script src="js/custom.controllers.js"></script>
+  <script src="plugins/cronapp-framework-js/dist/js/upload.service.js"></script>
 </body>
 </html>
