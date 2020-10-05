@@ -8,8 +8,10 @@ import org.springframework.transaction.annotation.*;
 <#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" || (authentication?lower_case) == "sso" || authentication?lower_case == "saml">
 import org.springframework.core.io.*;
 import org.springframework.data.repository.init.*;
+
 import java.net.URL;
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 </#if>
@@ -38,26 +40,23 @@ public class AppConfiguration {
 <#if (!authentication??) || (authentication?lower_case) == "normal" || (authentication?lower_case) == "token" || (authentication?lower_case) == "sso" || authentication?lower_case == "saml" >
   @Bean
   public Jackson2RepositoryPopulatorFactoryBean repositoryPopulator() {
-
     Jackson2RepositoryPopulatorFactoryBean factory = new Jackson2RepositoryPopulatorFactoryBean();
-    URL url = this.getClass().getClassLoader().getResource("app//populate.json");
+    URL url = this.getClass().getClassLoader().getResource("app/populate.json");
 
     String strJSON = "[]";
     if (url != null) {
-      File file = new File(url.getFile());
-
-      try {
-        Scanner scanner = new Scanner(file);
+      try (InputStream resourceInputStream = url.openStream()) {
+        Scanner scanner = new Scanner(resourceInputStream);
         strJSON = scanner.useDelimiter("\\A").next();
         scanner.close();
-
+        
         strJSON = strJSON.replaceAll(Pattern.quote("{{ROLE_ADMIN_NAME}}"), "Administrators");
-      } catch (Exception e) {
+      } catch (IOException e) {
       }
     }
 
     Resource sourceData = new InputStreamResource(new java.io.ByteArrayInputStream(strJSON.getBytes()));
-    factory.setResources(new Resource[] { sourceData });
+    factory.setResources(new Resource[]{sourceData});
 
     return factory;
 
