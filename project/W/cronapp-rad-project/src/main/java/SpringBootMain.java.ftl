@@ -1,3 +1,4 @@
+import cronapp.framework.boot.CronappInitializer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,17 +18,17 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	<#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
 	"cronapp.framework.authentication.mutual",
 	</#if>
-    "cronapp.framework.scheduler",
+  "cronapp.framework.scheduler",
 	"auth.permission",
 	"api.rest.events",
 	"api.rest.webservices",
 	"reports",
 	"cronapi",
 	"blockly",
-"app"
+  "app"
 })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
-public class SpringBootMain extends SpringBootServletInitializer {
+public class SpringBootMain extends CronappInitializer {
 
     static {
     	<#if timezone?? && timezone?lower_case != "utc">
@@ -38,7 +39,7 @@ public class SpringBootMain extends SpringBootServletInitializer {
     }
 
 	public static void main(String[] args) throws Exception {
-		CronappApplication.run(args);
+		SpringApplication.run(SpringBootMain.class, args);
 	}
 
 }
