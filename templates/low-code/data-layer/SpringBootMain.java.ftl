@@ -1,4 +1,3 @@
-import cronapp.framework.boot.CronappInitializer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,7 +6,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 
 import java.util.TimeZone;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import cronapp.framework.boot.CronappInitializer;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
@@ -38,7 +37,7 @@ public class SpringBootMain extends CronappInitializer {
         </#if>
     }
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		SpringApplication.run(SpringBootMain.class, args);
 	}
 
