@@ -3,6 +3,7 @@
  */
 package app.jobs;
 
+import cronapi.database.TransactionManager;
 import cronapp.framework.scheduler.SchedulerConfigurer;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -29,8 +30,13 @@ public class ${task.class} implements Job {
       //${action.name}
       ${action.code}
 </#list>
+      TransactionManager.commit();
     } catch (Exception e) {
+      TransactionManager.rollback();
       throw new JobExecutionException(e);
+    } finally {
+      TransactionManager.close();
+      TransactionManager.clear();
     }
   }
 
