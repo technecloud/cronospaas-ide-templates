@@ -10,6 +10,7 @@ file=README.md
 file=spring-boot.png
 </#if>
 <#if (backend?lower_case) == "false" && (frontend?lower_case) == "true" >
+path=/config
 path=/src
 path=/docs
 file=.gitignore
