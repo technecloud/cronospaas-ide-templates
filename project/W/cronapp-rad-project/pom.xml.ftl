@@ -205,6 +205,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.cronospass.resource mimetype="folder/servercontext">config</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/src">src/main/java</project.cronospass.resource>
+   <#if authentication?? && (authentication?lower_case == "sso" || authentication?lower_case == "saml") && (enterprise)!false >
+	    <project.cronospass.resource mimetype="folder/src">src/main/resources</project.cronospass.resource>
+   </#if>
         <project.cronospass.resource mimetype="folder/web">src/main/mobileapp/www</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/web">src/main/webapp</project.cronospass.resource>
     </properties>
