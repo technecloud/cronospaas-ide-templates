@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
 import org.springframework.context.annotation.ComponentScan;
 
 import java.util.TimeZone;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import cronapp.framework.boot.CronappInitializer;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {
@@ -17,7 +17,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 	<#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
 	"cronapp.framework.authentication.mutual",
 	</#if>
-    "cronapp.framework.scheduler",
+  "cronapp.framework.scheduler",
 	"auth.permission",
 	"api.rest.events",
 	"api.rest.webservices",
@@ -27,7 +27,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 <#list workspaceView.allDiagrams as diagram>${diagram.getGlobalAttribute("namespace")}<#if diagram?has_next>, </#if></#list><#list packages as package>${package}<#if package?has_next>, </#if></#list>
 })
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
-public class SpringBootMain extends SpringBootServletInitializer {
+public class SpringBootMain extends CronappInitializer {
 
     static {
     	<#if timezone?? && timezone?lower_case != "utc">
@@ -37,8 +37,8 @@ public class SpringBootMain extends SpringBootServletInitializer {
         </#if>
     }
 
-	public static void main(String[] args) throws Exception {
-		CronappApplication.run(args);
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootMain.class, args);
 	}
 
 }

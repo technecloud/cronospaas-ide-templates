@@ -70,6 +70,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.0.1.RELEASE</version>
+            </plugin>
         </plugins>
     </build>
     <repositories>
@@ -189,6 +194,11 @@
             <artifactId>cronapi-apm</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>2.0.1.RELEASE</version>
+        </plugin>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
