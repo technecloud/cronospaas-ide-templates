@@ -10,15 +10,15 @@ import cronapi.rest.security.CronappSecurity;
 
 
 /**
-* Classe que representa a tabela SECURABLE
+* Classe que representa a tabela APPLICATION
 * @generated
 */
 @Entity
-@Table(name = "\"SECURABLE\"")
+@Table(name = "\"APPLICATION\"")
 @XmlRootElement
-@CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
-@JsonFilter("app.entity.Securable")
-public class Securable implements Serializable {
+@CronappSecurity
+@JsonFilter("app.entity.Application")
+public class Application implements Serializable {
 
     /**
     * UID da classe, necessário na serialização
@@ -30,29 +30,21 @@ public class Securable implements Serializable {
     * @generated
     */
     @Id
-    @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-        private java.lang.String id;
+    @Column(name = "id", nullable = false, insertable=true, updatable=true)
+        private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
     /**
     * @generated
     */
-    @Column(name = "name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
+    @Column(name = "name", nullable = false, unique = false, insertable=true, updatable=true)
         
         private java.lang.String name;
-
-    /**
-    * @generated
-    */
-    @ManyToOne
-    @JoinColumn(name="application_id", nullable = true, referencedColumnName = "id", insertable=true, updatable=true)
-        
-        private Application application;
 
     /**
     * Construtor
     * @generated
     */
-    public Securable(){
+    public Application(){
     }
 
     /**
@@ -70,7 +62,7 @@ public class Securable implements Serializable {
     * @param id id
     * @generated
     */
-    public Securable setId(java.lang.String id){
+    public Application setId(java.lang.String id){
         this.id = id;
         return this;
     }
@@ -89,28 +81,8 @@ public class Securable implements Serializable {
     * @param name name
     * @generated
     */
-    public Securable setName(java.lang.String name){
+    public Application setName(java.lang.String name){
         this.name = name;
-        return this;
-    }
-
-    /**
-    * Obtém application
-    * return application
-    * @generated
-    */
-    
-    public Application getApplication(){
-        return this.application;
-    }
-
-    /**
-    * Define application
-    * @param application application
-    * @generated
-    */
-    public Securable setApplication(Application application){
-        this.application = application;
         return this;
     }
 
@@ -121,7 +93,7 @@ public class Securable implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-Securable object = (Securable)obj;
+Application object = (Application)obj;
         if (id != null ? !id.equals(object.id) : object.id != null) return false;
         return true;
     }
