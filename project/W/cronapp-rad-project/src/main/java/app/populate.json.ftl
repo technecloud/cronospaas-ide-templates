@@ -1,7 +1,19 @@
+<#assign administratorUser = "1d4e5d7b-dca8-4a1d-90fd-72648cf5dc8d" >
+<#assign administratorsRole = "cdeca4d5-59a5-11eb-95ba-0242ac110002" >
+<#assign anonymousUsersRole = statics["java.util.UUID"].randomUUID() >
+<#assign authenticatedUsersRole = statics["java.util.UUID"].randomUUID() >
+<#assign administratorsSecurable = "fdce3bb0-59a5-11eb-95ba-0242ac110002" >
+<#assign publicSecurable = statics["java.util.UUID"].randomUUID() >
+<#assign authenticatedSecurable = statics["java.util.UUID"].randomUUID() >
 [
   {
+    "_class": "app.entity.Application",
+    "id": "${appguid}",
+    "name": "${appid}"
+  },
+  {
     "_class": "app.entity.User",
-    "id": "1d4e5d7b-dca8-4a1d-90fd-72648cf5dc8d",
+    "id": "${administratorUser}",
     "name": "Administrator",
     "userName": "admin",
     "normalizedUserName": "admin",
@@ -17,77 +29,89 @@
   },
   {
     "_class": "app.entity.Role",
-    "id": "2446125d-abeb-4d14-a630-422eecf18da6",
+    "id": "${administratorsRole}",
     "name": "Administrators",
     "normalizedName": "administrators",
     "membershipEnabled": true,
     "builtIn": true
   },
   {
-    "id": "9e2affd5-b4c3-4464-8188-459f87ec2f33",
+    "id": "${anonymousUsersRole}",
     "name": "Anonymous Users",
     "normalizedName": "anonymous users",
     "membershipEnabled": false,
     "builtIn": false,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.Role"
   },
   {
     "_class": "app.entity.Role",
-    "id": "423cca38-7203-4d41-859d-71a5069df3ff",
+    "id": "${authenticatedUsersRole}",
     "name": "Authenticated Users",
     "normalizedName": "authenticated users",
     "membershipEnabled": false,
+    "application": {
+      "id": "${appguid}"
+    },
     "builtIn": true
   },
   {
-    "id": "67574137-a038-4783-9e2d-43ca3fb51635",
+    "id": "${publicSecurable}",
     "name": "Public",
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.Securable"
   },
   {
-    "id": "cf2e4e05-c7ce-4333-b7bc-3fd20ee5a137",
+    "id": "${authenticatedSecurable}",
     "name": "Authenticated",
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.Securable"
   },
   {
-    "id": "0ef7a690-5b5b-41f6-9abe-7fe0cadb5962",
+    "id": "${administratorsSecurable}",
     "name": "Administrators",
     "_class": "app.entity.Securable"
   },
   {
     "_class": "app.entity.RoleSecurable",
-    "id": "8481c167-3752-4eca-9991-8087bd5fd14e",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "role": {
-      "id": "9e2affd5-b4c3-4464-8188-459f87ec2f33"
+      "id": "${anonymousUsersRole}"
     },
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     }
   },
   {
     "_class": "app.entity.RoleSecurable",
-    "id": "3d556d78-8705-4dc4-953b-b91c0d981cea",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "role": {
-      "id": "423cca38-7203-4d41-859d-71a5069df3ff"
+      "id": "${authenticatedUsersRole}"
     },
     "securable": {
-      "id": "cf2e4e05-c7ce-4333-b7bc-3fd20ee5a137"
+      "id": "${authenticatedSecurable}"
     }
   },
   {
-    "id": "2a294fcc-8e73-4b1c-825b-eb56a2bb2fa2",
+    "id": "def2d8a0-5a5c-11eb-bdc9-0242ac110002",
     "role": {
-      "id": "2446125d-abeb-4d14-a630-422eecf18da6"
+      "id": "${administratorsRole}"
     },
     "securable": {
-      "id": "0ef7a690-5b5b-41f6-9abe-7fe0cadb5962"
+      "id": "${administratorsSecurable}"
     },
     "_class": "app.entity.RoleSecurable"
   },
   {
-    "id": "e2f100ca-80f8-40dc-863f-8e1b7817f87d",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "0ef7a690-5b5b-41f6-9abe-7fe0cadb5962"
+      "id": "${administratorsSecurable}"
     },
     "pattern": "/views/admin/**",
     "getMethodAllowed": true,
@@ -98,12 +122,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "a69ab017-b686-4492-9d61-c794cc2d15a0",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "0ef7a690-5b5b-41f6-9abe-7fe0cadb5962"
+      "id": "${administratorsSecurable}"
     },
     "pattern": "/api/security/**",
     "getMethodAllowed": true,
@@ -114,12 +141,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "d93cf46b-39ea-444d-8cc0-2f43469fa545",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/auth/**",
     "getMethodAllowed": true,
@@ -130,12 +160,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "f957af79-d53b-4278-a14d-ae7cf47d4cd6",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/index.html",
     "getMethodAllowed": true,
@@ -146,12 +179,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "4644e3ff-077d-4da0-be94-139f24e4e0a1",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/favicon.ico",
     "getMethodAllowed": true,
@@ -162,12 +198,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "e536b522-5c78-46b7-98fa-9f42a132834c",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/public/**",
     "getMethodAllowed": true,
@@ -178,12 +217,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "f3b8e19f-05dd-4a7d-96b5-d495677928e1",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/plugins/**",
     "getMethodAllowed": true,
@@ -194,12 +236,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "f3b8e19f-05dd-4a7d-96b5-d495677928e1",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/node_modules/**",
     "getMethodAllowed": true,
@@ -210,12 +255,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "633abb0f-11e2-4b02-be3f-b167e01f8868",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/components/**",
     "getMethodAllowed": true,
@@ -226,12 +274,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "21f91e1f-36ac-41e8-83ff-d4f3f177a667",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/js/**",
     "getMethodAllowed": true,
@@ -242,12 +293,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "0545fe31-92f9-4eb1-92e1-d1f60445d041",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/lib/**",
     "getMethodAllowed": true,
@@ -258,12 +312,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "c9b5c025-bdac-4894-b805-057aefeaf1b8",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/css/**",
     "getMethodAllowed": true,
@@ -274,12 +331,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "bf4d7dda-c9bb-4fed-908b-8faf1d6df7ed",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/img/**",
     "getMethodAllowed": true,
@@ -290,12 +350,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "c194bbd0-f7e9-4b56-a908-7750f6612944",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/i18n/**",
     "getMethodAllowed": true,
@@ -306,12 +369,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "175ac546-3a86-4c2d-98a1-a84f91536f05",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/views/login.view.html",
     "getMethodAllowed": true,
@@ -322,12 +388,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "7ed2ead1-9fef-43c8-9108-5f80e57d491d",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/views/error/**",
     "getMethodAllowed": true,
@@ -338,12 +407,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "da28ce3c-e2e1-44a9-b8e2-61856ec2a4c5",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/views/public/**",
     "getMethodAllowed": true,
@@ -354,12 +426,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "63e95790-8fc2-42c4-9c03-b92f496c52a0",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/signin/**",
     "getMethodAllowed": true,
@@ -370,12 +445,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "41d93309-1c51-476f-abb3-c18788825bfd",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/device/**",
     "getMethodAllowed": true,
@@ -386,12 +464,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "e3199d58-9584-466b-8325-0db497475750",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/api/cronapi/**",
     "getMethodAllowed": true,
@@ -402,12 +483,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "69985908-725a-4c6d-8c39-afe217019102",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "cf2e4e05-c7ce-4333-b7bc-3fd20ee5a137"
+      "id": "${authenticatedSecurable}"
     },
     "pattern": "/views/logged/**",
     "getMethodAllowed": true,
@@ -418,12 +502,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "a1651054-1e7d-4443-8e41-524ec40c1165",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "cf2e4e05-c7ce-4333-b7bc-3fd20ee5a137"
+      "id": "${authenticatedSecurable}"
     },
     "pattern": "/api/rest/**",
     "getMethodAllowed": true,
@@ -434,12 +521,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "0e9e3102-5b68-4009-8e85-43e93353e069",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "cf2e4e05-c7ce-4333-b7bc-3fd20ee5a137"
+      "id": "${authenticatedSecurable}"
     },
     "pattern": "/changePassword",
     "getMethodAllowed": true,
@@ -450,12 +540,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "a8713f31-3fe6-4476-a4fd-22e9999c2ba4",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "cf2e4e05-c7ce-4333-b7bc-3fd20ee5a137"
+      "id": "${authenticatedSecurable}"
     },
     "pattern": "/changeTheme",
     "getMethodAllowed": true,
@@ -466,12 +559,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "bb3dfe9d-2fd9-47ff-a196-076fec7bd90c",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/services/**",
     "getMethodAllowed": true,
@@ -482,12 +578,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "54677d29-5864-4406-9ef9-220570147d9c",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/mutual/**",
     "getMethodAllowed": true,
@@ -498,12 +597,15 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
-    "id": "8a50ff18-47f3-42e1-abaf-805754673f5b",
+    "id": "${statics["java.util.UUID"].randomUUID()}",
     "securable": {
-      "id": "67574137-a038-4783-9e2d-43ca3fb51635"
+      "id": "${publicSecurable}"
     },
     "pattern": "/actuator/**",
     "getMethodAllowed": true,
@@ -514,16 +616,19 @@
     "deleteMethodAllowed": true,
     "optionsMethodAllowed": true,
     "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
     "_class": "app.entity.View"
   },
   {
     "_class": "app.entity.UserRole",
     "id": "f6dff76e-6460-4abc-b55b-7fef96716d18",
     "user": {
-      "id": "1d4e5d7b-dca8-4a1d-90fd-72648cf5dc8d"
+      "id": "${administratorUser}"
     },
     "role": {
-      "id": "2446125d-abeb-4d14-a630-422eecf18da6"
+      "id": "${administratorsRole}"
     }
   }
 ]

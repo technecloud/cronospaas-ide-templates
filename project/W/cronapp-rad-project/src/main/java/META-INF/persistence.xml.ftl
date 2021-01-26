@@ -13,6 +13,8 @@
         <class>app.entity.AuditLog</class>
         <class>app.entity.Login</class>
         <class>app.entity.View</class>
+        <class>app.entity.Application</class>
+        <class>app.entity.ApplicationUser</class>
     <#if database??>
       <#assign databaseConfig = database?split("|")>
         <properties>

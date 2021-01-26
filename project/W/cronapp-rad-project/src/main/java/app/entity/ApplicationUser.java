@@ -10,15 +10,15 @@ import cronapi.rest.security.CronappSecurity;
 
 
 /**
-* Classe que representa a tabela SECURABLE
+* Classe que representa a tabela APPLICATION_USER
 * @generated
 */
 @Entity
-@Table(name = "\"SECURABLE\"")
+@Table(name = "\"APPLICATION_USER\"")
 @XmlRootElement
-@CronappSecurity(post = "Administrators", get = "Administrators", delete = "Administrators", put = "Administrators")
-@JsonFilter("app.entity.Securable")
-public class Securable implements Serializable {
+@CronappSecurity
+@JsonFilter("app.entity.ApplicationUser")
+public class ApplicationUser implements Serializable {
 
     /**
     * UID da classe, necessário na serialização
@@ -30,29 +30,30 @@ public class Securable implements Serializable {
     * @generated
     */
     @Id
-    @Column(name = "id", nullable = false, length=255, insertable=true, updatable=true)
-        private java.lang.String id;
-
-    /**
-    * @generated
-    */
-    @Column(name = "name", nullable = false, unique = false, length=255, insertable=true, updatable=true)
-        
-        private java.lang.String name;
+    @Column(name = "id", nullable = false, insertable=true, updatable=true)
+        private java.lang.String id = UUID.randomUUID().toString().toUpperCase();
 
     /**
     * @generated
     */
     @ManyToOne
-    @JoinColumn(name="application_id", nullable = true, referencedColumnName = "id", insertable=true, updatable=true)
+    @JoinColumn(name="application_id", nullable = true, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "", foreignKeyDefinition = "FOREIGN KEY (application_id) REFERENCES APPLICATION (id)"))
         
         private Application application;
+
+    /**
+    * @generated
+    */
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = true, referencedColumnName = "id", insertable=true, updatable=true, foreignKey = @ForeignKey(name = "", foreignKeyDefinition = "FOREIGN KEY (user_id) REFERENCES USER (id)"))
+        
+        private User user;
 
     /**
     * Construtor
     * @generated
     */
-    public Securable(){
+    public ApplicationUser(){
     }
 
     /**
@@ -70,30 +71,10 @@ public class Securable implements Serializable {
     * @param id id
     * @generated
     */
-    public Securable setId(java.lang.String id){
+    public ApplicationUser setId(java.lang.String id){
         this.id = id;
         return this;
     }
-    /**
-    * Obtém name
-    * return name
-    * @generated
-    */
-    
-    public java.lang.String getName(){
-        return this.name;
-    }
-
-    /**
-    * Define name
-    * @param name name
-    * @generated
-    */
-    public Securable setName(java.lang.String name){
-        this.name = name;
-        return this;
-    }
-
     /**
     * Obtém application
     * return application
@@ -109,8 +90,27 @@ public class Securable implements Serializable {
     * @param application application
     * @generated
     */
-    public Securable setApplication(Application application){
+    public ApplicationUser setApplication(Application application){
         this.application = application;
+        return this;
+    }
+    /**
+    * Obtém user
+    * return user
+    * @generated
+    */
+    
+    public User getUser(){
+        return this.user;
+    }
+
+    /**
+    * Define user
+    * @param user user
+    * @generated
+    */
+    public ApplicationUser setUser(User user){
+        this.user = user;
         return this;
     }
 
@@ -121,7 +121,7 @@ public class Securable implements Serializable {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-Securable object = (Securable)obj;
+ApplicationUser object = (ApplicationUser)obj;
         if (id != null ? !id.equals(object.id) : object.id != null) return false;
         return true;
     }
