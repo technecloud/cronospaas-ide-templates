@@ -37,6 +37,9 @@ public class ${configurationName} {
     return factoryBean;
   }
 
+<#if persistence_unit_name == first_pu || first_pu == "">
+  @Primary
+</#if>
   @Bean(name = "${transactionManagerRef}")
   public PlatformTransactionManager transactionManager() {
     return new JpaTransactionManager(entityManagerFactory().getObject());
