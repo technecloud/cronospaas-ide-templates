@@ -102,9 +102,9 @@ public static Var sendResetPasswordEmail(Var toAddress, Var token) throws Except
     Var.VAR_NULL, toAddress,
     Var.VAR_NULL,
     Var.VAR_NULL,
-    Var.valueOf("Redefinir Senha"),
+    cronapi.i18n.Operations.translate(Var.valueOf("ResetPasswordEmailSubject")),
     Var.valueOf(
-    Var.valueOf("O seu link para redefinição de senha é ").toString() +
+    cronapi.i18n.Operations.translate(Var.valueOf("ResetPasswordEmailBody")).toString() +
     cronapi.screen.Operations.getHeader(
     Var.valueOf("Origin")).toString() +
     Var.valueOf("/#/public/reset-password?token=").toString() +

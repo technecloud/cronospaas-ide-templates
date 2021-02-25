@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><blockly audit="false" bpmnAble="false" formTarget="" resourceType="JAVA" ruleDescription="UserManager" ruleName="UserManager" ruleSynchronous="false" ruleTimeout="" ruleType="I" soap="false">
-  <metadata scale="1" scrollx="511.8" scrolly="-258.4" target="SA]sCOvKw+-pTm_8{Fv!"/>
+  <metadata scale="1" scrollx="511.79999999999984" scrolly="-256.3999999999998" target="SA]sCOvKw+-pTm_8{Fv!"/>
   <block asynccall="false" colour="#995ba5" id="lgDJE2Nvg8upiom!/?2j" origintype="procedures_defreturn" output="false" tooltip="Cria uma função que possui um valor de retorno." type="procedures_defreturn" x="-327" y="187">
     <mutation>
       <arg name="Entidade&amp;lt;app.entity.User&amp;gt;"/>
@@ -239,6 +239,10 @@
           <shadow asynccall="false" colour="#5ba593" dependencyby="SA]sCOvKw+-pTm_8{Fv!" id="%EYTcmwb}Tg%6vpLQK[/" origintype="text" output="true" tooltip="function() {&#10;    [native code]&#10;}" type="text">
             <field name="TEXT">Redefinir Senha</field>
           </shadow>
+          <block asynccall="false" colour="#5b93a5" dependencyby="SA]sCOvKw+-pTm_8{Fv!" id=")gMPwM1ZV`*!?D.#|YRj" origintype="text_i18n" output="true" tooltip="function() {&#10;    [native code]&#10;}" type="text_i18n">
+            <mutation data="%7B%22text%22:%22Redefinir%20Senha%22,%22value%22:%22ResetPasswordEmailSubject%22,%22token%22:%22i18n.Messages.getString(%5C%22ResetPasswordEmailSubject%5C%22)%22,%22key%22:%22ResetPasswordEmailSubject%22,%22params%22:%5B%5D%7D" name=""/>
+            <field name="TEXT">Redefinir Senha</field>
+          </block>
         </value>
         <value name="ARG5">
           <shadow asynccall="false" colour="#5ba593" dependencyby="SA]sCOvKw+-pTm_8{Fv!" id="S*ehzI/NyF)ne8l_Kg^]" origintype="text" output="true" tooltip="function() {&#10;    [native code]&#10;}" type="text">
@@ -247,7 +251,8 @@
           <block asynccall="false" colour="#5ba58c" dependencyby="SA]sCOvKw+-pTm_8{Fv!" id="jZN@jJC?efIti,g?Ekk8" origintype="text_join" output="true" tooltip="Criar um pedaço de texto juntando qualquer número de itens." type="text_join">
             <mutation items="4"/>
             <value name="ADD0">
-              <block asynccall="false" colour="#5ba593" dependencyby="SA]sCOvKw+-pTm_8{Fv!" id="DE)zm$^=[`Ih((DB.;l=" origintype="text" output="true" tooltip="function() {&#10;    [native code]&#10;}" type="text">
+              <block asynccall="false" colour="#5b93a5" dependencyby="SA]sCOvKw+-pTm_8{Fv!" id="~Eex#12xy6185I0d0*fX" origintype="text_i18n" output="true" tooltip="function() {&#10;    [native code]&#10;}" type="text_i18n">
+                <mutation data="%7B%22text%22:%22O%20seu%20link%20para%20redefini%C3%A7%C3%A3o%20de%20senha%20%C3%A9%20%22,%22value%22:%22ResetPasswordEmailBody%22,%22token%22:%22i18n.Messages.getString(%5C%22ResetPasswordEmailBody%5C%22)%22,%22key%22:%22ResetPasswordEmailBody%22,%22params%22:%5B%5D%7D" name=""/>
                 <field name="TEXT">O seu link para redefinição de senha é </field>
               </block>
             </value>
