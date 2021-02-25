@@ -105,6 +105,15 @@ public class View implements Serializable {
         private java.lang.Boolean traceMethodAllowed;
 
     /**
+    * @generated
+    */
+    @ManyToOne
+    @JoinColumn(name="application_id", nullable = true, referencedColumnName = "id", insertable=true, updatable=true)
+        
+        private Application application;
+
+
+    /**
     * Construtor
     * @generated
     */
@@ -318,6 +327,26 @@ public class View implements Serializable {
     */
     public View setTraceMethodAllowed(java.lang.Boolean traceMethodAllowed){
         this.traceMethodAllowed = traceMethodAllowed;
+        return this;
+    }
+
+    /**
+    * Obtém application
+    * return application
+    * @generated
+    */
+    
+    public Application getApplication(){
+        return this.application;
+    }
+
+    /**
+    * Define application
+    * @param application application
+    * @generated
+    */
+    public View setApplication(Application application){
+        this.application = application;
         return this;
     }
 

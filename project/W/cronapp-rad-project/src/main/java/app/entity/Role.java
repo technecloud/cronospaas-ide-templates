@@ -61,6 +61,15 @@ public class Role implements Serializable {
         
         private java.lang.String normalizedName = "";
 
+
+    /**
+    * @generated
+    */
+    @ManyToOne
+    @JoinColumn(name="application_id", nullable = true, referencedColumnName = "id", insertable=true, updatable=true)
+        
+        private Application application;
+
     /**
     * Construtor
     * @generated
@@ -161,6 +170,26 @@ public class Role implements Serializable {
     */
     public Role setNormalizedName(java.lang.String normalizedName){
         this.normalizedName = normalizedName;
+        return this;
+    }
+
+    /**
+    * Obtém application
+    * return application
+    * @generated
+    */
+    
+    public Application getApplication(){
+        return this.application;
+    }
+
+    /**
+    * Define application
+    * @param application application
+    * @generated
+    */
+    public Role setApplication(Application application){
+        this.application = application;
         return this;
     }
 
