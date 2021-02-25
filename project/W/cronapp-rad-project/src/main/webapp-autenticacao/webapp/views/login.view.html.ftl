@@ -95,3 +95,30 @@
     </div>
 </div>
 </div>
+<div class="modal fade" id="forgotPasswordModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span aria-hidden="true">×</span></button>
+        <h2 class="modal-title">{{'ForgotPassword' | translate}}</h2>
+      </div>
+      <div class="modal-body">
+        <form class="form-validation" autocomplete="off" name="forgotPasswordForm" role="form">
+          <input type="hidden" name="csrf_token" value="CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz">
+          <div class="text-danger wrapper text-center" ng-show="authError">
+          </div>
+          <div class="list-group list-group-sm">
+              <div class="list-group-item">
+                  <label for="forgotPasswordEmail">{{'ForgotPasswordEmail' | translate}}</label>
+                  <input type="email" class="form-control k-textbox" id="forgotPasswordEmail" aria-label="{{'ForgotPasswordEmail' | translate}}" ng-required="true" ng-model="forgotPasswordEmail">
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary btn-fab k-button" type="submit" ng-click="forgotPassword()" ng-disabled="form.$invalid || vm.dataLoading" aria-label="{{'Save' | translate}}"><span class="k-icon k-i-check"></span></button>
+        <button class="btn btn-default btn-fab k-button" type="button" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"><span class="k-icon k-i-close"></span></button>
+      </div>
+    </div>
+  </div>
+</div>
