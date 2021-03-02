@@ -1,12 +1,12 @@
 {
-	"name": "cronos-components",
+	"name": "${WidgetId}-components",
 	"version": "1.0.0",
 	"components": [
 		{
-			"name": "crn-exemploinput",
-			"text": "Exemplo Input",
+			"name": "${WidgetId}",
+			"text": "${WidgetName}",
 			"class": "cpn cpn-textinput",
-			"templateURL": "${webcontent}/components/templates/exemplo-input.template.html",
+			"templateURL": "${r"${webcontent}"}/components/templates/${WidgetId}.template.html",
 			"properties": {
 				"onchange": {
 					"removable": true,
