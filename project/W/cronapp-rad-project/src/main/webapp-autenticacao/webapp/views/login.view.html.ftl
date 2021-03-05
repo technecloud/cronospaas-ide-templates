@@ -48,6 +48,7 @@
                         </button>
                         </#if>
                     </div>
+                    <a href="" style="margin-top: 2.5%;" class="cron-link text-center component-holder col-md-12 col-xs-12" ng-click="cronapi.screen.showModal('forgotPasswordModal')" data-component="crn-anchor" id="crn-anchor-93855">{{'ForgotPassword' | translate}}</a>
                 </form>
                 <#if mutual?? && mutual?lower_case == "sim" && (enterprise)!false>
                 <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" style="margin-top:5px" data-component="crn-button" id="crn-button-716293"><button class="btn btn-default k-button btn-block" ng-click="cronapi.client('js.blockly.MutualAuth.login').run()" xattr-fullsize="btn-block" xattr-theme="btn-default" xattr-disabled=""><span>{{'CertificateLogin' | translate}}</span></button></div>
