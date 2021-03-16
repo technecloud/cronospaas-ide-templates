@@ -16,7 +16,7 @@ path=/resources
 <#else> 
 path.content=/webapp-autenticacao
 path=/java
-	<#if authentication?? && (authentication?lower_case == "sso" || authentication?lower_case == "saml") && (enterprise)!false >
+	<#if (enterprise)!false >
 path=/resources
 	</#if>
 </#if>

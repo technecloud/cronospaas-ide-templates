@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <groupId>org.springframework.boot</groupId>
-        <version>2.0.1.RELEASE</version>
-        <relativePath>../pom.xml</relativePath>
+        <groupId>io.cronapp</groupId>
+        <artifactId>cronapp-framework-spring</artifactId>
+        <version>2.8.0-SNAPSHOT</version>
+        <relativePath/>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>${appid}</groupId>
@@ -38,8 +38,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -73,7 +73,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.0.1.RELEASE</version>
             </plugin>
         </plugins>
     </build>
@@ -156,7 +155,6 @@
         <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>cronapi-java</artifactId>
-            <version>2.6.0-SNAPSHOT</version>
             <exclusions>
                 <exclusion>
                     <artifactId>commons-lang3</artifactId>
@@ -171,17 +169,10 @@
         <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>cronapp-framework-java</artifactId>
-            <version>2.6.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.cronapp</groupId>
-            <artifactId>cronapp-reports-exec</artifactId>
-            <version>1.23.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.cronapp</groupId>
             <artifactId>olingo-odata2-jpa-processor-core</artifactId>
-            <version>2.6.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
@@ -194,20 +185,13 @@
             <artifactId>cronapi-apm</artifactId>
             <version>1.0.0</version>
         </dependency>
-        <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-          <version>2.0.1.RELEASE</version>
-        </plugin>
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.cronospass.resource mimetype="folder/servercontext">config</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/src">src/main/java</project.cronospass.resource>
-   <#if authentication?? && (authentication?lower_case == "sso" || authentication?lower_case == "saml") && (enterprise)!false >
 	    <project.cronospass.resource mimetype="folder/src">src/main/resources</project.cronospass.resource>
-   </#if>
         <project.cronospass.resource mimetype="folder/web">src/main/mobileapp/www</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/web">src/main/webapp</project.cronospass.resource>
     </properties>
