@@ -12,5 +12,8 @@ path=/java
 <#-- Caso contrario copiar tudo -->
 <#else> 
 path=/java
+	<#if (enterprise)!false >
+path=/resources
+	</#if>
 </#if>
 path=/mobileapp

@@ -1,3 +1,32 @@
+<#macro single_line><#local captured><#nested></#local>${ captured?replace("^\\s+|\\s+$|\\n|\\r", "", "rm") }</#macro>
+<#macro getter_setter classClass field fieldName>
+    /**
+    * Obtém ${fieldName}
+    * return ${fieldName}
+    * @generated
+    */
+    <#if field.securityAnnotation != "">
+    ${field.securityAnnotation}
+    </#if>
+    public ${field.type} get${fieldName?cap_first}() {
+        return this.${fieldName};
+    }
+
+    /**
+    * Define ${fieldName}
+    * @param ${fieldName} ${fieldName}
+    * @generated
+    */
+    public ${classClass.name} set${fieldName?cap_first}(${field.type} ${fieldName}) {
+        <#if field.isEncryption() && !clazz.hasStrongPassword()>
+        this.${fieldName} = ${fieldName}.startsWith(ENCRYPT) ? ${fieldName} : new BCryptPasswordEncoder().encode(${fieldName});
+        <#else>
+        this.${fieldName} = ${fieldName};
+        </#if>        
+        return this;
+    }
+</#macro>    
+
 package ${entityPackage}<#if subPackage??>.${subPackage}</#if>;
 
 import java.io.*;
@@ -17,15 +46,6 @@ import cronapi.database.VersionConverter;
 <#if clazz.hasXML()>
 import cronapi.database.ByteConverter;
 </#if>
-<#assign isExistsEncrypt = false>
-<#list clazz.fields as field>
-    <#if field.isEncryption()>
-        <#assign isExistsEncrypt = true>
-    </#if>
-</#list>
-<#if hasCronappFramework && isExistsEncrypt>
-    import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-</#if>
 <#assign hasCloudStorage = clazz.hasCloudStorage()>
 <#if hasCloudStorage>
     import cronapi.CronapiCloud;
@@ -35,6 +55,15 @@ import cronapi.database.ByteConverter;
 </#if>
 <#if clazz.hasFileDataBase()>
     import cronapi.CronapiByteHeaderSignature;
+</#if>
+<#if clazz.hasEncryption()>
+  <#if clazz.hasStrongPassword()>
+import cronapp.framework.persistence.ValidPassword;
+import cronapp.framework.persistence.ValidPasswords;
+import cronapp.framework.persistence.PasswordEncoderListener;
+  <#else>
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;  
+  </#if>
 </#if>
 <#list clazz.imports as import>
     import ${import};
@@ -91,8 +120,17 @@ import org.eclipse.persistence.annotations.*;
   converterClass=ByteConverter.class
 )
 </#if>
+<#if clazz.hasStrongPassword() && clazz.hasEncryption()>
+@ValidPasswords({
+    <#list clazz.fields as field>
+        <#if field.isEncryption()>
+    @ValidPassword(passwordProperty = "${field.name}", passwordHistoryProperty = "${field.name}History"),
+        </#if>
+    </#list>
+})    
+</#if>
 public class ${clazz.name} implements Serializable {
-<#if isExistsEncrypt>
+<#if clazz.hasEncryption() && !clazz.hasStrongPassword()>
     /**
     * Variável privada para verificação da criptofrafia
     *
@@ -100,7 +138,6 @@ public class ${clazz.name} implements Serializable {
     */
     private static final String ENCRYPT = "$2a$10$";
 </#if>
-
     /**
     * UID da classe, necessário na serialização
     * @generated
@@ -220,6 +257,17 @@ public class ${clazz.name} implements Serializable {
         ${field.securityAnnotation}
         ${field.modifier} <#if field.arrayRelation>${field.type}<#else>${field.type}</#if> ${field.name}<#if field.defaultValue?has_content> = ${field.defaultValue}</#if>;
     </#if>
+
+    <#if field.isEncryption()>    
+    /**
+    * @generated
+    */
+    <@single_line>@Column(name = "${field.dbFieldName}_history"
+        <#if !field.insertable>, insertable = ${field.insertable?c}</#if>
+        <#if !field.updatable>, updatable = ${field.updatable?c}</#if>
+    )</@single_line>
+    ${field.modifier} ${field.type} ${field.name}History;
+    </#if>
 </#list>
 
     /**
@@ -230,29 +278,10 @@ public class ${clazz.name} implements Serializable {
     }
 
 <#list clazz.fields as field>
-    <#assign name = "${field.name}">
-    /**
-    * Obtém ${name}
-    * return ${name}
-    * @generated
-    */
-    ${field.securityAnnotation}
-    public ${field.type} get${name?cap_first}(){
-        return this.${name};
-    }
-
-    /**
-    * Define ${name}
-    * @param ${name} ${name}
-    * @generated
-    */
-    public ${clazz.name} set${name?cap_first}(${field.type} ${name}){
-    <#if field.isEncryption() && hasCronappFramework>
-        ${name} = ${name}.startsWith(ENCRYPT) ? ${name} : new BCryptPasswordEncoder().encode(${name});
+    <@getter_setter clazz field "${field.name}" />
+    <#if field.isEncryption()>
+    <@getter_setter clazz field "${field.name}History" />
     </#if>
-        this.${name} = ${name};
-        return this;
-    }
 </#list>
 
     /**

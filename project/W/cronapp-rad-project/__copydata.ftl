@@ -3,6 +3,7 @@ path=/config
 path=/diagram
 path=/src
 path=/docs
+path=/templates
 file=.gitignore
 file=pom.xml.ftl
 file=project.png

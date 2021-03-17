@@ -89,33 +89,58 @@ public static Var Normalize(Var Entidade) throws Exception {
 /**
  *
  * @param toAddress
+ * @param toName
  * @param token
  * @return Var
  */
 // Descreva esta função...
-public static Var sendResetPasswordEmail(Var toAddress, Var token) throws Exception {
+public static Var sendResetPasswordEmail(Var toAddress, Var toName, Var token) throws Exception {
  return new Callable<Var>() {
+
+   private Var message = Var.VAR_NULL;
+   private Var dataModel = Var.VAR_NULL;
 
    public Var call() throws Exception {
 
-    cronapi.email.Operations.sendEmail(
-    Var.VAR_NULL, toAddress,
-    Var.VAR_NULL,
-    Var.VAR_NULL,
-    cronapi.i18n.Operations.translate(Var.valueOf("ResetPasswordEmailSubject")),
+    message =
+    cronapp.framework.mailer.MailerApi.createMessage();
+
+    cronapp.framework.mailer.MailerApi.setFrom(message,
+    Var.valueOf("email@gmail.com"),
+    Var.valueOf("Nome do Remetente"));
+
+    cronapp.framework.mailer.MailerApi.addTo(message, toAddress, toName);
+
+    cronapp.framework.mailer.MailerApi.setSubject(message,
+    cronapi.i18n.Operations.translate(Var.valueOf("ResetPasswordEmailSubject")));
+
+    dataModel =
+    cronapi.map.Operations.createObjectMap();
+
+    cronapi.map.Operations.setMapFieldByKey(dataModel,
+    Var.valueOf("link"),
     Var.valueOf(
-    cronapi.i18n.Operations.translate(Var.valueOf("ResetPasswordEmailBody")).toString() +
     cronapi.screen.Operations.getHeader(
     Var.valueOf("Origin")).toString() +
     Var.valueOf("/#/public/reset-password?token=").toString() +
-    token.toString()),
-    Var.VAR_NULL,
-    Var.VAR_NULL,
-    Var.VAR_NULL,
-    Var.VAR_NULL,
-    Var.VAR_NULL,
-    Var.VAR_NULL,
-    Var.valueOf("TLS"));
+    token.toString()));
+
+    cronapi.map.Operations.setMapFieldByKey(dataModel,
+    Var.valueOf("email"), toAddress);
+
+    cronapp.framework.mailer.MailerApi.setText(message, Var.VAR_NULL,
+    cronapp.framework.templater.TemplaterApi.process(
+    Var.valueOf("reset-password.ftlh"), dataModel));
+
+    cronapp.framework.mailer.MailerApi.addInlineAttachment(
+    Var.valueOf("headerImageCid"), message,
+    Var.valueOf("https://acesso.cronapp.io/img/header.png"));
+
+    cronapp.framework.mailer.MailerApi.addInlineAttachment(
+    Var.valueOf("footerImageCid"), message,
+    Var.valueOf("https://acesso.cronapp.io/img/footer.png"));
+
+    cronapp.framework.mailer.MailerApi.send(message);
     return Var.VAR_NULL;
    }
  }.call();
