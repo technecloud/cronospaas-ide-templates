@@ -9,6 +9,4 @@
 <#-- Caso contrario copiar tudo -->
 <#else> 
 </#if>
-<#if (enterprise)!false >
 ../../project/W/cronapp-rad-project/src/main/resources
-</#if>
