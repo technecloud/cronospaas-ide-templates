@@ -8,12 +8,11 @@ path.content=/webapp-sem-autenticacao
   </#if>
 <#if (backend?lower_case) == "true">
 path=/java
+path=/resources
 </#if>
 <#-- Caso contrario copiar tudo -->
 <#else> 
 path=/java
-	<#if (enterprise)!false >
 path=/resources
-	</#if>
 </#if>
 path=/mobileapp
