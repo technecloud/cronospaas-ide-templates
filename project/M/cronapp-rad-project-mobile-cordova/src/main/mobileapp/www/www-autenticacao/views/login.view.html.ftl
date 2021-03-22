@@ -18,10 +18,14 @@
         </div>
         </#if>
         <div class="item" title="{{'Login.view.Login' | translate}}" for="crn-button-445347">
-          <#if (authentication?lower_case == "sso" || authentication?lower_case == "saml") && (enterprise)!false>
+          <#if (authentication?lower_case == "saml")>
           <a role="button" aria-label="{{'Login.view.Login' | translate}}" href="/login" class="button component-holder button-full button-positive" target="_self" data-replace="true" data-component="crn-anchor">
               <span>{{"Login.view.Login" | translate}} </span>
           </a>
+          <#elseif (authentication?lower_case == "sso")>
+          <button ng-click="cronapi.social.ssoLogin();" role="button" aria-label="{{'Login.view.Login' | translate}}" class="button component-holder button-full button-positive" data-replace="true" data-component="crn-anchor">
+              <span>{{"Login.view.Login" | translate}} </span>
+          </button>
           <#else>
           <button role="button" aria-label="{{'Login.view.Login' | translate}}" class="button component-holder button-full button-positive" type="button" ng-click="cronapi.client('js.blockly.auth.Login.login').run(vars.username, vars.password, null)" data-component="crn-button" id="crn-button-445347" xattr-fullsize="button-full" xattr-theme="button-positive" ng-disabled="form.$invalid || vm.dataLoading">
             <i class=""></i>
