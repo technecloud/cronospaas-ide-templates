@@ -58,7 +58,9 @@
   <script src="js/blockly.js"></script>
   <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
   <!-- Custom -->
+  <#if (backend?? && backend?lower_case) == "true" >
   <script src="js/events.js"></script>
+  </#if>
   <!-- CronApp Framework -->
   <script src="plugins/cronapp-framework-js/dist/js/app.js"></script>
   <script src="plugins/cronapp-framework-js/dist/js/controllers.js"></script>
@@ -73,6 +75,6 @@
   <script src="plugins/cronapp-framework-js/dist/js/reports/reports.service.js"></script>
   <!-- Custom Controllers -->
   <script src="js/custom.controllers.js"></script>
-  <script src="plugins/cronapp-framework-js/dist/js/upload.service.js"></script>
+  <script src="node_modules/cronapp-framework-js/dist/js/upload.service.js"></script>
 </body>
 </html>
