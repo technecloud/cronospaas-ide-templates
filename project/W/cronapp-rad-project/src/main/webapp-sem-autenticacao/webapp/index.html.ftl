@@ -59,7 +59,7 @@
   <script src="js/blockly.js"></script>
   <script src="plugins/cronapi-js/dist/cronapi.min.js"></script>
   <!-- Custom -->
-  <#if (backend?? && backend?lower_case) == "true" >
+  <#if ((backend??) && (backend?lower_case) == "true") >
   <script src="js/events.js"></script>
   </#if>
   <!-- CronApp Framework -->
