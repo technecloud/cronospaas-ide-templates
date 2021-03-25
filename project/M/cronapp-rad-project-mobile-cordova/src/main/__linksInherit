@@ -9,4 +9,6 @@
 <#-- Caso contrario copiar tudo -->
 <#else> 
 </#if>
+<#if ((backend??) && (backend?lower_case) == "true") >
 ../../project/W/cronapp-rad-project/src/main/resources
+</#if>
