@@ -1,7 +1,7 @@
 ../../project/M/cronapp-rad-project-mobile-cordova/src/main/mobileapp/www/www-autenticacao/css
 ../../project/M/cronapp-rad-project-mobile-cordova/src/main/mobileapp/www/www-autenticacao/i18n
 ../../project/M/cronapp-rad-project-mobile-cordova/src/main/mobileapp/www/www-autenticacao/img
-<#if (backend?? && backend?lower_case) == "true" >
+<#if ((backend??) && (backend?lower_case) == "true") >
 ../../project/M/cronapp-rad-project-mobile-cordova/src/main/mobileapp/www/www-autenticacao/js
 </#if>
 ../../project/M/cronapp-rad-project-mobile-cordova/src/main/mobileapp/www/www-autenticacao/favicon.ico
