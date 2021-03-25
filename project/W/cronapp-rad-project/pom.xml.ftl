@@ -63,32 +63,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>
-    <repositories>
-        <repository>
-            <id>libs-release</id>
-            <name>artifactory-cronapp-release</name>
-            <url>https://artifactory.cronapp.io/libs-release</url>
-        </repository>
-        <repository>
-            <id>libs-snapshot</id>
-            <name>artifactory-cronapp-snapshot</name>
-            <url>https://artifactory.cronapp.io/libs-snapshot</url>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>plugins-libs-release</id>
-            <name>plugins-artifactory-cronapp-release</name>
-            <url>https://artifactory.cronapp.io/libs-release</url>
-            <layout>default</layout>
-        </pluginRepository>
-        <pluginRepository>
-            <id>plugins-libs-snapshot</id>
-            <name>plugins-artifactory-cronapp-snapshot</name>
-            <url>https://artifactory.cronapp.io/libs-snapshot</url>
-        </pluginRepository>
-    </pluginRepositories>
+    </build>    
     <dependencies>
         <dependency>
             <groupId>com.h2database</groupId>
