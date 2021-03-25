@@ -59,18 +59,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>io.cronapp</groupId>
-                <artifactId>cronapp-compile-plugin</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
