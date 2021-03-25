@@ -6,7 +6,7 @@ path.content=/webapp-autenticacao
 	<#if ((authentication?lower_case) == "nenhuma" && (frontend?lower_case) == "true") || ((backend?lower_case) == "false" && (frontend?lower_case) == "true")>
 path.content=/webapp-sem-autenticacao
 	</#if>
-	<#if (frontend?lower_case) == "true" || (backend?lower_case) == "true" >
+	<#if (backend?lower_case) == "true" >
 path=/java
 path=/resources
 	</#if>
