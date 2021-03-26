@@ -24,4 +24,5 @@ buildNumber.properties
 build.properties
 ports.pid
 .replacement/**
-**/node_modules/**
+node_modules
+.factorypath
