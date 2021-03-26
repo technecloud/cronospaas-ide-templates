@@ -204,7 +204,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.cronospass.resource mimetype="folder/servercontext">config</project.cronospass.resource>
+<#if ((backend??) && (backend?lower_case) == "true") >
         <project.cronospass.resource mimetype="folder/src">src/main/java</project.cronospass.resource>
+</#if>
         <project.cronospass.resource mimetype="folder/web">src/main/mobileapp/www</project.cronospass.resource>
         <project.cronospass.resource mimetype="folder/web">src/main/webapp</project.cronospass.resource>
     </properties>
