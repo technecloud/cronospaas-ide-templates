@@ -1,3 +1,4 @@
+file=appUserManager.datasource.json
 file=auditlogquery.datasource.json
 file=auth.datasource.json
 file=device.datasource.json
