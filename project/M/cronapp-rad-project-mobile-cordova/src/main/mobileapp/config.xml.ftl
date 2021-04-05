@@ -108,5 +108,5 @@
 
 
     </platform>
-    <plugin name="cordova-plugin-cronapp" spec="https://github.com/cronapp/cordova-plugin-cronapp.git#develop"/>
+    <plugin name="cordova-plugin-cronapp" spec="~2.8.0"/>
 </widget>
