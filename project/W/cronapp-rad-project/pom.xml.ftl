@@ -146,13 +146,13 @@
             </snapshots>
             <id>central</id>
             <name>libs-release</name>
-            <url>https://artifactory.cronapp.io:443/libs-release</url>
+            <url>https://artifactory.cronapp.io/libs-release</url>
         </repository>
         <repository>
             <snapshots />
             <id>snapshots</id>
             <name>libs-snapshot</name>
-            <url>https://artifactory.cronapp.io:443/libs-snapshot</url>
+            <url>https://artifactory.cronapp.io/libs-snapshot</url>
         </repository>
     </repositories>
     <pluginRepositories>
@@ -162,13 +162,13 @@
             </snapshots>
             <id>central</id>
             <name>plugins-release</name>
-            <url>https://artifactory.cronapp.io:443/plugins-release</url>
+            <url>https://artifactory.cronapp.io/plugins-release</url>
         </pluginRepository>
         <pluginRepository>
             <snapshots />
             <id>snapshots</id>
             <name>plugins-snapshot</name>
-            <url>https://artifactory.cronapp.io:443/plugins-snapshot</url>
+            <url>https://artifactory.cronapp.io/plugins-snapshot</url>
         </pluginRepository>
     </pluginRepositories>
     <properties>
