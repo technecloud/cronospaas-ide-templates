@@ -622,6 +622,253 @@
     "_class": "app.entity.View"
   },
   {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/index.html",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/views/login.view.html",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/js/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/node_modules/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/css/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/i18n/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/img/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/views/error/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/favicon.ico",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/views/public/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/bowerscripts/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${publicSecurable}"
+    },
+    "pattern": "/mobileapp/manifest.json",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
+    "id": "${statics["java.util.UUID"].randomUUID()}",
+    "securable": {
+      "id": "${authenticatedSecurable}"
+    },
+    "pattern": "/mobileapp/views/logged/**",
+    "getMethodAllowed": true,
+    "headMethodAllowed": true,
+    "putMethodAllowed": true,
+    "postMethodAllowed": true,
+    "patchMethodAllowed": true,
+    "deleteMethodAllowed": true,
+    "optionsMethodAllowed": true,
+    "traceMethodAllowed": true,
+    "application": {
+      "id": "${appguid}"
+    },
+    "_class": "app.entity.View"
+  },
+  {
     "_class": "app.entity.UserRole",
     "id": "f6dff76e-6460-4abc-b55b-7fef96716d18",
     "user": {
