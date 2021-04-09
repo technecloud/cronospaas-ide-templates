@@ -75,7 +75,8 @@
 
         </div>
         <div class="bar bar-footer" id="ion-footer" style="height: 54px;">
-            <button aria-label="{{'Register' | translate}}" class="button button-positive component-holder buttonFooter button-full" type="submit" xattr-fullsize="button-full" xattr-theme="button-positive" ng-click="signup()" data-component="crn-button" id="crn-button-signup" xattr-size=""><i class="" xattr-icon-theme=""></i> <span>{{'Register' | translate}}</span> </button>
+            <button aria-label="{{'Register' | translate}}" class="button button-positive component-holder buttonFooter button-full" type="submit" xattr-fullsize="button-full" xattr-theme="button-positive"
+                    ng-click="cronapi.client('js.blockly.auth.Signup.Signup').names('signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword').run(vars.signupUsername, vars.signupEmail, vars.signupPassword, vars.signupConfirmPassword)" data-component="crn-button" id="crn-button-signup" xattr-size=""><i class="" xattr-icon-theme=""></i> <span>{{'Register' | translate}}</span> </button>
         </div>
     </ion-content>
 </ion-view>
