@@ -126,5 +126,20 @@
   "Securable": "Securable",
   "Password": "Password",
   "PhoneNumber": "Phone number",
-  "LockoutEnabled": "Can the user be locked out?"
+  "LockoutEnabled": "Can the user be locked out?",
+  "Email": "Email",
+  "Username": "Username",
+  "Register": "Register",
+  "Back": "Back",
+  "Signup": "Signup",
+  "UserSuccessfullyRegistered": "User successfully registered!",
+  "EmailCanNotBeEmpty": "The e-mail address cannot be empty",
+  "UsernameCanNotBeEmpty": "The username cannot be empty",
+  "PasswordCanNotBeEmpty": "The new password cannot be empty",
+  "PasswordConfirmationCanNotBeEmpty": "The confirm password cannot be empty",
+  "PasswordDoesNotMatch": "The new password and confirm password doesn't match",
+  "EnterYourEmail": "Enter your e-mail",
+  "EnterYourUsername": "Enter your username",
+  "EnterYourPassword": "Enter your password",
+  "EnterYourConfirmPassword": "Enter your confirm password"
 }

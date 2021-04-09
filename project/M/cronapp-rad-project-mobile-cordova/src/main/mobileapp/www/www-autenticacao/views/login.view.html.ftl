@@ -1,3 +1,11 @@
+<style title="local">
+    #crn-anchor-67621 {
+        color: rgb(255, 255, 255);
+        text-align: center;
+        margin-top:10px;
+    }
+</style>
+
 <ion-view role="region" aria-labelledby="login_page_title" cache-view="false" can-swipe-back="false" class="pane login-bg" data-container="true">
     <h1 class="sr-only" id="login_page_title">{{"Users.view.Login" | translate}}</h1>
     <ion-content class="scroll-content center-content-vertically" data-component="crn-ion-content">
@@ -35,7 +43,7 @@
         </div>
 
         <div class="item">
-          <a aria-label="{{'Signup' | translate}}" href="#/app/public/signup" class="component-holder" style="display:block" xattr-fullsize="display:block;" data-replace="true" data-component="crn-anchor" id="crn-anchor-67621">{{'cadastrase' | translate}}</a>
+          <a aria-label="{{'Signup' | translate}}" href="#/app/public/signup" class="component-holder" style="display:block" xattr-fullsize="display:block;" data-replace="true" data-component="crn-anchor" id="crn-anchor-67621">{{'Signup' | translate}}</a>
         </div>
 
         <div class="item" title="{{message.error}}">
