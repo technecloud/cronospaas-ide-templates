@@ -17,14 +17,14 @@
                 <div class="login-view col-sm-7 col-xs-10 col-lg-4 col-md-4">
                     <form class="form-validation ng-pristine ng-valid ng-valid-required" autocomplete="off" name="form" ng-submit="signup()" role="form">
 
-                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-image" id="crn-image-${field.name}">
+                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-image" id="crn-image-signup">
                             <h1 class="text-center title component-holder titulo_card" xattr-position="h1 text-center"
-                                xattr-type="h1" data-component="crn-text-component" id="crn-text-component-${field.name}">
+                                xattr-type="h1" data-component="crn-text-component" id="crn-text-component-signup">
                                 {{'Signup' | translate}}
                             </h1>
                         </div>
 
-                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-${field.name}">
+                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-signupemail">
                             <div class="form-group">
                                 <label for="signupEmail" class="ng-binding">
                                     {{'Email' | translate}}
@@ -36,7 +36,7 @@
                             </div>
                         </div>
 
-                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-${field.name}">
+                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-signupusername">
                             <div class="form-group">
                                 <label for="signupUsername" class="ng-binding">
                                     {{'Username' | translate}}
@@ -48,7 +48,7 @@
                             </div>
                         </div>
 
-                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-${field.name}">
+                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-signuppassword">
                             <div class="form-group">
                                 <label for="signupPassword" class="ng-binding">
                                     {{'Users.view.Senha' | translate}}
@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-${field.name}">
+                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-signupconfirmpassword>
                             <div class="form-group">
                                 <label for="signupConfirmPassword" class="ng-binding">
                                     {{'Users.view.ConfirmeSuaSenha' | translate}}
@@ -89,7 +89,7 @@
                                 </span>
                             </button>
                             <a href="#/" class="cron-link component-holder col-md-12 col-xs-12 crn-anchor-signup-back" target="_self"
-                               data-replace="true" data-component="crn-anchor" id="crn-anchor-${field.name}" style="text-align: center;">
+                               data-replace="true" data-component="crn-anchor" id="crn-anchor-signupback" style="text-align: center;">
                                 {{'Back' | translate}}
                             </a>
                         </div>
