@@ -16,7 +16,7 @@
 
                         <input type="hidden" name="csrf_token" value="CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz" class="col-md-12">
                         <div class="text-danger wrapper text-center col-md-12" ng-show="authError"></div>
-                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-image" id="crn-image-${field.name}">
+                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-image" id="crn-image-login">
                             <h1>
                                 <img alt="Login" src="node_modules/cronapp-framework-js/img/cronapp-logo-login.png"
                                      class="" style="display:block; width:60%; height:auto; margin-left:auto; margin-right:auto;"
@@ -31,20 +31,20 @@
 
                         <#if authentication?lower_case != "sso" && authentication?lower_case != "saml">
 
-                            <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-${field.name}">
+                            <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-loginusername">
                                 <div class="form-group">
-                                    <label for="input-${field.name}">{{'Login.view.Username' | translate}}</label>
+                                    <label for="input-login-username">{{'Login.view.Username' | translate}}</label>
                                     <input type="text" mask="" mask-placeholder="" ng-required="false"
-                                           ng-model="username.value" class="form-control k-textbox" id="input-${field.name}"
+                                           ng-model="username.value" class="form-control k-textbox" id="input-login-username"
                                            placeholder="" autocomplete="username" autocorrect="off" autocapitalize="off">
                                 </div>
                             </div>
 
-                            <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-${field.name}" style="margin-bottom: 1px;">
+                            <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-loginpassword" style="margin-bottom: 1px;">
                                 <div class="form-group">
-                                    <label for="input-${field.name}">{{'Login.view.Password' | translate}}</label>
+                                    <label for="input-login-password">{{'Login.view.Password' | translate}}</label>
                                     <input type="password" mask="" mask-placeholder="" ng-required="false"
-                                           ng-model="password.value" class="form-control k-textbox" id="input-${field.name}"
+                                           ng-model="password.value" class="form-control k-textbox" id="input-login-password"
                                            autocomplete="current-password" placeholder="">
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                         </a>
 
                         <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12"
-                             data-component="crn-enterprise-checkbox" id="crn-enterprise-checkbox-${field.name}">
+                             data-component="crn-enterprise-checkbox" id="crn-enterprise-checkbox-login">
                         </div>
 
                         <div class="component-holder ng-binding ng-scope col-md-12" data-component="crn-button">
@@ -79,7 +79,7 @@
                                 </button>
                             </#if>
                             <a href="#/public/signup" class="cron-link component-holder col-md-12 col-xs-12"
-                               target="_self" data-replace="true" data-component="crn-anchor" id="crn-anchor-${field.name}"
+                               target="_self" data-replace="true" data-component="crn-anchor" id="crn-anchor-login-signup"
                                style="text-align: center; margin: 10px 0px;">{{'Signup' | translate}}
                             </a>
                         </div>
