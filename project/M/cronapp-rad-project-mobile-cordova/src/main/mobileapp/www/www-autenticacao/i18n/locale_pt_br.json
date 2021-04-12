@@ -126,5 +126,20 @@
   "Securable": "Permissionável",
   "Password": "Senha",
   "PhoneNumber": "Telefone",
-  "LockoutEnabled": "O usuário pode ser bloqueado?"
+  "LockoutEnabled": "O usuário pode ser bloqueado?",
+  "Signup.view.Email": "Email",
+  "Signup.view.Username": "Usuário",
+  "Signup.view.Register": "Cadastrar",
+  "Signup.view.Back": "Voltar",
+  "Signup.view.Signup": "Cadastre-se",
+  "Signup.view.UserSuccessfullyRegistered": "Usuário registrado com sucesso!",
+  "Signup.view.EmailCanNotBeEmpty": "O e-mail não pode estar vazio",
+  "Signup.view.UsernameCanNotBeEmpty": "O usuário não pode estar vazio",
+  "Signup.view.PasswordCanNotBeEmpty": "A senha não pode estar vazia",
+  "Signup.view.PasswordConfirmationCanNotBeEmpty": "A confirmação da senha não pode estar vazia",
+  "Signup.view.PasswordDoesNotMatch": "A senha e a confirmação da senha não conferem",
+  "Signup.view.EnterYourEmail": "Digite seu e-mail",
+  "Signup.view.EnterYourUsername": "Digite seu nome",
+  "Signup.view.EnterYourPassword": "Digite sua senha",
+  "Signup.view.EnterYourConfirmPassword": "Digite sua confirmação de senha"
 }
