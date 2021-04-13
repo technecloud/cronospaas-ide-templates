@@ -42,9 +42,11 @@
           </#if>
         </div>
 
-        <div class="item">
-          <a aria-label="{{'Signup' | translate}}" href="#/app/public/signup" class="component-holder" style="display:block" xattr-fullsize="display:block;" data-replace="true" data-component="crn-anchor" id="crn-anchor-67621">{{'Signup' | translate}}</a>
-        </div>
+        <#if availableSignup?? && availableSignup?lower_case == "sim" !false>
+            <div class="item">
+              <a aria-label="{{'Signup.view.Signup' | translate}}" href="#/app/public/signup" class="component-holder" style="display:block" xattr-fullsize="display:block;" data-replace="true" data-component="crn-anchor" id="crn-anchor-67621">{{'Signup.view.Signup' | translate}}</a>
+            </div>
+        </#if>
 
         <div class="item" title="{{message.error}}">
           <div ng-show="message.error" class="help-block" data-container="true">
