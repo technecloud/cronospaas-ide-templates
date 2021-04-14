@@ -7,8 +7,8 @@ window.blockly.js.blockly.auth.Signup = window.blockly.js.blockly.auth.Signup ||
 /**
  * Signup
  */
-window.blockly.js.blockly.auth.Signup.SignupArgs = ['signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword'];
-window.blockly.js.blockly.auth.Signup.Signup = async function(signupUsername, signupEmail, signupPassword, signupConfirmPassword) {
+window.blockly.js.blockly.Signup.SignupArgs = ['signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword'];
+window.blockly.js.blockly.Signup.Signup = async function(signupUsername, signupEmail, signupPassword, signupConfirmPassword) {
  var item;
   if (await this.blockly.js.blockly.auth.Signup.isValidSignup(signupUsername, signupEmail, signupPassword, signupConfirmPassword)) {
     this.cronapi.util.callServerBlocklyAsynchronous('blockly.SignupApp:signupApp', async function(sender_item) {
@@ -21,8 +21,8 @@ window.blockly.js.blockly.auth.Signup.Signup = async function(signupUsername, si
 /**
  * Descreva esta função...
  */
-window.blockly.js.blockly.auth.Signup.isValidSignupArgs = ['signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword'];
-window.blockly.js.blockly.auth.Signup.isValidSignup = async function(signupUsername, signupEmail, signupPassword, signupConfirmPassword) {
+window.blockly.js.blockly.Signup.isValidSignupArgs = ['signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword'];
+window.blockly.js.blockly.Signup.isValidSignup = async function(signupUsername, signupEmail, signupPassword, signupConfirmPassword) {
  var item;
   isValid = true;
   if (this.cronapi.logic.isNullOrEmpty(signupUsername)) {
