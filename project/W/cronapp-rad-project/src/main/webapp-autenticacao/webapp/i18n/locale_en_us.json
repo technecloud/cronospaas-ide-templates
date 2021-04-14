@@ -145,16 +145,14 @@
   "Signup.view.Register": "Register",
   "Signup.view.Back": "Back",
   "Signup.view.Signup": "Sign Up",
-  "Signup.view.UserSuccessfullyRegistered": "User successfully registered!",
-  "Signup.view.EmailCanNotBeEmpty": "The e-mail address cannot be empty",
-  "Signup.view.EmailInvalid": "Invalid e-mail address",
-  "Signup.view.UsernameCanNotBeEmpty": "The username cannot be empty",
-  "Signup.view.PasswordCanNotBeEmpty": "The new password cannot be empty",
-  "Signup.view.PasswordConfirmationCanNotBeEmpty": "The confirm password cannot be empty",
-  "Signup.view.PasswordDoesNotMatch": "The new password and confirm password doesn't match",
-  "Signup.view.EnterYourEmail": "Enter your e-mail",
-  "Signup.view.EnterYourUsername": "Enter your username",
-  "Signup.view.EnterYourPassword": "Enter your password",
-  "Signup.view.EnterYourConfirmPassword": "Enter your confirm password"
-
+  "UserSuccessfullyRegistered": "User successfully registered!",
+  "EmailCanNotBeEmpty": "The e-mail address cannot be empty",
+  "UsernameCanNotBeEmpty": "The username cannot be empty",
+  "PasswordCanNotBeEmpty": "The new password cannot be empty",
+  "PasswordConfirmationCanNotBeEmpty": "The confirm password cannot be empty",
+  "PasswordDoesNotMatch": "The new password and confirm password doesn't match",
+  "EnterYourEmail": "Enter your e-mail",
+  "EnterYourUsername": "Enter your username",
+  "EnterYourPassword": "Enter your password",
+  "EnterYourConfirmPassword": "Enter your confirm password"
 }

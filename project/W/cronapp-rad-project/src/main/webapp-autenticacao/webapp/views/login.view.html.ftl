@@ -53,7 +53,7 @@
 
                         <a ng-click="cronapi.screen.showModal('forgotPasswordModal')" class="cron-link component-holder col-xs-12  col-md-12" target="_self"
                            data-replace="true" data-component="crn-anchor" id="crn-botao-cadastre"
-                           style="text-align: right;">{{'resetPassword' | translate}}
+                           style="text-align: right;">{{'ResetPassword' | translate}}
                         </a>
 
                         <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12"
@@ -80,7 +80,7 @@
                             </#if>
                             <a href="#/public/signup" class="cron-link component-holder col-md-12 col-xs-12"
                                target="_self" data-replace="true" data-component="crn-anchor" id="crn-anchor-login-signup"
-                               style="text-align: center; margin: 10px 0px;">{{'Signup' | translate}}
+                               style="text-align: center; margin: 10px 0px;">{{'Signup.view.Signup' | translate}}
                             </a>
                         </div>
 

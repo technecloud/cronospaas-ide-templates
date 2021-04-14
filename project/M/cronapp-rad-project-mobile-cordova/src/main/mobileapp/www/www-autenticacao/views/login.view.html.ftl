@@ -43,7 +43,7 @@
         </div>
 
         <div class="item">
-          <a aria-label="{{'Signup' | translate}}" href="#/app/public/signup" class="component-holder" style="display:block" xattr-fullsize="display:block;" data-replace="true" data-component="crn-anchor" id="crn-anchor-67621">{{'Signup' | translate}}</a>
+          <a aria-label="{{'Signup.view.Signup' | translate}}" href="#/app/public/signup" class="component-holder" style="display:block" xattr-fullsize="display:block;" data-replace="true" data-component="crn-anchor" id="crn-anchor-67621">{{'Signup.view.Signup' | translate}}</a>
         </div>
 
         <div class="item" title="{{message.error}}">
