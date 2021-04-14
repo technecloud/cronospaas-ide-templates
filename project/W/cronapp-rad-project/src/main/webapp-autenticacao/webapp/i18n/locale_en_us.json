@@ -144,7 +144,7 @@
   "Signup.view.Username": "Username",
   "Signup.view.Register": "Register",
   "Signup.view.Back": "Back",
-  "Signup.view.Signup": "Signup",
+  "Signup.view.Signup": "Sign Up",
   "Signup.view.UserSuccessfullyRegistered": "User successfully registered!",
   "Signup.view.EmailCanNotBeEmpty": "The e-mail address cannot be empty",
   "Signup.view.EmailInvalid": "Invalid e-mail address",

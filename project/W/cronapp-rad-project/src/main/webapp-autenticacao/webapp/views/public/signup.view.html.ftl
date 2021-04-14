@@ -82,7 +82,7 @@
                             <button role="button" aria-label="{{'Signup.view.Register' | translate}}"
                                     class="btn btn-default col-md-12 col-xs-12 k-button btn-primary crn-button-signup-register" type="submit"
                                     ng-disabled="form.$invalid || vm.dataLoading"
-                                    ng-click="cronapi.client('js.blockly.Signup.Signup').names('signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword').run(vNomeCadastro, vEmailCadastro, vSenhaCadastro, vConfirmarSenhaCadastro)"
+                                    ng-click="cronapi.client('js.blockly.Signup.Signup').names('signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword').run(signupUsername, signupEmail, signupPassword, signupConfirmPassword)"
                                     xattr-size="" xattr-fullsize="" xattr-theme="btn-default" xattr-disabled="" data-component="crn-button">
                                 <span class="ng-binding">
                                     {{'Signup.view.Register' | translate}}
