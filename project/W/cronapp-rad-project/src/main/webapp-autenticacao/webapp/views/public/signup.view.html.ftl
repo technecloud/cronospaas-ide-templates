@@ -20,14 +20,14 @@
                         <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-image" id="crn-image-signup">
                             <h1 class="text-center title component-holder titulo_card" xattr-position="h1 text-center"
                                 xattr-type="h1" data-component="crn-text-component" id="crn-text-component-signup">
-                                {{'Signup' | translate}}
+                                {{'Signup.view.Signup' | translate}}
                             </h1>
                         </div>
 
                         <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-signupemail">
                             <div class="form-group">
                                 <label for="signupEmail" class="ng-binding">
-                                    {{'Email' | translate}}
+                                    {{'Signup.view.Email' | translate}}
                                 </label>
                                 <input type="email" mask="" mask-placeholder="" ng-required="false"
                                        ng-model="signupEmail" id="signupEmail"
@@ -39,7 +39,7 @@
                         <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-signupusername">
                             <div class="form-group">
                                 <label for="signupUsername" class="ng-binding">
-                                    {{'Username' | translate}}
+                                    {{'Signup.view.Username' | translate}}
                                 </label>
                                 <input type="text" mask="" mask-placeholder="" ng-required="false"
                                        ng-model="signupUsername" id="signupUsername"
@@ -60,7 +60,7 @@
                             </div>
                         </div>
 
-                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-signupconfirmpassword>
+                        <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-signupconfirmpassword">
                             <div class="form-group">
                                 <label for="signupConfirmPassword" class="ng-binding">
                                     {{'Users.view.ConfirmeSuaSenha' | translate}}
@@ -79,18 +79,18 @@
 
                                 </div>
                             </div>
-                            <button role="button" aria-label="{{'Register' | translate}}"
+                            <button role="button" aria-label="{{'Signup.view.Register' | translate}}"
                                     class="btn btn-default col-md-12 col-xs-12 k-button btn-primary crn-button-signup-register" type="submit"
                                     ng-disabled="form.$invalid || vm.dataLoading"
-                                    ng-click="cronapi.client('js.blockly.Signup.Signup').names('signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword').run(vNomeCadastro, vEmailCadastro, vSenhaCadastro, vConfirmarSenhaCadastro)"
+                                    ng-click="cronapi.client('js.blockly.Signup.Signup').names('signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword').run(signupUsername, signupEmail, signupPassword, signupConfirmPassword)"
                                     xattr-size="" xattr-fullsize="" xattr-theme="btn-default" xattr-disabled="" data-component="crn-button">
                                 <span class="ng-binding">
-                                    {{'Register' | translate}}
+                                    {{'Signup.view.Register' | translate}}
                                 </span>
                             </button>
                             <a href="#/" class="cron-link component-holder col-md-12 col-xs-12 crn-anchor-signup-back" target="_self"
                                data-replace="true" data-component="crn-anchor" id="crn-anchor-signupback" style="text-align: center;">
-                                {{'Back' | translate}}
+                                {{'Signup.view.Back' | translate}}
                             </a>
                         </div>
 
