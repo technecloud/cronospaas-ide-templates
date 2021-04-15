@@ -142,12 +142,6 @@
     "EnterYourUsername": "Digite seu nome",
     "EnterYourPassword": "Digite sua senha",
     "EnterYourConfirmPassword": "Digite sua confirmação de senha",
-
-
-
-
-
-
     "ForgotPassword": "Esqueceu a senha?",
     "ForgotPasswordEmail": "Digite o e-mail da conta que você deseja alterar a sua senha:",
     "ForgotPasswordSent": "Se o endereço de e-mail inserido corresponder ao associado a uma conta, você receberá um e-mail contendo instruções para a redefinição da senha",
