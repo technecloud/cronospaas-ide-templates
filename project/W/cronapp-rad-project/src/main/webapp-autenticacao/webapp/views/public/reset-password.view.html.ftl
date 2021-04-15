@@ -11,13 +11,13 @@
             <div class="component-holder ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-482763"> 
               <div class="form-group"> 
                 <label for="passwordNew">{{'ResetPasswordNew' | translate}}</label> 
-                <input type="password" mask="" mask-placeholder="" ng-required="false" ng-model="passwordNew" class="form-control k-textbox" id="passwordNew" placeholder="{{'ResetPasswordNew-placeholder' | translate}}"> 
+                <input type="password" mask="" mask-placeholder="" ng-required="false" ng-model="passwordNew.value" class="form-control k-textbox" id="passwordNew" placeholder="{{'ResetPasswordNew-placeholder' | translate}}"> 
               </div> 
             </div> 
             <div class="component-holder ng-scope col-xs-12 col-md-12" data-component="crn-textinput" id="crn-textinput-482763"> 
               <div class="form-group"> 
                 <label for="passwordConfirmation">{{'ResetPasswordConfirmation' | translate}}</label> 
-                <input type="password" mask="" mask-placeholder="" ng-required="false" ng-model="passwordConfirmation" class="form-control k-textbox" id="passwordConfirmation" placeholder="{{'ResetPasswordConfirmation-placeholder' | translate}}"> 
+                <input type="password" mask="" mask-placeholder="" ng-required="false" ng-model="passwordConfirmation.value" class="form-control k-textbox" id="passwordConfirmation" placeholder="{{'ResetPasswordConfirmation-placeholder' | translate}}"> 
               </div> 
             </div> 
             <div class="component-holder ng-scope col-md-12 col-xs-12" data-component="crn-button" id="buttonResetPassword"> 
