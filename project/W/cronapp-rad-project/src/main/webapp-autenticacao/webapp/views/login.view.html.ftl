@@ -14,8 +14,6 @@
 
                     <form class="form-validation ng-pristine ng-valid ng-valid-required" autocomplete="off" name="form" ng-submit="login()" role="form">
 
-                        <input type="hidden" name="csrf_token" value="CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz" class="col-md-12">
-                        <div class="text-danger wrapper text-center col-md-12" ng-show="authError"></div>
                         <div class="component-holder ng-binding ng-scope col-xs-12 col-md-12" data-component="crn-image" id="crn-image-login">
                             <h1>
                                 <img alt="Login" src="node_modules/cronapp-framework-js/img/cronapp-logo-login.png"
@@ -165,9 +163,6 @@
             </div>
             <div class="modal-body">
                 <form class="form-validation" autocomplete="off" name="forgotPasswordForm" role="form">
-                    <input type="hidden" name="csrf_token" value="CIwNZNlR4XbisJF39I8yWnWX9wX4WFoz">
-                    <div class="text-danger wrapper text-center" ng-show="authError">
-                    </div>
                     <div class="list-group list-group-sm">
                         <div class="list-group-item">
                             <label for="forgotPasswordEmail">
@@ -175,7 +170,7 @@
                             </label>
                             <input type="email" class="form-control k-textbox" id="forgotPasswordEmail"
                                    aria-label="{{'ForgotPasswordEmail' | translate}}" ng-required="true"
-                                   ng-model="forgotPasswordEmail"/>
+                                   ng-model="forgotPasswordEmail.value"/>
                         </div>
                     </div>
                 </form>
