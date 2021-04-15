@@ -8,6 +8,17 @@
         color: rgb(112, 112, 112);
         margin-top: 10px;
     }
+
+    #buttonSave { 
+        padding-right: 0px;
+        float: right;
+    }
+
+    #buttonClose { 
+        padding-right: 0px;
+        float: right;
+    }
+
 </style>
 
 <div class="bg">
@@ -99,4 +110,35 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="forgotPasswordModal"> 
+  <div class="modal-dialog"> 
+    <div class="modal-content"> 
+      <div class="modal-header"> 
+        <button type="button" class="close" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}"> <span aria-hidden="true"> × </span> </button> 
+        <h2 class="modal-title">{{'ForgotPassword' | translate}}</h2> 
+      </div> 
+      <div class="modal-body"> 
+        <form class="form-validation" autocomplete="off" name="forgotPasswordForm" role="form">
+        <div class="list-group list-group-sm"> 
+            <div class="component-holder ng-scope" data-component="crn-textinput" id="crn-textinput-22942"> 
+              <div class="form-group"> 
+                <label for="input837">{{'ForgotPasswordEmail' | translate}}</label> 
+                <input type="email" ng-required="true" ng-model="vars.inputResetPassword" class="form-control k-textbox" id="forgotPasswordEmail" aria-label="{{'EnterYourPassword' | translate}}" placeholder="{{'EnterYourPassword' | translate}}"> 
+              </div> 
+            </div> 
+          </div> 
+        </form> 
+      </div> 
+      <div class="modal-footer" > 
+        <div class="component-holder ng-scope col-md-3 col-sm-3 col-xs-4 col-lg-3" data-component="crn-button" id="buttonSave"> 
+          <button class="btn k-button crnCSS-default btn-success btn-block" type="submit" ng-click="forgotPassword()" ng-disabled="form.$invalid || vm.dataLoading" aria-label="{{'Save' | translate}}" xattr-fullsize="btn-block" xattr-theme="btn-success" xattr-disabled=""><i class="glyphicon glyphicon-ok"></i> <span>{{'Save' | translate}}</span></button> 
+        </div> 
+        <div class="component-holder ng-scope col-md-3 col-sm-3 col-xs-4 style1732  col-lg-3" data-component="crn-button" id="buttonClose"> 
+          <button class="btn k-button crnCSS-default btn-danger btn-block" type="button" data-dismiss="modal" aria-label="{{'Home.view.Close' | translate}}" xattr-fullsize="btn-block" xattr-theme="btn-danger" xattr-disabled=""><i class="glyphicon glyphicon-remove"></i> <span>{{'Home.view.Close' | translate}}</span></button> 
+        </div> 
+      </div> 
+    </div> 
+  </div> 
 </div>
