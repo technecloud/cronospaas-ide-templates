@@ -165,5 +165,6 @@
     "ResetPasswordSuccess": "Success!",
 
     "ResetPasswordNew-placeholder": "Enter your new password",
-    "ResetPasswordConfirmation-placeholder": "Confirm your password"
+    "ResetPasswordConfirmation-placeholder": "Confirm your password",
+    "Submit": "Submit"
 }

@@ -29,7 +29,7 @@
           <input aria-label="{{'Login.view.Password' | translate}}" autocomplete="current-password" type="password" placeholder="{{'Login.view.Password' | translate}}" ng-model="vars.password" id="crn-input-icon37951" keyboard="password">
         </div>
         
-        <a href="" class="component-holder" style="display:block" xattr-fullsize="display:block;" data-replace="true" data-component="crn-anchor" id="reset-password">{{'ResetPassword' | translate}}</a>
+        <a href="" class="component-holder" style="display:block" xattr-fullsize="display:block;" data-replace="true" data-component="crn-anchor" id="reset-password" on-hold="" on-tap="$evt('cronapi.screen.changeView(\'#/app/public/reset-password-email\', [])')">{{'ResetPassword' | translate}}</a>
         
         </#if>
         <div class="item" title="{{'Login.view.Login' | translate}}" for="crn-button-445347">

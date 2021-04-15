@@ -161,5 +161,6 @@
     "ResetPasswordDoesNotMatch": "A nova senha e a confirmação da nova senha não conferem",
     "ResetPasswordSuccess": "Successo!",
     "ResetPasswordConfirmation-placeholder": "Confirme sua senha",
-    "ResetPasswordNew-placeholder": "Digite sua senha nova"
+    "ResetPasswordNew-placeholder": "Digite sua senha nova",
+    "Submit": "Enviar"
 }
