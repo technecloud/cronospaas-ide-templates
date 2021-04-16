@@ -25,3 +25,4 @@ ports.pid
 .replacement/**
 node_modules
 .factorypath
+.settings
