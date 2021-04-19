@@ -141,5 +141,20 @@
   "EnterYourEmail": "Digite seu e-mail",
   "EnterYourUsername": "Digite seu nome",
   "EnterYourPassword": "Digite sua senha",
-  "EnterYourConfirmPassword": "Digite sua confirmação de senha"
+  "EnterYourConfirmPassword": "Digite sua confirmação de senha",
+  "ForgotPassword": "Esqueceu a senha?",
+  "ForgotPasswordEmail": "Digite o e-mail da conta que você deseja alterar a sua senha:",
+  "ForgotPasswordSent": "Se o endereço de e-mail inserido corresponder ao associado a uma conta, você receberá um e-mail contendo instruções para a redefinição da senha",
+  "ForgotPasswordEmailCanNotBeEmpty": "O e-mail não pode estar vazio",
+  "ForgotPasswordEmailInvalid": "O e-mail não é válido",
+  "ResetPassword": "Redefinir Senha",
+  "ResetPasswordNew": "Nova senha",
+  "ResetPasswordConfirmation": "Confirme a nova senha",
+  "ResetPasswordNewCanNotBeEmpty": "A nova senha não pode estar vazia",
+  "ResetPasswordConfirmationCanNotBeEmpty": "A confirmação da nova senha não pode estar vazia",
+  "ResetPasswordDoesNotMatch": "A nova senha e a confirmação da nova senha não conferem",
+  "ResetPasswordSuccess": "Successo!",
+  "ResetPasswordConfirmation-placeholder": "Confirme sua senha",
+  "ResetPasswordNew-placeholder": "Digite sua senha nova",
+  "Submit": "Enviar"
 }
