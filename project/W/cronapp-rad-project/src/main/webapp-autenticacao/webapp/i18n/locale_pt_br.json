@@ -154,5 +154,7 @@
   "EnterYourEmail": "Digite seu e-mail",
   "EnterYourUsername": "Digite seu nome",
   "EnterYourPassword": "Digite sua senha",
-  "EnterYourConfirmPassword": "Digite sua confirmação de senha"
+  "EnterYourConfirmPassword": "Digite sua confirmação de senha",
+  "ResetPasswordConfirmation-placeholder": "Confirme sua senha",
+  "ResetPasswordNew-placeholder": "Digite sua senha nova"
 }

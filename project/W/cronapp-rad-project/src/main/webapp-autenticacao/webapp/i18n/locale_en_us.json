@@ -154,5 +154,7 @@
   "EnterYourEmail": "Enter your e-mail",
   "EnterYourUsername": "Enter your username",
   "EnterYourPassword": "Enter your password",
-  "EnterYourConfirmPassword": "Enter your confirm password"
+  "EnterYourConfirmPassword": "Enter your confirm password",
+  "ResetPasswordNew-placeholder": "Enter your new password",
+  "ResetPasswordConfirmation-placeholder": "Confirm your password"
 }
