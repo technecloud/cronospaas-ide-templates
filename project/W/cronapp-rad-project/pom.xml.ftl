@@ -4,7 +4,7 @@
         <groupId>io.cronapp</groupId>
         <artifactId>cronapp-framework-spring</artifactId>
         <version>2.8.0-SNAPSHOT</version>
-        <relativePath/>
+        <relativePath />
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>${appid}</groupId>
@@ -35,15 +35,6 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.3</version>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
@@ -63,7 +54,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-    </build>    
+    </build>
     <dependencies>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -99,7 +90,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -149,6 +139,38 @@
             <version>1.0.0</version>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>libs-release</name>
+            <url>https://artifactory.cronapp.io/libs-release</url>
+        </repository>
+        <repository>
+            <snapshots />
+            <id>snapshots</id>
+            <name>libs-snapshot</name>
+            <url>https://artifactory.cronapp.io/libs-snapshot</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>plugins-release</name>
+            <url>https://artifactory.cronapp.io/plugins-release</url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots />
+            <id>snapshots</id>
+            <name>plugins-snapshot</name>
+            <url>https://artifactory.cronapp.io/plugins-snapshot</url>
+        </pluginRepository>
+    </pluginRepositories>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
