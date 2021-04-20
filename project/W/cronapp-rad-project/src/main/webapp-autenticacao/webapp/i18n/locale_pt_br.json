@@ -146,7 +146,6 @@
   "Signup.view.Back": "Voltar",
   "Signup.view.Signup": "Cadastre-se",
   "UserSuccessfullyRegistered": "Usuário registrado com sucesso!",
-  "UserNotRegistered": "Usuário não registrado!",
   "EmailCanNotBeEmpty": "O e-mail não pode estar vazio",
   "UsernameCanNotBeEmpty": "O usuário não pode estar vazio",
   "PasswordCanNotBeEmpty": "A senha não pode estar vazia",
