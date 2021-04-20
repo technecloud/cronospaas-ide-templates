@@ -146,31 +146,5 @@ public static Var sendResetPasswordEmail(Var toAddress, Var toName, Var token) t
  }.call();
 }
 
-/**
- *
- * @param @ParamMetaData
- * @return Var
- */
-// Descreva esta função...
-public static Var signUp(Var username, Var email, Var password) throws Exception {
-  return new Callable<Var>() {
-
-    private Var returnJson = Var.VAR_NULL;
-
-    public Var call() throws Exception {
-
-      returnJson = Var.valueOf(blockly.Authentication.signUp(
-        cronapi.map.Operations.createObjectMapWith(
-            Var.valueOf("name", username),
-            Var.valueOf("username", username),
-            Var.valueOf("email", email),
-            Var.valueOf("password",password)
-        )
-      ));
-      return returnJson;
-    }
-  }.call();
-}
-
 }
 
