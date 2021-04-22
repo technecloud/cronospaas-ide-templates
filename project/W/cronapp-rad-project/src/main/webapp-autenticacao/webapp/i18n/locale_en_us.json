@@ -146,6 +146,7 @@
   "Signup.view.Back": "Back",
   "Signup.view.Signup": "Sign Up",
   "UserSuccessfullyRegistered": "User successfully registered!",
+  "UserNotRegistered": "User not registered!",
   "EmailCanNotBeEmpty": "The e-mail address cannot be empty",
   "UsernameCanNotBeEmpty": "The username cannot be empty",
   "PasswordCanNotBeEmpty": "The new password cannot be empty",
