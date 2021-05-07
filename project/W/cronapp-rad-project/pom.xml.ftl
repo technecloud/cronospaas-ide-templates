@@ -53,6 +53,51 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+<#if (((frontend??) && (frontend?lower_case) == "true") || (androidSplashList?has_content))>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <executions>
+<#if ((frontend??) && (frontend?lower_case) == "true")>
+                    <execution>
+                        <id>npm-install-web</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                            <executable>bash</executable>
+                            <arguments>
+                                <argument>-c</argument>
+                                <argument>npm install</argument>
+                            </arguments>
+                            <workingDirectory>src/main/webapp</workingDirectory>
+                        </configuration>
+                    </execution>
+</#if>
+<#if (androidSplashList?has_content)>
+                    <execution>
+                        <id>npm-install-mobile</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                            <executable>bash</executable>
+                            <arguments>
+                                <argument>-c</argument>
+                                <argument>npm install</argument>
+                            </arguments>
+                            <workingDirectory>src/main/mobileapp/www</workingDirectory>
+                        </configuration>
+                    </execution>
+</#if>
+                </executions>
+            </plugin>
+</#if>
         </plugins>
     </build>
     <dependencies>
