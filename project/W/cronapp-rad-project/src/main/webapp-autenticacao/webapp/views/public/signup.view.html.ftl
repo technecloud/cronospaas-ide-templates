@@ -8,6 +8,17 @@
         color: rgb(112, 112, 112);
         margin-top: 10px;
     }
+
+    #buttonSave { 
+        padding-right: 0px;
+        float: right;
+    }
+
+    #buttonClose { 
+        padding-right: 0px;
+        float: right;
+    }
+
 </style>
 
 <div class="bg">
@@ -30,7 +41,7 @@
                                     {{'Signup.view.Email' | translate}}
                                 </label>
                                 <input type="email" mask="" mask-placeholder="" ng-required="false"
-                                       ng-model="signupEmail" id="signupEmail"
+                                       ng-model="signupEmail.value" id="signupEmail"
                                        class="form-control k-textbox ng-pristine ng-untouched ng-valid ng-empty ng-valid-required"
                                        placeholder="" autocomplete="email" autocorrect="off" autocapitalize="off">
                             </div>
@@ -42,7 +53,7 @@
                                     {{'Signup.view.Username' | translate}}
                                 </label>
                                 <input type="text" mask="" mask-placeholder="" ng-required="false"
-                                       ng-model="signupUsername" id="signupUsername"
+                                       ng-model="signupUsername.value" id="signupUsername"
                                        class="form-control k-textbox ng-pristine ng-untouched ng-valid ng-empty ng-valid-required"
                                        placeholder="" autocomplete="username" autocorrect="off" autocapitalize="off">
                             </div>
@@ -54,7 +65,7 @@
                                     {{'Users.view.Senha' | translate}}
                                 </label>
                                 <input type="password" mask="" mask-placeholder="" ng-required="false"
-                                       ng-model="signupPassword" id="signupPassword"
+                                       ng-model="signupPassword.value" id="signupPassword"
                                        class="form-control k-textbox ng-pristine ng-untouched ng-valid ng-empty ng-valid-required"
                                        placeholder="" autocomplete="password" autocorrect="off" autocapitalize="off">
                             </div>
@@ -66,7 +77,7 @@
                                     {{'Users.view.ConfirmeSuaSenha' | translate}}
                                 </label>
                                 <input type="password" mask="" mask-placeholder="" ng-required="false"
-                                       ng-model="signupConfirmPassword" id="signupConfirmPassword"
+                                       ng-model="signupConfirmPassword.value" id="signupConfirmPassword"
                                        class="form-control k-textbox ng-pristine ng-untouched ng-valid ng-empty ng-valid-required"
                                        placeholder="" autocomplete="confirm-password" autocorrect="off"
                                        autocapitalize="off">

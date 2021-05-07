@@ -175,7 +175,7 @@
                             </label>
                             <input type="email" class="form-control k-textbox" id="forgotPasswordEmail"
                                    aria-label="{{'ForgotPasswordEmail' | translate}}" ng-required="true"
-                                   ng-model="forgotPasswordEmail"/>
+                                   ng-model="forgotPasswordEmail.value"/>
                         </div>
                     </div>
                 </form>
