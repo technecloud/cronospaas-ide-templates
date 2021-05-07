@@ -4,6 +4,11 @@
         text-align: center;
         margin-top:10px;
     }
+
+    #reset-password { 
+        text-align: right;
+        color: rgb(255, 255, 255);
+    }
 </style>
 
 <ion-view role="region" aria-labelledby="login_page_title" cache-view="false" can-swipe-back="false" class="pane login-bg" data-container="true">
@@ -19,11 +24,14 @@
       <div class="list list-inset login-mobile" data-container="true">
         <#if authentication?lower_case != "sso" && authentication?lower_case != "saml">
         <div class="item item-input component-holder" data-component="crn-input-icon" for="crn-input-icon-228215" title="{{'Login.view.Username' | translate}}">
-          <input aria-label="{{'Login.view.Username' | translate}}" autocomplete="username" autocorrect="off" autocapitalize="off" type="text" placeholder="{{'Login.view.Username' | translate}}" ng-model="vars.username" id="crn-input-icon-228215">
+          <input aria-label="{{'Login.view.Username' | translate}}" autocomplete="username" autocorrect="off" autocapitalize="off" type="text" placeholder="{{'Login.view.Username' | translate}}" ng-model="vars.username" id="crn-input-icon-228215" keyboard="username">
         </div>
         <div class="item item-input component-holder" data-component="crn-input-icon" for="crn-input-icon37951" title="{{'Login.view.Password' | translate}}">
-          <input aria-label="{{'Login.view.Password' | translate}}" autocomplete="current-password" type="password" placeholder="{{'Login.view.Password' | translate}}" ng-model="vars.password" id="crn-input-icon37951">
+          <input aria-label="{{'Login.view.Password' | translate}}" autocomplete="current-password" type="password" placeholder="{{'Login.view.Password' | translate}}" ng-model="vars.password" id="crn-input-icon37951" keyboard="password">
         </div>
+
+         <a href="" class="component-holder" style="display:block" xattr-fullsize="display:block;" data-replace="true" data-component="crn-anchor" id="reset-password" on-hold="" on-tap="$evt('cronapi.screen.changeView(\'#/app/public/reset-password-email\', [])')">{{'ResetPassword' | translate}}</a>
+         
         </#if>
         <div class="item" title="{{'Login.view.Login' | translate}}" for="crn-button-445347">
           <#if (authentication?lower_case == "saml")>
