@@ -32,14 +32,11 @@
     #ion-header {
         border: none;
     }
-</style>
-<ion-view class="pane">
+</style><ion-view class="pane">
     <ion-content data-component="crn-ion-content" class="scroll-content" style="padding: 0px;">
 
         <div class="bar bar-header" id="ion-header" style="text-align: right; display: block;">
-            <a aria-label="{{'Signup.view.Back' | translate}}" class="button component-holder" type="" xattr-fullsize="" xattr-theme=""
-               href="#/app/login" data-component="crn-button" id="crn-button-voltarLogin"
-               xattr-size="" style="text-align: right;">
+            <a aria-label="{{'Signup.view.Back' | translate}}" class="button component-holder" type="" xattr-fullsize="" xattr-theme="" href="#/app/login" data-component="crn-button" id="crn-button-voltarLogin" xattr-size="" style="text-align: right;">
                 <i class="ion ion-close" xattr-icon-theme=""></i>
             </a>
         </div>
@@ -75,8 +72,7 @@
 
         </div>
         <div class="bar bar-footer" id="ion-footer" style="height: 54px;">
-            <button aria-label="{{'Signup.view.Register' | translate}}" class="button button-positive component-holder buttonFooter button-full" type="submit" xattr-fullsize="button-full" xattr-theme="button-positive"
-                    ng-click="cronapi.client('js.blockly.auth.Signup.Signup').names('signupUsername', 'signupEmail', 'signupPassword', 'signupConfirmPassword').run(vars.signupUsername, vars.signupEmail, vars.signupPassword, vars.signupConfirmPassword)" data-component="crn-button" id="crn-button-signup" xattr-size=""><i class="" xattr-icon-theme=""></i> <span>{{'Signup.view.Register' | translate}}</span> </button>
+            <button aria-label="{{'Signup.view.Register' | translate}}" class="button button-positive component-holder buttonFooter button-full" type="submit" xattr-fullsize="button-full" xattr-theme="button-positive" ng-click="cronapi.client('js.blockly.auth.UserControl.signUp').names('8df902ea', '0c25d725', '9c203fbf', '067b073b').run(vars.signupUsername, vars.signupEmail, vars.signupPassword, vars.signupConfirmPassword)" data-component="crn-button" id="crn-button-signup" xattr-size=""><i class="" xattr-icon-theme=""></i> <span>{{'Signup.view.Register' | translate}}</span> </button>
         </div>
     </ion-content>
 </ion-view>

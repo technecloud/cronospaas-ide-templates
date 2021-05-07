@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><blockly audit="false" bpmnAble="false" formTarget="src/main/webapp/views/login.view.html" resourceType="JAVA" ruleDescription="SignupApp" ruleName="SignupApp" ruleSecurity="{&quot;post&quot;:&quot;Public&quot;,&quot;get&quot;:&quot;Public&quot;,&quot;execute&quot;:&quot;Public&quot;,&quot;delete&quot;:&quot;Public&quot;,&quot;put&quot;:&quot;Public&quot;}" ruleSynchronous="false" ruleTimeout="300" ruleType="I" soap="false">
-  <metadata scale="1" scrollx="460.9999999999999" scrolly="-816" target="xRtxYB`3Vlb`gT.:;Y3~"/>
-  <block asynccall="false" colour="#fca03b" id="xRtxYB`3Vlb`gT.:;Y3~" origintype="procedures_defreturn" output="false" tooltip="Cria uma função que possui um valor de retorno." type="procedures_defreturn" x="-367" y="773">
+  <metadata scale="1" scrollx="450.7" scrolly="-850.7" target="l5c8},$Wxk9,VvSCb1$*"/>
+  <block asynccall="false" colour="#fca03b" id="xRtxYB`3Vlb`gT.:;Y3~" origintype="procedures_defreturn" output="false" tooltip="Cria uma função que possui um valor de retorno." type="procedures_defreturn" x="-353" y="802">
     <mutation>
       <arg id="b7d52451" name="username"/>
       <arg id="36bc1157" name="email"/>
@@ -120,5 +120,39 @@
         <field customattributes="" name="VAR">httpReturnStatus</field>
       </block>
     </value>
+  </block>
+  <block asynccall="false" colour="#fca03b" id="l5c8},$Wxk9,VvSCb1$*" origintype="procedures_defreturn" output="false" tooltip="Cria uma função que possui um valor de retorno." type="procedures_defreturn" x="-352" y="893">
+    <mutation>
+      <arg id="53fc1de9" name="email"/>
+    </mutation>
+    <field customattributes="" name="NAME">resetPassword</field>
+    <comment h="80" pinned="false" w="160">Descreva esta função...</comment>
+    <statement name="STACK">
+      <block asynccall="false" colour="#913487" dependencyby="l5c8},$Wxk9,VvSCb1$*" id="}%+k@PX|+-9vkAuuOz])" multilayer="false" namespace="cronapi.authentication.Operations.resetPassword" origintype="procedures_callnoreturn" output="false" returntype="ObjectType.VOID" tooltip="%3Cdiv%20class=%22name%22%3E%3Cstrong%3ENome:%3C/strong%3E%3Cdiv%3EResetar%20Senha%3C/div%3E%3C/div%3E%3Cdiv%20class=%22description%22%3E%3Cstrong%3EDescri%C3%A7%C3%A3o:%3C/strong%3E%3Cdiv%3EFun%C3%A7%C3%A3o%20para%20os%20usu%C3%A1rios%20resetarem%20sua%20senha%3C/div%3E%3C/div%3E%3Cdiv%20class=%22params%22%3E%3Cstrong%3EParam%C3%AAtro:%3C/strong%3E%3Cdiv%3E%3Cspan%3E%20-%20E-mail%20do%20Usu%C3%A1rio%20registrado%20:%20Texto%3C/span%3E%3Cbr%3E%3Cspan%3E%20-%20Endere%C3%A7o%20da%20imagem%20para%20o%20topo%20do%20e-mail%20de%20recupera%C3%A7%C3%A3o%20:%20Texto%3C/span%3E%3Cbr%3E%3Cspan%3E%20-%20Endere%C3%A7o%20da%20imagem%20para%20o%20rodap%C3%A9%20do%20e-mail%20de%20recupera%C3%A7%C3%A3o%20:%20Texto%3C/span%3E%3Cbr%3E%3C/div%3E%3C/div%3E%3Cdiv%20class=%22link%22%3E%3Cstrong%3EAjuda:%3C/strong%3E%3Cdiv%20class=%22tooltip-link%22%3E%3Ca%20target=%22_blank%22%20href=%22https://docs.cronapp.io/display/CRON2/cronapi.authentication.Operations.resetPassword%22%3Ehttps://docs.cronapp.io/display/CRON2/cronapi.authentication.Operations.resetPassword%3C/a%3E%3C/div%3E%3C/div%3E" type="procedures_callnoreturn">
+        <mutation name="{{cronapi.authentication.Operations.resetPassword}}" return-raw-type="void">
+          <arg cronapi-raw-type="cronapi.Variable" cronapi-type="ObjectType.STRING" name="E-mail do Usuário registrado"/>
+          <arg cronapi-raw-type="cronapi.Variable" cronapi-type="ObjectType.STRING" name="Endereço da imagem para o topo do e-mail de recuperação"/>
+          <arg cronapi-raw-type="cronapi.Variable" cronapi-type="ObjectType.STRING" name="Endereço da imagem para o rodapé do e-mail de recuperação"/>
+        </mutation>
+        <value name="ARG0">
+          <shadow asynccall="false" colour="#5ba593" dependencyby="l5c8},$Wxk9,VvSCb1$*" id="eQ@,c0l@#Rq9e(p1]|e0" origintype="text" output="true" tooltip="function () { [native code] }" type="text">
+            <field customattributes="" name="TEXT"/>
+          </shadow>
+          <block asynccall="false" colour="#0088ee" dependencyby="l5c8},$Wxk9,VvSCb1$*" id="[`Du|z^pew|v~N@@te]=" origintype="variables_get" output="true" tooltip="Retorna o valor desta variável." type="variables_get">
+            <field customattributes="" name="VAR">email</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <shadow asynccall="false" colour="#5ba593" dependencyby="l5c8},$Wxk9,VvSCb1$*" id="rLdm!9;o5SXW!$#bas:?" origintype="text" output="true" tooltip="function () { [native code] }" type="text">
+            <field customattributes="" name="TEXT">https://acesso.cronapp.io/img/header.png</field>
+          </shadow>
+        </value>
+        <value name="ARG2">
+          <shadow asynccall="false" colour="#5ba593" dependencyby="l5c8},$Wxk9,VvSCb1$*" id="5^~:1I)0XlR*Mm#zu`)m" origintype="text" output="true" tooltip="function () { [native code] }" type="text">
+            <field customattributes="" name="TEXT">https://acesso.cronapp.io/img/footer.png</field>
+          </shadow>
+        </value>
+      </block>
+    </statement>
   </block>
 </blockly>

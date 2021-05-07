@@ -18,6 +18,25 @@ public static final int TIMEOUT = 300;
  * @return Var
  */
 // Descreva esta função...
+public static Var resetPassword(@ParamMetaData(description = "email", id = "53fc1de9") Var email) throws Exception {
+ return new Callable<Var>() {
+
+   public Var call() throws Exception {
+
+    cronapi.authentication.Operations.resetPassword(email,
+    Var.valueOf("https://acesso.cronapp.io/img/header.png"),
+    Var.valueOf("https://acesso.cronapp.io/img/footer.png"));
+    return Var.VAR_NULL;
+   }
+ }.call();
+}
+
+/**
+ *
+ * @param @ParamMetaData
+ * @return Var
+ */
+// Descreva esta função...
 public static Var signUp(@ParamMetaData(description = "username", id = "b7d52451") Var username, @ParamMetaData(description = "email", id = "36bc1157") Var email, @ParamMetaData(description = "password", id = "097625e0") Var password) throws Exception {
  return new Callable<Var>() {
 
