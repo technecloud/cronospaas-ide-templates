@@ -169,26 +169,36 @@
                     <div class="text-danger wrapper text-center" ng-show="authError">
                     </div>
                     <div class="list-group list-group-sm">
-                        <div class="list-group-item">
+                        <div class="">
                             <label for="forgotPasswordEmail">
                                 {{'ForgotPasswordEmail' | translate}}
                             </label>
                             <input type="email" class="form-control k-textbox" id="forgotPasswordEmail"
-                                   aria-label="{{'ForgotPasswordEmail' | translate}}" ng-required="true"
-                                   ng-model="forgotPasswordEmail.value"/>
+                                aria-label="{{'ForgotPasswordEmail' | translate}}" ng-required="true"
+                                ng-model="forgotPasswordEmail" />
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary btn-fab k-button" type="submit" ng-click="forgotPassword()"
-                        ng-disabled="form.$invalid || vm.dataLoading" aria-label="{{'Save' | translate}}">
-                    <span class="k-icon k-i-check"></span>
-                </button>
-                <button class="btn btn-default btn-fab k-button" type="button" data-dismiss="modal"
-                        aria-label="{{'Home.view.Close' | translate}}">
-                    <span class="k-icon k-i-close"></span>
-                </button>
+                <div class="modalPassword">
+                    <div class="component-holder ng-scope  col-md-2" data-component="crn-button" id="crn-button-save">
+                        <button class="btn k-button crnCSS-default btn-primary" type="submit"
+                            ng-click="forgotPassword()" ng-disabled="form.$invalid || vm.dataLoading" xattr-fullsize=""
+                            aria-label="{{'Save' | translate}}" xattr-theme="btn-primary" xattr-disabled="">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span>{{'Save' | translate}}</span>
+                        </button>
+                    </div>
+                    <div class="component-holder ng-scope  col-md-2" data-component="crn-button" id="crn-button-close">
+                        <button class="btn k-button crnCSS-default btn-danger" type="button" data-dismiss="modal"
+                            xattr-fullsize="" aria-label="{{'Home.view.Close' | translate}}" xattr-theme="btn-danger"
+                            xattr-disabled="">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <span>{{'Home.view.Close' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
