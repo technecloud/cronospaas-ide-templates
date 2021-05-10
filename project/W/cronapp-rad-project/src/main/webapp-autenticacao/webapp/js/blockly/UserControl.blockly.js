@@ -1,16 +1,32 @@
 window.blockly = window.blockly || {};
 window.blockly.js = window.blockly.js || {};
 window.blockly.js.blockly = window.blockly.js.blockly || {};
-window.blockly.js.blockly.auth = window.blockly.js.blockly.auth || {};
-window.blockly.js.blockly.auth.Signup = window.blockly.js.blockly.auth.Signup || {};
+window.blockly.js.blockly.UserControl = window.blockly.js.blockly.UserControl || {};
+
+/**
+ * Descreva esta função...
+ */
+window.blockly.js.blockly.UserControl.resetPasswordArgs = [{ description: 'email', id: '7afdf898' }];
+window.blockly.js.blockly.UserControl.resetPassword = async function(email) {
+ var item;
+  if (this.cronapi.logic.isNullOrEmpty(email)) {
+    this.cronapi.screen.notify('error',this.cronapi.i18n.translate("EmailCanNotBeEmpty",[  ]));
+  } else {
+    this.cronapi.util.callServerBlocklyAsynchronous('blockly.UserControl:resetPassword', async function(sender_item) {
+        item = sender_item;
+      this.cronapi.screen.notify('success',this.cronapi.i18n.translate("ForgotPasswordSent",[  ]));
+      this.cronapi.screen.changeView("#/app/login",[  ]);
+    }.bind(this), email);
+  }
+}
 
 /**
  * Signup
  */
-window.blockly.js.blockly.auth.Signup.SignupArgs = [{ description: 'signupUsername', id: '8df902ea' }, { description: 'signupEmail', id: '0c25d725' }, { description: 'signupPassword', id: '9c203fbf' }, { description: 'signupConfirmPassword', id: '067b073b' }];
-window.blockly.js.blockly.auth.Signup.Signup = async function(signupUsername, signupEmail, signupPassword, signupConfirmPassword) {
- var returnJson, httpStatus;
-  if (await this.blockly.js.blockly.auth.Signup.isValidSignup(signupUsername, signupEmail, signupPassword, signupConfirmPassword)) {
+window.blockly.js.blockly.UserControl.signUpArgs = [{ description: 'signupUsername', id: 'ec5dbe32' }, { description: 'signupEmail', id: '62cce53e' }, { description: 'signupPassword', id: 'd42229ad' }, { description: 'signupConfirmPassword', id: 'a49023f3' }];
+window.blockly.js.blockly.UserControl.signUp = async function(signupUsername, signupEmail, signupPassword, signupConfirmPassword) {
+
+  if (await this.blockly.js.blockly.UserControl.isValidSignup(signupUsername, signupEmail, signupPassword, signupConfirmPassword)) {
     this.cronapi.util.callServerBlocklyAsynchronous('blockly.UserControl:signUp', async function(sender_returnJson) {
         returnJson = sender_returnJson;
       httpStatus = this.cronapi.json.getProperty(this.cronapi.json.createObjectFromString(returnJson), 'code');
@@ -27,9 +43,9 @@ window.blockly.js.blockly.auth.Signup.Signup = async function(signupUsername, si
 /**
  * Descreva esta função...
  */
-window.blockly.js.blockly.auth.Signup.isValidSignupArgs = [{ description: 'signupUsername', id: 'be2325de' }, { description: 'signupEmail', id: 'dc667925' }, { description: 'signupPassword', id: '9a49950f' }, { description: 'signupConfirmPassword', id: 'f6fdc12c' }];
-window.blockly.js.blockly.auth.Signup.isValidSignup = async function(signupUsername, signupEmail, signupPassword, signupConfirmPassword) {
- var returnJson, httpStatus, isValid;
+window.blockly.js.blockly.UserControl.isValidSignupArgs = [{ description: 'signupUsername', id: 'abf7b641' }, { description: 'signupEmail', id: '38708282' }, { description: 'signupPassword', id: 'daf1486e' }, { description: 'signupConfirmPassword', id: '3f9f5d23' }];
+window.blockly.js.blockly.UserControl.isValidSignup = async function(signupUsername, signupEmail, signupPassword, signupConfirmPassword) {
+
   isValid = true;
   if (this.cronapi.logic.isNullOrEmpty(signupUsername)) {
     this.cronapi.screen.notify('error',this.cronapi.i18n.translate("UsernameCanNotBeEmpty",[  ]));

@@ -151,7 +151,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="forgotPasswordModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -181,8 +180,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary btn-fab k-button" type="submit" ng-click="forgotPassword()"
-                        ng-disabled="form.$invalid || vm.dataLoading" aria-label="{{'Save' | translate}}">
+                <button class="btn btn-primary btn-fab k-button" type="submit" ng-click="cronapi.client('js.blockly.UserControl.resetPassword').names('7afdf898').run(forgotPasswordEmail.value)" ng-disabled="form.$invalid || vm.dataLoading" aria-label="{{'Save' | translate}}">
                     <span class="k-icon k-i-check"></span>
                 </button>
                 <button class="btn btn-default btn-fab k-button" type="button" data-dismiss="modal"
