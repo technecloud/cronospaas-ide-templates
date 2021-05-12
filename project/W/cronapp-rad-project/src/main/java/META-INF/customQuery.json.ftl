@@ -1404,7 +1404,31 @@
       "membershipEnabled": null,
       "name": null,
       "normalizedName": null,
-      "application": null
+      "application": {
+        "type": "server",
+        "blocklyMethod": "Current",
+        "blocklyClass": "blockly.Application",
+        "blocklyLanguage": "java",
+        "blocklyParams": [],
+        "blocklyJson": {
+          "namespace": "blockly.Application",
+          "sourcePath": "src/main/java/blockly/Application.blockly",
+          "language": "java",
+          "methods": [
+            {
+              "name": "Current",
+              "hasReturn": "true",
+              "params": []
+            }
+          ]
+        },
+        "blocklyGETMethod": null,
+        "blocklyPOSTMethod": null,
+        "blocklyPUTMethod": null,
+        "blocklyDELETEMethod": null,
+        "blocklyFILTERMethod": null,
+        "blocklyCOUNTMethod": null
+      }
     },
     "defaultValuesProperties": {
       "id": null,
