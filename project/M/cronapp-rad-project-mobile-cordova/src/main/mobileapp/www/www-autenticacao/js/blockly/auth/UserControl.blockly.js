@@ -17,6 +17,7 @@ window.blockly.js.blockly.auth.UserControl.signUp = async function(signupUsernam
       httpCodeStatus = this.cronapi.json.getProperty(json, 'code');
       httpMessageStatus = this.cronapi.json.getProperty(json, 'message');
       if (httpCodeStatus == '201') {
+        this.cronapi.screen.changeView("#/app/login",[  ]);
         this.cronapi.screen.notify('success',this.cronapi.i18n.translate("UserSuccessfullyRegistered",[  ]));
       } else {
         if (this.cronapi.logic.isNullOrEmpty(httpMessageStatus)) {
