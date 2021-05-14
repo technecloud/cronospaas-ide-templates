@@ -26,6 +26,7 @@
   
   <!-- Modal Template -->
   <div id="modalTemplateContext" ng-include="'node_modules/cronapi-js/include/modal.view.html'"></div>
+  <div id="modalTemplateContext" ng-include="'node_modules/cronapi-js/include/confirmDialog.view.html'"></div> 
   <!-- Report -->
   <div id="reportViewContext" ng-include="'node_modules/cronapp-framework-js/components/reports/reports.view.html'"></div>
   <!-- Plugins -->
