@@ -53,7 +53,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-<#if (((frontend??) && (frontend?lower_case) == "true") || (androidSplashList?has_content))>
+<#if (((frontend??) && (frontend?lower_case) == "true") || (isMobileProject))>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -77,7 +77,7 @@
                         </configuration>
                     </execution>
 </#if>
-<#if (androidSplashList?has_content)>
+<#if (isMobileProject)>
                     <execution>
                         <id>npm-install-mobile</id>
                         <phase>generate-resources</phase>
