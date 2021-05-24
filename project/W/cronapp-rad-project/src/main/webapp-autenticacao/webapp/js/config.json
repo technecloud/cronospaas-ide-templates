@@ -1,0 +1,9 @@
+{
+    "notification": {
+        "id": "CronappNotification",
+        "verticalPosition": "top",
+        "horizontalPosition": "left",
+        "animation": "slide",
+        "autoHide": true
+    }
+}
