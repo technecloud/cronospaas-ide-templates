@@ -35,7 +35,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown component-holder" data-component="crn-menu-item">
                     <a href="" class="dropdown-toggle" style="min-width: 123px;" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <img class="user-avatar" alt="Icon user" src="{{ session.user.picture || 'node_modules/cronapp-framework-js/dist/img/img-user.svg'}}" style="max-height:22px;max-width:22px" data-component="crn-image-menu" id="crn-image-menu-${model.random}">
+                        <img class="user-avatar" alt="Icon user" src="{{ session.user.picture || 'node_modules/cronapp-framework-js/dist/img/img-user.svg'}}" style="max-height:22px;max-width:22px" data-component="crn-image-menu" id="crn-image-menu">
                         <span>{{"Home.view.Perfil" | translate}}</span> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
