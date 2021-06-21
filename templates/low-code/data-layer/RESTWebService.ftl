@@ -1,5 +1,12 @@
 package ${restPackage};
-
+<#if hasAuth>
+import org.apache.axiom.om.OMAbstractFactory;
+import org.apache.axiom.om.OMElement;
+import org.apache.axiom.om.OMFactory;
+import org.apache.axiom.om.OMNamespace;
+import org.apache.axiom.soap.SOAPFactory;
+import org.apache.axis2.client.ServiceClient;
+</#if>
 import org.apache.commons.httpclient.protocol.Protocol;
 import cronapi.*;
 import cronapi.CronapiMetaData.*;
@@ -30,6 +37,29 @@ ${method.returnType} respn = null;
 
 ${baseInfo.stubClass} stub = new ${baseInfo.stubClass}();
 
+<#if hasAuth>
+OMFactory fac = OMAbstractFactory.getOMFactory();
+SOAPFactory factory = OMAbstractFactory.getSOAP11Factory();
+OMNamespace nsWSSE = fac.createOMNamespace("http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd", "wsse");
+
+org.apache.axiom.soap.SOAPHeaderBlock header = factory.createSOAPHeaderBlock("Security", nsWSSE);
+header.setMustUnderstand(true);
+
+OMElement usernameToken = fac.createOMElement("UsernameToken", nsWSSE);
+
+OMElement username = fac.createOMElement("Username", nsWSSE);
+username.setText("${wssUser}");
+
+usernameToken.addChild(username);
+
+OMElement password = fac.createOMElement("Password", nsWSSE);
+password.addAttribute("Type", "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText", null);
+password.setText("${wssPwd}");
+usernameToken.addChild(password);
+header.addChild(usernameToken);
+ServiceClient sender = stub._getServiceClient();
+sender.addHeader(header);
+</#if>
     <#list baseInfo.getAllObjectsToInstance(method) as param>
         <#if param.hasArgumentsInConstructor>
         //Constructor has arguments - requires manual implementation
