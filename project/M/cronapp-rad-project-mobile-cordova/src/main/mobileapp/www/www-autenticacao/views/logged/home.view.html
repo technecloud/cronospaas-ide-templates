@@ -1,14 +1,15 @@
 <ion-view class="pane" role="region">
-  <ion-header-bar role="heading" align-title="center" class="bar bar-positive" data-component="crn-ion-header-bar">
-    <div class="buttons buttons-left header-item">
-      <button aria-labelledby="left_navicon_sr" class="button button-clear" menu-toggle="left" data-component="crn-button" xattr-type="button-clear">
+  <ion-header-bar role="heading" class="bar bar-positive" xattr-theme="bar-positive" data-component="crn-ion-header-bar">
+    <div class="buttons buttons-left header-item" data-component="crn-header-button" id="crn-header-button-1">
+      <button aria-labelledby="left_navicon_sr" class="button button-clear component-holder" menu-toggle="left">
         <i class="icon ion-navicon"></i>
         <span id="left_navicon_sr" class="sr-only">{{'Accessibility.Button.Aria.Label.NavIcon' | translate}}</span>
       </button>
     </div>
-    <h1 class="title">{{'Home.view.Home' | translate }}</h1>
-    <div class="buttons buttons-right header-item">
-      <button aria-labelledby="right_navicon_sr" class="button button-clear" menu-toggle="right" data-component="crn-button" xattr-type="button-clear">
+    <h1 class="title" align-title="text-align: center;" style="text-align: center;">{{'Home.view.Home' | translate }}</h1>
+    <div aria-labelledby="right_navicon_sr" class="buttons buttons-right header-item" data-component="crn-header-button"
+      id="crn-header-button-2">
+      <button class="button button-clear component-holder" menu-toggle="right">
         <i class="icon ion-navicon"></i>
         <span id="right_navicon_sr" class="sr-only">{{'Accessibility.Button.Aria.Label.NavIcon' | translate}}</span>
       </button>
