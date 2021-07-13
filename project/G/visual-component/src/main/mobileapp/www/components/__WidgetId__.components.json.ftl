@@ -1,8 +1,9 @@
 {
     "name": "crn-${WidgetId}",
     "text": "${WidgetName}",
-    "image": "/node_modules/cronapp-framework-js/img/cron-icon/crn-plugin.svg",
+    "image": "/node_modules/cronapp-framework-mobile-js/img/cron-icon/crn-plugin.svg",
     "description": "${WidgetDescription}",
+    "description_en_US": "${WidgetDescription}",
     "category": [
         "PLUGINS"
     ],
@@ -13,33 +14,6 @@
         },
         "id": {
             "order": 1
-        },
-        "onclick": {
-            "type": "event"
-        },
-        "onchange": {
-            "removable": true,
-            "type": "event"
-        },
-        "on-tap": {
-            "removable": true,
-            "type": "event"
-        },
-        "on-double-tap": {
-            "removable": true,
-            "type": "event"
-        },
-        "on-hold": {
-            "removable": false,
-            "type": "event"
-        },
-        "on-drag": {
-            "removable": false,
-            "type": "event"
-        },
-        "on-swipe": {
-            "removable": false,
-            "type": "event"
         }
     },
     "attributesForPreview": [],

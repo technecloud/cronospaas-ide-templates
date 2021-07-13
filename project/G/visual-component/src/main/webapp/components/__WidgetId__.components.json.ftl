@@ -3,10 +3,11 @@
     "text": "${WidgetName}",
     "image": "/node_modules/cronapp-framework-js/img/cron-icon/crn-plugin.svg",
     "description": "${WidgetDescription}",
+    "description_en_US": "${WidgetDescription}",
     "category": [
         "PLUGINS"
     ],
-    "templateURL": "${r"${webcontent"}/components/templates/${WidgetId}.template.html",
+    "templateURL": "${r"${webcontent}"}/components/templates/${WidgetId}.template.html",
     "properties": {
         "class": {
             "order": 9999
@@ -16,37 +17,6 @@
         }
     },
     "attributesForPreview": [],
-    "childrenProperties": [
-        {
-            "name": "ng-init",
-            "selector": "button",
-            "type": "event"
-        },
-        {
-            "name": "ng-click",
-            "selector": "button",
-            "type": "event"
-        },
-        {
-            "name": "ng-dblclick",
-            "selector": "button",
-            "type": "event"
-        },
-        {
-            "name": "ng-mouseenter",
-            "selector": "button",
-            "type": "event"
-        },
-        {
-            "name": "ng-mouseleave",
-            "selector": "button",
-            "type": "event"
-        },
-        {
-            "name": "ng-mousemove",
-            "selector": "button",
-            "type": "event"
-        }
-    ],
+    "childrenProperties": [],
     "styles": []
 }
