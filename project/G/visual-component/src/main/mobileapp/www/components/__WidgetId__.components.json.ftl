@@ -1,8 +1,8 @@
 {
     "name": "crn-${WidgetId}",
     "text": "${WidgetName}",
-    "image": "/node_modules/cronapp-framework-js/img/cron-icon/crn-list.svg",
-    "description": "${Description}",
+    "image": "/node_modules/cronapp-framework-js/img/cron-icon/crn-plugin.svg",
+    "description": "${WidgetDescription}",
     "category": [
         "PLUGINS"
     ],
