@@ -1,12 +1,52 @@
 {
     "name": "crn-${WidgetId}",
     "text": "${WidgetName}",
-    "class": "adjust-icon mdi mdi-checkerboard",
-    "templateURL": "${r"${webcontent}"}/components/templates/${WidgetId}.template.html",
+    "image": "/node_modules/cronapp-framework-js/img/cron-icon/crn-plugin.svg",
+    "description": "${WidgetDescription}",
+    "category": [
+        "PLUGINS"
+    ],
+    "templateURL": "${r"${webcontent"}/components/templates/${WidgetId}.template.html",
     "properties": {
-        "onchange": {
-            "removable": true,
+        "class": {
+            "order": 9999
+        },
+        "id": {
+            "order": 1
+        }
+    },
+    "attributesForPreview": [],
+    "childrenProperties": [
+        {
+            "name": "ng-init",
+            "selector": "button",
+            "type": "event"
+        },
+        {
+            "name": "ng-click",
+            "selector": "button",
+            "type": "event"
+        },
+        {
+            "name": "ng-dblclick",
+            "selector": "button",
+            "type": "event"
+        },
+        {
+            "name": "ng-mouseenter",
+            "selector": "button",
+            "type": "event"
+        },
+        {
+            "name": "ng-mouseleave",
+            "selector": "button",
+            "type": "event"
+        },
+        {
+            "name": "ng-mousemove",
+            "selector": "button",
             "type": "event"
         }
-    }
+    ],
+    "styles": []
 }
